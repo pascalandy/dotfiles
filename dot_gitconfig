@@ -1,0 +1,55 @@
+[user]
+name = Pascal Andy
+	email = pascalandy@users.noreply.github.com
+	signingkey = B4DE95E126E16870
+[commit]
+	gpgsign = false
+	verbose = true
+[credential]
+helper = osxkeychain
+[core]
+excludesfile = $HOME/.gitignore
+editor = nano -w
+[filter "lfs"]
+clean = git-lfs clean -- %f
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
+required = true
+[fetch]
+	prune = true
+	pruneTags = true
+	all = true
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
+[gpg]
+	program = /opt/homebrew/bin/gpg
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
+[tag]
+	sort = version:refname
+[diff]
+	algorithm = histogram
+	colorMoved = plain
+	mnemonicPrefix = true
+	renames = true
+[push]
+	autoSetupRemote = true
+	followTags = true
+[help]
+	autocorrect = prompt
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
+[rerere]
+	enabled = true
+[maintenance]
+	repo = $HOME/Documents/github_firepress/yourock2
+[alias]
+	rock = !$HOME/Documents/github_firepress/yourock2/flows/main/show_menu.sh
+[pager]
+	diff = false
