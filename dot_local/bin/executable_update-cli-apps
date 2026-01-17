@@ -1,0 +1,238 @@
+#!/usr/bin/env bash
+#
+# ==============================================================================
+# update-cli - Update CLI tools in parallel
+# ==============================================================================
+# Updates brew packages, uv tools, bun packages, and custom binaries.
+# Runs updates in parallel for speed, with clear success/failure reporting.
+# ==============================================================================
+
+readonly SCRIPT_VERSION="1.0.0"
+readonly SCRIPT_AUTHOR="Pascal Andy"
+readonly SCRIPT_DESCRIPTION="Update CLI tools (brew, uv, bun, update-bin) in parallel."
+
+readonly SCRIPT_PATH="${BASH_SOURCE[0]}"
+readonly SCRIPT_NAME="${SCRIPT_PATH##*/}"
+
+# ==============================================================================
+# Runtime options
+# ==============================================================================
+
+VERBOSE=0
+DRY_RUN=0
+NO_COLOR="${NO_COLOR:-}"
+
+# ==============================================================================
+# Strict mode
+# ==============================================================================
+
+set -euo pipefail
+
+# ==============================================================================
+# Logging
+# ==============================================================================
+
+fct_ansi() {
+  local code="${1}"
+  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+    printf '\033[%sm' "${code}"
+  fi
+}
+
+log_info() {
+  local reset=""
+  local prefix=""
+  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+    prefix="$(fct_ansi '32')"
+    reset="$(fct_ansi '0')"
+  fi
+  printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
+}
+
+log_warn() {
+  local reset=""
+  local prefix=""
+  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+    prefix="$(fct_ansi '33')"
+    reset="$(fct_ansi '0')"
+  fi
+  printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
+}
+
+log_error() {
+  local reset=""
+  local prefix=""
+  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+    prefix="$(fct_ansi '31')"
+    reset="$(fct_ansi '0')"
+  fi
+  printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
+}
+
+log_debug() {
+  if [[ "${VERBOSE}" -eq 1 ]]; then
+    local reset=""
+    local prefix=""
+    if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+      prefix="$(fct_ansi '36')"
+      reset="$(fct_ansi '0')"
+    fi
+    printf '%s[DEBUG] %s%s\n' "${prefix}" "$*" "${reset}" >&2
+  fi
+}
+
+# ==============================================================================
+# Usage
+# ==============================================================================
+
+usage() {
+  cat << EOF
+${SCRIPT_NAME} v${SCRIPT_VERSION}
+${SCRIPT_DESCRIPTION}
+Author: ${SCRIPT_AUTHOR}
+
+Usage:
+  ${SCRIPT_NAME} [options]
+
+Options:
+  -h, --help       Show this help and exit
+  -V, --version    Show version and exit
+  -v, --verbose    Enable debug logging
+  -n, --dry-run    Show what would be updated without running
+      --no-color   Disable colored output
+
+Tools updated:
+  Brew:       codex, uv
+  update-bin: claude, gemini, openspec, kilocode, gh, repomix, btca
+  UV tools:   specify-cli, playwright, all uv tools
+  Bun:        opencode-ai
+  Other:      amp
+
+Examples:
+  ${SCRIPT_NAME}              # Update all CLI tools
+  ${SCRIPT_NAME} -v           # Update with verbose output
+  ${SCRIPT_NAME} --dry-run    # Show what would be updated
+EOF
+}
+
+# ==============================================================================
+# Argument parsing
+# ==============================================================================
+
+fct_parse_arguments() {
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -h | --help)
+        usage
+        exit 0
+        ;;
+      -V | --version)
+        printf '%s\n' "${SCRIPT_NAME} v${SCRIPT_VERSION}"
+        exit 0
+        ;;
+      -v | --verbose)
+        VERBOSE=1
+        shift
+        ;;
+      -n | --dry-run)
+        DRY_RUN=1
+        shift
+        ;;
+      --no-color)
+        NO_COLOR="1"
+        shift
+        ;;
+      -*)
+        log_error "Unknown option: $1"
+        usage
+        exit 2
+        ;;
+      *)
+        log_error "Unexpected argument: $1"
+        usage
+        exit 2
+        ;;
+    esac
+  done
+}
+
+# ==============================================================================
+# Update functions
+# ==============================================================================
+
+fct_run_update() {
+  local name="${1}"
+  shift
+  local cmd=("$@")
+
+  if [[ "${DRY_RUN}" -eq 1 ]]; then
+    log_info "[DRY-RUN] Would run: ${cmd[*]}"
+    return 0
+  fi
+
+  log_debug "Running: ${cmd[*]}"
+  if "${cmd[@]}" > /dev/null 2>&1; then
+    echo "✓ ${name}"
+  else
+    echo "✗ ${name} failed"
+  fi
+}
+
+fct_execute_updates() {
+  log_info "Starting CLI tools update in parallel..."
+
+  local pids=()
+
+  # Brew upgrades
+  fct_run_update "codex (brew)" brew upgrade codex &
+  pids+=($!)
+
+  fct_run_update "uv (brew)" brew upgrade uv &
+  pids+=($!)
+
+  # update-bin tools
+  local update_bin_tools=(claude gemini openspec kilocode gh repomix btca)
+  for tool in "${update_bin_tools[@]}"; do
+    fct_run_update "${tool} (update-bin)" update-bin "${tool}" &
+    pids+=($!)
+  done
+
+  # UV tools
+  fct_run_update "specify-cli (uv)" uv tool install specify-cli --force --from "git+https://github.com/github/spec-kit.git" &
+  pids+=($!)
+
+  fct_run_update "specify check" specify check &
+  pids+=($!)
+
+  fct_run_update "playwright (uv)" uv tool upgrade playwright &
+  pids+=($!)
+
+  fct_run_update "all uv tools" uv tool upgrade --all &
+  pids+=($!)
+
+  # Amp
+  fct_run_update "amp" amp update &
+  pids+=($!)
+
+  # Bun
+  fct_run_update "opencode-ai (bun)" bun i -g opencode-ai@latest &
+  pids+=($!)
+
+  log_info "Updates running in parallel (${#pids[@]} jobs)... waiting for completion..."
+
+  # Wait for all background jobs
+  wait 2>/dev/null || true
+
+  log_info "All CLI app updates completed!"
+}
+
+# ==============================================================================
+# Main
+# ==============================================================================
+
+main() {
+  fct_parse_arguments "$@"
+  fct_execute_updates
+}
+
+main "$@"

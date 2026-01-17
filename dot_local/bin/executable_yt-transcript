@@ -1,0 +1,194 @@
+#!/usr/bin/env bash
+#
+# ==============================================================================
+# yt-transcript - Get YouTube video transcript via fabric
+# ==============================================================================
+# Fetches transcript from a YouTube video using the fabric CLI tool.
+# Supports timestamps option for detailed transcripts.
+# ==============================================================================
+
+readonly SCRIPT_VERSION="1.0.0"
+readonly SCRIPT_AUTHOR="Pascal Andy"
+readonly SCRIPT_DESCRIPTION="Get YouTube video transcript via fabric."
+
+readonly SCRIPT_NAME="${BASH_SOURCE[0]##*/}"
+
+# ==============================================================================
+# Runtime options
+# ==============================================================================
+
+VERBOSE=0
+DRY_RUN=0
+NO_COLOR="${NO_COLOR:-}"
+WITH_TIMESTAMPS=0
+
+# ==============================================================================
+# Strict mode
+# ==============================================================================
+
+set -euo pipefail
+
+# ==============================================================================
+# Logging
+# ==============================================================================
+
+fct_ansi() {
+  local code="${1}"
+  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+    printf '\033[%sm' "${code}"
+  fi
+}
+
+log_info() {
+  local reset="" prefix=""
+  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+    prefix="$(fct_ansi '32')"
+    reset="$(fct_ansi '0')"
+  fi
+  printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
+}
+
+log_error() {
+  local reset="" prefix=""
+  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+    prefix="$(fct_ansi '31')"
+    reset="$(fct_ansi '0')"
+  fi
+  printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
+}
+
+log_debug() {
+  if [[ "${VERBOSE}" -eq 1 ]]; then
+    local reset="" prefix=""
+    if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+      prefix="$(fct_ansi '36')"
+      reset="$(fct_ansi '0')"
+    fi
+    printf '%s[DEBUG] %s%s\n' "${prefix}" "$*" "${reset}" >&2
+  fi
+}
+
+# ==============================================================================
+# Usage
+# ==============================================================================
+
+usage() {
+  cat << EOF
+${SCRIPT_NAME} v${SCRIPT_VERSION}
+${SCRIPT_DESCRIPTION}
+Author: ${SCRIPT_AUTHOR}
+
+Usage:
+  ${SCRIPT_NAME} [options] <youtube_url>
+
+Arguments:
+  <youtube_url>    YouTube video URL
+
+Options:
+  -h, --help         Show this help and exit
+  -V, --version      Show version and exit
+  -v, --verbose      Enable debug logging
+  -n, --dry-run      Show what would be executed without running
+  -t, --timestamps   Include timestamps in transcript
+      --no-color     Disable colored output
+
+Requires:
+  fabric CLI tool (https://github.com/danielmiessler/fabric)
+
+Examples:
+  ${SCRIPT_NAME} https://youtube.com/watch?v=abc123
+  ${SCRIPT_NAME} -t https://youtube.com/watch?v=abc123
+  ${SCRIPT_NAME} --dry-run https://youtube.com/watch?v=abc123
+EOF
+}
+
+# ==============================================================================
+# Argument parsing
+# ==============================================================================
+
+VIDEO_URL=""
+
+fct_parse_arguments() {
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -h | --help)
+        usage
+        exit 0
+        ;;
+      -V | --version)
+        printf '%s\n' "${SCRIPT_NAME} v${SCRIPT_VERSION}"
+        exit 0
+        ;;
+      -v | --verbose)
+        VERBOSE=1
+        shift
+        ;;
+      -n | --dry-run)
+        DRY_RUN=1
+        shift
+        ;;
+      -t | --timestamps)
+        WITH_TIMESTAMPS=1
+        shift
+        ;;
+      --no-color)
+        NO_COLOR="1"
+        shift
+        ;;
+      -*)
+        log_error "Unknown option: $1"
+        usage
+        exit 2
+        ;;
+      *)
+        VIDEO_URL="$1"
+        shift
+        ;;
+    esac
+  done
+
+  if [[ -z "${VIDEO_URL}" ]]; then
+    log_error "Missing required argument: <youtube_url>"
+    usage
+    exit 2
+  fi
+}
+
+# ==============================================================================
+# Main logic
+# ==============================================================================
+
+fct_execute() {
+  # Check for fabric
+  if ! command -v fabric &> /dev/null; then
+    log_error "fabric CLI not found. Install from: https://github.com/danielmiessler/fabric"
+    exit 1
+  fi
+
+  local transcript_flag="--transcript"
+  if [[ "${WITH_TIMESTAMPS}" -eq 1 ]]; then
+    transcript_flag="--transcript-with-timestamps"
+  fi
+
+  log_debug "Video URL: ${VIDEO_URL}"
+  log_debug "Transcript flag: ${transcript_flag}"
+
+  if [[ "${DRY_RUN}" -eq 1 ]]; then
+    log_info "[DRY-RUN] Would execute:"
+    log_info "  fabric -y \"${VIDEO_URL}\" ${transcript_flag}"
+    return 0
+  fi
+
+  fabric -y "${VIDEO_URL}" "${transcript_flag}"
+}
+
+# ==============================================================================
+# Main
+# ==============================================================================
+
+main() {
+  fct_parse_arguments "$@"
+  fct_execute
+}
+
+main "$@"

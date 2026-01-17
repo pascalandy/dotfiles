@@ -1,0 +1,195 @@
+#!/usr/bin/env bash
+#
+# ==============================================================================
+# vps4 - SSH to VPS4 with crimson/coral terminal colors
+# ==============================================================================
+# Connects to VPS4 with a distinct color theme for visual identification.
+# Colors reset automatically on exit, Ctrl+C, or connection failure.
+# ==============================================================================
+
+readonly SCRIPT_VERSION="1.0.0"
+readonly SCRIPT_AUTHOR="Pascal Andy"
+readonly SCRIPT_DESCRIPTION="SSH to VPS4 with crimson/coral terminal colors."
+
+readonly SCRIPT_NAME="${BASH_SOURCE[0]##*/}"
+
+# ==============================================================================
+# Configuration
+# ==============================================================================
+
+SSH_HOST="ubuntu@192.168.1.104"
+THEME_NAME="crimson/coral"
+
+# Color codes (OSC escape sequences)
+BG_COLOR="#1a0a0a"      # deep crimson-black
+FG_COLOR="#f8d4d4"      # soft rose
+CURSOR_COLOR="#ff6b6b"  # bright coral
+RED="#f7768e"           # soft coral
+MAGENTA="#ff79c6"       # hot pink
+YELLOW="#fca5a5"        # salmon
+
+# ==============================================================================
+# Runtime options
+# ==============================================================================
+
+VERBOSE=0
+DRY_RUN=0
+NO_COLOR="${NO_COLOR:-}"
+
+# ==============================================================================
+# Logging
+# ==============================================================================
+
+log_info() {
+  printf '%s\n' "$*" >&2
+}
+
+log_debug() {
+  if [[ "${VERBOSE}" -eq 1 ]]; then
+    printf '[DEBUG] %s\n' "$*" >&2
+  fi
+}
+
+# ==============================================================================
+# Usage
+# ==============================================================================
+
+usage() {
+  cat << EOF
+${SCRIPT_NAME} v${SCRIPT_VERSION}
+${SCRIPT_DESCRIPTION}
+Author: ${SCRIPT_AUTHOR}
+
+Usage:
+  ${SCRIPT_NAME} [options] [ssh_args...]
+
+Options:
+  -h, --help       Show this help and exit
+  -V, --version    Show version and exit
+  -v, --verbose    Enable debug logging
+  -n, --dry-run    Show what would be done without connecting
+      --no-color   Skip terminal color changes
+
+SSH Target:
+  Host: ${SSH_HOST}
+  Theme: ${THEME_NAME}
+
+Examples:
+  ${SCRIPT_NAME}                    # Connect to VPS4
+  ${SCRIPT_NAME} -n                 # Dry-run (show colors without connecting)
+  ${SCRIPT_NAME} -- ls -la          # Run command on remote
+EOF
+}
+
+# ==============================================================================
+# Argument parsing
+# ==============================================================================
+
+SSH_ARGS=()
+
+fct_parse_arguments() {
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -h | --help)
+        usage
+        exit 0
+        ;;
+      -V | --version)
+        printf '%s\n' "${SCRIPT_NAME} v${SCRIPT_VERSION}"
+        exit 0
+        ;;
+      -v | --verbose)
+        VERBOSE=1
+        shift
+        ;;
+      -n | --dry-run)
+        DRY_RUN=1
+        shift
+        ;;
+      --no-color)
+        NO_COLOR="1"
+        shift
+        ;;
+      --)
+        shift
+        SSH_ARGS+=("$@")
+        break
+        ;;
+      *)
+        SSH_ARGS+=("$1")
+        shift
+        ;;
+    esac
+  done
+}
+
+# ==============================================================================
+# Color management
+# ==============================================================================
+
+fct_set_colors() {
+  if [[ -n "${NO_COLOR}" ]]; then
+    return 0
+  fi
+  
+  printf '\e]11;%s\a' "${BG_COLOR}"      # background
+  printf '\e]10;%s\a' "${FG_COLOR}"      # foreground
+  printf '\e]12;%s\a' "${CURSOR_COLOR}"  # cursor
+  printf '\e]4;1;%s\a' "${RED}"          # red
+  printf '\e]4;5;%s\a' "${MAGENTA}"      # magenta
+  printf '\e]4;3;%s\a' "${YELLOW}"       # yellow
+}
+
+fct_reset_colors() {
+  if [[ -n "${NO_COLOR}" ]]; then
+    return 0
+  fi
+  
+  printf '\e]111\a'  # reset background
+  printf '\e]110\a'  # reset foreground
+  printf '\e]112\a'  # reset cursor
+  printf '\e]104\a'  # reset all colors
+}
+
+# ==============================================================================
+# Main logic
+# ==============================================================================
+
+fct_execute() {
+  log_debug "Host: ${SSH_HOST}"
+  log_debug "Theme: ${THEME_NAME}"
+  log_debug "SSH args: ${SSH_ARGS[*]:-none}"
+
+  if [[ "${DRY_RUN}" -eq 1 ]]; then
+    log_info "[DRY-RUN] Would execute:"
+    log_info "  Set terminal colors: ${THEME_NAME}"
+    log_info "  ssh ${SSH_HOST} ${SSH_ARGS[*]:-}"
+    log_info "  Reset terminal colors on exit"
+    
+    if [[ -z "${NO_COLOR}" ]]; then
+      log_info ""
+      log_info "Preview colors for 2 seconds..."
+      fct_set_colors
+      sleep 2
+      fct_reset_colors
+    fi
+    return 0
+  fi
+
+  trap 'fct_reset_colors' EXIT INT TERM
+  fct_set_colors
+  ssh "${SSH_HOST}" "${SSH_ARGS[@]}"
+  trap - EXIT INT TERM
+  fct_reset_colors
+}
+
+# ==============================================================================
+# Main
+# ==============================================================================
+
+main() {
+  fct_parse_arguments "$@"
+  fct_execute
+}
+
+main "$@"

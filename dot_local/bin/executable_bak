@@ -1,0 +1,296 @@
+#!/usr/bin/env bash
+#
+# ==============================================================================
+# bak - Create AI model backup copies of a directory
+# ==============================================================================
+# Creates multiple copies of a file/directory with AI model suffixes (gpt, pickle,
+# glm, grok, clod), removes .git from each, and opens them in Ghostty tabs.
+# Useful for testing the same codebase with different AI assistants.
+# ==============================================================================
+
+readonly SCRIPT_VERSION="1.0.0"
+readonly SCRIPT_AUTHOR="Pascal Andy"
+readonly SCRIPT_DESCRIPTION="Create AI model backup copies and open in Ghostty tabs."
+
+readonly SCRIPT_NAME="${BASH_SOURCE[0]##*/}"
+
+# ==============================================================================
+# Runtime options
+# ==============================================================================
+
+VERBOSE=0
+DRY_RUN=0
+NO_GHOSTTY=0
+NO_COLOR="${NO_COLOR:-}"
+
+# Default AI model suffixes
+MODELS=("gpt" "pickle" "glm" "grok" "clod")
+
+# ==============================================================================
+# Strict mode
+# ==============================================================================
+
+set -euo pipefail
+
+# ==============================================================================
+# Logging
+# ==============================================================================
+
+fct_ansi() {
+  local code="${1}"
+  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+    printf '\033[%sm' "${code}"
+  fi
+}
+
+log_info() {
+  local reset="" prefix=""
+  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+    prefix="$(fct_ansi '32')"
+    reset="$(fct_ansi '0')"
+  fi
+  printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
+}
+
+log_warn() {
+  local reset="" prefix=""
+  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+    prefix="$(fct_ansi '33')"
+    reset="$(fct_ansi '0')"
+  fi
+  printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
+}
+
+log_error() {
+  local reset="" prefix=""
+  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+    prefix="$(fct_ansi '31')"
+    reset="$(fct_ansi '0')"
+  fi
+  printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
+}
+
+log_debug() {
+  if [[ "${VERBOSE}" -eq 1 ]]; then
+    local reset="" prefix=""
+    if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+      prefix="$(fct_ansi '36')"
+      reset="$(fct_ansi '0')"
+    fi
+    printf '%s[DEBUG] %s%s\n' "${prefix}" "$*" "${reset}" >&2
+  fi
+}
+
+# ==============================================================================
+# Usage
+# ==============================================================================
+
+usage() {
+  cat << EOF
+${SCRIPT_NAME} v${SCRIPT_VERSION}
+${SCRIPT_DESCRIPTION}
+Author: ${SCRIPT_AUTHOR}
+
+Usage:
+  ${SCRIPT_NAME} [options] <source>
+
+Arguments:
+  <source>         File or directory to backup
+
+Options:
+  -h, --help       Show this help and exit
+  -V, --version    Show version and exit
+  -v, --verbose    Enable debug logging
+  -n, --dry-run    Show what would be created without doing it
+      --no-ghostty Skip opening Ghostty tabs
+      --no-color   Disable colored output
+
+Creates copies with these suffixes: ${MODELS[*]}
+
+Examples:
+  ${SCRIPT_NAME} my-project           # Create 5 copies, open in Ghostty
+  ${SCRIPT_NAME} --dry-run my-project # Preview what would be created
+  ${SCRIPT_NAME} --no-ghostty ./src   # Create copies without opening tabs
+EOF
+}
+
+# ==============================================================================
+# Argument parsing
+# ==============================================================================
+
+fct_parse_arguments() {
+  local positional=()
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -h | --help)
+        usage
+        exit 0
+        ;;
+      -V | --version)
+        printf '%s\n' "${SCRIPT_NAME} v${SCRIPT_VERSION}"
+        exit 0
+        ;;
+      -v | --verbose)
+        VERBOSE=1
+        shift
+        ;;
+      -n | --dry-run)
+        DRY_RUN=1
+        shift
+        ;;
+      --no-ghostty)
+        NO_GHOSTTY=1
+        shift
+        ;;
+      --no-color)
+        NO_COLOR="1"
+        shift
+        ;;
+      -*)
+        log_error "Unknown option: $1"
+        usage
+        exit 2
+        ;;
+      *)
+        positional+=("$1")
+        shift
+        ;;
+    esac
+  done
+
+  if [[ ${#positional[@]} -eq 0 ]]; then
+    log_error "Missing required argument: <source>"
+    usage
+    exit 2
+  fi
+
+  SOURCE="${positional[0]}"
+}
+
+# ==============================================================================
+# Main logic
+# ==============================================================================
+
+fct_open_ghostty_tab() {
+  local abs_path="${1}"
+  local is_first="${2}"
+
+  if [[ "${NO_GHOSTTY}" -eq 1 ]]; then
+    return 0
+  fi
+
+  if [[ "${is_first}" -eq 1 ]]; then
+    open -a Ghostty --args --working-directory="${abs_path}"
+    sleep 0.5
+    osascript -e "tell application \"Ghostty\" to activate" \
+              -e "tell application \"System Events\" to keystroke \"oc\"" \
+              -e "tell application \"System Events\" to keystroke return"
+  else
+    sleep 0.2
+    osascript -e "tell application \"Ghostty\" to activate" \
+              -e "tell application \"System Events\" to keystroke \"t\" using command down" \
+              -e "delay 0.3" \
+              -e "tell application \"System Events\" to keystroke \"cd \\\"${abs_path}\\\" && oc\"" \
+              -e "tell application \"System Events\" to keystroke return"
+  fi
+}
+
+fct_execute() {
+  # Check if source exists
+  if [[ ! -e "${SOURCE}" ]]; then
+    log_error "Source does not exist: ${SOURCE}"
+    exit 1
+  fi
+
+  # Base name (remove trailing slash if present)
+  local base_name="${SOURCE%/}"
+
+  # Check which folders already exist
+  local existing_folders=()
+  for model in "${MODELS[@]}"; do
+    local folder_name="${base_name}_${model}"
+    if [[ -d "${folder_name}" ]]; then
+      existing_folders+=("${folder_name}")
+    fi
+  done
+
+  # If any folders exist, prompt for override
+  if [[ ${#existing_folders[@]} -gt 0 ]]; then
+    log_warn "The following folders already exist:"
+    for folder in "${existing_folders[@]}"; do
+      echo "  - ${folder}"
+    done
+
+    if [[ "${DRY_RUN}" -eq 1 ]]; then
+      log_info "[DRY-RUN] Would prompt for override"
+    else
+      printf "Override all? (y/n): "
+      read -r response
+
+      if [[ ! "${response}" =~ ^[Yy]$ ]]; then
+        log_info "Aborting. No folders were modified."
+        exit 0
+      fi
+
+      # Remove existing folders
+      for folder in "${existing_folders[@]}"; do
+        rm -rf "${folder}"
+        log_info "Removed existing ${folder}"
+      done
+    fi
+  fi
+
+  # Create all backup folders
+  local counter=0
+  for model in "${MODELS[@]}"; do
+    local folder_name="${base_name}_${model}"
+
+    if [[ "${DRY_RUN}" -eq 1 ]]; then
+      log_info "[DRY-RUN] Would create: ${folder_name}"
+      if [[ -d "${base_name}/.git" ]]; then
+        log_info "[DRY-RUN] Would remove .git from ${folder_name}"
+      fi
+      if [[ "${NO_GHOSTTY}" -eq 0 ]]; then
+        log_info "[DRY-RUN] Would open Ghostty tab for ${folder_name}"
+      fi
+    else
+      # Copy source to new folder
+      cp -r "${base_name}" "${folder_name}"
+      log_info "Created ${folder_name}"
+
+      # Remove .git if present
+      if [[ -d "${folder_name}/.git" ]]; then
+        rm -rf "${folder_name}/.git"
+        log_debug "Removed .git from ${folder_name}"
+      fi
+
+      # Open in Ghostty tab
+      local abs_path
+      abs_path="$(cd "${folder_name}" && pwd)"
+      
+      if [[ "${counter}" -eq 0 ]]; then
+        fct_open_ghostty_tab "${abs_path}" 1
+      else
+        fct_open_ghostty_tab "${abs_path}" 0
+      fi
+    fi
+
+    counter=$((counter + 1))
+  done
+
+  if [[ "${DRY_RUN}" -eq 0 ]]; then
+    log_info "Created ${counter} backup copies"
+  fi
+}
+
+# ==============================================================================
+# Main
+# ==============================================================================
+
+main() {
+  fct_parse_arguments "$@"
+  fct_execute
+}
+
+main "$@"
