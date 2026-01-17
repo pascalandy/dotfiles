@@ -1,0 +1,296 @@
+{
+  "editor.tabSize": 2,
+  "launch": {
+    "configurations": [],
+    "compounds": []
+  },
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+  "security.workspace.trust.untrustedFiles": "open",
+  "tailwindCSS.emmetCompletions": true,
+  "files.associations": {
+    "*.ejs": "html",
+    "*.js": "javascript",
+    ".eleventy.js": "javascript",
+    "*.html": "html",
+    "*.json": "json",
+    "Dockerfile": "dockerfile",
+    "*.yml": "yaml",
+    "*.md": "markdown",
+    "*.css": "tailwindcss"
+  },
+  "typescript.suggest.paths": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "auto-close-tag.activationOnLanguage": [
+    "xml",
+    "php",
+    "blade",
+    "ejs",
+    "jinja",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "plaintext",
+    "markdown",
+    "vue",
+    "liquid",
+    "erb",
+    "lang-cfml",
+    "cfml",
+    "HTML (EEx)",
+    "HTML (Eex)",
+    "plist"
+  ],
+  "editor.linkedEditing": true,
+  "editor.inlineSuggest.enabled": true,
+  "git.enableSmartCommit": true,
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "workbench.startupEditor": "newUntitledFile",
+  "editor.renderWhitespace": "none",
+  "terminal.integrated.enableMultiLinePasteWarning": false,
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "files.exclude": {
+    ".bashcheck.sh": true,
+    ".dockerignore": true,
+    ".editorconfig": true,
+    ".prettierignore": true,
+    ".prettierrc": true,
+    ".shellcheckrc": true,
+    "LICENSE": true
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-containers"
+  },
+  "editor.formatOnSave": true,
+  "editor.guides.bracketPairs": "active",
+  "json.schemas": [],
+  "scss.format.enable": false,
+  "less.format.enable": false,
+  "typescript.format.enable": false,
+  "prettier.documentSelectors": [
+    "yml"
+  ],
+  "editor.foldingImportsByDefault": true,
+  "notebook.formatOnSave.enabled": true,
+  "[markdown]": {
+    "editor.unicodeHighlight.ambiguousCharacters": false,
+    "editor.unicodeHighlight.invisibleCharacters": false,
+    "diffEditor.ignoreTrimWhitespace": true,
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    }
+  },
+  "markdown.math.enabled": false,
+  "markdown-preview-enhanced.breakOnSingleNewLine": false,
+  "markdown-preview-enhanced.liveUpdate": false,
+  "workbench.iconTheme": "material-icon-theme",
+  "editor.fontSize": 14,
+  "editor.lineHeight": 28,
+  "editor.fontLigatures": true,
+  "editor.fontFamily": "JetBrains Mono",
+  "editor.wordWrap": "on",
+  "editor.cursorBlinking": "phase",
+  "editor.wordWrapColumn": 90,
+  "files.defaultLanguage": "markdown",
+  "files.autoSave": "afterDelay",
+  "editor.semanticTokenColorCustomizations": {},
+  "html.autoClosingTags": false,
+  "javascript.autoClosingTags": false,
+  "typescript.autoClosingTags": false,
+  "html.format.wrapAttributes": "force",
+  "css.styleSheets": [
+    "https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"
+  ],
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "explorer.openEditors.visible": 0,
+  "editor.guides.indentation": false,
+  "editor.glyphMargin": false,
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.lineHeight": 1.2,
+  "projectManager.git.baseFolders": [
+    "$HOME/Documents/github_firepress",
+    "$HOME/Documents/github_pascalandy"
+  ],
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.indentSize": "tabSize",
+  "editor.guides.highlightActiveIndentation": false,
+  "indentRainbow.colorOnWhiteSpaceOnly": true,
+  "chat.editor.wordWrap": "on",
+  "editor.snippetSuggestions": "top",
+  "editor.accessibilitySupport": "off",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "python.analysis.extraPaths": [
+    "$HOME/.vscode/extensions/continue.continue-0.2.0-darwin-arm64",
+    "$HOME/.vscode/extensions/continue.continue-0.5.0-darwin-arm64",
+    "$HOME/.vscode/extensions/continue.continue-0.6.0-darwin-arm64"
+  ],
+  "python.autoComplete.extraPaths": [
+    "$HOME/.vscode/extensions/continue.continue-0.2.0-darwin-arm64",
+    "$HOME/.vscode/extensions/continue.continue-0.5.0-darwin-arm64",
+    "$HOME/.vscode/extensions/continue.continue-0.6.0-darwin-arm64"
+  ],
+  "[dotenv]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[xml]": {
+    "editor.defaultFormatter": "DotJoshJohnson.xml"
+  },
+  "workbench.editor.tabActionCloseVisibility": false,
+  "inference.endpoint": "http://127.0.0.1:11434",
+  "inference.model": "custom",
+  "inference.custom.model": "dolphin-mixtral:8x7b-v2.7-q6_K",
+  "[properties]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[ignore]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "git.openRepositoryInParentFolders": "always",
+  "workbench.settings.applyToAllProfiles": [],
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "redhat.telemetry.enabled": true,
+  "editor.inlineSuggest.suppressSuggestions": true,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "[toml]": {
+    "editor.defaultFormatter": "tamasfe.even-better-toml"
+  },
+  "terminal.external.osxExec": "Wrap.app",
+  "terminal.integrated.automationProfile.osx": {},
+  "[bats]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "roo-cline.allowedCommands": [
+    "npm test",
+    "npm install",
+    "tsc",
+    "git log",
+    "git diff",
+    "git show",
+    "pwd",
+    "echo",
+    "eza",
+    "gh auth status",
+    "terminal-notifier"
+  ],
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
+  },
+  "windowsaistudio.externalOpenAIProviders": [],
+  "kilo-code.allowedCommands": [
+    "pwd",
+    "echo",
+    "gh auth status",
+    "git",
+    "gh",
+    "eza",
+    "npm test",
+    "npm install",
+    "tsc",
+    "bash",
+    "uv",
+    "sleep",
+    ".sh",
+    "bun",
+    "cd",
+    "mkdir"
+  ],
+  "workbench.sideBar.location": "right",
+  "material-icon-theme.folders.theme": "classic",
+  "material-icon-theme.folders.associations": {
+    "INPUTS": "import",
+    "EXPORT": "export",
+    "INSTRUCT": "docs"
+  },
+  "material-icon-theme.files.associations": {
+    "README.md": "readme",
+    "CHANGELOG.md": "changelog",
+    "TODO.md": "todo",
+    "LICENSE.md": "certificate",
+    "NOTES.md": "notes",
+    "*.md": "markdown"
+  },
+  "monorepoWorkspace.folders.custom": [
+    {
+      "regex": "export",
+      "prefix": "🔥"
+    },
+    {
+      "regex": "instruct",
+      "prefix": "📙"
+    },
+    {
+      "regex": "INPUTS",
+      "prefix": "📚"
+    }
+  ],
+  "workbench.colorTheme": "Catppuccin Frappé",
+  "workbench.editor.enablePreview": false,
+  "editor.minimap.enabled": false,
+  "application.shellEnvironmentResolutionTimeout": 20,
+  "githubPullRequests.createOnPublishBranch": "never",
+  "biome.suggestInstallingGlobally": false,
+  "git.ignoreRebaseWarning": true,
+  "kilo-code.deniedCommands": [],
+  "[dockercompose]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "advanced",
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true
+    },
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "[github-actions-workflow]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "extensions.ignoreRecommendations": true,
+  "claudeCode.preferredLocation": "panel",
+  "chat.commandCenter.enabled": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "editor.gotoLocation.multipleDefinitions": "goto",
+  "amp.url": "https://ampcode.com/",
+  "editor.wordBasedSuggestions": "off",
+  "amp.tab.enabled": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "todo-tree.general.tags": [
+    "BUG",
+    "HACK",
+    "FIXME",
+    "TODO",
+    "XXX",
+    "0o0o",
+    "**0o0o**"
+  ]
+}

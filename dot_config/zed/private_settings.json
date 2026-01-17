@@ -1,0 +1,28 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `open default settings` command
+// from the command palette or from `Zed` application menu.
+{
+  "completions": {
+    "words_min_length": 5
+  },
+  "show_completions_on_input": false,
+  "theme": "Catppuccin Macchiato",
+  "agent_servers": {
+    "your_agent": {
+      "type": "custom",
+      "command": "path_to_executable",
+      "args": [],
+      "env": {}
+    },
+    "claude": {
+      "default_model": "opus"
+    }
+  },
+  "ui_font_size": 16,
+  "buffer_font_size": 16
+}
