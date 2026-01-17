@@ -1,0 +1,534 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "exa": {
+      "type": "local",
+      "command": ["npx", "-y", "exa-mcp-server", "tools=web_search_exa,get_code_context_exa,crawling_exa,company_research_exa,linkedin_search_exa,deep_researcher_start,deep_researcher_check"],
+      "environment": {
+        "EXA_API_KEY": "{{ .exa_api_key }}"
+      },
+      "timeout": 60000
+    },
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "{{ .context7_api_key }}"
+      },
+      "enabled": false
+    },
+    "chrome-devtools": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ],
+      "enabled": false
+    },
+    "nuxt": {
+      "type": "remote",
+      "url": "https://nuxt.com/mcp",
+      "enabled": false
+    },
+    "pg-aiguide": {
+      "type": "remote",
+      "url": "https://mcp.tigerdata.com/docs",
+      "enabled": false
+    },
+    "grep": {
+      "type": "remote",
+      "url": "https://mcp.grep.app",
+      "enabled": false
+    }
+  },
+  "plugin": [
+    "opencode-gemini-auth@latest",
+    "opencode-antigravity-auth@1.2.8"
+  ],
+  "provider": {
+    "zai-coding-plan": {
+      "options": {
+        "timeout": 600000
+      }
+    },
+    "openai": {
+      "name": "gpt-5.2",
+      "models": {
+        "gpt-5.2": {
+          "name": "gpt-5.2",
+          "limit": {
+            "context": 400000,
+            "output": 128000
+          }
+        },
+        "gpt-5-codex": {
+          "name": "gpt-5-codex",
+          "limit": {
+            "context": 400000,
+            "output": 128000
+          }
+        }
+      }
+    },
+    "google": {
+      "name": "Google",
+      "models": {
+        "gemini-3-pro-high": {
+          "name": "Gemini 3 Pro High (Antigravity)",
+          "reasoning": true,
+          "attachment": true,
+          "limit": {
+            "context": 1048576,
+            "output": 65535
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "gemini-3-pro-medium": {
+          "name": "Gemini 3 Pro Medium (Antigravity)",
+          "reasoning": true,
+          "attachment": true,
+          "limit": {
+            "context": 1048576,
+            "output": 65535
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "gemini-3-pro-low": {
+          "name": "Gemini 3 Pro Low (Antigravity)",
+          "reasoning": true,
+          "attachment": true,
+          "limit": {
+            "context": 1048576,
+            "output": 65535
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "gemini-3-flash": {
+          "name": "Gemini 3 Flash (Antigravity)",
+          "reasoning": true,
+          "attachment": true,
+          "limit": {
+            "context": 1048576,
+            "output": 65536
+          },
+          "cost": {
+            "input": 0.4,
+            "output": 1.50
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "gemini-3-flash-lite": {
+          "name": "Gemini 3 Flash Lite (Antigravity)",
+          "attachment": true,
+          "limit": {
+            "context": 1048576,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        }
+      }
+    },
+    "openrouter": {
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "https://openrouter.ai/api/v1",
+        "apiKey": "{{ .openrouter_api_key }}"
+      },
+      "models": {
+        "deepseek/deepseek-v3.2": {
+          "id": "deepseek/deepseek-v3.2",
+          "name": "DeepSeek: DeepSeek V3.2",
+          "tool_call": true,
+          "temperature": true,
+          "reasoning": true,
+          "interleaved": {
+            "field": "reasoning_content"
+          },
+          "limit": {
+            "context": 131000,
+            "output": 64000
+          },
+          "cost": {
+            "input": 0.28,
+            "output": 0.42
+          }
+        },
+        "mistralai/devstral-2512:free": {
+          "id": "mistralai/devstral-2512:free",
+          "name": "Mistral: Devstral 2 2512 (free)",
+          "tool_call": true,
+          "temperature": true,
+          "limit": {
+            "context": 262144,
+            "output": 65536
+          },
+          "cost": {
+            "input": 0,
+            "output": 0
+          }
+        },
+        "moonshotai/kimi-k2-thinking": {
+          "id": "moonshotai/kimi-k2-thinking",
+          "name": "MoonshotAI: Kimi K2 Thinking",
+          "tool_call": true,
+          "temperature": true,
+          "reasoning": true,
+          "limit": {
+            "context": 262144,
+            "output": 16384
+          },
+          "cost": {
+            "input": 0.45,
+            "output": 2.35
+          }
+        },
+        "xiaomi/mimo-v2-flash:free": {
+          "id": "xiaomi/mimo-v2-flash:free",
+          "name": "Xiaomi: MiMo V2 Flash (Free)",
+          "tool_call": true,
+          "temperature": true,
+          "reasoning": true,
+          "limit": {
+            "context": 256000,
+            "output": 64000
+          },
+          "cost": {
+            "input": 0,
+            "output": 0
+          }
+        },
+        "nex-agi/deepseek-v3.1-nex-n1:free": {
+          "disable": true,
+          "id": "nex-agi/deepseek-v3.1-nex-n1:free",
+          "name": "Nex AGI: DeepSeek V3.1 Nex N1 (Free)",
+          "tool_call": true,
+          "temperature": true,
+          "limit": {
+            "context": 131072,
+            "output": 163840
+          }
+        },
+        "allenai/olmo-3.1-32b-think:free": {
+          "disable": true,
+          "id": "allenai/olmo-3.1-32b-think:free",
+          "name": "olmo-3.1 32b think free",
+          "tool_call": true,
+          "temperature": true,
+          "reasoning": true,
+          "interleaved": {
+            "field": "reasoning_details"
+          },
+          "limit": {
+            "context": 65000,
+            "output": 65000
+          },
+          "cost": {
+            "input": 0.1,
+            "output": 0.1
+          }
+        },
+        "qwen/qwen3-next-80b-a3b-thinking": {
+          "disable": true,
+          "id": "qwen/qwen3-next-80b-a3b-thinking",
+          "name": "qwen3 80b think",
+          "tool_call": true,
+          "temperature": true,
+          "reasoning": true,
+          "interleaved": {
+            "field": "reasoning_content"
+          },
+          "limit": {
+            "context": 128000,
+            "output": 128000
+          },
+          "cost": {
+            "input": 0.12,
+            "output": 1.2
+          }
+        },
+        "qwen/qwen-3-30b-a3b-instruct:free": {
+          "disable": true,
+          "id": "qwen/qwen-3-30b-a3b-instruct:free",
+          "name": "Qwen 3 30B A3B (Free)",
+          "tool_call": true,
+          "temperature": true,
+          "reasoning": true,
+          "interleaved": {
+            "field": "reasoning_content"
+          },
+          "limit": {
+            "context": 32768,
+            "output": 4096
+          }
+        },
+        "nvidia/nemotron-3-nano-30b-a3b": {
+          "disable": true,
+          "id": "nvidia/nemotron-3-nano-30b-a3b",
+          "name": "Nemotron3 Nano",
+          "tool_call": true,
+          "temperature": true,
+          "reasoning": true,
+          "limit": {
+            "context": 256000,
+            "output": 32000
+          }
+        },
+        "google/gemini-3-flash-preview": {
+          "id": "google/gemini-3-flash-preview",
+          "name": "Gemini 3 Flash Preview (OpenRouter)",
+          "tool_call": true,
+          "temperature": true,
+          "reasoning": true,
+          "interleaved": {
+            "field": "reasoning_details"
+          },
+          "attachment": true,
+          "limit": {
+            "context": 1048576,
+            "output": 65536
+          },
+          "modalities": {
+            "input": ["text", "image", "pdf", "audio", "video"],
+            "output": ["text"]
+          },
+          "cost": {
+            "input": 0.50,
+            "output": 3.00
+          }
+        },
+        "minimax/minimax-m2.1": {
+          "id": "minimax/minimax-m2.1",
+          "name": "MiniMax M2.1",
+          "tool_call": true,
+          "temperature": true,
+          "reasoning": true,
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          },
+          "cost": {
+            "input": 0.3,
+            "output": 1.2
+          }
+        }
+      }
+    },
+    "lmstudio": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "lmstudio",
+      "options": {
+        "baseURL": "http://127.0.0.1:1235/v1"
+      },
+      "models": {
+        "nvidia/nemotron-3-nano": {
+          "id": "nvidia/nemotron-3-nano",
+          "name": "Nemotron 3 Nano",
+          "tool_call": true,
+          "temperature": true,
+          "limit": {
+            "context": 131072,
+            "output": 32768
+          }
+        },
+        "qwen/qwen3-32b": {
+          "id": "qwen/qwen3-32b",
+          "name": "Qwen3 32B",
+          "tool_call": true,
+          "temperature": true,
+          "limit": {
+            "context": 40960,
+            "output": 32768
+          }
+        },
+        "qwen/qwen3-30b-a3b-2507": {
+          "id": "qwen/qwen3-30b-a3b-2507",
+          "name": "Qwen3 30B A3B",
+          "tool_call": true,
+          "temperature": true,
+          "limit": {
+            "context": 131072,
+            "output": 32768
+          }
+        },
+        "qwen/qwen3-coder-30b": {
+          "id": "qwen/qwen3-coder-30b",
+          "name": "Qwen3 Coder 30B",
+          "tool_call": true,
+          "temperature": true,
+          "limit": {
+            "context": 131072,
+            "output": 32768
+          }
+        }
+      }
+    }
+  },
+  "permission": {
+    "bash": {
+      "psql": "allow",
+      "npx tsx *": "allow",
+      "bun *": "allow",
+      "npm *": "ask",
+      "pnpm *": "deny",
+      "python3 *": "deny",
+      "npx *": "deny",
+      "pip *": "deny",
+      "uv *": "allow",
+      "pytest *": "allow",
+      "ruff *": "allow",
+      "pyright *": "allow",
+      "shellcheck *": "allow",
+      "bats *": "allow",
+      "shfmt *": "allow",
+      "tree *": "allow",
+      "wc -l *": "allow",
+      "chezmoi purge": "deny",
+      "chezmoi purge -f": "deny",
+      "chezmoi purge --force": "deny",
+      "chezmoi restore *": "deny",
+      "chezmoi update": "ask",
+      "chezmoi remove *": "ask",
+      "chezmoi forget *": "ask",
+      "chezmoi edit *": "ask",
+      "chezmoi init": "ask",
+      "chezmoi chattr *": "ask",
+      "chezmoi apply *": "allow",
+      "chezmoi add *": "allow",
+      "chezmoi status": "allow",
+      "chezmoi diff *": "allow",
+      "chezmoi verify *": "allow",
+      "chezmoi doctor *": "allow",
+      "chezmoi list *": "allow",
+      "chezmoi cat *": "allow",
+      "chezmoi unmanaged *": "allow",
+      "chezmoi data *": "allow",
+      "chezmoi dump *": "allow",
+      "chezmoi git *": "allow",
+      "chezmoi source *": "allow",
+      "git reset --hard *": "deny",
+      "git clean -f*": "deny",
+      "git push --force*": "deny",
+      "git push -f": "deny",
+      "git branch -D *": "deny",
+      "git checkout -f": "deny",
+      "git stash clear": "deny",
+      "git reflog expire": "deny",
+      "git rebase *": "ask",
+      "git commit *": "allow",
+      "git push *": "ask",
+      "git merge *": "ask",
+      "git cherry-pick *": "ask",
+      "git status": "allow",
+      "git log *": "allow",
+      "git diff *": "allow",
+      "git show *": "allow",
+      "git branch": "allow",
+      "git branch --show-current": "allow",
+      "git rev-parse --short *": "allow",
+      "git checkout": "allow",
+      "git fetch *": "allow",
+      "git pull": "allow",
+      "git add *": "allow",
+      "git clone *": "allow",
+      "git remote *": "allow",
+      "gh * delete": "deny",
+      "gh api DELETE *": "deny",
+      "gh secret delete": "deny",
+      "gh auth revoke": "deny",
+      "gh pr merge *": "ask",
+      "gh issue close": "ask",
+      "gh pr close": "ask",
+      "gh release *": "ask",
+      "gh workflow run": "ask",
+      "gh issue list": "allow",
+      "gh issue view": "allow",
+      "gh issue create": "allow",
+      "gh pr list": "allow",
+      "gh pr view": "allow",
+      "gh pr checkout": "allow",
+      "gh repo *": "allow",
+      "gh auth status": "allow",
+      "gh api": "allow",
+      "rm -rf *": "ask",
+      "rm -r *": "ask",
+      "chmod 777 *": "deny",
+      "chown -R *": "deny",
+      "cp *": "ask",
+      "mv *": "ask",
+      "curl *": "allow",
+      "wget *": "allow",
+      "npm install -g *": "deny",
+      "pnpm install -g *": "deny",
+      "bun install -g *": "allow",
+      "docker rmi *": "ask",
+      "docker rm -f *": "ask",
+      "docker system prune *": "ask",
+      "docker compose down": "ask",
+      "mkdir *": "allow",
+      "touch *": "allow",
+      "echo *": "allow",
+      "cat *": "allow",
+      "head *": "allow",
+      "tail *": "allow",
+      "grep *": "ask",
+      "find *": "allow",
+      "ls *": "allow",
+      "pwd": "allow",
+      "basename *": "allow",
+      "realpath *": "allow",
+      "date *": "allow",
+      "rsync *": "allow",
+      "sudo *": "deny",
+      "bash *": "ask",
+      "sh *": "ask",
+      "source *": "ask"
+    },
+    "read": "allow"
+  }
+}

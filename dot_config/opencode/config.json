@@ -1,0 +1,212 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "abby",
+  "theme": "opencode",
+  "share": "manual",
+  "autoupdate": true,
+  "keybinds": {
+    "app_exit": "ctrl+d,<leader>q",
+    "session_interrupt": "ctrl+c,escape",
+    "input_clear": "ctrl+l"
+  },
+  "agent": {
+    "plan": {
+      "description": "Not avail as a subagent",
+      "mode": "primary",
+      "model": "anthropic/claude-opus-4-5",
+      "temperature": 0.5,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
+    "build": {
+      "description": "Not avail as a subagent",
+      "mode": "primary",
+      "model": "anthropic/claude-opus-4-5",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
+    "tropic": {
+      "description": "Not avail as a subagent",
+      "disable": true,
+      "mode": "primary",
+      "model": "anthropic/claude-sonnet-4-5",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "thinking": {
+          "type": "enabled",
+          "budgetTokens": 16000
+        }
+      }
+    },
+    "abby": {
+      "description": "A-tier MAIN. Complex implementation: new features, architectural changes, multi-file refactoring, bugs requiring deep reasoning.",
+      "model": "openai/gpt-5.2-codex",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "reasoning": {
+          "effort": "high",
+          "summary": "none"
+        },
+        "text": {
+          "verbosity": "low"
+        }
+      }
+    },
+    "oracle": {
+      "description": "A-tier ESCALATE. Extended reasoning for hard problems. Use after 2 failed attempts with abby, or when task requires >5 min analysis.",
+      "model": "openai/gpt-5.2",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "reasoning": {
+          "effort": "xhigh",
+          "summary": "auto"
+        },
+        "text": {
+          "verbosity": "medium"
+        }
+      }
+    },
+    "ben": {
+      "description": "B-tier MAIN. Quick tasks: codebase exploration, doc search, various edits, managing deep-research answering code questions.",
+      "model": "openrouter/google/gemini-3-flash-preview",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
+    "general": {
+      "description": "B-tier FALLBACK. Same scope as ben when ben unavailable.",
+      "mode": "subagent",
+      "model": "openai/gpt-5.2",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "reasoning": {
+          "effort": "medium",
+          "summary": "none"
+        },
+        "text": {
+          "verbosity": "low"
+        }
+      }
+    },
+    "charlie": {
+      "description": "C-tier MAIN. Verification: writing tests, running tests, code review, validating implementations, visual validation with MCP google-devtools",
+      "model": "zai-coding-plan/glm-4.7",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
+    "carole": {
+      "description": "C-tier FALLBACK. Same scope as charlie when charlie unavailable.",
+      "disable": false,
+      "mode": "subagent",
+      "model": "opencode/grok-code",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
+    "dan": {
+      "description": "C-tier FALLBACK. Reasoning model.",
+      "disable": true,
+      "mode": "subagent",
+      "model": "openrouter/minimax/minimax-m2.1",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "reasoning": {
+        "enabled": true,
+        "effort": "high"
+      }
+    },
+    "derick": {
+      "description": "C-tier FALLBACK. Reasoning model.",
+      "disable": true,
+      "mode": "subagent",
+      "model": "openrouter/moonshotai/kimi-k2-thinking",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
+    "dean": {
+      "description": "D-tier FALLBACK. Free tier for testing.",
+      "disable": true,
+      "mode": "subagent",
+      "model": "openrouter/xiaomi/mimo-v2-flash:free",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "reasoning": {
+        "enabled": true,
+        "effort": "high"
+      }
+    },
+    "vision": {
+      "description": "D-tier MAIN. Image and visual analysis, screenshots, diagrams, UI review.",
+      "disable": true,
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-4.6v",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
+    "lm-studio": {
+      "description": "E-tier. Local/offline processing.",
+      "disable": true,
+      "mode": "primary",
+      "model": "lmstudio/qwen/qwen3-30b-a3b-2507",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    }
+  }
+}
