@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(chezmoi status:*)",
+      "WebFetch(domain:openrouter.ai)",
+      "WebSearch",
+      "Bash(chezmoi apply:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:opencode.ai)",
+      "WebFetch(domain:deepwiki.com)",
+      "Bash(git show:*)",
+      "Bash(node:*)",
+      "Bash(cat:*)",
+      "Bash(chezmoi managed:*)",
+      "Bash(chezmoi state:*)",
+      "Bash(chezmoi source-path:*)"
+    ]
+  }
+}
