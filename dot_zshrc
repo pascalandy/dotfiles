@@ -1,0 +1,629 @@
+# OPENSPEC:START
+# OpenSpec shell completions configuration
+fpath=("$HOME/.oh-my-zsh/custom/completions" $fpath)
+# Note: compinit is called once at the end of this file for performance
+# OPENSPEC:END
+
+# About my $HOME/.zshrc configs
+# I use Ghostty on my Mac
+# code $HOME/.zshrc
+
+# Enable Powerlevel10k instant prompt. Should stay at the top of $HOME/.zshrc.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+HOMEBREW_COMMAND_NOT_FOUND_HANDLER="$(brew --repository)/Library/Homebrew/command-not-found/handler.sh"
+if [ -f "$HOMEBREW_COMMAND_NOT_FOUND_HANDLER" ]; then
+  source "$HOMEBREW_COMMAND_NOT_FOUND_HANDLER";
+fi
+
+# Environment variables
+export ZSH="$HOME/.oh-my-zsh"
+export EDITOR="zed --wait"
+export VISUAL="zed --wait"
+export LC_ALL=en_CA.UTF-8
+export NVM_DIR="$HOME/.nvm"
+
+# History configuration
+export HISTSIZE=10000
+export SAVEHIST=10000
+export HISTFILE=$HOME/.zsh_history
+setopt HIST_VERIFY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_FIND_NO_DUPS
+setopt SHARE_HISTORY
+
+# Oh My Zsh configuration
+ZSH_THEME="powerlevel10k/powerlevel10k"
+CASE_SENSITIVE="true"
+DISABLE_MAGIC_FUNCTIONS=true
+
+# Oh My Zsh plugins
+plugins=(
+    docker
+    colored-man-pages
+    command-not-found
+    macos
+    zsh-history-substring-search
+    zsh-autosuggestions
+    zsh-syntax-highlighting # always keep this last
+)
+
+# Source Oh My Zsh
+source "$ZSH/oh-my-zsh.sh"
+
+# Load Powerlevel10k config
+[[ -f "$HOME/.p10k.zsh" ]] && source "$HOME/.p10k.zsh"
+
+# -------
+# Tool Configurations
+# -------
+# Node.js - Lazy load nvm for faster shell startup
+# First, add default node's bin to PATH so global CLIs (claude, etc.) work immediately
+if [[ -d "$NVM_DIR/versions/node" ]]; then
+    _NODE_DEFAULT=$(ls "$NVM_DIR/versions/node" 2>/dev/null | sort -V | tail -1)
+    [[ -n "$_NODE_DEFAULT" ]] && export PATH="$NVM_DIR/versions/node/$_NODE_DEFAULT/bin:$PATH"
+    unset _NODE_DEFAULT
+fi
+
+# Lazy load full nvm when nvm/node/npm/npx are called
+_nvm_lazy_load() {
+    unset -f nvm node npm npx
+    [[ -f "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
+    [[ -f "$NVM_DIR/bash_completion" ]] && source "$NVM_DIR/bash_completion"
+}
+
+nvm() {
+    _nvm_lazy_load
+    nvm "$@"
+}
+
+node() {
+    _nvm_lazy_load
+    node "$@"
+}
+
+npm() {
+    _nvm_lazy_load
+    npm "$@"
+}
+
+npx() {
+    _nvm_lazy_load
+    npx "$@"
+}
+
+# fixing cline terminal
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+
+# Source Claude wrapper with dynamic terminal title
+[[ -f "$HOME/.config/zsh/claude-wrapper.zsh" ]] && source "$HOME/.config/zsh/claude-wrapper.zsh"
+
+# About: Zoxide
+eval "$(zoxide init zsh)"
+
+# About: FZF
+# Set up fzf key bindings and fuzzy completion
+# Fix for fzf opening by itself: If fzf opens unexpectedly in scripts, ensure functions using fzf have [ -t 0 ] checks to prevent running in non-interactive mode.
+eval "$(fzf --zsh)"
+
+# default fzf behavior
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git "
+# search files with CTRL+t
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+# CMD+C search dir
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+# comment ?
+export FZF_DEFAULT_OPTS="--height 50% --layout=default --border --color=hl:#2dd4bf"
+# Setup fzf previews
+export FZF_CTRL_T_OPTS="--preview 'bat --color=always -n --line-range :500 {}'"
+# OPT+C
+export FZF_ALT_C_OPTS="--preview 'eza -ls=time -r --git --tree --level=2 --git-ignore --no-user --no-permissions --group-directories-first --git-repos --icons=always --total-size {} | head -20'"
+
+# -------
+# Functions (better than basic alias)
+# -------
+
+# yt = YouTube transcript via fabric (now a standalone script)
+alias yt="yt-transcript"
+
+# open faster!
+vs() {
+    open "${1:-.}" -a "Visual Studio Code" # Opens arg or current dir if no arg
+}
+
+# Find file -> open in VS Code
+fdf() {
+    if [ -t 0 ]; then
+        local file=$(fd --type f --hidden --exclude .git | fzf --preview 'eza -ls=time -r --no-user --no-permissions --group-directories-first --icons=always --total-size --only-files {}')
+        [[ -n "$file" ]] && vs "$file"
+    else
+        echo "fdf: not available in non-interactive mode"
+    fi
+}
+
+# Find directory -> cd into it
+fdd() {
+    if [ -t 0 ]; then
+        local dir=$(fd --type d --hidden --exclude .git | fzf --preview 'eza -ls=time --no-user --no-permissions --group-directories-first {} | head -10')
+        if [[ -n "$dir" ]]; then
+            cd "$dir" && vs
+        fi
+    else
+        echo "fdd: not available in non-interactive mode"
+    fi
+}
+
+# Git checkout with fzf branch picker
+ggco() {
+    if [ -t 0 ]; then
+        local branch=$(git branch --all | grep -v HEAD | sed 's/remotes\/origin\///' | sort -u | fzf)
+        [[ -n "$branch" ]] && git checkout "$branch"
+    else
+        echo "ggco: not available in non-interactive mode"
+    fi
+}
+
+# Disable autocorrect in zsh
+unsetopt correct
+unsetopt correct_all
+
+# SSH Agent
+eval "$(keychain --eval --quiet)"
+
+# 2024-12-02
+eval "$(_SQLITE_UTILS_COMPLETE=zsh_source sqlite-utils)"
+
+# -------
+# Aliases - Organized by Category
+# -------
+
+# === tmux ===
+
+# Persistent single-session / multi-window helpers
+_TTM_TMPDIR="$HOME/.local/share/tmux"
+
+_ttm_tmux() {
+  if [[ -n "$_ttm_clean_env" ]]; then
+    [[ -d "$_TTM_TMPDIR" ]] || mkdir -p "$_TTM_TMPDIR"
+    env TMUX= TMUX_PANE= TMUX_TMPDIR="$_TTM_TMPDIR" tmux "$@"
+  else
+    tmux "$@"
+  fi
+}
+
+_ttm_in_tmux() {
+  [[ -n "$TMUX" ]] || return 1
+  local current_tty=""
+  current_tty="$(tty 2>/dev/null)" || return 1
+  tmux list-clients -F '#{client_tty}' 2>/dev/null | grep -qx "$current_tty"
+}
+
+_ttm_socket_path() {
+  local base="${_TTM_TMPDIR:-${TMUX_TMPDIR:-/tmp}}"
+  echo "$base/tmux-$(id -u)/default"
+}
+
+_ttm_cleanup_stale_socket() {
+  local socket="$(_ttm_socket_path)"
+  if [[ -e "$socket" ]]; then
+    if ! env TMUX= TMUX_PANE= tmux -S "$socket" list-sessions >/dev/null 2>&1; then
+      rm -f -- "$socket"
+    fi
+  fi
+}
+
+# ============================================================
+# _ttm_wait_for_prompt - Smart wait for shell readiness
+# ============================================================
+# PURPOSE:
+#   Waits for a tmux pane's shell to be fully initialized before
+#   sending commands. This prevents race conditions where commands
+#   (like 'opencode') are sent before the shell is ready, causing
+#   crashes (SIGTRAP) or corrupted terminal output.
+#
+# HOW IT WORKS:
+#   1. Captures the pane content using tmux capture-pane
+#   2. Checks if any line starts with a prompt character (> $ ❯)
+#   3. Repeats every 0.1s until found or timeout reached
+#
+# PARAMETERS:
+#   $1 - target: The tmux pane identifier (e.g., "main:forzr.1")
+#   $2 - timeout: Max seconds to wait (default: 5)
+#
+# RETURNS:
+#   0 - Prompt detected (shell is ready)
+#   1 - Timeout reached (proceeds anyway to avoid hanging)
+#
+# PROMPT DETECTION:
+#   Matches lines starting with: >  $  ❯
+#   This covers most shell prompts including Powerlevel10k
+# ============================================================
+_ttm_wait_for_prompt() {
+  local target="$1" timeout="${2:-5}"
+  local i=0
+  
+  # Loop until timeout (timeout * 10 iterations at 0.1s each)
+  while (( i < timeout * 10 )); do
+    # Capture pane content and check for prompt character at line start
+    # -p flag prints to stdout instead of a buffer
+    if _ttm_tmux capture-pane -t "$target" -p 2>/dev/null | grep -qE '^[>$❯]\s*$'; then
+      return 0  # Prompt found - shell is ready
+    fi
+    sleep 0.1
+    ((i++))
+  done
+  
+  # Timeout reached - return 1 but caller should proceed anyway
+  # This prevents infinite hangs if prompt detection fails
+  return 1
+}
+
+_ttm_start_session() {
+  local session="$1" dir="$2"
+  local w="" h=""
+  if [[ -t 0 ]] && command -v tput >/dev/null 2>&1; then
+    w="-x $(tput cols)"
+    h="-y $(tput lines)"
+  fi
+  if ! _ttm_tmux new-session -d -s "$session" -c "$dir" -n "__init__" "$w" "$h" 2>/dev/null; then
+    _ttm_cleanup_stale_socket
+    _ttm_tmux new-session -d -s "$session" -c "$dir" -n "__init__" "$w" "$h"
+  fi
+}
+
+# ============================================================
+# _ttm_create_window - Create a tmux window with 3 panes
+# ============================================================
+# PURPOSE:
+#   Creates a new tmux window with a specific layout:
+#   - Pane 1 (top, 67%): Main workspace, runs 'oc' (opencode)
+#   - Pane 2 (bottom-left, 67% of bottom): Utility pane, runs 'ls'
+#   - Pane 3 (bottom-right, 33% of bottom): Secondary workspace, runs 'oc'
+#
+# LAYOUT:
+#   ┌─────────────────────────────────────┐
+#   │           Pane 1 (oc)               │
+#   │             67%                     │
+#   ├───────────────────────┬─────────────┤
+#   │    Pane 2 (ls)        │  Pane 3 (oc)│
+#   │       67%             │     33%     │
+#   └───────────────────────┴─────────────┘
+#
+# SMART WAIT:
+#   Uses _ttm_wait_for_prompt() to wait for each shell to be
+#   fully initialized before sending commands. This prevents
+#   race conditions that cause 'opencode' to crash on cold start.
+# ============================================================
+_ttm_create_window() {
+  local session="$1" window="$2" dir="$3" target="$1:$2"
+
+  # Create the window and split into 3 panes
+  _ttm_tmux new-window -t "$session" -n "$window" -c "$dir"
+  _ttm_tmux split-window -v -p 33 -t "$target" -c "$dir"       # Split bottom 33%
+  _ttm_tmux split-window -h -p 33 -t "$target".2 -c "$dir"     # Split bottom-right 33%
+  _ttm_tmux select-pane -t "$target".1
+
+  # Wait for shell prompt in each pane, then send command
+  # This is the KEY FIX: wait for shell readiness instead of arbitrary sleep
+  _ttm_wait_for_prompt "$target".1
+  _ttm_tmux send-keys -t "$target".1 'oc' Enter
+  
+  _ttm_wait_for_prompt "$target".2
+  _ttm_tmux send-keys -t "$target".2 'ls' Enter
+  
+  _ttm_wait_for_prompt "$target".3
+  _ttm_tmux send-keys -t "$target".3 'oc' Enter
+  
+  _ttm_tmux select-pane -t "$target".1
+}
+
+_ttm_engine() {
+  local project="$1" action="${2:-join}" primary_dir="$3"
+  local fallback_dir="$HOME/Documents/_my_docs" session="main" dir="$primary_dir"
+  local window_exists=0 target_window="$session:$project" tmp_window=""
+  local _ttm_clean_env="" in_tmux=0
+
+  command -v tmux >/dev/null 2>&1 || { echo "tmux is not installed"; return 1; }
+
+  [[ -d "$dir" ]] || dir="$fallback_dir"
+  [[ -d "$dir" ]] || mkdir -p "$dir"
+
+  if _ttm_in_tmux; then
+    in_tmux=1
+  else
+    _ttm_clean_env=1
+  fi
+
+  if ! _ttm_tmux has-session -t "$session" 2>/dev/null; then
+    _ttm_start_session "$session" "$dir"
+  fi
+
+  if _ttm_tmux list-windows -t "$session" -F '#W' 2>/dev/null | grep -qx "$project"; then
+    window_exists=1
+  fi
+
+  if [[ "$action" == "reset" && "$window_exists" -eq 1 ]]; then
+    tmp_window="__${project}_old__"
+    if _ttm_tmux list-windows -t "$session" -F '#W' 2>/dev/null | grep -qx "$tmp_window"; then
+      tmp_window="__${project}_old__$(date +%s)"
+    fi
+
+    _ttm_tmux rename-window -t "$target_window" "$tmp_window"
+    _ttm_create_window "$session" "$project" "$dir"
+    _ttm_tmux select-window -t "$target_window"
+    _ttm_tmux kill-window -t "$session:$tmp_window"
+    window_exists=1
+  fi
+
+  if [[ "$window_exists" -eq 0 ]]; then
+    _ttm_create_window "$session" "$project" "$dir"
+    _ttm_tmux select-window -t "$target_window"
+  else
+    _ttm_tmux select-window -t "$target_window"
+  fi
+
+  if _ttm_tmux list-windows -t "$session" -F '#W' 2>/dev/null | grep -qx "__init__"; then
+    if [[ $(_ttm_tmux list-windows -t "$session" 2>/dev/null | wc -l) -gt 1 ]]; then
+      _ttm_tmux kill-window -t "$session:__init__"
+    fi
+  fi
+
+  if [[ "$in_tmux" -eq 1 ]]; then
+    _ttm_tmux switch-client -t "$session:$project"
+  else
+    _ttm_tmux attach-session -t "$session"
+  fi
+}
+
+ttmj()  { _ttm_engine "forzr" "join"  "$HOME/Documents/github_local/forzr"; }
+ttmr()  { _ttm_engine "forzr" "reset" "$HOME/Documents/github_local/forzr"; }
+ttmjc() { _ttm_engine "chezmoi" "join"  "$HOME/.local/share/chezmoi"; }
+ttmrc() { _ttm_engine "chezmoi" "reset" "$HOME/.local/share/chezmoi"; }
+
+ttmM() {
+  command -v tmux >/dev/null 2>&1 || { echo "tmux is not installed"; return 1; }
+
+  local session="main" fallback_dir="$HOME/Documents/_my_docs"
+  local forzr_dir="$HOME/Documents/github_local/forzr"
+  local chez_dir="$HOME/.local/share/chezmoi"
+  local current_session="" current_window_id="" tmp_window="__ttm_boot__"
+  local _ttm_clean_env="" in_tmux=0
+
+  [[ -d "$fallback_dir" ]] || mkdir -p "$fallback_dir"
+  [[ -d "$forzr_dir" ]] || forzr_dir="$fallback_dir"
+  [[ -d "$chez_dir" ]] || chez_dir="$fallback_dir"
+
+  if _ttm_in_tmux; then
+    in_tmux=1
+    current_session=$(tmux display-message -p '#{session_name}')
+    current_window_id=$(tmux display-message -p '#{window_id}')
+  else
+    _ttm_clean_env=1
+  fi
+
+  if [[ "$in_tmux" -eq 1 && "$current_session" == "$session" ]]; then
+    if _ttm_tmux list-windows -t "$session" -F '#W' 2>/dev/null | grep -qx "$tmp_window"; then
+      tmp_window="__ttm_boot__$(date +%s)"
+    fi
+
+    _ttm_tmux rename-window -t "$current_window_id" "$tmp_window"
+    _ttm_tmux list-windows -t "$session" -F '#{window_id}' 2>/dev/null | while IFS= read -r wid; do
+      [[ "$wid" == "$current_window_id" ]] && continue
+      _ttm_tmux kill-window -t "$wid"
+    done
+
+    _ttm_create_window "$session" "forzr" "$forzr_dir"
+    _ttm_create_window "$session" "chezmoi" "$chez_dir"
+    _ttm_tmux select-window -t "$session:forzr"
+    _ttm_tmux kill-window -t "$current_window_id"
+    _ttm_tmux switch-client -t "$session:forzr"
+    return 0
+  fi
+
+  if _ttm_tmux has-session -t "$session" 2>/dev/null; then
+    _ttm_tmux kill-session -t "$session" 2>/dev/null
+  fi
+
+  _ttm_start_session "$session" "$forzr_dir"
+  _ttm_create_window "$session" "forzr" "$forzr_dir"
+  _ttm_create_window "$session" "chezmoi" "$chez_dir"
+  _ttm_tmux kill-window -t "$session:__init__" 2>/dev/null
+  _ttm_tmux select-window -t "$session:forzr"
+
+  if [[ "$in_tmux" -eq 1 ]]; then
+    _ttm_tmux switch-client -t "$session:forzr"
+  else
+    _ttm_tmux attach-session -t "$session"
+  fi
+}
+
+# spl2/2c/3/3c/3v/4 = tmux split layouts (standalone scripts)
+alias spl2f=spl2
+alias spl3f=spl3
+
+# antinote = query Antinote SQLite database (standalone script)
+
+# === SYSTEM & NAVIGATION ===
+alias c="clear"
+alias o="open ."
+alias ..="cd .."
+
+# Make directory and cd into it
+mkcd() {
+    mkdir -p "$1" && cd "$1"
+}
+
+# === FILE OPERATIONS ===
+alias cp="cp -iv"
+alias mv="mv -iv"
+alias rmi="rm -i"
+alias rm='trash'    # Now works for both files AND directories
+alias rr='/bin/rm'  # For real rm, you'd still need: rr -rf mydir/
+alias ln="ln -i"
+alias mkdir="mkdir -pv"
+alias size="du -sh"
+alias disk="df -h"
+
+# Note: Prefer 'rg' (ripgrep) over grep for better performance
+
+# === DIRECTORY LISTING (EZA) ===
+# ls dir + file (non-recursive for speed)
+alias ls="clear && eza -l --sort=time --reverse --no-user --no-permissions --group-directories-first --icons=always"
+# ls dir only (non-recursive)
+alias lsd="clear && eza -lD --sort=time --reverse --no-user --no-permissions --icons=always"
+# ls file only (non-recursive)
+alias lsf="clear && eza -lf --sort=time --reverse --no-user --no-permissions --icons=always" 
+
+alias tree="clear && eza -ls=time -r --git --tree --level=5 --git-ignore --no-user --no-permissions --group-directories-first --git-repos --total-size"
+alias tree4="clear && eza -ls=time -r --git --tree --level=4 --git-ignore --no-user --no-permissions --group-directories-first --git-repos --total-size"
+alias tree3="clear && eza -ls=time -r --git --tree --level=3 --git-ignore --no-user --no-permissions --group-directories-first --git-repos --total-size"
+alias tree2="clear && eza -ls=time -r --git --tree --level=2 --git-ignore --no-user --no-permissions --group-directories-first --git-repos --total-size"
+alias treeall="clear && eza -ls=time -r --git --tree --git-ignore --no-user --no-permissions --group-directories-first --git-repos --total-size"
+
+# === DEVELOPMENT TOOLS ===
+alias f="fzf"
+alias fman="compgen -c | fzf | xargs man"
+
+# === CONFIGURATION ===
+alias reload="source $HOME/.zshrc && echo 'ZSH config reloaded!'"
+
+# === APPLICATIONS ===
+alias obs="open -a Obsidian"
+alias neovim='nvim'
+alias trix="cmatrix -u 9"
+alias htop="btop"
+alias aqua="asciiquarium"
+
+# === NETWORK & SYSTEM INFO ===
+alias ports="lsof -PiTCP -sTCP:LISTEN"
+alias myip="curl -s ifconfig.me"
+alias localip="ipconfig getifaddr en0"
+alias flushdns="sudo dscacheutil -flushcache"
+
+# === TEXT PROCESSING ===
+alias count="wc -l"
+alias json="jq ."
+
+# === GIT ALIASES - CORE (daily use) ===
+alias gsync="git push origin HEAD && git fetch origin"
+
+alias gs="git status -s"
+alias gp="git push"
+alias gl="git pull"
+alias gd="git diff"
+
+# === GIT ALIASES - BRANCHES ===
+alias gb="git branch"
+alias gbd="git branch -d"
+alias gbD="git branch -D"
+alias gbn="git branch --no-merged"
+alias gauto="git add . && gcauto && git push"
+
+# git log
+alias gglog='git --no-pager log --oneline --graph -10 --decorate=short && echo'
+
+# ggcl = git clone and remove .git (now a standalone script)
+alias ggcl="git-clone-clean"
+
+ggc() {
+    git add . && git commit -m "${1:-minor}"
+}
+
+# === AI AGENT CLI ===
+alias oc="opencode"
+alias cld="claude"
+alias cldd="claude --dangerously-skip-permissions"
+
+# === gemini ===
+alias ggem="gemini -m gemini-3-flash-preview --yolo"
+alias ggemy="gemini -m gemini-3-flash-preview --yolo"
+alias gemini="gemini -m gemini-3-flash-preview"
+
+# === configs ===
+alias ccm="chezmoi"
+alias ccma="chezmoi apply"
+
+# === DIRECTORY BOOKMARKS ===
+export PROJ_HOME="$HOME/Documents/github_local"
+export MY_DOCS="$HOME/Documents/_my_docs"
+export PROJ_DEFAULT="$HOME/Documents/github_local/forzr"
+
+# CD to default project only if starting from work
+[[ "$PWD" == "$HOME" ]] && { cd "$PROJ_DEFAULT" && ls; }
+
+alias cdc='clear && cd $HOME/.local/share/chezmoi && ls' # chezmoi
+alias cdd='clear && cd $HOME/Documents/devtree && ls' # devtree
+alias cdf='clear && cd $PROJ_HOME/forzr && ls' # forzr
+alias cdh='clear && cd $HOME && ls' #home
+alias cdl='clear && cd $PROJ_HOME && ls' # local
+alias cdo='clear && cd $PROJ_HOME/os_pascal && ls' # os pascal
+alias cdm='clear && cd $MY_DOCS && ls' # _my_docs
+alias cdp='clear && cd $PROJ_HOME/pascalandy-blog-paper && ls' # pascalandy-blog
+alias cdv='clear && cd $MY_DOCS/10_obsidian/vault_obsidian && ls' # vault (obsidian)
+
+# === script manage via chezmoi ===
+
+# script manage via chezmoi
+alias uca="update-cli-apps" 
+
+# vps1-4 = SSH with colored terminals (standalone scripts in ~/.local/bin/)
+# bak
+# vps1,2,3,4
+
+# run = universal script runner (standalone script)
+alias run="run-script"
+
+# = = = = = = = = = = = = = = = = = ==
+# direnv to manage .env vars
+eval "$(direnv hook zsh)"
+
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
+# Golang environment variables
+export GOROOT="/opt/homebrew/opt/go/libexec"
+export GOPATH=$HOME/go
+
+# Zsh completions setup
+fpath=($HOME/.zsh/completions $fpath)
+
+# Initialize Zsh completion (with caching for faster startup)
+autoload -Uz compinit
+if [[ -n $HOME/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
+
+# -------
+# PATH Management (Consolidated)
+# -------
+# Note: NVM node bins are added earlier during lazy-load setup (see Node.js section)
+# to ensure global CLIs like 'claude' work immediately without loading full nvm.
+
+# PNPM (check if already in PATH to avoid duplication)
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
+# Standard PATH additions (order matters: earlier paths take precedence)
+export PATH="$HOME/.local/bin:$PATH"                                     # User scripts
+export PATH="$GOPATH/bin:$GOROOT/bin:$PATH"                              # Go
+export PATH="$HOME/.cargo/bin:$PATH"                                     # Rust
+export PATH="$HOME/.bun/bin:$PATH"                                       # Bun
+export PATH="$HOME/.amp/bin:$PATH"                                       # Amp CLI
+export PATH="$HOME/.cache/lm-studio/bin:$PATH"                           # LM Studio
+export PATH="$HOME/Documents/github_firepress/yourock2/flows/main:$PATH" # yourock2
+
+# Homebrew packages
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="/opt/homebrew/opt/trash/bin:$PATH"
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
+
+# Docker
+export PATH="/Applications/Docker.app/Contents/Resources/bin:$PATH"
