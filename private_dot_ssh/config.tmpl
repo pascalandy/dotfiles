@@ -1,0 +1,13 @@
+Host {{ .ssh_host_1 }}
+  HostName {{ .ssh_host_1 }}
+  User root
+Host github.com
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+Host {{ .ssh_host_2 }}
+  User {{ .ssh_user_2 }}
+  Port 22
+  IdentityFile ~/.ssh/id_ed25519
+  AddKeysToAgent yes
+  UseKeychain yes
