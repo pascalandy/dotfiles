@@ -147,7 +147,7 @@ die() {
 ├── private_dot_gnupg/           # → ~/.gnupg/ (private)
 ├── run_before_sync.sh           # Pre-apply: sync VS Code, Brewfile
 ├── run_after_backup.sh          # Post-apply: backup external files
-└── bienvenue_chez_moi/          # Archived configs and experiments
+└── bienvenue_chez_moi/          # Archived configs (source: ~/Documents/github_local/Z_ARCHIVED/)
 ```
 
 ## Templates and Secrets

@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 #
 # ==============================================================================
-# update-cli - Update CLI tools in parallel
+# git-clone-delete - Safely remove a cloned repo directory
 # ==============================================================================
-# Updates brew packages, uv tools, bun packages, and custom binaries.
-# Runs updates in parallel for speed, with clear success/failure reporting.
+# Removes a git clone with safety checks for uncommitted changes and
+# unpushed commits. Uses gum for interactive confirmations.
+# Outputs "deleted" on success for the calling wrapper to handle cd.
 # ==============================================================================
 
 readonly SCRIPT_VERSION="1.0.0"
 readonly SCRIPT_AUTHOR="Pascal Andy"
-readonly SCRIPT_DESCRIPTION="Update CLI tools (brew, uv, bun, update-bin) in parallel."
+readonly SCRIPT_DESCRIPTION="Safely remove a cloned repo directory."
 
-readonly SCRIPT_PATH="${BASH_SOURCE[0]}"
-readonly SCRIPT_NAME="${SCRIPT_PATH##*/}"
+readonly SCRIPT_NAME="${BASH_SOURCE[0]##*/}"
 
 # ==============================================================================
 # Runtime options
@@ -21,6 +21,7 @@ readonly SCRIPT_NAME="${SCRIPT_PATH##*/}"
 VERBOSE=0
 DRY_RUN=0
 NO_COLOR="${NO_COLOR:-}"
+FORCE=0
 
 # ==============================================================================
 # Strict mode
@@ -29,7 +30,7 @@ NO_COLOR="${NO_COLOR:-}"
 set -euo pipefail
 
 # ==============================================================================
-# Logging
+# Logging (to stderr so stdout can be used for status)
 # ==============================================================================
 
 fct_ansi() {
@@ -40,8 +41,7 @@ fct_ansi() {
 }
 
 log_info() {
-  local reset=""
-  local prefix=""
+  local reset="" prefix=""
   if [[ -t 2 && -z "${NO_COLOR}" ]]; then
     prefix="$(fct_ansi '32')"
     reset="$(fct_ansi '0')"
@@ -50,8 +50,7 @@ log_info() {
 }
 
 log_warn() {
-  local reset=""
-  local prefix=""
+  local reset="" prefix=""
   if [[ -t 2 && -z "${NO_COLOR}" ]]; then
     prefix="$(fct_ansi '33')"
     reset="$(fct_ansi '0')"
@@ -60,8 +59,7 @@ log_warn() {
 }
 
 log_error() {
-  local reset=""
-  local prefix=""
+  local reset="" prefix=""
   if [[ -t 2 && -z "${NO_COLOR}" ]]; then
     prefix="$(fct_ansi '31')"
     reset="$(fct_ansi '0')"
@@ -71,8 +69,7 @@ log_error() {
 
 log_debug() {
   if [[ "${VERBOSE}" -eq 1 ]]; then
-    local reset=""
-    local prefix=""
+    local reset="" prefix=""
     if [[ -t 2 && -z "${NO_COLOR}" ]]; then
       prefix="$(fct_ansi '36')"
       reset="$(fct_ansi '0')"
@@ -98,20 +95,21 @@ Options:
   -h, --help       Show this help and exit
   -V, --version    Show version and exit
   -v, --verbose    Enable debug logging
-  -n, --dry-run    Show what would be updated without running
+  -n, --dry-run    Show what would be done without executing
+  -f, --force      Skip confirmation prompts
       --no-color   Disable colored output
 
-Tools updated:
-  Brew:       codex, uv
-  update-bin: gemini, openspec, kilocode, gh, repomix
-  UV tools:   specify-cli, playwright, all uv tools
-  Bun:        opencode-ai, btca
-  Other:      amp, claude (install.sh)
+Description:
+  Run from within the clone you want to delete.
+  Checks for uncommitted changes and unpushed commits before deleting.
+  Uses gum for interactive confirmations (requires gum to be installed).
+
+  Outputs "deleted" to stdout on success for wrapper function to handle cd.
 
 Examples:
-  ${SCRIPT_NAME}              # Update all CLI tools
-  ${SCRIPT_NAME} -v           # Update with verbose output
-  ${SCRIPT_NAME} --dry-run    # Show what would be updated
+  ${SCRIPT_NAME}           # Interactive mode with confirmations
+  ${SCRIPT_NAME} -f        # Force delete without prompts
+  ${SCRIPT_NAME} -n        # Dry run - show what would happen
 EOF
 }
 
@@ -138,6 +136,10 @@ fct_parse_arguments() {
         DRY_RUN=1
         shift
         ;;
+      -f | --force)
+        FORCE=1
+        shift
+        ;;
       --no-color)
         NO_COLOR="1"
         shift
@@ -157,85 +159,82 @@ fct_parse_arguments() {
 }
 
 # ==============================================================================
-# Update functions
+# Main logic
 # ==============================================================================
 
-fct_run_update() {
-  local name="${1}"
-  shift
-  local cmd=("$@")
+fct_execute() {
+  local cwd clone_name parent_dir
+
+  cwd="$(pwd)"
+  clone_name="$(basename "$cwd")"
+  parent_dir="$(dirname "$cwd")"
+
+  log_debug "Current directory: ${cwd}"
+  log_debug "Clone name: ${clone_name}"
+  log_debug "Parent directory: ${parent_dir}"
+
+  # Verify we're in a git repo
+  if ! git rev-parse --git-dir >/dev/null 2>&1; then
+    log_error "Not in a git repository"
+    exit 1
+  fi
+
+  # Check for uncommitted changes
+  if [[ -n "$(git status --porcelain 2>/dev/null)" ]]; then
+    log_warn "Warning: You have uncommitted changes:"
+    git status --short >&2
+    echo "" >&2
+
+    if [[ "${FORCE}" -eq 0 ]]; then
+      if ! gum confirm "Delete anyway?"; then
+        log_info "Aborted"
+        exit 1
+      fi
+    else
+      log_warn "Force mode: proceeding despite uncommitted changes"
+    fi
+  fi
+
+  # Check for unpushed commits
+  local unpushed
+  unpushed="$(git log --oneline @{upstream}..HEAD 2>/dev/null)" || true
+  if [[ -n "${unpushed}" ]]; then
+    log_warn "Warning: You have unpushed commits:"
+    echo "${unpushed}" >&2
+    echo "" >&2
+
+    if [[ "${FORCE}" -eq 0 ]]; then
+      if ! gum confirm "Delete anyway?"; then
+        log_info "Aborted"
+        exit 1
+      fi
+    else
+      log_warn "Force mode: proceeding despite unpushed commits"
+    fi
+  fi
+
+  # Final confirmation
+  if [[ "${FORCE}" -eq 0 ]]; then
+    if ! gum confirm "Remove clone '${clone_name}'?"; then
+      log_info "Aborted"
+      exit 1
+    fi
+  fi
 
   if [[ "${DRY_RUN}" -eq 1 ]]; then
-    log_info "[DRY-RUN] Would run: ${cmd[*]}"
+    log_info "[DRY-RUN] Would execute:"
+    log_info "  cd ${parent_dir}"
+    log_info "  rm -rf ${clone_name}"
     return 0
   fi
 
-  log_debug "Running: ${cmd[*]}"
-  if "${cmd[@]}" > /dev/null 2>&1; then
-    echo "✓ ${name}"
-  else
-    echo "✗ ${name} failed"
-  fi
-}
+  # Perform deletion from parent directory
+  # Note: The calling wrapper function handles the cd
+  rm -rf "${cwd}"
+  log_info "Removed ${clone_name}"
 
-fct_execute_updates() {
-  log_info "Starting CLI tools update in parallel..."
-
-  local pids=()
-
-  # Brew upgrades
-  fct_run_update "codex (brew)" brew upgrade codex &
-  pids+=($!)
-
-  fct_run_update "uv (brew)" brew upgrade uv &
-  pids+=($!)
-
-  # update-bin tools
-  local update_bin_tools=(gemini openspec kilocode gh repomix)
-  for tool in "${update_bin_tools[@]}"; do
-    fct_run_update "${tool} (update-bin)" update-bin "${tool}" &
-    pids+=($!)
-  done
-
-  # Claude (install script)
-  fct_run_update "claude (install.sh)" bash -c 'curl -fsSL https://claude.ai/install.sh | bash' &
-  pids+=($!)
-
-  # btca (bun)
-  fct_run_update "btca (bun)" bash -c 'bun add -g btca opencode-ai && btca' &
-  pids+=($!)
-
-  # UV tools
-  fct_run_update "specify-cli (uv)" uv tool install specify-cli --force --from "git+https://github.com/github/spec-kit.git" &
-  pids+=($!)
-
-  fct_run_update "specify check" specify check &
-  pids+=($!)
-
-  fct_run_update "playwright (uv)" uv tool upgrade playwright &
-  pids+=($!)
-
-  fct_run_update "all uv tools" uv tool upgrade --all &
-  pids+=($!)
-
-  #  agent-browser
-  fct_run_update "agent-browser" npm install -g agent-browser &
-  pids+=($!)
-
-  # Amp
-  fct_run_update "amp" amp update &
-  pids+=($!)
-
-  # Bun
-  fct_run_update "opencode-ai (bun)" bun add -g opencode-ai &
-  pids+=($!)
-
-  log_info "Updates running in parallel (${#pids[@]} jobs)... waiting for completion..."
-
-  # Wait for all background jobs
-  wait 2>/dev/null || true
-
-  log_info "All CLI app updates completed!"
+  # Output status for wrapper to know deletion succeeded
+  printf 'deleted\n'
 }
 
 # ==============================================================================
@@ -244,7 +243,7 @@ fct_execute_updates() {
 
 main() {
   fct_parse_arguments "$@"
-  fct_execute_updates
+  fct_execute
 }
 
 main "$@"

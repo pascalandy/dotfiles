@@ -165,3 +165,10 @@ jspm_packages/
 
 # OpenCode plugin WIP (not ready)
 .config/opencode/plugin/security-check/
+
+# Archived configs backup (not managed by chezmoi)
+bienvenue_chez_moi/
+
+# Run scripts (executed, not applied as files)
+sync.sh
+backup.sh
