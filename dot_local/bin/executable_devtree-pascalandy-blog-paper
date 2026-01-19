@@ -82,7 +82,7 @@ cmd_setup() {
     echo "  echo \"$feature:$num_alts\" > $STATE_FILE"
     for i in $(seq 1 "$num_alts"); do
       local dir="$DEVTREE_DIR/${feature}-alt${i}"
-      echo "  git clone $REPO_URL $dir"
+      echo "  git clone --reference \"$MAIN_REPO\" $REPO_URL $dir"
       echo "  cd $dir && bun install"
       echo "  git checkout -b ${feature}-alt${i}"
     done
@@ -96,7 +96,7 @@ cmd_setup() {
 
   # Clone first alt from remote
   echo "[1/$num_alts] Cloning to $first_dir..."
-  git clone --depth 1 "$REPO_URL" "$first_dir"
+  git clone --depth 1 --reference "$MAIN_REPO" "$REPO_URL" "$first_dir"
   (
     cd "$first_dir"
     echo "[1/$num_alts] Installing dependencies..."
