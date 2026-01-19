@@ -210,6 +210,10 @@ fct_execute_updates() {
   fct_run_update "all uv tools" uv tool upgrade --all &
   pids+=($!)
 
+  #  agent-browser
+  fct_run_update "agent-browser" npm install -g agent-browser &
+  pids+=($!)
+
   # Amp
   fct_run_update "amp" amp update &
   pids+=($!)
