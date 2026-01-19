@@ -510,12 +510,12 @@ alias json="jq ."
 
 # === GIT ALIASES - CORE (daily use) ===
 alias gsync="git push origin HEAD && git fetch origin"
-alias treep="./devtree-pascalandy-blog-paper"
+alias treep="devtree-pascalandy-blog-paper"
 
 alias gs="git status -s"
 alias gp="git push"
 alias gl="git pull"
-alias gd="git diff"
+alias gdiff="git diff"
 
 # === GIT ALIASES - BRANCHES ===
 alias gb="git branch"
