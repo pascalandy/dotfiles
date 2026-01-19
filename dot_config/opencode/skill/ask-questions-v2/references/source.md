@@ -1,0 +1,1 @@
+https://raw.githubusercontent.com/mzbac/skills/refs/heads/main/skills/ask-questions-if-underspecified/SKILL.md
