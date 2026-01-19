@@ -49,12 +49,6 @@ require_feature() {
 cmd_setup() {
   local num_alts="${1:-3}"
 
-  if [[ -f "$STATE_FILE" ]]; then
-    echo "Error: A feature is already active."
-    echo "Run 'cleanup' first, or check 'status'."
-    exit 1
-  fi
-
   local raw_name
   if [[ "$DRY_RUN" -eq 1 ]]; then
     raw_name="example-feature"
