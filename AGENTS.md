@@ -73,14 +73,14 @@ git add . && git commit -m "message" && git push
 
 ```bash
 # Create a new script
-vim ~/.local/bin/my-script
+code ~/.local/bin/[script-name]
 
 # Make executable and add to chezmoi
-chmod +x ~/.local/bin/my-script
-chezmoi add ~/.local/bin/my-script
+chmod +x ~/.local/bin/[script-name]
+chezmoi add ~/.local/bin/[script-name]
 ```
 
-Scripts are stored in chezmoi as: `dot_local/bin/executable_<scriptname>`
+Scripts are stored in chezmoi as: `dot_local/bin/executable_[script-name]`
 
 Ensure `~/.local/bin` is in PATH (add to `.zshrc` if needed):
 ```bash
