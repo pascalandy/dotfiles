@@ -1,39 +1,43 @@
 {
-  "reposDirectory": "~/.local/share/btca/repos",
-  "port": 3420,
-  "maxInstances": 5,
-  "repos": [
+  "$schema": "https://btca.dev/btca.schema.json",
+  "resources": [
     {
+      "type": "git",
       "name": "svelte",
       "url": "https://github.com/sveltejs/svelte.dev",
       "branch": "main",
       "specialNotes": "This is the svelte docs website repo, not the actual svelte repo. Use the docs to answer questions about svelte."
     },
     {
+      "type": "git",
       "name": "tailwindcss",
       "url": "https://github.com/tailwindlabs/tailwindcss.com",
       "branch": "main",
       "specialNotes": "This is the tailwindcss docs website repo, not the actual tailwindcss repo. Use the docs to answer questions about tailwindcss."
     },
     {
+      "type": "git",
       "name": "nextjs",
       "url": "https://github.com/vercel/next.js",
       "branch": "canary"
     },
     {
+      "type": "git",
       "name": "opencode",
       "url": "https://github.com/sst/opencode",
       "branch": "dev",
-      "searchPath": "packages/web/src/content/docs",
-      "specialNotes": "This is the opencode docs repo that build the website. Use the docs to answer questions about svelte."
+      "specialNotes": "This is the opencode docs repo that build the website. Use the docs to answer questions about svelte.",
+      "searchPath": "packages/web/src/content/docs"
     },
     {
+      "type": "git",
       "name": "tanstack-router",
       "url": "https://github.com/TanStack/router",
       "branch": "main",
       "searchPath": "docs"
     },
     {
+      "type": "git",
       "name": "chezmoi",
       "url": "https://github.com/twpayne/chezmoi",
       "branch": "master",
