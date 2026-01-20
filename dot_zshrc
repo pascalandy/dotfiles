@@ -581,6 +581,8 @@ alias cdm='clear && cd $MY_DOCS && ls' # _my_docs
 alias cdp='clear && cd $PROJ_HOME/pascalandy-blog-paper && ls' # pascalandy-blog
 alias cdv='clear && cd $MY_DOCS/10_obsidian/vault_obsidian && ls' # vault (obsidian)
 
+# test comment tmp
+
 # === script manage via chezmoi ===
 
 # script manage via chezmoi
