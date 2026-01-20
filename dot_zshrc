@@ -560,8 +560,7 @@ alias ggemy="gemini -m gemini-3-flash-preview --yolo"
 alias gemini="gemini -m gemini-3-flash-preview"
 
 # === configs ===
-alias ccm="chezmoi"
-alias ccma="chezmoi apply -v"
+alias ccma="chezmoi apply"
 
 # === DIRECTORY BOOKMARKS ===
 export PROJ_HOME="$HOME/Documents/github_local"
