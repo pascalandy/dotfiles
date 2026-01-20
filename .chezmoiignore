@@ -169,6 +169,4 @@ jspm_packages/
 # Archived configs backup (not managed by chezmoi)
 bienvenue_chez_moi/
 
-# Run scripts (executed, not applied as files)
-sync.sh
-backup.sh
+# (removed sync.sh and backup.sh - they were blocking run_before_sync.sh and run_after_backup.sh)
