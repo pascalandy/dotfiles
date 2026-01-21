@@ -1,6 +1,6 @@
 [DEFAULT]
-email = {{ .qobuz_email }} 
-password = {{ .qobuz_password }} 
+email = {{ keyring "qobuz" "email" }} 
+password = {{ keyring "qobuz" "password" }} 
 default_folder = Qobuz Downloads
 default_quality = 27
 default_limit = 20
@@ -12,7 +12,7 @@ embed_art = false
 no_cover = false
 no_database = false
 app_id = 814460817
-secrets = {{ .qobuz_secrets }} 
+secrets = {{ keyring "qobuz" "secrets" }} 
 folder_format = {artist} - {album} ({year}) [{bit_depth}B-{sampling_rate}kHz]
 track_format = {tracknumber}. {tracktitle}
 smart_discography = false
