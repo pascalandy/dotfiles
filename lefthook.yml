@@ -3,5 +3,7 @@ pre-commit:
     gitleaks:
       run: gitleaks protect --staged --verbose
     shellcheck:
-      glob: "*.sh"
+      glob:
+        - "**/*.sh"
+        - "dot_local/bin/executable_*"
       run: shellcheck {staged_files}

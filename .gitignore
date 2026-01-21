@@ -18,6 +18,10 @@ ENV/
 *.p12 
 .cache*
 .cache/*
+**/.venv/
+**/.ruff_cache/
+**/*.db
+backup_tree_my_docs.txt
 **/dev-browser/profiles/
 **/dev-browser/tmp/
 
@@ -157,3 +161,6 @@ jspm_packages/
 
 # TernJS port file
 .tern-port
+
+# Archived configs backup
+bienvenue_chez_moi/

@@ -22,6 +22,10 @@ ENV/
 *.p12 
 .cache*
 .cache/*
+**/.venv/
+**/.ruff_cache/
+**/*.db
+backup_tree_my_docs.txt
 
 # Python cache files
 __pycache__/
@@ -79,6 +83,20 @@ coverage.xml
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Repo metadata (not applied to home)
+.github/
+README.md
+LICENSE
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+SECURITY.md
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+crash_procedure.md
+docs/
+lefthook.yml
 
 # Node.js (BUN, NPM, PNPM, Yarn)
 node_modules/

@@ -1,2 +1,0 @@
-- Ce répertoire est un mono repo géré par le cli `chezmoi dotfiles`
-- `~/Documents/github_local/bienvenue_chez_moi`

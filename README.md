@@ -17,9 +17,14 @@ chezmoi apply
 chezmoi apply
 ```
 
-## Required Template Variables
+## Secrets and Template Variables
 
-Create `~/.config/chezmoi/chezmoi.toml` with these variables:
+This repo uses the `keyring` template function by default (see
+`dot_config/opencode/opencode.json.tmpl` and `private_dot_ssh/config.tmpl`).
+Make sure the corresponding entries exist in your system keychain.
+
+If you prefer using `chezmoi.toml` data instead of keyring, replace the
+template lookups with `.data` and use this example:
 
 ```toml
 [data]
@@ -48,6 +53,15 @@ Get your API keys:
 - CLI tool configs (opencode, amp, zed)
 - Custom scripts in `~/.local/bin/`
 - AI agent skills and prompts
+
+## Quality Checks
+
+Pre-commit hooks are managed by `lefthook` and run `gitleaks` and `shellcheck`.
+Install the hooks once per machine:
+
+```bash
+lefthook install
+```
 
 ## Chezmoi Basics
 
