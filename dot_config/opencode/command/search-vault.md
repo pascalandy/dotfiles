@@ -15,7 +15,7 @@ Based on the user's question, always give bonus information such as key insights
 
 When we run this prompt, make sure we are in this location:
 
-`cd $HOME/Documents/github_local/semantic-search-vault`
+`cd ~/Documents/github_local/semantic-search-vault`
 
 ## ORCHESTRATION PLAN
 

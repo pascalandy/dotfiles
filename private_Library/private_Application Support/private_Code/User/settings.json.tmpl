@@ -133,8 +133,8 @@
   "terminal.integrated.fontSize": 14,
   "terminal.integrated.lineHeight": 1.2,
   "projectManager.git.baseFolders": [
-    "$HOME/Documents/github_firepress",
-    "$HOME/Documents/github_pascalandy"
+    "{{ .chezmoi.homeDir }}/Documents/github_firepress",
+    "{{ .chezmoi.homeDir }}/Documents/github_pascalandy"
   ],
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.indentSize": "tabSize",
@@ -147,14 +147,14 @@
     "editor.defaultFormatter": "ms-python.black-formatter"
   },
   "python.analysis.extraPaths": [
-    "$HOME/.vscode/extensions/continue.continue-0.2.0-darwin-arm64",
-    "$HOME/.vscode/extensions/continue.continue-0.5.0-darwin-arm64",
-    "$HOME/.vscode/extensions/continue.continue-0.6.0-darwin-arm64"
+    "{{ .chezmoi.homeDir }}/.vscode/extensions/continue.continue-0.2.0-darwin-arm64",
+    "{{ .chezmoi.homeDir }}/.vscode/extensions/continue.continue-0.5.0-darwin-arm64",
+    "{{ .chezmoi.homeDir }}/.vscode/extensions/continue.continue-0.6.0-darwin-arm64"
   ],
   "python.autoComplete.extraPaths": [
-    "$HOME/.vscode/extensions/continue.continue-0.2.0-darwin-arm64",
-    "$HOME/.vscode/extensions/continue.continue-0.5.0-darwin-arm64",
-    "$HOME/.vscode/extensions/continue.continue-0.6.0-darwin-arm64"
+    "{{ .chezmoi.homeDir }}/.vscode/extensions/continue.continue-0.2.0-darwin-arm64",
+    "{{ .chezmoi.homeDir }}/.vscode/extensions/continue.continue-0.5.0-darwin-arm64",
+    "{{ .chezmoi.homeDir }}/.vscode/extensions/continue.continue-0.6.0-darwin-arm64"
   ],
   "[dotenv]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
