@@ -34,3 +34,31 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y shfmt
       - name: Run shfmt
         run: shfmt -d $(git ls-files '*.sh' 'dot_local/bin/executable_*')
+
+  chezmoi-diff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install chezmoi
+        run: sudo apt-get update && sudo apt-get install -y chezmoi
+      - name: Run chezmoi diff (non-template dry run)
+        run: |
+          set -euo pipefail
+          git ls-files -z -- '.' \
+            ':(exclude)*.tmpl' \
+            ':(exclude).github/**' \
+            ':(exclude)README.md' \
+            ':(exclude)LICENSE' \
+            ':(exclude)CONTRIBUTING.md' \
+            ':(exclude)CODE_OF_CONDUCT.md' \
+            ':(exclude)SECURITY.md' \
+            ':(exclude)AGENTS.md' \
+            ':(exclude)CLAUDE.md' \
+            ':(exclude)GEMINI.md' \
+            ':(exclude)crash_procedure.md' \
+            ':(exclude)docs/**' \
+            ':(exclude)lefthook.yml' \
+            ':(exclude).gitignore' \
+            ':(exclude).chezmoiignore' \
+            | xargs -0 -r chezmoi diff --no-pager --source-path --destination "$HOME/chezmoi-dest"
