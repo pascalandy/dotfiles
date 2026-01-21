@@ -2,3 +2,6 @@ pre-commit:
   commands:
     gitleaks:
       run: gitleaks protect --staged --verbose
+    shellcheck:
+      glob: "*.sh"
+      run: shellcheck {staged_files}
