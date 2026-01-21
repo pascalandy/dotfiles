@@ -7,3 +7,8 @@ pre-commit:
         - "**/*.sh"
         - "dot_local/bin/executable_*"
       run: shellcheck {staged_files}
+    shfmt:
+      glob:
+        - "**/*.sh"
+        - "dot_local/bin/executable_*"
+      run: shfmt -d {staged_files}
