@@ -33,39 +33,39 @@ set -euo pipefail
 # ==============================================================================
 
 fct_ansi() {
-  local code="${1}"
-  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
-    printf '\033[%sm' "${code}"
-  fi
+	local code="${1}"
+	if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+		printf '\033[%sm' "${code}"
+	fi
 }
 
 log_info() {
-  local reset="" prefix=""
-  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
-    prefix="$(fct_ansi '32')"
-    reset="$(fct_ansi '0')"
-  fi
-  printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
+	local reset="" prefix=""
+	if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+		prefix="$(fct_ansi '32')"
+		reset="$(fct_ansi '0')"
+	fi
+	printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
 }
 
 log_error() {
-  local reset="" prefix=""
-  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
-    prefix="$(fct_ansi '31')"
-    reset="$(fct_ansi '0')"
-  fi
-  printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
+	local reset="" prefix=""
+	if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+		prefix="$(fct_ansi '31')"
+		reset="$(fct_ansi '0')"
+	fi
+	printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
 }
 
 log_debug() {
-  if [[ "${VERBOSE}" -eq 1 ]]; then
-    local reset="" prefix=""
-    if [[ -t 2 && -z "${NO_COLOR}" ]]; then
-      prefix="$(fct_ansi '36')"
-      reset="$(fct_ansi '0')"
-    fi
-    printf '%s[DEBUG] %s%s\n' "${prefix}" "$*" "${reset}" >&2
-  fi
+	if [[ "${VERBOSE}" -eq 1 ]]; then
+		local reset="" prefix=""
+		if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+			prefix="$(fct_ansi '36')"
+			reset="$(fct_ansi '0')"
+		fi
+		printf '%s[DEBUG] %s%s\n' "${prefix}" "$*" "${reset}" >&2
+	fi
 }
 
 # ==============================================================================
@@ -73,7 +73,7 @@ log_debug() {
 # ==============================================================================
 
 usage() {
-  cat << EOF
+	cat <<EOF
 ${SCRIPT_NAME} v${SCRIPT_VERSION}
 ${SCRIPT_DESCRIPTION}
 Author: ${SCRIPT_AUTHOR}
@@ -108,60 +108,60 @@ REPO_URL=""
 TARGET_DIR=""
 
 fct_parse_arguments() {
-  local positional=()
+	local positional=()
 
-  while [[ $# -gt 0 ]]; do
-    case "$1" in
-      -h | --help)
-        usage
-        exit 0
-        ;;
-      -V | --version)
-        printf '%s\n' "${SCRIPT_NAME} v${SCRIPT_VERSION}"
-        exit 0
-        ;;
-      -v | --verbose)
-        VERBOSE=1
-        shift
-        ;;
-      -n | --dry-run)
-        DRY_RUN=1
-        shift
-        ;;
-      --no-color)
-        NO_COLOR="1"
-        shift
-        ;;
-      --keep-git)
-        KEEP_GIT=1
-        shift
-        ;;
-      -*)
-        log_error "Unknown option: $1"
-        usage
-        exit 2
-        ;;
-      *)
-        positional+=("$1")
-        shift
-        ;;
-    esac
-  done
+	while [[ $# -gt 0 ]]; do
+		case "$1" in
+		-h | --help)
+			usage
+			exit 0
+			;;
+		-V | --version)
+			printf '%s\n' "${SCRIPT_NAME} v${SCRIPT_VERSION}"
+			exit 0
+			;;
+		-v | --verbose)
+			VERBOSE=1
+			shift
+			;;
+		-n | --dry-run)
+			DRY_RUN=1
+			shift
+			;;
+		--no-color)
+			NO_COLOR="1"
+			shift
+			;;
+		--keep-git)
+			KEEP_GIT=1
+			shift
+			;;
+		-*)
+			log_error "Unknown option: $1"
+			usage
+			exit 2
+			;;
+		*)
+			positional+=("$1")
+			shift
+			;;
+		esac
+	done
 
-  if [[ ${#positional[@]} -eq 0 ]]; then
-    log_error "Missing required argument: <repo_url>"
-    usage
-    exit 2
-  fi
+	if [[ ${#positional[@]} -eq 0 ]]; then
+		log_error "Missing required argument: <repo_url>"
+		usage
+		exit 2
+	fi
 
-  REPO_URL="${positional[0]}"
-  
-  if [[ ${#positional[@]} -ge 2 ]]; then
-    TARGET_DIR="${positional[1]}"
-  else
-    # Derive from URL (remove .git suffix)
-    TARGET_DIR="$(basename "${REPO_URL}" .git)"
-  fi
+	REPO_URL="${positional[0]}"
+
+	if [[ ${#positional[@]} -ge 2 ]]; then
+		TARGET_DIR="${positional[1]}"
+	else
+		# Derive from URL (remove .git suffix)
+		TARGET_DIR="$(basename "${REPO_URL}" .git)"
+	fi
 }
 
 # ==============================================================================
@@ -169,37 +169,37 @@ fct_parse_arguments() {
 # ==============================================================================
 
 fct_execute() {
-  log_debug "Repo URL: ${REPO_URL}"
-  log_debug "Target dir: ${TARGET_DIR}"
+	log_debug "Repo URL: ${REPO_URL}"
+	log_debug "Target dir: ${TARGET_DIR}"
 
-  # Check if target already exists
-  if [[ -d "${TARGET_DIR}" ]]; then
-    log_error "Directory already exists: ${TARGET_DIR}"
-    exit 1
-  fi
+	# Check if target already exists
+	if [[ -d "${TARGET_DIR}" ]]; then
+		log_error "Directory already exists: ${TARGET_DIR}"
+		exit 1
+	fi
 
-  if [[ "${DRY_RUN}" -eq 1 ]]; then
-    log_info "[DRY-RUN] Would execute:"
-    log_info "  git clone --depth 1 ${REPO_URL} ${TARGET_DIR}"
-    if [[ "${KEEP_GIT}" -eq 0 ]]; then
-      log_info "  rm -rf ${TARGET_DIR}/.git"
-    fi
-    log_info "  cd ${TARGET_DIR}"
-    return 0
-  fi
+	if [[ "${DRY_RUN}" -eq 1 ]]; then
+		log_info "[DRY-RUN] Would execute:"
+		log_info "  git clone --depth 1 ${REPO_URL} ${TARGET_DIR}"
+		if [[ "${KEEP_GIT}" -eq 0 ]]; then
+			log_info "  rm -rf ${TARGET_DIR}/.git"
+		fi
+		log_info "  cd ${TARGET_DIR}"
+		return 0
+	fi
 
-  # Clone shallow
-  log_info "Cloning ${REPO_URL}..."
-  git clone --depth 1 "${REPO_URL}" "${TARGET_DIR}"
+	# Clone shallow
+	log_info "Cloning ${REPO_URL}..."
+	git clone --depth 1 "${REPO_URL}" "${TARGET_DIR}"
 
-  # Remove .git unless --keep-git
-  if [[ "${KEEP_GIT}" -eq 0 && -d "${TARGET_DIR}/.git" ]]; then
-    rm -rf "${TARGET_DIR}/.git"
-    log_info "Removed .git directory"
-  fi
+	# Remove .git unless --keep-git
+	if [[ "${KEEP_GIT}" -eq 0 && -d "${TARGET_DIR}/.git" ]]; then
+		rm -rf "${TARGET_DIR}/.git"
+		log_info "Removed .git directory"
+	fi
 
-  log_info "Done! Directory: ${TARGET_DIR}"
-  ls -la "${TARGET_DIR}"
+	log_info "Done! Directory: ${TARGET_DIR}"
+	ls -la "${TARGET_DIR}"
 }
 
 # ==============================================================================
@@ -207,8 +207,8 @@ fct_execute() {
 # ==============================================================================
 
 main() {
-  fct_parse_arguments "$@"
-  fct_execute
+	fct_parse_arguments "$@"
+	fct_execute
 }
 
 main "$@"

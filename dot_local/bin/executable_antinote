@@ -38,39 +38,39 @@ set -euo pipefail
 # ==============================================================================
 
 fct_ansi() {
-  local code="${1}"
-  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
-    printf '\033[%sm' "${code}"
-  fi
+	local code="${1}"
+	if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+		printf '\033[%sm' "${code}"
+	fi
 }
 
 log_info() {
-  local reset="" prefix=""
-  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
-    prefix="$(fct_ansi '32')"
-    reset="$(fct_ansi '0')"
-  fi
-  printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
+	local reset="" prefix=""
+	if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+		prefix="$(fct_ansi '32')"
+		reset="$(fct_ansi '0')"
+	fi
+	printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
 }
 
 log_error() {
-  local reset="" prefix=""
-  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
-    prefix="$(fct_ansi '31')"
-    reset="$(fct_ansi '0')"
-  fi
-  printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
+	local reset="" prefix=""
+	if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+		prefix="$(fct_ansi '31')"
+		reset="$(fct_ansi '0')"
+	fi
+	printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
 }
 
 log_debug() {
-  if [[ "${VERBOSE}" -eq 1 ]]; then
-    local reset="" prefix=""
-    if [[ -t 2 && -z "${NO_COLOR}" ]]; then
-      prefix="$(fct_ansi '36')"
-      reset="$(fct_ansi '0')"
-    fi
-    printf '%s[DEBUG] %s%s\n' "${prefix}" "$*" "${reset}" >&2
-  fi
+	if [[ "${VERBOSE}" -eq 1 ]]; then
+		local reset="" prefix=""
+		if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+			prefix="$(fct_ansi '36')"
+			reset="$(fct_ansi '0')"
+		fi
+		printf '%s[DEBUG] %s%s\n' "${prefix}" "$*" "${reset}" >&2
+	fi
 }
 
 # ==============================================================================
@@ -78,7 +78,7 @@ log_debug() {
 # ==============================================================================
 
 usage() {
-  cat << EOF
+	cat <<EOF
 ${SCRIPT_NAME} v${SCRIPT_VERSION}
 ${SCRIPT_DESCRIPTION}
 Author: ${SCRIPT_AUTHOR}
@@ -124,58 +124,58 @@ SHORTCUT=""
 SHORTCUT_ARG=""
 
 fct_parse_arguments() {
-  while [[ $# -gt 0 ]]; do
-    case "$1" in
-      -h | --help)
-        usage
-        exit 0
-        ;;
-      -V | --version)
-        printf '%s\n' "${SCRIPT_NAME} v${SCRIPT_VERSION}"
-        exit 0
-        ;;
-      -v | --verbose)
-        VERBOSE=1
-        shift
-        ;;
-      -n | --dry-run)
-        DRY_RUN=1
-        shift
-        ;;
-      --no-color)
-        NO_COLOR="1"
-        shift
-        ;;
-      --latest)
-        SHORTCUT="latest"
-        shift
-        # Check if next arg is a number
-        if [[ $# -gt 0 && "$1" =~ ^[0-9]+$ ]]; then
-          SHORTCUT_ARG="$1"
-          shift
-        else
-          SHORTCUT_ARG="1"
-        fi
-        ;;
-      --count)
-        SHORTCUT="count"
-        shift
-        ;;
-      --schema)
-        SHORTCUT="schema"
-        shift
-        ;;
-      -*)
-        log_error "Unknown option: $1"
-        usage
-        exit 2
-        ;;
-      *)
-        SQL_QUERY="$1"
-        shift
-        ;;
-    esac
-  done
+	while [[ $# -gt 0 ]]; do
+		case "$1" in
+		-h | --help)
+			usage
+			exit 0
+			;;
+		-V | --version)
+			printf '%s\n' "${SCRIPT_NAME} v${SCRIPT_VERSION}"
+			exit 0
+			;;
+		-v | --verbose)
+			VERBOSE=1
+			shift
+			;;
+		-n | --dry-run)
+			DRY_RUN=1
+			shift
+			;;
+		--no-color)
+			NO_COLOR="1"
+			shift
+			;;
+		--latest)
+			SHORTCUT="latest"
+			shift
+			# Check if next arg is a number
+			if [[ $# -gt 0 && "$1" =~ ^[0-9]+$ ]]; then
+				SHORTCUT_ARG="$1"
+				shift
+			else
+				SHORTCUT_ARG="1"
+			fi
+			;;
+		--count)
+			SHORTCUT="count"
+			shift
+			;;
+		--schema)
+			SHORTCUT="schema"
+			shift
+			;;
+		-*)
+			log_error "Unknown option: $1"
+			usage
+			exit 2
+			;;
+		*)
+			SQL_QUERY="$1"
+			shift
+			;;
+		esac
+	done
 }
 
 # ==============================================================================
@@ -183,37 +183,37 @@ fct_parse_arguments() {
 # ==============================================================================
 
 fct_execute_query() {
-  local query="${1}"
+	local query="${1}"
 
-  if [[ "${DRY_RUN}" -eq 1 ]]; then
-    log_info "[DRY-RUN] Would execute:"
-    log_info "  Database: ${ANTINOTE_DB}"
-    log_info "  Query: ${query}"
-    return 0
-  fi
+	if [[ "${DRY_RUN}" -eq 1 ]]; then
+		log_info "[DRY-RUN] Would execute:"
+		log_info "  Database: ${ANTINOTE_DB}"
+		log_info "  Query: ${query}"
+		return 0
+	fi
 
-  log_debug "Executing: ${query}"
+	log_debug "Executing: ${query}"
 
-  # Special handling for SELECT content queries
-  if [[ "${query}" =~ SELECT.*content.*FROM.*notes ]]; then
-    local result
-    result=$(sqlite3 "${ANTINOTE_DB}" "${query}")
+	# Special handling for SELECT content queries
+	if [[ "${query}" =~ SELECT.*content.*FROM.*notes ]]; then
+		local result
+		result=$(sqlite3 "${ANTINOTE_DB}" "${query}")
 
-    if [[ -z "${result}" ]]; then
-      local count
-      count=$(sqlite3 "${ANTINOTE_DB}" "SELECT COUNT(*) FROM notes;")
-      if [[ "${count}" -eq 0 ]]; then
-        echo "No notes found in database."
-      else
-        echo "Note found but content is empty."
-      fi
-      return 0
-    fi
+		if [[ -z "${result}" ]]; then
+			local count
+			count=$(sqlite3 "${ANTINOTE_DB}" "SELECT COUNT(*) FROM notes;")
+			if [[ "${count}" -eq 0 ]]; then
+				echo "No notes found in database."
+			else
+				echo "Note found but content is empty."
+			fi
+			return 0
+		fi
 
-    echo "${result}"
-  else
-    sqlite3 "${ANTINOTE_DB}" "${query}"
-  fi
+		echo "${result}"
+	else
+		sqlite3 "${ANTINOTE_DB}" "${query}"
+	fi
 }
 
 # ==============================================================================
@@ -221,38 +221,38 @@ fct_execute_query() {
 # ==============================================================================
 
 fct_execute() {
-  # Check if database exists
-  if [[ ! -f "${ANTINOTE_DB}" ]]; then
-    log_error "Antinote database not found at: ${ANTINOTE_DB}"
-    exit 1
-  fi
+	# Check if database exists
+	if [[ ! -f "${ANTINOTE_DB}" ]]; then
+		log_error "Antinote database not found at: ${ANTINOTE_DB}"
+		exit 1
+	fi
 
-  log_debug "Database: ${ANTINOTE_DB}"
+	log_debug "Database: ${ANTINOTE_DB}"
 
-  # Handle shortcuts
-  if [[ -n "${SHORTCUT}" ]]; then
-    case "${SHORTCUT}" in
-      latest)
-        SQL_QUERY="SELECT content FROM notes ORDER BY lastModified DESC LIMIT ${SHORTCUT_ARG}"
-        ;;
-      count)
-        SQL_QUERY="SELECT COUNT(*) FROM notes"
-        ;;
-      schema)
-        SQL_QUERY=".schema"
-        ;;
-    esac
-  fi
+	# Handle shortcuts
+	if [[ -n "${SHORTCUT}" ]]; then
+		case "${SHORTCUT}" in
+		latest)
+			SQL_QUERY="SELECT content FROM notes ORDER BY lastModified DESC LIMIT ${SHORTCUT_ARG}"
+			;;
+		count)
+			SQL_QUERY="SELECT COUNT(*) FROM notes"
+			;;
+		schema)
+			SQL_QUERY=".schema"
+			;;
+		esac
+	fi
 
-  # Require a query
-  if [[ -z "${SQL_QUERY}" ]]; then
-    log_error "Missing required argument: <SQL query>"
-    echo ""
-    usage
-    exit 2
-  fi
+	# Require a query
+	if [[ -z "${SQL_QUERY}" ]]; then
+		log_error "Missing required argument: <SQL query>"
+		echo ""
+		usage
+		exit 2
+	fi
 
-  fct_execute_query "${SQL_QUERY}"
+	fct_execute_query "${SQL_QUERY}"
 }
 
 # ==============================================================================
@@ -260,8 +260,8 @@ fct_execute() {
 # ==============================================================================
 
 main() {
-  fct_parse_arguments "$@"
-  fct_execute
+	fct_parse_arguments "$@"
+	fct_execute
 }
 
 main "$@"

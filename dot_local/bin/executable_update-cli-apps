@@ -33,52 +33,52 @@ set -euo pipefail
 # ==============================================================================
 
 fct_ansi() {
-  local code="${1}"
-  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
-    printf '\033[%sm' "${code}"
-  fi
+	local code="${1}"
+	if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+		printf '\033[%sm' "${code}"
+	fi
 }
 
 log_info() {
-  local reset=""
-  local prefix=""
-  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
-    prefix="$(fct_ansi '32')"
-    reset="$(fct_ansi '0')"
-  fi
-  printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
+	local reset=""
+	local prefix=""
+	if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+		prefix="$(fct_ansi '32')"
+		reset="$(fct_ansi '0')"
+	fi
+	printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
 }
 
 log_warn() {
-  local reset=""
-  local prefix=""
-  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
-    prefix="$(fct_ansi '33')"
-    reset="$(fct_ansi '0')"
-  fi
-  printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
+	local reset=""
+	local prefix=""
+	if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+		prefix="$(fct_ansi '33')"
+		reset="$(fct_ansi '0')"
+	fi
+	printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
 }
 
 log_error() {
-  local reset=""
-  local prefix=""
-  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
-    prefix="$(fct_ansi '31')"
-    reset="$(fct_ansi '0')"
-  fi
-  printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
+	local reset=""
+	local prefix=""
+	if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+		prefix="$(fct_ansi '31')"
+		reset="$(fct_ansi '0')"
+	fi
+	printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
 }
 
 log_debug() {
-  if [[ "${VERBOSE}" -eq 1 ]]; then
-    local reset=""
-    local prefix=""
-    if [[ -t 2 && -z "${NO_COLOR}" ]]; then
-      prefix="$(fct_ansi '36')"
-      reset="$(fct_ansi '0')"
-    fi
-    printf '%s[DEBUG] %s%s\n' "${prefix}" "$*" "${reset}" >&2
-  fi
+	if [[ "${VERBOSE}" -eq 1 ]]; then
+		local reset=""
+		local prefix=""
+		if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+			prefix="$(fct_ansi '36')"
+			reset="$(fct_ansi '0')"
+		fi
+		printf '%s[DEBUG] %s%s\n' "${prefix}" "$*" "${reset}" >&2
+	fi
 }
 
 # ==============================================================================
@@ -86,7 +86,7 @@ log_debug() {
 # ==============================================================================
 
 usage() {
-  cat << EOF
+	cat <<EOF
 ${SCRIPT_NAME} v${SCRIPT_VERSION}
 ${SCRIPT_DESCRIPTION}
 Author: ${SCRIPT_AUTHOR}
@@ -120,40 +120,40 @@ EOF
 # ==============================================================================
 
 fct_parse_arguments() {
-  while [[ $# -gt 0 ]]; do
-    case "$1" in
-      -h | --help)
-        usage
-        exit 0
-        ;;
-      -V | --version)
-        printf '%s\n' "${SCRIPT_NAME} v${SCRIPT_VERSION}"
-        exit 0
-        ;;
-      -v | --verbose)
-        VERBOSE=1
-        shift
-        ;;
-      -n | --dry-run)
-        DRY_RUN=1
-        shift
-        ;;
-      --no-color)
-        NO_COLOR="1"
-        shift
-        ;;
-      -*)
-        log_error "Unknown option: $1"
-        usage
-        exit 2
-        ;;
-      *)
-        log_error "Unexpected argument: $1"
-        usage
-        exit 2
-        ;;
-    esac
-  done
+	while [[ $# -gt 0 ]]; do
+		case "$1" in
+		-h | --help)
+			usage
+			exit 0
+			;;
+		-V | --version)
+			printf '%s\n' "${SCRIPT_NAME} v${SCRIPT_VERSION}"
+			exit 0
+			;;
+		-v | --verbose)
+			VERBOSE=1
+			shift
+			;;
+		-n | --dry-run)
+			DRY_RUN=1
+			shift
+			;;
+		--no-color)
+			NO_COLOR="1"
+			shift
+			;;
+		-*)
+			log_error "Unknown option: $1"
+			usage
+			exit 2
+			;;
+		*)
+			log_error "Unexpected argument: $1"
+			usage
+			exit 2
+			;;
+		esac
+	done
 }
 
 # ==============================================================================
@@ -161,81 +161,81 @@ fct_parse_arguments() {
 # ==============================================================================
 
 fct_run_update() {
-  local name="${1}"
-  shift
-  local cmd=("$@")
+	local name="${1}"
+	shift
+	local cmd=("$@")
 
-  if [[ "${DRY_RUN}" -eq 1 ]]; then
-    log_info "[DRY-RUN] Would run: ${cmd[*]}"
-    return 0
-  fi
+	if [[ "${DRY_RUN}" -eq 1 ]]; then
+		log_info "[DRY-RUN] Would run: ${cmd[*]}"
+		return 0
+	fi
 
-  log_debug "Running: ${cmd[*]}"
-  if "${cmd[@]}" > /dev/null 2>&1; then
-    echo "✓ ${name}"
-  else
-    echo "✗ ${name} failed"
-  fi
+	log_debug "Running: ${cmd[*]}"
+	if "${cmd[@]}" >/dev/null 2>&1; then
+		echo "✓ ${name}"
+	else
+		echo "✗ ${name} failed"
+	fi
 }
 
 fct_execute_updates() {
-  log_info "Starting CLI tools update in parallel..."
+	log_info "Starting CLI tools update in parallel..."
 
-  local pids=()
+	local pids=()
 
-  # Brew upgrades
-  fct_run_update "codex (brew)" brew upgrade codex &
-  pids+=($!)
+	# Brew upgrades
+	fct_run_update "codex (brew)" brew upgrade codex &
+	pids+=($!)
 
-  fct_run_update "uv (brew)" brew upgrade uv &
-  pids+=($!)
+	fct_run_update "uv (brew)" brew upgrade uv &
+	pids+=($!)
 
-  # update-bin tools
-  local update_bin_tools=(gemini openspec kilocode gh repomix)
-  for tool in "${update_bin_tools[@]}"; do
-    fct_run_update "${tool} (update-bin)" update-bin "${tool}" &
-    pids+=($!)
-  done
+	# update-bin tools
+	local update_bin_tools=(gemini openspec kilocode gh repomix)
+	for tool in "${update_bin_tools[@]}"; do
+		fct_run_update "${tool} (update-bin)" update-bin "${tool}" &
+		pids+=($!)
+	done
 
-  # Claude (install script)
-  fct_run_update "claude (install.sh)" bash -c 'curl -fsSL https://claude.ai/install.sh | bash' &
-  pids+=($!)
+	# Claude (install script)
+	fct_run_update "claude (install.sh)" bash -c 'curl -fsSL https://claude.ai/install.sh | bash' &
+	pids+=($!)
 
-  # btca (bun)
-  fct_run_update "btca (bun)" bash -c 'bun add -g btca opencode-ai && btca' &
-  pids+=($!)
+	# btca (bun)
+	fct_run_update "btca (bun)" bash -c 'bun add -g btca opencode-ai && btca' &
+	pids+=($!)
 
-  # UV tools
-  fct_run_update "specify-cli (uv)" uv tool install specify-cli --force --from "git+https://github.com/github/spec-kit.git" &
-  pids+=($!)
+	# UV tools
+	fct_run_update "specify-cli (uv)" uv tool install specify-cli --force --from "git+https://github.com/github/spec-kit.git" &
+	pids+=($!)
 
-  fct_run_update "specify check" specify check &
-  pids+=($!)
+	fct_run_update "specify check" specify check &
+	pids+=($!)
 
-  fct_run_update "playwright (uv)" uv tool upgrade playwright &
-  pids+=($!)
+	fct_run_update "playwright (uv)" uv tool upgrade playwright &
+	pids+=($!)
 
-  fct_run_update "all uv tools" uv tool upgrade --all &
-  pids+=($!)
+	fct_run_update "all uv tools" uv tool upgrade --all &
+	pids+=($!)
 
-  #  agent-browser
-  fct_run_update "agent-browser" npm install -g agent-browser &
-  pids+=($!)
+	#  agent-browser
+	fct_run_update "agent-browser" npm install -g agent-browser &
+	pids+=($!)
 
-  # Amp
-  fct_run_update "amp" amp update &
-  pids+=($!)
+	# Amp
+	fct_run_update "amp" amp update &
+	pids+=($!)
 
-  # Bun
-  fct_run_update "opencode-ai (bun)" bun add -g opencode-ai &
-  pids+=($!)
+	# Bun
+	fct_run_update "opencode-ai (bun)" bun add -g opencode-ai &
+	pids+=($!)
 
-  log_info "Updates running in parallel (${#pids[@]} jobs)... waiting for completion..."
+	log_info "Updates running in parallel (${#pids[@]} jobs)... waiting for completion..."
 
-  # Wait for all background jobs
-  wait 2>/dev/null || true
+	# Wait for all background jobs
+	wait 2>/dev/null || true
 
-  log_info "All CLI app updates completed!"
+	log_info "All CLI app updates completed!"
 }
 
 # ==============================================================================
@@ -243,8 +243,8 @@ fct_execute_updates() {
 # ==============================================================================
 
 main() {
-  fct_parse_arguments "$@"
-  fct_execute_updates
+	fct_parse_arguments "$@"
+	fct_execute_updates
 }
 
 main "$@"

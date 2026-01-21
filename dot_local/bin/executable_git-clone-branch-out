@@ -33,39 +33,39 @@ set -euo pipefail
 # ==============================================================================
 
 fct_ansi() {
-  local code="${1}"
-  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
-    printf '\033[%sm' "${code}"
-  fi
+	local code="${1}"
+	if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+		printf '\033[%sm' "${code}"
+	fi
 }
 
 log_info() {
-  local reset="" prefix=""
-  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
-    prefix="$(fct_ansi '32')"
-    reset="$(fct_ansi '0')"
-  fi
-  printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
+	local reset="" prefix=""
+	if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+		prefix="$(fct_ansi '32')"
+		reset="$(fct_ansi '0')"
+	fi
+	printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
 }
 
 log_error() {
-  local reset="" prefix=""
-  if [[ -t 2 && -z "${NO_COLOR}" ]]; then
-    prefix="$(fct_ansi '31')"
-    reset="$(fct_ansi '0')"
-  fi
-  printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
+	local reset="" prefix=""
+	if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+		prefix="$(fct_ansi '31')"
+		reset="$(fct_ansi '0')"
+	fi
+	printf '%s%s%s\n' "${prefix}" "$*" "${reset}" >&2
 }
 
 log_debug() {
-  if [[ "${VERBOSE}" -eq 1 ]]; then
-    local reset="" prefix=""
-    if [[ -t 2 && -z "${NO_COLOR}" ]]; then
-      prefix="$(fct_ansi '36')"
-      reset="$(fct_ansi '0')"
-    fi
-    printf '%s[DEBUG] %s%s\n' "${prefix}" "$*" "${reset}" >&2
-  fi
+	if [[ "${VERBOSE}" -eq 1 ]]; then
+		local reset="" prefix=""
+		if [[ -t 2 && -z "${NO_COLOR}" ]]; then
+			prefix="$(fct_ansi '36')"
+			reset="$(fct_ansi '0')"
+		fi
+		printf '%s[DEBUG] %s%s\n' "${prefix}" "$*" "${reset}" >&2
+	fi
 }
 
 # ==============================================================================
@@ -73,7 +73,7 @@ log_debug() {
 # ==============================================================================
 
 usage() {
-  cat << EOF
+	cat <<EOF
 ${SCRIPT_NAME} v${SCRIPT_VERSION}
 ${SCRIPT_DESCRIPTION}
 Author: ${SCRIPT_AUTHOR}
@@ -112,49 +112,49 @@ EOF
 BRANCH_NAME=""
 
 fct_parse_arguments() {
-  local positional=()
+	local positional=()
 
-  while [[ $# -gt 0 ]]; do
-    case "$1" in
-      -h | --help)
-        usage
-        exit 0
-        ;;
-      -V | --version)
-        printf '%s\n' "${SCRIPT_NAME} v${SCRIPT_VERSION}"
-        exit 0
-        ;;
-      -v | --verbose)
-        VERBOSE=1
-        shift
-        ;;
-      -n | --dry-run)
-        DRY_RUN=1
-        shift
-        ;;
-      --no-color)
-        NO_COLOR="1"
-        shift
-        ;;
-      -*)
-        log_error "Unknown option: $1"
-        usage
-        exit 2
-        ;;
-      *)
-        positional+=("$1")
-        shift
-        ;;
-    esac
-  done
+	while [[ $# -gt 0 ]]; do
+		case "$1" in
+		-h | --help)
+			usage
+			exit 0
+			;;
+		-V | --version)
+			printf '%s\n' "${SCRIPT_NAME} v${SCRIPT_VERSION}"
+			exit 0
+			;;
+		-v | --verbose)
+			VERBOSE=1
+			shift
+			;;
+		-n | --dry-run)
+			DRY_RUN=1
+			shift
+			;;
+		--no-color)
+			NO_COLOR="1"
+			shift
+			;;
+		-*)
+			log_error "Unknown option: $1"
+			usage
+			exit 2
+			;;
+		*)
+			positional+=("$1")
+			shift
+			;;
+		esac
+	done
 
-  if [[ ${#positional[@]} -eq 0 ]]; then
-    log_error "Missing required argument: <branch-name>"
-    usage
-    exit 2
-  fi
+	if [[ ${#positional[@]} -eq 0 ]]; then
+		log_error "Missing required argument: <branch-name>"
+		usage
+		exit 2
+	fi
 
-  BRANCH_NAME="${positional[0]}"
+	BRANCH_NAME="${positional[0]}"
 }
 
 # ==============================================================================
@@ -162,68 +162,68 @@ fct_parse_arguments() {
 # ==============================================================================
 
 fct_execute() {
-  local repo_name repo_url clone_path base_branch
+	local repo_name repo_url clone_path base_branch
 
-  # Verify we're in a git repo
-  if ! git rev-parse --git-dir >/dev/null 2>&1; then
-    log_error "Not in a git repository"
-    exit 1
-  fi
+	# Verify we're in a git repo
+	if ! git rev-parse --git-dir >/dev/null 2>&1; then
+		log_error "Not in a git repository"
+		exit 1
+	fi
 
-  repo_name="$(basename "$PWD")"
-  repo_url="$(git remote get-url origin 2>/dev/null)" || {
-    log_error "No origin remote found"
-    exit 1
-  }
-  clone_path="../${repo_name}-${BRANCH_NAME}"
+	repo_name="$(basename "$PWD")"
+	repo_url="$(git remote get-url origin 2>/dev/null)" || {
+		log_error "No origin remote found"
+		exit 1
+	}
+	clone_path="../${repo_name}-${BRANCH_NAME}"
 
-  log_debug "Branch name: ${BRANCH_NAME}"
-  log_debug "Repo name: ${repo_name}"
-  log_debug "Clone path: ${clone_path}"
+	log_debug "Branch name: ${BRANCH_NAME}"
+	log_debug "Repo name: ${repo_name}"
+	log_debug "Clone path: ${clone_path}"
 
-  # Check if clone path already exists
-  if [[ -d "${clone_path}" ]]; then
-    log_error "Directory already exists: ${clone_path}"
-    exit 1
-  fi
+	# Check if clone path already exists
+	if [[ -d "${clone_path}" ]]; then
+		log_error "Directory already exists: ${clone_path}"
+		exit 1
+	fi
 
-  # Select base branch via fzf (interactive mode only)
-  if [[ -t 0 ]]; then
-    base_branch="$(git branch -r --format='%(refname:short)' | sed 's|origin/||' | fzf --height=20 --prompt='Select base branch: ' --query="main" 2>/dev/null)" || true
-  fi
+	# Select base branch via fzf (interactive mode only)
+	if [[ -t 0 ]]; then
+		base_branch="$(git branch -r --format='%(refname:short)' | sed 's|origin/||' | fzf --height=20 --prompt='Select base branch: ' --query="main" 2>/dev/null)" || true
+	fi
 
-  # Default to main if fzf cancelled or non-interactive
-  if [[ -z "${base_branch:-}" ]]; then
-    base_branch="main"
-  fi
+	# Default to main if fzf cancelled or non-interactive
+	if [[ -z "${base_branch:-}" ]]; then
+		base_branch="main"
+	fi
 
-  log_debug "Base branch: ${base_branch}"
+	log_debug "Base branch: ${base_branch}"
 
-  if [[ "${DRY_RUN}" -eq 1 ]]; then
-    log_info "[DRY-RUN] Would execute:"
-    log_info "  git clone --reference $PWD ${repo_url} ${clone_path}"
-    log_info "  git checkout ${base_branch}"
-    log_info "  git checkout -b sj/${BRANCH_NAME}"
-    log_info "Clone would be at: ${clone_path}"
-    return 0
-  fi
+	if [[ "${DRY_RUN}" -eq 1 ]]; then
+		log_info "[DRY-RUN] Would execute:"
+		log_info "  git clone --reference $PWD ${repo_url} ${clone_path}"
+		log_info "  git checkout ${base_branch}"
+		log_info "  git checkout -b sj/${BRANCH_NAME}"
+		log_info "Clone would be at: ${clone_path}"
+		return 0
+	fi
 
-  log_info "Creating clone at ${clone_path} from ${base_branch}..."
+	log_info "Creating clone at ${clone_path} from ${base_branch}..."
 
-  # Clone with reference to current repo for speed/space savings
-  git clone --reference "$PWD" "${repo_url}" "${clone_path}"
+	# Clone with reference to current repo for speed/space savings
+	git clone --reference "$PWD" "${repo_url}" "${clone_path}"
 
-  # Set up branch in the clone
-  (
-    cd "${clone_path}"
-    git checkout "${base_branch}"
-    git checkout -b "sj/${BRANCH_NAME}"
-  )
+	# Set up branch in the clone
+	(
+		cd "${clone_path}"
+		git checkout "${base_branch}"
+		git checkout -b "sj/${BRANCH_NAME}"
+	)
 
-  log_info "Created clone at ${clone_path} on branch sj/${BRANCH_NAME} (based on ${base_branch})"
+	log_info "Created clone at ${clone_path} on branch sj/${BRANCH_NAME} (based on ${base_branch})"
 
-  # Output clone path to stdout (for wrapper to cd into)
-  printf '%s\n' "${clone_path}"
+	# Output clone path to stdout (for wrapper to cd into)
+	printf '%s\n' "${clone_path}"
 }
 
 # ==============================================================================
@@ -231,8 +231,8 @@ fct_execute() {
 # ==============================================================================
 
 main() {
-  fct_parse_arguments "$@"
-  fct_execute
+	fct_parse_arguments "$@"
+	fct_execute
 }
 
 main "$@"

@@ -22,230 +22,230 @@ DRY_RUN=0
 # Helpers
 # ------------------------------------------------------------
 to_kebab() {
-  echo "$1" | tr '[:upper:]' '[:lower:]' | tr ' _' '-' | sed 's/[^a-z0-9-]//g'
+	echo "$1" | tr '[:upper:]' '[:lower:]' | tr ' _' '-' | sed 's/[^a-z0-9-]//g'
 }
 
 get_current_feature() {
-  if [[ -f "$STATE_FILE" ]]; then
-    cat "$STATE_FILE"
-  else
-    echo ""
-  fi
+	if [[ -f "$STATE_FILE" ]]; then
+		cat "$STATE_FILE"
+	else
+		echo ""
+	fi
 }
 
 require_feature() {
-  local feature
-  feature=$(get_current_feature)
-  if [[ -z "$feature" ]]; then
-    echo "Error: No active feature. Run 'setup' first."
-    exit 1
-  fi
-  echo "$feature"
+	local feature
+	feature=$(get_current_feature)
+	if [[ -z "$feature" ]]; then
+		echo "Error: No active feature. Run 'setup' first."
+		exit 1
+	fi
+	echo "$feature"
 }
 
 # ------------------------------------------------------------
 # Commands
 # ------------------------------------------------------------
 cmd_setup() {
-  local num_alts="${1:-3}"
+	local num_alts="${1:-3}"
 
-  local raw_name
-  if [[ "$DRY_RUN" -eq 1 ]]; then
-    raw_name="example-feature"
-  else
-    read -rp "Feature name: " raw_name
-  fi
-  
-  if [[ -z "$raw_name" ]]; then
-    echo "Error: Feature name cannot be empty."
-    exit 1
-  fi
+	local raw_name
+	if [[ "$DRY_RUN" -eq 1 ]]; then
+		raw_name="example-feature"
+	else
+		read -rp "Feature name: " raw_name
+	fi
 
-  local feature
-  feature=$(to_kebab "$raw_name")
+	if [[ -z "$raw_name" ]]; then
+		echo "Error: Feature name cannot be empty."
+		exit 1
+	fi
 
-  echo ""
-  echo "Feature:      $feature"
-  echo "Alternatives: $num_alts"
-  echo "Directory:    $DEVTREE_DIR"
-  echo ""
+	local feature
+	feature=$(to_kebab "$raw_name")
 
-  if [[ "$DRY_RUN" -eq 1 ]]; then
-    echo "[DRY-RUN] Would execute:"
-    echo "  mkdir -p $DEVTREE_DIR"
-    echo "  echo \"$feature:$num_alts\" > $STATE_FILE"
-    for i in $(seq 1 "$num_alts"); do
-      local dir="$DEVTREE_DIR/${feature}-alt${i}"
-      echo "  git clone --reference \"$MAIN_REPO\" $REPO_URL $dir"
-      echo "  cd $dir && bun install"
-      echo "  git checkout -b ${feature}-alt${i}"
-    done
-    return 0
-  fi
+	echo ""
+	echo "Feature:      $feature"
+	echo "Alternatives: $num_alts"
+	echo "Directory:    $DEVTREE_DIR"
+	echo ""
 
-  mkdir -p "$DEVTREE_DIR"
-  echo "$feature:$num_alts" > "$STATE_FILE"
+	if [[ "$DRY_RUN" -eq 1 ]]; then
+		echo "[DRY-RUN] Would execute:"
+		echo "  mkdir -p $DEVTREE_DIR"
+		echo "  echo \"$feature:$num_alts\" > $STATE_FILE"
+		for i in $(seq 1 "$num_alts"); do
+			local dir="$DEVTREE_DIR/${feature}-alt${i}"
+			echo "  git clone --reference \"$MAIN_REPO\" $REPO_URL $dir"
+			echo "  cd $dir && bun install"
+			echo "  git checkout -b ${feature}-alt${i}"
+		done
+		return 0
+	fi
 
-  local first_dir="$DEVTREE_DIR/${feature}-alt1"
+	mkdir -p "$DEVTREE_DIR"
+	echo "$feature:$num_alts" >"$STATE_FILE"
 
-  # Clone first alt from remote
-  echo "[1/$num_alts] Cloning to $first_dir..."
-  git clone --depth 1 --reference "$MAIN_REPO" "$REPO_URL" "$first_dir"
-  (
-    cd "$first_dir"
-    echo "[1/$num_alts] Installing dependencies..."
-    bun install
-    # Copy Astro cache from main repo if available
-    if [[ -d "$MAIN_REPO/.astro" ]]; then
-      echo "[1/$num_alts] Copying .astro cache..."
-      cp -r "$MAIN_REPO/.astro" .
-    fi
-    if [[ -d "$MAIN_REPO/.astro-cache" ]]; then
-      echo "[1/$num_alts] Copying .astro-cache..."
-      cp -r "$MAIN_REPO/.astro-cache" .
-    fi
-  )
-  echo ""
+	local first_dir="$DEVTREE_DIR/${feature}-alt1"
 
-  # Copy alt1 for remaining alts (already has deps + cache)
-  for i in $(seq 2 "$num_alts"); do
-    local dir="$DEVTREE_DIR/${feature}-alt${i}"
-    echo "[alt${i}] Copying alt1 -> alt${i}..."
-    cp -r "$first_dir" "$dir"
-  done
-  echo ""
+	# Clone first alt from remote
+	echo "[1/$num_alts] Cloning to $first_dir..."
+	git clone --depth 1 --reference "$MAIN_REPO" "$REPO_URL" "$first_dir"
+	(
+		cd "$first_dir"
+		echo "[1/$num_alts] Installing dependencies..."
+		bun install
+		# Copy Astro cache from main repo if available
+		if [[ -d "$MAIN_REPO/.astro" ]]; then
+			echo "[1/$num_alts] Copying .astro cache..."
+			cp -r "$MAIN_REPO/.astro" .
+		fi
+		if [[ -d "$MAIN_REPO/.astro-cache" ]]; then
+			echo "[1/$num_alts] Copying .astro-cache..."
+			cp -r "$MAIN_REPO/.astro-cache" .
+		fi
+	)
+	echo ""
 
-  # Create branches in all alts
-  for i in $(seq 1 "$num_alts"); do
-    local dir="$DEVTREE_DIR/${feature}-alt${i}"
-    (
-      cd "$dir"
-      echo "[branch] Creating ${feature}-alt${i}..."
-      git checkout -b "${feature}-alt${i}"
-    )
-  done
+	# Copy alt1 for remaining alts (already has deps + cache)
+	for i in $(seq 2 "$num_alts"); do
+		local dir="$DEVTREE_DIR/${feature}-alt${i}"
+		echo "[alt${i}] Copying alt1 -> alt${i}..."
+		cp -r "$first_dir" "$dir"
+	done
+	echo ""
 
-  echo "Setup complete!"
-  echo ""
-  echo "Time to cook!"
-  for i in $(seq 1 "$num_alts"); do
-    echo "  cd $DEVTREE_DIR/${feature}-alt${i}"
-  done
+	# Create branches in all alts
+	for i in $(seq 1 "$num_alts"); do
+		local dir="$DEVTREE_DIR/${feature}-alt${i}"
+		(
+			cd "$dir"
+			echo "[branch] Creating ${feature}-alt${i}..."
+			git checkout -b "${feature}-alt${i}"
+		)
+	done
+
+	echo "Setup complete!"
+	echo ""
+	echo "Time to cook!"
+	for i in $(seq 1 "$num_alts"); do
+		echo "  cd $DEVTREE_DIR/${feature}-alt${i}"
+	done
 }
 
 cmd_serve() {
-  local state
-  state=$(require_feature)
-  local feature="${state%%:*}"
-  local num_alts="${state##*:}"
+	local state
+	state=$(require_feature)
+	local feature="${state%%:*}"
+	local num_alts="${state##*:}"
 
-  local mode="${1:-bg}"
+	local mode="${1:-bg}"
 
-  if [[ "$mode" == "print" ]]; then
-    echo "Run these commands in separate terminals:"
-    echo ""
-    for i in $(seq 1 "$num_alts"); do
-      local dir="$DEVTREE_DIR/${feature}-alt${i}"
-      local port=$((BASE_PORT + i))
-      echo "  cd \"$dir\" && bun dev --port $port"
-    done
-    echo ""
-    echo "Ports:"
-    for i in $(seq 1 "$num_alts"); do
-      local port=$((BASE_PORT + i))
-      echo "  alt${i}: http://localhost:${port}"
-    done
-    return
-  fi
+	if [[ "$mode" == "print" ]]; then
+		echo "Run these commands in separate terminals:"
+		echo ""
+		for i in $(seq 1 "$num_alts"); do
+			local dir="$DEVTREE_DIR/${feature}-alt${i}"
+			local port=$((BASE_PORT + i))
+			echo "  cd \"$dir\" && bun dev --port $port"
+		done
+		echo ""
+		echo "Ports:"
+		for i in $(seq 1 "$num_alts"); do
+			local port=$((BASE_PORT + i))
+			echo "  alt${i}: http://localhost:${port}"
+		done
+		return
+	fi
 
-  if [[ "$DRY_RUN" -eq 1 ]]; then
-    echo "[DRY-RUN] Would start dev servers:"
-    for i in $(seq 1 "$num_alts"); do
-      local dir="$DEVTREE_DIR/${feature}-alt${i}"
-      local port=$((BASE_PORT + i))
-      echo "  cd \"$dir\" && bun dev --port $port"
-      echo "  alt${i}: http://localhost:${port}"
-    done
-    return 0
-  fi
+	if [[ "$DRY_RUN" -eq 1 ]]; then
+		echo "[DRY-RUN] Would start dev servers:"
+		for i in $(seq 1 "$num_alts"); do
+			local dir="$DEVTREE_DIR/${feature}-alt${i}"
+			local port=$((BASE_PORT + i))
+			echo "  cd \"$dir\" && bun dev --port $port"
+			echo "  alt${i}: http://localhost:${port}"
+		done
+		return 0
+	fi
 
-  # Background mode
-  echo "Starting dev servers in background..."
-  echo ""
+	# Background mode
+	echo "Starting dev servers in background..."
+	echo ""
 
-  for i in $(seq 1 "$num_alts"); do
-    local dir="$DEVTREE_DIR/${feature}-alt${i}"
-    local port=$((BASE_PORT + i))
-    (cd "$dir" && bun dev --port "$port" > /dev/null 2>&1 &)
-    echo "  alt${i}: http://localhost:${port}"
-  done
+	for i in $(seq 1 "$num_alts"); do
+		local dir="$DEVTREE_DIR/${feature}-alt${i}"
+		local port=$((BASE_PORT + i))
+		(cd "$dir" && bun dev --port "$port" >/dev/null 2>&1 &)
+		echo "  alt${i}: http://localhost:${port}"
+	done
 
-  echo ""
-  echo "To stop all servers:"
-  echo "  $SCRIPT_NAME stop"
+	echo ""
+	echo "To stop all servers:"
+	echo "  $SCRIPT_NAME stop"
 }
 
 cmd_stop() {
-  if [[ "$DRY_RUN" -eq 1 ]]; then
-    echo "[DRY-RUN] Would stop all bun dev servers on ports 4331-4339"
-    return 0
-  fi
+	if [[ "$DRY_RUN" -eq 1 ]]; then
+		echo "[DRY-RUN] Would stop all bun dev servers on ports 4331-4339"
+		return 0
+	fi
 
-  echo "Stopping all bun dev servers on ports 4331-4339..."
-  local count=0
-  for port in $(seq 4331 4339); do
-    if lsof -ti ":$port" > /dev/null 2>&1; then
-      lsof -ti ":$port" | xargs kill -9 2>/dev/null || true
-      ((count++)) || true
-    fi
-  done
+	echo "Stopping all bun dev servers on ports 4331-4339..."
+	local count=0
+	for port in $(seq 4331 4339); do
+		if lsof -ti ":$port" >/dev/null 2>&1; then
+			lsof -ti ":$port" | xargs kill -9 2>/dev/null || true
+			((count++)) || true
+		fi
+	done
 
-  if [[ $count -eq 0 ]]; then
-    echo "No servers were running."
-  else
-    echo "Stopped $count server(s)."
-  fi
+	if [[ $count -eq 0 ]]; then
+		echo "No servers were running."
+	else
+		echo "Stopped $count server(s)."
+	fi
 }
 
 cmd_pr() {
-  local winner="${1:-}"
-  if [[ -z "$winner" ]]; then
-    echo "Error: Specify which alternative won."
-    echo ""
-    echo "Usage: $SCRIPT_NAME pr <alt-number>"
-    echo "Example: $SCRIPT_NAME pr 3"
-    exit 1
-  fi
+	local winner="${1:-}"
+	if [[ -z "$winner" ]]; then
+		echo "Error: Specify which alternative won."
+		echo ""
+		echo "Usage: $SCRIPT_NAME pr <alt-number>"
+		echo "Example: $SCRIPT_NAME pr 3"
+		exit 1
+	fi
 
-  local state
-  state=$(require_feature)
-  local feature="${state%%:*}"
-  local dir="$DEVTREE_DIR/${feature}-alt${winner}"
-  local branch="${feature}-alt${winner}"
+	local state
+	state=$(require_feature)
+	local feature="${state%%:*}"
+	local dir="$DEVTREE_DIR/${feature}-alt${winner}"
+	local branch="${feature}-alt${winner}"
 
-  if [[ ! -d "$dir" ]]; then
-    echo "Error: Directory does not exist: $dir"
-    exit 1
-  fi
+	if [[ ! -d "$dir" ]]; then
+		echo "Error: Directory does not exist: $dir"
+		exit 1
+	fi
 
-  if [[ "$DRY_RUN" -eq 1 ]]; then
-    echo "[DRY-RUN] Would execute:"
-    echo "  cd $dir"
-    echo "  git push -u origin $branch"
-    echo "  gh pr create --title \"$feature\" --body \"...\""
-    return 0
-  fi
+	if [[ "$DRY_RUN" -eq 1 ]]; then
+		echo "[DRY-RUN] Would execute:"
+		echo "  cd $dir"
+		echo "  git push -u origin $branch"
+		echo "  gh pr create --title \"$feature\" --body \"...\""
+		return 0
+	fi
 
-  cd "$dir"
+	cd "$dir"
 
-  echo "Pushing branch: $branch"
-  git push -u origin "$branch"
+	echo "Pushing branch: $branch"
+	git push -u origin "$branch"
 
-  echo ""
-  echo "Creating pull request..."
-  gh pr create \
-    --title "$feature" \
-    --body "## Summary
+	echo ""
+	echo "Creating pull request..."
+	gh pr create \
+		--title "$feature" \
+		--body "## Summary
 
 - Feature: $feature
 - Selected alternative: alt${winner}
@@ -255,100 +255,100 @@ cmd_pr() {
 <!-- Describe what this alternative does -->
 "
 
-  echo ""
-  echo "PR created! After it's merged, run:"
-  echo "  $SCRIPT_NAME cleanup"
+	echo ""
+	echo "PR created! After it's merged, run:"
+	echo "  $SCRIPT_NAME cleanup"
 }
 
 cmd_cleanup() {
-  local state
-  state=$(require_feature)
-  local feature="${state%%:*}"
-  local num_alts="${state##*:}"
+	local state
+	state=$(require_feature)
+	local feature="${state%%:*}"
+	local num_alts="${state##*:}"
 
-  echo "This will:"
-  echo "  1. Stop all running dev servers"
-  echo "  2. Delete ALL $num_alts alternatives for: $feature"
-  echo ""
-  echo "Directories to be deleted:"
-  for i in $(seq 1 "$num_alts"); do
-    echo "  $DEVTREE_DIR/${feature}-alt${i}"
-  done
-  echo ""
+	echo "This will:"
+	echo "  1. Stop all running dev servers"
+	echo "  2. Delete ALL $num_alts alternatives for: $feature"
+	echo ""
+	echo "Directories to be deleted:"
+	for i in $(seq 1 "$num_alts"); do
+		echo "  $DEVTREE_DIR/${feature}-alt${i}"
+	done
+	echo ""
 
-  if [[ "$DRY_RUN" -eq 1 ]]; then
-    echo "[DRY-RUN] Would execute:"
-    echo "  Stop servers on ports 4331-4339"
-    for i in $(seq 1 "$num_alts"); do
-      echo "  rm -rf $DEVTREE_DIR/${feature}-alt${i}"
-    done
-    echo "  rm -f $STATE_FILE"
-    return 0
-  fi
+	if [[ "$DRY_RUN" -eq 1 ]]; then
+		echo "[DRY-RUN] Would execute:"
+		echo "  Stop servers on ports 4331-4339"
+		for i in $(seq 1 "$num_alts"); do
+			echo "  rm -rf $DEVTREE_DIR/${feature}-alt${i}"
+		done
+		echo "  rm -f $STATE_FILE"
+		return 0
+	fi
 
-  read -rp "Are you sure? (y/N): " confirm
-  if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
-    echo "Aborted."
-    exit 0
-  fi
+	read -rp "Are you sure? (y/N): " confirm
+	if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
+		echo "Aborted."
+		exit 0
+	fi
 
-  echo ""
+	echo ""
 
-  # Stop servers first
-  cmd_stop
+	# Stop servers first
+	cmd_stop
 
-  echo ""
+	echo ""
 
-  # Delete directories
-  for i in $(seq 1 "$num_alts"); do
-    local dir="$DEVTREE_DIR/${feature}-alt${i}"
-    if [[ -d "$dir" ]]; then
-      echo "Removing $dir..."
-      rm -rf "$dir"
-    fi
-  done
+	# Delete directories
+	for i in $(seq 1 "$num_alts"); do
+		local dir="$DEVTREE_DIR/${feature}-alt${i}"
+		if [[ -d "$dir" ]]; then
+			echo "Removing $dir..."
+			rm -rf "$dir"
+		fi
+	done
 
-  rm -f "$STATE_FILE"
+	rm -f "$STATE_FILE"
 
-  echo ""
-  echo "Cleanup complete."
+	echo ""
+	echo "Cleanup complete."
 }
 
 cmd_status() {
-  local state
-  state=$(get_current_feature)
+	local state
+	state=$(get_current_feature)
 
-  if [[ -z "$state" ]]; then
-    echo "No active feature."
-    echo ""
-    echo "Run '$SCRIPT_NAME setup' to start."
-    return
-  fi
+	if [[ -z "$state" ]]; then
+		echo "No active feature."
+		echo ""
+		echo "Run '$SCRIPT_NAME setup' to start."
+		return
+	fi
 
-  local feature="${state%%:*}"
-  local num_alts="${state##*:}"
+	local feature="${state%%:*}"
+	local num_alts="${state##*:}"
 
-  echo "Feature:      $feature"
-  echo "Alternatives: $num_alts"
-  echo "Directory:    $DEVTREE_DIR"
-  echo ""
+	echo "Feature:      $feature"
+	echo "Alternatives: $num_alts"
+	echo "Directory:    $DEVTREE_DIR"
+	echo ""
 
-  for i in $(seq 1 "$num_alts"); do
-    local dir="$DEVTREE_DIR/${feature}-alt${i}"
-    if [[ -d "$dir" ]]; then
-      local branch
-      branch=$(cd "$dir" && git branch --show-current)
-      local status_marker=" "
-      echo "  [$status_marker] alt${i}: $branch"
-      echo "       $dir"
-    else
-      echo "  [x] alt${i}: MISSING"
-    fi
-  done
+	for i in $(seq 1 "$num_alts"); do
+		local dir="$DEVTREE_DIR/${feature}-alt${i}"
+		if [[ -d "$dir" ]]; then
+			local branch
+			branch=$(cd "$dir" && git branch --show-current)
+			local status_marker=" "
+			echo "  [$status_marker] alt${i}: $branch"
+			echo "       $dir"
+		else
+			echo "  [x] alt${i}: MISSING"
+		fi
+	done
 }
 
 cmd_help() {
-  cat <<EOF
+	cat <<EOF
 $SCRIPT_NAME v$VERSION
 
 Parallel feature development workflow for pascalandy-blog-paper.
@@ -424,60 +424,60 @@ EOF
 # Main
 # ------------------------------------------------------------
 main() {
-  # Parse global flags first
-  while [[ $# -gt 0 ]]; do
-    case "$1" in
-      -n|--dry-run)
-        DRY_RUN=1
-        shift
-        ;;
-      *)
-        break
-        ;;
-    esac
-  done
+	# Parse global flags first
+	while [[ $# -gt 0 ]]; do
+		case "$1" in
+		-n | --dry-run)
+			DRY_RUN=1
+			shift
+			;;
+		*)
+			break
+			;;
+		esac
+	done
 
-  case "${1:-}" in
-    --version)
-      echo "$SCRIPT_NAME v$VERSION"
-      exit 0
-      ;;
-    --help|help)
-      cmd_help
-      exit 0
-      ;;
-    setup)
-      shift
-      cmd_setup "$@"
-      ;;
-    serve)
-      shift
-      cmd_serve "$@"
-      ;;
-    stop)
-      cmd_stop
-      ;;
-    pr)
-      shift
-      cmd_pr "$@"
-      ;;
-    cleanup)
-      cmd_cleanup
-      ;;
-    status)
-      cmd_status
-      ;;
-    "")
-      cmd_help
-      exit 0
-      ;;
-    *)
-      echo "Error: Unknown command '$1'"
-      echo ""
-      echo "Run '$SCRIPT_NAME --help' for usage."
-      exit 1
-      ;;
-  esac
+	case "${1:-}" in
+	--version)
+		echo "$SCRIPT_NAME v$VERSION"
+		exit 0
+		;;
+	--help | help)
+		cmd_help
+		exit 0
+		;;
+	setup)
+		shift
+		cmd_setup "$@"
+		;;
+	serve)
+		shift
+		cmd_serve "$@"
+		;;
+	stop)
+		cmd_stop
+		;;
+	pr)
+		shift
+		cmd_pr "$@"
+		;;
+	cleanup)
+		cmd_cleanup
+		;;
+	status)
+		cmd_status
+		;;
+	"")
+		cmd_help
+		exit 0
+		;;
+	*)
+		echo "Error: Unknown command '$1'"
+		echo ""
+		echo "Run '$SCRIPT_NAME --help' for usage."
+		exit 1
+		;;
+	esac
 }
 
 main "$@"

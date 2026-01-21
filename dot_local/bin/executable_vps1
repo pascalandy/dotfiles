@@ -21,12 +21,12 @@ SSH_HOST="REDACTED_USER@REDACTED_HOST"
 THEME_NAME="purple/violet"
 
 # Color codes (OSC escape sequences)
-BG_COLOR="#1a0d1a"      # deep purple-black
-FG_COLOR="#e8d4f8"      # lavender
-CURSOR_COLOR="#bb9af7"  # soft violet
-MAGENTA="#c792ea"       # orchid
-BLUE="#7c3aed"          # purple
-CYAN="#a78bfa"          # violet
+BG_COLOR="#1a0d1a"     # deep purple-black
+FG_COLOR="#e8d4f8"     # lavender
+CURSOR_COLOR="#bb9af7" # soft violet
+MAGENTA="#c792ea"      # orchid
+BLUE="#7c3aed"         # purple
+CYAN="#a78bfa"         # violet
 
 # ==============================================================================
 # Runtime options
@@ -41,13 +41,13 @@ NO_COLOR="${NO_COLOR:-}"
 # ==============================================================================
 
 log_info() {
-  printf '%s\n' "$*" >&2
+	printf '%s\n' "$*" >&2
 }
 
 log_debug() {
-  if [[ "${VERBOSE}" -eq 1 ]]; then
-    printf '[DEBUG] %s\n' "$*" >&2
-  fi
+	if [[ "${VERBOSE}" -eq 1 ]]; then
+		printf '[DEBUG] %s\n' "$*" >&2
+	fi
 }
 
 # ==============================================================================
@@ -55,7 +55,7 @@ log_debug() {
 # ==============================================================================
 
 usage() {
-  cat << EOF
+	cat <<EOF
 ${SCRIPT_NAME} v${SCRIPT_VERSION}
 ${SCRIPT_DESCRIPTION}
 Author: ${SCRIPT_AUTHOR}
@@ -88,39 +88,39 @@ EOF
 SSH_ARGS=()
 
 fct_parse_arguments() {
-  while [[ $# -gt 0 ]]; do
-    case "$1" in
-      -h | --help)
-        usage
-        exit 0
-        ;;
-      -V | --version)
-        printf '%s\n' "${SCRIPT_NAME} v${SCRIPT_VERSION}"
-        exit 0
-        ;;
-      -v | --verbose)
-        VERBOSE=1
-        shift
-        ;;
-      -n | --dry-run)
-        DRY_RUN=1
-        shift
-        ;;
-      --no-color)
-        NO_COLOR="1"
-        shift
-        ;;
-      --)
-        shift
-        SSH_ARGS+=("$@")
-        break
-        ;;
-      *)
-        SSH_ARGS+=("$1")
-        shift
-        ;;
-    esac
-  done
+	while [[ $# -gt 0 ]]; do
+		case "$1" in
+		-h | --help)
+			usage
+			exit 0
+			;;
+		-V | --version)
+			printf '%s\n' "${SCRIPT_NAME} v${SCRIPT_VERSION}"
+			exit 0
+			;;
+		-v | --verbose)
+			VERBOSE=1
+			shift
+			;;
+		-n | --dry-run)
+			DRY_RUN=1
+			shift
+			;;
+		--no-color)
+			NO_COLOR="1"
+			shift
+			;;
+		--)
+			shift
+			SSH_ARGS+=("$@")
+			break
+			;;
+		*)
+			SSH_ARGS+=("$1")
+			shift
+			;;
+		esac
+	done
 }
 
 # ==============================================================================
@@ -128,28 +128,28 @@ fct_parse_arguments() {
 # ==============================================================================
 
 fct_set_colors() {
-  if [[ -n "${NO_COLOR}" ]]; then
-    return 0
-  fi
-  
-  printf '\e]11;%s\a' "${BG_COLOR}"      # background
-  printf '\e]10;%s\a' "${FG_COLOR}"      # foreground
-  printf '\e]12;%s\a' "${CURSOR_COLOR}"  # cursor
-  printf '\e]4;5;%s\a' "${MAGENTA}"      # magenta
-  printf '\e]4;4;%s\a' "${BLUE}"         # blue
-  printf '\e]4;6;%s\a' "${CYAN}"         # cyan
+	if [[ -n "${NO_COLOR}" ]]; then
+		return 0
+	fi
+
+	printf '\e]11;%s\a' "${BG_COLOR}"     # background
+	printf '\e]10;%s\a' "${FG_COLOR}"     # foreground
+	printf '\e]12;%s\a' "${CURSOR_COLOR}" # cursor
+	printf '\e]4;5;%s\a' "${MAGENTA}"     # magenta
+	printf '\e]4;4;%s\a' "${BLUE}"        # blue
+	printf '\e]4;6;%s\a' "${CYAN}"        # cyan
 }
 
 fct_reset_colors() {
-  if [[ -n "${NO_COLOR}" ]]; then
-    return 0
-  fi
-  
-  # Reset to terminal defaults
-  printf '\e]111\a'  # reset background
-  printf '\e]110\a'  # reset foreground
-  printf '\e]112\a'  # reset cursor
-  printf '\e]104\a'  # reset all colors
+	if [[ -n "${NO_COLOR}" ]]; then
+		return 0
+	fi
+
+	# Reset to terminal defaults
+	printf '\e]111\a' # reset background
+	printf '\e]110\a' # reset foreground
+	printf '\e]112\a' # reset cursor
+	printf '\e]104\a' # reset all colors
 }
 
 # ==============================================================================
@@ -157,39 +157,40 @@ fct_reset_colors() {
 # ==============================================================================
 
 fct_execute() {
-  log_debug "Host: ${SSH_HOST}"
-  log_debug "Theme: ${THEME_NAME}"
-  log_debug "SSH args: ${SSH_ARGS[*]:-none}"
+	log_debug "Host: ${SSH_HOST}"
+	log_debug "Theme: ${THEME_NAME}"
+	log_debug "SSH args: ${SSH_ARGS[*]:-none}"
 
-  if [[ "${DRY_RUN}" -eq 1 ]]; then
-    log_info "[DRY-RUN] Would execute:"
-    log_info "  Set terminal colors: ${THEME_NAME}"
-    log_info "  ssh ${SSH_HOST} ${SSH_ARGS[*]:-}"
-    log_info "  Reset terminal colors on exit"
-    
-    # Show colors briefly in dry-run
-    if [[ -z "${NO_COLOR}" ]]; then
-      log_info ""
-      log_info "Preview colors for 2 seconds..."
-      fct_set_colors
-      sleep 2
-      fct_reset_colors
-    fi
-    return 0
-  fi
+	if [[ "${DRY_RUN}" -eq 1 ]]; then
+		log_info "[DRY-RUN] Would execute:"
+		log_info "  Set terminal colors: ${THEME_NAME}"
+		log_info "  ssh ${SSH_HOST} ${SSH_ARGS[*]:-}"
+		log_info "  Reset terminal colors on exit"
 
-  # Set up trap to reset colors on exit
-  trap 'fct_reset_colors' EXIT INT TERM
+		# Show colors briefly in dry-run
+		if [[ -z "${NO_COLOR}" ]]; then
+			log_info ""
+			log_info "Preview colors for 2 seconds..."
+			fct_set_colors
+			sleep 2
+			fct_reset_colors
+		fi
+		return 0
+	fi
 
-  # Apply colors
-  fct_set_colors
+	# Set up trap to reset colors on exit
+	trap 'fct_reset_colors' EXIT INT TERM
 
-  # Connect
-  ssh "${SSH_HOST}" "${SSH_ARGS[@]}"
+	# Apply colors
+	fct_set_colors
 
-  # Reset colors (also done by trap)
-  trap - EXIT INT TERM
-  fct_reset_colors
+	# Connect
+	# shellcheck disable=SC2029
+	ssh "${SSH_HOST}" "${SSH_ARGS[@]}"
+
+	# Reset colors (also done by trap)
+	trap - EXIT INT TERM
+	fct_reset_colors
 }
 
 # ==============================================================================
@@ -197,8 +198,8 @@ fct_execute() {
 # ==============================================================================
 
 main() {
-  fct_parse_arguments "$@"
-  fct_execute
+	fct_parse_arguments "$@"
+	fct_execute
 }
 
 main "$@"
