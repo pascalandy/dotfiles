@@ -28,13 +28,14 @@ Tu as le rôle du release engineer de ce projet. Tu es un agent de déploiement 
 Détermine ces informations:
 
 ## Inputs requis
+
 - BRANCH_NAME: nom de la branche (ex: feat/a-propos)
 - VERSION: version à releaser (ex: 0.2.2)
-- CHANGELOG_ENTRY: description pour le changelog
+- RELEASE_SUMMARY: description concise pour les notes de release (ex: "Ajout de la page À propos avec bio et liens sociaux")
 
 ---
 
-## Phase 1: COMMIT + PR
+## Phase 1: pré-requis
 
 1. Run `make qa`
    - Si échec → fix et recommencer
@@ -45,29 +46,18 @@ Détermine ces informations:
    git diff --stat
    ```
 
-3. Commit les changements (si non fait):
+---
+
+## Phase 2: COMMIT + PR
+
+1. Commit les changements (si non fait):
+   > Pour la rédaction des commit(s), voir le skill "commit"
    ```bash
    git add -A
    git commit -m "<type>(<scope>): <description>"
    ```
 
-4. Mettre à jour CHANGELOG.md:
-   - Ajouter une nouvelle section au début (après le header):
-   ```markdown
-   ## [VERSION](https://github.com/pascalandy/pascalandy-blog-paper/compare/pascalandy-blog-paper-v<PREV_VERSION>...pascalandy-blog-paper-v<VERSION>) (YYYY-MM-DD)
-
-   ### Features|Bug Fixes|etc.
-
-   * **scope:** description
-   ```
-
-5. Commit le changelog:
-   ```bash
-   git add CHANGELOG.md
-   git commit -m "chore: update changelog for VERSION"
-   ```
-
-6. Push et créer PR:
+2. Push et créer PR:
    ```bash
    git push -u origin BRANCH_NAME
    gh pr create --title "<type>(<scope>): <description>" --body "## Summary
@@ -77,11 +67,11 @@ Détermine ces informations:
 
 ---
 
-## Phase 2: CI + REVIEW
+## Phase 3: CI + REVIEW
 
 1. Attendre et vérifier CI (SANS demander):
    ```bash
-   sleep 110
+   sleep 125
    PR_NUM=$(gh pr view --json number -q .number)
    
    while true; do
@@ -105,20 +95,25 @@ Détermine ces informations:
 
 2. Lire feedback Greptile (SANS demander):
    ```bash
-   gh api repos/pascalandy/pascalandy-blog-paper/pulls/$PR_NUM/comments
+   REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner)
+   gh api repos/$REPO/pulls/$PR_NUM/comments
    ```
 
 3. Si commentaires Greptile:
    - Analyser et fix automatiquement si possible
    - Run `make qa`
    - Commit + push
-   - Retourner à l'étape 1 de Phase 2
+   - Retourner à l'étape 1 de Phase 3
 
-4. Décider stratégie de merge (automatiquement):
+---
+
+## Phase 4: MERGE
+
+1. Décider stratégie de merge (automatiquement):
    - **Squash Merge**: PR simple (1-3 commits, changement logique unique)
    - **Merge**: PR complexe (plusieurs commits atomiques à préserver)
 
-5. Merger (SANS demander):
+2. Merger (SANS demander):
    ```bash
    # Squash pour PR simple
    gh pr merge $PR_NUM --squash --delete-branch
@@ -129,7 +124,7 @@ Détermine ces informations:
 
 ---
 
-## Phase 3: POST-MERGE
+## Phase 5: POST-MERGE
 
 1. Revenir sur main:
    ```bash
@@ -139,19 +134,20 @@ Détermine ces informations:
 
 2. Créer et push tag:
    ```bash
-   git tag pascalandy-blog-paper-v$VERSION
-   git push origin pascalandy-blog-paper-v$VERSION
+   REPO_NAME=$(gh repo view --json name -q .name)
+   git tag ${REPO_NAME}-v${VERSION}
+   git push origin ${REPO_NAME}-v${VERSION}
    ```
 
 3. Créer release GitHub:
    ```bash
-   gh release create pascalandy-blog-paper-v$VERSION \
-     --title "pascalandy-blog-paper: v$VERSION" \
-     --notes "See CHANGELOG.md for details"
+   gh release create ${REPO_NAME}-v${VERSION} \
+     --title "${REPO_NAME}: v${VERSION}" \
+     --notes "$RELEASE_SUMMARY"
    ```
 
 4. Informer l'utilisateur:
-   > "Release v$VERSION complétée. Sur quoi on travaille ensuite?"
+   > "Release v$VERSION complétée. Sur quoi on travaille maintenant?"
 
 ---
 
