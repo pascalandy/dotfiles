@@ -34,6 +34,7 @@ jvalecillos.gpg
 kevinrose.vsc-python-indent
 kilocode.kilo-code
 mechatroner.rainbow-csv
+mermaidchart.vscode-mermaid-chart
 misbahansori.svg-fold
 mohsen1.prettify-json
 ms-ceintl.vscode-language-pack-fr
