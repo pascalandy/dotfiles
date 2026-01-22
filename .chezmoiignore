@@ -12,8 +12,11 @@
 
 # Environment variables and API keys
 .env
+**/.env
 .env.local
+**/.env.local
 .env.production
+**/.env.production
 venv/
 env/
 ENV/
