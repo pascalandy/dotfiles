@@ -103,10 +103,11 @@ Options:
 
 Tools updated:
   Brew:       codex, uv
-  update-bin: gemini, openspec, kilocode, gh, repomix
+  update-bin: gemini, kilocode, gh, repomix
   UV tools:   specify-cli, playwright, all uv tools
   Bun:        opencode-ai, btca
-  Other:      amp, claude (install.sh)
+  NPM:        agent-browser
+  Other:      amp, claude (install.sh), specify check
 
 Examples:
   ${SCRIPT_NAME}              # Update all CLI tools
@@ -191,7 +192,7 @@ fct_execute_updates() {
 	pids+=($!)
 
 	# update-bin tools
-	local update_bin_tools=(gemini openspec kilocode gh repomix)
+	local update_bin_tools=(gemini kilocode gh repomix)
 	for tool in "${update_bin_tools[@]}"; do
 		fct_run_update "${tool} (update-bin)" update-bin "${tool}" &
 		pids+=($!)
@@ -202,7 +203,7 @@ fct_execute_updates() {
 	pids+=($!)
 
 	# btca (bun)
-	fct_run_update "btca (bun)" bash -c 'bun add -g btca opencode-ai && btca' &
+	fct_run_update "btca (bun)" bun add -g btca &
 	pids+=($!)
 
 	# UV tools
