@@ -145,8 +145,9 @@ die() {
 ├── dot_config/                  # → ~/.config/
 ├── private_dot_ssh/             # → ~/.ssh/ (private)
 ├── private_dot_gnupg/           # → ~/.gnupg/ (private)
-├── run_before_sync.sh           # Pre-apply: sync VS Code, Brewfile
-├── run_after_backup.sh          # Post-apply: backup external files
+├── .chezmoiscripts/             # Chezmoi run scripts (v2.9+)
+│   ├── run_before_sync.sh       # Pre-apply: sync VS Code, Brewfile
+│   └── run_after_backup.sh      # Post-apply: backup external files
 └── bienvenue_chez_moi/          # Archived configs (source: ~/Documents/github_local/Z_ARCHIVED/)
 ```
 
@@ -183,14 +184,14 @@ chezmoi cat ~/.zshrc
 
 ## Run Scripts
 
-This repo has two run scripts:
+This repo has two run scripts located in `.chezmoiscripts/` (chezmoi v2.9+ convention):
 
-### `run_before_sync.sh`
+### `.chezmoiscripts/run_before_sync.sh`
 - Syncs VS Code settings/keybindings to chezmoi source
 - Updates VS Code extensions list
 - Dumps Brewfile
 
-### `run_after_backup.sh`
+### `.chezmoiscripts/run_after_backup.sh`
 - Backs up external files to the repo
 - Copies `bienvenue_chez_moi` directory
 
