@@ -103,7 +103,7 @@ docs/
 lefthook.yml
 
 # Node.js (BUN, NPM, PNPM, Yarn)
-node_modules/
+**/node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -184,6 +184,7 @@ jspm_packages/
 
 # OpenCode skill scripts (executable, not to be applied)
 .config/opencode/skill/**/scripts/**
+.config/opencode/skill_archived/**/scripts/**
 
 # OpenCode plugin WIP (not ready)
 .config/opencode/plugin/security-check/
