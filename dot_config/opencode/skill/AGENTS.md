@@ -6,6 +6,21 @@ Example format:
 
 - skill-name: description (file: ~/.opencode/skill/skill-name/skill.md)
 
+### Naming Convention
+
+Skills use prefixes to indicate their purpose:
+
+| Prefix | Purpose | Examples |
+|--------|---------|----------|
+| `fct-` | Functional workflows for coding, design, architecture | architect, spec-kit, orchestration |
+| `std-` | Standards and conventions to follow | bash, commit, changelog, python |
+| `util-` | Utilities and tools (lazy mode execution) | password-generator, transcript, convert-to-md |
+| `skill-creator` | Meta skill for creating new skills | — |
+
+- `fct-` skills help accomplish development tasks
+- `std-` skills define how code/commits/docs should look
+- `util-` skills wrap scripts for quick execution without questions
+
 ### Discovery
 
 - Source of truth: project docs + runtime "## Skills" section
