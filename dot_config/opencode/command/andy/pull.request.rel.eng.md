@@ -51,7 +51,7 @@ Détermine ces informations:
 ## Phase 2: COMMIT + PR
 
 1. Commit les changements (si non fait):
-   > Pour la rédaction des commit(s), voir le skill "commit"
+   > Pour la rédaction des commit(s), voir le skill "fct-commit"
    ```bash
    git add -A
    git commit -m "<type>(<scope>): <description>"
@@ -146,8 +146,116 @@ Détermine ces informations:
      --notes "$RELEASE_SUMMARY"
    ```
 
-4. Informer l'utilisateur:
-   > "Release v$VERSION complétée. Sur quoi on travaille maintenant?"
+## Phase 6: POST-MORTEM
+
+Après chaque release, faire un post-mortem pour améliorer le processus.
+
+### 1. Reverse engineering du workflow
+
+Lister chronologiquement:
+- Chaque étape exécutée (commits, fixes, retries)
+- Temps passé par phase
+- Obstacles rencontrés et comment ils ont été résolus
+
+### 2. Évaluation des instructions
+
+Répondre honnêtement:
+- Les instructions de ce workflow étaient-elles claires?
+- Y avait-il des étapes ambiguës ou manquantes?
+- Quelles instructions ont causé de la confusion?
+
+### 3. Évaluation des inputs utilisateur
+
+- Les informations fournies (BRANCH_NAME, VERSION, RELEASE_SUMMARY) étaient-elles:
+  - **Suffisantes** → continuer ainsi
+  - **Insuffisantes** → quelles infos manquaient?
+  - **Excessives** → quelles infos étaient superflues?
+- Le contexte projet était-il clair?
+
+### 4. Bilan
+
+| Aspect | Ce qui a bien fonctionné | À améliorer |
+|--------|--------------------------|-------------|
+| Instructions | | |
+| Inputs utilisateur | | |
+| Autonomie agent | | |
+| Outils/CI | | |
+
+### 5. Recommandations
+
+- **Pour toi-même (comme agent)**: suggestions constructives pour les prochains pull requests
+- **Pour l'utilisateur**: suggestions constructives pour les prochains pull requests
+- **Pour le workflow**: modifications à apporter dans notre facon de travailler
+
+### 6. Export GitHub (issue post-mortem)
+
+Exporter le post-mortem dans une issue GitHub avec le label `post-mortem`.
+
+1. Créer le label si absent:
+   ```bash
+   gh label create "post-mortem" --color "BFDADC" --description "Post-mortem release"
+   ```
+
+2. Créer l'issue:
+   ```bash
+   gh issue create --title "post-mortem: v$VERSION" --label "post-mortem" --body "$(cat <<EOF
+## Résumé exécutif
+-
+
+## Contexte
+- PR: #
+- Tag:
+- Release:
+
+## Timeline
+| Phase | Début | Fin | Durée | Notes |
+| --- | --- | --- | --- | --- |
+| | | | | |
+
+## Incidents / frictions
+-
+
+## Root cause
+-
+
+## Mesures & métriques
+- CI runs:
+- Retries:
+- Temps total:
+- Taille PR:
+
+## Bilan
+| Aspect | Ce qui a bien fonctionné | À améliorer |
+|--------|--------------------------|-------------|
+| Instructions | | |
+| Inputs utilisateur | | |
+| Autonomie agent | | |
+| Outils/CI | | |
+
+## Action items
+| Action | Owner | Priorité | Date cible | Statut |
+|--------|-------|----------|------------|--------|
+| | | | | |
+
+## Leçons apprises
+-
+
+## Clôture
+Release v$VERSION complétée. Prochaine priorité:
+EOF
+)"
+   ```
+
+3. Ouvrir l'issue et partager le lien:
+   ```bash
+   ISSUE_URL=$(gh issue view --json url -q .url)
+   gh issue view --web
+   ```
+
+### 7. Clôture
+
+- "Release v$VERSION complétée. Voici le post-mortem: [résumé / Recommandations]"
+- Demande à l'utilisateur : "Sur quoi on travaille maintenant ? "
 
 ---
 

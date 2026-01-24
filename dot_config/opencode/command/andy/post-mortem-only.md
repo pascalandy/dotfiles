@@ -1,6 +1,8 @@
 ---
-description: reverse-eng-to-memory
+description: pgm-reverse-eng-to-memory
 ---
+
+See this as a mini post-mortem.
 
 Please reverse engineer our conversation by keeping in mind this question : 
 What is worth remembering if the future ?
@@ -15,9 +17,12 @@ MEMORY TYPE: What type of memory is this?
 7) project_status - Status snapshot
 8) command_summary - Slash command execution summary
 
-- what was wrong
+- what did we learn
+- what went wrong
 - what what did we discovered
 - the fix
+- feedback for the agent 
+- feedback for the user 
 
 There might more many type from our conversation
 

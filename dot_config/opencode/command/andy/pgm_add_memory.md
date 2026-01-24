@@ -2,13 +2,37 @@
 description: add_memory into pg-memory memories table
 ---
 
-## add_memory into pg-memory memories table
+# STEPS TO FOLLOW
 
-AI pre-packages memories from conversation context. User reviews and approves with minimal input.
+### Step 1: Post-mortem
 
-### Step 1: Load skill
+See this as a mini post-mortem.
 
-Load: `pg-memory`
+Please reverse engineer our conversation by keeping in mind this question : 
+What is worth remembering if the future ?
+
+MEMORY TYPE: What type of memory is this?
+1) observation - Something noticed (user preference, pattern) (recommended)
+2) decision - A choice made with rationale
+3) learning - A lesson learned
+4) error - Something that went wrong
+5) action - Something you did
+6) thought - Internal reasoning worth preserving
+7) project_status - Status snapshot
+8) command_summary - Slash command execution summary
+
+- what did we learn
+- what went wrong
+- what what did we discovered
+- the fix
+- feedback for the agent 
+- feedback for the user 
+
+There might more many type from our conversation
+
+thank you for be so diligent
+
+P.S. If there's nothing, don't be shy to say there's nothing
 
 ### Step 2: Gather context silently
 
@@ -23,18 +47,9 @@ Collect without asking:
 | `git_branch`  | `git branch --show-current 2>/dev/null` or NULL                               |
 | `git_commit`  | `git rev-parse --short HEAD 2>/dev/null` or NULL                              |
 
-### Step 3: Analyze conversation
+### Step 3: Load skill
 
-Reverse engineer the conversation with this question: **What is worth remembering for the future?**
-
-Look for:
-- What was wrong (errors, bugs, issues)
-- What we discovered (insights, root causes)
-- The fix (solutions, workarounds)
-
-Consider all memory types - there may be multiple from a single conversation.
-
-> P.S. If there's nothing worth remembering, say so. Don't force it.
+Load: `pg-memory`
 
 ### Step 4: Extract and package memories
 
@@ -53,13 +68,13 @@ Display each memory in a compact numbered format:
 Ready to add 3 memories:
 
 1. [observation] importance:5 tags:[coding, preference]
-   "User prefers tabs over spaces for indentation"
+   "User prefers tabs over spaces for indentation .."
 
 2. [decision] importance:6 tags:[architecture, database]
-   "Chose PostgreSQL over SQLite for JSONB support"
+   "Chose PostgreSQL over SQLite for JSONB support .."
 
 3. [learning] importance:4 tags:[git, workflow]
-   "Always run tests before committing to main"
+   "Always run tests before committing to main .."
 
 ---
 Commands:
