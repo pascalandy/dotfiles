@@ -9,9 +9,9 @@ Orchestrator for project status analysis.
 Coordinates multi-agent workflow: discovery → analysis → report → post-mortem → commit.
 
 Usage:
-    uv run .opencode/skill/project_status/orchestrator.py
-    uv run .opencode/skill/project_status/orchestrator.py --dry-run
-    uv run .opencode/skill/project_status/orchestrator.py --no-commit
+    uv run .opencode/skill/util-project-status/scripts/orchestrator.py
+    uv run .opencode/skill/util-project-status/scripts/orchestrator.py --dry-run
+    uv run .opencode/skill/util-project-status/scripts/orchestrator.py --no-commit
 """
 
 from __future__ import annotations
@@ -27,13 +27,14 @@ from rich.console import Console
 from rich.panel import Panel
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-REPO_ROOT = SCRIPT_DIR.parent.parent.parent.parent
+SKILL_DIR = SCRIPT_DIR.parent
+REPO_ROOT = SKILL_DIR.parent.parent.parent.parent
 WORKDIR = REPO_ROOT / "WORKDIR"
 IDEATION = REPO_ROOT / "IDEATION"
 OUTPUT_DIR = REPO_ROOT / "EXPORT" / "statut_de_projet"
 
-ANALYSIS_PROMPT = SCRIPT_DIR / "ANALYSIS_PROMPT.md"
-TEMPLATE = SCRIPT_DIR / "TEMPLATE.md"
+ANALYSIS_PROMPT = SKILL_DIR / "references" / "ANALYSIS_PROMPT.md"
+TEMPLATE = SKILL_DIR / "references" / "TEMPLATE.md"
 SCAN_SCRIPT = SCRIPT_DIR / "scan_projects.py"
 
 # Agent aliases for fallback

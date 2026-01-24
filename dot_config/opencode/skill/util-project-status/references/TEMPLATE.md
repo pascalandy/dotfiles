@@ -61,7 +61,7 @@ Review of projects in `WORKDIR/` and `IDEATION/`
 ## Rules
 
 - No emojis
-- No `---` separators in body
+- No additional `---` separators after frontmatter
 - Project names: basename only, bold
 - Duration: `Xh Ym Zs`
 - WORKDIR: table + detailed sections

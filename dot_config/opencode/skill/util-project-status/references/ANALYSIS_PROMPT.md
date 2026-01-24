@@ -13,7 +13,7 @@ Context:
 
 IF DIRECTORY:
 1. Read 0o0o.md (if exists)
-2. Read latest session file: <latest_session>
+2. Read latest session file: <latest_session> (skip if None)
 3. Read README.md (if exists)
 4. Assess maturity 1-5
 

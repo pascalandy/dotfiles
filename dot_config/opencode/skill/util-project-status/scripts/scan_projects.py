@@ -10,9 +10,9 @@ Scan projects in WORKDIR/ and IDEATION/ directories.
 Outputs discovery.json with deterministic project enumeration and git metrics.
 
 Usage:
-    uv run WORKDIR/project_status/scan_projects.py
-    uv run WORKDIR/project_status/scan_projects.py --dry-run
-    uv run WORKDIR/project_status/scan_projects.py --help
+    uv run .opencode/skill/util-project-status/scripts/scan_projects.py
+    uv run .opencode/skill/util-project-status/scripts/scan_projects.py --dry-run
+    uv run .opencode/skill/util-project-status/scripts/scan_projects.py --help
 """
 
 from __future__ import annotations
@@ -31,7 +31,9 @@ from rich.table import Table
 
 SCRIPT_VERSION = "1.0.0"
 REPO_URL = "https://github.com/username/forzr/issues"
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
+SCRIPT_DIR = Path(__file__).resolve().parent
+SKILL_DIR = SCRIPT_DIR.parent
+REPO_ROOT = SKILL_DIR.parent.parent.parent.parent
 WORKDIR = REPO_ROOT / "WORKDIR"
 IDEATION = REPO_ROOT / "IDEATION"
 OUTPUT_DIR = REPO_ROOT / "EXPORT" / "statut_de_projet"
