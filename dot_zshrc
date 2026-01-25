@@ -580,6 +580,8 @@ alias cdm='clear && cd $MY_DOCS && ls' # _my_docs
 alias cdp='clear && cd $PROJ_HOME/pascalandy-blog-paper && ls' # pascalandy-blog
 alias cdv='clear && cd $MY_DOCS/10_obsidian/vault_obsidian && ls' # vault (obsidian)
 
+alias qmd-pa="$HOME/Documents/github_local/SKILLS_MONO/apps/qmd-pascalandy/qmd"
+
 # test comment v7
 
 # === script manage via chezmoi ===
