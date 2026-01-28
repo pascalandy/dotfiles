@@ -17,6 +17,11 @@ fct_copy_dir() {
 		return 1
 	fi
 
+	if [[ "$src_dir" == "$dst_dir" ]]; then
+		log "Source and destination are the same, skipping: $src_dir"
+		return 0
+	fi
+
 	mkdir -p "$dst_dir"
 	log "Copying from $src_dir to $dst_dir"
 	rsync -a --delete "$src_dir"/ "$dst_dir"/
@@ -52,7 +57,7 @@ TREE_DST="$HOME/.local/share/chezmoi/backup_tree_my_docs.txt"
 fct_copy_file "$TREE_SRC" "$TREE_DST"
 
 # Sync opencode commands and skills to all AI coding tools
-OPENCODE_SRC="$HOME/.local/share/chezmoi/dot_config/opencode"
+OPENCODE_SRC="$HOME/.config/opencode"
 OPENCODE_COMMAND_SRC="$OPENCODE_SRC/command"
 OPENCODE_SKILL_SRC="$OPENCODE_SRC/skill"
 
