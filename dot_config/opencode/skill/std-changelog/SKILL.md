@@ -1,6 +1,6 @@
 ---
 name: changelog
-description: "Mettre à jour CHANGELOG.md selon nos pratiques; utiliser après ajout/fix/retrait de fonctionnalités."
+description: Update CHANGELOG.md following project conventions. Use when adding, fixing, or removing features that need changelog entries.
 ---
 
 # Changelog Skill

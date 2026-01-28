@@ -1,6 +1,6 @@
 ---
 name: bash
-description: "Create/refactor Bash scripts following conventions (strict mode, fct_ naming, quoting). Includes shellcheck linting for quality assurance. Use when: (1) Creating new shell scripts, (2) Refactoring existing scripts, (3) Debugging shell errors, (4) Linting scripts in scripts/ directory."
+description: Create and refactor Bash scripts following conventions (strict mode, fct_ naming, quoting). Includes shellcheck linting. Use when creating shell scripts, refactoring existing scripts, debugging shell errors, or linting scripts.
 ---
 
 # Bash

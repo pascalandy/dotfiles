@@ -1,10 +1,6 @@
 ---
 name: nano-banana-pro-3
-description: >
-  Generate or edit images using Gemini 3 Pro Image via OpenRouter API.
-  Use when the user wants to: (1) Generate images from text prompts,
-  (2) Edit/modify existing images, (3) Compose/blend multiple images.
-  Triggers: "generate image", "create picture", "edit photo", "make an image".
+description: Generate or edit images using Gemini 3 Pro via OpenRouter API. Use when user says "generate image," "create picture," "edit photo," or "make an image." Supports text-to-image, image editing, and compositing.
 ---
 
 # Nano Banana Pro 3

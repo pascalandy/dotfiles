@@ -1,6 +1,6 @@
 ---
 name: cli-chezmoi
-description: "Gère les dotfiles via le CLI chezmoi. Utilisez ce skill lorsque vous devez lire, modifier ou ajouter des fichiers de configuration (dotfiles) dans le répertoire personnel de l'utilisateur. Il garantit que les modifications sont effectuées dans le répertoire source de chezmoi (~/.local/share/chezmoi) et appliquées correctement."
+description: Manage dotfiles via chezmoi CLI. Use when reading, modifying, or adding config files (dotfiles) in user's home directory. Ensures edits happen in chezmoi source (~/.local/share/chezmoi) and apply correctly.
 ---
 
 # Cli Chezmoi

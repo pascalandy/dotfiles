@@ -1,13 +1,6 @@
 ---
 name: pg-memory
-description: |
-  PostgreSQL memory system for AI agents. Use when:
-  (1) Storing memories (decisions, learnings, observations, errors)
-  (2) Retrieving context from past sessions
-  (3) Searching memories or sources via full-text search
-  (4) Ingesting external sources (docs, podcasts, blogs, Obsidian notes)
-  (5) Tracking costs, tokens, or command analytics
-  Triggers: "pgm", "remember this", "add to memory", "store memory", "search memories", "ingest source", "pg-memory"
+description: Store and retrieve memories for AI agents via PostgreSQL. Use when storing decisions/learnings/observations, retrieving past context, searching memories, or ingesting sources. Triggers "pgm," "remember this," "store memory," "search memories."
 ---
 
 # pg-memory

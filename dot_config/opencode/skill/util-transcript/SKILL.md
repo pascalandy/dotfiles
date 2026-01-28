@@ -1,6 +1,6 @@
 ---
 name: transcript
-description: "Transcrire des vidéos YouTube (Deepgram): audio → txt/json, avec option de résumé Claude au besoin."
+description: Transcribe YouTube videos via Deepgram (audio to txt/json) with optional Claude summary. Use when user provides YouTube URL for transcription.
 ---
 
 Here's how to use this script the user wants a transcript of a YouTube video.

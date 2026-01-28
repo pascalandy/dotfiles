@@ -1,6 +1,6 @@
 ---
 name: skill-creator
-description: "Guide pour créer un nouveau skill (structure, bonnes pratiques, progressive disclosure) pour étendre l'agent."
+description: Create new skills with proper structure, best practices, and progressive disclosure. Use when building a new skill to extend the agent.
 ---
 
 # Skill Creator

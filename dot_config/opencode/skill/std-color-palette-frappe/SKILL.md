@@ -1,6 +1,6 @@
 ---
 name: color-palette-frappe
-description: "Palette Catppuccin Frappé (hex/rgba) pour diagrammes Mermaid; référence pour styles cohérents."
+description: Catppuccin Frappe color palette (hex/rgba) for consistent styling. Use when applying colors to Mermaid diagrams or needing cohesive color references.
 ---
 
 # Palette de Couleurs - Catppuccin Frappé

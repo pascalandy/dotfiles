@@ -1,11 +1,13 @@
 ---
 name: commit
-description: "Faire des commits atomiques (split + staging ciblé); à charger avant toute opération git commit."
+description: Create atomic commits with clear, specific messages. Use when committing changes to git repositories. Load before any git commit operation.
 ---
 
 # Skill: Commit
 
 Create **truly atomic commits** — one logical change per commit, no exceptions.
+
+> **See also**: `writing-clearly-concisely` for deeper guidance on Strunk's principles.
 
 ## Core Principle: Atomicity First
 
@@ -90,13 +92,13 @@ Is this change describable in ONE sentence without "and"?
 ### ✅ GOOD: Atomic Commit with Body
 
 ```
-✨ feat: dufuddle (cli): enhance CLI with Bun best practices
+✨ feat: dufuddle (cli): add timeout flag and non-blocking server check
 
 - File(s) changed:
   - WORKDIR/dufuddle/dufuddle.ts
-- Nature of changes: Enhancement
-- Purpose: Modernize the CLI using Bun idioms and improve robustness
-- Impact: Better terminal UX, prevents blocking by servers, and adds timeout control
+- Nature of changes: Feature addition
+- Purpose: Add --timeout flag (default 30s) and switch to async server pings
+- Impact: CLI exits cleanly on hung servers; users can set custom timeouts
 ```
 
 ### ❌ BAD: Mixed Changes
@@ -170,6 +172,70 @@ git commit -m "📚 docs: Add installation section to README"
 
 ---
 
+## Writing Style for Commit Messages
+
+Apply Strunk's principles to every commit message:
+
+### Use Active Voice
+
+| Passive (weak) | Active (strong) |
+|----------------|-----------------|
+| "Users are shown their activity" | "Show users their activity" |
+| "The config was updated" | "Update config" |
+| "Errors are now handled" | "Handle errors" |
+
+### Use Specific, Concrete Language
+
+| Vague | Specific |
+|-------|----------|
+| "Improve performance" | "Reduce query time from 2s to 200ms" |
+| "Fix bug" | "Fix null pointer when user has no profile" |
+| "Update dependencies" | "Update React 17→18, fix breaking changes" |
+| "Better UX" | "Add loading spinner during API calls" |
+
+### Omit Needless Words
+
+| Wordy | Concise |
+|-------|---------|
+| "This commit adds the ability to" | "Add" |
+| "In order to improve" | "To improve" |
+| "Due to the fact that" | "Because" |
+| "Make changes to the way" | "Change how" |
+
+### Put Statements in Positive Form
+
+| Negative | Positive |
+|----------|----------|
+| "Don't fail silently" | "Log errors explicitly" |
+| "Avoid blocking the UI" | "Run async to keep UI responsive" |
+| "Not working on Safari" | "Fix Safari compatibility" |
+
+### Avoid AI Puffery
+
+These words add noise without meaning. Cut them:
+
+- **Buzzwords**: robust, seamless, leverage, streamline, enhance, optimize
+- **Vague adjectives**: better, improved, various, significant
+- **Empty impact claims**: "improved engagement", "better UX", "enhanced reliability"
+
+| Puffy | Direct |
+|-------|--------|
+| "Enhanced user experience" | "Add search autocomplete" |
+| "Improved reliability" | "Retry failed requests 3 times" |
+| "Streamlined workflow" | "Remove 2 clicks from checkout" |
+| "Leverage caching" | "Cache API responses for 5 min" |
+
+### Place Key Information at the End
+
+The end of a sentence carries emphasis. Put the most important word there:
+
+| Buried | Emphasized |
+|--------|------------|
+| "For users who leave tabs open, this prevents logout" | "Prevent logout for users with idle tabs" |
+| "The admin page loads faster due to query optimization" | "Optimize queries to speed up admin page" |
+
+---
+
 ## Commit Body Guidelines
 
 The subject line answers **"what changed?"** — the body answers **"why does it matter?"**
@@ -213,9 +279,9 @@ If your commit message doesn't answer these questions, add more context.
 - File(s) changed:
   - src/components/Dashboard/ActivityFeed.tsx
   - src/hooks/useActivityStream.ts
-- Nature of changes: New feature implementation
-- Purpose: Give users visibility into recent actions on their account
-- Impact: Improved engagement and transparency for end users
+- Nature of changes: New feature
+- Purpose: Show users their recent actions (logins, purchases, settings changes)
+- Impact: Users see activity within 2 seconds of occurrence via WebSocket
 ```
 
 ### Bug Fix
@@ -226,8 +292,8 @@ If your commit message doesn't answer these questions, add more context.
 - File(s) changed:
   - src/services/auth.ts
 - Nature of changes: Bug fix
-- Purpose: Prevent users from being logged out unexpectedly after 5 minutes of inactivity
-- Impact: Better UX for users who leave tabs open
+- Purpose: Extend session refresh interval from 5 min to 30 min
+- Impact: Users stay logged in with idle tabs; reduces re-auth complaints
 ```
 
 ### Refactoring
@@ -240,8 +306,8 @@ If your commit message doesn't answer these questions, add more context.
   - src/controllers/checkout.ts
   - src/utils/stripe.ts
 - Nature of changes: Code restructuring
-- Purpose: Improve maintainability by isolating payment concerns
-- Impact: Easier testing and future payment provider changes
+- Purpose: Move Stripe calls out of checkout controller into payment.ts
+- Impact: Payment tests run without checkout dependencies; adding PayPal requires one file
 ```
 
 ### Removal
@@ -253,8 +319,8 @@ If your commit message doesn't answer these questions, add more context.
   - src/routes/v1/
   - src/controllers/legacy/
 - Nature of changes: Cleanup
-- Purpose: Remove unused code after v2 migration completed
-- Impact: Reduced codebase size and maintenance burden
+- Purpose: Delete v1 endpoints unused since March 2024 migration
+- Impact: Remove 1,200 lines of dead code; shrink bundle by 15KB
 ```
 
 ### Documentation
@@ -264,22 +330,22 @@ If your commit message doesn't answer these questions, add more context.
 
 - File(s) changed:
   - README.md
-- Nature of changes: Documentation update
-- Purpose: Help Windows users get started without friction
-- Impact: Broader accessibility for contributors
+- Nature of changes: Documentation
+- Purpose: Document winget install, PATH setup, and PowerShell config
+- Impact: Windows users can install in 3 commands instead of guessing
 ```
 
 ### Maintenance
 
 ```
-🧑‍💻 chore: deps: update dependencies to latest versions
+🧑‍💻 chore: deps: update React 18.2→18.3, fix CVE-2024-1234 in lodash
 
 - File(s) changed:
   - package.json
   - bun.lock
-- Nature of changes: Maintenance
-- Purpose: Keep dependencies current and address security advisories
-- Impact: Improved security posture and access to latest features
+- Nature of changes: Dependency update
+- Purpose: Patch lodash prototype pollution vulnerability (CVE-2024-1234)
+- Impact: Closes security advisory; React update is compatible, no code changes
 ```
 
 ### Test
@@ -290,8 +356,8 @@ If your commit message doesn't answer these questions, add more context.
 - File(s) changed:
   - src/services/__tests__/auth.test.ts
 - Nature of changes: Test coverage
-- Purpose: Ensure session timeout logic is properly validated
-- Impact: Higher confidence in auth reliability during refactoring
+- Purpose: Cover session refresh, expiry, and concurrent login scenarios
+- Impact: 12 new tests; auth coverage goes from 45% to 82%
 ```
 
 ### Performance
@@ -301,9 +367,9 @@ If your commit message doesn't answer these questions, add more context.
 
 - File(s) changed:
   - src/repositories/user.ts
-- Nature of changes: Performance optimization
-- Purpose: Reduce response time for paginated user queries
-- Impact: 3x faster load times on the admin user list page
+- Nature of changes: Query optimization
+- Purpose: Add index on (org_id, created_at), batch N+1 role lookups
+- Impact: Admin user list loads in 200ms instead of 2.1s (10x faster)
 ```
 
 ### Trivial (minimal body)

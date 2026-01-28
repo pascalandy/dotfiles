@@ -1,6 +1,6 @@
 ---
 name: extract-repo
-description: Download GitHub repos as clean source code (no .git history) to WORKDIR. Do not use in a monorepo.
+description: Download GitHub repos as clean source code (no .git history) to WORKDIR. Use when cloning repos for analysis or modification. Not for monorepos.
 ---
 
 # Extract Repo

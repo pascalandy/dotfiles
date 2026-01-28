@@ -1,9 +1,6 @@
 ---
 name: fct-web-ui-ux
-description: |
-  UI/UX design intelligence for web and mobile. 67 styles, 96 color palettes, 57 font pairings, 99 UX guidelines, 100 reasoning rules across 13 stacks (React, Next.js, Vue, Svelte, SwiftUI, React Native, Flutter, Tailwind, shadcn/ui, Astro, Nuxt, Jetpack Compose).
-  
-  Triggers: build, create, design, implement, review, fix, improve, optimize UI/UX. Projects: website, landing page, dashboard, admin panel, e-commerce, SaaS, portfolio, blog, mobile app, .html, .tsx, .vue, .svelte. Elements: button, modal, navbar, sidebar, card, table, form, chart. Styles: glassmorphism, claymorphism, minimalism, brutalism, neumorphism, bento grid, dark mode. Topics: color palette, accessibility, animation, layout, typography, font pairing.
+description: UI/UX design intelligence for web and mobile across 13 stacks (React, Next.js, Vue, Svelte, Tailwind, shadcn/ui, etc.). Use when building, designing, reviewing, or optimizing UI/UX for websites, dashboards, apps. Covers styles, palettes, fonts, accessibility, animation, layout.
 ---
 
 # UI/UX Design Intelligence

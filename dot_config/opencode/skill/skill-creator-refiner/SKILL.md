@@ -1,6 +1,6 @@
 ---
 name: skill-creator-refiner
-description: Use when tweaking a skill, editing existing skills, or verifying skills work before deployment
+description: Tweak, edit, or verify existing skills before deployment. Use when modifying skills or checking they work correctly.
 ---
 
 # Writing Skills

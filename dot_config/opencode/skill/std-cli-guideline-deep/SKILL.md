@@ -1,6 +1,6 @@
 ---
 name: cli-guideline
-description: "CLI scripts/programs (python, js, bash, go, etc.) following modern best practices. Use when: (1) Creating new CLI tools, (2) Reviewing CLI UX/DX, (3) Implementing help/errors/output, (4) Adding flags/args/subcommands, (5) Ensuring robustness and future-proofing."
+description: Build CLI tools (Python, JS, Bash, Go) following modern best practices. Use when creating new CLIs, reviewing CLI UX, implementing help/errors/output, or adding flags/args/subcommands.
 ---
 
 # Skill: CLI Guideline

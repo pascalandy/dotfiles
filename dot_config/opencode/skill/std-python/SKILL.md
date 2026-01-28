@@ -1,6 +1,6 @@
 ---
 name: python
-description: "Develop in Python with uv (PEP 723, venv, run); load as soon as the user mentions uv."
+description: Develop Python projects with uv (PEP 723 inline metadata, venv management, script execution). Use when user mentions uv, creates Python scripts, or needs Python environment setup.
 ---
 
 # Python Development with UV

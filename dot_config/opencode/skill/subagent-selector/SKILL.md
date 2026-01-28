@@ -1,8 +1,6 @@
 ---
 name: subagent-selector
-description: |
-  A subagent-selector that shows available subagents for task delegation in opencode CLI.
-  Use when: orchestrating tasks, selecting agents, planning delegations, or unsure which agent to use.
+description: Show available subagents for task delegation in opencode CLI. Use when orchestrating tasks, selecting agents, planning delegations, or unsure which agent to use.
 ---
 
 # Available Subagents

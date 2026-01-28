@@ -1,6 +1,6 @@
 ---
 name: mermaid
-description: Créer des diagrammes Mermaid de qualité
+description: Create quality Mermaid diagrams (flowcharts, sequence diagrams, ERDs). Use when user needs diagrams, visualizations, or mentions Mermaid.
 ---
 
 # Mermaid

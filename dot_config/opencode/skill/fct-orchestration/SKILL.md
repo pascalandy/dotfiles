@@ -1,6 +1,6 @@
 ---
 name: orchestration
-description: MANDATORY - orchestration strategy. Triggered by the user
+description: Define orchestration strategy for multi-step workflows. Use when user triggers orchestration or planning complex task sequences.
 ---
 
 # The Orchestrator
