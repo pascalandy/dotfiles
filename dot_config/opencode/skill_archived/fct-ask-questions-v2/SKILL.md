@@ -1,6 +1,6 @@
 ---
 name: ask-questions-v2
-description: Clarify requirements before implementing. Do not use automatically, only when invoked explicitly.
+description: Clarify requirements before implementing. Use when explicitly invoked by user. Not auto-triggered.
 ---
 
 # Ask Questions If Underspecified

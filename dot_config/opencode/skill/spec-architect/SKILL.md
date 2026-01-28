@@ -1,6 +1,6 @@
 ---
-name: architect
-description: "Transform functional requirements into comprehensive technical architecture documents. Use when: (1) User provides specs/functional requirements needing technical design, (2) User asks for system architecture, data models, API design, (3) User says 'architect this' or 'create architecture for', (4) Starting a new project that needs technical foundation, (5) Translating business requirements into engineering specs. NOT for: task planning, project management, or implementation work."
+name: spec-architect
+description: Transform functional requirements into technical architecture documents (system design, data models, API specs). Use when user provides specs needing technical design, asks for architecture, or says "architect this." Not for task planning or implementation.
 ---
 
 # Architect Skill

@@ -1,6 +1,6 @@
 ---
-name: brainstorming-a-feat
-description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
+name: spec-brainstorm
+description: Explore user intent, requirements, and design before building. Use when creating features, adding functionality, building components, or modifying behavior. Run before implementation work.
 ---
 
 # Brainstorming Ideas Into Designs

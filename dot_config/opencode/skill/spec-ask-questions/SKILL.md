@@ -1,6 +1,6 @@
 ---
-name: ask-questions
-description: "Entrevues structurées: jusqu'à 7 questions avec choix multiples pour clarifier les specs vite."
+name: spec-ask-questions
+description: Run structured interviews with up to 7 multiple-choice questions to clarify specs quickly. Use when requirements are unclear and need rapid clarification.
 ---
 
 ## Q&A format with intelligent options
