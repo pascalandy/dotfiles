@@ -77,12 +77,30 @@ def retry_request(func, max_attempts: int = 3, initial_delay: float = 1.0):
 
 def get_video_info(url: str) -> dict:
     """Get video title and ID using yt-dlp."""
+    # Try without cookies first (works for public videos)
     result = subprocess.run(
-        ["yt-dlp", "--cookies-from-browser", "chrome", "--get-title", "--get-id", url],
+        ["yt-dlp", "--get-title", "--get-id", url],
         capture_output=True,
         text=True,
-        check=True,
     )
+    # Fall back to cookies if needed
+    if result.returncode != 0:
+        result = subprocess.run(
+            [
+                "yt-dlp",
+                "--cookies-from-browser",
+                "chrome",
+                "--get-title",
+                "--get-id",
+                url,
+            ],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+    elif not result.stdout.strip():
+        raise ValueError("Could not retrieve video info")
+
     lines = result.stdout.strip().split("\n")
     if len(lines) < 2:
         raise ValueError("Could not retrieve video title and ID")
@@ -116,11 +134,10 @@ def create_output_dir(title: str, video_id: str) -> Path:
 def download_audio(url: str, output_dir: Path) -> Path:
     """Download audio from YouTube as MP3."""
     output_template = str(output_dir / "audio.%(ext)s")
-    subprocess.run(
+    # Try without cookies first (works for public videos)
+    result = subprocess.run(
         [
             "yt-dlp",
-            "--cookies-from-browser",
-            "chrome",
             "-x",
             "--audio-format",
             "mp3",
@@ -130,9 +147,27 @@ def download_audio(url: str, output_dir: Path) -> Path:
             output_template,
             url,
         ],
-        check=True,
         capture_output=True,
     )
+    # Fall back to cookies if needed
+    if result.returncode != 0:
+        subprocess.run(
+            [
+                "yt-dlp",
+                "--cookies-from-browser",
+                "chrome",
+                "-x",
+                "--audio-format",
+                "mp3",
+                "--audio-quality",
+                "0",
+                "-o",
+                output_template,
+                url,
+            ],
+            check=True,
+            capture_output=True,
+        )
     audio_path = output_dir / "audio.mp3"
     if not audio_path.exists():
         raise FileNotFoundError("Audio download failed")
