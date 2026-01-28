@@ -5,7 +5,7 @@ ci:
     just gitleaks
     just shellcheck
     just shfmt
-    chezmoi apply
+    chezmoi apply -n -v
 
 # chezmoi
 gitleaks:
@@ -32,6 +32,16 @@ shfmt-fix:
 shfmt-fix-staged:
     git diff --name-only --staged -z -- '*.sh' 'dot_local/bin/executable_*' | xargs -0 -r shfmt -w
 
+# staged checks
+lint-staged:
+    just gitleaks-staged
+    just shellcheck-staged
+    just shfmt-staged
+
+# formatting
+fmt:
+    just shfmt-fix
+
 # chezmoi
 cm-status:
     chezmoi status
@@ -51,6 +61,10 @@ cm-apply-dry:
 
 cm-managed:
     chezmoi managed
+
+cm-quick-check:
+    git status -sb
+    chezmoi status
 
 cm-add path:
     chezmoi add {{path}}
