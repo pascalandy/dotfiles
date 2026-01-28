@@ -63,6 +63,7 @@ quicktype.quicktype
 redhat.vscode-yaml
 ritwickdey.liveserver
 shd101wyy.markdown-preview-enhanced
+skellock.just
 sourcegraph.amp
 sst-dev.opencode
 tamasfe.even-better-toml
