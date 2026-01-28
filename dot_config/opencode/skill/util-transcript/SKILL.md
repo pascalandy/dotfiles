@@ -3,8 +3,12 @@ name: transcript
 description: Transcribe YouTube videos via Deepgram (audio to txt/json) with optional Claude summary. Use when user provides YouTube URL for transcription.
 ---
 
-Here's how to use this script the user wants a transcript of a YouTube video.
-Optionally we can generated "summaries" from a CLI like Claude Code.
+Transcribe YouTube videos via Deepgram with optional Claude summary.
+
+Requires Deepgram API key in keyring:
+```bash
+chezmoi secret keyring set --service=deepgram --user=api_key
+```
 
 ## Run
 

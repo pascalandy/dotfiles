@@ -6,8 +6,11 @@ This skill runs `.opencode/skill/transcript/scripts/transcript.py` to download Y
 
 - Python 3.10+ and `uv`
 - `yt-dlp` installed and on PATH
-- `DEEPGRAM_API_KEY` set in the environment
-  - The script also loads a `.env` file from `.opencode/skill/transcript/scripts/.env` (if present)
+- Deepgram API key in macOS keyring:
+  ```bash
+  chezmoi secret keyring set --service=deepgram --user=api_key
+  ```
+  (Falls back to `DEEPGRAM_API_KEY` env var if keyring unavailable)
 - Optional (only for prompt-based summaries): `claude` CLI installed and working
 - Optional (nicer terminal preview): `glow` installed (`brew install glow`)
 

@@ -293,17 +293,42 @@ def render_markdown_with_glow(markdown_path: Path) -> None:
         console.print(Markdown(markdown_text))
 
 
+def get_api_key_from_keyring() -> str | None:
+    """Retrieve Deepgram API key from macOS keyring via chezmoi."""
+    try:
+        result = subprocess.run(
+            [
+                "chezmoi",
+                "secret",
+                "keyring",
+                "get",
+                "--service=deepgram",
+                "--user=api_key",
+            ],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        return result.stdout.strip() or None
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return None
+
+
 def validate_env() -> str:
-    """Validate required environment variables."""
-    api_key = os.getenv("DEEPGRAM_API_KEY")
+    """Get Deepgram API key from keyring or environment."""
+    # Try keyring first
+    api_key = get_api_key_from_keyring()
+
+    # Fall back to environment variable
+    if not api_key:
+        api_key = os.getenv("DEEPGRAM_API_KEY")
 
     if not api_key:
-        console.print("[red]Missing DEEPGRAM_API_KEY environment variable[/red]")
-        console.print("Create a .env file next to this script:")
-        console.print(f"  {DOTENV_PATH}")
+        console.print("[red]Missing Deepgram API key[/red]")
+        console.print("Add to macOS keyring:")
+        console.print("  chezmoi secret keyring set --service=deepgram --user=api_key")
         console.print("")
-        console.print("Add:")
-        console.print("  DEEPGRAM_API_KEY=your_api_key")
+        console.print("Or set DEEPGRAM_API_KEY environment variable")
         sys.exit(1)
 
     return api_key
@@ -386,7 +411,11 @@ def parse_args() -> argparse.Namespace:
     """Parse command line arguments."""
     # Load env early to check API key status for help
     load_dotenv(dotenv_path=DOTENV_PATH)
-    api_key_status = "set" if os.getenv("DEEPGRAM_API_KEY") else "NOT SET"
+    api_key_status = (
+        "set"
+        if (get_api_key_from_keyring() or os.getenv("DEEPGRAM_API_KEY"))
+        else "NOT SET"
+    )
 
     parser = argparse.ArgumentParser(
         description=f"""YouTube Transcript Generator from Deepgram
