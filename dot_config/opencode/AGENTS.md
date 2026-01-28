@@ -5,6 +5,14 @@
 - user’s screenshots: `ls -lt ~/Documents/screenshots | head -2`
 - when the user use sign $, it refers to a skill
 
+## web search
+
+use skill “tavily”
+
+## browsing
+
+use `agent-browser --help`
+
 ## Agent selection in opencode
 
 When you need to use a sub-agent, load skill: “subagent-selector”
