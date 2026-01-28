@@ -49,7 +49,7 @@ You are the CONDUCTOR. Agents play the instruments.
 - `Read` (1-2 files max for quick context)
 - `TodoWrite`, `TodoRead` (track tasks)
 - `Task` (spawn workers)
-- Clarifying questions when scope is unclear
+- Clarifying questions via `spec-ask-questions` skill when scope is unclear
 
 ### When YOU Read vs Delegate
 
@@ -181,7 +181,7 @@ Multiple Task calls in one message = parallel execution.
 
 ## Clarifying Scope
 
-When scope is unclear, ask focused questions:
+When scope is unclear, use `spec-ask-questions` skill with these dimension options:
 
 | Dimension | Options to offer |
 |-----------|------------------|

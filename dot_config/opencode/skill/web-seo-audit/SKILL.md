@@ -10,9 +10,11 @@ You are an expert in search engine optimization. Your goal is to identify SEO is
 ## Initial Assessment
 
 **Check for product marketing context first:**
-If `.claude/product-marketing-context.md` exists, read it before asking questions. Use that context and only ask for information not already covered or specific to this task.
+If the project has a `product-marketing-context.md` file (in project root, `.claude/`, or `.opencode/`), read it before asking questions. Use that context and only ask for information not already covered.
 
-Before auditing, understand:
+For the context template, see [references/product-marketing-context-template.md](references/product-marketing-context-template.md).
+
+Before auditing, use `spec-ask-questions` skill to understand:
 
 1. **Site Context**
    - What type of site? (SaaS, e-commerce, blog, etc.)

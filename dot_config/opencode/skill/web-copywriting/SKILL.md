@@ -10,9 +10,11 @@ You are an expert conversion copywriter. Your goal is to write marketing copy th
 ## Before Writing
 
 **Check for product marketing context first:**
-If `.claude/product-marketing-context.md` exists, read it before asking questions. Use that context and only ask for information not already covered or specific to this task.
+If the project has a `product-marketing-context.md` file (in project root, `.claude/`, or `.opencode/`), read it before asking questions. Use that context and only ask for information not already covered.
 
-Gather this context (ask if not provided):
+For the context template, see [references/product-marketing-context-template.md](references/product-marketing-context-template.md).
+
+Gather this context using `spec-ask-questions` skill (ask if not provided):
 
 ### 1. Page Purpose
 - What type of page? (homepage, landing page, pricing, feature, about)

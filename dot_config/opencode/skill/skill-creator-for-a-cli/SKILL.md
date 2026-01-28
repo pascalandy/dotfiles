@@ -387,7 +387,7 @@ Creating a CLI skill follows a systematic seven-step process that gathers compre
 
 5. **Package skill** (if ready for distribution)
    ```bash
-   python scripts/package_skill.py .claude/skills/<cli-tool-name>
+   python scripts/package_skill.py <skill-directory>/<cli-tool-name>
    ```
 
 **Output:** Complete, packaged skill ready for use and distribution.

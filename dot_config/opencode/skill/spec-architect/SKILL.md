@@ -22,7 +22,7 @@ When receiving specs/requirements:
 2. **Identify actors** - Users, systems, external services
 3. **Map data flows** - What data moves where, when, why?
 4. **Surface constraints** - Performance, security, compliance, budget, timeline
-5. **Note ambiguities** - Flag gaps; ask clarifying questions before proceeding
+5. **Note ambiguities** - Flag gaps; use `spec-ask-questions` skill to clarify before proceeding
 
 ## Architecture Document Structure
 
@@ -313,7 +313,7 @@ project/
 
 ## Output Guidelines
 
-1. **Start with questions** if specs have gaps—don't assume
+1. **Start with questions** if specs have gaps—use `spec-ask-questions` skill. Don't assume.
 2. **Use diagrams** - ASCII art or Mermaid for visual clarity
 3. **Be specific** - "PostgreSQL 16" not "a database"
 4. **Show relationships** - How components connect matters
