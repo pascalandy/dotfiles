@@ -3,61 +3,11 @@
 ## CLI Tools
 - `rg` not grep | `fd` not find | `uv` not python3 | `bun` not npm | `gh` ready
 - user’s screenshots: `ls -lt ~/Documents/screenshots | head -2`
+- when the user use sign $, it refers to a skill
 
 ## Agent selection in opencode
 
-```yaml
-agent_selection:
-  - task: planning tasks, orchestrating
-    agents: ["@build"]
-    tier: "A-tier MAIN"
-    fallback: ["@abby"]
-  - task: coding, architecture, multi-file refactoring, bugs
-    agents: ["@abby"]
-    tier: "A-tier MAIN"
-    fallback: ["@build"]
-  - task: code review
-    agents: ["@abby", "@build"]
-    mode: "parallel"
-    tier: "A-tier MAIN"
-    fallback: ["@build"]
-  - task: security review
-    agents: ["@abby"]
-    tier: "A-tier MAIN"
-    fallback: ["@build"]
-  - task: frontend/UI design, visual layout
-    agents: ["@build"]
-    tier: "A-tier MAIN"
-    fallback: ["@abby"]
-  - task: documentation/spec/changelog writing
-    agents: ["@abby"]
-    tier: "A-tier MAIN"
-    fallback: ["@build"]
-  - task: performance profiling, benchmark validation
-    agents: ["@abby"]
-    tier: "A-tier MAIN"
-    fallback: ["@build"]
-  - task: deep codebase exploration, repo mapping
-    agents: ["@explore"]
-    tier: "B-tier MAIN"
-    fallback: ["@ben"]
-  - task: codebase exploration, doc search, quick edits, deep-research Q&A
-    agents: ["@ben"]
-    tier: "B-tier MAIN"
-    fallback: ["@general"]
-  - task: tests, QA, validation, visual checks
-    agents: ["@charlie"]
-    tier: "C-tier MAIN"
-    fallback: ["@carole"]
-  - task: after 2 failed attempts (from @abby or @build)
-    agents: ["@oracle"]
-    tier: "A-tier ESCALATE"
-    fallback: ["@build"]
-  - task: everything else
-    agents: ["@general"]
-    tier: "B-tier FALLBACK"
-    fallback: ["@build"]
-```
+When you need to use a sub-agent, load skill: “subagent-selector”
 
 ## Communication Style
 - Never end sentences with ellipses (...) - it comes across as passive aggressive
