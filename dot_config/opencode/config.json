@@ -159,7 +159,6 @@
     "derick": {
       "description": "C-tier FALLBACK. Reasoning model.",
       "disable": false,
-      "mode": "subagent",
       "model": "openrouter/moonshotai/kimi-k2.5",
       "temperature": 0.2,
       "permission": {
