@@ -1,14 +1,14 @@
 pre-commit:
   commands:
     gitleaks:
-      run: gitleaks protect --staged --verbose
+      run: just gitleaks-staged
     shellcheck:
       glob:
         - "**/*.sh"
         - "dot_local/bin/executable_*"
-      run: shellcheck {staged_files}
+      run: just shellcheck-staged
     shfmt:
       glob:
         - "**/*.sh"
         - "dot_local/bin/executable_*"
-      run: shfmt -d {staged_files}
+      run: just shfmt-staged
