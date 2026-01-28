@@ -140,7 +140,7 @@ Group nodes are visual containers for organizing other nodes.
   "width": 1000,
   "height": 600,
   "label": "Project Overview",
-  "color": "4"
+  "color": "#a6d189"
 }
 ```
 
@@ -193,7 +193,7 @@ Edges are lines connecting nodes.
   "toNode": "b2c3d4e5f6789012",
   "toSide": "left",
   "toEnd": "arrow",
-  "color": "1",
+  "color": "#e78284",
   "label": "leads to"
 }
 ```
@@ -230,32 +230,60 @@ Edges are lines connecting nodes.
 
 The `canvasColor` type can be specified in two ways:
 
-### Hex Colors
+### Hex Colors (Recommended)
+
+Use hex colors from the **Catppuccin Frappé** palette for consistent, professional styling:
 
 ```json
 {
-  "color": "#FF0000"
+  "color": "#8caaee"
 }
 ```
 
-### Preset Colors
+### Catppuccin Frappé Palette
 
-```json
-{
-  "color": "1"
-}
-```
+**Semantic Colors (recommended for node types):**
 
-| Preset | Color |
-|--------|-------|
-| `"1"` | Red |
-| `"2"` | Orange |
-| `"3"` | Yellow |
-| `"4"` | Green |
-| `"5"` | Cyan |
-| `"6"` | Purple |
+| Purpose | Color | Hex |
+|---------|-------|-----|
+| Primary/Main | Blue | `#8caaee` |
+| Success/Done | Green | `#a6d189` |
+| Warning/In Progress | Yellow | `#e5c890` |
+| Error/Blocked | Red | `#e78284` |
+| Info/Reference | Teal | `#81c8be` |
+| Accent/Highlight | Mauve | `#ca9ee6` |
 
-Note: Specific color values for presets are intentionally undefined, allowing applications to use their own brand colors.
+**Full Accent Palette:**
+
+| Color | Hex |
+|-------|-----|
+| Rosewater | `#f2d5cf` |
+| Flamingo | `#eebebe` |
+| Pink | `#f4b8e4` |
+| Mauve | `#ca9ee6` |
+| Red | `#e78284` |
+| Maroon | `#ea999c` |
+| Peach | `#ef9f76` |
+| Yellow | `#e5c890` |
+| Green | `#a6d189` |
+| Teal | `#81c8be` |
+| Sky | `#99d1db` |
+| Sapphire | `#85c1dc` |
+| Blue | `#8caaee` |
+| Lavender | `#babbf1` |
+
+### Preset Colors (Fallback)
+
+Obsidian supports preset colors `"1"` through `"6"`, but hex colors provide more control:
+
+| Preset | Approximate | Frappé Equivalent |
+|--------|-------------|-------------------|
+| `"1"` | Red | `#e78284` |
+| `"2"` | Orange | `#ef9f76` (Peach) |
+| `"3"` | Yellow | `#e5c890` |
+| `"4"` | Green | `#a6d189` |
+| `"5"` | Cyan | `#81c8be` (Teal) |
+| `"6"` | Purple | `#ca9ee6` (Mauve) |
 
 ## Complete Examples
 
@@ -324,7 +352,7 @@ Note: Specific color values for presets are intentionally undefined, allowing ap
       "width": 300,
       "height": 500,
       "label": "To Do",
-      "color": "1"
+      "color": "#e78284"
     },
     {
       "id": "6f7a8b9c0d1e2f3a",
@@ -334,7 +362,7 @@ Note: Specific color values for presets are intentionally undefined, allowing ap
       "width": 300,
       "height": 500,
       "label": "In Progress",
-      "color": "3"
+      "color": "#e5c890"
     },
     {
       "id": "7a8b9c0d1e2f3a4b",
@@ -344,7 +372,7 @@ Note: Specific color values for presets are intentionally undefined, allowing ap
       "width": 300,
       "height": 500,
       "label": "Done",
-      "color": "4"
+      "color": "#a6d189"
     },
     {
       "id": "8b9c0d1e2f3a4b5c",
@@ -363,7 +391,7 @@ Note: Specific color values for presets are intentionally undefined, allowing ap
       "width": 260,
       "height": 80,
       "text": "## Task 2\n\nReview PR #123",
-      "color": "2"
+      "color": "#ef9f76"
     },
     {
       "id": "0d1e2f3a4b5c6d7e",
@@ -392,7 +420,7 @@ Note: Specific color values for presets are intentionally undefined, allowing ap
       "width": 400,
       "height": 200,
       "text": "# Research Topic\n\n## Key Questions\n\n- How does X affect Y?\n- What are the implications?",
-      "color": "5"
+      "color": "#81c8be"
     },
     {
       "id": "2f3a4b5c6d7e8f9a",
@@ -456,7 +484,7 @@ Note: Specific color values for presets are intentionally undefined, allowing ap
       "toNode": "1e2f3a4b5c6d7e8f",
       "toSide": "left",
       "toEnd": "arrow",
-      "color": "6"
+      "color": "#ca9ee6"
     },
     {
       "id": "9a0b1c2d3e4f5a6b",
@@ -483,7 +511,7 @@ Note: Specific color values for presets are intentionally undefined, allowing ap
       "width": 150,
       "height": 60,
       "text": "**Start**",
-      "color": "4"
+      "color": "#a6d189"
     },
     {
       "id": "b1c2d3e4f5a6b7c8",
@@ -502,7 +530,7 @@ Note: Specific color values for presets are intentionally undefined, allowing ap
       "width": 150,
       "height": 80,
       "text": "**Decision**\n\nIs data valid?",
-      "color": "3"
+      "color": "#e5c890"
     },
     {
       "id": "d3e4f5a6b7c8d9e0",
@@ -521,7 +549,7 @@ Note: Specific color values for presets are intentionally undefined, allowing ap
       "width": 150,
       "height": 60,
       "text": "Request new data",
-      "color": "1"
+      "color": "#e78284"
     },
     {
       "id": "f5a6b7c8d9e0f1a2",
@@ -531,7 +559,7 @@ Note: Specific color values for presets are intentionally undefined, allowing ap
       "width": 150,
       "height": 60,
       "text": "**End**",
-      "color": "4"
+      "color": "#a6d189"
     }
   ],
   "edges": [
@@ -556,7 +584,7 @@ Note: Specific color values for presets are intentionally undefined, allowing ap
       "toNode": "d3e4f5a6b7c8d9e0",
       "toSide": "left",
       "label": "Yes",
-      "color": "4"
+      "color": "#a6d189"
     },
     {
       "id": "d9e0f1a2b3c4d5e6",
@@ -565,7 +593,7 @@ Note: Specific color values for presets are intentionally undefined, allowing ap
       "toNode": "e4f5a6b7c8d9e0f1",
       "toSide": "right",
       "label": "No",
-      "color": "1"
+      "color": "#e78284"
     },
     {
       "id": "e0f1a2b3c4d5e6f7",
@@ -634,7 +662,7 @@ This format is a 16-character lowercase hex string (64-bit random value).
 5. `backgroundStyle` must be one of: `cover`, `ratio`, `repeat`
 6. `fromSide`, `toSide` must be one of: `top`, `right`, `bottom`, `left`
 7. `fromEnd`, `toEnd` must be one of: `none`, `arrow`
-8. Color presets must be `"1"` through `"6"` or valid hex color
+8. Colors must be preset `"1"` through `"6"` or valid hex (prefer Catppuccin Frappé palette)
 
 ## References
 
