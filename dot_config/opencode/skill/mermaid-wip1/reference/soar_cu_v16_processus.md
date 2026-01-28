@@ -82,7 +82,7 @@ sequenceDiagram
     Note over S: IP, Domaine,<br/>Hash de fichier
 
     X->>TI: Requête threat intelligence
-    Note over TI: Source TI 1, Source TI 2,<br/>Source TI 3, Source TI 4
+    Note over TI: Sources Threat<br/>Intelligence
 
     X->>GEO: Géolocalisation IP
     GEO-->>X: Localisation et ASN
