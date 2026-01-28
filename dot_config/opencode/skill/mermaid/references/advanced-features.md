@@ -2,6 +2,8 @@
 
 Advanced configuration, styling, theming, and other powerful features for creating professional diagrams.
 
+**Color Reference:** All examples use Catppuccin Frappe palette. See `std-color-palette-frappe` skill for complete color list.
+
 ## Frontmatter Configuration
 
 Add YAML configuration at the top of diagrams:
@@ -9,14 +11,14 @@ Add YAML configuration at the top of diagrams:
 ```mermaid
 ---
 config:
-  theme: dark
+  theme: base
   themeVariables:
-    primaryColor: "#ff6b6b"
-    primaryTextColor: "#fff"
-    primaryBorderColor: "#333"
-    lineColor: "#666"
-    secondaryColor: "#4ecdc4"
-    tertiaryColor: "#ffe66d"
+    primaryColor: "#8caaee"
+    primaryTextColor: "#c6d0f5"
+    primaryBorderColor: "#51576d"
+    lineColor: "#838ba7"
+    secondaryColor: "#a6d189"
+    tertiaryColor: "#e5c890"
 ---
 flowchart TD
     A --> B
@@ -85,18 +87,18 @@ Override specific colors:
 config:
   theme: base
   themeVariables:
-    primaryColor: "#ff6b6b"
-    primaryTextColor: "#fff"
-    primaryBorderColor: "#d63031"
-    lineColor: "#74b9ff"
-    secondaryColor: "#00b894"
-    tertiaryColor: "#fdcb6e"
-    background: "#f0f0f0"
-    mainBkg: "#ffffff"
-    textColor: "#333333"
-    nodeBorder: "#333333"
-    clusterBkg: "#f9f9f9"
-    clusterBorder: "#666666"
+    primaryColor: "#8caaee"
+    primaryTextColor: "#c6d0f5"
+    primaryBorderColor: "#51576d"
+    lineColor: "#838ba7"
+    secondaryColor: "#a6d189"
+    tertiaryColor: "#e5c890"
+    background: "#303446"
+    mainBkg: "#414559"
+    textColor: "#c6d0f5"
+    nodeBorder: "#51576d"
+    clusterBkg: "#414559"
+    clusterBorder: "#626880"
 ---
 flowchart TD
     A --> B --> C
@@ -174,12 +176,12 @@ config:
   look: handDrawn
   layout: dagre
   themeVariables:
-    primaryColor: "#ff6b6b"
-    primaryTextColor: "#fff"
-    primaryBorderColor: "#d63031"
-    lineColor: "#74b9ff"
-    secondaryColor: "#00b894"
-    tertiaryColor: "#fdcb6e"
+    primaryColor: "#8caaee"
+    primaryTextColor: "#c6d0f5"
+    primaryBorderColor: "#51576d"
+    lineColor: "#838ba7"
+    secondaryColor: "#a6d189"
+    tertiaryColor: "#e5c890"
 ---
 flowchart TD
     Start([Begin Process]) --> Input[Gather Data]
@@ -202,9 +204,9 @@ flowchart TD
     B[Warning]:::warning
     C[Error]:::error
     
-    classDef success fill:#00b894,stroke:#00a383,color:#fff
-    classDef warning fill:#fdcb6e,stroke:#e8b923,color:#333
-    classDef error fill:#ff6b6b,stroke:#ee5253,color:#fff
+    classDef success fill:#a6d189,stroke:#81c8be,color:#303446
+    classDef warning fill:#e5c890,stroke:#ef9f76,color:#303446
+    classDef error fill:#e78284,stroke:#ea999c,color:#303446
     
     A --> B --> C
 ```
@@ -216,9 +218,9 @@ flowchart LR
     B[Node B]
     C[Node C]
     
-    style A fill:#ff6b6b,stroke:#333,stroke-width:4px
-    style B fill:#4ecdc4,stroke:#333,stroke-width:2px
-    style C fill:#ffe66d,stroke:#333,stroke-width:2px
+    style A fill:#e78284,stroke:#51576d,stroke-width:4px,color:#c6d0f5
+    style B fill:#81c8be,stroke:#51576d,stroke-width:2px,color:#303446
+    style C fill:#e5c890,stroke:#51576d,stroke-width:2px,color:#303446
     
     A --> B --> C
 ```
@@ -230,9 +232,9 @@ flowchart LR
     B --> C
     C --> D
     
-    linkStyle 0 stroke:#ff6b6b,stroke-width:4px
-    linkStyle 1 stroke:#4ecdc4,stroke-width:2px
-    linkStyle 2 stroke:#ffe66d,stroke-width:2px
+    linkStyle 0 stroke:#e78284,stroke-width:4px
+    linkStyle 1 stroke:#81c8be,stroke-width:2px
+    linkStyle 2 stroke:#e5c890,stroke-width:2px
 ```
 
 ### Sequence Diagram Styling
@@ -334,8 +336,8 @@ flowchart TB
     A & B --> C
     C --> D
     
-    style Frontend fill:#e3f2fd,stroke:#2196f3,stroke-width:2px
-    style Backend fill:#fff3e0,stroke:#ff9800,stroke-width:2px
+    style Frontend fill:#414559,stroke:#8caaee,stroke-width:2px
+    style Backend fill:#414559,stroke:#ef9f76,stroke-width:2px
 ```
 
 ## Comments and Documentation
@@ -356,8 +358,8 @@ flowchart TD
     B --> C
     
     %% Add styling
-    style A fill:#90EE90
-    style C fill:#FFB6C1
+    style A fill:#a6d189,stroke:#81c8be,color:#303446
+    style C fill:#f4b8e4,stroke:#ea999c,color:#303446
 ```
 
 ## Complex Styling Example
@@ -390,19 +392,19 @@ flowchart TB
     app1 & app2 & app3 --> logs
     logs --> metrics
     
-    style production fill:#e8f5e9,stroke:#4caf50,stroke-width:3px
-    style servers fill:#fff3e0,stroke:#ff9800,stroke-width:2px
-    style monitoring fill:#e3f2fd,stroke:#2196f3,stroke-width:2px
+    style production fill:#414559,stroke:#a6d189,stroke-width:3px
+    style servers fill:#414559,stroke:#ef9f76,stroke-width:2px
+    style monitoring fill:#414559,stroke:#8caaee,stroke-width:2px
     
-    style lb fill:#ffeb3b,stroke:#fbc02d,stroke-width:2px
-    style cache fill:#ce93d8,stroke:#ab47bc,stroke-width:2px
-    style db fill:#ce93d8,stroke:#ab47bc,stroke-width:2px
+    style lb fill:#e5c890,stroke:#ef9f76,stroke-width:2px,color:#303446
+    style cache fill:#ca9ee6,stroke:#f4b8e4,stroke-width:2px,color:#303446
+    style db fill:#ca9ee6,stroke:#f4b8e4,stroke-width:2px,color:#303446
     
-    classDef serverClass fill:#81c784,stroke:#4caf50,stroke-width:2px,color:#000
+    classDef serverClass fill:#a6d189,stroke:#81c8be,stroke-width:2px,color:#303446
     class app1,app2,app3 serverClass
     
-    linkStyle 0,1,2,3 stroke:#4caf50,stroke-width:2px
-    linkStyle 4,5,6,7,8,9 stroke:#ff9800,stroke-width:1px
+    linkStyle 0,1,2,3 stroke:#a6d189,stroke-width:2px
+    linkStyle 4,5,6,7,8,9 stroke:#ef9f76,stroke-width:1px
 ```
 
 ## Responsive Sizing
@@ -435,14 +437,15 @@ mmdc -i diagram.mmd -o output.svg -b "transparent"
 
 ## Best Practices for Advanced Features
 
-1. **Use themes consistently** - Pick one theme for related diagrams
-2. **Don't over-style** - Too many colors can reduce clarity
-3. **Test hand-drawn look** - Some diagrams work better with classic look
-4. **Use ELK for complex layouts** - When dagre creates crossed lines
-5. **Comment complex configurations** - Explain non-obvious styling choices
-6. **Keep it accessible** - Ensure sufficient color contrast
-7. **Test exports** - Verify diagrams render correctly in target format
-8. **Version control configs** - Track theme changes in your repository
+1. **Use Catppuccin Frappe palette** - See `std-color-palette-frappe` skill for complete reference
+2. **Use themes consistently** - Pick one theme for related diagrams
+3. **Don't over-style** - Too many colors can reduce clarity
+4. **Test hand-drawn look** - Some diagrams work better with classic look
+5. **Use ELK for complex layouts** - When dagre creates crossed lines
+6. **Comment complex configurations** - Explain non-obvious styling choices
+7. **Keep it accessible** - Ensure sufficient color contrast
+8. **Test exports** - Verify diagrams render correctly in target format
+9. **Version control configs** - Track theme changes in your repository
 
 ## Accessibility Considerations
 
@@ -451,12 +454,12 @@ mmdc -i diagram.mmd -o output.svg -b "transparent"
 config:
   theme: base
   themeVariables:
-    primaryColor: "#0066cc"
-    primaryTextColor: "#ffffff"
-    primaryBorderColor: "#003d7a"
-    lineColor: "#333333"
-    background: "#ffffff"
-    mainBkg: "#f0f0f0"
+    primaryColor: "#8caaee"
+    primaryTextColor: "#c6d0f5"
+    primaryBorderColor: "#51576d"
+    lineColor: "#838ba7"
+    background: "#303446"
+    mainBkg: "#414559"
 ---
 flowchart TD
     A[High Contrast Text] --> B[Clear Labels]

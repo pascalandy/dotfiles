@@ -193,7 +193,7 @@ flowchart LR
     A[Normal]
     B[Styled]
     
-    style B fill:#ff6b6b,stroke:#333,stroke-width:4px,color:#fff
+    style B fill:#e78284,stroke:#51576d,stroke-width:4px,color:#c6d0f5
 ```
 
 ### Class-based Styling
@@ -203,14 +203,14 @@ flowchart LR
     B[Node 2]:::className
     C[Node 3]
     
-    classDef className fill:#f9f,stroke:#333,stroke-width:2px
+    classDef className fill:#f4b8e4,stroke:#51576d,stroke-width:2px,color:#303446
 ```
 
 ### Link Styling
 ```mermaid
 flowchart LR
     A --> B
-    linkStyle 0 stroke:#ff3,stroke-width:4px,color:red
+    linkStyle 0 stroke:#e5c890,stroke-width:4px
 ```
 
 ## Comprehensive Example: User Registration Flow
@@ -237,10 +237,10 @@ flowchart TD
     SendEmail --> ShowSuccess[Show success message]
     ShowSuccess --> End([Redirect to login])
     
-    style Start fill:#90EE90,stroke:#333,stroke-width:2px
-    style End fill:#90EE90,stroke:#333,stroke-width:2px
-    style CreateAccount fill:#87CEEB,stroke:#333,stroke-width:2px
-    style SaveDB fill:#FFD700,stroke:#333,stroke-width:2px
+    style Start fill:#a6d189,stroke:#51576d,stroke-width:2px,color:#303446
+    style End fill:#a6d189,stroke:#51576d,stroke-width:2px,color:#303446
+    style CreateAccount fill:#85c1dc,stroke:#51576d,stroke-width:2px,color:#303446
+    style SaveDB fill:#e5c890,stroke:#51576d,stroke-width:2px,color:#303446
 ```
 
 ## Algorithm Example: Binary Search
@@ -267,10 +267,10 @@ flowchart TD
     CheckLess -->|No| MoveHigh[high = mid - 1]
     MoveHigh --> Check
     
-    style Start fill:#90EE90
-    style End fill:#90EE90
-    style Found fill:#FFD700
-    style NotFound fill:#FF6B6B
+    style Start fill:#a6d189,stroke:#81c8be,color:#303446
+    style End fill:#a6d189,stroke:#81c8be,color:#303446
+    style Found fill:#e5c890,stroke:#ef9f76,color:#303446
+    style NotFound fill:#e78284,stroke:#ea999c,color:#303446
 ```
 
 ## CI/CD Pipeline
@@ -354,10 +354,10 @@ flowchart TD
     ReduceStock --> SendConfirmation[Send confirmation email]
     SendConfirmation --> Success([Order complete - Show confirmation])
     
-    style Start fill:#90EE90
-    style Success fill:#90EE90
-    style Cancel fill:#FF6B6B
-    style CreateOrder fill:#FFD700
+    style Start fill:#a6d189,stroke:#81c8be,color:#303446
+    style Success fill:#a6d189,stroke:#81c8be,color:#303446
+    style Cancel fill:#e78284,stroke:#ea999c,color:#303446
+    style CreateOrder fill:#e5c890,stroke:#ef9f76,color:#303446
 ```
 
 ## Decision Matrix Example
