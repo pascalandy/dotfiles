@@ -1,0 +1,7 @@
+[allowlist]
+description = "Ignore docs and GitHub config"
+paths = [
+  '''docs/.*''',
+  '''README\.md''',
+  '''\.github/.*''',
+]
