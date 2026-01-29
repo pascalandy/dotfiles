@@ -1,3 +1,4 @@
+tap "dicklesworthstone/tap"
 tap "felixkratz/formulae"
 tap "homebrew/command-not-found"
 tap "libsql/sqld"
