@@ -102,6 +102,10 @@ crash_procedure.md
 docs/
 lefthook.yml
 
+# Chezmoi scripts (local utilities, keep out of diff)
+.chezmoiscripts/sync.sh
+.chezmoiscripts/backup.sh
+
 # Node.js (BUN, NPM, PNPM, Yarn)
 **/node_modules/
 npm-debug.log*
