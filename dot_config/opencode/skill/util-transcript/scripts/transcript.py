@@ -34,6 +34,12 @@ from rich.console import Console
 from rich.markdown import Markdown
 from rich.status import Status
 
+
+class ClaudeCLIError(Exception):
+    """Exception for Claude CLI failures (timeout, context limit, etc.)."""
+
+    pass
+
 # Paths (repo-relative by default)
 SCRIPT_DIR = Path(__file__).parent.resolve()
 DOTENV_PATH = SCRIPT_DIR / ".env"
@@ -50,6 +56,11 @@ VALID_CLAUDE_MODELS = (
 )
 DEFAULT_CLAUDE_MODEL = "claude-opus-4-5"
 DEFAULT_PROMPT = "follow_along_note"
+
+# Claude context limits and timeout settings
+CLAUDE_SAFE_INPUT_LIMIT = 150_000  # Safe input limit (tokens), leaves room for output
+CLAUDE_CLI_TIMEOUT = 600  # 10 minutes (matches SKILL.md recommendation)
+CLAUDE_MAX_RETRIES = 3  # Retry attempts for Claude CLI failures
 
 console = Console()
 
@@ -264,6 +275,33 @@ def get_token_counts(output_dir: Path) -> dict[str, int]:
     return counts
 
 
+def validate_context_size(
+    transcript_text: str, prompt_text: str
+) -> tuple[bool, int, str]:
+    """
+    Pre-flight validation of combined context size.
+
+    Returns:
+        tuple: (is_valid, total_tokens, error_message)
+    """
+    transcript_tokens = count_tokens(transcript_text)
+    prompt_tokens = count_tokens(prompt_text)
+    # Overhead for "Based on this transcript:" framing
+    overhead_tokens = count_tokens("Based on this transcript:\n\n")
+
+    total_tokens = transcript_tokens + prompt_tokens + overhead_tokens
+
+    if total_tokens > CLAUDE_SAFE_INPUT_LIMIT:
+        error_msg = (
+            f"Context size ({total_tokens:,} tokens) exceeds safe limit "
+            f"({CLAUDE_SAFE_INPUT_LIMIT:,} tokens). "
+            f"Transcript: {transcript_tokens:,}, Prompt: {prompt_tokens:,}"
+        )
+        return False, total_tokens, error_msg
+
+    return True, total_tokens, ""
+
+
 def open_folder(path: Path) -> None:
     """Open folder in Finder (macOS) or print path."""
     if platform.system() == "Darwin":
@@ -383,28 +421,100 @@ def resolve_prompt(prompts: list[dict], name: str) -> dict:
 
 def run_claude_prompt(
     transcript_path: Path, prompt_path: Path, output_path: Path, model_name: str
-) -> None:
-    """Run Claude CLI with transcript and prompt, save output."""
+) -> dict:
+    """
+    Run Claude CLI with transcript and prompt, save output.
+
+    Uses --system-prompt for the prompt template to reduce user message tokens.
+    Includes timeout protection and retry logic.
+
+    Returns:
+        dict with usage stats: {"input_tokens": int, "output_tokens": int, "total_tokens": int}
+
+    Raises:
+        ClaudeCLIError: If Claude CLI fails after retries or context limit exceeded.
+    """
     transcript_content = transcript_path.read_text(encoding="utf-8")
     prompt_content = prompt_path.read_text(encoding="utf-8")
 
-    full_prompt = f"Based on this transcript:\n\n{transcript_content}\n\nFollow these instructions:\n\n{prompt_content}"
-
-    result = subprocess.run(
-        [
-            "claude",
-            "-p",
-            "--dangerously-skip-permissions",
-            "--model",
-            model_name,
-            full_prompt,
-        ],
-        capture_output=True,
-        text=True,
-        check=True,
+    # Pre-flight validation
+    is_valid, total_tokens, error_msg = validate_context_size(
+        transcript_content, prompt_content
     )
+    if not is_valid:
+        raise ClaudeCLIError(error_msg)
 
-    output_path.write_text(result.stdout, encoding="utf-8")
+    console.print(f"[dim]Context: {total_tokens:,} tokens (input)[/dim]")
+
+    # User message: just the transcript content
+    user_message = f"Based on this transcript:\n\n{transcript_content}"
+
+    def _run_claude() -> subprocess.CompletedProcess:
+        """Inner function for retry wrapper."""
+        return subprocess.run(
+            [
+                "claude",
+                "-p",
+                "--dangerously-skip-permissions",
+                "--model",
+                model_name,
+                "--tools",
+                "",  # Disable all tools - forces text output only
+                "--output-format",
+                "json",  # Get usage stats
+                "--system-prompt",
+                prompt_content,
+                user_message,
+            ],
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=CLAUDE_CLI_TIMEOUT,
+        )
+
+    try:
+        result = retry_request(_run_claude, max_attempts=CLAUDE_MAX_RETRIES)
+    except subprocess.TimeoutExpired:
+        raise ClaudeCLIError(
+            f"Claude CLI timed out after {CLAUDE_CLI_TIMEOUT} seconds. "
+            "The transcript may be too long or the model may be overloaded."
+        )
+    except subprocess.CalledProcessError as e:
+        raise ClaudeCLIError(f"Claude CLI failed: {e.stderr or e.stdout or str(e)}")
+
+    # Parse JSON response
+    try:
+        response_data = json.loads(result.stdout)
+    except json.JSONDecodeError as e:
+        raise ClaudeCLIError(f"Failed to parse Claude response: {e}")
+
+    # Validate expected schema (claude --output-format json returns {result, usage, ...})
+    if "result" not in response_data:
+        raise ClaudeCLIError(
+            f"Unexpected Claude JSON schema. Expected 'result' field. "
+            f"Got keys: {list(response_data.keys())}"
+        )
+
+    # Extract content and usage
+    content = response_data["result"]
+    usage = response_data.get("usage", {})
+
+    # Claude splits input tokens across multiple fields (caching)
+    input_tokens = (
+        usage.get("input_tokens", 0)
+        + usage.get("cache_creation_input_tokens", 0)
+        + usage.get("cache_read_input_tokens", 0)
+    )
+    output_tokens = usage.get("output_tokens", 0)
+
+    # Save the actual content (not the JSON)
+    output_path.write_text(content, encoding="utf-8")
+
+    return {
+        "input_tokens": input_tokens,
+        "output_tokens": output_tokens,
+        "total_tokens": input_tokens + output_tokens,
+    }
 
 
 def parse_args() -> argparse.Namespace:
@@ -563,6 +673,7 @@ def main() -> None:
 
     # Run Claude prompt if selected
     summary_path: Path | None = None
+    usage_stats: dict | None = None
     if selected_prompt:
         with Status("[cyan]Generating summary...[/cyan]", console=console):
             tmp_transcript = SCRIPT_DIR / "tmp_transcript.txt"
@@ -570,7 +681,7 @@ def main() -> None:
 
             try:
                 output_file = output_dir / selected_prompt["filename"]
-                run_claude_prompt(
+                usage_stats = run_claude_prompt(
                     tmp_transcript,
                     selected_prompt["path"],
                     output_file,
@@ -578,28 +689,31 @@ def main() -> None:
                 )
                 summary_path = output_file
                 console.print(f"[green]🧠 {selected_prompt['filename']}[/green]")
+                console.print(
+                    f"[dim]📊 Total: {usage_stats['total_tokens']:,} tokens[/dim]"
+                )
+            except ClaudeCLIError as e:
+                console.print(f"[red]Claude error:[/red] {e}")
             except subprocess.CalledProcessError as e:
                 console.print(f"[red]Failed to generate summary:[/red] {e.stderr}")
             finally:
                 if tmp_transcript.exists():
                     tmp_transcript.unlink()
 
-    # Token counts
-    counts = get_token_counts(output_dir)
-    labels = ["transcript txt", "sentences txt", "transcript json"]
-    tokens_str = " | ".join(
-        f"{v:,} ({label})" for v, label in zip(counts.values(), labels, strict=True)
-    )
     console.print()
-    console.print(f"[dim]📊 Tokens: {tokens_str}[/dim]")
     console.print(f"[dim]📂 {output_dir}[/dim]")
 
     # Save meta.txt
     date_str = datetime.now().strftime("%Y_%m_%d %Hh%M")
+    tokens_info = (
+        f"Claude: {usage_stats['total_tokens']:,} tokens (input: {usage_stats['input_tokens']:,}, output: {usage_stats['output_tokens']:,})"
+        if usage_stats
+        else "No Claude summary"
+    )
     meta_content = f"""Title: {info["title"]}
 Date: {date_str}
 URL: {args.url}
-Tokens: {tokens_str}
+{tokens_info}
 """
     (output_dir / "meta.txt").write_text(meta_content, encoding="utf-8")
 
