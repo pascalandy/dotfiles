@@ -589,6 +589,7 @@ alias qmd="$HOME/Documents/github_local/SKILLS_MONO/apps/qmd/qmd"
 
 # script manage via chezmoi
 alias uca="update-cli-apps" 
+alias ttok='ttok "${@}" 2>/dev/null'
 
 # vps1-4 = SSH with colored terminals (standalone scripts in ~/.local/bin/)
 # bak
