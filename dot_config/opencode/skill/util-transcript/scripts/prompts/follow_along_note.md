@@ -167,4 +167,5 @@ A personal anecdote about a friend who invested a modest $100 monthly starting a
   - Leave a blank space after each titles
   - Do not output the whole answer in a code block, just plain markdown
 
-Now, think hard and give me your best shot!
+give me your best shot!
+use: think hard
