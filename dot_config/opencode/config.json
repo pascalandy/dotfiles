@@ -120,7 +120,7 @@
     },
     "charlie": {
       "description": "C-tier MAIN. Verification: writing tests, running tests, code review, validating implementations, visual validation with MCP google-devtools",
-      "model": "zai-coding-plan/glm-5",
+      "model": "zai-coding-plan/glm-4.7",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
