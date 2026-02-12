@@ -52,7 +52,7 @@
     },
     "abby": {
       "description": "A-tier MAIN. Complex implementation: new features, architectural changes, multi-file refactoring, bugs requiring deep reasoning.",
-      "model": "openai/gpt-5.2-codex",
+      "model": "openai/gpt-5.3-codex",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
@@ -71,7 +71,7 @@
     },
     "oracle": {
       "description": "A-tier ESCALATE. Extended reasoning for hard problems. Use after 2 failed attempts with abby, or when task requires >5 min analysis.",
-      "model": "openai/gpt-5.2",
+      "model": "openai/gpt-5.3",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
@@ -101,7 +101,7 @@
     "general": {
       "description": "B-tier FALLBACK. Same scope as ben when ben unavailable.",
       "mode": "subagent",
-      "model": "openai/gpt-5.2",
+      "model": "openai/gpt-5.3",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
