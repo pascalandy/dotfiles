@@ -106,6 +106,9 @@ lefthook.yml
 .chezmoiscripts/sync.sh
 .chezmoiscripts/backup.sh
 
+# VS Code settings (managed outside chezmoi)
+private_Library/private_Application Support/private_Code/User/settings.json
+
 # Node.js (BUN, NPM, PNPM, Yarn)
 **/node_modules/
 npm-debug.log*
