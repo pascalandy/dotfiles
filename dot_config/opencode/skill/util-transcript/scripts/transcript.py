@@ -35,18 +35,21 @@ from rich.markdown import Markdown
 from rich.status import Status
 
 
-class ClaudeCLIError(Exception):
-    """Exception for Claude CLI failures (timeout, context limit, etc.)."""
+class SummaryCLIError(Exception):
+    """Exception for summary CLI failures (timeout, context limit, etc.)."""
 
     pass
+
 
 # Paths (repo-relative by default)
 SCRIPT_DIR = Path(__file__).parent.resolve()
 DOTENV_PATH = SCRIPT_DIR / ".env"
-# Expected location: <repo>/.opencode/skill/transcript/scripts/transcript.py
-PROJECT_ROOT = SCRIPT_DIR.parents[3]
 # Export directory (hardcoded per project conventions)
 OUTPUT_DIR = Path("~/Documents/_my_docs/61_transcription_exports_yt").expanduser()
+
+# AI summary providers
+VALID_PROVIDERS = ("codex", "claude")
+DEFAULT_PROVIDER = "codex"
 
 # Claude models for prompt summaries
 VALID_CLAUDE_MODELS = (
@@ -55,12 +58,23 @@ VALID_CLAUDE_MODELS = (
     "claude-haiku-4-5",
 )
 DEFAULT_CLAUDE_MODEL = "claude-opus-4-5"
+
+# Codex defaults for prompt summaries
+DEFAULT_CODEX_MODEL = "gpt-5.3-codex"
+DEFAULT_CODEX_REASONING_EFFORT = "high"
+CODEX_SUGGESTED_MODELS = (
+    "gpt-5.3-codex",
+    "gpt-5.2",
+    "gpt-5.2-mini",
+    "gpt-5.2-max",
+)
+
 DEFAULT_PROMPT = "follow_along_note"
 
-# Claude context limits and timeout settings
+# Claude context limits and summary timeout settings
 CLAUDE_SAFE_INPUT_LIMIT = 150_000  # Safe input limit (tokens), leaves room for output
-CLAUDE_CLI_TIMEOUT = 600  # 10 minutes (matches SKILL.md recommendation)
-CLAUDE_MAX_RETRIES = 3  # Retry attempts for Claude CLI failures
+SUMMARY_CLI_TIMEOUT = 600  # 10 minutes (matches SKILL.md recommendation)
+SUMMARY_MAX_RETRIES = 3  # Retry attempts for summary CLI failures
 
 console = Console()
 
@@ -331,6 +345,15 @@ def render_markdown_with_glow(markdown_path: Path) -> None:
         console.print(Markdown(markdown_text))
 
 
+def ensure_cli_available(command_name: str) -> None:
+    """Fail fast when a required CLI is missing from PATH."""
+    if shutil.which(command_name):
+        return
+    raise SummaryCLIError(
+        f"Required CLI '{command_name}' was not found on PATH. Install it and try again."
+    )
+
+
 def get_api_key_from_keyring() -> str | None:
     """Retrieve Deepgram API key from macOS keyring via chezmoi."""
     try:
@@ -419,6 +442,64 @@ def resolve_prompt(prompts: list[dict], name: str) -> dict:
     raise ValueError(f"Unknown prompt '{name}'. Available prompts: {available}")
 
 
+def get_models_for_provider(provider: str) -> tuple[str, ...]:
+    """Return available model names for a summary provider."""
+    if provider == "claude":
+        return VALID_CLAUDE_MODELS
+    return CODEX_SUGGESTED_MODELS
+
+
+def resolve_model(provider: str, model_name: str | None) -> str:
+    """Resolve and validate model name for the selected provider."""
+    if provider == "claude":
+        selected_model = (model_name or DEFAULT_CLAUDE_MODEL).lower()
+        if selected_model not in VALID_CLAUDE_MODELS:
+            raise ValueError(selected_model)
+        return selected_model
+    return model_name or DEFAULT_CODEX_MODEL
+
+
+def run_summary_prompt(
+    provider: str,
+    transcript_path: Path,
+    prompt_path: Path,
+    output_path: Path,
+    model_name: str,
+) -> dict:
+    """Run provider-specific summary generation."""
+    if provider == "claude":
+        return run_claude_prompt(transcript_path, prompt_path, output_path, model_name)
+    return run_codex_prompt(transcript_path, prompt_path, output_path, model_name)
+
+
+def print_summary_usage(usage_stats: dict) -> None:
+    """Print summary provider usage details."""
+    if usage_stats.get("provider") == "claude":
+        console.print(f"[dim]📊 Total: {usage_stats['total_tokens']:,} tokens[/dim]")
+        return
+
+    console.print(
+        f"[dim]⚙️ {usage_stats['model']} ({usage_stats['reasoning_effort']})[/dim]"
+    )
+
+
+def format_summary_meta(usage_stats: dict | None) -> str:
+    """Format summary details saved in meta.txt."""
+    if usage_stats and usage_stats.get("provider") == "claude":
+        return (
+            "Claude: "
+            f"{usage_stats['total_tokens']:,} tokens "
+            f"(input: {usage_stats['input_tokens']:,}, output: {usage_stats['output_tokens']:,})"
+        )
+    if usage_stats and usage_stats.get("provider") == "codex":
+        return (
+            "Codex: "
+            f"{usage_stats['model']} "
+            f"(reasoning: {usage_stats['reasoning_effort']})"
+        )
+    return "No AI summary"
+
+
 def run_claude_prompt(
     transcript_path: Path, prompt_path: Path, output_path: Path, model_name: str
 ) -> dict:
@@ -432,8 +513,10 @@ def run_claude_prompt(
         dict with usage stats: {"input_tokens": int, "output_tokens": int, "total_tokens": int}
 
     Raises:
-        ClaudeCLIError: If Claude CLI fails after retries or context limit exceeded.
+        SummaryCLIError: If Claude CLI fails after retries or context limit exceeded.
     """
+    ensure_cli_available("claude")
+
     transcript_content = transcript_path.read_text(encoding="utf-8")
     prompt_content = prompt_path.read_text(encoding="utf-8")
 
@@ -442,7 +525,7 @@ def run_claude_prompt(
         transcript_content, prompt_content
     )
     if not is_valid:
-        raise ClaudeCLIError(error_msg)
+        raise SummaryCLIError(error_msg)
 
     console.print(f"[dim]Context: {total_tokens:,} tokens (input)[/dim]")
 
@@ -469,28 +552,28 @@ def run_claude_prompt(
             capture_output=True,
             text=True,
             check=True,
-            timeout=CLAUDE_CLI_TIMEOUT,
+            timeout=SUMMARY_CLI_TIMEOUT,
         )
 
     try:
-        result = retry_request(_run_claude, max_attempts=CLAUDE_MAX_RETRIES)
+        result = retry_request(_run_claude, max_attempts=SUMMARY_MAX_RETRIES)
     except subprocess.TimeoutExpired:
-        raise ClaudeCLIError(
-            f"Claude CLI timed out after {CLAUDE_CLI_TIMEOUT} seconds. "
+        raise SummaryCLIError(
+            f"Claude CLI timed out after {SUMMARY_CLI_TIMEOUT} seconds. "
             "The transcript may be too long or the model may be overloaded."
         )
     except subprocess.CalledProcessError as e:
-        raise ClaudeCLIError(f"Claude CLI failed: {e.stderr or e.stdout or str(e)}")
+        raise SummaryCLIError(f"Claude CLI failed: {e.stderr or e.stdout or str(e)}")
 
     # Parse JSON response
     try:
         response_data = json.loads(result.stdout)
     except json.JSONDecodeError as e:
-        raise ClaudeCLIError(f"Failed to parse Claude response: {e}")
+        raise SummaryCLIError(f"Failed to parse Claude response: {e}")
 
     # Validate expected schema (claude --output-format json returns {result, usage, ...})
     if "result" not in response_data:
-        raise ClaudeCLIError(
+        raise SummaryCLIError(
             f"Unexpected Claude JSON schema. Expected 'result' field. "
             f"Got keys: {list(response_data.keys())}"
         )
@@ -511,9 +594,80 @@ def run_claude_prompt(
     output_path.write_text(content, encoding="utf-8")
 
     return {
+        "provider": "claude",
+        "model": model_name,
         "input_tokens": input_tokens,
         "output_tokens": output_tokens,
         "total_tokens": input_tokens + output_tokens,
+    }
+
+
+def run_codex_prompt(
+    transcript_path: Path, prompt_path: Path, output_path: Path, model_name: str
+) -> dict:
+    """Run Codex CLI with transcript and prompt, save markdown output."""
+    ensure_cli_available("codex")
+
+    transcript_content = transcript_path.read_text(encoding="utf-8")
+    prompt_content = prompt_path.read_text(encoding="utf-8")
+    user_message = (
+        f"{prompt_content.strip()}\n\nBased on this transcript:\n\n{transcript_content}"
+    )
+
+    codex_output_path = output_path.parent / ".tmp_codex_last_message.md"
+
+    def _run_codex() -> subprocess.CompletedProcess:
+        return subprocess.run(
+            [
+                "codex",
+                "exec",
+                "--skip-git-repo-check",
+                "--sandbox",
+                "read-only",
+                "--model",
+                model_name,
+                "--config",
+                f'model_reasoning_effort="{DEFAULT_CODEX_REASONING_EFFORT}"',
+                "--output-last-message",
+                str(codex_output_path),
+                "-",
+            ],
+            input=user_message,
+            stdout=subprocess.PIPE,
+            text=True,
+            check=True,
+            timeout=SUMMARY_CLI_TIMEOUT,
+            stderr=subprocess.DEVNULL,
+        )
+
+    try:
+        result = retry_request(_run_codex, max_attempts=SUMMARY_MAX_RETRIES)
+    except subprocess.TimeoutExpired:
+        raise SummaryCLIError(
+            f"Codex CLI timed out after {SUMMARY_CLI_TIMEOUT} seconds. "
+            "The transcript may be too long or the model may be overloaded."
+        )
+    except subprocess.CalledProcessError as e:
+        details = e.stdout.strip() if e.stdout else str(e)
+        raise SummaryCLIError(f"Codex CLI failed: {details}")
+
+    output_text = ""
+    if codex_output_path.exists():
+        output_text = codex_output_path.read_text(encoding="utf-8").strip()
+        codex_output_path.unlink(missing_ok=True)
+
+    if not output_text:
+        output_text = (result.stdout or "").strip()
+
+    if not output_text:
+        raise SummaryCLIError("Codex CLI returned empty output.")
+
+    output_path.write_text(f"{output_text}\n", encoding="utf-8")
+
+    return {
+        "provider": "codex",
+        "model": model_name,
+        "reasoning_effort": DEFAULT_CODEX_REASONING_EFFORT,
     }
 
 
@@ -530,7 +684,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=f"""YouTube Transcript Generator from Deepgram
 
-Default (transcript + follow_along_note prompt):
+Default (transcript + follow_along_note prompt via Codex):
   uv run %(prog)s "https://youtu.be/dQw4w9WgXcQ"
 """,
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -553,6 +707,12 @@ Environment:
     )
     options_group = parser.add_argument_group("Options")
     options_group.add_argument(
+        "--provider",
+        choices=VALID_PROVIDERS,
+        default=DEFAULT_PROVIDER,
+        help=f"Summary provider (default: {DEFAULT_PROVIDER})",
+    )
+    options_group.add_argument(
         "--no-prompt",
         action="store_true",
         help="Transcript only, skip AI summary",
@@ -567,11 +727,13 @@ Environment:
     )
     options_group.add_argument(
         "--model",
-        type=str.lower,
-        choices=VALID_CLAUDE_MODELS,
-        default=DEFAULT_CLAUDE_MODEL,
+        type=str,
+        default=None,
         metavar="MODEL",
-        help=f"Claude model (default: {DEFAULT_CLAUDE_MODEL})",
+        help=(
+            "Model name. Defaults: "
+            f"codex={DEFAULT_CODEX_MODEL}, claude={DEFAULT_CLAUDE_MODEL}"
+        ),
     )
     options_group.add_argument(
         "--list-prompts",
@@ -581,7 +743,7 @@ Environment:
     options_group.add_argument(
         "--list-models",
         action="store_true",
-        help="List available models",
+        help="List available models for the selected provider",
     )
     # Show help if no arguments provided
     if len(sys.argv) == 1:
@@ -606,7 +768,7 @@ def main() -> None:
     prompts = scan_prompts(SCRIPT_DIR / "prompts")
 
     if args.list_models:
-        for model in VALID_CLAUDE_MODELS:
+        for model in get_models_for_provider(args.provider):
             console.print(model)
 
     if args.list_prompts:
@@ -622,6 +784,14 @@ def main() -> None:
         except ValueError as e:
             console.print(f"[red]{e}[/red]")
             sys.exit(1)
+
+    try:
+        selected_model = resolve_model(args.provider, args.model)
+    except ValueError as e:
+        console.print(
+            f"[red]Invalid Claude model:[/red] {e}. Use --list-models --provider claude"
+        )
+        sys.exit(1)
 
     api_key = validate_env()
 
@@ -671,45 +841,37 @@ def main() -> None:
     # Cleanup audio
     audio_path.unlink()
 
-    # Run Claude prompt if selected
+    # Run summary prompt if selected
     summary_path: Path | None = None
     usage_stats: dict | None = None
     if selected_prompt:
-        with Status("[cyan]Generating summary...[/cyan]", console=console):
-            tmp_transcript = SCRIPT_DIR / "tmp_transcript.txt"
-            shutil.copy(output_dir / "raw_transcript.txt", tmp_transcript)
-
+        with Status(
+            f"[cyan]Generating summary with {args.provider}...[/cyan]", console=console
+        ):
             try:
                 output_file = output_dir / selected_prompt["filename"]
-                usage_stats = run_claude_prompt(
-                    tmp_transcript,
+                transcript_file = output_dir / "raw_transcript.txt"
+
+                usage_stats = run_summary_prompt(
+                    args.provider,
+                    transcript_file,
                     selected_prompt["path"],
                     output_file,
-                    args.model,
+                    selected_model,
                 )
+
                 summary_path = output_file
                 console.print(f"[green]🧠 {selected_prompt['filename']}[/green]")
-                console.print(
-                    f"[dim]📊 Total: {usage_stats['total_tokens']:,} tokens[/dim]"
-                )
-            except ClaudeCLIError as e:
-                console.print(f"[red]Claude error:[/red] {e}")
-            except subprocess.CalledProcessError as e:
-                console.print(f"[red]Failed to generate summary:[/red] {e.stderr}")
-            finally:
-                if tmp_transcript.exists():
-                    tmp_transcript.unlink()
+                print_summary_usage(usage_stats)
+            except SummaryCLIError as e:
+                console.print(f"[red]{args.provider} error:[/red] {e}")
 
     console.print()
     console.print(f"[dim]📂 {output_dir}[/dim]")
 
     # Save meta.txt
     date_str = datetime.now().strftime("%Y_%m_%d %Hh%M")
-    tokens_info = (
-        f"Claude: {usage_stats['total_tokens']:,} tokens (input: {usage_stats['input_tokens']:,}, output: {usage_stats['output_tokens']:,})"
-        if usage_stats
-        else "No Claude summary"
-    )
+    tokens_info = format_summary_meta(usage_stats)
     meta_content = f"""Title: {info["title"]}
 Date: {date_str}
 URL: {args.url}

@@ -1,9 +1,9 @@
 ---
 name: transcript
-description: Transcribe YouTube videos via Deepgram (audio to txt/json) with optional Claude summary. Use when user provides YouTube URL for transcription.
+description: Transcribe YouTube videos via Deepgram (audio to txt/json) with optional Codex or Claude summary. Use when user provides YouTube URL for transcription.
 ---
 
-Transcribe YouTube videos via Deepgram with optional Claude summary.
+Transcribe YouTube videos via Deepgram with optional Codex or Claude summary.
 
 Requires Deepgram API key in keyring:
 ```bash
@@ -28,17 +28,19 @@ uv run ~/.config/opencode/skill/util-transcript/scripts/transcript.py --help
 
 ## Choose flags from user intent
 
-**Default behavior**: Script defaults to `follow_along_note` prompt. Just provide the URL.
+**Default behavior**: Script defaults to `follow_along_note` prompt with `codex`. Just provide the URL.
 
-- **Default** (user gives URL only) → run with just `<url>` (script defaults to follow_along_note)
+- **Default** (user gives URL only) → run with just `<url>` (script defaults to `codex` + follow_along_note)
+- **Use Claude** → add `--provider claude`
 - **Transcript only** (user explicitly says "transcript only" or "no summary") → add `--no-prompt`
 - **Different prompt requested** (user says `short_summary`, `summary_with_quotes`, etc.) → add `--prompt <stem>`
-- **Model requested** (user says `haiku`/`sonnet`/`opus`) → add:
+- **Codex model requested** → add `--model <name>` (default: `gpt-5.3-codex`, reasoning: `high`)
+- **Claude model requested** (user says `haiku`/`sonnet`/`opus`) → add:
   - `haiku` → `--model claude-haiku-4-5`
   - `sonnet` → `--model claude-sonnet-4-5`
   - `opus` → `--model claude-opus-4-5`
 - If user asks "what prompts/templates exist?" → run `--list-prompts`, return the list, and ask which one to use.
-- If user asks "what models can I use?" → run `--list-models`, return the list, and ask which one to use.
+- If user asks "what models can I use?" → run `--list-models` (and set `--provider claude` if they ask for Claude models), return the list, and ask which one to use.
 
 ## Shorthand input mapping
 
@@ -46,11 +48,11 @@ Examples:
 
 ```bash
 # User: transcript https://www.youtube.com/watch?v=2QpXab8z_Gw
-# (default: follow_along_note prompt)
+# (default: codex + follow_along_note prompt)
 uv run ~/.config/opencode/skill/util-transcript/scripts/transcript.py "https://www.youtube.com/watch?v=2QpXab8z_Gw"
 
-# User: transcript, short_summary, haiku, https://www.youtube.com/watch?v=2QpXab8z_Gw
-uv run ~/.config/opencode/skill/util-transcript/scripts/transcript.py --prompt short_summary --model claude-haiku-4-5 "https://www.youtube.com/watch?v=2QpXab8z_Gw"
+# User: transcript, short_summary, claude, haiku, https://www.youtube.com/watch?v=2QpXab8z_Gw
+uv run ~/.config/opencode/skill/util-transcript/scripts/transcript.py --provider claude --prompt short_summary --model claude-haiku-4-5 "https://www.youtube.com/watch?v=2QpXab8z_Gw"
 
 # User: transcript only, https://www.youtube.com/watch?v=2QpXab8z_Gw
 uv run ~/.config/opencode/skill/util-transcript/scripts/transcript.py --no-prompt "https://www.youtube.com/watch?v=2QpXab8z_Gw"
