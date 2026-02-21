@@ -48,8 +48,10 @@ DOTENV_PATH = SCRIPT_DIR / ".env"
 OUTPUT_DIR = Path("~/Documents/_my_docs/61_transcription_exports_yt").expanduser()
 
 # AI summary providers
-VALID_PROVIDERS = ("codex", "claude")
-DEFAULT_PROVIDER = "codex"
+PROVIDER_CODEX = "codex"
+PROVIDER_CLAUDE = "claude"
+VALID_PROVIDERS = (PROVIDER_CODEX, PROVIDER_CLAUDE)
+DEFAULT_PROVIDER = PROVIDER_CODEX
 
 # Claude models for prompt summaries
 VALID_CLAUDE_MODELS = (
@@ -444,19 +446,23 @@ def resolve_prompt(prompts: list[dict], name: str) -> dict:
 
 def get_models_for_provider(provider: str) -> tuple[str, ...]:
     """Return available model names for a summary provider."""
-    if provider == "claude":
+    if provider == PROVIDER_CLAUDE:
         return VALID_CLAUDE_MODELS
     return CODEX_SUGGESTED_MODELS
 
 
 def resolve_model(provider: str, model_name: str | None) -> str:
-    """Resolve and validate model name for the selected provider."""
-    if provider == "claude":
-        selected_model = (model_name or DEFAULT_CLAUDE_MODEL).lower()
-        if selected_model not in VALID_CLAUDE_MODELS:
-            raise ValueError(selected_model)
-        return selected_model
+    """Resolve model name for the selected provider."""
+    if provider == PROVIDER_CLAUDE:
+        return (model_name or DEFAULT_CLAUDE_MODEL).lower()
     return model_name or DEFAULT_CODEX_MODEL
+
+
+def is_valid_model(provider: str, model_name: str) -> bool:
+    """Validate model name for the selected provider."""
+    if provider == PROVIDER_CLAUDE:
+        return model_name in VALID_CLAUDE_MODELS
+    return True
 
 
 def run_summary_prompt(
@@ -467,14 +473,14 @@ def run_summary_prompt(
     model_name: str,
 ) -> dict:
     """Run provider-specific summary generation."""
-    if provider == "claude":
+    if provider == PROVIDER_CLAUDE:
         return run_claude_prompt(transcript_path, prompt_path, output_path, model_name)
     return run_codex_prompt(transcript_path, prompt_path, output_path, model_name)
 
 
 def print_summary_usage(usage_stats: dict) -> None:
     """Print summary provider usage details."""
-    if usage_stats.get("provider") == "claude":
+    if usage_stats.get("provider") == PROVIDER_CLAUDE:
         console.print(f"[dim]📊 Total: {usage_stats['total_tokens']:,} tokens[/dim]")
         return
 
@@ -485,13 +491,13 @@ def print_summary_usage(usage_stats: dict) -> None:
 
 def format_summary_meta(usage_stats: dict | None) -> str:
     """Format summary details saved in meta.txt."""
-    if usage_stats and usage_stats.get("provider") == "claude":
+    if usage_stats and usage_stats.get("provider") == PROVIDER_CLAUDE:
         return (
             "Claude: "
             f"{usage_stats['total_tokens']:,} tokens "
             f"(input: {usage_stats['input_tokens']:,}, output: {usage_stats['output_tokens']:,})"
         )
-    if usage_stats and usage_stats.get("provider") == "codex":
+    if usage_stats and usage_stats.get("provider") == PROVIDER_CODEX:
         return (
             "Codex: "
             f"{usage_stats['model']} "
@@ -594,7 +600,7 @@ def run_claude_prompt(
     output_path.write_text(content, encoding="utf-8")
 
     return {
-        "provider": "claude",
+        "provider": PROVIDER_CLAUDE,
         "model": model_name,
         "input_tokens": input_tokens,
         "output_tokens": output_tokens,
@@ -665,7 +671,7 @@ def run_codex_prompt(
     output_path.write_text(f"{output_text}\n", encoding="utf-8")
 
     return {
-        "provider": "codex",
+        "provider": PROVIDER_CODEX,
         "model": model_name,
         "reasoning_effort": DEFAULT_CODEX_REASONING_EFFORT,
     }
@@ -785,11 +791,11 @@ def main() -> None:
             console.print(f"[red]{e}[/red]")
             sys.exit(1)
 
-    try:
-        selected_model = resolve_model(args.provider, args.model)
-    except ValueError as e:
+    selected_model = resolve_model(args.provider, args.model)
+    if not is_valid_model(args.provider, selected_model):
         console.print(
-            f"[red]Invalid Claude model:[/red] {e}. Use --list-models --provider claude"
+            "[red]Invalid Claude model:[/red] "
+            f"{selected_model}. Use --list-models --provider claude"
         )
         sys.exit(1)
 
