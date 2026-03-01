@@ -13,7 +13,18 @@ For any vault question, start from existing Base views before manual search.
 1. Resolve the active vault path.
 2. Inspect `_bases/The Vault 🧠.base`.
 3. Reuse the matching view filter.
-4. Search notes with the same filter keys (`tags`, `project_id`, `links`).
+4. Run Obsidian CLI queries with the same filter keys (`tags`, `project_id`, `links`).
+5. Use file-level fallback checks only if needed.
+
+## Preflight (CLI)
+
+Run first:
+
+```bash
+obsidian help
+```
+
+If CLI reports installer/version issues, stop and ask for an Obsidian update from `https://obsidian.md/download`.
 
 ## Vault Path
 
@@ -52,10 +63,41 @@ Some views filter by links to specific files (example: `_cards/journal`).
 
 1. Find a matching view in `The Vault 🧠.base`.
 2. Extract its filter logic.
-3. Run targeted search using that logic.
-4. Broaden search only if no view fits.
+3. Run targeted Obsidian CLI search using that logic.
+4. Read top note(s), then expand with backlinks.
+5. Broaden search only if no view fits.
 
-## Useful Commands
+## Obsidian CLI Commands (Primary)
+
+```bash
+# list tags and counts
+obsidian tags sort=count counts total
+
+# search by a tag key from Base filters
+obsidian search query="tag:#area/life/sante" limit=50
+
+# search by project_id from Base filters
+obsidian search query="project_id: s5C5t" limit=50
+
+# search by linked note from Base filters
+obsidian search query="[[_cards/journal]]" limit=50
+
+# read one candidate note
+obsidian read file="<note-name>"
+
+# expand context graph
+obsidian backlinks file="<note-name>" total
+```
+
+For broad research prompts, run one French and one English variant of the query:
+
+```bash
+obsidian search query="$ARGUMENTS" limit=50
+```
+
+## Useful Fallback Commands (Secondary)
+
+Use these only for strict verification or when CLI output needs file-level checks:
 
 ```bash
 # list notes by tag
@@ -73,3 +115,8 @@ cat "$VAULT_PATH/_bases/The Vault 🧠.base"
 When working on a canvas, load the skill "obsidian-json-canvas"
 
 Rule: Treat `The Vault 🧠` as the default entry point for retrieval.
+
+Execution order:
+1. Base view matching
+2. Obsidian CLI retrieval
+3. Fallback file-level checks
