@@ -580,9 +580,6 @@ alias cdm='clear && cd $MY_DOCS && ls' # _my_docs
 alias cdp='clear && cd $PROJ_HOME/pascalandy-blog-paper && ls' # pascalandy-blog
 alias cdv='clear && cd $MY_DOCS/10_obsidian/vault_obsidian && ls' # vault (obsidian)
 
-# qmd using my forked with LM Studio
-alias qmd="$HOME/Documents/github_local/SKILLS_MONO/apps/qmd/qmd"
-
 # test comment v7
 
 # === script manage via chezmoi ===
