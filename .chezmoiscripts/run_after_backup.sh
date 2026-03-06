@@ -49,18 +49,34 @@ fct_copy_file() {
 	cp "$src_file" "$dst_file"
 }
 
-log "Starting post-apply backup script"
+fct_prepare_rendered_opencode_tree() {
+	local render_root="$1"
 
-CHEZMOI_SOURCE_DIR="${CHEZMOI_SOURCE_DIR:-$HOME/.local/share/chezmoi}"
+	log "Rendering OpenCode commands and skills from chezmoi target state"
+
+	mkdir -p "$render_root"
+
+	chezmoi archive --format tar \
+		"$HOME/.config/opencode/command" \
+		"$HOME/.config/opencode/skill" |
+		tar -xf - -C "$render_root"
+}
+
+log "Starting post-apply backup script"
 
 # Backup tree file to repo
 TREE_SRC="$HOME/Documents/_my_docs/42_tree_of_my_dir_files/z_archive/tree_my_docs.txt"
 TREE_DST="$HOME/.local/share/chezmoi/backup_tree_my_docs.txt"
 fct_copy_file "$TREE_SRC" "$TREE_DST"
 
-# Sync opencode commands and skills from chezmoi source to all AI coding tools
-OPENCODE_COMMAND_SRC="$CHEZMOI_SOURCE_DIR/dot_config/opencode/command"
-OPENCODE_SKILL_SRC="$CHEZMOI_SOURCE_DIR/dot_config/opencode/skill"
+# Render once via chezmoi, then fan out the rendered target state to all AI coding tools
+RENDER_ROOT="$(mktemp -d)"
+trap 'rm -rf "$RENDER_ROOT"' EXIT
+
+fct_prepare_rendered_opencode_tree "$RENDER_ROOT"
+
+OPENCODE_COMMAND_SRC="$RENDER_ROOT/.config/opencode/command"
+OPENCODE_SKILL_SRC="$RENDER_ROOT/.config/opencode/skill"
 
 # pi-mono .
 fct_copy_dir "$OPENCODE_COMMAND_SRC" "$HOME/.pi/agent/prompts"
