@@ -101,10 +101,10 @@ Omit to search all collections.
 ## CLI
 
 ```bash
+qmd search "keywords"             # BM25 only (no LLM)
 qmd query "question"              # Auto-expand + rerank
 qmd query $'lex: X\nvec: Y'       # Structured
 qmd query $'expand: question'     # Explicit expand
-qmd search "keywords"             # BM25 only (no LLM)
 qmd get "#abc123"                 # By docid
 qmd multi-get "journals/2026-*.md" -l 40  # Batch pull snippets by glob
 qmd multi-get notes/foo.md,notes/bar.md   # Comma-separated list, preserves order
