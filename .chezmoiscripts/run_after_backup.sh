@@ -51,8 +51,7 @@ fct_copy_file() {
 
 log "Starting post-apply backup script"
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-CHEZMOI_SOURCE_DIR="$(dirname "$SCRIPT_DIR")"
+CHEZMOI_SOURCE_DIR="${CHEZMOI_SOURCE_DIR:-$HOME/.local/share/chezmoi}"
 
 # Backup tree file to repo
 TREE_SRC="$HOME/Documents/_my_docs/42_tree_of_my_dir_files/z_archive/tree_my_docs.txt"
