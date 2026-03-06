@@ -61,7 +61,7 @@ OPENCODE_SRC="$HOME/.config/opencode"
 OPENCODE_COMMAND_SRC="$OPENCODE_SRC/command"
 OPENCODE_SKILL_SRC="$OPENCODE_SRC/skill"
 
-# pi-mono
+# pi-mono .
 fct_copy_dir "$OPENCODE_COMMAND_SRC" "$HOME/.pi/agent/prompts"
 fct_copy_dir "$OPENCODE_SKILL_SRC" "$HOME/.pi/agent/skills"
 
