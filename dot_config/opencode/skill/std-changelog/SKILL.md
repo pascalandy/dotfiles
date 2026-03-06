@@ -1,5 +1,5 @@
 ---
-name: changelog
+name: std-changelog
 description: Update CHANGELOG.md following project conventions. Use when adding, fixing, or removing features that need changelog entries.
 ---
 

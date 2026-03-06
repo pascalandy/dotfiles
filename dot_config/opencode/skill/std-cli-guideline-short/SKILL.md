@@ -1,5 +1,5 @@
 ---
-name: cli-creator
+name: std-cli-guideline-short
 description: Design CLI parameters and UX (arguments, flags, subcommands, help text, output formats, error messages, exit codes, config/env precedence). Use when designing a CLI spec before implementation or refactoring CLI surface area.
 ---
 

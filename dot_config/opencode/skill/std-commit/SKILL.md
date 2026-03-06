@@ -1,5 +1,5 @@
 ---
-name: commit
+name: std-commit
 description: Create atomic commits with clear, specific messages. Use when committing changes to git repositories. Load before any git commit operation.
 ---
 

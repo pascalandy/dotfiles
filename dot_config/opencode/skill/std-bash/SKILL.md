@@ -1,5 +1,5 @@
 ---
-name: bash
+name: std-bash
 description: Create and refactor Bash scripts following conventions (strict mode, fct_ naming, quoting). Includes shellcheck linting. Use when creating shell scripts, refactoring existing scripts, debugging shell errors, or linting scripts.
 ---
 

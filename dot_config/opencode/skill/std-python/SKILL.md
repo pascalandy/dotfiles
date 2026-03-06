@@ -1,5 +1,5 @@
 ---
-name: python
+name: std-python
 description: Develop Python projects with uv (PEP 723 inline metadata, venv management, script execution). Use when user mentions uv, creates Python scripts, or needs Python environment setup.
 ---
 

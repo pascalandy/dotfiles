@@ -1,5 +1,5 @@
 ---
-name: password-generator
+name: util-password-generator
 description: Generate secure passwords using cryptographic randomness. Use when user asks for a password, passphrase, or secure token.
 ---
 

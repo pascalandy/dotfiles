@@ -1,5 +1,5 @@
 ---
-name: fct-web-ui-ux
+name: web-ui-ux-pro-max
 description: UI/UX design intelligence for web and mobile across 13 stacks (React, Next.js, Vue, Svelte, Tailwind, shadcn/ui, etc.). Use when building, designing, reviewing, or optimizing UI/UX for websites, dashboards, apps. Covers styles, palettes, fonts, accessibility, animation, layout.
 ---
 

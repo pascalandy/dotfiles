@@ -1,5 +1,5 @@
 ---
-name: project-status
+name: util-project-status
 description: Orchestrate multi-agent workflow for project status reporting across WORKDIR and IDEATION. Use when user asks for project status overview, requests a scan, or says "run project status."
 ---
 
