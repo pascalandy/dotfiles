@@ -103,8 +103,6 @@ docs/
 lefthook.yml
 
 # Chezmoi scripts (local utilities, keep out of diff)
-.chezmoiscripts/sync.sh
-.chezmoiscripts/backup.sh
 
 # VS Code settings (managed outside chezmoi)
 private_Library/private_Application Support/private_Code/User/settings.json
