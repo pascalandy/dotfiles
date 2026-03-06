@@ -1,4 +1,0 @@
-- Flow with /speckit.clarify when spec has ambiguities
-- Flow with /speckit.analyze for coherence audit
-- Flow with failed external review requiring iteration
-- Flow with /speckit.taskstoissues for GitHub integration
