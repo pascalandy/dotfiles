@@ -1,5 +1,5 @@
 ---
-name: color-palette-frappe
+name: std-color-palette-frappe
 description: Catppuccin Frappe color palette (hex/rgba) for consistent styling. Use when applying colors to Mermaid diagrams or needing cohesive color references.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: pg-memory
+name: util-pg-memory
 description: Store and retrieve memories for AI agents via PostgreSQL. Use when storing decisions/learnings/observations, retrieving past context, searching memories, or ingesting sources. Triggers "pgm," "remember this," "store memory," "search memories."
 ---
 

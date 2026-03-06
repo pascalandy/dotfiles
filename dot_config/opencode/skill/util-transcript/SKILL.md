@@ -1,5 +1,5 @@
 ---
-name: transcript
+name: util-transcript
 description: Transcribe YouTube videos via Deepgram (audio to txt/json) with optional Codex or Claude summary. Use when user provides YouTube URL for transcription.
 ---
 

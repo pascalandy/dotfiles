@@ -1,5 +1,5 @@
 ---
-name: cli-guideline
+name: std-cli-guideline-deep
 description: Build CLI tools (Python, JS, Bash, Go) following modern best practices. Use when creating new CLIs, reviewing CLI UX, implementing help/errors/output, or adding flags/args/subcommands.
 ---
 
