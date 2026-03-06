@@ -51,15 +51,17 @@ fct_copy_file() {
 
 log "Starting post-apply backup script"
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CHEZMOI_SOURCE_DIR="$(dirname "$SCRIPT_DIR")"
+
 # Backup tree file to repo
 TREE_SRC="$HOME/Documents/_my_docs/42_tree_of_my_dir_files/z_archive/tree_my_docs.txt"
 TREE_DST="$HOME/.local/share/chezmoi/backup_tree_my_docs.txt"
 fct_copy_file "$TREE_SRC" "$TREE_DST"
 
-# Sync opencode commands and skills to all AI coding tools
-OPENCODE_SRC="$HOME/.config/opencode"
-OPENCODE_COMMAND_SRC="$OPENCODE_SRC/command"
-OPENCODE_SKILL_SRC="$OPENCODE_SRC/skill"
+# Sync opencode commands and skills from chezmoi source to all AI coding tools
+OPENCODE_COMMAND_SRC="$CHEZMOI_SOURCE_DIR/dot_config/opencode/command"
+OPENCODE_SKILL_SRC="$CHEZMOI_SOURCE_DIR/dot_config/opencode/skill"
 
 # pi-mono .
 fct_copy_dir "$OPENCODE_COMMAND_SRC" "$HOME/.pi/agent/prompts"
