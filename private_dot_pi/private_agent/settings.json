@@ -1,0 +1,14 @@
+{
+  "lastChangelogVersion": "0.56.3",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.4",
+  "hideThinkingBlock": true,
+  "defaultThinkingLevel": "medium",
+  "theme": "dracula",
+  "prompts": [
+    "prompts",
+    "prompts/andy",
+    "prompts/cloud_aix",
+    "prompts/oh_my_oc"
+  ]
+}
