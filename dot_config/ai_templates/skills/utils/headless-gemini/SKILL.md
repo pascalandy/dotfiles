@@ -48,7 +48,7 @@ For automation, prefer `-p` / `--prompt` even though Gemini docs also show posit
 Using `-p` makes the intent explicit and matches current CLI help text.
 
 ```bash
-gemini -p "Review this repository for security risks"
+gemini -m pro -p "What should I know about this repo? Tell me under three sentences"
 ```
 
 ### Input sources
