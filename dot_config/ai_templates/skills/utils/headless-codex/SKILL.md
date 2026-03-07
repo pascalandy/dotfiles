@@ -1,6 +1,6 @@
 ---
 name: headless-codex
-description: Use whenever the user wants OpenAI Codex CLI run non-interactively: `codex exec`, `codex exec resume`, scripted/CI Codex automation, JSONL or schema-constrained Codex output, or headless Codex authentication with API keys or device code. Prefer this skill over interactive Codex guidance when the task should finish in one terminal command or continue a previous non-interactive Codex run.
+description: "Use whenever the user wants OpenAI Codex CLI run non-interactively: `codex exec`, `codex exec resume`, scripted/CI Codex automation, JSONL or schema-constrained Codex output, or headless Codex authentication with API keys or device code. Prefer this skill over interactive Codex guidance when the task should finish in one terminal command or continue a previous non-interactive Codex run."
 ---
 
 # Headless Codex
