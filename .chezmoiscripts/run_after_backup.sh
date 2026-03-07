@@ -1,11 +1,21 @@
 #!/usr/bin/env bash
 
-# Exit on error, treat unset variables as error, exit on pipe failure
-set -euo pipefail
+set -Eeuo pipefail
 
-# Function to log messages
 log() {
-	echo "$(date '+%Y-%m-%d %H:%M:%S') - $1"
+	printf '%s - %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$1"
+}
+
+log_info() {
+	log "INFO: $1"
+}
+
+log_warn() {
+	log "WARN: $1"
+}
+
+log_error() {
+	log "ERROR: $1"
 }
 
 fct_copy_dir() {
@@ -13,18 +23,18 @@ fct_copy_dir() {
 	local dst_dir="$2"
 
 	if [[ ! -d "$src_dir" ]]; then
-		log "Error: Source directory $src_dir does not exist"
+		log_error "Source directory does not exist: $src_dir"
 		return 1
 	fi
 
 	if [[ "$src_dir" == "$dst_dir" ]]; then
-		log "Source and destination are the same, skipping: $src_dir"
+		log_info "Source and destination are identical, skipping: $src_dir"
 		return 0
 	fi
 
 	mkdir -p "$dst_dir"
-	log "Copying from $src_dir to $dst_dir"
-	rsync -a --delete "$src_dir"/ "$dst_dir"/
+	log_info "Syncing $src_dir -> $dst_dir"
+	rsync -a --delete --exclude '.DS_Store' "$src_dir/" "$dst_dir/"
 }
 
 fct_copy_file() {
@@ -33,7 +43,7 @@ fct_copy_file() {
 	local dst_parent
 
 	if [[ ! -f "$src_file" ]]; then
-		log "Warning: Source file $src_file does not exist"
+		log_warn "Source file does not exist: $src_file"
 		return 0
 	fi
 
@@ -41,68 +51,107 @@ fct_copy_file() {
 	mkdir -p "$dst_parent"
 
 	if [[ -f "$dst_file" ]] && cmp -s "$src_file" "$dst_file"; then
-		log "File up to date: $dst_file"
+		log_info "File already up to date: $dst_file"
 		return 0
 	fi
 
-	log "Copying file from $src_file to $dst_file"
+	log_info "Copying file $src_file -> $dst_file"
 	cp "$src_file" "$dst_file"
 }
 
-fct_prepare_rendered_opencode_tree() {
+fct_sync_agent_assets() {
+	local commands_src="$1"
+	local skills_src="$2"
+
+	# Pi
+	fct_copy_dir "$commands_src" "$HOME/.pi/agent/prompts"
+	fct_copy_dir "$skills_src" "$HOME/.pi/agent/skills"
+
+	# Claude Code
+	fct_copy_dir "$commands_src" "$HOME/.claude/commands"
+	fct_copy_dir "$skills_src" "$HOME/.claude/skills"
+
+	# Codex
+	fct_copy_dir "$commands_src" "$HOME/.codex/prompts"
+	fct_copy_dir "$skills_src" "$HOME/.codex/skills"
+
+	# Gemini
+	fct_copy_dir "$commands_src" "$HOME/.gemini/commands"
+
+	# Amp
+	fct_copy_dir "$commands_src" "$HOME/.config/amp/commands"
+	fct_copy_dir "$skills_src" "$HOME/.config/amp/skills"
+
+	# Agents
+	fct_copy_dir "$commands_src" "$HOME/.config/agents/commands"
+	fct_copy_dir "$skills_src" "$HOME/.config/agents/skills"
+
+	# OpenCode
+	fct_copy_dir "$commands_src" "$HOME/.config/opencode/command"
+	fct_copy_dir "$skills_src" "$HOME/.config/opencode/skill"
+}
+
+fct_render_ai_templates() {
 	local render_root="$1"
 
-	log "Rendering OpenCode commands and skills from chezmoi target state"
-
 	mkdir -p "$render_root"
+	log_info "Rendering chezmoi target state for ~/.config/ai_templates"
 
 	chezmoi archive --format tar \
-		"$HOME/.config/opencode/command" \
-		"$HOME/.config/opencode/skill" |
+		"$HOME/.config/ai_templates" |
 		tar -xf - -C "$render_root"
 }
 
-log "Starting post-apply backup script"
+fct_main() {
+	local repo_root
+	local tree_src
+	local tree_dst
+	local ai_templates_root
+	local render_root
+	local commands_src
+	local skills_src
 
-# Backup tree file to repo
-TREE_SRC="$HOME/Documents/_my_docs/42_tree_of_my_dir_files/z_archive/tree_my_docs.txt"
-TREE_DST="$HOME/.local/share/chezmoi/backup_tree_my_docs.txt"
-fct_copy_file "$TREE_SRC" "$TREE_DST"
+	repo_root="$HOME/.local/share/chezmoi"
+	tree_src="$HOME/Documents/_my_docs/42_tree_of_my_dir_files/z_archive/tree_my_docs.txt"
+	tree_dst="$repo_root/backup_tree_my_docs.txt"
+	ai_templates_root="$repo_root/dot_config/ai_templates"
+	render_root="$(mktemp -d)"
+	trap 'rm -rf "$render_root"' EXIT
 
-# Render once via chezmoi, then fan out the rendered target state to all AI coding tools
-RENDER_ROOT="$(mktemp -d)"
-trap 'rm -rf "$RENDER_ROOT"' EXIT
+	log_info "Starting post-apply backup script"
 
-fct_prepare_rendered_opencode_tree "$RENDER_ROOT"
+	fct_copy_file "$tree_src" "$tree_dst"
 
-OPENCODE_COMMAND_SRC="$RENDER_ROOT/.config/opencode/command"
-OPENCODE_SKILL_SRC="$RENDER_ROOT/.config/opencode/skill"
+	if [[ ! -d "$ai_templates_root" ]]; then
+		log_error "Source of truth not found: $ai_templates_root"
+		exit 1
+	fi
 
-# pi-mono .
-fct_copy_dir "$OPENCODE_COMMAND_SRC" "$HOME/.pi/agent/prompts"
-fct_copy_dir "$OPENCODE_SKILL_SRC" "$HOME/.pi/agent/skills"
+	log_info "Using ai_templates as source of truth"
+	log_info "Rendering target-safe names from: $ai_templates_root"
+	log_info "Ignoring archived skills under: $ai_templates_root/skills_archived"
 
-# Claude Code
-fct_copy_dir "$OPENCODE_COMMAND_SRC" "$HOME/.claude/commands"
-fct_copy_dir "$OPENCODE_SKILL_SRC" "$HOME/.claude/skills"
+	fct_render_ai_templates "$render_root"
 
-# Codex
-fct_copy_dir "$OPENCODE_COMMAND_SRC" "$HOME/.codex/prompts"
-fct_copy_dir "$OPENCODE_SKILL_SRC" "$HOME/.codex/skills"
+	commands_src="$render_root/.config/ai_templates/commands"
+	skills_src="$render_root/.config/ai_templates/skills"
 
-# Gemini
-fct_copy_dir "$OPENCODE_COMMAND_SRC" "$HOME/.gemini/commands"
+	if [[ ! -d "$commands_src" ]]; then
+		log_error "Rendered commands directory not found: $commands_src"
+		exit 1
+	fi
 
-# Amp
-fct_copy_dir "$OPENCODE_COMMAND_SRC" "$HOME/.config/amp/commands"
-fct_copy_dir "$OPENCODE_SKILL_SRC" "$HOME/.config/amp/skills"
+	if [[ ! -d "$skills_src" ]]; then
+		log_error "Rendered skills directory not found: $skills_src"
+		exit 1
+	fi
 
-# Agents
-fct_copy_dir "$OPENCODE_COMMAND_SRC" "$HOME/.config/agents/commands"
-fct_copy_dir "$OPENCODE_SKILL_SRC" "$HOME/.config/agents/skills"
+	log_info "Rendered commands source: $commands_src"
+	log_info "Rendered skills source: $skills_src"
 
-# OpenCode
-fct_copy_dir "$OPENCODE_COMMAND_SRC" "$HOME/.config/opencode/command"
-fct_copy_dir "$OPENCODE_SKILL_SRC" "$HOME/.config/opencode/skill"
+	fct_sync_agent_assets "$commands_src" "$skills_src"
 
-log "Post-apply backup script completed successfully"
+	log_info "Post-apply backup script completed successfully"
+}
+
+fct_main "$@"
