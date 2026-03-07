@@ -65,14 +65,16 @@ William Strunk Jr.'s *The Elements of Style* (1918) teaches you to write clearly
 
 The rules above are summarized from Strunk's original text. For complete explanations with examples:
 
+**Most tasks need only `references/03-elementary-principles-of-composition.md`** — it covers active voice, positive form, concrete language, and omitting needless words.
+
 | Section | File | ~Tokens |
 |---------|------|---------|
-| Grammar, punctuation, comma rules | `02-elementary-rules-of-usage.md` | 2,500 |
-| Paragraph structure, active voice, concision | `03-elementary-principles-of-composition.md` | 4,500 |
-| Headings, quotations, formatting | `04-a-few-matters-of-form.md` | 1,000 |
-| Word choice, common errors | `05-words-and-expressions-commonly-misused.md` | 4,000 |
+| Grammar, punctuation, comma rules | `references/02-elementary-rules-of-usage.md` | 2,500 |
+| Paragraph structure, active voice, concision | `references/03-elementary-principles-of-composition.md` | 4,500 |
+| Headings, quotations, formatting | `references/04-a-few-matters-of-form.md` | 1,000 |
+| Word choice, common errors | `references/05-words-and-expressions-commonly-misused.md` | 4,000 |
 
-**Most tasks need only `03-elementary-principles-of-composition.md`** — it covers active voice, positive form, concrete language, and omitting needless words.
+- For comprehensive research on why these patterns occur, see `references/signs-of-ai-writing.md`. Wikipedia editors developed this guide to detect AI-generated submissions — their patterns are well-documented and field-tested.
 
 ## AI Writing Patterns to Avoid
 
@@ -86,8 +88,6 @@ LLMs regress to statistical means, producing generic, puffy prose. Avoid:
 
 Be specific, not grandiose. Say what it actually does.
 
-For comprehensive research on why these patterns occur, see `signs-of-ai-writing.md`. Wikipedia editors developed this guide to detect AI-generated submissions — their patterns are well-documented and field-tested.
-
 ## Bottom Line
 
-Writing for humans? Load the relevant section from `elements-of-style/` and apply the rules. For most tasks, `03-elementary-principles-of-composition.md` covers what matters most.
+Writing for humans? Load the relevant section from `references/` and apply the rules. For most tasks, `references/03-elementary-principles-of-composition.md` covers what matters most.
