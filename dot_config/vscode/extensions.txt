@@ -66,6 +66,7 @@ skellock.just
 sourcegraph.amp
 sst-dev.opencode
 tamasfe.even-better-toml
+visbydev.folder-path-color
 vstirbu.vscode-mermaid-preview
 vue.volar
 vunguyentuan.vscode-postcss
