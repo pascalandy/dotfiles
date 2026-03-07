@@ -1,6 +1,6 @@
 ---
 name: writing-clearly
-description: Use when writing prose humans will read—documentation, commit messages, error messages, explanations, reports, or UI text. Applies Strunk's timeless rules for clearer, stronger, more professional writing.
+description: "Use whenever the task involves prose a human will read: documentation, READMEs, PR descriptions, error/help text, UI copy, reports, summaries, explanations, emails, or rewrites. Also use when the user asks to make writing clearer, more concise, clean up an audio transcript, make it, shorter, sharper, less AI-sounding, more concise, more direct, or better matched to an audience."
 ---
 
 # Writing Clearly and Concisely
@@ -14,7 +14,6 @@ Write with clarity and force. This skill covers what to do (Strunk) and what not
 Use this skill whenever you write prose for humans:
 
 - Documentation, README files, technical explanations
-- Commit messages, pull request descriptions
 - Error messages, UI copy, help text, comments
 - Reports, summaries, or any explanation
 - Editing to improve clarity
@@ -61,20 +60,18 @@ William Strunk Jr.'s *The Elements of Style* (1918) teaches you to write clearly
 17. Keep to one tense in summaries
 18. **Place emphatic words at end of sentence**
 
-### Reference Files
+## Reference map
 
-The rules above are summarized from Strunk's original text. For complete explanations with examples:
+Load only what you need.
 
-**Most tasks need only `references/03-elementary-principles-of-composition.md`** — it covers active voice, positive form, concrete language, and omitting needless words.
+- **Default for most tasks:** `references/03-elementary-principles-of-composition.md`
+  - Best for active voice, positive form, concrete language, concision, and sentence flow.
+- **Grammar and punctuation:** `references/02-elementary-rules-of-usage.md`
+- **Headings, quotations, and form:** `references/04-a-few-matters-of-form.md`
+- **Word choice and common misuses:** `references/05-words-and-expressions-commonly-misused.md`
+- **Diagnosing synthetic or overly generic prose:** `references/signs-of-ai-writing.md`
 
-| Section | File | ~Tokens |
-|---------|------|---------|
-| Grammar, punctuation, comma rules | `references/02-elementary-rules-of-usage.md` | 2,500 |
-| Paragraph structure, active voice, concision | `references/03-elementary-principles-of-composition.md` | 4,500 |
-| Headings, quotations, formatting | `references/04-a-few-matters-of-form.md` | 1,000 |
-| Word choice, common errors | `references/05-words-and-expressions-commonly-misused.md` | 4,000 |
-
-- For comprehensive research on why these patterns occur, see `references/signs-of-ai-writing.md`. Wikipedia editors developed this guide to detect AI-generated submissions — their patterns are well-documented and field-tested.
+Use `references/signs-of-ai-writing.md` to spot patterns, not to enforce a mechanical ban list.
 
 ## AI Writing Patterns to Avoid
 
@@ -91,3 +88,12 @@ Be specific, not grandiose. Say what it actually does.
 ## Bottom Line
 
 Writing for humans? Load the relevant section from `references/` and apply the rules. For most tasks, `references/03-elementary-principles-of-composition.md` covers what matters most.
+
+## Guardrails
+
+- Do **not** change facts, requirements, or technical meaning.
+- Do **not** simplify away important nuance.
+- Do **not** make specialized writing vague just to make it shorter.
+- Do **not** inject marketing tone unless the user wants it.
+- Do **not** flatten the author's voice into generic corporate prose.
+- Do **not** explain every edit unless the user asks.
