@@ -212,3 +212,7 @@ Sentences violating this rule are often ludicrous.
 Being in a dilapidated condition, I was able to buy the house very cheap.
 
 Wondering irresolutely what to do next, the clock struck twelve.
+
+### Rule 8. Avoid dots at the end of all bullet points and lists. 
+
+Be token efficient. DO NOT use a dot at the end of each bullet points and list. 
