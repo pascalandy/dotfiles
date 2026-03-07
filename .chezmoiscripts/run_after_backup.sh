@@ -102,6 +102,14 @@ fct_render_ai_templates() {
 		tar -xf - -C "$render_root"
 }
 
+fct_cleanup() {
+	local render_root_path="${1:-}"
+
+	if [[ -n "$render_root_path" && -d "$render_root_path" ]]; then
+		rm -rf "$render_root_path"
+	fi
+}
+
 fct_main() {
 	local repo_root
 	local tree_src
@@ -116,7 +124,7 @@ fct_main() {
 	tree_dst="$repo_root/backup_tree_my_docs.txt"
 	ai_templates_root="$repo_root/dot_config/ai_templates"
 	render_root="$(mktemp -d)"
-	trap 'rm -rf "$render_root"' EXIT
+	trap 'fct_cleanup "${render_root:-}"' EXIT
 
 	log_info "Starting post-apply backup script"
 
