@@ -77,6 +77,10 @@ Important retrieval discipline:
 - Prefer reopening a hit by `#docid`; it is the safest way to get the exact result you selected.
 - When the first search is noisy, refine by collection, switch modes, or raise `--min-score`.
 
+## Semantic search strategies
+
+load skill : "semantic-patterns"
+
 ## High-value command patterns
 
 Search and shortlist:
