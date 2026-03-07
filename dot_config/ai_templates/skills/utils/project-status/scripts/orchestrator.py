@@ -9,9 +9,9 @@ Orchestrator for project status analysis.
 Coordinates multi-agent workflow: discovery → analysis → report → post-mortem → commit.
 
 Usage:
-    uv run .opencode/skill/util-project-status/scripts/orchestrator.py
-    uv run .opencode/skill/util-project-status/scripts/orchestrator.py --dry-run
-    uv run .opencode/skill/util-project-status/scripts/orchestrator.py --no-commit
+    uv run .opencode/skill/project-status/scripts/orchestrator.py
+    uv run .opencode/skill/project-status/scripts/orchestrator.py --dry-run
+    uv run .opencode/skill/project-status/scripts/orchestrator.py --no-commit
 """
 
 from __future__ import annotations

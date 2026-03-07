@@ -1,5 +1,5 @@
 ---
-name: util-chezmoi
+name: chezmoi
 description: Manage dotfiles via chezmoi CLI. Use when reading, modifying, or adding config files (dotfiles) in user's home directory. Ensures edits happen in chezmoi source (~/.local/share/chezmoi) and apply correctly.
 ---
 

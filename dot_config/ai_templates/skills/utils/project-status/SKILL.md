@@ -1,5 +1,5 @@
 ---
-name: util-project-status
+name: project-status
 description: Orchestrate multi-agent workflow for project status reporting across WORKDIR and IDEATION. Use when user asks for project status overview, requests a scan, or says "run project status."
 ---
 
@@ -11,26 +11,26 @@ Run a multi-agent workflow for project analysis and reporting.
 
 ```bash
 # Full workflow (scan + analyze + report + commit)
-uv run ~/.config/opencode/skill/util-project-status/scripts/orchestrator.py
+uv run ~/.config/opencode/skill/project-status/scripts/orchestrator.py
 
 # Dry run (no file writes)
-uv run ~/.config/opencode/skill/util-project-status/scripts/orchestrator.py --dry-run
+uv run ~/.config/opencode/skill/project-status/scripts/orchestrator.py --dry-run
 
 # Skip git commit
-uv run ~/.config/opencode/skill/util-project-status/scripts/orchestrator.py --no-commit
+uv run ~/.config/opencode/skill/project-status/scripts/orchestrator.py --no-commit
 ```
 
 ## Scan Only
 
 ```bash
 # Just scan projects without full analysis
-uv run ~/.config/opencode/skill/util-project-status/scripts/scan_projects.py
+uv run ~/.config/opencode/skill/project-status/scripts/scan_projects.py
 
 # Show last scan result
-uv run ~/.config/opencode/skill/util-project-status/scripts/scan_projects.py --latest
+uv run ~/.config/opencode/skill/project-status/scripts/scan_projects.py --latest
 
 # Machine-readable output
-uv run ~/.config/opencode/skill/util-project-status/scripts/scan_projects.py --json
+uv run ~/.config/opencode/skill/project-status/scripts/scan_projects.py --json
 ```
 
 ## Workflow Steps

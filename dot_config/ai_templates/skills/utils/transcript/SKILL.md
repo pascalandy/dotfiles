@@ -1,5 +1,5 @@
 ---
-name: util-transcript
+name: transcript
 description: Transcribe YouTube videos via Deepgram (audio to txt/json) with optional Codex or Claude summary. Use when user provides YouTube URL for transcription.
 ---
 
@@ -13,7 +13,7 @@ chezmoi secret keyring set --service=deepgram --user=api_key
 ## Run
 
 ```bash
-uv run ~/.config/opencode/skill/util-transcript/scripts/transcript.py "<youtube_url>"
+uv run ~/.config/opencode/skill/transcript/scripts/transcript.py "<youtube_url>"
 ```
 
 Use a 10-minute timeout (600 seconds) when running this script.
@@ -21,9 +21,9 @@ Use a 10-minute timeout (600 seconds) when running this script.
 Discovery (no URL required):
 
 ```bash
-uv run ~/.config/opencode/skill/util-transcript/scripts/transcript.py --list-prompts
-uv run ~/.config/opencode/skill/util-transcript/scripts/transcript.py --list-models
-uv run ~/.config/opencode/skill/util-transcript/scripts/transcript.py --help
+uv run ~/.config/opencode/skill/transcript/scripts/transcript.py --list-prompts
+uv run ~/.config/opencode/skill/transcript/scripts/transcript.py --list-models
+uv run ~/.config/opencode/skill/transcript/scripts/transcript.py --help
 ```
 
 ## Choose flags from user intent
@@ -49,13 +49,13 @@ Examples:
 ```bash
 # User: transcript https://www.youtube.com/watch?v=2QpXab8z_Gw
 # (default: codex + follow_along_note prompt)
-uv run ~/.config/opencode/skill/util-transcript/scripts/transcript.py "https://www.youtube.com/watch?v=2QpXab8z_Gw"
+uv run ~/.config/opencode/skill/transcript/scripts/transcript.py "https://www.youtube.com/watch?v=2QpXab8z_Gw"
 
 # User: transcript, short_summary, claude, haiku, https://www.youtube.com/watch?v=2QpXab8z_Gw
-uv run ~/.config/opencode/skill/util-transcript/scripts/transcript.py --provider claude --prompt short_summary --model claude-haiku-4-5 "https://www.youtube.com/watch?v=2QpXab8z_Gw"
+uv run ~/.config/opencode/skill/transcript/scripts/transcript.py --provider claude --prompt short_summary --model claude-haiku-4-5 "https://www.youtube.com/watch?v=2QpXab8z_Gw"
 
 # User: transcript only, https://www.youtube.com/watch?v=2QpXab8z_Gw
-uv run ~/.config/opencode/skill/util-transcript/scripts/transcript.py --no-prompt "https://www.youtube.com/watch?v=2QpXab8z_Gw"
+uv run ~/.config/opencode/skill/transcript/scripts/transcript.py --no-prompt "https://www.youtube.com/watch?v=2QpXab8z_Gw"
 ```
 
 ## Outputs
@@ -63,6 +63,6 @@ uv run ~/.config/opencode/skill/util-transcript/scripts/transcript.py --no-promp
 - The script creates a timestamped output folder (it prints the path and opens it in Finder on macOS).
 - Key files: `{prompt}.md`, `raw_transcript.txt`, `raw_sentences.txt`, `raw_transcript.json`, `meta.txt`.
 
-For runtime requirements and validation steps, see `~/.config/opencode/skill/util-transcript/README.md`.
+For runtime requirements and validation steps, see `~/.config/opencode/skill/transcript/README.md`.
 
 Don't READ the final answer. The user can already see it in the terminal.

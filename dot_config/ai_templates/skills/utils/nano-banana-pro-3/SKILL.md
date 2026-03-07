@@ -1,5 +1,5 @@
 ---
-name: util-nano-banana-pro-3
+name: nano-banana-pro-3
 description: Generate or edit images using Gemini 3 Pro via OpenRouter API. Use when user says "generate image," "create picture," "edit photo," or "make an image." Supports text-to-image, image editing, and compositing.
 ---
 
