@@ -10,9 +10,9 @@ Scan projects in WORKDIR/ and IDEATION/ directories.
 Outputs discovery.json with deterministic project enumeration and git metrics.
 
 Usage:
-    uv run .opencode/skill/util-project-status/scripts/scan_projects.py
-    uv run .opencode/skill/util-project-status/scripts/scan_projects.py --dry-run
-    uv run .opencode/skill/util-project-status/scripts/scan_projects.py --help
+    uv run .opencode/skill/project-status/scripts/scan_projects.py
+    uv run .opencode/skill/project-status/scripts/scan_projects.py --dry-run
+    uv run .opencode/skill/project-status/scripts/scan_projects.py --help
 """
 
 from __future__ import annotations
