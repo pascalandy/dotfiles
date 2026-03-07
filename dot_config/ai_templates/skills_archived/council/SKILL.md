@@ -1,141 +1,112 @@
 ---
 name: council
-description: Get second opinions from competing AI models (OpenAI, Google) via OpenRouter, without leaving Claude Code. IMPORTANT — This skill takes priority over gemini-api-dev and claude-developer-platform when the user wants an OPINION from another model, not to BUILD with that model's API. Trigger phrases — "get a second opinion", "ask Gemini", "ask GPT", "ask Codex", "consult Gemini", "consult GPT", "consult Codex", "get a few opinions", "council", "/council", "what would GPT say", "what would Gemini think", "consult [any model name]", or when the user asks to consult, ask, or get a perspective from another AI model on a task. Uses the council.py script via OpenRouter — never call Gemini or OpenAI APIs directly for council consultations.
+description: Use this skill whenever the user wants a second opinion from another AI without leaving the current coding session. Trigger on requests like "use council," "ask Gemini and Codex," "get more opinions," "cross-check this plan," "what do Gemini and Codex think," or any request to reconcile Claude's view with other models. By default, consult both Gemini CLI and Codex CLI in headless mode, then synthesize the results. Use a single model only when the user asks for one on purpose.
+compatibility: Requires working local `gemini` and `codex` CLIs. Run them headlessly. Do not use OpenRouter, provider SDKs, or the archived Python workflow.
 ---
 
-# Council — Multi-Model Second Opinions
+# Council
 
-Consult competing AI models from inside Claude Code. One OpenRouter API key, every model.
+Use Council when the user wants outside opinions, not outside ownership. Claude still decides what to trust, what to reject, and what to do next.
 
-## Setup
+## Default behavior
 
-Requires `OPENROUTER_API_KEY` in environment or `~/.env` or project `.env`.
+By default, run both:
+- kilo CLI
+- codex CLI
 
-Get a key at https://openrouter.ai/keys
+Then compare their answers and give Claude's synthesis.
 
-## Three Invocation Modes
+If the user explicitly asks for only one model, respect that.
 
-### 1. "Get a second opinion" — Auto-routed
+Examples:
+- "Use council to review this plan."
+- "Ask Gemini and Codex what they think."
+- "Get more opinions on this refactor."
+- "Cross-check my approach with the council."
+- "Ask Codex only."
+- "Ask Gemini only."
 
-User says something like "get a second opinion on this bug" without naming a model.
+## Workflow
 
-**Workflow:**
-1. Analyze the current conversation context
-2. Classify the task into a category using the config keywords in [council_config.json](references/council_config.json)
-3. Resolve the category to the default model from config
-4. **Play back the plan before executing:**
+1. Distill the real question.
+2. Build one focused context package.
+3. Send that package to Gemini and Codex headlessly.
+4. Present each response under a clear label.
+5. Reconcile the answers.
+6. State Claude's recommendation.
 
-```
-Council Plan:
-  1. Fix login redirect loop  →  openai/gpt-5.3-codex  [bug_fix]
+Keep the workflow simple. Council is a comparison tool, not a routing system.
 
-Proceed?
-```
+## Context packaging
 
-5. Wait for user confirmation, then run:
+Send the smallest useful context.
 
-```bash
-python scripts/council.py consult --category bug_fix --context "FULL CONTEXT HERE"
-```
+Include:
+- the exact question
+- relevant constraints
+- the key snippet, command, error, or plan
+- what has already been tried
+- what kind of answer is wanted
 
-6. Present the response, then synthesize: agree, push back, or cherry-pick the best parts
+Avoid:
+- dumping the full conversation
+- dumping the whole repo unless clearly needed
+- vague prompts like "thoughts?"
 
-### 2. "Ask Gemini about this" — Explicit override
+A strong context package usually produces better answers than a broad repo scan.
 
-User names a specific model or provider.
+## Command patterns
 
-**Trigger phrases:** "ask Gemini", "ask GPT", "ask Codex", "what would Gemini say"
+### Codex
 
-**Provider shortcuts:**
-- "Gemini" → `google/gemini-3.1-pro-preview`
-- "GPT" / "Codex" / "OpenAI" → `openai/gpt-5.3-codex`
-- "Flash" → `google/gemini-3-flash-preview`
+load skill: $headless-codex
 
-```bash
-python scripts/council.py consult --model google/gemini-3.1-pro-preview --context "CONTEXT"
-```
+## Prompt framing
 
-### 3. "Get a few opinions" — Fan-out
 
-User wants multiple perspectives at once.
+Use wording like:
 
-**Trigger phrases:** "get a few opinions", "ask everyone", "what do the competitors think"
+> Give a precise engineering second opinion. Focus on likely root cause, hidden risks, and the safest next step. Be concise.
+> Give a strategic second opinion. Focus on tradeoffs, blind spots, and whether the current direction seems sound. Be direct and actionable.
 
-**Workflow:**
-1. Classify each item if there's a laundry list
-2. Play back the full plan:
+## Output format
 
-```
-Council Plan:
-  1. Fix login redirect loop      →  openai/gpt-5.3-codex         [bug_fix]
-  2. Redesign settings page       →  google/gemini-3.1-pro-preview [frontend]
-  3. Add rate limiting strategy   →  openai/gpt-5.3-codex         [architecture]
+Use this structure:
 
-Proceed? (y / edit / cancel)
-```
+```text
+## Council question
+- What we asked
 
-3. Wait for confirmation
-4. Execute each consultation (parallel where independent)
-5. Present each response labeled clearly, then synthesize across all
+## Codex opinion
+<summary or quoted answer>
 
-For a single question fan-out (not a laundry list):
+## Gemini opinion
+<summary or quoted answer>
 
-```bash
-python scripts/council.py consult --fan-out --context "CONTEXT"
-```
+## Reconciliation
+- Where they agree
+- Where they differ
+- What matters most
 
-This sends to all models in the `fan_out` list and returns each response.
-
-## Category Classification
-
-Infer the category from conversation context using these mappings:
-
-| Category | Routes to | Signals |
-|---|---|---|
-| `bug_fix` | OpenAI Codex | bug, fix, error, crash, debug, broken, failing |
-| `frontend` | Gemini 3.1 Pro | UI, UX, design, CSS, React, component, layout, page |
-| `architecture` | Claude Opus 4.6 | architecture, system design, schema, scale, patterns |
-| `refactor` | OpenAI Codex | refactor, clean up, optimize, simplify, extract |
-| `general` | Gemini 3.1 Pro | Default fallback for anything else |
-| `quick_check` | Gemini 3.0 Flash | Quick, fast, simple verification |
-
-## Context Packaging
-
-When sending context to another model, include:
-- The specific question or problem statement
-- Relevant code snippets (keep it focused, not the entire codebase)
-- What approaches have already been tried
-- What kind of answer is needed (diagnosis, code fix, design opinion, etc.)
-
-Do NOT send the entire conversation history. Extract and summarize the relevant parts.
-
-## Synthesis Rules
-
-After receiving a response from the council:
-1. **Present the raw response** clearly labeled with the model name
-2. **State agreement or disagreement** — don't just parrot the response
-3. **If disagreeing**, explain why with specific reasoning
-4. **If agreeing**, note any additions or refinements
-5. **Execute the best approach** — Claude remains the executor
-
-## Model Discovery
-
-To check what's currently available on OpenRouter:
-
-```bash
-python scripts/council.py models
-python scripts/council.py models --provider openai
-python scripts/council.py models --provider google
+## Claude recommendation
+- What I recommend next
 ```
 
-Use this when the user asks "what models are available" or when updating the config with newer models.
+If the user asked for one model only, omit the other section.
 
-## Config
+## Reliability rules
 
-View current config:
+- Default to both Gemini and Codex.
+- Stay read-only unless the user explicitly wants more than advice.
+- If one runner fails, continue with the other and say what failed.
+- If both succeed, compare substance, not tone.
+- Do not force agreement. If the models disagree, explain the disagreement.
+- Keep the final recommendation short and specific.
 
-```bash
-python scripts/council.py config
-```
+## When not to use Council
 
-Config lives at [references/council_config.json](references/council_config.json). Edit directly to change default mappings, add providers, or update model IDs.
+Do not use Council when:
+- the user wants Claude's answer only
+- the user wants to build against Gemini, OpenAI, or OpenRouter APIs
+- the user wants Codex or Gemini to become the primary executor
+- another-model consultation adds no value
