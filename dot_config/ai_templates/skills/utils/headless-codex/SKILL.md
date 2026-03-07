@@ -17,7 +17,7 @@ If behavior differs across versions, trust the installed CLI help output over ol
 Prefer the configured Codex default unless the user asks for a specific model.
 
 ```bash
-codex -m gpt-5.4 -c 'model_reasoning_effort="high"' -a never exec -s read-only "Tell me what I should know about this repo within two or three sentences."
+codex -m gpt-5.4 -c 'model_reasoning_effort="xhigh"' -a never exec -s read-only "Tell me what I should know about this repo within two or three sentences."
 ```
 
 reasoning-effort values include: - `none`, `minimal`, `low`, `medium`, `high`, `xhigh`
@@ -25,13 +25,13 @@ reasoning-effort values include: - `none`, `minimal`, `low`, `medium`, `high`, `
 ### resume from the most recent session
 
 ```bash
-codex -m gpt-5.4 -c 'model_reasoning_effort="high"' -a never exec -s read-only resume --last "Now tell me in 3 paragraph"
+codex -m gpt-5.4 -c 'model_reasoning_effort="xhigh"' -a never exec -s read-only resume --last "Now tell me in 3 paragraph"
 ```
 
 ### Pipe
 
 ```bash
-cat prompt.md | codex -m gpt-5.4 -c 'model_reasoning_effort="high"' -a never exec -s read-only -
+cat prompt.md | codex -m gpt-5.4 -c 'model_reasoning_effort="xhigh"' -a never exec -s read-only -
 ```
 
 ## Other options
