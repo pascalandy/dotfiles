@@ -1,6 +1,6 @@
 # Transcript skill
 
-This skill runs `~/.config/opencode/skill/util-transcript/scripts/transcript.py` to download YouTube audio, transcribe it, and save outputs to a timestamped folder (base directory is configured by `OUTPUT_DIR` in the script).
+This skill runs `~/.config/opencode/skill/transcript/scripts/transcript.py` to download YouTube audio, transcribe it, and save outputs to a timestamped folder (base directory is configured by `OUTPUT_DIR` in the script).
 
 ## Requirements (runtime)
 
@@ -39,13 +39,13 @@ Each run creates a timestamped folder containing:
 1. **Syntax check (no network / no API calls)**
 
    ```bash
-   uv run python -m py_compile ~/.config/opencode/skill/util-transcript/scripts/transcript.py
+   uv run python -m py_compile ~/.config/opencode/skill/transcript/scripts/transcript.py
    ```
 
 2. **List bundled prompts**
 
    ```bash
-   uv run ~/.config/opencode/skill/util-transcript/scripts/transcript.py --list-prompts
+   uv run ~/.config/opencode/skill/transcript/scripts/transcript.py --list-prompts
    ```
 
    Expected: one prompt name per line (filename stems from `scripts/prompts/`).
@@ -53,8 +53,8 @@ Each run creates a timestamped folder containing:
 3. **List available models for the selected provider**
 
    ```bash
-   uv run ~/.config/opencode/skill/util-transcript/scripts/transcript.py --list-models
-   uv run ~/.config/opencode/skill/util-transcript/scripts/transcript.py --list-models --provider claude
+   uv run ~/.config/opencode/skill/transcript/scripts/transcript.py --list-models
+   uv run ~/.config/opencode/skill/transcript/scripts/transcript.py --list-models --provider claude
    ```
 
    Expected: model names, one per line, for the selected provider.
@@ -62,15 +62,15 @@ Each run creates a timestamped folder containing:
 ## End‑to‑end smoke test
 
 ```bash
-uv run ~/.config/opencode/skill/util-transcript/scripts/transcript.py --prompt short_summary "<youtube_url>"
+uv run ~/.config/opencode/skill/transcript/scripts/transcript.py --prompt short_summary "<youtube_url>"
 
 # Claude variant
-uv run ~/.config/opencode/skill/util-transcript/scripts/transcript.py --provider claude --prompt short_summary --model claude-haiku-4-5 "<youtube_url>"
+uv run ~/.config/opencode/skill/transcript/scripts/transcript.py --provider claude --prompt short_summary --model claude-haiku-4-5 "<youtube_url>"
 ```
 
 Verify:
 
-- A new folder appears under the base output directory configured in `~/.config/opencode/skill/util-transcript/scripts/transcript.py` (`OUTPUT_DIR`).
+- A new folder appears under the base output directory configured in `~/.config/opencode/skill/transcript/scripts/transcript.py` (`OUTPUT_DIR`).
 - `raw_transcript.txt`, `raw_sentences.txt`, `raw_transcript.json`, and `meta.txt` exist.
 - If `--prompt` was used, the corresponding `*.md` summary file exists.
 - The summary renders in the terminal after Finder opens (uses `glow` if installed).
