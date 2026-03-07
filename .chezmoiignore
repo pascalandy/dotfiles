@@ -104,8 +104,9 @@ lefthook.yml
 
 # Chezmoi scripts (local utilities, keep out of diff)
 
-# VS Code settings (managed outside chezmoi)
+# App settings managed outside chezmoi
 private_Library/private_Application Support/private_Code/User/settings.json
+.pi/agent/settings.json
 
 # Node.js (BUN, NPM, PNPM, Yarn)
 **/node_modules/
