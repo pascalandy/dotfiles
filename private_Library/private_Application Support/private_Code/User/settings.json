@@ -301,5 +301,17 @@
     "https://biomejs.dev": true
   },
   "editor.fontVariations": false,
-  "editor.fontWeight": "normal"
+  "editor.fontWeight": "normal",
+  "folder-path-color.folders": [
+    {
+      "path": "dot_config/ai_templates/skills_archived",
+      "color": "red",
+      "symbol": "🧪"
+    },
+    {
+      "path": "dot_config/ai_templates/skills",
+      "color": "yellow",
+      "symbol": "🤹🏻"
+    }
+  ]
 }
