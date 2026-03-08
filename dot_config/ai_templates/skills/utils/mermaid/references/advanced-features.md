@@ -2,7 +2,7 @@
 
 Advanced configuration, styling, theming, and other powerful features for creating professional diagrams.
 
-**Color Reference:** All examples use Catppuccin Frappe palette. See `std-color-palette-frappe` skill for complete color list.
+**Color Reference:** All examples use Catppuccin Frappe palette. See `color-palette-frappe` skill for complete color list.
 
 ## Frontmatter Configuration
 
@@ -437,7 +437,7 @@ mmdc -i diagram.mmd -o output.svg -b "transparent"
 
 ## Best Practices for Advanced Features
 
-1. **Use Catppuccin Frappe palette** - See `std-color-palette-frappe` skill for complete reference
+1. **Use Catppuccin Frappe palette** - See `color-palette-frappe` skill for complete reference
 2. **Use themes consistently** - Pick one theme for related diagrams
 3. **Don't over-style** - Too many colors can reduce clarity
 4. **Test hand-drawn look** - Some diagrams work better with classic look

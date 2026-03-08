@@ -1,6 +1,6 @@
 ---
 name: frontend-design-codex
-description: Use this skill for redesigning or reviewing frontend UI that should look less AI-generated and more like a real product team shipped it, especially dashboards, admin panels, settings, billing pages, landing pages, and components that feel too glossy, rounded, gradient-heavy, glassy, pill-shaped, or generic SaaS. Reach for it when the user says uncodixify, make it look normal, calmer, more human-designed, more product-specific, or less template-like. It replaces default AI UI moves with grounded layouts, direct hierarchy, existing project tokens first, and restrained fallback palette guidance via std-color-palette-frappe.
+description: Use this skill for redesigning or reviewing frontend UI that should look less AI-generated and more like a real product team shipped it, especially dashboards, admin panels, settings, billing pages, landing pages, and components that feel too glossy, rounded, gradient-heavy, glassy, pill-shaped, or generic SaaS. Reach for it when the user says uncodixify, make it look normal, calmer, more human-designed, more product-specific, or less template-like. It replaces default AI UI moves with grounded layouts, direct hierarchy, existing project tokens first, and restrained fallback palette guidance via color-palette-frappe.
 ---
 
 # Frontend Design Codex
@@ -61,7 +61,7 @@ Match the product before inventing anything.
 Color priority:
 
 - use the project’s current palette if one exists
-- if no palette exists, use restrained inspiration from the **`std-color-palette-frappe`** skill
+- if no palette exists, use restrained inspiration from the **`color-palette-frappe`** skill
 - do not invent random color systems just to make the screen look designed
 
 Typography priority:
@@ -261,7 +261,7 @@ Keep colors calm.
 - use one accent family with discipline
 - let contrast come from structure, not glow
 
-If you need fallback inspiration, use **`std-color-palette-frappe`** and choose a restrained subset instead of using the whole palette at once.
+If you need fallback inspiration, use **`color-palette-frappe`** and choose a restrained subset instead of using the whole palette at once.
 
 ## Delivery expectations
 

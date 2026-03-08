@@ -4,7 +4,7 @@ description: prime obsidian
 
 # Obsidian Base-First Context
 
-Load skills: `obsidian-cli`, `obsidian-markdown`
+Load skills: `cli`, `markdown`
 
 ## Objective
 
@@ -112,7 +112,7 @@ cat "$VAULT_PATH/_bases/The Vault 🧠.base"
 
 ## Canvas
 
-When working on a canvas, load the skill "obsidian-json-canvas"
+When working on a canvas, load the skill "json-canvas"
 
 Rule: Treat `The Vault 🧠` as the default entry point for retrieval.
 
