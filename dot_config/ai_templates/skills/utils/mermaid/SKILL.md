@@ -14,7 +14,7 @@ Text-based diagrams that render in Markdown, GitHub, Obsidian, and most document
 3. **Use short, descriptive IDs**: `api`, `db`, `userSvc` not `applicationProgrammingInterface`
 4. **Use Catppuccin Frappe colors** for all styling (see Quick Color Reference below)
 
-**REQUIRED SUB-SKILL:** Use `std-color-palette-frappe` for complete color palette reference.
+**REQUIRED SUB-SKILL:** Use `color-palette-frappe` for complete color palette reference.
 
 ## Quick Color Reference (Catppuccin Frappe)
 
