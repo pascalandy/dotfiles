@@ -12,3 +12,8 @@ pre-commit:
         - "**/*.sh"
         - "dot_local/bin/executable_*"
       run: just shfmt-staged
+
+post-commit:
+  commands:
+    cma:
+      run: just cma
