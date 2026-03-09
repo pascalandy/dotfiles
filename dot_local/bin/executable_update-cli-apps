@@ -5,9 +5,16 @@
 # ==============================================================================
 # Updates brew packages, uv tools, bun packages, and custom binaries.
 # Runs updates in parallel for speed, with clear success/failure reporting.
+#
+# Maintenance notes:
+# - Group tools by package manager when they share the same command pattern.
+# - Prefer arrays + loops for simple "same command, different package" updates.
+# - Keep one-off commands explicit when they need unique arguments or behavior.
+# - When adding a new tool, update both the help text and the matching array/command.
+# - For Bun global CLIs, use: bun add -g <package>
 # ==============================================================================
 
-readonly SCRIPT_VERSION="1.0.0"
+readonly SCRIPT_VERSION="1.3.0"
 readonly SCRIPT_AUTHOR="Pascal Andy"
 readonly SCRIPT_DESCRIPTION="Update CLI tools (brew, uv, bun, update-bin) in parallel."
 
@@ -105,8 +112,7 @@ Tools updated:
   Brew:       codex, uv
   update-bin: gemini, kilocode, gh, repomix
   UV tools:   specify-cli, playwright, all uv tools
-  Bun:        opencode-ai, btca
-  NPM:        agent-browser
+  Bun:        btca, opencode-ai, pi-coding-agent, defuddle-cli, qmd, googleworkspace/cli, agent-browser
   Other:      amp, claude (install.sh), specify check
 
 Examples:
@@ -158,7 +164,7 @@ fct_parse_arguments() {
 }
 
 # ==============================================================================
-# Update functions
+# Update helpers
 # ==============================================================================
 
 fct_run_update() {
@@ -179,61 +185,102 @@ fct_run_update() {
 	fi
 }
 
+fct_queue_update() {
+	local pids_name="${1}"
+	shift
+
+	fct_run_update "$@" &
+	local pid=$!
+	eval "${pids_name}+=(\"${pid}\")"
+}
+
+fct_queue_brew_updates() {
+	local pids_name="${1}"
+	local brew_tools=(codex uv)
+	local tool=""
+
+	for tool in "${brew_tools[@]}"; do
+		fct_queue_update "${pids_name}" "${tool} (brew)" brew upgrade "${tool}"
+	done
+}
+
+fct_queue_update_bin_updates() {
+	local pids_name="${1}"
+	local update_bin_tools=(gemini kilocode gh repomix)
+	local tool=""
+
+	for tool in "${update_bin_tools[@]}"; do
+		fct_queue_update "${pids_name}" "${tool} (update-bin)" update-bin "${tool}"
+	done
+}
+
+fct_queue_bun_updates() {
+	local pids_name="${1}"
+	local bun_tools=(
+		btca
+		opencode-ai
+		@mariozechner/pi-coding-agent
+		defuddle-cli
+		@tobilu/qmd
+		@googleworkspace/cli
+		agent-browser
+	)
+	local tool=""
+
+	for tool in "${bun_tools[@]}"; do
+		fct_queue_update "${pids_name}" "${tool##*/} (bun)" bun add -g "${tool}"
+	done
+}
+
+fct_queue_uv_updates() {
+	local pids_name="${1}"
+
+	fct_queue_update "${pids_name}" "specify-cli (uv)" uv tool install specify-cli --force --from "git+https://github.com/github/spec-kit.git"
+	fct_queue_update "${pids_name}" "playwright (uv)" uv tool upgrade playwright
+	fct_queue_update "${pids_name}" "all uv tools" uv tool upgrade --all
+}
+
+fct_queue_custom_updates() {
+	local pids_name="${1}"
+
+	# Keep one-off commands explicit here. They do not share a common package-manager
+	# pattern, so this section is the right place for special cases.
+	fct_queue_update "${pids_name}" "claude (install.sh)" bash -c 'curl -fsSL https://claude.ai/install.sh | bash'
+	fct_queue_update "${pids_name}" "specify check" specify check
+	fct_queue_update "${pids_name}" "amp" amp update
+}
+
 fct_execute_updates() {
 	log_info "Starting CLI tools update in parallel..."
 
 	local pids=()
+	local brew_count=2
+	local update_bin_count=4
+	local bun_count=7
+	local uv_count=3
+	local custom_count=3
 
-	# Brew upgrades
-	fct_run_update "codex (brew)" brew upgrade codex &
-	pids+=($!)
+	# Maintenance convention:
+	# - Keep these counts in sync with the arrays/commands below.
+	# - Add simple package-name-only updates to the corresponding array.
+	# - Add unique commands to fct_queue_custom_updates() and update custom_count.
+	fct_queue_brew_updates pids
+	fct_queue_update_bin_updates pids
+	fct_queue_bun_updates pids
+	fct_queue_uv_updates pids
+	fct_queue_custom_updates pids
 
-	fct_run_update "uv (brew)" brew upgrade uv &
-	pids+=($!)
-
-	# update-bin tools
-	local update_bin_tools=(gemini kilocode gh repomix)
-	for tool in "${update_bin_tools[@]}"; do
-		fct_run_update "${tool} (update-bin)" update-bin "${tool}" &
-		pids+=($!)
-	done
-
-	# Claude (install script)
-	fct_run_update "claude (install.sh)" bash -c 'curl -fsSL https://claude.ai/install.sh | bash' &
-	pids+=($!)
-
-	# btca (bun)
-	fct_run_update "btca (bun)" bun add -g btca &
-	pids+=($!)
-
-	# UV tools
-	fct_run_update "specify-cli (uv)" uv tool install specify-cli --force --from "git+https://github.com/github/spec-kit.git" &
-	pids+=($!)
-
-	fct_run_update "specify check" specify check &
-	pids+=($!)
-
-	fct_run_update "playwright (uv)" uv tool upgrade playwright &
-	pids+=($!)
-
-	fct_run_update "all uv tools" uv tool upgrade --all &
-	pids+=($!)
-
-	#  agent-browser
-	fct_run_update "agent-browser" npm install -g agent-browser &
-	pids+=($!)
-
-	# Amp
-	fct_run_update "amp" amp update &
-	pids+=($!)
-
-	# Bun
-	fct_run_update "opencode-ai (bun)" bun add -g opencode-ai &
-	pids+=($!)
-
+	log_info "Job breakdown:"
+	log_info "  Brew: ${brew_count}"
+	log_info "  update-bin: ${update_bin_count}"
+	log_info "  Bun: ${bun_count}"
+	log_info "  UV: ${uv_count}"
+	log_info "  Custom: ${custom_count}"
+	log_info "  Total parallel jobs: ${#pids[@]}"
 	log_info "Updates running in parallel (${#pids[@]} jobs)... waiting for completion..."
 
-	# Wait for all background jobs
+	# Wait for all background jobs. Individual failures are reported by fct_run_update,
+	# so we do not stop early here.
 	wait 2>/dev/null || true
 
 	log_info "All CLI app updates completed!"
