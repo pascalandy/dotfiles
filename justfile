@@ -134,6 +134,40 @@ brew-full:
     brew doctor
     brew outdated
 
+# Upgrade all installed uv tools and show the current tool list.
+uv-daily:
+    uv tool upgrade --all
+    uv tool list
+
+# Upgrade all installed uv tools, show the current tool list, and prune cache.
+uv-full:
+    uv tool upgrade --all
+    uv tool list
+    uv cache prune
+
+# Update global npm packages for the active Node version and list them.
+npm-daily:
+    npm outdated -g --depth=0 || true
+    npm update -g
+    npm list -g --depth=0
+
+# Run a fuller maintenance pass for global npm packages.
+npm-full:
+    npm outdated -g --depth=0 || true
+    npm update -g
+    npm cache verify
+    npm doctor
+    npm list -g --depth=0
+
+# List Bun global packages from Bun's global install directory.
+bun-globals:
+    cd "$HOME/.bun/install/global" && bun pm ls
+
+# Upgrade managed Bun global packages explicitly and list them.
+bun-globals-full:
+    bun add -g @biomejs/biome@latest @google/gemini-cli@latest @googleworkspace/cli@latest @kilocode/cli@latest @mariozechner/pi-coding-agent@latest @tobilu/qmd@latest agent-browser@latest defuddle-cli@latest opencode-ai@latest oxlint@latest typescript@latest typescript-language-server@latest
+    cd "$HOME/.bun/install/global" && bun pm ls
+
 # Transcribe a YouTube URL. Wrap the URL in quotes.
 transcript url:
     uv run ~/.local/share/chezmoi/dot_config/ai_templates/skills/utils/transcript/scripts/transcript.py {{url}}
