@@ -114,10 +114,34 @@ cm-edit path:
 # Utilities
 # -----------------------------------------------------------------------------
 
+# Transcribe a YouTube URL. Wrap the URL in quotes.
+transcript url:
+    uv run ~/.local/share/chezmoi/dot_config/ai_templates/skills/utils/transcript/scripts/transcript.py {{url}}
+
+# -----------------------------------------------------------------------------
+# System maintenance
+# -----------------------------------------------------------------------------
+
+# Update Cli Apps
+uca:
+    just brew-daily
+    just uv-daily
+    just npm-daily
+    just bun-globals-full
+    amp update
+    claude update
+
+# Update Cli Apps
+uca-full:
+    brew-full
+    uv-full
+    npm-full
+    bun-globals-full
+
 # Homebrew routine maintenance for daily-use formulas.
 brew-daily:
     brew update
-    brew upgrade chezmoi git go neovim fzf fd bat yq zoxide yt-dlp
+    brew upgrade codex chezmoi git go neovim fzf fd bat yq zoxide yt-dlp
     brew upgrade oven-sh/bun/bun || true
     brew cleanup
     brew autoremove
@@ -167,7 +191,3 @@ bun-globals:
 bun-globals-full:
     bun add -g @biomejs/biome@latest @google/gemini-cli@latest @googleworkspace/cli@latest @kilocode/cli@latest @mariozechner/pi-coding-agent@latest @tobilu/qmd@latest agent-browser@latest defuddle-cli@latest opencode-ai@latest oxlint@latest typescript@latest typescript-language-server@latest
     cd "$HOME/.bun/install/global" && bun pm ls
-
-# Transcribe a YouTube URL. Wrap the URL in quotes.
-transcript url:
-    uv run ~/.local/share/chezmoi/dot_config/ai_templates/skills/utils/transcript/scripts/transcript.py {{url}}
