@@ -16,4 +16,4 @@ pre-commit:
 post-commit:
   commands:
     cma:
-      run: just cma
+      run: gtimeout 20 just cma
