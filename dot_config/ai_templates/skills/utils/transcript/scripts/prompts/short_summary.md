@@ -6,6 +6,8 @@ prompt-title: Short summary creator
 
 Quick high-level summary to help decide if this video is worth watching in full.
 
+Use "writing-clerly" skill to render your final answer.
+
 ## Task
 
 **STEP 1:** Create a short and sweet summary:
