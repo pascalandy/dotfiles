@@ -14,9 +14,9 @@
 # - For Bun global CLIs, use: bun add -g <package>
 # ==============================================================================
 
-readonly SCRIPT_VERSION="1.5.0"
+readonly SCRIPT_VERSION="1.8.0"
 readonly SCRIPT_AUTHOR="Pascal Andy"
-readonly SCRIPT_DESCRIPTION="Update CLI tools (brew, uv, bun, update-bin) in parallel."
+readonly SCRIPT_DESCRIPTION="Update CLI tools (brew, uv, bun) in parallel."
 
 readonly SCRIPT_PATH="${BASH_SOURCE[0]}"
 readonly SCRIPT_NAME="${SCRIPT_PATH##*/}"
@@ -109,10 +109,9 @@ Options:
       --no-color   Disable colored output
 
 Tools updated:
-  Brew:       codex, uv
-  update-bin: gemini, kilocode, gh, repomix
-  UV tools:   specify-cli, playwright, all uv tools
-  Bun:        opencode-ai, pi-coding-agent, defuddle-cli, qmd, googleworkspace/cli, agent-browser
+  Brew:       codex, uv, repomix
+  UV tools:   specify-cli, all uv tools
+  Bun:        opencode-ai, pi-coding-agent, defuddle-cli, qmd, googleworkspace/cli, agent-browser, kilocode, gemini
   Other:      amp, claude (install.sh), specify check
 
 Examples:
@@ -196,21 +195,11 @@ fct_queue_update() {
 
 fct_queue_brew_updates() {
 	local pids_name="${1}"
-	local brew_tools=(codex uv)
+	local brew_tools=(codex uv repomix)
 	local tool=""
 
 	for tool in "${brew_tools[@]}"; do
 		fct_queue_update "${pids_name}" "${tool} (brew)" brew upgrade "${tool}"
-	done
-}
-
-fct_queue_update_bin_updates() {
-	local pids_name="${1}"
-	local update_bin_tools=(gemini kilocode gh repomix)
-	local tool=""
-
-	for tool in "${update_bin_tools[@]}"; do
-		fct_queue_update "${pids_name}" "${tool} (update-bin)" update-bin "${tool}"
 	done
 }
 
@@ -223,6 +212,8 @@ fct_queue_bun_updates() {
 		@tobilu/qmd
 		@googleworkspace/cli
 		agent-browser
+		@kilocode/cli
+		@google/gemini-cli
 	)
 	local tool=""
 
@@ -235,7 +226,6 @@ fct_queue_uv_updates() {
 	local pids_name="${1}"
 
 	fct_queue_update "${pids_name}" "specify-cli (uv)" uv tool install specify-cli --force --from "git+https://github.com/github/spec-kit.git"
-	fct_queue_update "${pids_name}" "playwright (uv)" uv tool upgrade playwright
 	fct_queue_update "${pids_name}" "all uv tools" uv tool upgrade --all
 }
 
@@ -253,10 +243,9 @@ fct_execute_updates() {
 	log_info "Starting CLI tools update in parallel..."
 
 	local pids=()
-	local brew_count=2
-	local update_bin_count=4
-	local bun_count=6
-	local uv_count=3
+	local brew_count=3
+	local bun_count=8
+	local uv_count=2
 	local custom_count=3
 
 	# Maintenance convention:
@@ -264,14 +253,12 @@ fct_execute_updates() {
 	# - Add simple package-name-only updates to the corresponding array.
 	# - Add unique commands to fct_queue_custom_updates() and update custom_count.
 	fct_queue_brew_updates pids
-	fct_queue_update_bin_updates pids
 	fct_queue_bun_updates pids
 	fct_queue_uv_updates pids
 	fct_queue_custom_updates pids
 
 	log_info "Job breakdown:"
 	log_info "  Brew: ${brew_count}"
-	log_info "  update-bin: ${update_bin_count}"
 	log_info "  Bun: ${bun_count}"
 	log_info "  UV: ${uv_count}"
 	log_info "  Custom: ${custom_count}"
