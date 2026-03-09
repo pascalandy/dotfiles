@@ -114,6 +114,26 @@ cm-edit path:
 # Utilities
 # -----------------------------------------------------------------------------
 
+# Homebrew routine maintenance for daily-use formulas.
+brew-daily:
+    brew update
+    brew upgrade chezmoi git go neovim fzf fd bat yq zoxide yt-dlp
+    brew upgrade oven-sh/bun/bun || true
+    brew cleanup
+    brew autoremove
+    type -a chezmoi git go nvim fzf fd bat yq zoxide yt-dlp bun
+    brew outdated
+
+# Homebrew full refresh for all formulas and casks.
+brew-full:
+    brew update
+    brew upgrade --formula
+    brew upgrade --cask
+    brew cleanup
+    brew autoremove
+    brew doctor
+    brew outdated
+
 # Transcribe a YouTube URL. Wrap the URL in quotes.
 transcript url:
     uv run ~/.local/share/chezmoi/dot_config/ai_templates/skills/utils/transcript/scripts/transcript.py {{url}}

@@ -622,6 +622,9 @@ fi
 # Note: NVM node bins are added earlier during lazy-load setup (see Node.js section)
 # to ensure global CLIs like 'claude' work immediately without loading full nvm.
 
+# Deduplicate PATH entries automatically in zsh while preserving first-match order.
+typeset -U path PATH
+
 # PNPM (check if already in PATH to avoid duplication)
 export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in

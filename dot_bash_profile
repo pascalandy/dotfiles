@@ -1,5 +1,4 @@
 PATH="/usr/local/bin:$PATH"
-PATH="/usr/local/bin:$PATH"
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 . "$HOME/.cargo/env"
 eval "$(pyenv init -)"
