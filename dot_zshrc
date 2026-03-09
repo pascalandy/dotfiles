@@ -585,7 +585,7 @@ alias cdv='clear && cd $MY_DOCS/10_obsidian/vault_obsidian && ls' # vault (obsid
 # === script manage via chezmoi ===
 
 # script manage via chezmoi
-alias uca="update-cli-apps" 
+alias uca='cd /Users/andy16/.local/share/chezmoi && just uca'
 alias ttok='ttok "${@}" 2>/dev/null'
 
 # vps1-4 = SSH with colored terminals (standalone scripts in ~/.local/bin/)
