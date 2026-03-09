@@ -72,5 +72,8 @@ cm-add path:
 cm-edit path:
     chezmoi edit {{path}}
 
+transcript url:
+    uv run ~/.local/share/chezmoi/dot_config/ai_templates/skills/utils/transcript/scripts/transcript.py {{url}}
+
 default:
     @just --list
