@@ -46,14 +46,14 @@ bd --version  # Requires v0.47.0+
 
 - **bd CLI** installed and in PATH
 - **Git repository** (bd requires git for sync)
-- **Initialization**: `bd init` run once (humans do this, not agents)
+- **Initialization**: `bd init` run once in the repo (humans do this, not agents)
 
 ## CLI Reference
 
 **Run `bd prime`** for AI-optimized workflow context (auto-loaded by hooks).
 **Run `bd <command> --help`** for specific command usage.
 
-Essential commands: `bd ready`, `bd create`, `bd show`, `bd update`, `bd close`, `bd dolt push`
+Essential commands: `bd ready`, `bd create`, `bd dep add`, `bd show`, `bd update`, `bd close`, `bd dolt push`
 
 ## Session Protocol
 
