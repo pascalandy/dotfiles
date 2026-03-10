@@ -1,13 +1,17 @@
 ---
 name: gh
 description: >
-  Use this skill whenever the user wants to work with GitHub from the command
-  line using the GitHub CLI (`gh`): authentication, repositories, issues, pull
-  requests, Actions, projects, releases, gists, codespaces, organizations,
-  search, API calls, secrets, variables, labels, rulesets, or extensions.
-  Trigger even when the user does not explicitly say “gh” and instead asks to
-  do GitHub operations from terminal commands, automate GitHub workflows, or
-  look up the right `gh` subcommand/flags.
+  Use this skill whenever the user wants exact GitHub CLI (`gh`) commands,
+  command syntax, or terminal workflows for GitHub: auth/setup, repository
+  management, issues, pull requests, Actions runs/workflows, releases, projects,
+  search, `gh api` / GraphQL, secrets, variables, gists, codespaces,
+  organizations, rulesets, keys, aliases, or extensions. Trigger even if the
+  user does not say “gh” explicitly and instead asks things like “what command
+  do I use,” “how do I do this from the terminal,” “give me the GitHub CLI
+  command,” “script this with gh,” or “show me the flags/subcommand.” Prefer
+  this skill for GitHub command lookup and `gh`-native automation, but not for
+  writing workflow YAML, rewriting PR text, explaining GitHub concepts without
+  CLI usage, or generic local git/repo tasks that do not need `gh`.
 compatibility: Requires GitHub CLI (`gh`) installed and authenticated when live GitHub access is needed.
 ---
 
