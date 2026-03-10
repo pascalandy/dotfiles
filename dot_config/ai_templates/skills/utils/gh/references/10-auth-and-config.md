@@ -1,6 +1,6 @@
 # Auth and Config
 
-Use this reference for login, token handling, host/account switching, git credential setup, and CLI config.
+Use this reference for login, token handling, host and account switching, git credential setup, and CLI config.
 
 ## Authentication
 
@@ -59,7 +59,7 @@ gh auth setup-git
 gh auth setup-git --hostname enterprise.internal
 ```
 
-Use this when the user wants git pushes/pulls over HTTPS to reuse GitHub CLI credentials.
+Use this when the user wants HTTPS git pushes and pulls to reuse GitHub CLI credentials.
 
 ## Config
 
@@ -83,6 +83,6 @@ gh config clear-cache
 
 ## Safety notes
 
-- Prefer environment variables or stdin for tokens instead of putting secrets directly in shell history.
+- Prefer environment variables or stdin for tokens instead of putting secrets in shell history.
 - Confirm the host when working with GitHub Enterprise.
-- If a command fails due to scopes, use `gh auth refresh --scopes ...` rather than redoing the whole login first.
+- If a command fails because of missing scopes, use `gh auth refresh --scopes ...` before you redo the entire login flow.
