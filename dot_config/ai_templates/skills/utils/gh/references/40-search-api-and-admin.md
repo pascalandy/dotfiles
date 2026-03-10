@@ -1,6 +1,6 @@
 # Search, API, and Admin Utilities
 
-Use this reference for search, API calls, org-level queries, gists, codespaces, extensions, aliases, keys, rulesets, attestations, and general admin tasks.
+Use this reference for search, API calls, org-level queries, gists, Codespaces, extensions, aliases, keys, rulesets, attestations, and general admin work.
 
 ## Search
 
@@ -50,7 +50,7 @@ gh org list --user username
 gh org list --json login,name,description
 ```
 
-If the user needs deeper org inspection not covered here, use `gh api` against the relevant REST or GraphQL endpoint.
+If the user needs deeper org inspection than this file covers, use `gh api` against the relevant REST or GraphQL endpoint.
 
 ## Gists
 
@@ -109,7 +109,7 @@ gh alias delete prview
 gh alias import ./aliases.sh
 ```
 
-## Keys, rulesets, attestations
+## Keys, rulesets, and attestations
 
 ```bash
 gh ssh-key list
@@ -129,7 +129,7 @@ gh attestation download owner/repo --artifact-id 123456
 gh attestation verify owner/repo
 ```
 
-## Browse, status, completion
+## Browse, status, and completion
 
 ```bash
 gh browse
@@ -148,7 +148,7 @@ gh completion -s fish
 
 ## Guidance
 
-- Prefer `gh search ... --json` when results will be post-processed.
+- Prefer `gh search ... --json` when you will post-process the results.
 - Prefer `gh api graphql` for cross-resource or nested queries.
 - For org-wide admin work, confirm whether the target is user, org, repo, or enterprise scope.
-- Codespaces, rulesets, and attestations change over time; verify advanced syntax with local help.
+- Codespaces, rulesets, and attestations evolve over time, so verify advanced syntax with local help.

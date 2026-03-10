@@ -1,6 +1,6 @@
 # Actions, Projects, and Releases
 
-Use this reference for CI/CD workflows, workflow runs, caches, secrets, variables, project boards, and releases.
+Use this reference for CI and CD workflows, workflow runs, caches, secrets, variables, project boards, and releases.
 
 ## Actions: runs
 
@@ -45,7 +45,7 @@ If the workflow takes inputs, confirm the current CLI syntax with local help:
 gh workflow run --help
 ```
 
-## Actions: cache, secrets, variables
+## Actions: cache, secrets, and variables
 
 ```bash
 gh cache list
@@ -93,7 +93,7 @@ gh project item-edit --id ITEM_ID --project-id PROJECT_ID --field-id FIELD_ID --
 gh project item-delete --id ITEM_ID --project-id PROJECT_ID
 ```
 
-Project syntax evolves faster than many other `gh` areas. Prefer local `--help` before using advanced field/item mutations.
+Project syntax changes faster than many other `gh` areas. Check local `--help` before advanced field or item mutations.
 
 ## Releases
 
@@ -123,7 +123,7 @@ gh release verify v1.0.0
 
 ## Common workflows
 
-### Run workflow and watch it
+### Run a workflow and watch it
 
 ```bash
 gh workflow run ci.yml --ref main
@@ -131,7 +131,7 @@ RUN_ID=$(gh run list --workflow ci.yml --branch main --limit 1 --json databaseId
 gh run watch "$RUN_ID"
 ```
 
-### Trigger run, then fetch artifacts
+### Trigger a run, then fetch artifacts
 
 ```bash
 gh workflow run ci.yml --ref main
@@ -142,7 +142,7 @@ gh run download "$RUN_ID" --dir ./artifacts
 
 ## Guidance
 
-- Be extra careful with secrets, environment scopes, and org scopes.
-- Prefer watching or viewing runs before rerunning them blindly.
-- For project field/item mutations, confirm the exact flag names with local help.
-- For releases, clarify whether the user wants draft, prerelease, or full release.
+- Be careful with secrets, environment scopes, and org scopes.
+- Prefer `gh run watch` or `gh run view` before you rerun blindly.
+- For project field or item mutations, confirm exact flag names with local help.
+- For releases, clarify whether the user wants a draft, prerelease, or full release.

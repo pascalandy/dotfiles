@@ -1,10 +1,10 @@
 # Repositories, Issues, and Pull Requests
 
-Use this reference for everyday repository collaboration: repo setup, issue workflows, PR creation/review/merge, and labels.
+Use this reference for everyday repository work: repo setup, issue workflows, PR creation and review, merges, and labels.
 
 ## Repositories
 
-### Create / clone / view
+### Create, clone, and view
 
 ```bash
 gh repo create my-repo --public
@@ -14,7 +14,7 @@ gh repo view owner/repo
 gh repo view owner/repo --json name,description,defaultBranchRef
 ```
 
-### List / edit / delete
+### List, edit, and delete
 
 ```bash
 gh repo list owner --limit 50
@@ -24,7 +24,7 @@ gh repo rename new-name
 gh repo delete owner/repo --yes
 ```
 
-### Fork / sync / default repo
+### Fork, sync, and set a default repo
 
 ```bash
 gh repo fork owner/repo --clone
@@ -47,7 +47,7 @@ gh repo license mit
 
 ## Issues
 
-### Create / list / view
+### Create, list, and view
 
 ```bash
 gh issue create --title "Bug: login not working" --body "Steps to reproduce..."
@@ -60,7 +60,7 @@ gh issue view 123 --comments
 gh issue view 123 --json title,body,state,labels
 ```
 
-### Edit / comment / close
+### Edit, comment, and close
 
 ```bash
 gh issue edit 123 --title "New title"
@@ -85,7 +85,7 @@ gh issue develop 123 --branch fix/issue-123 --base main
 
 ## Pull requests
 
-### Create / list / view
+### Create, list, and view
 
 ```bash
 gh pr create --title "Feature: add new functionality" --body "This PR adds..."
@@ -102,7 +102,7 @@ gh pr view 123 --comments
 gh pr view 123 --json title,body,state,files
 ```
 
-### Checkout / diff / checks
+### Checkout, diff, and checks
 
 ```bash
 gh pr checkout 123
@@ -112,7 +112,7 @@ gh pr checks 123
 gh pr checks 123 --watch --interval 5
 ```
 
-### Edit / comment / review
+### Edit, comment, and review
 
 ```bash
 gh pr edit 123 --title "New title"
@@ -124,7 +124,7 @@ gh pr review 123 --request-changes --body "Please fix these issues"
 gh pr review 123 --comment --body "A few thoughts"
 ```
 
-### Merge / close / reopen / branch sync
+### Merge, close, reopen, and sync branches
 
 ```bash
 gh pr merge 123 --merge
@@ -160,7 +160,7 @@ gh label clone owner/repo --repo target/repo
 
 ## Common workflows
 
-### Create PR from issue
+### Create a PR from an issue
 
 ```bash
 gh issue develop 123 --branch feature/issue-123
@@ -180,7 +180,7 @@ gh pr list --search "review:required" --json number --jq '.[].number' | \
 
 ## Guidance
 
-- Prefer `gh repo set-default` before a long repo-specific session.
-- Prefer `--json` for reporting, dashboards, or follow-up scripting.
-- Before merge, confirm strategy: merge, squash, or rebase.
-- When editing labels, assignees, or reviewers in bulk, verify the target repo first.
+- Set a default repo with `gh repo set-default` before a long repo-specific session.
+- Prefer `--json` for reporting, dashboards, or follow-up scripts.
+- Before you merge, confirm the strategy: merge, squash, or rebase.
+- Before bulk edits to labels, assignees, or reviewers, verify the target repo.

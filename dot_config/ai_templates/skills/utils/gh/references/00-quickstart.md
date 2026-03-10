@@ -22,7 +22,7 @@ gh auth status
 gh auth setup-git
 ```
 
-Good automation pattern:
+For automation, this pattern is common:
 
 ```bash
 export GH_TOKEN="ghp_xxxxxxxxxxxx"
@@ -54,14 +54,14 @@ gh repo create --help
 
 | Flag | Use |
 | --- | --- |
-| `--repo [HOST/]OWNER/REPO` | target another repository |
-| `--hostname HOST` | target GitHub Enterprise host |
-| `--json FIELDS` | structured output |
-| `--jq EXPRESSION` | filter JSON output |
-| `--template STRING` | Go-template formatting |
-| `--web` | open in browser |
-| `--paginate` | fetch all pages where supported |
-| `--verbose` / `--debug` | troubleshooting |
+| `--repo [HOST/]OWNER/REPO` | Target another repository |
+| `--hostname HOST` | Target a GitHub Enterprise host |
+| `--json FIELDS` | Return structured output |
+| `--jq EXPRESSION` | Filter JSON output |
+| `--template STRING` | Format with Go templates |
+| `--web` | Open in the browser |
+| `--paginate` | Fetch all pages where supported |
+| `--verbose` / `--debug` | Troubleshoot commands |
 
 ## Structured output
 
@@ -76,6 +76,6 @@ gh pr list --json number,title,author --jq '.[] | {number, title, author: .autho
 ## Practical defaults
 
 - For repeated work in one repo, set `GH_REPO` or run `gh repo set-default owner/repo`.
-- For ambiguous syntax, ask the local CLI with `--help` instead of guessing.
-- For actions not exposed by top-level subcommands, use `gh api`.
-- For scripts, prefer non-interactive flags and machine-readable output.
+- If syntax is unclear, ask the local CLI with `--help` instead of guessing.
+- Use `gh api` for actions that top-level subcommands do not expose.
+- In scripts, prefer non-interactive flags and machine-readable output.
