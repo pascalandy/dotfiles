@@ -50,12 +50,7 @@ Détermine ces informations:
 
 ## Phase 2: COMMIT + PR
 
-1. Commit les changements (si non fait):
-   > Pour la rédaction des commit(s), voir le skill "fct-commit"
-   ```bash
-   git add -A
-   git commit -m "<type>(<scope>): <description>"
-   ```
+1. commit (see how by using skill: commit)
 
 2. Push et créer PR:
    ```bash
