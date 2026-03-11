@@ -171,12 +171,14 @@ uv-full:
 
 # Update global npm packages for the active Node version and list them.
 npm-daily:
+    find "$(npm root -g)" -name '.DS_Store' -delete
     npm outdated -g --depth=0 || true
     npm update -g
     npm list -g --depth=0
 
 # Run a fuller maintenance pass for global npm packages.
 npm-full:
+    find "$(npm root -g)" -name '.DS_Store' -delete
     npm outdated -g --depth=0 || true
     npm update -g
     npm cache verify
