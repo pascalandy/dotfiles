@@ -1,6 +1,6 @@
 # QMD MCP Reference
 
-Read this file when the user asks about QMD MCP setup, tool names, Claude Code / Claude Desktop integration, HTTP transport, or when an agent should use QMD through MCP instead of the CLI.
+Read this file when the user asks about QMD MCP setup, tool names, Claude Code or Claude Desktop integration, HTTP transport, or when an agent should use QMD through MCP instead of the CLI.
 
 ## Install and prepare QMD
 

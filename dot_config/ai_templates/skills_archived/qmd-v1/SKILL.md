@@ -12,9 +12,9 @@ allowed-tools: Bash(qmd:*), mcp__qmd__*
 
 # QMD - Query Markup Documents
 
-Use QMD for local markdown retrieval: Obsidian notes, docs, transcripts, knowledge bases, and other indexed markdown collections. The core job is not just searching, but choosing the right search mode, narrowing to the right collection, then opening the real documents before answering.
+Use QMD for local markdown retrieval across Obsidian notes, docs, transcripts, knowledge bases, and other indexed markdown collections. Your job is not just to search. Pick the right retrieval mode, narrow to the right collection, and open the real documents before answering.
 
-If the user asks about QMD MCP setup, tool names, or server commands, read `references/mcp-setup.md` before answering.
+If the user asks about QMD MCP setup, tool names, or server commands, read `references/mcp-setup.md` first.
 
 ## Start with health and scope
 
@@ -40,13 +40,13 @@ qmd ls <collection/path>
 ```
 
 Practical guidance:
-- If the user already names a likely source, still confirm the exact collection name from `status` or `collection list`.
+- If the user names a likely source, still confirm the exact collection name with `status` or `collection list`.
 - If semantic or hybrid retrieval looks weak and `status` shows pending embeddings, tell the user and consider `qmd embed`.
 - If files changed on disk, run `qmd update` before `qmd embed`.
 
 ## Choose the right retrieval mode
 
-QMD has three search modes. Pick deliberately.
+QMD has three search modes. Choose deliberately.
 
 | Command | Best for | Default? | Notes |
 |---|---|---:|---|
@@ -58,8 +58,8 @@ Rules of thumb:
 - If the user knows the exact note title or terms, start with `search`.
 - If the user remembers the idea but not the wording, prefer `query` first.
 - Use `vsearch` when you explicitly want semantic-only retrieval or a second opinion.
-- If `vsearch` results feel semantically off, switch back to `query` instead of forcing it.
-- When quality matters more than raw speed, `query` is the safest default.
+- If `vsearch` feels semantically off, switch back to `query` instead of forcing it.
+- When quality matters more than speed, `query` is the safest default.
 
 ## Retrieval workflow
 
@@ -69,11 +69,11 @@ Rules of thumb:
 4. Inspect the top hits: path, title, context, score, and `docid`.
 5. Open the best hit with `qmd get`.
 6. If several files matter, use `qmd multi-get`.
-7. Only then summarize, answer, or compare.
+7. Then summarize, answer, or compare.
 
 Important retrieval discipline:
 - Do **not** answer from snippets alone when accuracy matters.
-- Treat search snippets as a shortlist, not as final evidence.
+- Treat search snippets as a shortlist, not final evidence.
 - Prefer reopening a hit by `#docid`; it is the safest way to get the exact result you selected.
 - When the first search is noisy, refine by collection, switch modes, or raise `--min-score`.
 
@@ -124,7 +124,7 @@ Agent-oriented guidance:
 - Use `--files` for a compact candidate list.
 - Use `--json` when results will be post-processed.
 - Use `--all --files --min-score <threshold>` to build a broader file shortlist before opening documents.
-- `qmd get` supports fuzzy path suggestions, but docids are safer when the search result must be reopened exactly.
+- `qmd get` supports fuzzy path suggestions, but docids are safer when you must reopen the exact search result.
 
 ## Setup and maintenance tasks
 
@@ -155,9 +155,9 @@ Maintenance guidance:
 - Git-backed docs that should be refreshed first: `qmd update --pull`.
 - Weak semantic search or pending vectors: `qmd embed`.
 - Stale cache or orphaned index data: `qmd cleanup`.
-- Avoid destructive collection/context changes unless the user asked for them.
+- Avoid destructive collection or context changes unless the user asked for them.
 
-Context is important. Encourage collection-level or path-level context when results are ambiguous; QMD returns that context with results and it helps downstream selection.
+Context matters. Encourage collection-level or path-level context when results are ambiguous. QMD returns that context with results, which helps downstream selection.
 
 ## Reference file
 
