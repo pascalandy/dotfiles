@@ -1,6 +1,6 @@
 set shell := ["bash", "-eu", "-o", "pipefail", "-c"]
 
-# Show available recipes.
+# Show available recipes
 default:
     @just --list
 
