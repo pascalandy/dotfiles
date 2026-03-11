@@ -545,6 +545,13 @@ alias gglog='git --no-pager log --oneline --graph -10 --decorate=short && echo'
 # ggcl = git clone and remove .git (now a standalone script)
 alias ggcl="git-clone-clean"
 
+# === WORKTRUNK ===
+alias wc="wt switch -c"
+alias wls="wt list --no-progressive"
+alias ws="wt switch"
+alias wmain="wt switch ^"
+alias wm="wt merge"
+
 ggc() {
     git add . && git commit -m "${1:-minor}"
 }
