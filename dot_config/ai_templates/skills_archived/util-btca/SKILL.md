@@ -1,54 +1,35 @@
 ---
 name: cli-btca
-description: "btca is a cli to query docs. Use when the user asks to 'use btca' or has questions about specific frameworks/libraries that btca supports."
+description: "Use when the user asks to use btca or wants docs answers for a supported library/framework."
 ---
 
-# btca (Better Context App)
+# btca
 
-`btca` is a CLI tool for asking questions about libraries and frameworks by cloning their repositories locally and searching the source code directly.
+Use `btca` to query local docs for supported libraries and frameworks.
 
-## Core Workflow
-
-### Asking Questions
-
-To answer a single question about a specific technology:
+## Ask a question
 
 ```bash
 btca ask -t <tech> -q "<question>"
 ```
 
-**Example:**
+Example:
 
 ```bash
 btca ask -t opencode -q "Does opencode have an sdk available?"
 ```
 
-### Available Technologies
-
-To see which technologies are currently configured and available:
+## List supported tech
 
 ```bash
 btca config repos list
 ```
 
-Commonly available: `svelte`, `tailwindcss`, `nextjs`, `opencode`.
+## If something fails
 
-## Troubleshooting & Due Diligence
+- Missing tech: tell the user you cannot find it.
+- Missing CLI: check with `which btca`.
 
-### Technology Not Found
+## More details
 
-If a requested `<tech>` is not in the list, inform the user: "I can't find <tech>".
-
-### CLI Issues
-
-If the command fails, verify the installation:
-
-```bash
-which btca
-```
-
-## Advanced Usage & Configuration
-
-For detailed information on adding new repositories, changing models, or using the interactive TUI, refer to the full documentation:
-
-- `references/`
+See `references/`.
