@@ -654,3 +654,5 @@ if [ -f '/Users/andy16/Documents/github_local/OS_PASCAL/google-cloud-sdk/path.zs
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/andy16/Documents/github_local/OS_PASCAL/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/andy16/Documents/github_local/OS_PASCAL/google-cloud-sdk/completion.zsh.inc'; fi
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
