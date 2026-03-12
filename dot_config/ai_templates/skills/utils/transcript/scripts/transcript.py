@@ -62,14 +62,11 @@ VALID_CLAUDE_MODELS = (
 DEFAULT_CLAUDE_MODEL = "claude-opus-4-5"
 
 # Codex defaults for prompt summaries
-DEFAULT_CODEX_MODEL = "gpt-5.3-codex"
+DEFAULT_CODEX_MODEL = "gpt-5.4"
 VALID_CODEX_REASONING_EFFORTS = ("low", "medium", "high", "xhigh")
 DEFAULT_CODEX_REASONING_EFFORT = "high"
 CODEX_SUGGESTED_MODELS = (
-    "gpt-5.3-codex",
-    "gpt-5.2",
-    "gpt-5.2-mini",
-    "gpt-5.2-max",
+    "gpt-5.4",
 )
 
 DEFAULT_PROMPT = "follow_along_note"
