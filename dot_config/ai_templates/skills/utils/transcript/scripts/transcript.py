@@ -63,6 +63,7 @@ DEFAULT_CLAUDE_MODEL = "claude-opus-4-5"
 
 # Codex defaults for prompt summaries
 DEFAULT_CODEX_MODEL = "gpt-5.3-codex"
+VALID_CODEX_REASONING_EFFORTS = ("low", "medium", "high", "xhigh")
 DEFAULT_CODEX_REASONING_EFFORT = "high"
 CODEX_SUGGESTED_MODELS = (
     "gpt-5.3-codex",
@@ -471,11 +472,14 @@ def run_summary_prompt(
     prompt_path: Path,
     output_path: Path,
     model_name: str,
+    effort: str,
 ) -> dict:
     """Run provider-specific summary generation."""
     if provider == PROVIDER_CLAUDE:
         return run_claude_prompt(transcript_path, prompt_path, output_path, model_name)
-    return run_codex_prompt(transcript_path, prompt_path, output_path, model_name)
+    return run_codex_prompt(
+        transcript_path, prompt_path, output_path, model_name, effort
+    )
 
 
 def print_summary_usage(usage_stats: dict) -> None:
@@ -609,7 +613,11 @@ def run_claude_prompt(
 
 
 def run_codex_prompt(
-    transcript_path: Path, prompt_path: Path, output_path: Path, model_name: str
+    transcript_path: Path,
+    prompt_path: Path,
+    output_path: Path,
+    model_name: str,
+    effort: str,
 ) -> dict:
     """Run Codex CLI with transcript and prompt, save markdown output."""
     ensure_cli_available("codex")
@@ -633,7 +641,7 @@ def run_codex_prompt(
                 "--model",
                 model_name,
                 "--config",
-                f'model_reasoning_effort="{DEFAULT_CODEX_REASONING_EFFORT}"',
+                f'model_reasoning_effort="{effort}"',
                 "--output-last-message",
                 str(codex_output_path),
                 "-",
@@ -673,7 +681,7 @@ def run_codex_prompt(
     return {
         "provider": PROVIDER_CODEX,
         "model": model_name,
-        "reasoning_effort": DEFAULT_CODEX_REASONING_EFFORT,
+        "reasoning_effort": effort,
     }
 
 
@@ -739,6 +747,15 @@ Environment:
         help=(
             "Model name. Defaults: "
             f"codex={DEFAULT_CODEX_MODEL}, claude={DEFAULT_CLAUDE_MODEL}"
+        ),
+    )
+    options_group.add_argument(
+        "--effort",
+        choices=VALID_CODEX_REASONING_EFFORTS,
+        default=DEFAULT_CODEX_REASONING_EFFORT,
+        help=(
+            "Codex reasoning effort "
+            f"(default: {DEFAULT_CODEX_REASONING_EFFORT})"
         ),
     )
     options_group.add_argument(
@@ -864,6 +881,7 @@ def main() -> None:
                     selected_prompt["path"],
                     output_file,
                     selected_model,
+                    args.effort,
                 )
 
                 summary_path = output_file
