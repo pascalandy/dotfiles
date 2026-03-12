@@ -7,6 +7,8 @@ description: Create and edit Obsidian Flavored Markdown with wikilinks, embeds, 
 
 Create and edit valid Obsidian Flavored Markdown. Obsidian extends CommonMark and GFM with wikilinks, embeds, callouts, properties, comments, and other syntax. This skill covers only Obsidian-specific extensions -- standard Markdown (headings, bold, italic, lists, quotes, code blocks, tables) is assumed knowledge.
 
+User's vault_path=`/Users/andy16/Documents/_my_docs/10_obsidian/vault_obsidian`
+
 ## Workflow: Creating an Obsidian Note
 
 1. **Add frontmatter** with properties (title, tags, aliases) at the top of the file. See [PROPERTIES.md](references/PROPERTIES.md) for all property types.
