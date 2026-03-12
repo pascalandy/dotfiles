@@ -25,6 +25,11 @@
         "bash": "allow"
       }
     },
+    "random": {
+      "description": "Use tho switch to any agents",
+      "mode": "primary",
+      "model": "openrouter/moonshotai/kimi-k2.5"
+    },
     "abby": {
       "description": "GPT-5.4 preset.",
       "disable": true,
@@ -46,8 +51,9 @@
       }
     },
     "gemini": {
-      "description": "Gemini exploration preset.",
       "model": "openrouter/google/gemini-3-flash-preview",
+      "disable": true,
+      "description": "Gemini exploration preset.",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
@@ -63,11 +69,6 @@
           "verbosity": "low"
         }
       }
-    },
-    "random": {
-      "description": "Use tho switch to any agents",
-      "mode": "primary",
-      "model": "openrouter/moonshotai/kimi-k2.5"
     },
     "tropic": {
       "description": "Primary Claude thinking preset.",
