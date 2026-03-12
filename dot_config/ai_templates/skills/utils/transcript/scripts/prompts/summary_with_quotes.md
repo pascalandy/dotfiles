@@ -83,4 +83,4 @@ loop
   - Leave a blank space after each titles
   - Do not output the whole answer in a code block, just plain markdown
 
-Now, think hard and give me your best shot!
+Give me your best shot!
