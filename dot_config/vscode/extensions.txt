@@ -1,6 +1,5 @@
 adpyke.codesnap
 akamud.vscode-theme-onedark
-antfu.goto-alias
 bierner.github-markdown-preview
 bierner.markdown-checkbox
 bierner.markdown-emoji
@@ -9,7 +8,6 @@ bierner.markdown-mermaid
 bierner.markdown-preview-github-styles
 bierner.markdown-yaml-preamble
 biomejs.biome
-bradlc.vscode-tailwindcss
 catppuccin.catppuccin-vsc
 charliermarsh.ruff
 christian-kohler.path-intellisense
@@ -24,14 +22,11 @@ folke.vscode-monorepo-workspace
 formulahendry.auto-close-tag
 formulahendry.auto-rename-tag
 foxundermoon.shell-format
-github.copilot-chat
-github.vscode-pull-request-github
 gruntfuggly.todo-tree
 henoc.svgeditor
 jkjustjoshing.vscode-text-pastry
 jvalecillos.gpg
 kevinrose.vsc-python-indent
-kilocode.kilo-code
 mechatroner.rainbow-csv
 mermaidchart.vscode-mermaid-chart
 misbahansori.svg-fold
@@ -50,9 +45,6 @@ ms-toolsai.vscode-jupyter-cell-tags
 ms-toolsai.vscode-jupyter-slideshow
 narasimapandiyan.jetbrainsmono
 naumovs.color-highlight
-nuxt.mdc
-nuxtr.nuxt-vscode-extentions
-nuxtr.nuxtr-vscode
 oderwat.indent-rainbow
 oxc.oxc-vscode
 patbenatar.advanced-new-file
@@ -63,12 +55,9 @@ redhat.vscode-yaml
 ritwickdey.liveserver
 shd101wyy.markdown-preview-enhanced
 skellock.just
-sourcegraph.amp
-sst-dev.opencode
 tamasfe.even-better-toml
 visbydev.folder-path-color
 vstirbu.vscode-mermaid-preview
-vue.volar
 vunguyentuan.vscode-postcss
 yzhang.markdown-all-in-one
 zainchen.json

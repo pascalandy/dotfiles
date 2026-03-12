@@ -208,6 +208,18 @@
           "tool_call": true,
           "temperature": true,
           "reasoning": true,
+          "variants": {
+            "instant": {
+              "reasoning": {
+                "enabled": false
+              }
+            },
+            "thinking": {
+              "reasoning": {
+                "effort": "high"
+              }
+            }
+          },
           "limit": {
             "context": 262144,
             "output": 16384
