@@ -182,38 +182,6 @@
         "EXA_API_KEY": "{{ keyring "exa" "api_key" }}"
       },
       "timeout": 60000
-    },
-    "context7": {
-      "type": "remote",
-      "url": "https://mcp.context7.com/mcp",
-      "headers": {
-        "CONTEXT7_API_KEY": "{{ keyring "context7" "api_key" }}"
-      },
-      "enabled": false
-    },
-    "chrome-devtools": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "chrome-devtools-mcp@latest"
-      ],
-      "enabled": false
-    },
-    "nuxt": {
-      "type": "remote",
-      "url": "https://nuxt.com/mcp",
-      "enabled": false
-    },
-    "pg-aiguide": {
-      "type": "remote",
-      "url": "https://mcp.tigerdata.com/docs",
-      "enabled": false
-    },
-    "grep": {
-      "type": "remote",
-      "url": "https://mcp.grep.app",
-      "enabled": false
     }
   },
   "provider": {
