@@ -26,6 +26,7 @@
       }
     },
     "random": {
+      "name": "random",
       "description": "Use tho switch to any agents",
       "mode": "primary",
       "model": "openrouter/moonshotai/kimi-k2.5"
@@ -50,23 +51,11 @@
         }
       }
     },
-    "gemini": {
-      "model": "openrouter/google/gemini-3-flash-preview",
-      "disable": true,
-      "description": "Gemini exploration preset.",
-      "temperature": 0.2,
-      "permission": {
-        "write": "allow",
-        "edit": "allow",
-        "bash": "allow"
-      },
-      "options": {
-        "reasoning": {
-          "effort": "low",
-          "summary": "none"
-        },
-        "text": {
-          "verbosity": "low"
+  "xai": {
+    "model": {
+      "openrouter/x-ai/grok-4.20-beta": {
+        "name": "grok4.2 beta",
+        "reasoning": true
         }
       }
     },
