@@ -695,13 +695,19 @@ def parse_args() -> argparse.Namespace:
         else "NOT SET"
     )
 
+    help_width = min(shutil.get_terminal_size(fallback=(100, 24)).columns, 100)
+
     parser = argparse.ArgumentParser(
         description=f"""YouTube Transcript Generator from Deepgram
 
 Default (transcript + follow_along_note prompt via Codex):
   uv run %(prog)s "https://youtu.be/dQw4w9WgXcQ"
 """,
-        formatter_class=argparse.RawDescriptionHelpFormatter,
+        formatter_class=lambda prog: argparse.RawDescriptionHelpFormatter(
+            prog,
+            width=help_width,
+            max_help_position=30,
+        ),
         usage=argparse.SUPPRESS,
         epilog=f"""
 Output files (in timestamped folder):

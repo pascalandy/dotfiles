@@ -114,9 +114,9 @@ cm-edit path:
 # Utilities
 # -----------------------------------------------------------------------------
 
-# Transcribe a YouTube URL. Wrap the URL in quotes.
-transcript url:
-    uv run ~/.local/share/chezmoi/dot_config/ai_templates/skills/utils/transcript/scripts/transcript.py {{url}}
+# Transcribe a YouTube URL. Wrap the URL in quotes. Extra CLI args are forwarded.
+transcript url *args:
+    uv run ~/.local/share/chezmoi/dot_config/ai_templates/skills/utils/transcript/scripts/transcript.py {{quote(url)}} {{args}}
 
 # -----------------------------------------------------------------------------
 # System maintenance
