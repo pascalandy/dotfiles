@@ -1,5 +1,171 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "default_agent": "build",
+  "agent": {
+    "plan": {
+      "description": "Primary planning preset.",
+      "mode": "primary",
+      "model": "fireworks/kimi-k2p5",
+      "temperature": 0.5,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
+    "build": {
+      "description": "Primary builder preset.",
+      "mode": "primary",
+      "model": "openai/gpt-5.4",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "reasoning": {
+          "effort": "high",
+          "summary": "none"
+        },
+        "text": {
+          "verbosity": "low"
+        }
+      }
+    },
+    "tropic": {
+      "description": "Primary Claude thinking preset.",
+      "disable": true,
+      "mode": "primary",
+      "model": "anthropic/claude-sonnet-4-5",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "thinking": {
+          "type": "enabled",
+          "budgetTokens": 16000
+        }
+      }
+    },
+    "abby": {
+      "description": "GPT-5.4 implementation preset.",
+      "disable": true,
+      "model": "openai/gpt-5.4",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "reasoning": {
+          "effort": "medium",
+          "summary": "none"
+        },
+        "text": {
+          "verbosity": "low"
+        }
+      }
+    },
+    "gen": {
+      "description": "Gemini exploration preset.",
+      "model": "openrouter/google/gemini-3-flash-preview",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "reasoning": {
+          "effort": "low",
+          "summary": "none"
+        },
+        "text": {
+          "verbosity": "low"
+        }
+      }
+    },
+    "charlie": {
+      "description": "Verification preset.",
+      "disable": true,
+      "model": "zai-coding-plan/glm-4.7",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
+    "dan": {
+      "description": "Reasoning fallback preset.",
+      "disable": true,
+      "mode": "subagent",
+      "model": "openrouter/minimax/minimax-m2.1",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "reasoning": {
+          "effort": "high",
+          "summary": "none"
+        },
+        "text": {
+          "verbosity": "low"
+        }
+      }
+    },
+    "kimifire": {
+      "description": "Fireworks Kimi preset.",
+      "disable": false,
+      "model": "fireworks/kimi-k2p5",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
+    "kimi": {
+      "description": "Kimi fallback preset.",
+      "disable": true,
+      "model": "openrouter/moonshotai/kimi-k2.5:nitro",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "reasoning": {
+          "effort": "medium",
+          "summary": "none"
+        },
+        "text": {
+          "verbosity": "low"
+        }
+      }
+    },
+    "lm-studio": {
+      "description": "Local offline preset.",
+      "disable": true,
+      "mode": "primary",
+      "model": "lmstudio/qwen/qwen3-30b-a3b-2507",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    }
+  },
   "mcp": {
     "exa": {
       "type": "local",
@@ -44,8 +210,26 @@
   },
   "provider": {
     "zai-coding-plan": {
+      "name": "zai-coding-plan",
       "options": {
         "timeout": 600000
+      },
+      "models": {
+        "glm-4.7": {
+          "name": "GLM 4.7",
+          "tool_call": true,
+          "temperature": true
+        }
+      }
+    },
+    "anthropic": {
+      "name": "anthropic",
+      "models": {
+        "claude-sonnet-4-5": {
+          "name": "Claude Sonnet 4.5",
+          "tool_call": true,
+          "temperature": true
+        }
       }
     },
     "openai": {
@@ -202,9 +386,9 @@
             "output": 0
           }
         },
-        "moonshotai/kimi-k2.5": {
-          "id": "moonshotai/kimi-k2.5",
-          "name": "kimi-2.5",
+        "moonshotai/kimi-k2.5:nitro": {
+          "id": "moonshotai/kimi-k2.5:nitro",
+          "name": "Kimi K2.5 Nitro",
           "tool_call": true,
           "temperature": true,
           "reasoning": true,
@@ -357,6 +541,22 @@
             "input": 0.3,
             "output": 1.2
           }
+        }
+      }
+    },
+    "fireworks": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "fireworks",
+      "options": {
+        "baseURL": "https://api.fireworks.ai/inference/v1",
+        "apiKey": "{{ keyring "fireworks" "api_key" }}"
+      },
+      "models": {
+        "kimi-k2p5": {
+          "id": "accounts/fireworks/models/kimi-k2p5",
+          "name": "Fireworks: Kimi K2.5",
+          "tool_call": true,
+          "temperature": true
         }
       }
     },
