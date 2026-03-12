@@ -166,7 +166,7 @@ opencode.json.tmpl
 Define variables in `~/.config/chezmoi/chezmoi.toml`:
 ```toml
 [data]
-openrouter_api_key = "sk-or-v1-..."
+openrouter_api_key = "sk-or-v1-.."
 ```
 
 ## Testing Changes
