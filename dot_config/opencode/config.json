@@ -13,7 +13,7 @@
     "plan": {
       "description": "Not avail as a subagent",
       "mode": "primary",
-      "model": "openrouter/moonshotai/kimi-k2.5:nitro",
+      "model": "openrouter/moonshotai/kimi-k2.5",
       "temperature": 0.5,
       "permission": {
         "write": "allow",
@@ -27,13 +27,16 @@
         },
         "text": {
           "verbosity": "low"
+        },
+        "provider": {
+          "sort": "throughput"
         }
       }
     },
     "build": {
       "description": "Not avail as a subagent",
       "mode": "primary",
-      "model": "openrouter/moonshotai/kimi-k2.5:nitro",
+      "model": "openrouter/moonshotai/kimi-k2.5",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
@@ -47,6 +50,9 @@
         },
         "text": {
           "verbosity": "low"
+        },
+        "provider": {
+          "sort": "throughput"
         }
       }
     },
@@ -140,7 +146,7 @@
     "kimi": {
       "description": "C-tier FALLBACK. Kimi 2.5 long-context reasoning agent.",
       "disable": false,
-      "model": "openrouter/moonshotai/kimi-k2.5:nitro",
+      "model": "openrouter/moonshotai/kimi-k2.5",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
@@ -154,6 +160,9 @@
         },
         "text": {
           "verbosity": "low"
+        },
+        "provider": {
+          "sort": "throughput"
         }
       }
     },
