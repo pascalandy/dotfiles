@@ -51,11 +51,42 @@
         }
       }
     },
-  "xai": {
-    "model": {
-      "openrouter/x-ai/grok-4.20-beta": {
-        "name": "grok4.2 beta",
-        "reasoning": true
+    "gemini": {
+      "model": "openrouter/google/gemini-3-flash-preview",
+      "disable": true,
+      "description": "Gemini exploration preset.",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "reasoning": {
+          "effort": "low",
+          "summary": "none"
+        },
+        "text": {
+          "verbosity": "low"
+        }
+      }
+    },
+    "xai": {
+      "description": "Grok exploration preset.",
+      "model": "openrouter/x-ai/grok-4.20-beta",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "reasoning": {
+          "effort": "low",
+          "summary": "none"
+        },
+        "text": {
+          "verbosity": "low"
         }
       }
     },
