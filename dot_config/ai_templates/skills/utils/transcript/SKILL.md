@@ -34,7 +34,7 @@ uv run ~/.config/opencode/skill/transcript/scripts/transcript.py --help
 - **Use Claude** → add `--provider claude`
 - **Transcript only** (user explicitly says "transcript only" or "no summary") → add `--no-prompt`
 - **Different prompt requested** (user says `short_summary`, `summary_with_quotes`, etc.) → add `--prompt <stem>`
-- **Codex model requested** → add `--model <name>` (default: `gpt-5.3-codex`, reasoning: `high`)
+- **Codex model requested** → add `--model <name>` (default: `gpt-5.4`, reasoning: `high`)
 - **Claude model requested** (user says `haiku`/`sonnet`/`opus`) → add:
   - `haiku` → `--model claude-haiku-4-5`
   - `sonnet` → `--model claude-sonnet-4-5`
