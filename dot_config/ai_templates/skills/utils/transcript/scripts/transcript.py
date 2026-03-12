@@ -694,6 +694,7 @@ def parse_args() -> argparse.Namespace:
         if (get_api_key_from_keyring() or os.getenv("DEEPGRAM_API_KEY"))
         else "NOT SET"
     )
+    help_width = min(shutil.get_terminal_size(fallback=(100, 24)).columns, 100)
 
     help_width = min(shutil.get_terminal_size(fallback=(100, 24)).columns, 100)
 
