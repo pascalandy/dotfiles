@@ -13,9 +13,21 @@
         "bash": "allow"
       }
     },
-    "build": {
-      "description": "Primary builder preset.",
+    "kimi": {
+      "model": "fireworks-ai/accounts/fireworks/models/kimi-k2p5",
       "mode": "primary",
+      "description": "Primary planning preset.",
+      "mode": "primary",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
+    "abby": {
+      "description": "GPT-5.4 preset.",
+      "disable": true,
       "model": "openai/gpt-5.4",
       "temperature": 0.2,
       "permission": {
@@ -25,7 +37,7 @@
       },
       "options": {
         "reasoning": {
-          "effort": "high",
+          "effort": "medium",
           "summary": "none"
         },
         "text": {
@@ -33,7 +45,7 @@
         }
       }
     },
-    "gen": {
+    "gemini": {
       "description": "Gemini exploration preset.",
       "model": "openrouter/google/gemini-3-flash-preview",
       "temperature": 0.2,
@@ -51,6 +63,10 @@
           "verbosity": "low"
         }
       }
+    },
+    "general": {
+      "description": "Use tho switch to any agents",
+      "model": "openrouter/moonshotai/kimi-k2.5"
     },
     "tropic": {
       "description": "Primary Claude thinking preset.",
@@ -70,26 +86,6 @@
         }
       }
     },
-    "abby": {
-      "description": "GPT-5.4 implementation preset.",
-      "disable": true,
-      "model": "openai/gpt-5.4",
-      "temperature": 0.2,
-      "permission": {
-        "write": "allow",
-        "edit": "allow",
-        "bash": "allow"
-      },
-      "options": {
-        "reasoning": {
-          "effort": "medium",
-          "summary": "none"
-        },
-        "text": {
-          "verbosity": "low"
-        }
-      }
-    },
     "charlie": {
       "description": "Verification preset.",
       "disable": true,
@@ -101,7 +97,7 @@
         "bash": "allow"
       }
     },
-    "dan": {
+    "mini": {
       "description": "Reasoning fallback preset.",
       "disable": true,
       "mode": "subagent",
@@ -122,18 +118,7 @@
         }
       }
     },
-    "kimifire": {
-      "description": "Fireworks Kimi preset.",
-      "disable": false,
-      "model": "fireworks-ai/accounts/fireworks/models/kimi-k2p5",
-      "temperature": 0.2,
-      "permission": {
-        "write": "allow",
-        "edit": "allow",
-        "bash": "allow"
-      }
-    },
-    "kimi": {
+    "kimi-router": {
       "description": "Kimi fallback preset.",
       "disable": true,
       "model": "openrouter/moonshotai/kimi-k2.5:nitro",
