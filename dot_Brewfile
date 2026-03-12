@@ -148,7 +148,6 @@ cask "bitwarden"
 cask "brave-browser"
 cask "caffeine"
 cask "chatgpt"
-cask "cmux"
 cask "codex"
 cask "conductor"
 cask "dropbox"
@@ -223,6 +222,7 @@ mas "iA Writer", id: 775737590
 mas "Moom Classic", id: 419330170
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
+mas "Xcode", id: 497799835
 vscode "adpyke.codesnap"
 vscode "akamud.vscode-theme-onedark"
 vscode "bierner.github-markdown-preview"
