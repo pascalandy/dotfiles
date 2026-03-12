@@ -13,23 +13,41 @@
     "plan": {
       "description": "Not avail as a subagent",
       "mode": "primary",
-      "model": "anthropic/claude-opus-4-5",
+      "model": "openrouter/moonshotai/kimi-k2.5:nitro",
       "temperature": 0.5,
       "permission": {
         "write": "allow",
         "edit": "allow",
         "bash": "allow"
+      },
+      "options": {
+        "reasoning": {
+          "effort": "high",
+          "summary": "none"
+        },
+        "text": {
+          "verbosity": "low"
+        }
       }
     },
     "build": {
       "description": "Not avail as a subagent",
       "mode": "primary",
-      "model": "anthropic/claude-opus-4-5",
+      "model": "openrouter/moonshotai/kimi-k2.5:nitro",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
         "edit": "allow",
         "bash": "allow"
+      },
+      "options": {
+        "reasoning": {
+          "effort": "medium",
+          "summary": "none"
+        },
+        "text": {
+          "verbosity": "low"
+        }
       }
     },
     "tropic": {
