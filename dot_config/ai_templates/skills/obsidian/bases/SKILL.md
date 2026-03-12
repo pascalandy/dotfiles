@@ -5,6 +5,8 @@ description: Create and edit Obsidian Bases (.base files) with views, filters, f
 
 # Obsidian Bases Skill
 
+User's vault_path=`/Users/andy16/Documents/_my_docs/10_obsidian/vault_obsidian`
+
 ## Workflow
 
 1. **Create the file**: Create a `.base` file in the vault with valid YAML content
