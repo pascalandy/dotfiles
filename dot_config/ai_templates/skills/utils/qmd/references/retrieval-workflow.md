@@ -1,6 +1,7 @@
 # QMD retrieval workflow reference
 
 Use this file when the problem is operational: unclear collection scope, stale indexes, weak results, or deciding how to move from search to evidence.
+This file is decision-oriented. For exact maintenance commands, flags, or setup syntax, read `references/command-cheatsheet.md`.
 
 ## Start with health and scope
 
@@ -27,8 +28,7 @@ Use them to confirm:
 
 Practical guidance:
 - If the user already names a likely source, still confirm the exact collection name.
-- If files changed on disk, run `qmd update` before `qmd embed`.
-- If semantic or hybrid retrieval looks weak and embeddings are pending, tell the user and consider `qmd embed`.
+- If files changed on disk or embeddings look stale, switch to `references/command-cheatsheet.md` for the exact refresh commands.
 - If a collection was excluded with `qmd collection exclude`, it will not be searched unless you explicitly pass `-c <collection>`.
 
 ## Choose the right retrieval mode

@@ -1,6 +1,7 @@
 # QMD command cheatsheet
 
 Use this file when the user wants exact commands, flags, setup, or maintenance steps.
+This file is command-oriented. If you need to decide strategy first, read `references/retrieval-workflow.md`.
 
 ## High-value search options
 
