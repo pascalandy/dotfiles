@@ -1,10 +1,10 @@
 ---
-description: andy.prime
+description: prime
 ---
 
 # Purpose
 
-Undertand this project
+Understand this project deeply.
 
 ## Input
 

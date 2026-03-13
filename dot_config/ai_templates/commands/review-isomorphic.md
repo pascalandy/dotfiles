@@ -1,5 +1,5 @@
 ---
-description: andy.review.isomorphic
+description: review-isomorphic
 ---
 
 # Purpose
