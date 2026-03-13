@@ -2,7 +2,8 @@
 description: search-vault
 ---
 
-I need to analyze this Obsidian vault using txtai to answer a quantitative question about my notes.
+I need to analyze this Obsidian vault to answer a quantitative question about my notes.
+
 My question is: [USER'S QUESTION HERE]
 
 About me. I'm Pascal, I speak French Canadian and English. So my vault is using both languages. For the semantic search, make sure to do research both in French and in English.
