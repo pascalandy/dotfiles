@@ -25,14 +25,20 @@ metadata:
 
 ## Core operating rules
 
-- Default to QMD CLI only.
+- Default to QMD CLI workflows.
 - Search the most likely collection first and pass `-c <collection>` whenever you can.
 - Prefer `qmd query` for most retrieval work, `qmd search` for exact title or filename lookup, and `qmd vsearch` mainly as a fallback or second opinion.
 - Reopen strong hits with `qmd get` or `qmd multi-get` before making accuracy-sensitive claims.
 - Return resolved QMD URI(s) whenever possible.
 - If scope, indexing, or freshness is unclear, run `qmd status` first.
 - If the hard part is crafting better `vec:` or `hyde:` searches, load the `semantic-patterns` skill.
-- This user uses **QMD CLI, not MCP**, for normal work. Default to CLI workflows.
+
+## Default playbook
+
+1. Identify the most likely collection.
+2. Run `qmd query` first unless the user gave an exact title, path, or filename.
+3. Reopen the best hit(s) with `qmd get` or `qmd multi-get`.
+4. Answer with resolved QMD URI(s) and only use evidence from reopened documents.
 
 ## Reference map
 
@@ -45,15 +51,14 @@ Read extra material only when needed:
 
 ## Example user requests
 
-Users may ask for QMD retrieval with very little detail.  
-These examples show effective prompt patterns for common retrieval tasks.
+Users may ask for QMD retrieval with very little detail. These examples show effective prompt patterns for common retrieval tasks.
 
 ### Default retrieval approach
 
 Unless the user says otherwise
 
 - use QMD CLI only
-- be efficient use `cmd && cmd && cmd` when possible 
+- be efficient and chain related commands with `&&` when it saves steps
 - search the most likely collection first
 - prefer exact repo, path, filename, or title matching before broader discovery
 - reopen the strongest matching documents before answering
@@ -151,4 +156,56 @@ Return:
 - a final synthesis
 
 Conclude with a 2-3 sentence summary of the main differences or overlaps
+```
+
+### Find a note from vague memory
+
+```text
+Use QMD CLI only
+
+In collection: vault_obsidian
+
+Find my note about: local markdown retrieval being better than grep for AI agents
+
+Prefer:
+- `qmd query` first
+- semantic recall over exact title matching
+- reopen the strongest matches before answering
+
+Return:
+- best-match QMD URI(s)
+- a short explanation of why each match is relevant
+- a 2-3 sentence synthesis
+```
+
+### Recover an exact note or title
+
+```text
+Use QMD CLI only
+
+In collection: vault_obsidian
+
+Find the note titled something like: QMD roadmap
+
+Prefer:
+- exact title or filename matching first
+- reopen the best hit before answering
+
+Return:
+- the resolved QMD URI
+- the note title and path
+- a 2-3 sentence summary
+```
+
+### Refresh stale results
+
+```text
+Use QMD CLI only
+
+My markdown files changed on disk and QMD results look stale.
+
+Return:
+- the exact commands I should run
+- the correct order for update vs embed
+- a short explanation of what each command fixes
 ```
