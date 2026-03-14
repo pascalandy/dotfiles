@@ -21,6 +21,19 @@ log_error() {
 fct_copy_dir() {
 	local src_dir="$1"
 	local dst_dir="$2"
+	local sync_mode="${3:-delete}"
+	local -a extra_args=("${@:4}")
+	local -a rsync_args
+
+	rsync_args=(-a --exclude '.DS_Store')
+
+	if [[ "$sync_mode" == "delete" ]]; then
+		rsync_args+=(--delete)
+	fi
+
+	if [[ "${#extra_args[@]}" -gt 0 ]]; then
+		rsync_args+=("${extra_args[@]}")
+	fi
 
 	if [[ ! -d "$src_dir" ]]; then
 		log_error "Source directory does not exist: $src_dir"
@@ -33,8 +46,8 @@ fct_copy_dir() {
 	fi
 
 	mkdir -p "$dst_dir"
-	log_info "Syncing $src_dir -> $dst_dir"
-	rsync -a --delete --exclude '.DS_Store' "$src_dir/" "$dst_dir/"
+	log_info "Syncing $src_dir -> $dst_dir (mode: $sync_mode)"
+	rsync "${rsync_args[@]}" "$src_dir/" "$dst_dir/"
 }
 
 fct_copy_file() {
@@ -87,8 +100,10 @@ fct_sync_agent_assets() {
 	fct_copy_dir "$skills_src" "$HOME/.config/agents/skills"
 
 	# OpenCode
-	fct_copy_dir "$commands_src" "$HOME/.config/opencode/command"
-	fct_copy_dir "$skills_src" "$HOME/.config/opencode/skill"
+	# Keep OpenCode-specific commands/skills managed directly by chezmoi.
+	# Shared ai_templates assets should merge in without deleting extra entries.
+	fct_copy_dir "$commands_src" "$HOME/.config/opencode/command" "merge"
+	fct_copy_dir "$skills_src" "$HOME/.config/opencode/skill" "merge" --exclude 'skill-creator'
 }
 
 fct_render_ai_templates() {
