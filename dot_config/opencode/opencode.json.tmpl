@@ -4,12 +4,37 @@
   // Open Questions & Decisions
   // ==================================================
   //
+  // ## Mental model
+  // Main = models I actively code with.
+  // Reviewers = second-opinion / validation models.
+  // Small/local= models I use for smaller tasks.
+  //
+  // Main:
+  // - @kimi  -> Kimi 2.5
+  // - @gpt   -> GPT
+  //
+  // Reviewers:
+  // - @gemini -> Gemini Pro
+  // - @grok   -> Grok 4.2
+  // - @glm    -> GLM 5
+  // - @opus   -> Opus
+  //
+  // Small:
+  // - @glm47 -> GLM 4.7
+  //
+  // Local
+  // - @qwen  -> Qwen (via LM Studio)
+  //
   // ## Default model choice
-  // Decision: use Kimi 2.5 Turbo via Fireworks by default.
+  // Decision: use Kimi 2.5 Turbo via Fireworks as the default agent.
   // Why:
   // - fast
   // - cheap
   // - strong day-to-day speed/quality tradeoff
+  // Decision: use GLM 5 as the top-level fallback model.
+  // Reason: the default agent already covers Kimi, so the global model should be a fallback.
+  // Decision: use Gemini Flash as the top-level small_model.
+  // Reason: it is a good fit for lightweight helper tasks.
   //
   // ## GPT routing
   // Decision: GPT should always use the direct OpenAI provider.
@@ -26,15 +51,21 @@
   //
   // ## GLM routing
   // Decision: keep direct ZAI access for GLM 4.7.
-  // Use case: small tasks.
+  // Use case: small tasks that are already covered by my existing ZAI access.
   // Decision: use Zen for GLM 5.
   // Reason: my direct ZAI account does not give me access to GLM 5.
   //
+  // ## Local model usage
+  // Decision: keep one local model available via LM Studio.
+  // Current mental model: Qwen is my local small-task option.
+  //
   // ## Claude usage
-  // Decision: do not use Claude Sonnet or Claude Opus for now.
+  // Decision: keep Opus in the reviewer mental model, but parked for now.
   // Reason: I do not currently have an Anthropic plan.
-  // Keep them available for possible future use.
+  // It stays here because I may enable access later.
   "default_agent": "build",
+  "model": "opencode/glm-5",
+  "small_model": "opencode/gemini-3-flash",
   "agent": {
     "plan": {
       "description": "Primary planning preset.",
@@ -144,7 +175,7 @@
         }
       }
     },
-    "glm47-plan": {
+    "glm47": {
       "description": "Verification preset.",
       "disable": true,
       "model": "zai-coding-plan/glm-4.7",
@@ -196,7 +227,7 @@
         }
       }
     },
-    "lms": {
+    "qwen": {
       "description": "LM Studio preset",
       "disable": false,
       "mode": "primary",
