@@ -4,34 +4,34 @@
   // Open Questions & Decisions
   // ==================================================
   //
-  // ## Mental model to select which agent for the task : 
+  // ## Mental model to select which agent for the task :
   // Main = models I use most
   // Reviewers = second opinions
   // Small/local = lightweight options
+  // Parked = documented but not currently in rotation
   //
   // Main
-  // - @kimi   -> Kimi 2.5
-  // - @gpt    -> GPT
-  // 
+  // - build / plan -> Kimi 2.5 Fireworks
+  // - @gpt         -> GPT
+  //
   // Reviewers
-  // - @grok      -> Grok 4.2
+  // - @grok      -> Grok 4.20
   // - @gemini-or -> Gemini 3.1 Pro via OpenRouter
-  // - @glm       -> GLM 5
-  // - @opus.     -> Opus
+  // - @glm       -> GLM 5 via Zen
   //
-  // Small
-  // - @glm47   -> GLM 4.7
-  //
-  // Local
-  // - @qwen    -> Qwen (via LM Studio)
+  // Parked
+  // - @kimi25 -> Kimi 2.5 via Zen
+  // - @opus   -> Opus
+  // - @glm47  -> GLM 4.7
+  // - @qwen   -> Qwen (via LM Studio)
   //
   // ## Defaults
-  // Default agent = Kimi 2.5 Turbo via Fireworks
+  // Default agent = build = Kimi 2.5 Turbo via Fireworks
   // Why: fast, cheap, good daily tradeoff
-  // Note: no Kimi variants yet, so Ctrl+T does nothing for now.
+  // Note: no active Kimi variants yet, so Ctrl+T does nothing for now.
   //
-  // Fallback top-level model = GLM 5
-  // small_model = Gemini Flash
+  // Fallback top-level model = GLM 5 via Zen
+  // small_model = Gemini Flash via OpenRouter
   //
   // ## GPT routing
   // Use direct OpenAI Plus plan for GPT.
@@ -45,7 +45,8 @@
   // Reasoning via thinking levels (minimal, low, medium, high)
   //
   // Active Gemini reviewers
-  // @gemini-or -> Gemini 3.1 Pro via OpenRouter
+  // - @flash-or  -> Gemini 3 Flash via OpenRouter
+  // - @gemini-or -> Gemini 3.1 Pro via OpenRouter
   //
   // ## Grok routing
   // Use OpenRouter for Grok. Reason: the latest Grok is not available on Zen. [[2026-03-14]]
@@ -64,7 +65,7 @@
   // ==================================================
   "default_agent": "build",
   "model": "opencode/glm-5",
-  "small_model": "opencode/gemini-3-flash",
+  "small_model": "openrouter/google/gemini-3-flash-preview",
   "agent": {
     "plan": {
       "description": "Primary planning preset.",
