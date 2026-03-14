@@ -14,10 +14,11 @@
   // - @gpt    -> GPT
   //
   // Reviewers
-  // - @grok   -> Grok 4.2
-  // - @gemini -> Gemini 3 Pro
-  // - @glm    -> GLM 5
-  // - @opus.  -> Opus
+  // - @grok      -> Grok 4.2
+  // - @gemini-or -> Gemini 3.1 Pro via OpenRouter
+  // - @flash-or  -> Gemini 3 Flash via OpenRouter
+  // - @glm       -> GLM 5
+  // - @opus.     -> Opus
   //
   // Small
   // - @glm47   -> GLM 4.7
@@ -40,20 +41,13 @@
   // Use separate agents for higher effort levels.
   //
   // ## Gemini routing
-  // Prefer Zen for Gemini. Reason: OpenRouter had a Gemini bug before [[2026-03-14]]
+  // Use OpenRouter for Gemini.
+  // Reason: Gemini via Zen/Xen is not working reliably, and OpenRouter is the current working path. [[2026-03-14]]
+  // Reasoning via thinking levels (minimal, low, medium, high)
   //
-  // Current issue [[2026-03-14]]
-  // - Zen Gemini requests return Unauthorized.
-  // - Gemini agents are disabled for now.
-  // - I rolled gemini back from 3.1 Pro to 3 Pro.
-  // - The blocker looks auth-related, not model-related.
-  //
-  // Retry later in this order
-  // 1. Gemini 3 Flash
-  // 2. Gemini 3.1 Pro
-  //
-  // Note: no :high suffix in agent model strings.
-  // Thinking level must be chosen at runtime.
+  // Active Gemini reviewers
+  // 1. @flash-or  -> Gemini 3 Flash via OpenRouter
+  // 2. @gemini-or -> Gemini 3.1 Pro via OpenRouter
   //
   // ## Grok routing
   // Use OpenRouter for Grok. Reason: the latest Grok is not available on Zen. [[2026-03-14]]
@@ -166,9 +160,10 @@
       "model": "opencode/glm-5"
     },
     "gemini-or": {
-      "model": "openrouter/google/gemini-3-flash-preview",
-      "disable": true,
-      "description": "Gemini preview via OpenRouter.",
+      "model": "openrouter/google/gemini-3.1-pro-preview",
+      "disable": false,
+      "mode": "primary",
+      "description": "Gemini 3.1 Pro QA via OpenRouter.",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
@@ -177,7 +172,28 @@
       },
       "options": {
         "reasoning": {
-          "effort": "low",
+          "effort": "high",
+          "summary": "none"
+        },
+        "text": {
+          "verbosity": "low"
+        }
+      }
+    },
+    "flash-or": {
+      "model": "openrouter/google/gemini-3-flash-preview",
+      "disable": false,
+      "mode": "primary",
+      "description": "Gemini 3 Flash QA via OpenRouter.",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "reasoning": {
+          "effort": "high",
           "summary": "none"
         },
         "text": {
@@ -289,7 +305,7 @@
       }
     },
     "gemini": {
-      "description": "Gemini 3 Pro via Zen (disabled: Unauthorized pending retry)",
+      "description": "Legacy Gemini 3 Pro via Zen/Xen (disabled; use @gemini-or instead)",
       "disable": true,
       "mode": "primary",
       "model": "opencode/gemini-3-pro",
@@ -301,7 +317,7 @@
       }
     },
     "flash": {
-      "description": "Gemini 3 Flash via Zen (disabled: Unauthorized pending retry)",
+      "description": "Legacy Gemini 3 Flash via Zen/Xen (disabled; use @flash-or instead)",
       "disable": true,
       "mode": "primary",
       "model": "opencode/gemini-3-flash",

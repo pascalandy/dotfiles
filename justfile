@@ -114,7 +114,15 @@ cm-edit path:
 # Utilities
 # -----------------------------------------------------------------------------
 
-# Run the full opencode QA smoke test suite and continue through all agents.
+# OpenCode QA smoke tests.
+#
+# Usage:
+# - `just opencode-qa`      -> run the full QA sweep
+# - `just qa-gemini-or`     -> test Gemini 3.1 Pro via OpenRouter
+# - `just qa-flash-or`      -> test Gemini 3 Flash via OpenRouter
+# - `just qa-gpt`           -> test a single agent
+#
+# Each recipe asks the target agent to reply with exactly `OK`.
 opencode-qa:
     just qa-default || true
     just qa-build || true
@@ -122,6 +130,8 @@ opencode-qa:
     just qa-mini || true
     just qa-gpt || true
     just qa-glm || true
+    just qa-flash-or || true
+    just qa-gemini-or || true
 
 # Run the default opencode QA check.
 qa-default:
@@ -146,6 +156,14 @@ qa-gpt:
 # Run the glm agent opencode QA check.
 qa-glm:
     opencode run --agent glm "reply with exactly OK"
+
+# Run the Gemini 3 Flash via OpenRouter opencode QA check.
+qa-flash-or:
+    opencode run --agent flash-or "reply with exactly OK"
+
+# Run the Gemini 3.1 Pro via OpenRouter opencode QA check.
+qa-gemini-or:
+    opencode run --agent gemini-or "reply with exactly OK"
 
 # Transcribe a YouTube URL. Wrap the URL in quotes. Extra CLI args are forwarded.
 transcript url *args:
