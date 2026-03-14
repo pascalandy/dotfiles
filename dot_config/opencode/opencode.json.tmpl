@@ -173,6 +173,66 @@
         "edit": "allow",
         "bash": "allow"
       }
+    },
+    "gemini": {
+      "description": "Gemini 3 Pro via Zen",
+      "disable": false,
+      "mode": "primary",
+      "model": "opencode/gemini-3-pro",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
+    "flash": {
+      "description": "Gemini 3 Flash via Zen",
+      "disable": false,
+      "mode": "primary",
+      "model": "opencode/gemini-3-flash",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
+    "kimi": {
+      "description": "Kimi K2.5 via Zen",
+      "disable": false,
+      "mode": "primary",
+      "model": "opencode/kimi-k2.5",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
+    "glm": {
+      "description": "GLM 5 via Zen",
+      "disable": false,
+      "mode": "primary",
+      "model": "opencode/glm-5",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
+    "mini": {
+      "description": "MiniMax M2.5 via Zen",
+      "disable": false,
+      "mode": "primary",
+      "model": "opencode/minimax-m2.5",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
     }
   },
   "mcp": {
@@ -546,6 +606,69 @@
           "limit": {
             "context": 65536,
             "output": 32768
+          }
+        }
+      }
+    },
+    "opencode": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "OpenCode Zen",
+      "options": {
+        "baseURL": "https://opencode.ai/zen/v1/chat/completions"
+      },
+      "models": {
+        "gemini-3-pro": {
+          "id": "gemini-3-pro",
+          "name": "Gemini 3 Pro (Zen)",
+          "tool_call": true,
+          "temperature": true,
+          "reasoning": true,
+          "limit": {
+            "context": 1048576,
+            "output": 65535
+          }
+        },
+        "gemini-3-flash": {
+          "id": "gemini-3-flash",
+          "name": "Gemini 3 Flash (Zen)",
+          "tool_call": true,
+          "temperature": true,
+          "reasoning": true,
+          "limit": {
+            "context": 1048576,
+            "output": 65536
+          }
+        },
+        "kimi-k2.5": {
+          "id": "kimi-k2.5",
+          "name": "Kimi K2.5 (Zen)",
+          "tool_call": true,
+          "temperature": true,
+          "reasoning": true,
+          "limit": {
+            "context": 262144,
+            "output": 16384
+          }
+        },
+        "glm-5": {
+          "id": "glm-5",
+          "name": "GLM 5 (Zen)",
+          "tool_call": true,
+          "temperature": true,
+          "limit": {
+            "context": 131072,
+            "output": 16384
+          }
+        },
+        "minimax-m2.5": {
+          "id": "minimax-m2.5",
+          "name": "MiniMax M2.5 (Zen)",
+          "tool_call": true,
+          "temperature": true,
+          "reasoning": true,
+          "limit": {
+            "context": 1000000,
+            "output": 128000
           }
         }
       }
