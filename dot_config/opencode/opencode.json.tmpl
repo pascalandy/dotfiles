@@ -10,11 +10,11 @@
   // Small/local= models I use for smaller tasks.
   //
   // Main:
-  // - @kimi  -> Kimi 2.5
-  // - @gpt   -> GPT
+  // - @kimi   -> Kimi 2.5
+  // - @gpt    -> GPT
+  // - @gemini -> Gemini 3.1 Pro
   //
   // Reviewers:
-  // - @gemini -> Gemini Pro
   // - @grok   -> Grok 4.2
   // - @glm    -> GLM 5
   // - @opus   -> Opus
@@ -48,6 +48,8 @@
   // Decision: prefer Zen for Gemini models.
   // Reason: I moved away from relying only on OpenRouter because Gemini had a bug there.
   // Zen is the safer path for my Gemini usage.
+  // Decision: use Gemini 3.1 Pro for the gemini agent.
+  // Keep Gemini 3 Flash as a separate lightweight Gemini option.
   // Note: agent model fields do not accept :high suffixes here.
   // Gemini thinking level must be selected at runtime, not baked into these agent model strings.
   //
@@ -277,7 +279,7 @@
     },
     "qwen": {
       "description": "LM Studio preset",
-      "disable": false,
+      "disable": true,
       "mode": "primary",
       "model": "lmstudio/qwen/qwen3.5-35b-a3b",
       "temperature": 0.2,
@@ -288,10 +290,10 @@
       }
     },
     "gemini": {
-      "description": "Gemini 3 Pro via Zen",
+      "description": "Gemini 3.1 Pro via Zen",
       "disable": false,
       "mode": "primary",
-      "model": "opencode/gemini-3-pro",
+      "model": "opencode/gemini-3.1-pro",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
@@ -750,9 +752,9 @@
         "baseURL": "https://opencode.ai/zen/v1"
       },
       "models": {
-        "gemini-3-pro": {
-          "id": "gemini-3-pro",
-          "name": "Gemini 3 Pro (Zen)",
+        "gemini-3.1-pro": {
+          "id": "gemini-3.1-pro",
+          "name": "Gemini 3.1 Pro (Zen)",
           "tool_call": true,
           "temperature": true,
           "reasoning": true,
