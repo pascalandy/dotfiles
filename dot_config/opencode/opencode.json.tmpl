@@ -16,8 +16,7 @@
     "build": {
       "model": "fireworks-ai/accounts/fireworks/routers/kimi-k2p5-turbo",
       "mode": "primary",
-      "description": "Primary planning preset.",
-      "mode": "primary",
+      "description": "Primary build preset.",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
@@ -48,14 +47,14 @@
     "random": {
       "name": "random",
       "disable": true,
-      "description": "Use tho switch to any agents",
+      "description": "Use to switch to any agent.",
       "mode": "primary",
       "model": "opencode/glm-5"
     },
-    "gemini": {
+    "gemini-or": {
       "model": "openrouter/google/gemini-3-flash-preview",
       "disable": true,
-      "description": "Gemini exploration preset.",
+      "description": "Gemini preview via OpenRouter.",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
@@ -72,9 +71,10 @@
         }
       }
     },
-    "xai": {
-      "description": "Grok 4 wip",
-      "disable": true,
+    "grok": {
+      "description": "Grok 4.20 Beta via OpenRouter.",
+      "disable": false,
+      "mode": "primary",
       "model": "openrouter/x-ai/grok-4.20-beta",
       "temperature": 0.2,
       "permission": {
@@ -562,6 +562,26 @@
           "cost": {
             "input": 0.50,
             "output": 3.00
+          }
+        },
+        "x-ai/grok-4.20-beta": {
+          "id": "x-ai/grok-4.20-beta",
+          "name": "Grok 4.20 Beta",
+          "tool_call": true,
+          "temperature": true,
+          "reasoning": true,
+          "attachment": true,
+          "limit": {
+            "context": 2000000,
+            "output": 30000
+          },
+          "modalities": {
+            "input": ["text", "image"],
+            "output": ["text"]
+          },
+          "cost": {
+            "input": 2.0,
+            "output": 6.0
           }
         },
         "minimax/minimax-m2.1": {
