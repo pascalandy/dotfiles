@@ -114,6 +114,39 @@ cm-edit path:
 # Utilities
 # -----------------------------------------------------------------------------
 
+# Run the full opencode QA smoke test suite and continue through all agents.
+opencode-qa:
+    just qa-default || true
+    just qa-build || true
+    just qa-grok || true
+    just qa-mini || true
+    just qa-gpt || true
+    just qa-glm || true
+
+# Run the default opencode QA check.
+qa-default:
+    opencode run "reply with exactly OK"
+
+# Run the build agent opencode QA check.
+qa-build:
+    opencode run --agent build "reply with exactly OK"
+
+# Run the grok agent opencode QA check.
+qa-grok:
+    opencode run --agent grok "reply with exactly OK"
+
+# Run the mini agent opencode QA check.
+qa-mini:
+    opencode run --agent mini "reply with exactly OK"
+
+# Run the gpt agent opencode QA check.
+qa-gpt:
+    opencode run --agent gpt "reply with exactly OK"
+
+# Run the glm agent opencode QA check.
+qa-glm:
+    opencode run --agent glm "reply with exactly OK"
+
 # Transcribe a YouTube URL. Wrap the URL in quotes. Extra CLI args are forwarded.
 transcript url *args:
     uv run ~/.local/share/chezmoi/dot_config/ai_templates/skills/utils/transcript/scripts/transcript.py {{quote(url)}} {{args}}
