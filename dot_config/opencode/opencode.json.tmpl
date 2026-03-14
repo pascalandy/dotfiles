@@ -5,72 +5,83 @@
   // ==================================================
   //
   // ## Mental model
-  // Main = models I actively code with.
-  // Reviewers = second-opinion / validation models.
-  // Small/local= models I use for smaller tasks.
+  // Main: models I actively code with.
+  // Reviewers: second-opinion and validation models.
+  // Small/local: lightweight or local-only options.
   //
-  // Main:
+  // Main
   // - @kimi   -> Kimi 2.5
   // - @gpt    -> GPT
   // - @gemini -> Gemini 3 Pro
   //
-  // Reviewers:
-  // - @grok   -> Grok 4.2
-  // - @glm    -> GLM 5
-  // - @opus   -> Opus
+  // Reviewers
+  // - @grok -> Grok 4.2
+  // - @glm  -> GLM 5
+  // - @opus -> Opus
   //
-  // Small:
+  // Small
   // - @glm47 -> GLM 4.7
   //
   // Local
-  // - @qwen  -> Qwen (via LM Studio)
+  // - @qwen -> Qwen (via LM Studio)
   //
-  // ## Default model choice
-  // Decision: use Kimi 2.5 Turbo via Fireworks as the default agent.
+  // ## Default model choices
+  // Default agent: Kimi 2.5 Turbo via Fireworks.
   // Why:
   // - fast
   // - cheap
   // - strong day-to-day speed/quality tradeoff
-  // Note: there is currently no variant configured for Kimi on Fireworks.
-  // Ctrl+T does nothing there unless variants are explicitly added for that model.
-  // Decision: use GLM 5 as the top-level fallback model.
+  // Note: there is no variant configured for Kimi on Fireworks right now,
+  // so Ctrl+T does nothing unless variants are added later.
+  //
+  // Fallback top-level model: GLM 5.
   // Reason: the default agent already covers Kimi, so the global model should be a fallback.
-  // Decision: use Gemini Flash as the top-level small_model.
+  //
+  // Top-level small_model: Gemini Flash.
   // Reason: it is a good fit for lightweight helper tasks.
   //
   // ## GPT routing
-  // Decision: GPT should always use the direct OpenAI provider.
+  // Use the direct OpenAI provider for GPT.
   // Do not route GPT through OpenRouter, Zen, or any other proxy provider.
-  // Decision: keep GPT as the medium default, and use separate agents for higher effort levels.
+  // Keep GPT as the medium default, and use separate agents for higher effort levels.
   // Reason: separate agents are clearer and easier to manage than variant-style switching.
   //
   // ## Gemini routing
-  // Decision: prefer Zen for Gemini models.
+  // Preferred provider: Zen.
   // Reason: I moved away from relying only on OpenRouter because Gemini had a bug there.
-  // Zen is the safer path for my Gemini usage.
-  // Decision: use Gemini 3 Pro for the gemini agent.
-  // Keep Gemini 3 Flash as a separate lightweight Gemini option.
+  // Zen has been the safer path for my Gemini usage.
+  //
+  // Current status:
+  // - Zen Gemini requests are returning Unauthorized.
+  // - Gemini agents are disabled until access/auth is confirmed again.
+  // - The gemini alias was rolled back from Gemini 3.1 Pro to Gemini 3 Pro,
+  //   but the current blocker appears to be authorization, not the model string.
+  //
+  // Retry order when revisiting Gemini:
+  // 1. Gemini 3 Flash
+  // 2. Gemini 3.1 Pro
+  //
   // Note: agent model fields do not accept :high suffixes here.
-  // Gemini thinking level must be selected at runtime, not baked into these agent model strings.
+  // Gemini thinking level must be selected at runtime, not baked into these model strings.
   //
   // ## Grok routing
-  // Decision: use OpenRouter for Grok.
+  // Use OpenRouter for Grok.
   // Reason: the latest Grok model was not available on Zen.
   //
   // ## GLM routing
-  // Decision: keep direct ZAI access for GLM 4.7.
-  // Use case: small tasks that are already covered by my existing ZAI access.
-  // Decision: use Zen for GLM 5.
+  // Keep direct ZAI access for GLM 4.7.
+  // Use case: small tasks already covered by my existing ZAI access.
+  // Use Zen for GLM 5.
   // Reason: my direct ZAI account does not give me access to GLM 5.
   //
   // ## Local model usage
-  // Decision: keep one local model available via LM Studio.
+  // Keep one local model available via LM Studio.
   // Current mental model: Qwen is my local small-task option.
   //
   // ## Claude usage
-  // Decision: keep Opus in the reviewer mental model, but parked for now.
+  // Keep Opus in the reviewer mental model, but park it for now.
   // Reason: I do not currently have an Anthropic plan.
-  // It stays here because I may enable access later.
+  // Leave it documented because I may enable access later.
   "default_agent": "build",
   "model": "opencode/glm-5",
   "small_model": "opencode/gemini-3-flash",
@@ -290,8 +301,8 @@
       }
     },
     "gemini": {
-      "description": "Gemini 3 Pro via Zen",
-      "disable": false,
+      "description": "Gemini 3 Pro via Zen (disabled: Unauthorized pending retry)",
+      "disable": true,
       "mode": "primary",
       "model": "opencode/gemini-3-pro",
       "temperature": 0.2,
@@ -302,8 +313,8 @@
       }
     },
     "flash": {
-      "description": "Gemini 3 Flash via Zen",
-      "disable": false,
+      "description": "Gemini 3 Flash via Zen (disabled: Unauthorized pending retry)",
+      "disable": true,
       "mode": "primary",
       "model": "opencode/gemini-3-flash",
       "temperature": 0.2,
