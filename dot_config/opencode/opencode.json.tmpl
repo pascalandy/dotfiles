@@ -12,11 +12,10 @@
   // Main
   // - @kimi   -> Kimi 2.5
   // - @gpt    -> GPT
-  //
+  // 
   // Reviewers
   // - @grok      -> Grok 4.2
   // - @gemini-or -> Gemini 3.1 Pro via OpenRouter
-  // - @flash-or  -> Gemini 3 Flash via OpenRouter
   // - @glm       -> GLM 5
   // - @opus.     -> Opus
   //
@@ -46,8 +45,7 @@
   // Reasoning via thinking levels (minimal, low, medium, high)
   //
   // Active Gemini reviewers
-  // 1. @flash-or  -> Gemini 3 Flash via OpenRouter
-  // 2. @gemini-or -> Gemini 3.1 Pro via OpenRouter
+  // @gemini-or -> Gemini 3.1 Pro via OpenRouter
   //
   // ## Grok routing
   // Use OpenRouter for Grok. Reason: the latest Grok is not available on Zen. [[2026-03-14]]
@@ -81,7 +79,7 @@
     },
     "build": {
       "model": "fireworks-ai/accounts/fireworks/routers/kimi-k2p5-turbo",
-      "mode": "primary",
+      "mode": "all",
       "description": "Primary build preset.",
       "temperature": 0.2,
       "permission": {
@@ -94,6 +92,7 @@
       "description": "GPT-5.4 preset.",
       "disable": false,
       "model": "openai/gpt-5.4",
+      "mode": "all",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
@@ -152,17 +151,10 @@
         }
       }
     },
-    "random": {
-      "name": "random",
-      "disable": true,
-      "description": "Use to switch to any agent.",
-      "mode": "primary",
-      "model": "opencode/glm-5"
-    },
     "gemini-or": {
       "model": "openrouter/google/gemini-3.1-pro-preview",
       "disable": false,
-      "mode": "primary",
+      "mode": "all",
       "description": "Gemini 3.1 Pro QA via OpenRouter.",
       "temperature": 0.2,
       "permission": {
@@ -183,7 +175,7 @@
     "flash-or": {
       "model": "openrouter/google/gemini-3-flash-preview",
       "disable": false,
-      "mode": "primary",
+      "mode": "all",
       "description": "Gemini 3 Flash QA via OpenRouter.",
       "temperature": 0.2,
       "permission": {
@@ -204,7 +196,7 @@
     "grok": {
       "description": "Grok 4.20 Beta via OpenRouter.",
       "disable": false,
-      "mode": "primary",
+      "mode": "all",
       "model": "openrouter/x-ai/grok-4.20-beta",
       "temperature": 0.2,
       "permission": {
@@ -244,6 +236,7 @@
       "description": "Verification preset.",
       "disable": true,
       "model": "zai-coding-plan/glm-4.7",
+      "mode": "subagent",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
@@ -252,10 +245,10 @@
       }
     },
     "mini-or": {
-      "description": "Reasoning fallback preset.",
+      "description": "minmax 2.5",
       "disable": true,
       "mode": "subagent",
-      "model": "openrouter/minimax/minimax-m2.1",
+      "model": "openrouter/minimax/minimax-m2.5:nitro",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
@@ -305,7 +298,7 @@
       }
     },
     "gemini": {
-      "description": "Legacy Gemini 3 Pro via Zen/Xen (disabled; use @gemini-or instead)",
+      "description": "Gemini 3 Pro (zen)",
       "disable": true,
       "mode": "primary",
       "model": "opencode/gemini-3-pro",
@@ -317,7 +310,7 @@
       }
     },
     "flash": {
-      "description": "Legacy Gemini 3 Flash via Zen/Xen (disabled; use @flash-or instead)",
+      "description": "Gemini 3 flash (zen)",
       "disable": true,
       "mode": "primary",
       "model": "opencode/gemini-3-flash",
@@ -331,7 +324,7 @@
     "kimi": {
       "description": "Kimi K2.5 via Zen",
       "disable": true,
-      "mode": "primary",
+      "mode": "all",
       "model": "opencode/kimi-k2.5",
       "temperature": 0.2,
       "permission": {
@@ -343,7 +336,7 @@
     "glm": {
       "description": "GLM 5 via Zen",
       "disable": false,
-      "mode": "primary",
+      "mode": "all",
       "model": "opencode/glm-5",
       "temperature": 0.2,
       "permission": {
@@ -355,7 +348,7 @@
     "mini": {
       "description": "MiniMax M2.5 via Zen",
       "disable": false,
-      "mode": "primary",
+      "mode": "all",
       "model": "opencode/minimax-m2.5",
       "temperature": 0.2,
       "permission": {
@@ -713,21 +706,6 @@
             "input": 2.0,
             "output": 6.0
           }
-        },
-        "minimax/minimax-m2.1": {
-          "id": "minimax/minimax-m2.1",
-          "name": "MiniMax M2.1",
-          "tool_call": true,
-          "temperature": true,
-          "reasoning": true,
-          "limit": {
-            "context": 1000000,
-            "output": 128000
-          },
-          "cost": {
-            "input": 0.3,
-            "output": 1.2
-          }
         }
       }
     },
@@ -791,7 +769,8 @@
             "output": 65536
           }
         },
-        "kimi-k2.5": {
+        "kimi25": {
+          "disable": true,
           "id": "kimi-k2.5",
           "name": "Kimi K2.5 (Zen)",
           "tool_call": true,
