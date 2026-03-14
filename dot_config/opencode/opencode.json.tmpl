@@ -1,5 +1,39 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  // ==================================================
+  // Open Questions & Decisions
+  // ==================================================
+  //
+  // ## Default model choice
+  // Decision: use Kimi 2.5 Turbo via Fireworks by default.
+  // Why:
+  // - fast
+  // - cheap
+  // - strong day-to-day speed/quality tradeoff
+  //
+  // ## GPT routing
+  // Decision: GPT should always use the direct OpenAI provider.
+  // Do not route GPT through OpenRouter, Zen, or any other proxy provider.
+  //
+  // ## Gemini routing
+  // Decision: prefer Zen for Gemini models.
+  // Reason: I moved away from relying only on OpenRouter because Gemini had a bug there.
+  // Zen is the safer path for my Gemini usage.
+  //
+  // ## Grok routing
+  // Decision: use OpenRouter for Grok.
+  // Reason: the latest Grok model was not available on Zen.
+  //
+  // ## GLM routing
+  // Decision: keep direct ZAI access for GLM 4.7.
+  // Use case: small tasks.
+  // Decision: use Zen for GLM 5.
+  // Reason: my direct ZAI account does not give me access to GLM 5.
+  //
+  // ## Claude usage
+  // Decision: do not use Claude Sonnet or Claude Opus for now.
+  // Reason: I do not currently have an Anthropic plan.
+  // Keep them available for possible future use.
   "default_agent": "build",
   "agent": {
     "plan": {
