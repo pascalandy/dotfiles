@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "default_agent": "plan",
+  "default_agent": "build",
   "agent": {
     "plan": {
       "description": "Primary planning preset.",
@@ -50,7 +50,7 @@
       "disable": true,
       "description": "Use tho switch to any agents",
       "mode": "primary",
-      "model": "openrouter/moonshotai/kimi-k2.5"
+      "model": "opencode/glm-5"
     },
     "gemini": {
       "model": "openrouter/google/gemini-3-flash-preview",
@@ -200,7 +200,7 @@
     },
     "kimi": {
       "description": "Kimi K2.5 via Zen",
-      "disable": false,
+      "disable": true,
       "mode": "primary",
       "model": "opencode/kimi-k2.5",
       "temperature": 0.2,
