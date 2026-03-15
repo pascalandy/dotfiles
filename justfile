@@ -123,15 +123,18 @@ cm-edit path:
 # - `just qa-gpt`           -> test a single agent
 #
 # Each recipe asks the target agent to reply with exactly `OK`.
+alias ocqa := opencode-qa
 opencode-qa:
     just qa-default || true
-    just qa-build || true
     just qa-grok || true
     just qa-mini || true
-    just qa-gpt || true
     just qa-glm || true
     just qa-flash-or || true
-    just qa-gemini-or || true
+
+# OTHER OPTIONS ..
+# just qa-build || true
+# just qa-gemini-or || true
+# just qa-gpt || true
 
 # Run the default opencode QA check.
 qa-default:
@@ -166,6 +169,7 @@ qa-gemini-or:
     opencode run --agent gemini-or "reply with exactly OK"
 
 # Transcribe a YouTube URL. Wrap the URL in quotes. Extra CLI args are forwarded.
+alias ttr := transcript
 transcript url *args:
     uv run ~/.local/share/chezmoi/dot_config/ai_templates/skills/utils/transcript/scripts/transcript.py {{quote(url)}} {{args}}
 
