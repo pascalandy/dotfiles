@@ -32,7 +32,7 @@ The new design makes the plan the only durable memory. Reviewer outputs become t
 - **NG_01:** Do not change the overall round structure of `plan-review-3-rounds`.
 - **NG_02:** Do not let reviewers edit the plan directly anymore.
 - **NG_03:** Do not introduce cross-feature review discovery; review collection stays local to the active feature directory.
-- **NG_04:** Do not delete review files after PM consolidation; clear content and sign instead.
+- **NG_04:** Do not keep review files after PM consolidation; delete them (git history is the audit trail).
 - **NG_05:** Do not move durable reviewer memory into subagent session state; the plan remains the durable memory.
 
 ## Use Cases
@@ -99,7 +99,7 @@ The new design makes the plan the only durable memory. Reviewer outputs become t
 - **REQ_05:** The Product Manager must process pending review files in deterministic lexicographic filename order. (covers: UC_03)
 - **REQ_06:** The Product Manager must be the only role in this workflow allowed to modify the plan after initialization. (covers: UC_03, UC_04)
 - **REQ_07:** The Product Manager must consolidate relevant feedback into the plan and keep `## Open Question and Decisions` as the durable decision log for chosen directions with concise inline rationale. (covers: UC_03, UC_04)
-- **REQ_08:** After consolidation, the Product Manager must clear each review file content and sign with "Plan updated [date/time]" instead of deleting the file. (covers: UC_03, UC_05)
+- **REQ_08:** After consolidation, the Product Manager must delete each review file (git history serves as the audit trail). (covers: UC_03, UC_05)
 - **REQ_09:** The commit step must commit the updated plan and the cleared review files together, rather than committing only the plan file. (covers: UC_05)
 - **REQ_10:** Review discovery and cleanup scope must be limited to the feature directory containing `PLAN_FILE`. (covers: UC_03)
 - **REQ_11:** The workflow must preserve the existing rule that prior handoff text is locator metadata only and that agents must reread the current plan from disk before acting. (covers: UC_01, UC_03, UC_04)
@@ -116,29 +116,19 @@ The new design makes the plan the only durable memory. Reviewer outputs become t
 ## Open Question and Decisions
 
 **QST_01:** Should the workflow later support multiple plan files per feature directory?
-- **STATUS:** RESOLVED
-- **DECISION:** No for this redesign. Scope review collection and cleanup to the active feature directory that contains the single current plan file.
-- **RATIONALE:** The intended workflow assumes one canonical plan per feature directory. Supporting multiple plan files would complicate review routing and is unnecessary for this iteration.
+- **DECISION:** No for this redesign. Scope review collection and cleanup to the active feature directory that contains the single current plan file. RATIONALE: The intended workflow assumes one canonical plan per feature directory. Supporting multiple plan files would complicate review routing and is unnecessary for this iteration. (2026-03-15)
 
 **QST_02:** Should the PM trust handoff-listed review paths or discover reviews from disk?
-- **STATUS:** RESOLVED
-- **DECISION:** The PM must ignore handoff-listed review paths and discover pending reviews by scanning the feature directory that contains `PLAN_FILE`.
-- **RATIONALE:** Handoff text is locator metadata only. Directory-local discovery keeps the on-disk state authoritative and avoids stale or partial handoff data becoming a second source of truth.
+- **DECISION:** The PM must ignore handoff-listed review paths and discover pending reviews by scanning the feature directory that contains `PLAN_FILE`. RATIONALE: Handoff text is locator metadata only. Directory-local discovery keeps the on-disk state authoritative and avoids stale or partial handoff data becoming a second source of truth. (2026-03-15)
 
 **QST_03:** What should happen to review files after PM consolidation?
-- **STATUS:** RESOLVED
-- **DECISION:** The PM should clear each review file content and sign with "Plan updated [date/time]" instead of deleting the file.
-- **RATIONALE:** Preserving the file with a signature provides an audit trail and prevents duplicate review file creation for the same reviewer/round combination.
+- **DECISION:** The PM should delete each review file after consolidation. Git history serves as the audit trail. RATIONALE: Deleting keeps the feature directory clean. Git history preserves the audit trail of what was reviewed and when. (2026-03-15)
 
 **QST_04:** In what order should the PM process multiple pending review files?
-- **STATUS:** RESOLVED
-- **DECISION:** Process them in lexicographic filename order.
-- **RATIONALE:** The timestamp-based filename convention already gives a natural stable order, and lexicographic sorting is easy to explain and implement.
+- **DECISION:** Process them in lexicographic filename order. RATIONALE: The timestamp-based filename convention already gives a natural stable order, and lexicographic sorting is easy to explain and implement. (2026-03-15)
 
 **QST_05:** Should the commit step verify that review-file clearing actually happened before committing?
-- **STATUS:** RESOLVED
-- **DECISION:** No additional clearing verification is required in the commit step for this iteration.
-- **RATIONALE:** The commit step should stay simple and commit the resulting git state rather than adding extra workflow policing that is not needed right now.
+- **DECISION:** No additional clearing verification is required in the commit step for this iteration. RATIONALE: The commit step should stay simple and commit the resulting git state rather than adding extra workflow policing that is not needed right now. (2026-03-15)
 
 ## Assumptions / Dependencies
 
@@ -162,7 +152,7 @@ The new design makes the plan the only durable memory. Reviewer outputs become t
 - Must be named `review-{reviewer}-r{round}-{timestamp}-{suffix}.md` (reviewers) or `review-ceo-r{round}.md` (CEO)
 - Must always be created by the reviewer, even for no-op reviews
 - Is part of the PM's local input queue regardless of whether it is substantive, stale, empty, or malformed
-- Is cleared and signed by the PM after consolidation (not deleted)
+- Is deleted by the PM after consolidation (git history is the audit trail)
 
 ## Handoff Contract *(add-on)*
 
@@ -224,7 +214,7 @@ SUMMARY: <one concise sentence>
 - Redesign the planning workflow contracts so reviewer output becomes a file artifact, not an inline plan edit.
 - Treat the plan as the only durable memory layer.
 - Treat all review files in the active feature directory as the PM input queue.
-- After PM consolidation, clear each review file and sign with "Plan updated [date/time]".
+- After PM consolidation, delete each review file (git history is the audit trail).
 
 **Key Changes:**
 - Update reviewer persona instructions to create standalone review files and never edit the plan.

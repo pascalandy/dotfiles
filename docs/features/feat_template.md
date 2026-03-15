@@ -54,22 +54,11 @@ created: {{ YYYY-MM-DD }}
 
 ## Open Question and Decisions
 
-<!-- reviewer's feedback is first captured as unresolved `TO REVIEW` items. example:
+<!-- Reviewers do not write in the plan. They create standalone `review-*.md` files in the same feature directory. The Product Manager (PM) reads all pending review files, consolidates feedback into the plan, and deletes the review files after consolidation. Git history serves as the audit trail. If there are no open questions, write "None". example:
+
 ```md
 **QST_01:** {{ concise question, concern, or decision topic }}
-- **STATUS:** TO REVIEW
-- **ANS:** {{ potential answer or mitigation strategy }} (recommended)
-- **ANS:** {{ potential answer or mitigation strategy }}
-- **ANS:** {{ potential answer or mitigation strategy }}
-```
--->
-
-<!-- The product owner resolves items in place by updating the plan, turning durable outcomes into `RESOLVED` entries, and recording the chosen direction with inline rationale so future reviewers work from the latest durable decision. If there is no entry, use "None". example:
-
-```md
-**QST_02:** {{ concise question, concern, or decision topic }}
-- **STATUS:** RESOLVED
-- **DECISION:** {{ selected answer. }} RATIONALE: {{ short reason this choice stands }}
+- **DECISION:** {{ selected answer. }}. RATIONALE: {{ short reason this choice stands }} ({timestamp})
 ```
 -->
 

@@ -23,7 +23,7 @@ sequenceDiagram
     PM->>PM: Read review-a-r1-*.md
     PM->>Plan: Update "Open Questions & Decisions" section<br/>and plan when appropriate
     PM->>PM: Commit changes
-    PM->>PM: Clear review file, sign "Plan updated [date/time]"
+    PM->>PM: Delete review file
     
     Note over PM,RB: Round 1 - Reviewer B
     PM->>+RB: Request review
@@ -34,7 +34,7 @@ sequenceDiagram
     PM->>PM: Read review-b-r1-*.md
     PM->>Plan: Update "Open Questions & Decisions" section<br/>and plan when appropriate
     PM->>PM: Commit changes
-    PM->>PM: Clear review file, sign "Plan updated [date/time]"
+    PM->>PM: Delete review file
     
     PM-->>CEO: Plan ready for review
     
@@ -45,7 +45,7 @@ sequenceDiagram
     PM->>PM: Read review-ceo-r1.md
     PM->>Plan: Update "Open Questions & Decisions" section<br/>and plan when appropriate
     PM->>PM: Commit changes
-    PM->>PM: Clear review file, sign "Plan updated [date/time]"
+    PM->>PM: Delete review file
     
     Note over PM,RC: Round 2 - Reviewer C
     PM->>+RC: Request review
@@ -56,7 +56,7 @@ sequenceDiagram
     PM->>PM: Read review-c-r2-*.md
     PM->>Plan: Update "Open Questions & Decisions" section<br/>and plan when appropriate
     PM->>PM: Commit changes
-    PM->>PM: Clear review file, sign "Plan updated [date/time]"
+    PM->>PM: Delete review file
     
     PM-->>CEO: Plan ready for review
     
@@ -67,7 +67,7 @@ sequenceDiagram
     PM->>PM: Read review-ceo-r2.md
     PM->>Plan: Update "Open Questions & Decisions" section<br/>and plan when appropriate
     PM->>PM: Commit changes
-    PM->>PM: Clear review file, sign "Plan updated [date/time]"
+    PM->>PM: Delete review file
     
     PM-->>CEO: Final plan
     CEO->>CEO: Review decisions via git diff
