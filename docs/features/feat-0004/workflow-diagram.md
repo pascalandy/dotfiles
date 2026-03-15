@@ -8,6 +8,7 @@ sequenceDiagram
     participant RA as Reviewer A
     participant RB as Reviewer B
     participant RC as Reviewer C
+    participant Commit as Commit Agent
     participant Plan as plan.md
 
     CEO->>PM: Share idea
@@ -22,8 +23,10 @@ sequenceDiagram
     
     PM->>PM: Read review-a-r1-*.md
     PM->>Plan: Update "Open Questions & Decisions" section<br/>and plan when appropriate
-    PM->>PM: Commit changes
     PM->>PM: Delete review file
+    PM->>+Commit: Handoff for commit
+    Commit->>Commit: Commit plan update + review-file deletion
+    Commit-->>-PM: Commit complete
     
     Note over PM,RB: Round 1 - Reviewer B
     PM->>+RB: Request review
@@ -33,8 +36,10 @@ sequenceDiagram
     
     PM->>PM: Read review-b-r1-*.md
     PM->>Plan: Update "Open Questions & Decisions" section<br/>and plan when appropriate
-    PM->>PM: Commit changes
     PM->>PM: Delete review file
+    PM->>+Commit: Handoff for commit
+    Commit->>Commit: Commit plan update + review-file deletion
+    Commit-->>-PM: Commit complete
     
     PM-->>CEO: Plan ready for review
     
@@ -44,8 +49,10 @@ sequenceDiagram
     
     PM->>PM: Read review-ceo-r1.md
     PM->>Plan: Update "Open Questions & Decisions" section<br/>and plan when appropriate
-    PM->>PM: Commit changes
     PM->>PM: Delete review file
+    PM->>+Commit: Handoff for commit
+    Commit->>Commit: Commit plan update + review-file deletion
+    Commit-->>-PM: Commit complete
     
     Note over PM,RC: Round 2 - Reviewer C
     PM->>+RC: Request review
@@ -55,8 +62,10 @@ sequenceDiagram
     
     PM->>PM: Read review-c-r2-*.md
     PM->>Plan: Update "Open Questions & Decisions" section<br/>and plan when appropriate
-    PM->>PM: Commit changes
     PM->>PM: Delete review file
+    PM->>+Commit: Handoff for commit
+    Commit->>Commit: Commit plan update + review-file deletion
+    Commit-->>-PM: Commit complete
     
     PM-->>CEO: Plan ready for review
     
@@ -66,8 +75,10 @@ sequenceDiagram
     
     PM->>PM: Read review-ceo-r2.md
     PM->>Plan: Update "Open Questions & Decisions" section<br/>and plan when appropriate
-    PM->>PM: Commit changes
     PM->>PM: Delete review file
+    PM->>+Commit: Handoff for commit
+    Commit->>Commit: Commit plan update + review-file deletion
+    Commit-->>-PM: Commit complete
     
     PM-->>CEO: Final plan
     CEO->>CEO: Review decisions via git diff
