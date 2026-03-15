@@ -1,0 +1,38 @@
+{
+  "skill_name": "opencode-manager",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I just installed OpenCode for a repo called `feed`. I want safe defaults, project-level setup, and a short explanation of what belongs in `opencode.json` versus `AGENTS.md`. I also want one quick validation step after editing. Keep it practical and specific.",
+      "expected_output": "A practical setup answer that distinguishes `opencode.json` from `AGENTS.md`, keeps scope project-level, and includes a validation or smoke-test step.",
+      "files": [],
+      "expectations": [
+        "Mentions both `opencode.json` and `AGENTS.md`.",
+        "Distinguishes project-level and global scope or otherwise keeps the advice project-scoped.",
+        "Includes a validation or smoke-test step after editing."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I'm confused about OpenCode workflows. When should I stay in plan mode, switch to build mode, create a subagent, write a slash command, or create a skill? Give me a decision guide I can reuse for daily work, and include at least one caution about permissions.",
+      "expected_output": "A reusable decision guide that explains plan vs build, subagents vs commands vs skills, and includes at least one permission caution.",
+      "files": [],
+      "expectations": [
+        "Explains plan mode and build mode.",
+        "Explains at least two of: subagents, commands, skills, agents.",
+        "Includes a permission caution."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I have several overlapping OpenCode skills for config, agents, commands, repo maintenance, and general usage. I want one consolidated skill that won't over-trigger during ordinary coding. Propose the shape of the merged skill, what should stay in `SKILL.md` versus `references/`, and point me to the official docs and GitHub repo I should cite.",
+      "expected_output": "A consolidation plan that warns against over-triggering, separates `SKILL.md` from `references/`, and cites the official docs and GitHub repository.",
+      "files": [],
+      "expectations": [
+        "Warns against over-triggering during ordinary coding.",
+        "Explains what belongs in `SKILL.md` versus `references/`.",
+        "Includes the official docs URL and the GitHub repository URL."
+      ]
+    }
+  ]
+}
