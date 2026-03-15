@@ -54,7 +54,7 @@ created: {{ YYYY-MM-DD }}
 
 ## Open Question and Decisions
 
-<!-- Reviewers do not write in the plan. They create standalone `review-*.md` files in the same feature directory. The Product Manager (PM) reads all pending review files, consolidates feedback into the plan, and deletes the review files after consolidation. Git history serves as the audit trail. If there are no open questions, write "None". example:
+<!-- Reviewers do not write in the plan. They create standalone `review-*.md` files in the same feature directory. The Product Manager (PM) reads all pending review files, updates the plan to reflect accepted decisions, rejected suggestions that matter for future review, and unresolved questions, records durable outcomes in `Open Question and Decisions`, and deletes the consumed review files after consolidation. The commit agent is the only role that creates commits. Git history serves as the audit trail. If there are no open questions, write "None". example:
 
 ```md
 **QST_01:** {{ concise question, concern, or decision topic }}
@@ -125,7 +125,8 @@ The assistant AI must:
 - write testable requirements and observable acceptance criteria
 - keep use cases grounded in real usage
 - reviewer passes must not edit the plan directly; they create standalone `review_*.md` artifacts in the same feature directory as the plan
-- the product owner is the only role that resolves reviewer items by updating the plan and turning durable outcomes into in-place decisions in Open Question and Decisions
+- the PM is the only role that resolves reviewer items by updating the plan and turning durable outcomes into in-place decisions in Open Question and Decisions
+- the commit agent is the only role that creates commits in this workflow
 - resolved decision-log entries should record the chosen direction with concise inline rationale so future reviewers do not repeat the same feedback churn
 - use stable IDs:
   - QST_01
@@ -133,7 +134,7 @@ The assistant AI must:
   - NG_01
   - REQ_01
   - ACC_01
-- When the product owner (or  assistant AI) resolves an Open Question, he must update the relevant Use Cases, requirements, or Acceptance Criteria to reflect the finalized decision, rather than leaving the spec and the decision out of sync.
+- When the PM (or assistant AI acting as PM) resolves an Open Question, the PM must update the relevant Use Cases, requirements, or Acceptance Criteria to reflect the finalized decision, rather than leaving the spec and the decision out of sync.
 - use lightweight inline traceability:
   - REQ_02 (covers: UC_01) when helpful
   - every Acceptance Criterion must validate at least one requirement, for example: ACC_03 (validates: REQ_02)

@@ -15,7 +15,7 @@ A deterministic review pipeline with clear separation of concerns:
 |--------|--------|-------|
 | Reviewer output | Inline in plan | Standalone review file |
 | Who edits plan | Anyone | PM only |
-| Review files | N/A | Created, then cleared & signed |
+| Review files | N/A | Created, then deleted after consolidation |
 | Decision log | Mixed with feedback | Dedicated "Open Questions & Decisions" section |
 
 ### Key Principles
@@ -23,7 +23,7 @@ A deterministic review pipeline with clear separation of concerns:
 1. **Single source of truth** — The plan file is the only durable memory
 2. **Reviewers don't touch the plan** — They create review files only
 3. **PM is the gatekeeper** — Sole role that mutates the plan
-4. **Audit trail** — Review files persist with signatures after consolidation
+4. **Audit trail** — Git history preserves review-file creation and deletion
 5. **Deterministic processing** — Files processed in lexicographic order
 
 ### Workflow
@@ -50,4 +50,4 @@ docs/features/feat_template.md
 1. Does the separation of concerns make sense?
 2. Is the file naming convention clear and scalable?
 3. Any gaps in the workflow?
-4. Should review files be cleared & signed, or deleted entirely?
+4. Should review files be deleted after consolidation?

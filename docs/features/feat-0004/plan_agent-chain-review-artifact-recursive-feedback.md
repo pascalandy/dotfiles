@@ -15,7 +15,7 @@ created: 2026-03-11
 
 ## Abstract
 
-Redesign the `plan-review-3-rounds` workflow so reviewers never edit the plan directly. Each reviewer pass must create a standalone `review-{reviewer}-r{round}-{timestamp}-{suffix}.md` file next to the plan. The Product Manager (PM) becomes the sole role that mutates the plan: it reads the current plan plus all pending review files in the same feature directory, consolidates the feedback into the plan, updates `## Open Question and Decisions` as the durable decision log, clears the review file content and signs it with "Plan updated [date/time]", and then hands off to the commit step.
+Redesign the `plan-review-3-rounds` workflow so reviewers never edit the plan directly. Each reviewer pass must create a standalone `review-{reviewer}-r{round}-{timestamp}-{suffix}.md` file next to the plan. The Product Manager (PM) becomes the sole role that mutates the plan: it reads the current plan plus all pending review files in the same feature directory, consolidates the feedback into the plan, updates `## Open Question and Decisions` as the durable decision log, deletes the consumed review files, and then hands off to the commit step. The commit agent is the only role that creates commits.
 
 ## Motivation
 
@@ -25,7 +25,7 @@ The current workflow stores reviewer feedback inline inside the plan. That works
 - durable product decisions
 - canonical plan state
 
-The new design makes the plan the only durable memory. Reviewer outputs become temporary files that are consumed and cleared by the Product Manager. This should make the loop more deterministic, reduce repeated issues, and make `## Open Question and Decisions` the canonical record of what was considered, accepted, or rejected.
+The new design makes the plan the only durable memory. Reviewer outputs become temporary files that are consumed and deleted by the Product Manager. This should make the loop more deterministic, reduce repeated issues, and make `## Open Question and Decisions` the canonical record of what was considered, accepted, or rejected.
 
 ## Non-Goals
 
@@ -59,7 +59,7 @@ The new design makes the plan the only durable memory. Reviewer outputs become t
 
 **Scenario:** The feature directory contains several pending review files.
 
-**Expected Outcome:** The PM reads the plan and all review files in that directory, consolidates all useful feedback into the plan, updates `## Open Question and Decisions`, clears each review file content and signs with "Plan updated [date/time]", and returns a consolidation handoff.
+**Expected Outcome:** The PM reads the plan and all review files in that directory, updates the plan to reflect accepted decisions, rejected suggestions that matter for future review, and unresolved questions, records durable outcomes in `## Open Question and Decisions`, deletes the consumed review files, and returns a consolidation handoff.
 
 ### UC_04 — Durable decision log prevents repeated feedback churn
 
@@ -69,13 +69,13 @@ The new design makes the plan the only durable memory. Reviewer outputs become t
 
 **Expected Outcome:** The current plan state, especially `## Open Question and Decisions`, already reflects prior considered ideas so the reviewer works from the latest durable decisions rather than reintroducing already-processed feedback.
 
-### UC_05 — Commit captures consolidation plus cleared review files
+### UC_05 — Commit captures consolidation plus review-file deletions
 
 **Actor:** Commit agent
 
-**Scenario:** The PM has updated the plan and cleared/signed review files.
+**Scenario:** The PM has updated the plan and deleted the consumed review files.
 
-**Expected Outcome:** The commit includes the updated plan and the cleared review files together as one audit snapshot.
+**Expected Outcome:** The commit includes the updated plan and the review-file deletions together as one audit snapshot.
 
 ### UC_06 — CEO provides review feedback
 
@@ -98,9 +98,9 @@ The new design makes the plan the only durable memory. Reviewer outputs become t
 - **REQ_04:** The Product Manager must treat the plan on disk as the source of truth and must read all review files currently present in the same feature directory as that plan. Review discovery must come from scanning that directory, not from trusting review paths listed in prior handoff text. (covers: UC_03)
 - **REQ_05:** The Product Manager must process pending review files in deterministic lexicographic filename order. (covers: UC_03)
 - **REQ_06:** The Product Manager must be the only role in this workflow allowed to modify the plan after initialization. (covers: UC_03, UC_04)
-- **REQ_07:** The Product Manager must consolidate relevant feedback into the plan and keep `## Open Question and Decisions` as the durable decision log for chosen directions with concise inline rationale. (covers: UC_03, UC_04)
+- **REQ_07:** The Product Manager must update the plan to reflect accepted decisions, rejected suggestions that matter for future review, and unresolved questions, and must keep `## Open Question and Decisions` as the durable decision log for durable outcomes with concise inline rationale. (covers: UC_03, UC_04)
 - **REQ_08:** After consolidation, the Product Manager must delete each review file (git history serves as the audit trail). (covers: UC_03, UC_05)
-- **REQ_09:** The commit step must commit the updated plan and the cleared review files together, rather than committing only the plan file. (covers: UC_05)
+- **REQ_09:** The commit agent must be the only role that creates commits in this workflow, and it must commit the updated plan plus the review-file deletions together, rather than committing only the plan file. (covers: UC_05)
 - **REQ_10:** Review discovery and cleanup scope must be limited to the feature directory containing `PLAN_FILE`. (covers: UC_03)
 - **REQ_11:** The workflow must preserve the existing rule that prior handoff text is locator metadata only and that agents must reread the current plan from disk before acting. (covers: UC_01, UC_03, UC_04)
 
@@ -108,9 +108,9 @@ The new design makes the plan the only durable memory. Reviewer outputs become t
 
 - **ACC_01:** When a review step runs for a plan in `docs/features/feat-0004/plan_*.md`, a new review file is created in `docs/features/feat-0004/` and the plan file itself is not modified by the reviewer. (validates: REQ_01, REQ_03)
 - **ACC_02:** When the reviewer has no material issues, it still creates a new review file containing a minimal no-op review message. (validates: REQ_02, REQ_03)
-- **ACC_03:** When the feature directory contains multiple pending review files, the PM discovers them by scanning the directory, processes them in lexicographic filename order, updates the plan accordingly, and clears/signs all those review files before handoff. (validates: REQ_04, REQ_05, REQ_07, REQ_08, REQ_10)
-- **ACC_04:** After PM consolidation, the durable outcomes of review feedback are reflected in the plan's `## Open Question and Decisions` section using the chosen direction plus concise inline rationale, and consumed review files are cleared and signed. (validates: REQ_06, REQ_07, REQ_08)
-- **ACC_05:** The commit step can create a commit that includes both the modified plan and the cleared review files from that feature directory. (validates: REQ_09)
+- **ACC_03:** When the feature directory contains multiple pending review files, the PM discovers them by scanning the directory, processes them in lexicographic filename order, updates the plan to reflect accepted decisions, rejected suggestions that matter for future review, and unresolved questions, and deletes those review files before handoff. (validates: REQ_04, REQ_05, REQ_07, REQ_08, REQ_10)
+- **ACC_04:** After PM consolidation, the durable outcomes of review feedback are reflected in the plan's `## Open Question and Decisions` section using the chosen direction plus concise inline rationale, and the consumed review files no longer exist in that feature directory. (validates: REQ_06, REQ_07, REQ_08)
+- **ACC_05:** The commit agent can create a commit that includes both the modified plan and the review-file deletions from that feature directory. (validates: REQ_09)
 - **ACC_06:** Agents continue to use handoff text only to locate `PLAN_FILE` and reread the current plan from disk before acting. (validates: REQ_11)
 
 ## Open Question and Decisions
@@ -127,8 +127,8 @@ The new design makes the plan the only durable memory. Reviewer outputs become t
 **QST_04:** In what order should the PM process multiple pending review files?
 - **DECISION:** Process them in lexicographic filename order. RATIONALE: The timestamp-based filename convention already gives a natural stable order, and lexicographic sorting is easy to explain and implement. (2026-03-15)
 
-**QST_05:** Should the commit step verify that review-file clearing actually happened before committing?
-- **DECISION:** No additional clearing verification is required in the commit step for this iteration. RATIONALE: The commit step should stay simple and commit the resulting git state rather than adding extra workflow policing that is not needed right now. (2026-03-15)
+**QST_05:** Should the commit agent verify that review-file deletion actually happened before committing?
+- **DECISION:** No additional deletion verification is required in the commit step for this iteration. RATIONALE: The commit step should stay simple and commit the resulting git state rather than adding extra workflow policing that is not needed right now. (2026-03-15)
 
 ## Assumptions / Dependencies
 
@@ -180,6 +180,7 @@ ROUND: <number from the prompt>
 STEP: pm
 PLAN_STATUS: revised | unchanged
 REVIEWS_CONSUMED: <number>
+REVIEWS_DELETED: <number>
 HANDOFF: commit
 SUMMARY: <one concise sentence>
 ```
@@ -214,17 +215,17 @@ SUMMARY: <one concise sentence>
 - Redesign the planning workflow contracts so reviewer output becomes a file artifact, not an inline plan edit.
 - Treat the plan as the only durable memory layer.
 - Treat all review files in the active feature directory as the PM input queue.
-- After PM consolidation, delete each review file (git history is the audit trail).
+- After PM consolidation, the PM deletes each consumed review file, then hands off to the commit agent to create the commit.
 
 **Key Changes:**
 - Update reviewer persona instructions to create standalone review files and never edit the plan.
-- Update PM persona instructions to gather all directory-local review files, consolidate them into the plan, then clear and sign each file.
-- Update commit persona instructions so it commits plan changes plus cleared review files.
+- Update PM persona instructions to gather all directory-local review files, consolidate them into the plan, then delete each consumed review file.
+- Update commit persona instructions so it is the only role that creates commits and it commits plan changes plus review-file deletions.
 - Update `agent-chain.yaml` prompts to pass the right expectations and handoff fields.
 - Tighten the feature template language so `Open Question and Decisions` records the chosen direction with concise inline rationale.
 
 **Risks & Sequencing:**
 - First lock the workflow contract in docs so persona changes stay aligned.
 - Then update reviewer and PM personas together; changing only one side would break the loop.
-- Update commit behavior after PM clearing behavior is defined, otherwise the audit step will still assume plan-only commits.
+- Update commit behavior after PM deletion behavior is defined, otherwise the audit step will still assume plan-only commits.
 - Only after persona/prompt alignment should any extension-level observability or polish be considered.
