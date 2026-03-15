@@ -346,6 +346,18 @@
         "bash": "allow"
       }
     },
+    "tron": {
+      "description": "Nemotron 3 Super",
+      "disable": false,
+      "mode": "all",
+      "model": "fireworks-ai/accounts/fireworks/models/nvidia-nemotron-3-super-120b-a12b-fp8",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
     "mini": {
       "description": "MiniMax M2.5 via Zen",
       "disable": false,
@@ -821,6 +833,17 @@
           "limit": {
             "context": 262144,
             "output": 16384
+          }
+        },
+        "accounts/fireworks/models/nvidia-nemotron-3-super-120b-a12b-fp8": {
+          "id": "accounts/fireworks/models/nvidia-nemotron-3-super-120b-a12b-fp8",
+          "name": "NVIDIA Nemotron 3 Super 120B (Fireworks)",
+          "tool_call": true,
+          "temperature": true,
+          "reasoning": true,
+          "limit": {
+            "context": 128000,
+            "output": 32768
           }
         }
       }
