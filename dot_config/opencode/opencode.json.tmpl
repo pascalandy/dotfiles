@@ -357,6 +357,18 @@
         "edit": "allow",
         "bash": "allow"
       }
+    },
+    "step": {
+      "description": "Step 3.5 Flash via OpenRouter",
+      "disable": false,
+      "mode": "all",
+      "model": "openrouter/stepfun/step-3.5-flash:free",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
     }
   },
   "mcp": {
@@ -706,6 +718,20 @@
           "cost": {
             "input": 2.0,
             "output": 6.0
+          }
+        },
+        "stepfun/step-3.5-flash:free": {
+          "id": "stepfun/step-3.5-flash:free",
+          "name": "Step 3.5 Flash (Free)",
+          "tool_call": true,
+          "temperature": true,
+          "limit": {
+            "context": 32000,
+            "output": 8192
+          },
+          "cost": {
+            "input": 0,
+            "output": 0
           }
         }
       }
