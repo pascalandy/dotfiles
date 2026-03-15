@@ -130,6 +130,7 @@ opencode-qa:
     just qa-mini || true
     just qa-gpt || true
     just qa-glm || true
+    just qa-tron || true
     just qa-flash-or || true
     just qa-gemini-or || true
 
@@ -156,6 +157,10 @@ qa-gpt:
 # Run the glm agent opencode QA check.
 qa-glm:
     opencode run --agent glm "reply with exactly OK"
+
+# Run the tron agent (NVIDIA Nemotron 3 Super 120B) opencode QA check.
+qa-tron:
+    opencode run --agent tron "reply with exactly OK"
 
 # Run the Gemini 3 Flash via OpenRouter opencode QA check.
 qa-flash-or:
