@@ -25,10 +25,6 @@ metadata:
 
 ## Core operating rules
 
-- **Init QMD (bash cmd)**: Before any QMD operation, ensure collections are up to date by running. This updates file indexes, regenerates embeddings, cleans stale entries, and shows current status:
-  ```shell
-  qmd update &> /dev/null && qmd embed &> /dev/null && qmd cleanup &> /dev/null && qmd status && qmd ls
-  ```
 - Default to QMD CLI workflows
 - Search the most likely collection first and pass `-c <collection>` whenever you can
 - Prefer `qmd query` for most retrieval work, `qmd search` for exact title or filename lookup, and `qmd vsearch` mainly as a fallback or second opinion
@@ -39,8 +35,9 @@ metadata:
 
 ## Default playbook
 
-1. Init QMD
-2. Identify the most likely collection.
+1. Run: `qmd update &> /dev/null && qmd embed &> /dev/null && qmd cleanup &> /dev/null && qmd status && qmd ls`
+  - Why? Theses commands will update file indexes, regenerates embeddings, cleans stale entries, and shows current status.
+2. Wait for the previous command to end then identify the most likely collection(s)
 3. Run `qmd query` first unless the user gave an exact title, path, or filename.
 4. Reopen the best hit(s) with `qmd get` or `qmd multi-get`.
 5. Answer with resolved QMD URI(s) and only use evidence from reopened documents.
