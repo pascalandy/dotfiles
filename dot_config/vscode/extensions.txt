@@ -23,6 +23,7 @@ formulahendry.auto-close-tag
 formulahendry.auto-rename-tag
 foxundermoon.shell-format
 gruntfuggly.todo-tree
+hediet.vscode-drawio
 henoc.svgeditor
 jkjustjoshing.vscode-text-pastry
 jvalecillos.gpg
