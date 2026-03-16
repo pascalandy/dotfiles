@@ -11,42 +11,43 @@
   // Parked = documented but not currently in rotation
   //
   // Main
-  // - build / plan -> Kimi 2.5 Fireworks
-  // - @gpt         -> GPT
+  // - build / plan -> Kimi 2.5 Turbo via Fireworks
+  // - @gpt         -> GPT-5.4
+  // - @mini-zen    -> MiniMax M2.5 via Zen (default agent)
   //
   // Reviewers
-  // - @grok      -> Grok 4.20
-  // - @gemini-or -> Gemini 3.1 Pro via OpenRouter
-  // - @glm       -> GLM 5 via Zen
+  // - @grok        -> Grok 4.20 via OpenRouter
+  // - @gemini-or   -> Gemini 3.1 Pro via OpenRouter
+  // - @glm-zen     -> GLM 5 via Zen
+  // - @gemini-zen  -> Gemini 3.1 Pro via Zen
+  // - @flash-zen   -> Gemini 3 Flash via Zen
+  // - @step        -> Step 3.5 Flash (free) via OpenRouter
   //
   // Parked
-  // - @kimi25 -> Kimi 2.5 via Zen
-  // - @opus   -> Opus
-  // - @glm47  -> GLM 4.7
-  // - @qwen   -> Qwen (via LM Studio)
+  // - @kimi-zen -> Kimi 2.5 via Zen
+  // - @opus     -> Opus
+  // - @glm47    -> GLM 4.7
+  // - @qwen     -> Qwen (via LM Studio)
+  // - @mini-or  -> MiniMax via OpenRouter
+  // - @kimi-oc  -> Kimi via OpenRouter
   //
   // ## Defaults
-  // Default agent = build = Kimi 2.5 Turbo via Fireworks
-  // Why: fast, cheap, good daily tradeoff
-  // Note: no active Kimi variants yet, so Ctrl+T does nothing for now.
+  // Default agent = mini = MiniMax M2.5 via Zen [[2026-03-16]]
+  // Why: fast, capable, good daily driver
   //
   // Fallback top-level model = GLM 5 via Zen
-  // small_model = Gemini Flash via OpenRouter
+  // small_model = Gemini 3 Flash via Zen
   //
   // ## GPT routing
   // Use direct OpenAI Plus plan for GPT.
   // Do not route GPT through OpenRouter, Zen, or another proxy.
   // Keep GPT as the medium default.
-  // Use separate agents for higher effort levels.
+  // Use separate agents for higher effort levels (gpt-high, gpt-xhigh).
   //
   // ## Gemini routing
-  // Use OpenRouter for Gemini.
-  // Reason: Gemini via Zen/Xen is not working reliably, and OpenRouter is the current working path. [[2026-03-14]]
-  // Reasoning via thinking levels (minimal, low, medium, high)
-  //
-  // Active Gemini reviewers
-  // - @flash-or  -> Gemini 3 Flash via OpenRouter
-  // - @gemini-or -> Gemini 3.1 Pro via OpenRouter
+  // Two paths available:
+  // - OpenRouter: @gemini-or, @flash-or (reliable, was the working path)
+  // - Zen: @gemini-zen, @flash-zen (now enabled and working) [[2026-03-16]]
   //
   // ## Grok routing
   // Use OpenRouter for Grok. Reason: the latest Grok is not available on Zen. [[2026-03-14]]
@@ -63,7 +64,7 @@
   // Keep Opus documented, but parked for now. Reason: I do not currently have an Anthropic plan [[2026-03-14]]
   //
   // ==================================================
-  "default_agent": "mini",
+  "default_agent": "mini-zen",
   "model": "opencode/glm-5",
   "small_model": "opencode/gemini-3-flash",
   "agent": {

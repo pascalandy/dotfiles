@@ -148,17 +148,17 @@ qa-build:
 qa-grok:
     opencode run --agent grok "reply with exactly OK"
 
-# Run the mini agent opencode QA check.
+# Run the mini-zen agent opencode QA check.
 qa-mini:
-    opencode run --agent mini "reply with exactly OK"
+    opencode run --agent mini-zen "reply with exactly OK"
 
 # Run the gpt agent opencode QA check.
 qa-gpt:
     opencode run --agent gpt "reply with exactly OK"
 
-# Run the glm agent opencode QA check.
+# Run the glm-zen agent opencode QA check.
 qa-glm:
-    opencode run --agent glm "reply with exactly OK"
+    opencode run --agent glm-zen "reply with exactly OK"
 
 # Run the Gemini 3 Flash via OpenRouter opencode QA check.
 qa-flash-or:
