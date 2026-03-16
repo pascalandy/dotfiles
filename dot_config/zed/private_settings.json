@@ -7,20 +7,30 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "agent": {
+    "default_model": {
+      "provider": "lmstudio",
+      "model": "unsloth/qwen3.5-27b",
+      "enable_thinking": false
+    },
+    "favorite_models": [],
+    "model_parameters": []
+  },
   "completions": {
     "words_min_length": 5
   },
   "show_completions_on_input": false,
-  "theme": "Catppuccin Macchiato",
+  "theme": "Ayu Dark",
   "agent_servers": {
+    "claude-acp": {
+      "type": "registry",
+      "default_model": "opus"
+    },
     "your_agent": {
       "type": "custom",
       "command": "path_to_executable",
       "args": [],
       "env": {}
-    },
-    "claude": {
-      "default_model": "opus"
     }
   },
   "ui_font_size": 16,
