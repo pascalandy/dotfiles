@@ -1,6 +1,6 @@
 ---
 description: Repository health custodian.
-mode: primary
+mode: subagent
 permission:
   skill:
     "*": "deny"
