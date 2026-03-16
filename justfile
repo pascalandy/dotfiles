@@ -174,6 +174,13 @@ transcript url *args:
     uv run ~/.local/share/chezmoi/dot_config/ai_templates/skills/utils/transcript/scripts/transcript.py {{quote(url)}} {{args}}
 
 # -----------------------------------------------------------------------------
+# git
+# -----------------------------------------------------------------------------
+
+c:
+    opencode run --agent mini-zen "load skill commit, and commit"
+
+# -----------------------------------------------------------------------------
 # System maintenance
 # -----------------------------------------------------------------------------
 
