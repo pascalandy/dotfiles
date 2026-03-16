@@ -103,5 +103,29 @@
     "key": "shift+alt+cmd+c",
     "command": "-copyRelativeFilePath",
     "when": "!editorFocus"
+  },
+  {
+    "key": "shift+cmd+c",
+    "command": "-workbench.action.browser.addElementToChat",
+    "when": "browserHasUrl && chatIsEnabled && config.chat.sendElementsToChat.enabled && !browserHasError && activeEditor == 'workbench.editor.browser'"
+  },
+  {
+    "key": "shift+cmd+c",
+    "command": "-svgeditor.objectToPath",
+    "when": "svgeditorWebviewFocus"
+  },
+  {
+    "key": "cmd+k shift+alt+cmd+c",
+    "command": "-copyRelativeFilePath",
+    "when": "editorFocus"
+  },
+  {
+    "key": "alt+cmd+c",
+    "command": "-copyFilePath",
+    "when": "!editorFocus"
+  },
+  {
+    "key": "shift+cmd+c",
+    "command": "references-view.copyPath"
   }
 ]
