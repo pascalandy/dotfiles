@@ -63,9 +63,9 @@
   // Keep Opus documented, but parked for now. Reason: I do not currently have an Anthropic plan [[2026-03-14]]
   //
   // ==================================================
-  "default_agent": "build",
+  "default_agent": "mini",
   "model": "opencode/glm-5",
-  "small_model": "openrouter/google/gemini-3-flash-preview",
+  "small_model": "opencode/gemini-3-flash",
   "agent": {
     "plan": {
       "description": "Primary planning preset.",
@@ -254,10 +254,10 @@
       }
     },
     "gemini": {
-      "description": "Gemini 3 Pro (zen)",
-      "disable": true,
+      "description": "Gemini 3.1 Pro (zen)",
+      "disable": false,
       "mode": "primary",
-      "model": "opencode/gemini-3-pro",
+      "model": "opencode/gemini-3.1-pro",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
@@ -267,7 +267,7 @@
     },
     "flash": {
       "description": "Gemini 3 flash (zen)",
-      "disable": true,
+      "disable": false,
       "mode": "primary",
       "model": "opencode/gemini-3-flash",
       "temperature": 0.2,
@@ -372,109 +372,6 @@
         }
       }
     },
-    "google": {
-      "name": "Google",
-      "models": {
-        "gemini-3-pro-high": {
-          "name": "Gemini 3 Pro High (Antigravity)",
-          "reasoning": true,
-          "attachment": true,
-          "limit": {
-            "context": 1048576,
-            "output": 65535
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          }
-        },
-        "gemini-3-pro-medium": {
-          "name": "Gemini 3 Pro Medium (Antigravity)",
-          "reasoning": true,
-          "attachment": true,
-          "limit": {
-            "context": 1048576,
-            "output": 65535
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          }
-        },
-        "gemini-3-pro-low": {
-          "name": "Gemini 3 Pro Low (Antigravity)",
-          "reasoning": true,
-          "attachment": true,
-          "limit": {
-            "context": 1048576,
-            "output": 65535
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          }
-        },
-        "gemini-3-flash": {
-          "name": "Gemini 3 Flash (Antigravity)",
-          "reasoning": true,
-          "attachment": true,
-          "limit": {
-            "context": 1048576,
-            "output": 65536
-          },
-          "cost": {
-            "input": 0.4,
-            "output": 1.50
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          }
-        },
-        "gemini-3-flash-lite": {
-          "name": "Gemini 3 Flash Lite (Antigravity)",
-          "attachment": true,
-          "limit": {
-            "context": 1048576,
-            "output": 65536
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image",
-              "pdf"
-            ],
-            "output": [
-              "text"
-            ]
-          }
-        }
-      }
-    },
     "openrouter": {
       "npm": "@ai-sdk/openai-compatible",
       "options": {
@@ -539,97 +436,6 @@
           "cost": {
             "input": 0.60,
             "output": 3.0
-          }
-        },
-        "xiaomi/mimo-v2-flash:free": {
-          "id": "xiaomi/mimo-v2-flash:free",
-          "name": "Xiaomi: MiMo V2 Flash (Free)",
-          "tool_call": true,
-          "temperature": true,
-          "reasoning": true,
-          "limit": {
-            "context": 256000,
-            "output": 64000
-          },
-          "cost": {
-            "input": 0,
-            "output": 0
-          }
-        },
-        "nex-agi/deepseek-v3.1-nex-n1:free": {
-          "disable": true,
-          "id": "nex-agi/deepseek-v3.1-nex-n1:free",
-          "name": "Nex AGI: DeepSeek V3.1 Nex N1 (Free)",
-          "tool_call": true,
-          "temperature": true,
-          "limit": {
-            "context": 131072,
-            "output": 163840
-          }
-        },
-        "allenai/olmo-3.1-32b-think:free": {
-          "disable": true,
-          "id": "allenai/olmo-3.1-32b-think:free",
-          "name": "olmo-3.1 32b think free",
-          "tool_call": true,
-          "temperature": true,
-          "reasoning": true,
-          "interleaved": {
-            "field": "reasoning_details"
-          },
-          "limit": {
-            "context": 65000,
-            "output": 65000
-          },
-          "cost": {
-            "input": 0.1,
-            "output": 0.1
-          }
-        },
-        "qwen/qwen3-next-80b-a3b-thinking": {
-          "disable": true,
-          "id": "qwen/qwen3-next-80b-a3b-thinking",
-          "name": "qwen3 80b think",
-          "tool_call": true,
-          "temperature": true,
-          "reasoning": true,
-          "interleaved": {
-            "field": "reasoning_content"
-          },
-          "limit": {
-            "context": 128000,
-            "output": 128000
-          },
-          "cost": {
-            "input": 0.12,
-            "output": 1.2
-          }
-        },
-        "qwen/qwen-3-30b-a3b-instruct:free": {
-          "disable": true,
-          "id": "qwen/qwen-3-30b-a3b-instruct:free",
-          "name": "Qwen 3 30B A3B (Free)",
-          "tool_call": true,
-          "temperature": true,
-          "reasoning": true,
-          "interleaved": {
-            "field": "reasoning_content"
-          },
-          "limit": {
-            "context": 32768,
-            "output": 4096
-          }
-        },
-        "nvidia/nemotron-3-nano-30b-a3b": {
-          "disable": true,
-          "id": "nvidia/nemotron-3-nano-30b-a3b",
-          "name": "Nemotron3 Nano",
-          "tool_call": true,
-          "temperature": true,
-          "reasoning": true,
-          "limit": {
-            "context": 256000,
-            "output": 32000
           }
         },
         "google/gemini-3-flash-preview": {
@@ -727,10 +533,10 @@
         "baseURL": "https://opencode.ai/zen/v1"
       },
       "models": {
-        "gemini-3-pro": {
+        "gemini-3.1-pro": {
           "disable": true,
-          "id": "gemini-3-pro",
-          "name": "Gemini 3 Pro (Zen)",
+          "id": "gemini-3.1-pro",
+          "name": "Gemini 3.1 Pro (Zen)",
           "tool_call": true,
           "temperature": true,
           "reasoning": true,
