@@ -4,42 +4,25 @@
 sequenceDiagram
     autonumber
     participant CEO
-    participant PM as Product Manager
-    participant RA as Reviewer A
-    participant RB as Reviewer B
-    participant RC as Reviewer C
-    participant Commit as Commit Agent
+    participant PM as Product Manager (PM)
+    participant R as Reviewer
     participant Plan as plan.md
 
-    CEO->>PM: Share idea
+    CEO->>PM: Share ideas <br>funds the project
     PM->>Plan: Create from docs/features/feat_template.md
     PM->>Plan: Second pass refinement
     
-    Note over PM,RA: Round 1 - Reviewer A
-    PM->>+RA: Request review
-    RA->>Plan: Read plan
-    RA->>RA: Create review-a-r1-{timestamp}-{suffix}.md
-    RA-->>-PM: Review complete
+    Note over PM,R: Round 1 - Reviewer
+    PM->>+R: Request review
+    R->>Plan: Read plan
+    R->>R: Create review-r1-{timestamp}-{suffix}.md
+    R-->>-PM: Review complete
     
-    PM->>PM: Read review-a-r1-*.md
+    PM->>PM: Read review-r1-*.md
     PM->>Plan: Update "Open Questions & Decisions" section<br/>and plan when appropriate
     PM->>PM: Delete review file
-    PM->>+Commit: Handoff for commit
-    Commit->>Commit: Commit plan update + review-file deletion
-    Commit-->>-PM: Commit complete
-    
-    Note over PM,RB: Round 1 - Reviewer B
-    PM->>+RB: Request review
-    RB->>Plan: Read plan
-    RB->>RB: Create review-b-r1-{timestamp}-{suffix}.md
-    RB-->>-PM: Review complete
-    
-    PM->>PM: Read review-b-r1-*.md
-    PM->>Plan: Update "Open Questions & Decisions" section<br/>and plan when appropriate
-    PM->>PM: Delete review file
-    PM->>+Commit: Handoff for commit
-    Commit->>Commit: Commit plan update + review-file deletion
-    Commit-->>-PM: Commit complete
+    Note right of PM: Commit using a subagent
+    PM->>Plan: Commit plan update + review-file deletion
     
     PM-->>CEO: Plan ready for review
     
@@ -50,22 +33,20 @@ sequenceDiagram
     PM->>PM: Read review-ceo-r1.md
     PM->>Plan: Update "Open Questions & Decisions" section<br/>and plan when appropriate
     PM->>PM: Delete review file
-    PM->>+Commit: Handoff for commit
-    Commit->>Commit: Commit plan update + review-file deletion
-    Commit-->>-PM: Commit complete
+    Note right of PM: Commit using a subagent
+    PM->>Plan: Commit plan update + review-file deletion
     
-    Note over PM,RC: Round 2 - Reviewer C
-    PM->>+RC: Request review
-    RC->>Plan: Read plan
-    RC->>RC: Create review-c-r2-{timestamp}-{suffix}.md
-    RC-->>-PM: Review complete
+    Note over PM,R: Round 2 - Reviewer
+    PM->>+R: Request review
+    R->>Plan: Read plan
+    R->>R: Create review-r2-{timestamp}-{suffix}.md
+    R-->>-PM: Review complete
     
-    PM->>PM: Read review-c-r2-*.md
+    PM->>PM: Read review-r2-*.md
     PM->>Plan: Update "Open Questions & Decisions" section<br/>and plan when appropriate
     PM->>PM: Delete review file
-    PM->>+Commit: Handoff for commit
-    Commit->>Commit: Commit plan update + review-file deletion
-    Commit-->>-PM: Commit complete
+    Note right of PM: Commit using a subagent
+    PM->>Plan: Commit plan update + review-file deletion
     
     PM-->>CEO: Plan ready for review
     
@@ -76,9 +57,8 @@ sequenceDiagram
     PM->>PM: Read review-ceo-r2.md
     PM->>Plan: Update "Open Questions & Decisions" section<br/>and plan when appropriate
     PM->>PM: Delete review file
-    PM->>+Commit: Handoff for commit
-    Commit->>Commit: Commit plan update + review-file deletion
-    Commit-->>-PM: Commit complete
+    Note right of PM: Commit using a subagent
+    PM->>Plan: Commit plan update + review-file deletion
     
     PM-->>CEO: Final plan
     CEO->>CEO: Review decisions via git diff
@@ -94,19 +74,15 @@ docs/features/
 └── feat-0004/
     ├── plan_agent-chain-review-artifact-recursive-feedback.md
     ├── workflow-diagram.md
-    ├── review-a-r1-{timestamp}-{suffix}.md
-    ├── review-b-r1-{timestamp}-{suffix}.md
+    ├── review-r1-{timestamp}-{suffix}.md
     ├── review-ceo-r1.md
-    ├── review-c-r2-{timestamp}-{suffix}.md
-    ├── review-ceo-r2.md
-    └── workflow-diagram.md
+    ├── review-r2-{timestamp}-{suffix}.md
+    └── review-ceo-r2.md
 ```
 
 ## Review File Naming Convention
 
 | Reviewer | Pattern | Example |
 |----------|---------|---------|
-| Reviewer A | `review-a-r{round}-{timestamp}-{suffix}.md` | `review-a-r1-2026-03-15_12h30_abc.md` |
-| Reviewer B | `review-b-r{round}-{timestamp}-{suffix}.md` | `review-b-r1-2026-03-15_14h00_xyz.md` |
-| Reviewer C | `review-c-r{round}-{timestamp}-{suffix}.md` | `review-c-r2-2026-03-15_16h30_def.md` |
+| Reviewer | `review-r{round}-{timestamp}-{suffix}.md` | `review-r1-2026-03-15_12h30_abc.md` |
 | CEO | `review-ceo-r{round}.md` | `review-ceo-r1.md`, `review-ceo-r2.md` |
