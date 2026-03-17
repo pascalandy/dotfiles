@@ -74,42 +74,6 @@ Imagine we do 90 reviews of course, many ideas will come over and again and agai
 
 <!-- Use these sections only when they materially reduce ambiguity. Delete the rest. -->
 
-## Contract / Interface *(add-on)*
-
-<!-- The assistant AI must rename this section to the boundary it describes, for example API Contract, UI Behavior, CLI Contract, Event Contract, Service Contract, or Data Contract. Use only the subsections that fit that boundary and delete the rest. Do not repeat requirements here; describe exposed behavior only.
-
-Typical subsection patterns:
-- API Contract: endpoint, method, auth, request fields, response shape, status codes, error codes
-- UI Behavior: entry point, user actions, states, validations, empty/loading/error states
-- CLI Contract: command shape, arguments, flags, exit codes, stdout/stderr behavior
-- Event Contract: trigger, schema, producer/consumer, delivery semantics, retries, idempotency
-- Service Contract: trigger, inputs, outputs, side effects, failure handling
-- Data Contract: schema, fields, constraints, versioning, migration/backward-compatibility notes
--->
-
-<!-- Use these sections only when they materially reduce ambiguity. Delete the rest. -->
-
-## Testing Strategy *(add-on)*
-
-<!-- The assistant AI must define the testing strategy, not individual test cases. 
-
-Describe the required test environments, ci commands (via just), unit test, integration, contract, or end-to-end coverage to add, mocking strategies, and types of tests needed (e.g., 'Requires E2E testing for the checkout flow'). Do not map 1:1 to Acceptance Criteria. -->
-
-## Solution Approach *(add-on)*
-
-<!-- Wait for specific instructions to work on the solution approach section. The assistant AI must NOT populate this section during the INITIAL drafting phase. Wait until Use Cases, Requirements, and Acceptance Criteria are finalized and all Open Questions are RESOLVED before detailing the solution. -->
-
-<!-- When it is time to populate this section, the assistant AI must describe the implementation approach so the `beads` agent can easily extract and generate coding tasks.
-
-You MUST structure this section with these exact bolded lists:
-- **Target Files:** An explicit list of exact file paths to modify, create, or delete.
-- **Architecture & Flow:** The proposed data flow, state changes, or structural decisions.
-- **Key Changes:** The specific functions, components, or logic blocks to be implemented.
-- **Risks & Sequencing:** Any major tradeoffs, migration steps, or strict order-of-operation constraints.
-Do not restate requirements.
-Do not write low-level code implementation details unless strictly necessary to avoid ambiguity.
-Delete this section if it adds no value. -->
-
 <!-- ============ END of this template ============ -->
 
 <!--
