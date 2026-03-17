@@ -7,6 +7,12 @@ description: Create and edit JSON Canvas files (.canvas) with nodes, edges, grou
 
 User's vault_path=`/Users/andy16/Documents/_my_docs/10_obsidian/vault_obsidian`
 
+## Quick orientation
+
+vault_path=`/Users/andy16/Documents/_my_docs/10_obsidian/vault_obsidian`
+- reference map: `the vault (yml).md`
+
+
 ## File Structure
 
 A canvas file (`.canvas`) contains two top-level arrays following the [JSON Canvas Spec 1.0](https://jsoncanvas.org/spec/1.0/):

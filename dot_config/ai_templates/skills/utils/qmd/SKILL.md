@@ -1,17 +1,7 @@
 ---
 name: qmd
 description: >
-  Use this skill whenever the user wants to search, recall, open, or pull
-  information from local indexed markdown collections—especially Obsidian
-  vaults, docs folders, personal notes, or any existing QMD collection.
-  Also use it when the user mentions QMD itself, query documents,
-  `lex:` / `vec:` / `hyde:` / `intent:`, collection filters,
-  `qmd query`, `qmd search`, or `qmd vsearch`, or wants better retrieval
-  quality from local markdown. Trigger even when they do not say “QMD” and
-  instead ask things like “find my note about X,” “search my vault,” “what
-  markdown docs mention Y,” “open the relevant files,” or “tune this
-  retrieval.” Do not use it for web search, generic repo code search, or
-  non-QMD data sources unless QMD is clearly the source of truth.
+  Use only when the user explicitly says "qmd" to search local markdown collections (Obsidian vaults, docs folders, QMD collections). Do not use for web search or generic repo code search.
 compatibility: Requires qmd CLI >= 1.1.5. `bun install -g @tobilu/qmd`
 allowed-tools: "Bash(qmd:*)"
 license: MIT

@@ -9,6 +9,11 @@ Use the `obsidian` CLI to interact with a running Obsidian instance. Requires Ob
 
 User's vault_path=`/Users/andy16/Documents/_my_docs/10_obsidian/vault_obsidian`
 
+## Quick orientation
+
+vault_path=`/Users/andy16/Documents/_my_docs/10_obsidian/vault_obsidian`
+- reference map: `the vault (yml).md`
+
 ## Command reference
 
 Run `obsidian help` to see all available commands. This is always up to date. Full docs: https://help.obsidian.md/cli
