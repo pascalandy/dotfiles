@@ -1,6 +1,7 @@
 ---
 name: grill-me-v2
-description: Stress-test a product plan like a brutal founder: interrogate the idea, the user, the wedge, the scope, and the risks until only the strongest version remains.
+description: |
+   Stress-test a product plan like a brutal founder - interrogate the idea, the user, the wedge, the scope, and the risks until only the strongest version remains.
 ---
 
 Grill my plan relentlessly until we reach a concrete shared understanding of:
