@@ -57,7 +57,7 @@ created: {{ YYYY-MM-DD }}
 <!-- Reviewers do not write in the plan. They create standalone `review-*.md` files in the same feature directory. The Product Manager (PM) reads all pending review files, updates the plan to reflect accepted decisions, rejected suggestions that matter for future review, and unresolved questions, records durable outcomes in `Open Question and Decisions`, and deletes the consumed review files after consolidation. The commit agent is the only role that creates commits. Git history serves as the audit trail. If there are no open questions, write "None". example:
 
 ```md
-**QST_01:** {{ concise question, concern, or decision topic }}
+**QST_{XX}:** {{ concise question, concern, or decision topic }}
 - **DECISION:** {{ selected answer. }}. RATIONALE: {{ short reason this choice stands }} ({timestamp})
 ```
 -->
