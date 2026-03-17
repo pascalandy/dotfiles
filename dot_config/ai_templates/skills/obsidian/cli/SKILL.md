@@ -10,7 +10,7 @@ Use the `obsidian` CLI to interact with a running Obsidian instance. Requires Ob
 ## Quick orientation
 
 vault_path=`/Users/andy16/Documents/_my_docs/10_obsidian/vault_obsidian`
-- Read `_bases/The Vault 🧠.base`, I have more than 40 views in that base
+- Read `_bases/The Vault 🧠.base`, I have more than 40 well curated views in that base
 
 ## Command reference
 
