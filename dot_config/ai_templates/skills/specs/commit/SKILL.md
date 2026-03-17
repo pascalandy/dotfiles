@@ -5,37 +5,37 @@ description: Create atomic commits with clear, specific messages. Use before any
 
 # Skill: Commit
 
-Create truly atomic commits: one logical change per commit.
+Create atomic commits: one logical change per commit.
 
-## Core rule
+## Rule
 
-A commit must be describable in one sentence without using "and".
-If not, split it.
+If a commit cannot be described in one sentence without "and", split it.
 
-## Non-negotiables
+## Required behavior
 
+- Review the entire working tree before committing
 - Never combine unrelated changes
-- Always analyze the full working tree before committing
+- Stage and commit each logical group separately
+- Do not push unless the user explicitly asks
 - Use a commit body for any non-trivial commit
 - When splitting commits, never use `git add .` or `git add -A`
 
-## Required workflow
+## Workflow
 
-1. Inspect all changes with `git status` and `git diff --stat`
-2. Group changes by logical purpose across the entire working tree
-3. Split when changes differ by purpose, feature, commit type, or rollback boundary
-4. Stage only the files for one group with specific `git add <paths>`
-5. Commit each group in sequence
-6. Push only if the user asked
+1. Run `git status` and `git diff --stat`
+2. Group all changes by logical purpose
+3. Split by purpose, feature, type, or rollback boundary
+4. Stage only the paths for one group with `git add <paths>`
+5. Commit each group in order
+6. Push only if requested
 
-## Split rule
+## Split when
 
-Split commits when changes involve:
-- Different purposes
-- Different features
-- Different commit types (`feat`, `fix`, `docs`, `refactor`, etc.)
-- Code and docs that are not part of the same logical change
-- Changes that would not be reverted together
+- Changes serve different purposes
+- Changes belong to different features
+- Changes use different commit types
+- Changes would not be reverted together
+- Docs/config/tooling changes are unrelated to the code change
 
 ## Commit types
 
@@ -51,34 +51,33 @@ Split commits when changes involve:
 - `🔒 security`
 - `🚧 wip`
 
-## Message format
+## Format
 
 ```text
 <emoji> <type>: <scope>: <imperative summary>
 
 - Purpose: <why this change exists>
-- Impact: <user, system, or developer effect>
+- Impact: <effect on users, system, or future work>
 ```
 
-Optional:
-- Add `(context)` after scope when useful
-- Add `File(s) changed` for multi-file or non-obvious commits
-- Trivial changes may use a minimal body
+Use these optional fields when helpful:
+- `File(s) changed:` for multi-file or non-obvious commits
+- `Nature of changes:` when the category needs clarification
 
-## Writing rules
+## Writing style
 
-- Use imperative mood: `Add`, `Fix`, `Remove`
+- Use imperative mood
 - Use active voice
 - Be specific and concrete
-- Omit needless words
-- Avoid puffery like `improve`, `enhance`, `streamline`, `optimize` unless followed by a measurable detail
+- Cut filler
+- Avoid vague claims like `improve`, `enhance`, `streamline`, `optimize` unless made concrete
 - Keep the subject under 72 characters
 - Do not end body lines with periods
 
-## Quality check
+## Final check
 
-Before committing, verify:
-- This commit contains one logical change
-- The message describes that change precisely
-- The body explains why it matters
-- No unrelated files are staged
+Before committing, confirm:
+- one logical change
+- no unrelated files staged
+- subject says what changed
+- body says why it matters
