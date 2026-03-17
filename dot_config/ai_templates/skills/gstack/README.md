@@ -1,8 +1,15 @@
 # gstack
 
-**gstack turns Claude Code from one generic assistant into a team of specialists you can summon on demand.**
+**gstack turns one generic coding assistant into a team of specialists you can summon on demand.**
 
-Ten opinionated workflow skills for [Claude Code](https://docs.anthropic.com/en/docs/claude-code). Plan review, code review, one-command shipping, browser automation, QA testing, engineering retrospectives, and post-ship documentation — all as slash commands.
+Ten opinionated workflow skills originally built for Claude Code and adapted here for assistant-agnostic installs such as OpenCode. Plan review, code review, one-command shipping, browser automation, QA testing, engineering retrospectives, and post-ship documentation — whether your assistant exposes them as named skills, slash commands, or auto-triggered workflows.
+
+## Compatibility Note
+
+- Slash-prefixed names like `/ship` and `/review` are labels for the workflows, not a requirement that your assistant supports slash commands.
+- References to `CLAUDE.md` should be read as "the assistant instructions file for this project", such as `AGENTS.md`, `CLAUDE.md`, or an equivalent file.
+- The original upstream project assumes `.claude/skills/gstack`. This vendored copy also supports OpenCode-style locations such as `.opencode/skill/gstack` and `~/.config/opencode/skill/gstack`.
+- This repo copy is an adapted prompt bundle, not a full mirror of the upstream runtime bundle. Upstream files like `setup`, `package.json`, `VERSION`, and `CHANGELOG.md` are not all present here, so build/upgrade instructions that rely on them apply to a full upstream checkout, not necessarily to this vendored subset.
 
 ### Without gstack
 
@@ -40,7 +47,7 @@ You:   [enter plan mode, describe the feature]
 
 You:   /plan-ceo-review
 
-Claude: "Photo upload" is not the feature. The real job is helping sellers
+Assistant: "Photo upload" is not the feature. The real job is helping sellers
         create listings that actually sell. Here's what the 10-star version
         looks like: auto-identify the product from the photo, pull specs and
         pricing comps from the web, draft the title and description, suggest
@@ -48,7 +55,7 @@ Claude: "Photo upload" is not the feature. The real job is helping sellers
 
 You:   /plan-eng-review
 
-Claude: [Architecture diagram, state machine for upload → classify → enrich
+Assistant: [Architecture diagram, state machine for upload → classify → enrich
         → draft pipeline, async job boundaries, failure modes, test matrix]
 
 You:   # switch to build mode
@@ -57,7 +64,7 @@ You:   /implement
 
 You:   /review
 
-Claude: Race condition: two tabs can overwrite cover-photo selection.
+Assistant: Race condition: two tabs can overwrite cover-photo selection.
         Trust boundary: pulling web data into draft generation creates
         a prompt injection vector. Missing: orphan cleanup for failed uploads.
 
@@ -65,35 +72,35 @@ You:   (fix the issues)
 
 You:   /ship
 
-Claude: [Syncs main, runs tests, pushes branch, opens PR — 6 tool calls, done]
+Assistant: [Syncs main, runs tests, pushes branch, opens PR — 6 tool calls, done]
 
 You:   /qa
 
-Claude: Analyzing branch diff... 8 files changed, 3 routes affected.
+Assistant: Analyzing branch diff... 8 files changed, 3 routes affected.
         [Tests /listings/new, /listings/:id, /api/listings against localhost:3000]
         All 3 routes working. Upload + enrichment flow passes end to end.
 
 You:   /setup-browser-cookies staging.myapp.com
 
-Claude: Imported 8 cookies for staging.myapp.com from Chrome.
+Assistant: Imported 8 cookies for staging.myapp.com from Chrome.
 
 You:   /qa https://staging.myapp.com --quick
 
-Claude: [Smoke test: homepage + 5 pages, 30 seconds]
+Assistant: [Smoke test: homepage + 5 pages, 30 seconds]
         Health Score: 91/100. No critical issues. 1 medium: mobile nav overlap.
 ```
 
 ## Who this is for
 
-You already use Claude Code heavily and want consistent, high-rigor workflows instead of one mushy generic mode. You want to tell the model what kind of brain to use right now — founder taste, engineering rigor, paranoid review, or fast execution.
+You already use an AI coding assistant heavily and want consistent, high-rigor workflows instead of one mushy generic mode. You want to tell the model what kind of brain to use right now — founder taste, engineering rigor, paranoid review, or fast execution.
 
 This is not a prompt pack for beginners. It is an operating system for people who ship.
 
 ## How to fly: 10 sessions at once
 
-gstack is powerful with one Claude Code session. It is transformative with ten.
+gstack is powerful with one assistant session. It is transformative with ten.
 
-[Conductor](https://conductor.build) runs multiple Claude Code sessions in parallel — each in its own isolated workspace. That means you can have one session running `/qa` on staging, another doing `/review` on a PR, a third implementing a feature, and seven more working on other branches. All at the same time.
+[Conductor](https://conductor.build) runs multiple assistant sessions in parallel — each in its own isolated workspace. That means you can have one session running `/qa` on staging, another doing `/review` on a PR, a third implementing a feature, and seven more working on other branches. All at the same time.
 
 Each workspace gets its own isolated browser instance automatically — separate Chromium process, cookies, tabs, and logs stored in `.gstack/` inside each project root. No port collisions, no shared state, no configuration needed. `/browse` and `/qa` sessions never interfere with each other, even across ten parallel workspaces.
 
@@ -101,29 +108,50 @@ This is the setup I use. One person, ten parallel agents, each with the right co
 
 ## Install
 
-**Requirements:** [Claude Code](https://docs.anthropic.com/en/docs/claude-code), [Git](https://git-scm.com/), [Bun](https://bun.sh/) v1.0+. `/browse` compiles a native binary — works on macOS and Linux (x64 and arm64).
+**Requirements:** an assistant that supports local skill files, [Git](https://git-scm.com/), and [Bun](https://bun.sh/) v1.0+. `/browse` compiles a native binary — works on macOS and Linux (x64 and arm64).
 
 ### Step 1: Install on your machine
 
-Open Claude Code and paste this. Claude will do the rest.
+Clone gstack into the skill directory your assistant uses. Common locations:
 
-> Install gstack: run `git clone https://github.com/garrytan/gstack.git ~/.claude/skills/gstack && cd ~/.claude/skills/gstack && ./setup` then add a "gstack" section to CLAUDE.md that says to use the /browse skill from gstack for all web browsing, never use mcp\_\_claude-in-chrome\_\_\* tools, and lists the available skills: /plan-ceo-review, /plan-eng-review, /review, /ship, /browse, /qa, /qa-only, /setup-browser-cookies, /retro, /document-release. Then ask the user if they also want to add gstack to the current project so teammates get it.
+- OpenCode project install: `.opencode/skill/gstack`
+- OpenCode global install: `~/.config/opencode/skill/gstack`
+- Claude Code install: `.claude/skills/gstack` or `~/.claude/skills/gstack`
+
+Example:
+
+```bash
+git clone https://github.com/garrytan/gstack.git ~/.config/opencode/skill/gstack
+cd ~/.config/opencode/skill/gstack
+./setup
+```
+
+Then add a short gstack section to your assistant instructions file (`AGENTS.md`, `CLAUDE.md`, or equivalent) that lists the available workflow names and says to use the `browse` workflow for web browsing.
 
 ### Step 2: Add to your repo so teammates get it (optional)
 
-> Add gstack to this project: run `cp -Rf ~/.claude/skills/gstack .claude/skills/gstack && rm -rf .claude/skills/gstack/.git && cd .claude/skills/gstack && ./setup` then add a "gstack" section to this project's CLAUDE.md that says to use the /browse skill from gstack for all web browsing, never use mcp\_\_claude-in-chrome\_\_\* tools, lists the available skills: /plan-ceo-review, /plan-eng-review, /review, /ship, /browse, /qa, /setup-browser-cookies, /retro, /document-release, and tells Claude that if gstack skills aren't working, run `cd .claude/skills/gstack && ./setup` to build the binary and register skills.
+Copy the installed bundle into your project's assistant skill directory, remove the upstream `.git`, and run `./setup` there. For example:
 
-Real files get committed to your repo (not a submodule), so `git clone` just works. The binary and node\_modules are gitignored — teammates just need to run `cd .claude/skills/gstack && ./setup` once to build (or `/browse` handles it automatically on first use).
+```bash
+cp -Rf ~/.config/opencode/skill/gstack .opencode/skill/gstack
+rm -rf .opencode/skill/gstack/.git
+cd .opencode/skill/gstack
+./setup
+```
+
+Then document the workflow names in the project's assistant instructions file so teammates know when to use them.
+
+Real files get committed to your repo (not a submodule), so `git clone` just works. The binary and `node_modules` are gitignored — teammates just need to run `cd <assistant-skill-dir>/gstack && ./setup` once to build.
 
 ### What gets installed
 
-- Skill files (Markdown prompts) in `~/.claude/skills/gstack/` (or `.claude/skills/gstack/` for project installs)
-- Symlinks at `~/.claude/skills/browse`, `~/.claude/skills/qa`, `~/.claude/skills/review`, etc. pointing into the gstack directory
+- Skill files (Markdown prompts) in your assistant's skill directory, such as `~/.config/opencode/skill/gstack/` or `~/.claude/skills/gstack/`
+- Assistant-specific registration or discovery metadata, if your assistant uses it
 - Browser binary at `browse/dist/browse` (~58MB, gitignored)
 - `node_modules/` (gitignored)
 - `/retro` saves JSON snapshots to `.context/retros/` in your project for trend tracking
 
-Everything lives inside `.claude/`. Nothing touches your PATH or runs in the background.
+Everything lives inside your assistant's skill directory. Nothing touches your PATH or runs in the background.
 
 ---
 
@@ -365,7 +393,7 @@ It also learns. Every false positive you confirm gets saved to `~/.gstack/grepti
 ```
 You:   /ship
 
-Claude: [syncs main, runs tests, pre-landing review...]
+Assistant: [syncs main, runs tests, pre-landing review...]
 
         Greptile found 3 comments on this PR:
 
@@ -397,7 +425,7 @@ Claude: [syncs main, runs tests, pre-landing review...]
 
 You:    A
 
-Claude: Replied to Greptile. Re-running tests after the fix...
+Assistant: Replied to Greptile. Re-running tests after the fix...
         All tests pass. Continuing to version bump.
 
         [creates PR with Greptile Review section in body]
@@ -418,13 +446,13 @@ That is a real step-change. The full cycle becomes: plan, code, run the app, ins
 
 It is a compiled binary that talks to a persistent Chromium daemon — built on [Playwright](https://playwright.dev/) by Microsoft. First call starts the browser (~3s). Every call after that: ~100-200ms. The browser stays running between commands, so cookies, tabs, and localStorage carry over.
 
-After I push a branch, I tell Claude to go check staging. It does the entire QA pass for me:
+After I push a branch, I tell the assistant to go check staging. It does the entire QA pass for me:
 
 ```
 You:   /browse staging.myapp.com — log in, test the signup flow, and check
        every page I changed in this branch
 
-Claude: [18 tool calls, ~60 seconds]
+Assistant: [18 tool calls, ~60 seconds]
 
         > browse goto https://staging.myapp.com/signup
         > browse snapshot -i
@@ -461,7 +489,7 @@ Claude: [18 tool calls, ~60 seconds]
 
 18 tool calls, about a minute. It signed up a test user, navigated every page I changed, took screenshots, read them, checked the console for errors, and verified the API. That is a full QA pass. I did not open a browser.
 
-It works for reading documentation, verifying deployments, filling out forms, taking screenshots, comparing pages across environments, and anything else where Claude needs eyes on a live URL.
+It works for reading documentation, verifying deployments, filling out forms, taking screenshots, comparing pages across environments, and anything else where the assistant needs eyes on a live URL.
 
 **Security note:** `/browse` runs a persistent Chromium session. Cookies, localStorage, and session state carry over between commands. Do not use it against sensitive production environments unless you intend to — it is a real browser with real state. The session auto-shuts down after 30 minutes of idle time.
 
@@ -480,7 +508,7 @@ The most common use case: you're on a feature branch, you just finished coding, 
 ```
 You:   /qa
 
-Claude: Analyzing branch diff against main...
+Assistant: Analyzing branch diff against main...
         12 files changed: 3 controllers, 2 views, 4 services, 3 tests
 
         Affected routes: /listings/new, /listings/:id, /api/listings
@@ -506,7 +534,7 @@ Four modes:
 ```
 You:   /qa https://staging.myapp.com
 
-Claude: [Explores 12 pages, fills 3 forms, tests 2 flows]
+Assistant: [Explores 12 pages, fills 3 forms, tests 2 flows]
 
         QA Report: staging.myapp.com — Health Score: 72/100
 
@@ -535,14 +563,14 @@ It auto-detects installed Chromium browsers (Comet, Chrome, Arc, Brave, Edge), d
 ```
 You:   /setup-browser-cookies
 
-Claude: Cookie picker opened — select the domains you want to import
+Assistant: Cookie picker opened — select the domains you want to import
         in your browser, then tell me when you're done.
 
         [You pick github.com, myapp.com in the browser UI]
 
 You:    done
 
-Claude: Imported 2 domains (47 cookies). Session is ready.
+Assistant: Imported 2 domains (47 cookies). Session is ready.
 ```
 
 Or skip the UI entirely:
@@ -550,7 +578,7 @@ Or skip the UI entirely:
 ```
 You:   /setup-browser-cookies github.com
 
-Claude: Imported 12 cookies for github.com from Comet.
+Assistant: Imported 12 cookies for github.com from Comet.
 ```
 
 First import per browser triggers a macOS Keychain prompt — click "Allow" or "Always Allow."
@@ -568,7 +596,7 @@ It is team-aware. It identifies who is running the command, gives you the deepes
 ```
 You:   /retro
 
-Claude: Week of Mar 1: 47 commits (3 contributors), 3.2k LOC, 38% tests, 12 PRs, peak: 10pm | Streak: 47d
+Assistant: Week of Mar 1: 47 commits (3 contributors), 3.2k LOC, 38% tests, 12 PRs, peak: 10pm | Streak: 47d
 
         ## Your Week
         32 commits, +2.4k LOC, 41% tests. Peak hours: 9-11pm.
@@ -602,7 +630,7 @@ After `/ship` creates the PR but before it merges, `/document-release` reads eve
 ```
 You:   /document-release
 
-Claude: Analyzing 21 files changed across 3 commits. Found 8 documentation files.
+Assistant: Analyzing 21 files changed across 3 commits. Found 8 documentation files.
 
         README.md: updated skill count from 9 to 10, added new skill to table
         CLAUDE.md: added new directory to project structure
@@ -618,29 +646,25 @@ It also polishes CHANGELOG voice (without ever overwriting entries), cleans up c
 
 ## Troubleshooting
 
-**Skill not showing up in Claude Code?**
-Run `cd ~/.claude/skills/gstack && ./setup` (or `cd .claude/skills/gstack && ./setup` for project installs). This rebuilds symlinks so Claude can discover the skills.
+**Skill not showing up?**
+Run `cd <assistant-skill-dir>/gstack && ./setup`. This refreshes whatever registration or build artifacts your assistant needs.
 
 **`/browse` fails or binary not found?**
-Run `cd ~/.claude/skills/gstack && bun install && bun run build`. This compiles the browser binary. Requires Bun v1.0+.
+Run `cd <assistant-skill-dir>/gstack && bun install && bun run build`. This compiles the browser binary. Requires Bun v1.0+.
 
 **Project copy is stale?**
-Run `/gstack-upgrade` — it updates both the global install and any vendored project copy automatically.
+Run the `gstack-upgrade` workflow — it now walks through a safe manual refresh flow for either git checkouts or vendored copies.
 
 **`bun` not installed?**
 Install it: `curl -fsSL https://bun.sh/install | bash`
 
 ## Upgrading
 
-Run `/gstack-upgrade` in Claude Code. It detects your install type (global or vendored), upgrades, syncs any project copies, and shows what's new.
-
-Or set `auto_upgrade: true` in `~/.gstack/config.yaml` to upgrade automatically whenever a new version is available.
+Run the `gstack-upgrade` workflow in your assistant. It detects common install locations, refreshes git checkouts safely, and gives you a manual refresh path for vendored copies.
 
 ## Uninstalling
 
-Paste this into Claude Code:
-
-> Uninstall gstack: remove the skill symlinks by running `for s in browse plan-ceo-review plan-eng-review review ship retro qa qa-only setup-browser-cookies document-release; do rm -f ~/.claude/skills/$s; done` then run `rm -rf ~/.claude/skills/gstack` and remove the gstack section from CLAUDE.md. If this project also has gstack at .claude/skills/gstack, remove it by running `for s in browse plan-ceo-review plan-eng-review review ship retro qa qa-only setup-browser-cookies document-release; do rm -f .claude/skills/$s; done && rm -rf .claude/skills/gstack` and remove the gstack section from the project CLAUDE.md too.
+Uninstall by removing the `gstack` directory from your assistant's skill location, removing any assistant-specific registration or symlinks that point at it, and deleting the gstack section from your assistant instructions file.
 
 ## Development
 

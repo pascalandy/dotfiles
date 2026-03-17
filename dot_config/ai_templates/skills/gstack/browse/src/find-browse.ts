@@ -27,16 +27,29 @@ function getGitRoot(): string | null {
 export function locateBinary(): string | null {
   const root = getGitRoot();
   const home = homedir();
+  const candidates: string[] = [];
 
-  // Workspace-local takes priority (for development)
+  // Workspace-local takes priority.
   if (root) {
-    const local = join(root, '.claude', 'skills', 'gstack', 'browse', 'dist', 'browse');
-    if (existsSync(local)) return local;
+    candidates.push(
+      join(root, '.opencode', 'skill', 'gstack', 'browse', 'dist', 'browse'),
+      join(root, '.opencode', 'skills', 'gstack', 'browse', 'dist', 'browse'),
+      join(root, '.claude', 'skills', 'gstack', 'browse', 'dist', 'browse'),
+    );
   }
 
-  // Global fallback
-  const global = join(home, '.claude', 'skills', 'gstack', 'browse', 'dist', 'browse');
-  if (existsSync(global)) return global;
+  // Global fallback.
+  candidates.push(
+    join(home, '.config', 'opencode', 'skill', 'gstack', 'browse', 'dist', 'browse'),
+    join(home, '.config', 'opencode', 'skills', 'gstack', 'browse', 'dist', 'browse'),
+    join(home, '.opencode', 'skill', 'gstack', 'browse', 'dist', 'browse'),
+    join(home, '.opencode', 'skills', 'gstack', 'browse', 'dist', 'browse'),
+    join(home, '.claude', 'skills', 'gstack', 'browse', 'dist', 'browse'),
+  );
+
+  for (const candidate of candidates) {
+    if (existsSync(candidate)) return candidate;
+  }
 
   return null;
 }
@@ -46,7 +59,9 @@ export function locateBinary(): string | null {
 function main() {
   const bin = locateBinary();
   if (!bin) {
-    process.stderr.write('ERROR: browse binary not found. Run: cd <skill-dir> && ./setup\n');
+    process.stderr.write(
+      'ERROR: browse binary not found. Set GSTACK_BROWSE_BIN or run ./setup in a full gstack checkout.\n'
+    );
     process.exit(1);
   }
 
