@@ -20,7 +20,7 @@
     "words_min_length": 5
   },
   "show_completions_on_input": false,
-  "theme": "Ayu Dark",
+  "theme": "Gruvbox Dark Soft",
   "agent_servers": {
     "claude-acp": {
       "type": "registry",
