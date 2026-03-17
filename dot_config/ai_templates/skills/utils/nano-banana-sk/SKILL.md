@@ -1,7 +1,7 @@
 ---
 name: nano-banana-sk
 description: |
-Use only when the user explicitly says "nano banana sk" to generate or edit images using Gemini 3 Pro via OpenRouter API. Use when user says "generate image," "create picture," "edit photo," or "make an image." Supports text-to-image, image editing, and compositing.
+   Use only when the user explicitly says "nano banana sk" to generate or edit images using Gemini 3 Pro via OpenRouter API. Use when user says "generate image," "create picture," "edit photo," or "make an image." Supports text-to-image, image editing, and compositing.
 ---
 
 # Nano Banana Pro 3

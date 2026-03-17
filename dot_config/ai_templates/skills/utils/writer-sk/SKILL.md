@@ -1,6 +1,7 @@
 ---
 name: writer-sk
-description: "Use only when the user explicitly asks "writer-sk". It makes writing clearer, more concise"
+description: |
+  Use only when the user explicitly asks 'writer-sk'. It makes writing clearer, more concise
 ---
 
 # Writing Clearly and Concisely
