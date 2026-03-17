@@ -198,4 +198,7 @@ jspm_packages/
 # Archived configs backup (not managed by chezmoi)
 bienvenue_chez_moi/
 
+# Archived raw skill snapshots (not valid chezmoi sources)
+.config/ai_templates/skills_archived/gstack-og/
+
 # (removed sync.sh and backup.sh - they were blocking run_before_sync.sh and run_after_backup.sh)
