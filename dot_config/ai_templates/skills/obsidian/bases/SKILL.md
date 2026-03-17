@@ -5,12 +5,10 @@ description: Create and edit Obsidian Bases (.base files) with views, filters, f
 
 # Obsidian Bases Skill
 
-User's vault_path=`/Users/andy16/Documents/_my_docs/10_obsidian/vault_obsidian`
-
 ## Quick orientation
 
 vault_path=`/Users/andy16/Documents/_my_docs/10_obsidian/vault_obsidian`
-- reference map: `/bases/The Vault 🧠.base`
+- Read `_bases/The Vault 🧠.base`, I have more than 40 views in that base
 
 ## Workflow
 
