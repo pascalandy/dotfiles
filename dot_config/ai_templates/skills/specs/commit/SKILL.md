@@ -33,6 +33,8 @@ Run `git status` and `git diff --stat` to identify all modified files.
 
 ### Step 2: Group by Logical Change
 
+Include all changes (not only change we were working on).
+
 Categorize each change into logical groups. A logical group is:
 
 - Changes that serve **one single purpose**
@@ -58,6 +60,10 @@ For each logical group:
 1. Stage ONLY files for that group: `git add <specific-files>`
 2. Commit with appropriate message (including body if necessary)
 3. Repeat for next group
+
+### Step 5: Push
+
+`git push`
 
 ---
 
