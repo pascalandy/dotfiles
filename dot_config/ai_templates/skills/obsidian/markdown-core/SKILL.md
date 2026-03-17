@@ -1,5 +1,5 @@
 ---
-name: markdown
+name: markdown-core
 description: Create and edit Obsidian Flavored Markdown with wikilinks, embeds, callouts, properties, and other Obsidian-specific syntax. Use when working with .md files in Obsidian, or when the user mentions wikilinks, callouts, frontmatter, tags, embeds, or Obsidian notes.
 ---
 
@@ -10,7 +10,7 @@ Create and edit valid Obsidian Flavored Markdown. Obsidian extends CommonMark an
 ## Quick orientation
 
 vault_path=`/Users/andy16/Documents/_my_docs/10_obsidian/vault_obsidian`
-- Read `_bases/The Vault 🧠.base`, I have more than 40 views in that base
+- Read `_bases/The Vault 🧠.base`, I have more than 40 well curated views in that base
 
 ## Workflow: Creating an Obsidian Note
 
