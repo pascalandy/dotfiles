@@ -1,5 +1,5 @@
 ---
-name: semantic-patterns
+name: semantic-sk
 description: Transform user questions into effective vector search queries for RAG systems. Use when building semantic search, designing RAG pipelines, writing retrieval code, or debugging poor recall. Covers query expansion, decomposition, HyDE, metadata filtering, multi-hop retrieval, and result aggregation.
 ---
 
@@ -47,6 +47,7 @@ When running multiple queries:
 - **Score normalization**: Normalize similarity scores, then combine
 - **De-duplication**: Remove duplicate chunks by ID before final ranking
 
-## Reference
+## Strategies
 
-For code examples and implementation details of each pattern, see [patterns.md](references/patterns.md).
+- Now, go deeper and implement the best strategy in order to resolve the problem. 
+  - See [patterns.md](references/patterns.md)
