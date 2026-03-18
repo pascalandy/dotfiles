@@ -2,4 +2,5 @@
 description: komit
 ---
 
-commit (see how by using skill: commit)
+Commit all files
+- use skill: commit
