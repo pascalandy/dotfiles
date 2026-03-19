@@ -5,6 +5,14 @@
   "hideThinkingBlock": false,
   "defaultThinkingLevel": "medium",
   "theme": "rose-pine",
+  "packages": [
+    {
+      "source": "git:github.com/tmustier/pi-extensions",
+      "extensions": [
+        "usage-extension/index.ts"
+      ]
+    }
+  ],
   "prompts": [
     "prompts",
     "prompts/andy"
