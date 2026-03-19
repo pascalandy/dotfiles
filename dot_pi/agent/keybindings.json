@@ -1,0 +1,9 @@
+{
+  "cycleThinkingLevel": [
+    "ctrl+t",
+    "shift+tab"
+  ],
+  "toggleThinking": [
+    "shift+ctrl+t"
+  ]
+}
