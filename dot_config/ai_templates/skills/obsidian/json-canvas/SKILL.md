@@ -1,7 +1,7 @@
 ---
-name: json-canvas
+name: canva-sk
 description: >
-  Use only when the user explicitly says "canvas" and needs to to create and edit JSON Canvas files (.canvas) with nodes, edges, groups, and connections. Use when working with .canvas files, creating visual canvases, mind maps, flowcharts, or when the user mentions Canvas files in Obsidian.
+  Use only when the user explicitly says "canva-sk" and needs to to create and edit JSON Canvas files (.canvas) with nodes, edges, groups, and connections. Use when working with .canvas files, creating visual canvases, mind maps, flowcharts, or when the user mentions Canvas files in Obsidian.
 ---
 
 # JSON Canvas Skill

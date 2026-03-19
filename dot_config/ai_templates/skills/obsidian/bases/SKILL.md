@@ -1,7 +1,7 @@
 ---
-name: bases
+name: bases-sk
 description: >
-  Use only when the user explicitly says "obsidian base" and when the ai assitant needs to create and edit Obsidian Bases (.base files) with views, filters, formulas, and summaries. Use when working with .base files, creating database-like views of notes, or when the user mentions Bases, table views, card views, filters, or formulas in Obsidian.
+  Use only when the user explicitly says "bases-sk" and when the ai assitant needs to create and edit Obsidian Bases (.base files) with views, filters, formulas, and summaries. Use when working with .base files, creating database-like views of notes, or when the user mentions Bases, table views, card views, filters, or formulas in Obsidian.
 ---
 
 # Obsidian Bases Skill
