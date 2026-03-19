@@ -1,0 +1,23 @@
+{
+  "lastChangelogVersion": "0.58.1",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.4",
+  "hideThinkingBlock": false,
+  "defaultThinkingLevel": "medium",
+  "theme": "rose-pine",
+  "packages": [
+    {
+      "source": "git:github.com/tmustier/pi-extensions",
+      "extensions": [
+        "usage-extension/index.ts"
+      ]
+    }
+  ],
+  "prompts": [
+    "prompts",
+    "prompts/andy"
+  ],
+  "enabledModels": [
+    "openai-codex/gpt-5.4"
+  ]
+}
