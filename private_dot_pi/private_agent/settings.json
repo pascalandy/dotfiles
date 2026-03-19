@@ -1,14 +1,19 @@
 {
-  "lastChangelogVersion": "0.56.3",
+  "lastChangelogVersion": "0.58.1",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.4",
-  "hideThinkingBlock": true,
+  "hideThinkingBlock": false,
   "defaultThinkingLevel": "medium",
-  "theme": "dracula",
+  "theme": "rose-pine",
   "prompts": [
     "prompts",
     "prompts/andy",
     "prompts/cloud_aix",
     "prompts/oh_my_oc"
+  ],
+  "steeringMode": "one-at-a-time",
+  "treeFilterMode": "all",
+  "enabledModels": [
+    "openai-codex/gpt-5.4"
   ]
 }
