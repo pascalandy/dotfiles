@@ -1,5 +1,5 @@
 ---
-description: komit using a subagent
+description: komit
 ---
 
-Spawn subagent @miniagt then commit (use skill: commit)
+Spawn subagent @miniagt to commit all git diff files. It must use skill "commit"
