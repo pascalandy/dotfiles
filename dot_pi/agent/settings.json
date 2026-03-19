@@ -38,5 +38,6 @@
   "enabledModels": [
     "openai-codex/gpt-5.4"
   ],
-  "powerline": "default"
+  "powerline": "default",
+  "quietStartup": true
 }
