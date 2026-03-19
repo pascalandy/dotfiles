@@ -2,4 +2,4 @@
 description: komit using a subagent
 ---
 
-@miniagt commit (use skill: commit)
+Spawn subagent @miniagt then commit (use skill: commit)
