@@ -16,18 +16,18 @@ If a commit cannot be described in one sentence without "and", split it.
 - Review the entire working tree before committing
 - Never combine unrelated changes
 - Stage and commit each logical group separately
-- Do not push unless the user explicitly asks
 - Use a commit body for any non-trivial commit
 - When splitting commits, never use `git add .` or `git add -A`
 
 ## Workflow
 
 1. Run `git status` and `git diff --stat`
-2. Group all changes by logical purpose
-3. Split by purpose, feature, type, or rollback boundary
-4. Stage only the paths for one group with `git add <paths>`
-5. Commit each group in order
-6. Push only if requested
+2. Review and include all files, not only the one we were previously working on
+3. Group all changes by logical purpose
+4. Split by purpose, feature, type, or rollback boundary
+5. Stage only the paths for one group with `git add <paths>`
+6. Commit each group in order
+7. `git push`
 
 ## Split when
 
