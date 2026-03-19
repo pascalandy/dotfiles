@@ -8,9 +8,11 @@ Source: `dot_config/opencode/opencode.json.tmpl`
 
 Main = models I use most
 
-- Reviewers = second opinions
-- Small/local = lightweight options
-- Parked = documented but not currently in rotation
+Reviewers = second opinions
+
+Small/local = lightweight options
+
+Parked = documented but not currently in rotation
 
 ### Main
 
@@ -20,16 +22,21 @@ Main = models I use most
 
 ### Disabled
 
-- `plan`
-- `general`
+- `general` -> built-in catch-all subagent
+- `plan` -> GPT-5.4 planning preset
 
 ### Reviewers
 
 - `@grok` -> Grok 4.20 via OpenRouter
 - `@gemini-or` -> Gemini 3.1 Pro via OpenRouter
+- `@flash-or` -> Gemini 3 Flash via OpenRouter
 - `@glm-zen` -> GLM 5 via Zen
 - `@gemini-zen` -> Gemini 3.1 Pro via Zen
 - `@flash-zen` -> Gemini 3 Flash via Zen
+
+### Also configured
+
+- `@kimi` -> Kimi 2.5 Turbo via Fireworks
 
 ### Subagents
 
@@ -37,7 +44,7 @@ Main = models I use most
 - `@agttiny`
 
 Rules:
-- subagents and must stay provider agnostic in their names.
+- These are subagents and must stay provider agnostic in their names.
 - These two are reserved sub-agent handles.
 - Their names must stay exactly `agtmini` and `agttiny`.
 - If either name changes in config, update this note deliberately and treat it as a breaking workflow change.
@@ -46,14 +53,13 @@ Rules:
 
 - `@kimi-zen`
 - `@opus`
-- `@glm47`
 - `@qwen`
 - `@mini-zen`
 - `@kimi-oc`
 
 ## Defaults
 
-- Default agent = `minimax`
+- Default agent = `minimax` `[[2026-03-18]]`
   - Why: fast, capable, good daily driver
   - Fallback top-level model = GLM 5 via Zen
 - `small_model` = Gemini 3 Flash via Zen
@@ -78,11 +84,12 @@ Two paths available:
 
 ## GLM routing
 
-- GLM5 used zen because ZAI does not give me GLM 5 `[[2026-03-14]]`
+- Use Zen for GLM 5. Reason: direct ZAI does not give me GLM 5 `[[2026-03-14]]`
 - Keep direct ZAI access (plan) for GLM 4.7.
 
 ## Local model usage
 
+- Keep one local LM Studio model.
 - Qwen is my local small-task option.
 
 ## Claude usage
