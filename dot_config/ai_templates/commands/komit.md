@@ -2,5 +2,4 @@
 description: komit
 ---
 
-- Spawn subagent @miniagt to commit all git diff files. It must use skill "commit"
-- Then, git push
+- Spawn subagent @miniagt. Ask it word for word: "commit all git diff files. use skill "commit". Then, git push"
