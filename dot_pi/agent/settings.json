@@ -1,0 +1,42 @@
+{
+  "lastChangelogVersion": "0.60.0",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.4",
+  "hideThinkingBlock": true,
+  "defaultThinkingLevel": "medium",
+  "theme": "rose-pine",
+  "packages": [
+    {
+      "source": "git:github.com/tmustier/pi-extensions",
+      "extensions": [
+        "usage-extension/index.ts",
+        "+ralph-wiggum/index.ts"
+      ],
+      "skills": [
+        "-extending-pi/skill-creator/SKILL.md",
+        "+ralph-wiggum/SKILL.md"
+      ]
+    },
+    "npm:pi-powerline-footer",
+    {
+      "source": "npm:pi-hooks",
+      "extensions": [
+        "-ralph-loop/ralph-loop.ts",
+        "-checkpoint/checkpoint.ts",
+        "-permission/permission.ts",
+        "-repeat/repeat.ts",
+        "-token-rate/token-rate.ts"
+      ]
+    },
+    "npm:pi-subagents",
+    "npm:pi-web-access"
+  ],
+  "prompts": [
+    "prompts",
+    "prompts/andy"
+  ],
+  "enabledModels": [
+    "openai-codex/gpt-5.4"
+  ],
+  "powerline": "default"
+}
