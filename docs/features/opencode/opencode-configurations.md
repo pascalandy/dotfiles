@@ -1,8 +1,6 @@
-# OpenCode Configurations
+# Open Questions & Decisions (OpenCode)
 
 Source: `dot_config/opencode/opencode.json.tmpl`
-
-## Open Questions & Decisions
 
 ## Mental model to select which agent for the task
 
@@ -94,4 +92,20 @@ Two paths available:
 
 ## Claude usage
 
-Keep Opus documented, but parked for now. Reason: I do not currently have an Anthropic plan `[[2026-03-14]]`
+Keep Opus documented, but parked for now. 
+Reason: I do not currently have an Anthropic plan `[[2026-03-14]]`
+
+## Issues with Gemini zen
+
+Hi there!
+
+I'm running into an issue with Gemini models in OpenCode. When I try to use gemini-3-flash, gemini-3-pro through the Zen integration, I keep getting "Unauthorized" message errors — even though they're ENABLED on my Zen account.
+
+The weird part is that other models like Minimax and GLM5 work fine. It's only the Gemini family that seems to have this problem. actually on day one I configured Gemini 3 it worked. And then when I tried with Gemini 3.1 Pro, I started to have this error. and since then the Gemini models do not work.
+
+I also check your FAQ and there's nothing about this subject. 
+
+Any idea what's going on?
+
+Thanks!
+Pascal
