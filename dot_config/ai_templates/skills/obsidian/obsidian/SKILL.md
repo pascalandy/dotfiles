@@ -21,7 +21,7 @@ vault_path=`/Users/andy16/Documents/_my_docs/10_obsidian/vault_obsidian`
 
 - Use Obsidian `[[wikilinks]]` syntax: `[[Note Title]]`
 - Notes link to dependencies/related notes at the bottom
-- Index notes are just lists of `[[wikilinks]]`
+- Index notes are lists of `[[wikilinks]]`
 
 ## Workflows
 
