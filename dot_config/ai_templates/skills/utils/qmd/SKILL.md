@@ -1,7 +1,7 @@
 ---
 name: qmd
 description: >
-  Use only when the user explicitly says "qmd" to search local markdown collections (Obsidian vaults, docs folders, QMD collections). Do not use for web search or generic repo code search.
+  Use only when the user explicitly say "qmd" to search local markdown collections (Obsidian vaults, docs folders, QMD collections). Do not use for web search or generic repo code search.
 compatibility: Requires qmd CLI >= 1.1.5. `bun install -g @tobilu/qmd`
 allowed-tools: "Bash(qmd:*)"
 license: MIT

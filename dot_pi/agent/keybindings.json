@@ -1,9 +1,9 @@
 {
-  "cycleThinkingLevel": [
+  "app.thinking.cycle": [
     "ctrl+t",
     "shift+tab"
   ],
-  "toggleThinking": [
+  "app.thinking.toggle": [
     "shift+ctrl+t"
   ]
 }

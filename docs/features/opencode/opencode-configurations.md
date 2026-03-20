@@ -1,111 +1,107 @@
-# Open Questions & Decisions (OpenCode)
+# OpenCode configuration notes
 
-Source: `dot_config/opencode/opencode.json.tmpl`
+Source of truth: `dot_config/opencode/opencode.json.tmpl`
 
-## Mental model to select which agent for the task
+This document captures decision-making, naming rules, and routing intent.
+It is **not** a status board for what is enabled, disabled, active, or parked. For the current live configuration, check the source file directly.
 
-Main = models I use most
+## Purpose of this note
 
-Reviewers = second opinions
+Use this file to record:
+- why an agent or provider exists
+- how agent names should be interpreted
+- routing decisions between providers
+- workflow constraints that should survive future config edits
 
-Small/local = lightweight options
+Do not use this file to track:
+- which agents are currently enabled or disabled
+- temporary experiments
+- day-to-day toggles
+- provider availability snapshots
 
-Parked = documented but not currently in rotation
+## Agent mental model
 
-### Main
+Use agent names as workflow handles, not as a changelog.
 
-- `build` -> GPT-5.4
-- `@gpt` -> GPT-5.4
-- `@minimax` -> MiniMax M2.7 via OpenRouter (default agent)
+### Primary workflow handles
 
-### Disabled
+- `build` — main build-oriented preset
+- `@gpt` — standard GPT subagent
+- `@gpthigh` — higher-effort GPT subagent
+- `@gptxhigh` — highest-effort GPT subagent
+- `@minimax` — daily-driver general-purpose agent
+- `@kimi` — Kimi-based alternative for comparison
+- `@gemini-or` — Gemini via OpenRouter
+- `@grok` — Grok via OpenRouter
+- `@glm` — GLM-based general-purpose handle
 
-- `general` -> built-in catch-all subagent
-- `plan` -> GPT-5.4 planning preset
-
-### Reviewers
-
-- `@grok` -> Grok 4.20 via OpenRouter
-- `@gemini-or` -> Gemini 3.1 Pro via OpenRouter
-- `@flash-or` -> Gemini 3 Flash via OpenRouter
-- `@glm-zen` -> GLM 5 via Zen
-- `@gemini-zen` -> Gemini 3.1 Pro via Zen
-- `@flash-zen` -> Gemini 3 Flash via Zen
-
-### Also configured
-
-- `@kimi` -> Kimi 2.5 Turbo via Fireworks
-
-### Subagents
+### Reserved subagent handles
 
 - `@agtmini`
 - `@agttiny`
 
 Rules:
-- These are subagents and must stay provider agnostic in their names.
-- These two are reserved sub-agent handles.
-- Their names must stay exactly `agtmini` and `agttiny`.
-- If either name changes in config, update this note deliberately and treat it as a breaking workflow change.
-
-### Parked
-
-- `@kimi-zen`
-- `@opus`
-- `@qwen`
-- `@mini-zen`
-- `@kimi-oc`
+- These names are reserved workflow handles.
+- They must stay provider-agnostic.
+- They must remain exactly `agtmini` and `agttiny` unless a deliberate workflow-breaking change is made.
+- If they ever change, update this document because that affects how the system is operated, not just how it is configured.
 
 ## Defaults
 
-- Default agent = `minimax` `[[2026-03-18]]`
-  - Why: fast, capable, good daily driver
-  - Fallback top-level model = GLM 5 via Zen
-- `small_model` = Gemini 3 Flash via Zen
+- Default agent: `minimax`
+- Top-level model fallback: `opencode/glm-5`
+- Small model: `minimax`
 
-## GPT routing
+Why `minimax` is the default:
+- fast enough for daily use
+- capable enough to act as the general driver
+- good balance between quality and responsiveness
 
-Use direct OpenAI Plus plan for GPT.
-- Do not route GPT through OpenRouter, Zen, or another proxy.
-- Keep GPT as the medium default.
-- Use separate agents for higher effort levels (`gpthigh`, `gptxhigh`).
+## Provider routing decisions
 
-## Gemini routing
+### GPT routing
 
-Two paths available:
+Use direct OpenAI for GPT.
 
-- OpenRouter: `@gemini-or`, `@flash-or` (reliable, was the working path)
-- Zen: `@gemini-zen`, `@flash-zen` (now enabled and working) `[[2026-03-16]]`
+Rules:
+- keep GPT on the native OpenAI path
+- do not treat OpenRouter or Zen as the primary GPT route
+- use separate handles for increased reasoning effort instead of overloading one GPT agent
 
-## Grok routing
+### Gemini routing
 
-- Use OpenRouter for Grok. Reason: the latest Grok is not available on Zen. `[[2026-03-14]]`
+Gemini may be accessed through more than one provider path.
 
-## GLM routing
+Guideline:
+- keep provider-specific Gemini handles explicit in the config
+- prefer documenting the routing pattern here, not temporary provider health
 
-- Use Zen for GLM 5. Reason: direct ZAI does not give me GLM 5 `[[2026-03-14]]`
-- Keep direct ZAI access (plan) for GLM 4.7.
+### Grok routing
 
-## Local model usage
+Use OpenRouter for Grok when the newest Grok models are only available there.
 
-- Keep one local LM Studio model.
-- Qwen is my local small-task option.
+### GLM routing
 
-## Claude usage
+Use Zen for GLM 5.
+Keep direct ZAI access available when needed for GLM 4.7-specific workflows.
 
-Keep Opus documented, but parked for now. 
-Reason: I do not currently have an Anthropic plan `[[2026-03-14]]`
+### Local model usage
 
-## Issues with Gemini zen
+Keep at least one local LM Studio option available for small or offline-friendly tasks.
 
-Hi there!
+## Documentation boundary
 
-I'm running into an issue with Gemini models in OpenCode. When I try to use gemini-3-flash, gemini-3-pro through the Zen integration, I keep getting "Unauthorized" message errors — even though they're ENABLED on my Zen account.
+When updating this note in the future:
+- record durable decisions
+- record naming rules
+- record workflow conventions
+- record routing intent
 
-The weird part is that other models like Minimax and GLM5 work fine. It's only the Gemini family that seems to have this problem. actually on day one I configured Gemini 3 it worked. And then when I tried with Gemini 3.1 Pro, I started to have this error. and since then the Gemini models do not work.
+Do not add sections like:
+- "currently enabled"
+- "disabled"
+- "parked"
+- "working today"
+- support transcripts or temporary outage notes
 
-I also check your FAQ and there's nothing about this subject. 
-
-Any idea what's going on?
-
-Thanks!
-Pascal
+If something is a live config fact, it belongs in `dot_config/opencode/opencode.json.tmpl`, not here.

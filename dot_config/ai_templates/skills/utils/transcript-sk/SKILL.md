@@ -1,6 +1,7 @@
 ---
 name: transcript-sk
-description: Use only when the user explicitly asks "transcript-sk". Transcribe YouTube videos via Deepgram (audio to txt/json) with optional Codex or Claude summary. Use when user provides YouTube URL for transcription.
+description: >
+  Use only when the user explicitly say "transcript-sk". Transcribe YouTube videos via Deepgram (audio to txt/json) with optional Codex or Claude summary. Use when user provides YouTube URL for transcription.
 ---
 
 Transcribe YouTube videos via Deepgram with optional Codex or Claude summary.
