@@ -10,6 +10,8 @@ log() {
 
 log "Starting pre-apply sync script"
 
+SYNC_BREWFILE=false
+
 # Sync VS Code config back to chezmoi source (only if changed)
 VSCODE_USER="$HOME/Library/Application Support/Code/User"
 VSCODE_DST="$HOME/.local/share/chezmoi/private_Library/private_Application Support/private_Code/User"
@@ -50,12 +52,16 @@ if command -v code >/dev/null 2>&1; then
 fi
 
 # Update Brewfile
-if command -v brew >/dev/null 2>&1; then
-	log "Updating Brewfile to chezmoi source"
-	brew bundle dump --file "$HOME/.local/share/chezmoi/dot_Brewfile" --force
-	log "Brewfile updated successfully"
+if [[ "$SYNC_BREWFILE" == true ]]; then
+	if command -v brew >/dev/null 2>&1; then
+		log "Updating Brewfile to chezmoi source"
+		brew bundle dump --file "$HOME/.local/share/chezmoi/dot_Brewfile" --force
+		log "Brewfile updated successfully"
+	else
+		log "Warning: brew command not found, skipping Brewfile update"
+	fi
 else
-	log "Warning: brew command not found, skipping Brewfile update"
+	log "SYNC_BREWFILE=false, skipping Brewfile update"
 fi
 
 log "Pre-apply sync script completed successfully"
