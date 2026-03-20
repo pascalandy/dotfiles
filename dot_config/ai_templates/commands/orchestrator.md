@@ -17,11 +17,15 @@ Most of the time you should spawn a subagent in order to create a plan. Then rev
 
 ## Memory
 
-As we go along, it would be a good idea that you keep a (e.g. /docs/memory/scratchpad.md) in order to track the important events, the lessons learned, things that are going well or not well. You might want to refer to it when we will do our post-mortem later on.
+As we go along, it would be a good idea that you keep a (e.g. /docs/memory/ORCHESTRATOR.md) in order to track the important events, the lessons learned, things that are going well or not well. You might want to refer to it when we will do our post-mortem later on.
 
 When context is compacted, preserve: the repo architecture summary, all conventions and patterns, decisions we've made, known fragile areas, and anything a future subagent would need to do good work. Do not let compaction erase what we've built. If the repo is complex enough that compaction is likely to lose important detail, create and maintain a file in the repo (e.g. /docs/memory/ORCHESTRATOR.md) that holds a living summary of everything — architecture, conventions, decisions, known risks, and current state. Keep it updated as things change so you can always recover full context from it.
 
 Another reason is that sometimes I close the terminal by accident and I lose track of what we were doing. 
+
+## Rule (none negociable)
+
+- delelate immediatly all task to subagents
 
 ## Semantic
 
