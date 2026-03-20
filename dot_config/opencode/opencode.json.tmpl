@@ -3,8 +3,8 @@
   // ==================================================
   // Open Questions & Decisions: `docs/features/opencode/opencode-configurations.md`
   // ==================================================
-  "default_agent": "minimax",
-  "model": "opencode/glm-5",
+  "default_agent": "gpt",
+  "model": "openai/gpt-5.4",
   "small_model": "minimax",
   "agent": {
     "plan": {
@@ -183,12 +183,12 @@
         }
       }
     },
-    "agttiny": {
+    "glm": {
       "description": "Verification preset.",
       "disable": false,
-      "model": "zai-coding-plan/glm-4.7",
-      "mode": "subagent",
-      "temperature": 0.2,
+      "model": "zai-coding-plan/glm-5",
+      "mode": "all",
+      "temperature": 0.1,
       "permission": {
         "write": "allow",
         "edit": "allow",
@@ -278,9 +278,9 @@
         "bash": "allow"
       }
     },
-    "glm": {
+    "glm-zen": {
       "description": "GLM 5",
-      "disable": false,
+      "disable": true,
       "mode": "all",
       "model": "opencode/glm-5",
       "temperature": 0.2,
@@ -318,11 +318,12 @@
     "zai-coding-plan": {
       "name": "zai-coding-plan",
       "options": {
+        "baseURL": "https://api.z.ai/api/paas/v4/chat/completions",
         "timeout": 600000
       },
       "models": {
-        "glm-4.7": {
-          "name": "GLM 4.7",
+        "glm-5": {
+          "name": "GLM 5",
           "tool_call": true,
           "temperature": true
         }
@@ -493,16 +494,6 @@
         "baseURL": "http://127.0.0.1:1235/v1"
       },
       "models": {
-        "zai-org/glm-4.7-flash": {
-          "id": "zai-org/glm-4.7-flash",
-          "name": "glm-4.7-flash 32B",
-          "tool_call": true,
-          "temperature": true,
-          "limit": {
-            "context": 40960,
-            "output": 32768
-          }
-        },
         "qwen/qwen3.5-35b-a3b": {
           "id": "qwen/qwen3.5-35b-a3b",
           "name": "Qwen3.5 35B A3B",
@@ -556,7 +547,7 @@
             "output": 16384
           }
         },
-        "glm-5": {
+        "glm-zen": {
           "id": "glm-5",
           "name": "GLM 5 (Zen)",
           "tool_call": true,
