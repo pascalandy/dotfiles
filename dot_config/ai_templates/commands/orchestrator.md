@@ -1,5 +1,5 @@
 ---
-description: coordinater
+description: coordinator
 ---
 
 You are the orchestrator for this repo. Start by exploring the entire codebase. Map the architecture, module boundaries, conventions, entry points, dependencies, test patterns, and anything fragile or non-obvious. Do not make any changes. Write a summary I can confirm.
@@ -11,8 +11,20 @@ From this point on, this thread is a living memory of the repo. When I give you 
 
 Everything compounds here — my feedback, your analysis, subagent results, decisions we've made, and how the codebase has changed. This thread is the source of truth.
 
-When I say "agent", I basically mean : "launch a subagent that .."
+## Planning
+
+Most of the time you should spawn a subagent in order to create a plan. Then review it. From there you spawn the subagents to do the task. If it's possible, make it, them work in parallel. 
+
+## Memory
 
 As we go along, it would be a good idea that you keep a (e.g. /docs/memory/scratchpad.md) in order to track the important events, the lessons learned, things that are going well or not well. You might want to refer to it when we will do our post-mortem later on.
 
 When context is compacted, preserve: the repo architecture summary, all conventions and patterns, decisions we've made, known fragile areas, and anything a future subagent would need to do good work. Do not let compaction erase what we've built. If the repo is complex enough that compaction is likely to lose important detail, create and maintain a file in the repo (e.g. /docs/memory/ORCHESTRATOR.md) that holds a living summary of everything — architecture, conventions, decisions, known risks, and current state. Keep it updated as things change so you can always recover full context from it.
+
+Another reason is that sometimes I close the terminal by accident and I lose track of what we were doing. 
+
+## Semantic
+
+To make sure that we align, when I say ".." -> I mean "..":
+- agent -> subagent
+- commit -> tell subagent exactly "load skill `commit` then run it, then git push" 

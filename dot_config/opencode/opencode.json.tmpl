@@ -184,9 +184,9 @@
       }
     },
     "glm": {
-      "description": "Verification preset.",
-      "disable": false,
-      "model": "zai-coding-plan/glm-5",
+      "description": "GLM 5 general API preset.",
+      "disable": true,
+      "model": "zai-general/glm-5",
       "mode": "all",
       "temperature": 0.1,
       "permission": {
@@ -278,9 +278,9 @@
         "bash": "allow"
       }
     },
-    "glm-zen": {
+    "glm": {
       "description": "GLM 5",
-      "disable": true,
+      "disable": false,
       "mode": "all",
       "model": "opencode/glm-5",
       "temperature": 0.2,
@@ -318,7 +318,21 @@
     "zai-coding-plan": {
       "name": "zai-coding-plan",
       "options": {
-        "baseURL": "https://api.z.ai/api/paas/v4/chat/completions",
+        "baseURL": "https://api.z.ai/api/coding/paas/v4",
+        "timeout": 600000
+      },
+      "models": {
+        "glm-4.7": {
+          "name": "GLM 4.7",
+          "tool_call": true,
+          "temperature": true
+        }
+      }
+    },
+    "zai-general": {
+      "name": "zai-general",
+      "options": {
+        "baseURL": "https://api.z.ai/api/paas/v4",
         "timeout": 600000
       },
       "models": {
