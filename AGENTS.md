@@ -44,18 +44,22 @@ chezmoi edit ~/.zshrc
 ### Daily Operations
 
 ```bash
-# Check status (what changed)
-chezmoi status
-chezmoi diff
+# Check drift (excluding run scripts)
+just cm-status
+just cm-diff
 
-# Apply changes (sync to home)
-chezmoi apply -v
+# Preview then apply
+just cm-apply-dry
+just cm-apply-verbose
 
 # Add a new file to management
 chezmoi add ~/.newfile
 
 # List all managed files
 chezmoi managed
+
+# Run the main local checks
+just ci
 ```
 
 ### Git Operations
@@ -92,7 +96,7 @@ export PATH="$HOME/.local/bin:$PATH"
 ## Bash Script Standards
 
 All bash scripts in this repo follow the template in:
-`dot_config/opencode/skill/bash/scripts/pref_bash_script_template.sh`
+`dot_config/ai_templates/skills/std/bash/scripts/pref_bash_script_template.sh`
 
 ### Required Conventions
 
@@ -143,13 +147,46 @@ die() {
 ├── dot_Brewfile                 # → ~/.Brewfile
 ├── dot_local/bin/               # → ~/.local/bin/ (user scripts)
 ├── dot_config/                  # → ~/.config/
+│   ├── opencode/                # OpenCode runtime config, plugins, tools
+│   ├── ai_templates/            # Shared commands and skills source of truth
+│   └── ...                      # Other app and CLI config
+├── dot_pi/agent/                # Pi agent settings, prompts, keybindings
 ├── private_dot_ssh/             # → ~/.ssh/ (private)
 ├── private_dot_gnupg/           # → ~/.gnupg/ (private)
 ├── .chezmoiscripts/             # Chezmoi run scripts (v2.9+)
-│   ├── run_before_sync.sh       # Pre-apply: sync VS Code, Brewfile
-│   └── run_after_backup.sh      # Post-apply: backup external files
+│   ├── run_before_sync.sh       # Pre-apply: sync editor state back to source
+│   └── run_after_backup.sh      # Post-apply: render/sync shared AI assets
 └── bienvenue_chez_moi/          # Archived configs (source: ~/Documents/github_local/Z_ARCHIVED/)
 ```
+
+## Active vs Archived Content
+
+Treat these as the main active AI surfaces:
+
+- `dot_config/opencode/`
+- `dot_config/ai_templates/commands/`
+- `dot_config/ai_templates/skills/`
+- `dot_pi/agent/`
+
+Treat these as archived or reference material unless the user explicitly says otherwise:
+
+- `dot_config/ai_templates/commands_archives/`
+- `dot_config/ai_templates/skills_archived/`
+- `bienvenue_chez_moi/`
+
+Archived directories may contain realistic code, tests, and docs. Do not assume
+they are part of the current runtime workflow.
+
+## Source vs Applied Paths
+
+Many AI-related files have two path forms:
+
+- source-tree paths in this repo, for example `dot_config/opencode/plugin/`
+- applied runtime paths under `~/.config/...`, for example `~/.config/opencode/plugin/`
+
+When documenting or editing behavior, verify whether the source of truth is the
+chezmoi source path or the applied runtime path. Do not edit the applied file
+directly if chezmoi manages it.
 
 ## Templates and Secrets
 
@@ -172,15 +209,22 @@ openrouter_api_key = "sk-or-v1-.."
 ## Testing Changes
 
 ```bash
+# Run the main local checks
+just ci
+
 # Preview what would change (dry run)
-chezmoi diff
+just cm-apply-dry
 
 # Apply with verbose output
-chezmoi apply -v
+just cm-apply-verbose
 
 # Verify a specific file
 chezmoi cat ~/.zshrc
 ```
+
+Pre-commit hooks run staged `gitleaks`, `shellcheck`, and `shfmt` via
+`lefthook`. GitHub Actions currently runs repository-wide `gitleaks`,
+`shellcheck`, and `shfmt`.
 
 ## Run Scripts
 
@@ -189,11 +233,12 @@ This repo has two run scripts located in `.chezmoiscripts/` (chezmoi v2.9+ conve
 ### `.chezmoiscripts/run_before_sync.sh`
 - Syncs VS Code settings/keybindings to chezmoi source
 - Updates VS Code extensions list
-- Dumps Brewfile
+- Can dump the Brewfile, but that path is currently disabled by default via `SYNC_BREWFILE=false`
 
 ### `.chezmoiscripts/run_after_backup.sh`
-- Backs up external files to the repo
-- Copies `bienvenue_chez_moi` directory
+- Copies selected external backup files into the repo
+- Renders `dot_config/ai_templates/` through chezmoi and syncs shared commands/skills to multiple agent homes
+- Uses merge behavior for OpenCode shared assets so OpenCode-specific entries can stay managed separately
 
 ## Ignored Files
 

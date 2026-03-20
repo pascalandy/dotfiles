@@ -1,175 +1,150 @@
-# 🚨 CRASH RECOVERY PROCEDURE
+# Crash Recovery Procedure
 
----
+Use this file when the applied home-directory state and the chezmoi source tree
+seem out of sync.
 
-## First Steps (DO THIS FIRST)
+## First Steps
 
 ```bash
-# Check chezmoi status
+# Check chezmoi health
 chezmoi doctor
 
-# Apply current state
-chezmoi apply
+# Check real drift, excluding run scripts
+just cm-status
+just cm-diff
 
-# Check what would change
-chezmoi diff
+# Preview an apply
+just cm-apply-dry
 ```
 
-If something is broken, start here. chezmoi will show you what's wrong.
-
----
-
-## How This System Works
-
-**Core Concept**: chezmoi stores the *desired state* of your system in `~/.local/share/chezmoi` and copies (not symlinks) files to your home directory on `chezmoi apply`.
-
-**Source of Truth**: https://github.com/pascalandy/dotfiles
-
-**Your Working Directory**: `~/.local/share/chezmoi` (this is chezmoi's state, edit files here)
-
-**Applied Files**: `~/.*` (this is what your system actually uses)
-
----
-
-## Daily Workflow
+If the preview looks correct, apply:
 
 ```bash
-# 1. Edit configuration
-chezmoi edit ~/.zshrc  # Opens in VS Code (alias: cfgzsh)
-chezmoi edit ~/.config/opencode/config.json  # (alias: cfgoc)
-
-# 2. Apply changes
-chezmoi apply
-
-# 3. Commit to remote repo
-chezmoi cd && git add . && git commit -m "your message" && git push
+just cm-apply-verbose
 ```
 
----
+## How This Repo Works
 
-## Add New Files
+- Source of truth: `~/.local/share/chezmoi/`
+- Applied target: `~/`
+- Chezmoi copies files into place; it does not use symlinks here.
+
+Important: `chezmoi apply` has side effects in this repo.
+
+- `.chezmoiscripts/run_before_sync.sh`
+  Syncs VS Code settings and keybindings back into the repo and refreshes the
+  VS Code extensions list. Brewfile dumping exists in the script, but it is
+  currently disabled by default.
+- `.chezmoiscripts/run_after_backup.sh`
+  Copies selected backup files into the repo, renders `dot_config/ai_templates/`
+  into target-safe names, and syncs shared commands and skills to multiple
+  agent homes.
+
+## Normal Recovery Flow
+
+```bash
+# 1. Audit the repo and chezmoi drift
+git status -sb
+just cm-audit
+
+# 2. If the source looks right, preview the apply
+just cm-apply-dry
+
+# 3. Apply if the preview is safe
+just cm-apply-verbose
+
+# 4. If a specific managed file is wrong, edit the source file
+chezmoi edit ~/.zshrc
+```
+
+If you need to add a new managed file:
 
 ```bash
 chezmoi add ~/.file
-chezmoi apply
-chezmoi cd && git add . && git commit && git push
+just cm-apply-dry
+just cm-apply-verbose
 ```
 
----
+## Templates and Secrets
 
-## Templates for Secrets
+Any file containing `{{ variable }}` must keep the `.tmpl` extension.
 
-**CRITICAL**: Any file with `{{ variable }}` must end in `.tmpl`
+Example:
 
-**Example** (`dot_config/opencode/opencode.json.tmpl`):
 ```json
 "apiKey": "{{ .openrouter_api_key }}"
 ```
 
-**Define secret** in `~/.config/chezmoi/chezmoi.toml`:
-```toml
-[data]
-openrouter_api_key = "sk-or-v1-..."
-```
+If you see `{{ variable }}` literally in an applied config file, the template
+is not being rendered.
 
-**Then**: `chezmoi apply` renders the template and replaces `{{ .openrouter_api_key }}` with the actual key.
+## Common Issues
 
----
+### Literal template variables appear in an applied file
 
-## ⚠️ Common Issues
+Cause: the source file was renamed or stored without the `.tmpl` suffix.
 
-### Issue: "No cookie auth credentials found" in opencode
-
-**Cause**: Template file named `opencode.json` instead of `opencode.json.tmpl`
-
-**Fix**:
-```bash
-chezmoi cd
-mv opencode.json opencode.json.tmpl
-chezmoi apply
-```
-
-**Lesson**: If you see `{{ variable }}` literally in your actual config file, it's not a template. Rename it.
-
-### Issue: Infinite loop with Brewfile
-
-**Cause**: Dumping Brewfile to chezmoi source directory triggers apply → dump loop
-
-**Fix**: Use `run_before_sync.sh` for pre-sync operations, `run_after_backup.sh` for post-sync backups
-
----
-
-## Automation Scripts
-
-Scripts live in chezmoi source and run automatically on `chezmoi apply`:
-
-- `run_before_sync.sh` - Runs BEFORE applying changes
-- `run_after_backup.sh` - Runs AFTER applying changes
-- `run_once_*.sh` - Runs only once ever (first apply)
-
-**Make executable**: `chmod +x script_name.sh`
-
----
-
-## What You've Been Working On (Recent)
-
-**Last week intensive work**:
-
-1. **tmux** - Enhanced with mouse support, smart shell readiness detection
-2. **VS Code** - Added config management
-3. **amp** - Background update commands
-4. **opencode** - docus-docs MCP configuration, glm model v4.7
-5. **universal run() function** - Enhanced to find Python or Bash scripts anywhere
-6. **mgrep tool** - Semantic file searching (added, then removed)
-
-**Latest improvements**:
-- Split chezmoi scripts into `run_before` and `run_after`
-- Prevented infinite loop with Brewfile dumps
-- Fixed zsh array indexing (1-indexed)
-
----
-
-## Recovery Procedure
-
-If your system is messed up:
+Fix:
 
 ```bash
-# 1. See what chezmoi would change
-chezmoi diff
-
-# 2. If safe, apply
-chezmoi apply
-
-# 3. If not safe, investigate specific files
-chezmoi edit ~/.file
-
-# 4. Check templates
-chezmoi doctor
-
-# 5. Sync from remote if needed
-chezmoi cd && git pull origin main
-chezmoi apply
+chezmoi managed | grep opencode
+chezmoi edit ~/.config/opencode/opencode.json
+just cm-apply-dry
+just cm-apply-verbose
 ```
 
----
+If the source file itself is missing `.tmpl`, fix that in the chezmoi source
+tree before applying again.
+
+### Apply output looks noisy because scripts will run
+
+Cause: chezmoi run scripts show up as script activity, which is expected.
+
+Fix:
+
+```bash
+just cm-status
+just cm-diff
+```
+
+Those commands intentionally exclude scripts so you can inspect real managed
+file drift.
+
+### Brewfile churn or apply-loop concerns
+
+Cause: dumping the Brewfile during apply can create feedback loops.
+
+Current behavior: `run_before_sync.sh` keeps Brewfile dumping behind
+`SYNC_BREWFILE=false`, so it does not run by default.
+
+## Ignored But Tracked Files
+
+Some tracked files are intentionally excluded from apply through
+`.chezmoiignore`. That means a file can exist in the repo without being copied
+into `$HOME`.
+
+Examples include:
+
+- repo metadata and documentation such as `README.md`, `AGENTS.md`, and `docs/`
+- archived or reference material such as `bienvenue_chez_moi/`
+- selected app/runtime files managed outside normal apply flow
+
+If a tracked file is not showing up in `$HOME`, check `.chezmoiignore` before
+assuming chezmoi is broken.
 
 ## Quick Reference
 
 | Command | Purpose |
 |---------|---------|
-| `chezmoi apply` | Apply all changes to home directory |
-| `chezmoi diff` | Show what would change |
-| `chezmoi doctor` | Check system status |
-| `chezmoi edit ~/.file` | Edit file in chezmoi source |
-| `chezmoi add ~/.file` | Add file to chezmoi management |
-| `chezmoi cd` | Go to chezmoi source directory |
-| `cfgzsh` | Edit ~/.zshrc (alias) |
-| `cfgoc` | Edit opencode config (alias) |
-
----
+| `just ci` | Run local checks, including a chezmoi dry-run |
+| `just cm-status` | Show real chezmoi drift, excluding scripts |
+| `just cm-diff` | Diff managed state against target, excluding scripts |
+| `just cm-apply-dry` | Preview an apply |
+| `just cm-apply-verbose` | Apply with verbose output |
+| `chezmoi doctor` | Check chezmoi health |
+| `chezmoi edit ~/.file` | Edit the source file for a managed target |
+| `chezmoi add ~/.file` | Add a new file to chezmoi management |
 
 ## Official Documentation
 
-The truth is here: https://www.chezmoi.io/user-guide/command-overview/
-
-**Last updated**: 2025-12-23
+https://www.chezmoi.io/user-guide/command-overview/
