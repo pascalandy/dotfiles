@@ -4,8 +4,16 @@ description: pgm-reverse-eng-to-memory
 
 See this as a mini post-mortem.
 
-Please reverse engineer our conversation by keeping in mind this question : 
+Please reverse engineer what we did together. 
+
+The key question to ask is : 
 What is worth remembering if the future ?
+
+There might more many elements to go thru. Follow the process below:
+
+## Process
+
+For each elements worth remembering ask:
 
 MEMORY TYPE: What type of memory is this?
 1) observation - Something noticed (user preference, pattern) (recommended)
@@ -23,9 +31,3 @@ MEMORY TYPE: What type of memory is this?
 - the fix
 - feedback for the agent 
 - feedback for the user 
-
-There might more many type from our conversation
-
-thank you for be so diligent
-
-P.S. If there's nothing, don't be shy to say there's nothing
