@@ -9,9 +9,9 @@ model: openai/gpt-5.4:low
 
 Analyze the codebase for {task}
 
-## planner
+## plan-ceo-review
 reads: context.md
-model: openai/gpt-5.4:low 
+model: openai/gpt-5.4:high
 progress: true
 
 Create an implementation plan based on {previous}

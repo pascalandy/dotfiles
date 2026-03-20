@@ -1,5 +1,5 @@
 ---
-name: miniagt
+name: agtmini
 description: general agent (low)
 model: gpt-5.4
 thinking: low
