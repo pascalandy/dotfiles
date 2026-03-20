@@ -1,11 +1,11 @@
 ---
-name: plan-ceo
+name: plan-ceo-review
 description: plan-ceo review (gstack)
 tools: read, grep, find, ls, write
 model: gpt-5.4
-thinking: medium
+thinking: high
 output: plan.md
 defaultReads: context.md
 ---
 
-Follow instructions from this skill: `plan-ceo-review`
+load skill `plan-ceo-review` and run it
