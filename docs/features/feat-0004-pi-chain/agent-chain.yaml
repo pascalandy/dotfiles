@@ -1,0 +1,124 @@
+plan-review-3-rounds:
+  description: "Initial draft + 3 deterministic review-artifact, PO consolidation, and commit rounds"
+  steps:
+    # Create the first draft plan file
+    - agent: plan-init
+      label: "Init Draft"
+      prompt: "Create the first implementation-ready feature plan for this request. Follow your persona instructions, write the plan file, and return your exact init handoff block.\n\nFeature request:\n$ORIGINAL"
+      model: openai/gpt-5.4
+      thinking: high
+      session: fresh
+
+    # ROUND 1 - reviewer creates an independent critique artifact
+    - agent: plan-reviewer
+      label: "Review 1"
+      prompt: "Round 1. Use the prior handoff only to locate PLAN_FILE. Then follow your persona instructions: reread the plan from disk, create one review artifact, and return your exact reviewer handoff block for round 1.\n\nOriginal feature request:\n$ORIGINAL\n\nPrior handoff:\n$INPUT"
+      model: openai/gpt-5.4
+      thinking: high
+      session: fresh
+    # ROUND 1 - PO consolidates directory-local review artifacts into the plan
+    - agent: plan-product-owner
+      label: "PO 1"
+      prompt: "Round 1. Use the reviewer handoff only to locate PLAN_FILE. Then follow your persona instructions: reread the plan from disk, scan local review artifacts, consolidate them into the plan, delete consumed review files, and return your exact PO handoff block for round 1.\n\nOriginal feature request:\n$ORIGINAL\n\nReviewer handoff:\n$INPUT"
+      model: openai/gpt-5.4
+      thinking: high
+      session: fresh
+    # ROUND 1 - git audit commit
+    - agent: plan-commit
+      label: "Commit 1"
+      prompt: "Round 1. Use the PO handoff only to locate PLAN_FILE. Then follow your persona instructions and commit this round with message: plan: apply PO decisions to <slug> (pass 1). Return your exact commit handoff block with HANDOFF: review.\n\nPO handoff:\n$INPUT"
+      model: openai/gpt-5.4
+      thinking: minimal
+      session: fresh
+
+    # ROUND 2 - reviewer creates an independent critique artifact
+    - agent: plan-reviewer
+      label: "Review 2"
+      prompt: "Round 2. Use the prior handoff only to locate PLAN_FILE. Then follow your persona instructions: reread the plan from disk, create one review artifact, and return your exact reviewer handoff block for round 2.\n\nOriginal feature request:\n$ORIGINAL\n\nPrior handoff:\n$INPUT"
+      model: openai/gpt-5.4
+      thinking: high
+      session: fresh
+    # ROUND 2 - PO consolidates directory-local review artifacts into the plan
+    - agent: plan-product-owner
+      label: "PO 2"
+      prompt: "Round 2. Use the reviewer handoff only to locate PLAN_FILE. Then follow your persona instructions: reread the plan from disk, scan local review artifacts, consolidate them into the plan, delete consumed review files, and return your exact PO handoff block for round 2.\n\nOriginal feature request:\n$ORIGINAL\n\nReviewer handoff:\n$INPUT"
+      model: openai/gpt-5.4
+      thinking: high
+      session: fresh
+    # ROUND 2 - git audit commit
+    - agent: plan-commit
+      label: "Commit 2"
+      prompt: "Round 2. Use the PO handoff only to locate PLAN_FILE. Then follow your persona instructions and commit this round with message: plan: apply PO decisions to <slug> (pass 2). Return your exact commit handoff block with HANDOFF: review.\n\nPO handoff:\n$INPUT"
+      model: openai/gpt-5.4
+      thinking: minimal
+      session: fresh
+
+    # ROUND 3 - reviewer creates an independent critique artifact
+    - agent: plan-reviewer
+      label: "Review 3"
+      prompt: "Round 3. Use the prior handoff only to locate PLAN_FILE. Then follow your persona instructions: reread the plan from disk, create one review artifact, and return your exact reviewer handoff block for round 3.\n\nOriginal feature request:\n$ORIGINAL\n\nPrior handoff:\n$INPUT"
+      model: openai/gpt-5.4
+      thinking: high
+      session: fresh
+    # ROUND 3 - PO consolidates directory-local review artifacts into the plan
+    - agent: plan-product-owner
+      label: "PO 3"
+      prompt: "Round 3. Use the reviewer handoff only to locate PLAN_FILE. Then follow your persona instructions: reread the plan from disk, scan local review artifacts, consolidate them into the plan, delete consumed review files, and return your exact PO handoff block for round 3.\n\nOriginal feature request:\n$ORIGINAL\n\nReviewer handoff:\n$INPUT"
+      model: openai/gpt-5.4
+      thinking: high
+      session: fresh
+    # ROUND 3 - final git audit commit
+    - agent: plan-commit
+      label: "Commit 3"
+      prompt: "Round 3. Use the PO handoff only to locate PLAN_FILE. Then follow your persona instructions and commit this round with message: plan: finalize reviewed plan for <slug>. Return your exact commit handoff block with HANDOFF: done.\n\nPO handoff:\n$INPUT"
+      model: openai/gpt-5.4
+      thinking: minimal
+      session: fresh
+
+build-review:
+  description: "planner, plan-reviewer, builder, reviewer"
+  steps:
+    # ROUND 1 - Dev
+    - agent: builder
+      prompt: "Implement the following plan:\n\n$INPUT"
+      model: openai/gpt-5.4
+      thinking: medium
+    # ROUND 1 - Dev get feedback
+    - agent: reviewer
+      prompt: "Review this implementation for bugs, style, and correctness:\n\n$INPUT\n\nOriginal request:\n$ORIGINAL"
+      model: openai/gpt-5.4
+      thinking: medium
+      session: fresh
+
+scout-flow:
+  description: "Triple-scout deep recon — explore, validate, verify"
+  steps:
+    - agent: scout
+      prompt: "Explore the codebase and investigate: $INPUT\n\nReport your findings with structure, key files, and patterns."
+      model: openai/gpt-5.4
+      thinking: medium
+    - agent: scout
+      prompt: "Validate and cross-check the following analysis. Look for anything missed, incorrect, or incomplete:\n\n$INPUT\n\nOriginal request: $ORIGINAL"
+      model: openai/gpt-5.4
+      thinking: medium
+    - agent: scout
+      prompt: "Final review pass. Verify the analysis below is accurate and complete. Add any missing details or corrections:\n\n$INPUT\n\nOriginal request: $ORIGINAL"
+      model: openai/gpt-5.4
+      thinking: medium
+
+plan-review-plan:
+  description: "Iterative planning — plan, critique via review artifacts, then refine with feedback"
+  steps:
+    - agent: plan-init
+      prompt: "Create the first implementation-ready feature plan for this request. Follow your persona instructions, write the plan file, and return your exact init handoff block.\n\nFeature request:\n$INPUT"
+      model: openai/gpt-5.4
+      thinking: medium
+    - agent: plan-reviewer
+      prompt: "Use the prior handoff only to locate PLAN_FILE. Then follow your persona instructions: reread the plan from disk, create one review artifact, and return your reviewer handoff block.\n\nOriginal feature request:\n$ORIGINAL\n\nPrior handoff:\n$INPUT"
+      model: openai/gpt-5.4
+      thinking: medium
+      session: fresh
+    - agent: plan-product-owner
+      prompt: "Use the reviewer handoff only to locate PLAN_FILE. Then follow your persona instructions: reread the plan from disk, scan local review artifacts, consolidate them into the plan, delete consumed review files, and return your PO handoff block.\n\nOriginal feature request:\n$ORIGINAL\n\nReviewer handoff:\n$INPUT"
+      model: openai/gpt-5.4
+      thinking: medium
