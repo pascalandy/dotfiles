@@ -207,6 +207,18 @@
         "bash": "allow"
       }
     },
+    "mimo": {
+      "description": "Xiaomi Mimo V2 Pro via OpenRouter.",
+      "disable": true,
+      "mode": "all",
+      "model": "openrouter/xiaomi/mimo-v2-pro",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
     "kimi-oc": {
       "description": "Kimi fallback preset.",
       "disable": true,
@@ -244,7 +256,7 @@
     },
     "flash-zen": {
       "description": "Gemini 3 flash",
-      "disable": false,
+      "disable": true,
       "mode": "primary",
       "model": "opencode/gemini-3-flash",
       "temperature": 0.2,
@@ -458,6 +470,17 @@
           "cost": {
             "input": 0,
             "output": 0
+          }
+        },
+        "xiaomi/mimo-v2-pro": {
+          "id": "xiaomi/mimo-v2-pro",
+          "name": "Xiaomi: Mimo V2 Pro",
+          "tool_call": true,
+          "temperature": true,
+          "reasoning": true,
+          "limit": {
+            "context": 131072,
+            "output": 16384
           }
         }
       }
