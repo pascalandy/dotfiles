@@ -1,6 +1,6 @@
 ---
 name: writer-sk
-description: |
+description: >
   Use only when the user explicitly asks 'writer-sk'. It makes writing clearer, more concise
 ---
 

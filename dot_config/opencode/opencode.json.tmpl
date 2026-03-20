@@ -15,7 +15,7 @@
     },
     "build": {
       "description": "Primary build preset",
-      "disable": false,
+      "disable": true,
       "model": "openai/gpt-5.4",
       "mode": "all",
       "temperature": 0.2,
@@ -48,7 +48,7 @@
     "gpt": {
       "description": "GPT-5.4 preset.",
       "disable": false,
-      "mode": "subagent",
+      "mode": "all",
       "model": "openai/gpt-5.4",
       "temperature": 0.2,
       "permission": {
@@ -112,7 +112,7 @@
       "description": "agt mini",
       "disable": false,
       "mode": "subagent",
-      "model": "openai/gpt-5.4",
+      "model": "openai/gpt-5.4-mini",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
@@ -129,7 +129,7 @@
         }
       }
     },
-    "gemini-or": {
+    "gemini": {
       "model": "openrouter/google/gemini-3.1-pro-preview",
       "disable": false,
       "mode": "all",
@@ -141,10 +141,10 @@
         "bash": "allow"
       }
     },
-    "flash-or": {
+    "flash": {
       "model": "openrouter/google/gemini-3-flash-preview",
-      "disable": true,
-      "mode": "all",
+      "disable": false,
+      "mode": "subagent",
       "description": "Gemini 3 Flash QA via OpenRouter.",
       "temperature": 0.2,
       "permission": {
@@ -305,6 +305,7 @@
   },
   "mcp": {
     "exa": {
+      "enabled": false,
       "type": "local",
       "command": ["npx", "-y", "exa-mcp-server", "tools=web_search_exa,get_code_context_exa,crawling_exa,company_research_exa,linkedin_search_exa,deep_researcher_start,deep_researcher_check"],
       "environment": {

@@ -1,6 +1,7 @@
 ---
 name: tmux-sk
-description: Use only when the user explicitly asks "tmux-sk". Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.
+description: >
+  Use only when the user explicitly say "tmux-sk". Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.
 metadata:
   { "openclaw": { "emoji": "🧵", "os": ["darwin", "linux"], "requires": { "bins": ["tmux"] } } }
 ---

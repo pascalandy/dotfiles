@@ -1,7 +1,7 @@
 ---
 name: gh-sk
 description: >
-  Use only when the user explicitly says "gh-sk" to use the GitHub cli when the AI assistant hits an edge case or is not working as expected or need to know advance commands. Load it to troubleshoot unexpected behavior, syntax gaps, auth issues, API gaps, or cases where general `gh` knowledge is not enough.
+  Use only when the user explicitly say "gh-sk" to use the GitHub cli when the AI assistant hits an edge case or is not working as expected or need to know advance commands. Load it to troubleshoot unexpected behavior, syntax gaps, auth issues, API gaps, or cases where general `gh` knowledge is not enough.
 compatibility: Requires GitHub CLI (`gh`) installed and authenticated when live GitHub access is needed.
 ---
 

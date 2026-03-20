@@ -1,7 +1,7 @@
 ---
 name: brainstorm-sk
-description: |
-  Use only when the user explicitly says "brainstorm-sk" to explore user intent, requirements, and design before building. Use when creating features, adding functionality, building components, or modifying behavior. Run before implementation work.
+description: >
+  Use only when the user explicitly say "brainstorm-sk" to explore user intent, requirements, and design before building. Use when creating features, adding functionality, building components, or modifying behavior. Run before implementation work.
 ---
 
 # Brainstorming Ideas Into Designs
