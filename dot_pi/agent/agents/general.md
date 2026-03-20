@@ -1,5 +1,5 @@
 ---
-name: worker
+name: general
 description: General-purpose subagent with full capabilities, isolated context
 model: gpt-5.4
 thinking: medium

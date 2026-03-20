@@ -1,5 +1,5 @@
 ---
-name: brainstorm-sk
+name: brainstorm
 description: brainstorm skill wrapper
 model: gpt-5.4
 thinking: medium
