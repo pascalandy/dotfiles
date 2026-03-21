@@ -34,8 +34,9 @@
         }
       }
     },
-    "kimi": {
+    "kimi-fire": {
       "model": "fireworks-ai/accounts/fireworks/routers/kimi-k2p5-turbo",
+      "disable": true,
       "mode": "all",
       "description": "Kimi 2.5 Turbo preset.",
       "temperature": 0.2,
@@ -183,18 +184,7 @@
         }
       }
     },
-    "glm": {
-      "description": "GLM 5 general API preset.",
-      "disable": true,
-      "model": "zai-general/glm-5",
-      "mode": "all",
-      "temperature": 0.1,
-      "permission": {
-        "write": "allow",
-        "edit": "allow",
-        "bash": "allow"
-      }
-    },
+
     "minimax": {
       "description": "MiniMax 2.7",
       "disable": false,
@@ -266,9 +256,9 @@
         "bash": "allow"
       }
     },
-    "kimi-zen": {
+    "kimi": {
       "description": "Kimi K2.5",
-      "disable": true,
+      "disable": false,
       "mode": "all",
       "model": "opencode/kimi-k2.5",
       "temperature": 0.2,
@@ -279,8 +269,20 @@
       }
     },
     "glm": {
-      "description": "GLM 5",
+      "description": "GLM 5 via ZAI coding plan.",
       "disable": false,
+      "mode": "all",
+      "model": "zai-coding-plan/glm-5",
+      "temperature": 0.1,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
+    "glm-zen": {
+      "description": "GLM 5 (Zen)",
+      "disable": true,
       "mode": "all",
       "model": "opencode/glm-5",
       "temperature": 0.2,
@@ -319,20 +321,6 @@
       "name": "zai-coding-plan",
       "options": {
         "baseURL": "https://api.z.ai/api/coding/paas/v4",
-        "timeout": 600000
-      },
-      "models": {
-        "glm-4.7": {
-          "name": "GLM 4.7",
-          "tool_call": true,
-          "temperature": true
-        }
-      }
-    },
-    "zai-general": {
-      "name": "zai-general",
-      "options": {
-        "baseURL": "https://api.z.ai/api/paas/v4",
         "timeout": 600000
       },
       "models": {
@@ -549,7 +537,7 @@
             "output": 65536
           }
         },
-        "kimi25": {
+        "kimi": {
           "disable": true,
           "id": "kimi-k2.5",
           "name": "Kimi K2.5 (Zen)",
