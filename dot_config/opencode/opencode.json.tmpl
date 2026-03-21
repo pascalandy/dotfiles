@@ -183,7 +183,6 @@
         }
       }
     },
-
     "minimax": {
       "description": "MiniMax 2.7",
       "disable": false,
@@ -260,6 +259,18 @@
       "disable": false,
       "mode": "all",
       "model": "opencode/kimi-k2.5",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
+    "worker": {
+      "description": "GLM 5 plan",
+      "disable": false,
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-5",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
