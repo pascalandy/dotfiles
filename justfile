@@ -192,6 +192,7 @@ uca:
     just bun-globals-full
     amp update
     claude update
+    pi update
 
 # Update Cli Apps
 uca-full:
