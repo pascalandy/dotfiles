@@ -54,10 +54,11 @@ Chezmoi dotfiles repository managing configuration files across machines. Source
 
 ## Active Work
 
-- Atlas generation complete: `.abstract.md` and `.overview.md` created at repo root
+- None currently
 
 ## Recent Meaningful Changes
 
+- Atlas refresh: `.abstract.md` and `.overview.md` regenerated for repo navigation
 - OpenCode config iteration: GLM 5 as default agent, worker agent added, thinking mode enabled
 - Command/script cleanup: removed obsolete scripts in `dot_local/bin/`
 - Justfile updates: automation and local workflow refinements
