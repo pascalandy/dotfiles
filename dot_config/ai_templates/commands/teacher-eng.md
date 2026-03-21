@@ -1,5 +1,5 @@
 ---
-description: private-teacher
+description: teacher-eng
 ---
 
 # Intro

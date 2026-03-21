@@ -1,5 +1,5 @@
 ---
-description: update changelog
+description: update-changelog
 ---
 
 Update `CHANGELOG.md` using the changelog skill.

@@ -1,5 +1,5 @@
 ---
-description: add_memory into pg-memory memories table
+description: pgm-add-memory
 ---
 
 # STEPS TO FOLLOW

@@ -1,5 +1,5 @@
 ---
-description: Run a Pi subagent chain and write results into a feature folder
+description: chain-it Run a Pi subagent chain and write results into a feature folder
 ---
 
 Use the `subagent` tool with the `chain` parameter.
