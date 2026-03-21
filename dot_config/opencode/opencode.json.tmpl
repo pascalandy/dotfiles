@@ -3,8 +3,7 @@
   // ==================================================
   // Open Questions & Decisions: `docs/features/opencode/opencode-configurations.md`
   // ==================================================
-  "default_agent": "gpt",
-  "model": "openai/gpt-5.4",
+  "default_agent": "glm",
   "small_model": "minimax",
   "agent": {
     "plan": {
@@ -269,7 +268,7 @@
       }
     },
     "glm": {
-      "description": "GLM 5 via ZAI coding plan.",
+      "description": "GLM 5 plan",
       "disable": false,
       "mode": "all",
       "model": "zai-coding-plan/glm-5",
@@ -285,7 +284,7 @@
       "disable": true,
       "mode": "all",
       "model": "opencode/glm-5",
-      "temperature": 0.2,
+      "temperature": 0.1,
       "permission": {
         "write": "allow",
         "edit": "allow",
@@ -293,10 +292,10 @@
       }
     },
     "mini-zen": {
-      "description": "MiniMax M2.5",
+      "description": "MiniMax",
       "disable": true,
       "mode": "all",
-      "model": "opencode/minimax-m2.5",
+      "model": "opencode/minimax-m2.7",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
