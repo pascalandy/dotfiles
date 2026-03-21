@@ -1,3 +1,7 @@
+---
+description: project-status
+---
+
 # Project Status — Orchestrator
 
 Delegate to agents, aggregate responses

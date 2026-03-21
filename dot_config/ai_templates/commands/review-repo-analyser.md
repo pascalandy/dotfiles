@@ -1,5 +1,5 @@
 ---
-description: repo-analyser
+description: review-repo-analyser
 ---
 
 # Bootstrap Repository Documentation

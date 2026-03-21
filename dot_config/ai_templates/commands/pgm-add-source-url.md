@@ -1,5 +1,5 @@
 ---
-description: add_source into pg-memory sources table
+description: pgm-add-source-url
 ---
 
 ## ORCHESTRATION PLAN

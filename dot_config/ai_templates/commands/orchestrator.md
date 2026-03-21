@@ -1,5 +1,5 @@
 ---
-description: coordinator
+description: orchestrator delegate all task to subagents
 ---
 
 You are the orchestrator for this repo. Start by exploring the entire codebase. Map the architecture, module boundaries, conventions, entry points, dependencies, test patterns, and anything fragile or non-obvious. Do not make any changes. Write a summary I can confirm.

@@ -1,5 +1,5 @@
 ---
-description: andy.pull.request.rel.eng
+description: pull-request-rel-eng
 ---
 
 # Agent

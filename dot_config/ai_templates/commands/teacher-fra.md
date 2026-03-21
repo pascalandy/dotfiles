@@ -1,5 +1,5 @@
 ---
-description: mon-professeur-prive
+description: teacher-fra
 ---
 
 # Intro

@@ -1,3 +1,7 @@
+---
+description: review-code
+---
+
 FIRST STEP:
 Read @AGENTS.md to understand project conventions before reviewing.
 
