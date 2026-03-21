@@ -269,13 +269,18 @@
     "worker": {
       "description": "GLM 5 plan",
       "disable": false,
-      "mode": "subagent",
+      "mode": "all",
       "model": "zai-coding-plan/glm-5",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
         "edit": "allow",
         "bash": "allow"
+      },
+      "options": {
+        "thinking": {
+          "type": "enabled"
+        }
       }
     },
     "glm": {
@@ -288,6 +293,11 @@
         "write": "allow",
         "edit": "allow",
         "bash": "allow"
+      },
+      "options": {
+        "thinking": {
+          "type": "enabled"
+        }
       }
     },
     "glm-zen": {
