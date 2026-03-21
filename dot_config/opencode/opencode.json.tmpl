@@ -272,7 +272,7 @@
       "disable": false,
       "mode": "all",
       "model": "zai-coding-plan/glm-5",
-      "temperature": 0.1,
+      "temperature": 0.2,
       "permission": {
         "write": "allow",
         "edit": "allow",
@@ -284,7 +284,7 @@
       "disable": true,
       "mode": "all",
       "model": "opencode/glm-5",
-      "temperature": 0.1,
+      "temperature": 0.2,
       "permission": {
         "write": "allow",
         "edit": "allow",
@@ -326,7 +326,15 @@
         "glm-5": {
           "name": "GLM 5",
           "tool_call": true,
-          "temperature": true
+          "temperature": true,
+          "reasoning": true,
+          "interleaved": {
+            "field": "reasoning_content"
+          },
+          "limit": {
+            "context": 200000,
+            "output": 128000
+          }
         }
       }
     },

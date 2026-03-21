@@ -25,20 +25,21 @@ Use agent names as workflow handles, not as a changelog.
 
 ### Primary workflow handles
 
-- `build` — main build-oriented preset
+- `build` — main build-oriented preset (disabled)
 - `@gpt` — standard GPT subagent
 - `@gpthigh` — higher-effort GPT subagent
 - `@gptxhigh` — highest-effort GPT subagent
-- `@minimax` — daily-driver general-purpose agent
-- `@kimi` — Kimi-based alternative for comparison
-- `@gemini-or` — Gemini via OpenRouter
-- `@grok` — Grok via OpenRouter
-- `@glm` — GLM-based general-purpose handle
+- `@minimax` — MiniMax M2.7 via OpenRouter
+- `@kimi` — Kimi K2.5 via Zen
+- `@gemini` — Gemini 3.1 Pro via OpenRouter
+- `@flash` — Gemini 3 Flash via OpenRouter
+- `@grok` — Grok via OpenRouter (disabled)
+- `@glm` — GLM 5 plan via zai-coding-plan (default)
 
 ### Reserved subagent handles
 
-- `@agtmini`
-- `@agttiny`
+- `@agtmini` — GPT-5.4-mini with low reasoning effort
+- `@agttiny` — reserved for future use
 
 Rules:
 - These names are reserved workflow handles.
@@ -48,14 +49,13 @@ Rules:
 
 ## Defaults
 
-- Default agent: `minimax`
-- Top-level model fallback: `opencode/glm-5`
+- Default agent: `glm`
 - Small model: `minimax`
 
-Why `minimax` is the default:
-- fast enough for daily use
-- capable enough to act as the general driver
-- good balance between quality and responsiveness
+Why `glm` is the default:
+- GLM 5 plan via `zai-coding-plan` provider offers strong coding capabilities
+- 200K context window with 128K output
+- Good balance of reasoning and speed for daily development work
 
 ## Provider routing decisions
 
@@ -82,8 +82,8 @@ Use OpenRouter for Grok when the newest Grok models are only available there.
 
 ### GLM routing
 
-Use Zen for GLM 5.
-Keep direct ZAI access available when needed for GLM 4.7-specific workflows.
+Primary GLM 5 access via `zai-coding-plan` provider (coding-optimized endpoint).
+Keep Zen (`opencode/glm-5`) available as `glm-zen` fallback when needed.
 
 ### Local model usage
 
