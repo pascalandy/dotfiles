@@ -39,7 +39,6 @@ Use agent names as workflow handles, not as a changelog.
 ### Reserved subagent handles
 
 - `@agtmini` — GPT-5.4-mini with low reasoning effort
-- `@agttiny` — reserved for future use
 
 Rules:
 - These names are reserved workflow handles.
