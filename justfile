@@ -171,7 +171,7 @@ qa-gemini-or:
 # Transcribe a YouTube URL. Wrap the URL in quotes. Extra CLI args are forwarded.
 alias ttr := transcript
 transcript url *args:
-    uv run ~/.local/share/chezmoi/dot_config/ai_templates/skills/utils/transcript/scripts/transcript.py {{quote(url)}} {{args}}
+    uv run ~/.local/share/chezmoi/dot_config/ai_templates/skills/utils/transcript-sk/scripts/transcript.py {{quote(url)}} {{args}}
 
 # -----------------------------------------------------------------------------
 # git
