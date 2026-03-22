@@ -193,6 +193,13 @@ uca:
     amp update
     claude update
     pi update
+    qmd update
+    qmd embed
+    qmd cleanup
+    qmd status
+
+uca-qmd-update:
+    echo "hello"
 
 # Update Cli Apps
 uca-full:

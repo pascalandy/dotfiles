@@ -13,6 +13,10 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 HOMEBREW_COMMAND_NOT_FOUND_HANDLER="$(brew --repository)/Library/Homebrew/command-not-found/handler.sh"
 if [ -f "$HOMEBREW_COMMAND_NOT_FOUND_HANDLER" ]; then
   source "$HOMEBREW_COMMAND_NOT_FOUND_HANDLER";
@@ -20,7 +24,7 @@ fi
 
 # Environment variables
 export ZSH="$HOME/.oh-my-zsh"
-export EDITOR="zed --wait"
+export EDITOR="nano"
 export VISUAL="zed --wait"
 export LC_ALL=en_CA.UTF-8
 export NVM_DIR="$HOME/.nvm"
@@ -644,6 +648,7 @@ esac
 
 # Standard PATH additions (order matters: earlier paths take precedence)
 export PATH="$HOME/.local/bin:$PATH"                                     # User scripts
+export PATH="$HOME/.browser-use-env/bin:$PATH"                           # browser-use CLI
 export PATH="$GOPATH/bin:$GOROOT/bin:$PATH"                              # Go
 export PATH="$HOME/.cargo/bin:$PATH"                                     # Rust
 export PATH="$HOME/.bun/bin:$PATH"                                       # Bun
