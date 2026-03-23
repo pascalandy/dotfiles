@@ -8,7 +8,7 @@
     ],
     "deny": []
   },
-  "model": "opus",
+  "model": "sonnet",
   "hooks": {
     "PreToolUse": [
       {
@@ -22,14 +22,14 @@
       }
     ]
   },
+  "statusLine": {
+    "type": "command",
+    "command": "bash /Users/andy16/.claude/statusline-command.sh"
+  },
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true,
     "pyright-lsp@claude-plugins-official": true
   },
-  "alwaysThinkingEnabled": true,
   "skipDangerousModePermissionPrompt": true,
-  "statusLine": {
-    "type": "command",
-    "command": "bash /Users/andy16/.claude/statusline-command.sh"
-  }
+  "alwaysThinkingEnabled": false
 }
