@@ -1,5 +1,5 @@
 ---
-name: review
+name: review-diff
 version: 1.0.0
 description: |
   Pre-landing PR review. Analyzes diff against the base branch for SQL safety, LLM trust
