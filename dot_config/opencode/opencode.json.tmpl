@@ -33,6 +33,94 @@
         }
       }
     },
+    "opus": {
+      "description": "Primary Claude thinking preset.",
+      "disable": false,
+      "mode": "all",
+      "model": "anthropic/claude-opus-4-6",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "thinking": {
+          "type": "adaptive"
+        },
+        "effort": "low"
+      }
+    },
+    "sonnet": {
+      "description": "Primary Claude thinking preset.",
+      "disable": false,
+      "mode": "all",
+      "model": "anthropic/claude-sonnet-4-6",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "thinking": {
+          "type": "adaptive"
+        },
+        "effort": "low"
+      }
+    },
+    "worker": {
+      "description": "Primary Claude thinking preset.",
+      "disable": false,
+      "mode": "all",
+      "model": "anthropic/claude-sonnet-4-6",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "thinking": {
+          "type": "adaptive"
+        },
+        "effort": "low"
+      }
+    },
+    "worker2": {
+      "description": "GLM 5",
+      "disable": false,
+      "mode": "all",
+      "model": "zai-coding-plan/glm-5",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "thinking": {
+          "type": "enabled"
+        }
+      }
+    },
+    "glm": {
+      "description": "GLM 5 plan",
+      "disable": false,
+      "mode": "all",
+      "model": "zai-coding-plan/glm-5",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "thinking": {
+          "type": "enabled"
+        }
+      }
+    },
     "kimi-fire": {
       "model": "fireworks-ai/accounts/fireworks/routers/kimi-k2p5-turbo",
       "disable": true,
@@ -165,24 +253,6 @@
         "bash": "allow"
       }
     },
-    "opus": {
-      "description": "Primary Claude thinking preset.",
-      "disable": false,
-      "mode": "all",
-      "model": "anthropic/claude-opus-4-6",
-      "temperature": 0.2,
-      "permission": {
-        "write": "allow",
-        "edit": "allow",
-        "bash": "allow"
-      },
-      "options": {
-        "thinking": {
-          "type": "enabled",
-          "budgetTokens": 16000
-        }
-      }
-    },
     "minimax": {
       "description": "MiniMax 2.7",
       "disable": false,
@@ -264,40 +334,6 @@
         "write": "allow",
         "edit": "allow",
         "bash": "allow"
-      }
-    },
-    "worker": {
-      "description": "GLM 5 plan",
-      "disable": false,
-      "mode": "all",
-      "model": "zai-coding-plan/glm-5",
-      "temperature": 0.2,
-      "permission": {
-        "write": "allow",
-        "edit": "allow",
-        "bash": "allow"
-      },
-      "options": {
-        "thinking": {
-          "type": "enabled"
-        }
-      }
-    },
-    "glm": {
-      "description": "GLM 5 plan",
-      "disable": false,
-      "mode": "all",
-      "model": "zai-coding-plan/glm-5",
-      "temperature": 0.2,
-      "permission": {
-        "write": "allow",
-        "edit": "allow",
-        "bash": "allow"
-      },
-      "options": {
-        "thinking": {
-          "type": "enabled"
-        }
       }
     },
     "glm-zen": {
