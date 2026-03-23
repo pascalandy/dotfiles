@@ -13,7 +13,9 @@
       "Bash(cat:*)",
       "Bash(chezmoi managed:*)",
       "Bash(chezmoi state:*)",
-      "Bash(chezmoi source-path:*)"
+      "Bash(chezmoi source-path:*)",
+      "Bash(chezmoi add:*)",
+      "Bash(bash ~/.claude/statusline-command.sh)"
     ]
   }
 }
