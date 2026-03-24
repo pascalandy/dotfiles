@@ -3,7 +3,7 @@ name: map-filesystem
 description: >
   Use only when the user explicitly say "map-filesystem" to generate or update
   .abstract.md and .overview.md atlas files for repositories and knowledge folders.
-  Also use when the user wants to list or batch-update multiple atlas directories.
+  Also use when the user wants to list or update multiple atlas directories.
 ---
 
 # Map Filesystem
@@ -15,13 +15,13 @@ Generate or update `.abstract.md` and `.overview.md` files that help AI agents n
 | Use case | CLI | AI command |
 |----------|-----|------------|
 | List atlas directories | `uv run abstract_gen.py list` | `/map-filesystem list` |
-| List from custom root | `uv run abstract_gen.py list ~/other/root` | `/map-filesystem list ~/other/root` |
-| List everything (heavy) | `uv run abstract_gen.py list --all` | `/map-filesystem list --all` |
+| List ALL projects | `uv run abstract_gen.py list --all` | `/map-filesystem list --all` |
 | Map one directory | — | `/map-filesystem` |
 | Map a specific path | — | `/map-filesystem map ~/path` |
-| Batch-update all listed dirs | — | `/map-filesystem batch` |
+| Update atlas directories | — | `/map-filesystem update` |
+| Update ALL projects | — | `/map-filesystem update --all` |
 
-Default: scans `executive-assistant` only. `--all` scans entire `~/Documents/github_local`.
+`--all` expands scope from `executive-assistant` to entire `~/Documents/github_local`.
 
 ## First step: learn the CLI
 
@@ -47,9 +47,9 @@ Map one directory. This is the default when the user runs `/map-filesystem` with
 2. Read the atlas-builder guide: `references/atlas-builder-guide.md`
 3. Follow that guide: scan the directory, classify the corpus, inspect key files, decide scope, write `.abstract.md` and `.overview.md`, validate.
 
-## Batch mode
+## Update mode
 
-Update multiple directories that already have both atlas files. Triggered when the user says "batch" or "update all".
+Update multiple directories that already have both atlas files. Triggered when the user says "update".
 
 1. Get the list of directories:
    ```bash

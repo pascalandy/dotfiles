@@ -5,17 +5,20 @@
 | Use case | CLI | AI command |
 |----------|-----|------------|
 | List atlas directories | `uv run abstract_gen.py list` | `/map-filesystem list` |
-| List from custom root | `uv run abstract_gen.py list ~/other/root` | `/map-filesystem list ~/other/root` |
-| List everything (heavy) | `uv run abstract_gen.py list --all` | `/map-filesystem list --all` |
+| List ALL projects | `uv run abstract_gen.py list --all` | `/map-filesystem list --all` |
 | Map one directory | — | `/map-filesystem` |
 | Map a specific path | — | `/map-filesystem map ~/path` |
-| Batch-update all listed dirs | — | `/map-filesystem batch` |
+| Update atlas directories | — | `/map-filesystem update` |
+| Update ALL projects | — | `/map-filesystem update --all` |
+
+`--all` expands scope from `executive-assistant` to entire `~/Documents/github_local`.
 
 ## Glossary
 
-- **Map** — create or update `.abstract.md` + `.overview.md` in a directory
+- **Map** — create or update `.abstract.md` + `.overview.md` in a single directory
 - **List** — show directories that already have both atlas files
-- **Batch** — run map on every listed directory using parallel sub-agents
+- **Update** — run map on every listed directory using parallel sub-agents
+- **`--all`** — expand scope from executive-assistant to all projects
 - **Atlas** — the pair of `.abstract.md` (L0) + `.overview.md` (L1) that help AI agents navigate
 
 ## What happens when you run each command
@@ -30,32 +33,34 @@ Same as above but targets a specific directory.
 
 ### `/map-filesystem list`
 
-Runs the CLI to discover directories with both atlas files under `~/Documents/github_local/executive-assistant`. Prints one path per line. No files are modified.
+Lists directories with both atlas files under `executive-assistant`. One path per line. No files are modified.
 
-### `/map-filesystem batch`
+### `/map-filesystem list --all`
 
-1. Runs `list` to get all atlas directories
+Same but scans entire `~/Documents/github_local`. May return many directories.
+
+### `/map-filesystem update`
+
+1. Runs `list` to get atlas directories (executive-assistant only)
 2. Creates a todo item per directory
 3. Spawns parallel sub-agents — each one updates one directory
 4. Reports results: N succeeded, M failed
 
-### `/map-filesystem list --all`
+### `/map-filesystem update --all`
 
-Same as list but scans the entire tree. Use sparingly — may return many directories.
+Same but uses `list --all` to get all projects.
 
 ## CLI (for manual use)
 
-The underlying script can also be run directly:
-
 ```bash
-# List directories with both atlas files (default scan root)
+# List directories with both atlas files (executive-assistant only)
 uv run abstract_gen.py list
+
+# List ALL projects
+uv run abstract_gen.py list --all
 
 # Custom scan root
 uv run abstract_gen.py list ~/other/path
-
-# List ALL atlas directories
-uv run abstract_gen.py list --all
 
 # JSON output
 uv run abstract_gen.py list --json

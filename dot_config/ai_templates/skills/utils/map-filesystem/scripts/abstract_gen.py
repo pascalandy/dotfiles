@@ -37,6 +37,8 @@ Via AI harness (OpenCode, Claude Code):
   /map-filesystem              Map current directory
   /map-filesystem map ~/path   Map a specific path
   /map-filesystem list         List atlas directories
+  /map-filesystem update       Update all listed dirs
+  /map-filesystem update --all Update ALL projects
 
 Via CLI:
   uv run abstract_gen.py scan ~/path           Discover atlas files
