@@ -17,17 +17,32 @@ The atlas has three layers:
 - **L1** = `.overview.md` — navigation map + retrieval guide
 - **L2** = original source files — source of truth
 
+## Quick Reference (for the human)
+
+| What you want | Command |
+|---------------|---------|
+| Map the current directory | `/map-filesystem` |
+| Map a specific path | `/map-filesystem map ~/path/to/folder` |
+| Refresh all existing atlases | `/map-filesystem refresh` |
+| Refresh a custom scan root | `/map-filesystem refresh ~/other/root` |
+| Refresh everything (resource-intensive) | `/map-filesystem refresh --all` |
+
+"Map" = create or update `.abstract.md` + `.overview.md` in a directory.
+"Refresh" = batch-update directories that already have both atlas files.
+
 ## Modes
 
 ### Single directory (default)
 
-When mapping a single directory, read the full atlas-builder guide and follow it:
+When the user says nothing specific or provides a path to map, read the full atlas-builder guide and follow it:
 
 ```
 references/atlas-builder-guide.md
 ```
 
 That reference contains the complete workflow: scan, classify, inspect, decide scope, write atlas files, validate.
+
+If the user provides a path (e.g., `/map-filesystem map ~/some/folder`), use that path as the working directory. Otherwise use the current working directory.
 
 ### Batch refresh
 
