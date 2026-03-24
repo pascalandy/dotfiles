@@ -21,7 +21,7 @@ Generate or update `.abstract.md` and `.overview.md` files that help AI agents n
 | Map a specific path | — | `/map-filesystem map ~/path` |
 | Batch-update all listed dirs | — | `/map-filesystem batch` |
 
-Default scan root: `~/Documents/github_local/executive-assistant`
+Default: scans `executive-assistant` only. `--all` scans entire `~/Documents/github_local`.
 
 ## First step: learn the CLI
 
@@ -55,7 +55,7 @@ Update multiple directories that already have both atlas files. Triggered when t
    ```bash
    uv run ~/.config/opencode/skill/utils/map-filesystem/scripts/abstract_gen.py list
    ```
-   Defaults to `~/Documents/github_local/executive-assistant`. Pass a different path as argument if needed. Use `--all` only when the user explicitly asks for it.
+   Defaults to `executive-assistant` only. Use `--all` to scan the entire `~/Documents/github_local` tree. Pass a custom path as argument to override.
 
 2. Create a todo item for each directory path. This gives the user visibility into progress.
 

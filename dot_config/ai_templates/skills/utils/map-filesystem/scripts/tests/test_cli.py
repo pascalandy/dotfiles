@@ -132,7 +132,7 @@ class TestList:
     def test_list_outputs_paths(self, tmp_repo_with_both: Path) -> None:
         from abstract_gen import app
 
-        result = runner.invoke(app, ["list", str(tmp_repo_with_both)])
+        result = runner.invoke(app, ["list", str(tmp_repo_with_both), "-q"])
         assert result.exit_code == 0
         paths = result.output.strip().split("\n")
         assert len(paths) >= 2  # root + child_project
@@ -142,7 +142,7 @@ class TestList:
     def test_list_all_flag(self, tmp_repo_with_both: Path) -> None:
         from abstract_gen import app
 
-        result = runner.invoke(app, ["list", str(tmp_repo_with_both), "--all"])
+        result = runner.invoke(app, ["list", str(tmp_repo_with_both), "--all", "-q"])
         assert result.exit_code == 0
         paths = result.output.strip().split("\n")
         assert len(paths) >= 2
@@ -162,7 +162,7 @@ class TestList:
     def test_list_no_trailing_slash(self, tmp_repo_with_both: Path) -> None:
         from abstract_gen import app
 
-        result = runner.invoke(app, ["list", str(tmp_repo_with_both)])
+        result = runner.invoke(app, ["list", str(tmp_repo_with_both), "-q"])
         assert result.exit_code == 0
         for line in result.output.strip().split("\n"):
             assert not line.endswith("/")

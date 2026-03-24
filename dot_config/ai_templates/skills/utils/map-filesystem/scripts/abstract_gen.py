@@ -44,8 +44,8 @@ Via CLI:
   uv run abstract_gen.py scan ~/path -f json   JSON output
   uv run abstract_gen.py validate ~/path       Check frontmatter
   uv run abstract_gen.py orphans ~/path        Find missing atlases
-  uv run abstract_gen.py list                   List atlas directories
-  uv run abstract_gen.py list --all             List ALL dirs (heavy)
+  uv run abstract_gen.py list                   List (executive-assistant only)
+  uv run abstract_gen.py list --all             List ALL projects (heavy)
 
 Exit codes: 0=ok  1=error  2=empty  3=invalid"""
 
@@ -209,13 +209,19 @@ def orphans(
     )
 
 
+_SCAN_ROOT = Path.home() / "Documents/github_local"
+_DEFAULT_PROJECT = "executive-assistant"
+
+
 @app.command(name="list")
 def list_dirs(
-    path: Annotated[Path, typer.Argument(help="Directory to scan")] = Path.home()
-    / "Documents/github_local/executive-assistant",
+    path: Annotated[
+        Path | None,
+        typer.Argument(help="Directory to scan (default: executive-assistant)"),
+    ] = None,
     all_projects: Annotated[
         bool,
-        typer.Option("--all", help="Output ALL atlas directories (resource-intensive)"),
+        typer.Option("--all", help="Scan entire ~/Documents/github_local tree"),
     ] = False,
     json_output: Annotated[
         bool, typer.Option("--json", help="Output as JSON array")
@@ -225,12 +231,21 @@ def list_dirs(
     ] = False,
 ) -> None:
     """List directories that have both .abstract.md and .overview.md."""
-    resolved = path.expanduser().resolve()
-    if not resolved.is_dir():
-        stderr_console.print(f"[red]Error:[/red] {resolved} is not a directory")
+    if path is not None:
+        scan_path = path.expanduser().resolve()
+    elif all_projects:
+        scan_path = _SCAN_ROOT.resolve()
+    else:
+        scan_path = (_SCAN_ROOT / _DEFAULT_PROJECT).resolve()
+
+    if not scan_path.is_dir():
+        stderr_console.print(f"[red]Error:[/red] {scan_path} is not a directory")
         raise typer.Exit(1)
 
-    config = ScannerConfig(root_path=resolved, has_both=True, quiet=quiet)
+    if not quiet:
+        stderr_console.print(f"[dim]Scanning {scan_path}[/dim]")
+
+    config = ScannerConfig(root_path=scan_path, has_both=True, quiet=quiet)
     scanner = Scanner(config)
     atlases = scanner.scan()
     if not atlases:
