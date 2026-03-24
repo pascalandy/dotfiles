@@ -1,0 +1,120 @@
+{
+  "folder-color.pathColors": [
+    {
+      "folderPath": "chezmoi/dot_config/",
+      "color": "foldercolorizer.color_00cc33"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/amp/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/amp/private_settings.json/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/bat/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/btca/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/fish/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/ghostty/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/git/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/glow/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/iterm2/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/opencode/",
+      "color": "foldercolorizer.color_00cc00"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/rclone/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/tmux/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/util-qobuz-dl/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/vscode/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/zed/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/.vscode/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/.agents/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/.augment/skills/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/.chezmoiscripts/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/.claude/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/.github/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/dot_claude/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/dot_pi/agent/",
+      "color": "foldercolorizer.color_00cc00"
+    },
+    {
+      "folderPath": "chezmoi/private_dot_gnupg/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/private_dot_gnupg/private_gpg.conf/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/private_dot_ssh/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/private_Library/private_Application Support/private_Code/User/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/docs/",
+      "color": "foldercolorizer.color_00cc00"
+    }
+  ]
+}
