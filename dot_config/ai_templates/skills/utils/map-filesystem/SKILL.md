@@ -12,14 +12,14 @@ Generate or update `.abstract.md` and `.overview.md` files that help AI agents n
 
 ## Quick reference
 
-| Goal | Command |
-|------|---------|
-| Map the current directory | `/map-filesystem` |
-| Map a specific path | `/map-filesystem map ~/path/to/folder` |
-| List all atlas directories | `/map-filesystem list` |
-| List from a custom scan root | `/map-filesystem list ~/other/root` |
-| List everything (heavy) | `/map-filesystem list --all` |
-| Batch-update all listed dirs | `/map-filesystem batch` |
+| Use case | CLI | AI command |
+|----------|-----|------------|
+| List atlas directories | `uv run abstract_gen.py list` | `/map-filesystem list` |
+| List from custom root | `uv run abstract_gen.py list ~/other/root` | `/map-filesystem list ~/other/root` |
+| List everything (heavy) | `uv run abstract_gen.py list --all` | `/map-filesystem list --all` |
+| Map one directory | — | `/map-filesystem` |
+| Map a specific path | — | `/map-filesystem map ~/path` |
+| Batch-update all listed dirs | — | `/map-filesystem batch` |
 
 ## First step: learn the CLI
 
