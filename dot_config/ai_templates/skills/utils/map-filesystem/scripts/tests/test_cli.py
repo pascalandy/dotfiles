@@ -127,6 +127,48 @@ class TestCLI:
         result = runner.invoke(app, ["scan", str(tmp_repo), "--validate"])
         assert result.exit_code == 0
 
+
+class TestRefresh:
+    def test_refresh_outputs_paths(self, tmp_repo_with_both: Path) -> None:
+        from abstract_gen import app
+
+        result = runner.invoke(app, ["refresh", str(tmp_repo_with_both)])
+        assert result.exit_code == 0
+        paths = result.output.strip().split("\n")
+        assert len(paths) >= 2  # root + child_project
+        for p in paths:
+            assert Path(p).is_absolute()
+
+    def test_refresh_all_flag(self, tmp_repo_with_both: Path) -> None:
+        from abstract_gen import app
+
+        result = runner.invoke(app, ["refresh", str(tmp_repo_with_both), "--all"])
+        assert result.exit_code == 0
+        paths = result.output.strip().split("\n")
+        assert len(paths) >= 2
+
+    def test_refresh_empty_dir(self, tmp_repo_empty: Path) -> None:
+        from abstract_gen import app
+
+        result = runner.invoke(app, ["refresh", str(tmp_repo_empty)])
+        assert result.exit_code == 2
+
+    def test_refresh_nonexistent(self, tmp_path: Path) -> None:
+        from abstract_gen import app
+
+        result = runner.invoke(app, ["refresh", str(tmp_path / "nope")])
+        assert result.exit_code == 1
+
+    def test_refresh_no_trailing_slash(self, tmp_repo_with_both: Path) -> None:
+        from abstract_gen import app
+
+        result = runner.invoke(app, ["refresh", str(tmp_repo_with_both)])
+        assert result.exit_code == 0
+        for line in result.output.strip().split("\n"):
+            assert not line.endswith("/")
+
+
+class TestOrphansFlag:
     def test_orphans_flag_on_scan(self, tmp_repo: Path) -> None:
         from abstract_gen import app
 

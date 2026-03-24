@@ -96,6 +96,27 @@ def tmp_repo_empty(tmp_path: Path) -> Path:
     return repo
 
 
+@pytest.fixture
+def tmp_repo_with_both(tmp_path: Path) -> Path:
+    """Repo with multiple directories containing both atlas files."""
+    repo = tmp_path / "multi_repo"
+    repo.mkdir()
+
+    fm = "---\ntype: atlas\nlayer: l0\ncorpus: mixed\nscope: top\nroot: multi_repo\nparent:\ndate_updated: 2026-03-21\n---\n"
+
+    # Root has both
+    (repo / ".abstract.md").write_text(fm + "# Abstract\nRoot.")
+    (repo / ".overview.md").write_text(fm + "# Overview\nRoot.")
+
+    # Child dir also has both
+    child = repo / "child_project"
+    child.mkdir()
+    (child / ".abstract.md").write_text(fm + "# Abstract\nChild.")
+    (child / ".overview.md").write_text(fm + "# Overview\nChild.")
+
+    return repo
+
+
 def make_atlas(
     path: Path,
     atlas_type: AtlasType = AtlasType.ABSTRACT,

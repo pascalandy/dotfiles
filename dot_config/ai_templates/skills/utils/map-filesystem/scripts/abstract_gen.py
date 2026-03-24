@@ -52,12 +52,18 @@ def main(
 
 @app.command()
 def scan(
-    path: Annotated[Path, typer.Argument(help="Directory to scan", exists=False)] = Path("."),
+    path: Annotated[
+        Path, typer.Argument(help="Directory to scan", exists=False)
+    ] = Path("."),
     format: Annotated[
         str,
-        typer.Option("--format", "-f", help="Output format: human, json, yaml, toml, plain"),
+        typer.Option(
+            "--format", "-f", help="Output format: human, json, yaml, toml, plain"
+        ),
     ] = "human",
-    tree: Annotated[bool, typer.Option("--tree", "-t", help="Show ASCII tree hierarchy")] = False,
+    tree: Annotated[
+        bool, typer.Option("--tree", "-t", help="Show ASCII tree hierarchy")
+    ] = False,
     export: Annotated[
         str | None, typer.Option("--export", "-e", help="Export to file: graphviz")
     ] = None,
@@ -76,12 +82,20 @@ def scan(
     orphans: Annotated[
         bool, typer.Option("--orphans", help="Find dirs missing expected atlases")
     ] = False,
-    depth: Annotated[int | None, typer.Option("--depth", "-d", help="Max recursion depth")] = None,
-    metadata: Annotated[bool, typer.Option("--metadata", "-m", help="Include frontmatter")] = False,
-    stats: Annotated[bool, typer.Option("--stats", "-s", help="Show timing statistics")] = False,
+    depth: Annotated[
+        int | None, typer.Option("--depth", "-d", help="Max recursion depth")
+    ] = None,
+    metadata: Annotated[
+        bool, typer.Option("--metadata", "-m", help="Include frontmatter")
+    ] = False,
+    stats: Annotated[
+        bool, typer.Option("--stats", "-s", help="Show timing statistics")
+    ] = False,
     verbose: Annotated[bool, typer.Option("--verbose", help="Show progress")] = False,
     debug: Annotated[bool, typer.Option("--debug", help="Full debug output")] = False,
-    quiet: Annotated[bool, typer.Option("--quiet", "-q", help="Suppress warnings")] = False,
+    quiet: Annotated[
+        bool, typer.Option("--quiet", "-q", help="Suppress warnings")
+    ] = False,
 ) -> None:
     _run_scan(
         path=path,
@@ -104,10 +118,16 @@ def scan(
 
 @app.command()
 def validate(
-    path: Annotated[Path, typer.Argument(help="Directory to scan", exists=False)] = Path("."),
-    depth: Annotated[int | None, typer.Option("--depth", "-d", help="Max recursion depth")] = None,
+    path: Annotated[
+        Path, typer.Argument(help="Directory to scan", exists=False)
+    ] = Path("."),
+    depth: Annotated[
+        int | None, typer.Option("--depth", "-d", help="Max recursion depth")
+    ] = None,
     verbose: Annotated[bool, typer.Option("--verbose", help="Show progress")] = False,
-    quiet: Annotated[bool, typer.Option("--quiet", "-q", help="Suppress warnings")] = False,
+    quiet: Annotated[
+        bool, typer.Option("--quiet", "-q", help="Suppress warnings")
+    ] = False,
 ) -> None:
     _run_scan(
         path=path,
@@ -121,12 +141,18 @@ def validate(
 
 @app.command()
 def orphans(
-    path: Annotated[Path, typer.Argument(help="Directory to scan", exists=False)] = Path("."),
-    depth: Annotated[int | None, typer.Option("--depth", "-d", help="Max recursion depth")] = None,
+    path: Annotated[
+        Path, typer.Argument(help="Directory to scan", exists=False)
+    ] = Path("."),
+    depth: Annotated[
+        int | None, typer.Option("--depth", "-d", help="Max recursion depth")
+    ] = None,
     format: Annotated[
         str, typer.Option("--format", "-f", help="Output format: human, json")
     ] = "human",
-    quiet: Annotated[bool, typer.Option("--quiet", "-q", help="Suppress warnings")] = False,
+    quiet: Annotated[
+        bool, typer.Option("--quiet", "-q", help="Suppress warnings")
+    ] = False,
 ) -> None:
     _run_scan(
         path=path,
@@ -135,6 +161,59 @@ def orphans(
         depth=depth,
         quiet=quiet,
     )
+
+
+@app.command()
+def refresh(
+    path: Annotated[Path, typer.Argument(help="Directory to scan")] = Path.home()
+    / "Documents/github_local/executive-assistant",
+    all_projects: Annotated[
+        bool,
+        typer.Option("--all", help="Output ALL atlas directories (resource-intensive)"),
+    ] = False,
+    quiet: Annotated[
+        bool, typer.Option("--quiet", "-q", help="Suppress warnings")
+    ] = False,
+) -> None:
+    """List directories with existing atlas files for batch refresh."""
+    stderr_console = Console(stderr=True)
+    resolved = path.expanduser().resolve()
+    if not resolved.is_dir():
+        stderr_console.print(f"[red]Error:[/red] {resolved} is not a directory")
+        raise typer.Exit(1)
+
+    config = ScannerConfig(root_path=resolved, has_both=True, quiet=quiet)
+    scanner = Scanner(config)
+    atlases = scanner.scan()
+    if not atlases:
+        stderr_console.print(
+            "[yellow]No directories with both atlas files found.[/yellow]"
+        )
+        raise typer.Exit(2)
+
+    # Deduplicate by directory
+    atlas_dirs = sorted({a.dir_path for a in atlases})
+
+    # Group by root project (first component relative to scan root)
+    groups: dict[str, list[Path]] = {}
+    for d in atlas_dirs:
+        try:
+            rel = d.relative_to(resolved)
+            root_name = rel.parts[0] if rel.parts else "."
+        except ValueError:
+            root_name = d.name
+        groups.setdefault(root_name, []).append(d)
+
+    if all_projects:
+        for d in atlas_dirs:
+            print(d)
+        raise typer.Exit(0)
+
+    # Default: output only directories under the scan root itself
+    # (the scan root is typically one project like executive-assistant)
+    for d in atlas_dirs:
+        print(d)
+    raise typer.Exit(0)
 
 
 def _run_scan(
@@ -265,7 +344,9 @@ def _run_scan(
 
     if validate and any(not a.is_valid for a in atlases):
         invalid_count = sum(1 for a in atlases if not a.is_valid)
-        console.print(f"[red]Validation failed: {invalid_count} invalid atlas file(s)[/red]")
+        console.print(
+            f"[red]Validation failed: {invalid_count} invalid atlas file(s)[/red]"
+        )
         raise typer.Exit(3)
 
 
