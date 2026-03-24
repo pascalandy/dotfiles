@@ -16,9 +16,9 @@ Generate or update `.abstract.md` and `.overview.md` files that help AI agents n
 |----------|-----|------------|
 | List atlas directories | `uv run abstract_gen.py list` | `/map-filesystem list` |
 | List ALL projects | `uv run abstract_gen.py list --all` | `/map-filesystem list --all` |
-| Map one directory | — | `/map-filesystem` |
-| Map a specific path | — | `/map-filesystem map ~/path` |
-| Update atlas directories | — | `/map-filesystem update` |
+| Update current directory | — | `/map-filesystem` |
+| Update a specific path | — | `/map-filesystem ~/path` |
+| Update all listed dirs | — | `/map-filesystem update` |
 | Update ALL projects | — | `/map-filesystem update --all` |
 
 `--all` expands scope from `executive-assistant` to entire `~/Documents/github_local`.
@@ -41,7 +41,7 @@ uv run ~/.config/opencode/skill/utils/map-filesystem/scripts/abstract_gen.py lis
 
 ## Single directory mode
 
-Map one directory. This is the default when the user runs `/map-filesystem` without other keywords.
+Update one directory. This is the default when the user runs `/map-filesystem` without other keywords.
 
 1. Determine the target path. If the user provides one, use it. Otherwise use the current working directory.
 2. Read the atlas-builder guide: `references/atlas-builder-guide.md`

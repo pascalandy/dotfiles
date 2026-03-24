@@ -34,9 +34,10 @@ _HELP = """\
 Discover, validate, and export atlas files (.abstract.md, .overview.md).
 
 Via AI harness (OpenCode, Claude Code):
-  /map-filesystem              Map current directory
-  /map-filesystem map ~/path   Map a specific path
+  /map-filesystem              Update current directory
+  /map-filesystem ~/path       Update a specific path
   /map-filesystem list         List atlas directories
+  /map-filesystem list --all   List ALL projects
   /map-filesystem update       Update all listed dirs
   /map-filesystem update --all Update ALL projects
 

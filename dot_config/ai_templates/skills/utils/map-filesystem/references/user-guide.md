@@ -6,18 +6,17 @@
 |----------|-----|------------|
 | List atlas directories | `uv run abstract_gen.py list` | `/map-filesystem list` |
 | List ALL projects | `uv run abstract_gen.py list --all` | `/map-filesystem list --all` |
-| Map one directory | — | `/map-filesystem` |
-| Map a specific path | — | `/map-filesystem map ~/path` |
-| Update atlas directories | — | `/map-filesystem update` |
+| Update current directory | — | `/map-filesystem` |
+| Update a specific path | — | `/map-filesystem ~/path` |
+| Update all listed dirs | — | `/map-filesystem update` |
 | Update ALL projects | — | `/map-filesystem update --all` |
 
 `--all` expands scope from `executive-assistant` to entire `~/Documents/github_local`.
 
 ## Glossary
 
-- **Map** — create or update `.abstract.md` + `.overview.md` in a single directory
+- **Update** — create or update `.abstract.md` + `.overview.md` in a directory
 - **List** — show directories that already have both atlas files
-- **Update** — run map on every listed directory using parallel sub-agents
 - **`--all`** — expand scope from executive-assistant to all projects
 - **Atlas** — the pair of `.abstract.md` (L0) + `.overview.md` (L1) that help AI agents navigate
 
@@ -27,7 +26,7 @@
 
 The agent scans the current directory, inspects key files, and writes/updates `.abstract.md` and `.overview.md` at the root.
 
-### `/map-filesystem map ~/path/to/folder`
+### `/map-filesystem ~/path/to/folder`
 
 Same as above but targets a specific directory.
 
