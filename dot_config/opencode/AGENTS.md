@@ -1,25 +1,16 @@
 # Global User Preferences
 
-## CLI Tools
-- `rg` not grep | `fd` not find | `uv` not python3 | `bun` not npm | `gh` ready
-- user’s screenshots: `ls -lt ~/Documents/screenshots | head -2`
-- when the user use sign $, it refers to a skill
-
-## web search
-
-use skill “tavily”
-
-## browsing
-
-use `agent-browser --help`
-
-## Agent selection in opencode
-
-When you need to use a sub-agent, load skill: “subagent-selector”
+## cli default commands to use
+- **CLI defaults**
+  - `rg` instead of `grep`
+  - `fd` instead of `find`
+  - `uv` instead of `python3`
+  - `bun` instead of `npm`
+  - `gh` is available and ready
+- **Screenshots location** → `ls -lt ~/Documents/screenshots | head -2`
+- **`$` prefix** → refers to a skill
 
 ## Communication Style
-- Never end sentences with ellipses (...) - it comes across as passive aggressive
-- Ask 2-3 questions one at a time. Use “ask-questions” skill
 - Focus on execution over commentary
 - Acknowledge requests neutrally without enthusiasm inflation
 - Skip validation language ("great idea!", "perfect!", "excellent!", "amazing!", "kick ass!")

@@ -2,6 +2,12 @@
 
 This file provides guidelines for AI coding agents working in this repository.
 
+## File Structure
+
+Read the atlas files for navigation context:
+1. `.abstract.md` — fast relevance check (what this repo is for)
+2. `.overview.md` — navigation map + retrieval routes
+
 ## Repository Overview
 
 This is a **chezmoi dotfiles repository** that manages configuration files across machines.
@@ -41,33 +47,7 @@ chezmoi edit ~/.zshrc
 
 ## Commands Reference
 
-### Daily Operations
-
-```bash
-# Check drift (excluding run scripts)
-just cm-status
-just cm-diff
-
-# Preview then apply
-just cm-apply-dry
-just cm-apply-verbose
-
-# Add a new file to management
-chezmoi add ~/.newfile
-
-# List all managed files
-chezmoi managed
-
-# Run the main local checks
-just ci
-```
-
-### Git Operations
-
-```bash
-# Commit and push (from this directory)
-git add . && git commit -m "message" && git push
-```
+load skill `chezmoi`
 
 ## User Preferences
 
@@ -95,87 +75,7 @@ export PATH="$HOME/.local/bin:$PATH"
 
 ## Bash Script Standards
 
-All bash scripts in this repo follow the template in:
-`dot_config/ai_templates/skills/std/bash/scripts/pref_bash_script_template.sh`
-
-### Required Conventions
-
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-```
-
-### Naming Conventions
-
-| Pattern | Example | Usage |
-|---------|---------|-------|
-| `fct_*` | `fct_parse_arguments()` | All functions |
-| `log_*` | `log_info()`, `log_error()` | Logging functions |
-| `UPPER_CASE` | `SCRIPT_VERSION` | Constants and env vars |
-| `lower_case` | `local message` | Local variables |
-
-### Logging
-
-```bash
-log() {
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - $1"
-}
-
-log_info "Starting process"
-log_error "Something failed"
-```
-
-### Error Handling
-
-```bash
-die() {
-    local message="${1:-Unknown error}"
-    local exit_code="${2:-1}"
-    log_error "${message}"
-    exit "${exit_code}"
-}
-```
-
-## File Structure
-
-```
-~/.local/share/chezmoi/
-├── AGENTS.md                    # This file
-├── README.md                    # User documentation
-├── dot_zshrc                    # → ~/.zshrc
-├── dot_gitconfig                # → ~/.gitconfig
-├── dot_Brewfile                 # → ~/.Brewfile
-├── dot_local/bin/               # → ~/.local/bin/ (user scripts)
-├── dot_config/                  # → ~/.config/
-│   ├── opencode/                # OpenCode runtime config, plugins, tools
-│   ├── ai_templates/            # Shared commands and skills source of truth
-│   └── ...                      # Other app and CLI config
-├── dot_pi/agent/                # Pi agent settings, prompts, keybindings
-├── private_dot_ssh/             # → ~/.ssh/ (private)
-├── private_dot_gnupg/           # → ~/.gnupg/ (private)
-├── .chezmoiscripts/             # Chezmoi run scripts (v2.9+)
-│   ├── run_before_sync.sh       # Pre-apply: sync editor state back to source
-│   └── run_after_backup.sh      # Post-apply: render/sync shared AI assets
-└── bienvenue_chez_moi/          # Archived configs (source: ~/Documents/github_local/Z_ARCHIVED/)
-```
-
-## Active vs Archived Content
-
-Treat these as the main active AI surfaces:
-
-- `dot_config/opencode/`
-- `dot_config/ai_templates/commands/`
-- `dot_config/ai_templates/skills/`
-- `dot_pi/agent/`
-
-Treat these as archived or reference material unless the user explicitly says otherwise:
-
-- `dot_config/ai_templates/commands_archives/`
-- `dot_config/ai_templates/skills_archived/`
-- `bienvenue_chez_moi/`
-
-Archived directories may contain realistic code, tests, and docs. Do not assume
-they are part of the current runtime workflow.
+if needed, load skill `bash`
 
 ## Source vs Applied Paths
 
@@ -240,65 +140,3 @@ This repo has two run scripts located in `.chezmoiscripts/` (chezmoi v2.9+ conve
 - Renders `dot_config/ai_templates/` through chezmoi and syncs shared commands/skills to multiple agent homes
 - Uses merge behavior for OpenCode shared assets so OpenCode-specific entries can stay managed separately
 
-## Ignored Files
-
-See `.chezmoiignore` for files excluded from chezmoi management:
-- `.git/` directories
-- `node_modules/`, `__pycache__/`
-- Environment files (`.env*`)
-- OS files (`.DS_Store`)
-
-## Emergency Recovery
-
-See `crash_procedure.md` for crash recovery procedures.
-
-## External Resources
-
-- Official docs: https://www.chezmoi.io/user-guide/command-overview/
-- Repository: https://github.com/pascalandy/dotfiles
-
----
-
-## cass — Search All Your Agent History
-
-```txt
-What: cass indexes conversations from Claude Code, Codex, Cursor, Gemini, Aider, ChatGPT, and more into a unified, searchable index. Before solving a problem from scratch, check if any agent already solved something similar.
-
-⚠️ NEVER run bare cass — it launches an interactive TUI. Always use --robot or --json.
-
-Quick Start
-
-# Check if index is healthy (exit 0=ok, 1=run index first)
-cass health
-
-# Search across all agent histories
-cass search "authentication error" --robot --limit 5
-
-# View a specific result (from search output)
-cass view /path/to/session.jsonl -n 42 --json
-
-# Expand context around a line
-cass expand /path/to/session.jsonl -n 42 -C 3 --json
-
-# Learn the full API
-cass capabilities --json # Feature discovery
-cass robot-docs guide # LLM-optimized docs
-
-Why Use It
-
-- Cross-agent knowledge: Find solutions from Codex when using Claude, or vice versa
-- Forgiving syntax: Typos and wrong flags are auto-corrected with teaching notes
-- Token-efficient: --fields minimal returns only essential data
-
-Key Flags
-
-| Flag | Purpose |
-|------------------|--------------------------------------------------------|
-| --robot / --json | Machine-readable JSON output (required!) |
-| --fields minimal | Reduce payload: source_path, line_number, agent only |
-| --limit N | Cap result count |
-| --agent NAME | Filter to specific agent (claude, codex, cursor, etc.) |
-| --days N | Limit to recent N days |
-
-stdout = data only, stderr = diagnostics. Exit 0 = success.
-```
