@@ -27,40 +27,30 @@ from lib.validator import Validator
 from rich.console import Console
 from rich.table import Table
 
+_HELP = """\
+Discover, validate, and export atlas files (.abstract.md, .overview.md).
+
+Via AI harness (OpenCode, Claude Code):
+  /map-filesystem              Map current directory
+  /map-filesystem map ~/path   Map a specific path
+  /map-filesystem refresh      Batch-refresh existing atlases
+
+Via CLI:
+  uv run abstract_gen.py scan ~/path           Discover atlas files
+  uv run abstract_gen.py scan ~/path --tree    Show as ASCII tree
+  uv run abstract_gen.py scan ~/path -f json   JSON output
+  uv run abstract_gen.py validate ~/path       Check frontmatter
+  uv run abstract_gen.py orphans ~/path        Find missing atlases
+  uv run abstract_gen.py refresh               List dirs to refresh
+  uv run abstract_gen.py refresh --all         List ALL dirs (heavy)
+
+Exit codes: 0=ok  1=error  2=empty  3=invalid"""
+
 app = typer.Typer(
     name="abstract_gen",
-    help="Discover, validate, and export atlas files (.abstract.md, .overview.md).",
+    help=_HELP,
     add_completion=False,
 )
-
-
-@app.command(name="help-all")
-def help_all() -> None:
-    """Show full cheat sheet: AI harness commands + CLI examples + exit codes."""
-    c = Console(stderr=True)
-    c.print()
-    c.print("[bold]Via AI harness[/bold] (OpenCode, Claude Code):")
-    c.print("  /map-filesystem              Map current directory")
-    c.print("  /map-filesystem map ~/path   Map a specific path")
-    c.print("  /map-filesystem refresh      Batch-refresh existing atlases")
-    c.print()
-    c.print("[bold]Via CLI[/bold]:")
-    c.print("  uv run abstract_gen.py scan ~/path           Discover atlas files")
-    c.print("  uv run abstract_gen.py scan ~/path --tree    Show as ASCII tree")
-    c.print("  uv run abstract_gen.py scan ~/path -f json   JSON output")
-    c.print("  uv run abstract_gen.py validate ~/path       Check frontmatter")
-    c.print("  uv run abstract_gen.py orphans ~/path        Find missing atlases")
-    c.print("  uv run abstract_gen.py refresh               List dirs to refresh")
-    c.print("  uv run abstract_gen.py refresh --all         List ALL dirs (heavy)")
-    c.print()
-    c.print("[bold]Exit codes[/bold]:")
-    c.print("  0  Success (or user cancelled)")
-    c.print("  1  Runtime error (bad path, invalid args)")
-    c.print("  2  No atlas files found")
-    c.print("  3  Validation failures")
-    c.print()
-
-
 console = Console()
 
 

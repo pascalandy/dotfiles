@@ -22,10 +22,10 @@ Generate or refresh `.abstract.md` and `.overview.md` files that help AI agents 
 
 ## First step: learn the CLI
 
-Before doing anything, run the built-in cheat sheet:
+Before doing anything, run:
 
 ```bash
-uv run ~/.config/opencode/skill/utils/map-filesystem/scripts/abstract_gen.py help-all
+uv run ~/.config/opencode/skill/utils/map-filesystem/scripts/abstract_gen.py --help
 ```
 
 This prints every available command, flag, and exit code. Treat its output as the source of truth for CLI usage.
