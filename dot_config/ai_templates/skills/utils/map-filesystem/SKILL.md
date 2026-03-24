@@ -1,86 +1,80 @@
 ---
 name: map-filesystem
 description: >
-  Generate or refresh .abstract.md and .overview.md atlas files for repositories
-  and knowledge folders. Use when the user says "map this folder", "map filesystem",
-  "generate atlas", "refresh atlas", "create .abstract.md", "create .overview.md",
-  or wants to build a lightweight navigation system for AI agents to find files faster.
+  Use only when the user explicitly say "map-filesystem" to generate or refresh
+  .abstract.md and .overview.md atlas files for repositories and knowledge folders.
   Also use when the user wants to batch-refresh multiple atlas directories.
 ---
 
 # Map Filesystem
 
-Generate or refresh a lightweight navigation system (atlas) for AI agents.
+Generate or refresh `.abstract.md` and `.overview.md` files that help AI agents navigate repositories and knowledge folders.
 
-The atlas has three layers:
-- **L0** = `.abstract.md` — fast relevance check
-- **L1** = `.overview.md` — navigation map + retrieval guide
-- **L2** = original source files — source of truth
+## Quick reference
 
-## Quick Reference (for the human)
-
-| What you want | Command |
-|---------------|---------|
+| Goal | Command |
+|------|---------|
 | Map the current directory | `/map-filesystem` |
 | Map a specific path | `/map-filesystem map ~/path/to/folder` |
-| Refresh all existing atlases | `/map-filesystem refresh` |
+| Refresh existing atlases | `/map-filesystem refresh` |
 | Refresh a custom scan root | `/map-filesystem refresh ~/other/root` |
-| Refresh everything (resource-intensive) | `/map-filesystem refresh --all` |
+| Refresh everything (heavy) | `/map-filesystem refresh --all` |
 
-"Map" = create or update `.abstract.md` + `.overview.md` in a directory.
-"Refresh" = batch-update directories that already have both atlas files.
+## First step: learn the CLI
 
-## Modes
+Before doing anything, run the built-in cheat sheet:
 
-### Single directory (default)
-
-When the user says nothing specific or provides a path to map, read the full atlas-builder guide and follow it:
-
-```
-references/atlas-builder-guide.md
+```bash
+uv run ~/.config/opencode/skill/utils/map-filesystem/scripts/abstract_gen.py help-all
 ```
 
-That reference contains the complete workflow: scan, classify, inspect, decide scope, write atlas files, validate.
+This prints every available command, flag, and exit code. Treat its output as the source of truth for CLI usage.
 
-If the user provides a path (e.g., `/map-filesystem map ~/some/folder`), use that path as the working directory. Otherwise use the current working directory.
+For a specific subcommand, append `--help`:
 
-### Batch refresh
+```bash
+uv run ~/.config/opencode/skill/utils/map-filesystem/scripts/abstract_gen.py refresh --help
+```
 
-When the user says "refresh" or wants to update multiple projects:
+## Single directory mode
 
-1. Run the refresh subcommand to get atlas directory paths:
+Map one directory. This is the default when the user runs `/map-filesystem` without "refresh".
+
+1. Determine the target path. If the user provides one, use it. Otherwise use the current working directory.
+2. Read the atlas-builder guide: `references/atlas-builder-guide.md`
+3. Follow that guide: scan the directory, classify the corpus, inspect key files, decide scope, write `.abstract.md` and `.overview.md`, validate.
+
+## Batch refresh mode
+
+Update multiple directories that already have both atlas files. Triggered when the user says "refresh".
+
+1. Get the list of directories to refresh:
    ```bash
    uv run ~/.config/opencode/skill/utils/map-filesystem/scripts/abstract_gen.py refresh
    ```
-   Default scan path: `~/Documents/github_local/executive-assistant`.
-   Pass a custom path as argument if needed.
-   Use `--all` only if the user explicitly asks to process everything (resource-intensive).
+   Defaults to `~/Documents/github_local/executive-assistant`. Pass a different path as argument if needed. Use `--all` only when the user explicitly asks for it.
 
-2. Create a todo list with one item per directory path for progress visibility.
+2. Create a todo item for each directory path. This gives the user visibility into progress.
 
-3. For each path, spawn a subagent (Task tool, `subagent_type: "worker"`) with this prompt:
+3. Spawn one subagent per directory (Task tool, `subagent_type: "worker"`). They run in parallel — each directory is independent. Prompt each subagent with:
 
    ```
-   Read the atlas-builder guide from:
+   Read the atlas-builder guide:
    ~/.config/opencode/skill/utils/map-filesystem/references/atlas-builder-guide.md
 
-   Execute those instructions for this directory: <path>
-   Write or update the .abstract.md and .overview.md files in that directory.
-   Return a short summary of what you generated or updated.
+   Execute those instructions for: <path>
+   Write or update .abstract.md and .overview.md in that directory.
+   Return a short summary of what changed.
    ```
 
-   Spawn subagents in parallel — they work on independent directories with no shared state.
+4. Mark each todo complete or cancelled as subagents finish.
 
-4. As each subagent completes, mark its todo as completed. If one fails, mark as cancelled with the error.
+5. Summarize results: N succeeded, M failed, list failures.
 
-5. Summarize: N succeeded, M failed, list any failures.
+## References
 
-## Scripts
-
-The `scripts/` directory contains `abstract_gen.py`, a CLI for discovering, validating, and exporting atlas files. See `references/README.md` for full usage.
-
-Key subcommands:
-- `scan` — discover atlas files with filters and output formats
-- `validate` — check frontmatter consistency
-- `orphans` — find directories missing expected atlas files
-- `refresh` — list directories with both atlas files for batch refresh
+| File | Contents |
+|------|----------|
+| `references/atlas-builder-guide.md` | Full instructions for writing atlas files |
+| `references/user-guide.md` | Human-readable command reference |
+| `references/README.md` | `abstract_gen.py` architecture and output formats |
