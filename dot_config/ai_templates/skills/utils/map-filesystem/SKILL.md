@@ -1,14 +1,14 @@
 ---
 name: map-filesystem
 description: >
-  Use only when the user explicitly say "map-filesystem" to generate or refresh
+  Use only when the user explicitly say "map-filesystem" to generate or update
   .abstract.md and .overview.md atlas files for repositories and knowledge folders.
-  Also use when the user wants to batch-refresh multiple atlas directories.
+  Also use when the user wants to list or batch-update multiple atlas directories.
 ---
 
 # Map Filesystem
 
-Generate or refresh `.abstract.md` and `.overview.md` files that help AI agents navigate repositories and knowledge folders.
+Generate or update `.abstract.md` and `.overview.md` files that help AI agents navigate repositories and knowledge folders.
 
 ## Quick reference
 
@@ -16,9 +16,10 @@ Generate or refresh `.abstract.md` and `.overview.md` files that help AI agents 
 |------|---------|
 | Map the current directory | `/map-filesystem` |
 | Map a specific path | `/map-filesystem map ~/path/to/folder` |
-| Refresh existing atlases | `/map-filesystem refresh` |
-| Refresh a custom scan root | `/map-filesystem refresh ~/other/root` |
-| Refresh everything (heavy) | `/map-filesystem refresh --all` |
+| List all atlas directories | `/map-filesystem list` |
+| List from a custom scan root | `/map-filesystem list ~/other/root` |
+| List everything (heavy) | `/map-filesystem list --all` |
+| Batch-update all listed dirs | `/map-filesystem batch` |
 
 ## First step: learn the CLI
 
@@ -33,24 +34,24 @@ This prints every available command, flag, and exit code. Treat its output as th
 For a specific subcommand, append `--help`:
 
 ```bash
-uv run ~/.config/opencode/skill/utils/map-filesystem/scripts/abstract_gen.py refresh --help
+uv run ~/.config/opencode/skill/utils/map-filesystem/scripts/abstract_gen.py list --help
 ```
 
 ## Single directory mode
 
-Map one directory. This is the default when the user runs `/map-filesystem` without "refresh".
+Map one directory. This is the default when the user runs `/map-filesystem` without other keywords.
 
 1. Determine the target path. If the user provides one, use it. Otherwise use the current working directory.
 2. Read the atlas-builder guide: `references/atlas-builder-guide.md`
 3. Follow that guide: scan the directory, classify the corpus, inspect key files, decide scope, write `.abstract.md` and `.overview.md`, validate.
 
-## Batch refresh mode
+## Batch mode
 
-Update multiple directories that already have both atlas files. Triggered when the user says "refresh".
+Update multiple directories that already have both atlas files. Triggered when the user says "batch" or "update all".
 
-1. Get the list of directories to refresh:
+1. Get the list of directories:
    ```bash
-   uv run ~/.config/opencode/skill/utils/map-filesystem/scripts/abstract_gen.py refresh
+   uv run ~/.config/opencode/skill/utils/map-filesystem/scripts/abstract_gen.py list
    ```
    Defaults to `~/Documents/github_local/executive-assistant`. Pass a different path as argument if needed. Use `--all` only when the user explicitly asks for it.
 

@@ -128,41 +128,41 @@ class TestCLI:
         assert result.exit_code == 0
 
 
-class TestRefresh:
-    def test_refresh_outputs_paths(self, tmp_repo_with_both: Path) -> None:
+class TestList:
+    def test_list_outputs_paths(self, tmp_repo_with_both: Path) -> None:
         from abstract_gen import app
 
-        result = runner.invoke(app, ["refresh", str(tmp_repo_with_both)])
+        result = runner.invoke(app, ["list", str(tmp_repo_with_both)])
         assert result.exit_code == 0
         paths = result.output.strip().split("\n")
         assert len(paths) >= 2  # root + child_project
         for p in paths:
             assert Path(p).is_absolute()
 
-    def test_refresh_all_flag(self, tmp_repo_with_both: Path) -> None:
+    def test_list_all_flag(self, tmp_repo_with_both: Path) -> None:
         from abstract_gen import app
 
-        result = runner.invoke(app, ["refresh", str(tmp_repo_with_both), "--all"])
+        result = runner.invoke(app, ["list", str(tmp_repo_with_both), "--all"])
         assert result.exit_code == 0
         paths = result.output.strip().split("\n")
         assert len(paths) >= 2
 
-    def test_refresh_empty_dir(self, tmp_repo_empty: Path) -> None:
+    def test_list_empty_dir(self, tmp_repo_empty: Path) -> None:
         from abstract_gen import app
 
-        result = runner.invoke(app, ["refresh", str(tmp_repo_empty)])
+        result = runner.invoke(app, ["list", str(tmp_repo_empty)])
         assert result.exit_code == 2
 
-    def test_refresh_nonexistent(self, tmp_path: Path) -> None:
+    def test_list_nonexistent(self, tmp_path: Path) -> None:
         from abstract_gen import app
 
-        result = runner.invoke(app, ["refresh", str(tmp_path / "nope")])
+        result = runner.invoke(app, ["list", str(tmp_path / "nope")])
         assert result.exit_code == 1
 
-    def test_refresh_no_trailing_slash(self, tmp_repo_with_both: Path) -> None:
+    def test_list_no_trailing_slash(self, tmp_repo_with_both: Path) -> None:
         from abstract_gen import app
 
-        result = runner.invoke(app, ["refresh", str(tmp_repo_with_both)])
+        result = runner.invoke(app, ["list", str(tmp_repo_with_both)])
         assert result.exit_code == 0
         for line in result.output.strip().split("\n"):
             assert not line.endswith("/")

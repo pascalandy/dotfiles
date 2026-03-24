@@ -36,7 +36,7 @@ Discover, validate, and export atlas files (.abstract.md, .overview.md).
 Via AI harness (OpenCode, Claude Code):
   /map-filesystem              Map current directory
   /map-filesystem map ~/path   Map a specific path
-  /map-filesystem refresh      Batch-refresh existing atlases
+  /map-filesystem list         List atlas directories
 
 Via CLI:
   uv run abstract_gen.py scan ~/path           Discover atlas files
@@ -44,8 +44,8 @@ Via CLI:
   uv run abstract_gen.py scan ~/path -f json   JSON output
   uv run abstract_gen.py validate ~/path       Check frontmatter
   uv run abstract_gen.py orphans ~/path        Find missing atlases
-  uv run abstract_gen.py refresh               List dirs to refresh
-  uv run abstract_gen.py refresh --all         List ALL dirs (heavy)
+  uv run abstract_gen.py list                   List atlas directories
+  uv run abstract_gen.py list --all             List ALL dirs (heavy)
 
 Exit codes: 0=ok  1=error  2=empty  3=invalid"""
 
@@ -209,8 +209,8 @@ def orphans(
     )
 
 
-@app.command()
-def refresh(
+@app.command(name="list")
+def list_dirs(
     path: Annotated[Path, typer.Argument(help="Directory to scan")] = Path.home()
     / "Documents/github_local/executive-assistant",
     all_projects: Annotated[
@@ -224,7 +224,7 @@ def refresh(
         bool, typer.Option("--quiet", "-q", help="Suppress warnings")
     ] = False,
 ) -> None:
-    """List directories with existing atlas files for batch refresh."""
+    """List directories that have both .abstract.md and .overview.md."""
     resolved = path.expanduser().resolve()
     if not resolved.is_dir():
         stderr_console.print(f"[red]Error:[/red] {resolved} is not a directory")
