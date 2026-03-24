@@ -1,5 +1,5 @@
 ---
-description: gs:qa
+description: qa
 ---
 
 To execute this task, load skill: `qa`

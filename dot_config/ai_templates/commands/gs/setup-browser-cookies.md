@@ -1,5 +1,5 @@
 ---
-description: gs:setup-browser-cookies
+description: setup-browser-cookies
 ---
 
 To execute this task, load skill: `setup-browser-cookies`

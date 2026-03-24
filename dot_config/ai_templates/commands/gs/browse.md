@@ -1,5 +1,5 @@
 ---
-description: gs:browse
+description: browse
 ---
 
 To execute this task, load skill: `browse`
