@@ -1,8 +1,8 @@
 ---
 name: pr-comment-resolver
 description: "Addresses PR review comments by implementing requested changes and reporting resolutions. Use when code review feedback needs to be resolved with code changes."
+mode: subagent
 color: "#3b82f6"
-model: inherit
 ---
 
 <examples>

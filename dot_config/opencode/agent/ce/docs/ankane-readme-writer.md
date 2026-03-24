@@ -1,8 +1,8 @@
 ---
 name: ankane-readme-writer
 description: "Creates or updates README files following Ankane-style template for Ruby gems. Use when writing gem documentation with imperative voice, concise prose, and standard section ordering."
+mode: subagent
 color: "#06b6d4"
-model: inherit
 ---
 
 <examples>

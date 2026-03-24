@@ -1,7 +1,7 @@
 ---
 name: architecture-strategist
 description: "Analyzes code changes from an architectural perspective for pattern compliance and design integrity. Use when reviewing PRs, adding services, or evaluating structural refactors."
-model: inherit
+mode: subagent
 ---
 
 <examples>

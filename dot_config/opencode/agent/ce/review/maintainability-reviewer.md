@@ -1,8 +1,7 @@
 ---
 name: maintainability-reviewer
 description: Always-on code-review persona. Reviews code for premature abstraction, unnecessary indirection, dead code, coupling between unrelated modules, and naming that obscures intent. Spawned by the ce:review-beta skill as part of a reviewer ensemble.
-model: inherit
-tools: Read, Grep, Glob, Bash
+mode: subagent
 color: "#3b82f6"
 
 ---

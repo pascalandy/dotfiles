@@ -1,7 +1,7 @@
 ---
 name: figma-design-sync
 description: "Detects and fixes visual differences between a web implementation and its Figma design. Use iteratively when syncing implementation to match Figma specs."
-model: inherit
+mode: subagent
 color: "#a855f7"
 ---
 

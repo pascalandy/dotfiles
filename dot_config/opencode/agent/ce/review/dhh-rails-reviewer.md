@@ -1,7 +1,7 @@
 ---
 name: dhh-rails-reviewer
 description: "Brutally honest Rails code review from DHH's perspective. Use when reviewing Rails code for anti-patterns, JS framework contamination, or violations of Rails conventions."
-model: inherit
+mode: subagent
 ---
 
 <examples>

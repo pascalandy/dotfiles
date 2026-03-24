@@ -1,8 +1,7 @@
 ---
 name: performance-reviewer
 description: Conditional code-review persona, selected when the diff touches database queries, loop-heavy data transforms, caching layers, or I/O-intensive paths. Reviews code for runtime performance and scalability issues. Spawned by the ce:review-beta skill as part of a reviewer ensemble.
-model: inherit
-tools: Read, Grep, Glob, Bash
+mode: subagent
 color: "#3b82f6"
 
 ---
