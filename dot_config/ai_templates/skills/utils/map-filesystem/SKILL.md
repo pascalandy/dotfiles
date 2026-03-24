@@ -21,6 +21,8 @@ Generate or update `.abstract.md` and `.overview.md` files that help AI agents n
 | Map a specific path | — | `/map-filesystem map ~/path` |
 | Batch-update all listed dirs | — | `/map-filesystem batch` |
 
+Default scan root: `~/Documents/github_local/executive-assistant`
+
 ## First step: learn the CLI
 
 Before doing anything, run:
