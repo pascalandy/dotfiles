@@ -12,16 +12,28 @@ Generate or update `.abstract.md` and `.overview.md` files that help AI agents n
 
 ## Quick reference
 
-| Use case | CLI | AI command |
-|----------|-----|------------|
-| List atlas directories | `uv run abstract_gen.py list` | `/map-filesystem list` |
-| List ALL projects | `uv run abstract_gen.py list --all` | `/map-filesystem list --all` |
-| Update current directory | — | `/map-filesystem` |
-| Update a specific path | — | `/map-filesystem ~/path` |
-| Update all listed dirs | — | `/map-filesystem update` |
-| Update ALL projects | — | `/map-filesystem update --all` |
+Two core commands: `list` and `update`. Both share the same scope logic.
+
+| Command | AI | CLI |
+|---------|-----|-----|
+| **list** | | |
+| List atlas dirs (executive-assistant) | `/map-filesystem list` | `uv run abstract_gen.py list` |
+| List atlas dirs (all projects) | `/map-filesystem list --all` | `uv run abstract_gen.py list --all` |
+| List atlas dirs (custom root) | `/map-filesystem list ~/path` | `uv run abstract_gen.py list ~/path` |
+| **update** | | |
+| Update atlas dirs (executive-assistant) | `/map-filesystem update` | — |
+| Update atlas dirs (all projects) | `/map-filesystem update --all` | — |
+| Update one specific directory | `/map-filesystem update ~/path` | — |
 
 `--all` expands scope from `executive-assistant` to entire `~/Documents/github_local`.
+
+**CLI-only diagnostics:**
+
+| Command | What it does |
+|---------|-------------|
+| `uv run abstract_gen.py scan ~/path` | Discover atlas files with filters and output formats |
+| `uv run abstract_gen.py validate ~/path` | Check frontmatter consistency |
+| `uv run abstract_gen.py orphans ~/path` | Find directories missing atlas files |
 
 ## First step: learn the CLI
 
@@ -31,31 +43,24 @@ Before doing anything, run:
 uv run ~/.config/opencode/skill/utils/map-filesystem/scripts/abstract_gen.py --help
 ```
 
-This prints every available command, flag, and exit code. Treat its output as the source of truth for CLI usage.
+Treat its output as the source of truth for CLI usage. For a specific subcommand, append `--help`.
 
-For a specific subcommand, append `--help`:
+## Update single directory
 
-```bash
-uv run ~/.config/opencode/skill/utils/map-filesystem/scripts/abstract_gen.py list --help
-```
+When the user runs `/map-filesystem update ~/path`:
 
-## Single directory mode
+1. Read the atlas-builder guide: `references/atlas-builder-guide.md`
+2. Follow that guide for the given path: scan, classify, inspect, decide scope, write `.abstract.md` and `.overview.md`, validate.
 
-Update one directory. This is the default when the user runs `/map-filesystem` without other keywords.
+## Update multiple directories
 
-1. Determine the target path. If the user provides one, use it. Otherwise use the current working directory.
-2. Read the atlas-builder guide: `references/atlas-builder-guide.md`
-3. Follow that guide: scan the directory, classify the corpus, inspect key files, decide scope, write `.abstract.md` and `.overview.md`, validate.
-
-## Update mode
-
-Update multiple directories that already have both atlas files. Triggered when the user says "update".
+When the user runs `/map-filesystem update` or `/map-filesystem update --all`:
 
 1. Get the list of directories:
    ```bash
    uv run ~/.config/opencode/skill/utils/map-filesystem/scripts/abstract_gen.py list
    ```
-   Defaults to `executive-assistant` only. Use `--all` to scan the entire `~/Documents/github_local` tree. Pass a custom path as argument to override.
+   Add `--all` if the user requested it. Pass a custom path as argument to override the default root.
 
 2. Create a todo item for each directory path. This gives the user visibility into progress.
 

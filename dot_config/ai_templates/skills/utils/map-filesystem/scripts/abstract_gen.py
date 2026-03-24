@@ -33,22 +33,22 @@ from rich.table import Table
 _HELP = """\
 Discover, validate, and export atlas files (.abstract.md, .overview.md).
 
-Via AI harness (OpenCode, Claude Code):
-  /map-filesystem              Update current directory
-  /map-filesystem ~/path       Update a specific path
-  /map-filesystem list         List atlas directories
-  /map-filesystem list --all   List ALL projects
-  /map-filesystem update       Update all listed dirs
-  /map-filesystem update --all Update ALL projects
+Two core commands: list and update. --all expands scope.
 
-Via CLI:
-  uv run abstract_gen.py scan ~/path           Discover atlas files
-  uv run abstract_gen.py scan ~/path --tree    Show as ASCII tree
-  uv run abstract_gen.py scan ~/path -f json   JSON output
-  uv run abstract_gen.py validate ~/path       Check frontmatter
-  uv run abstract_gen.py orphans ~/path        Find missing atlases
-  uv run abstract_gen.py list                   List (executive-assistant only)
-  uv run abstract_gen.py list --all             List ALL projects (heavy)
+AI harness:
+  /map-filesystem list             List dirs (executive-assistant)
+  /map-filesystem list --all       List dirs (all projects)
+  /map-filesystem update           Update dirs (executive-assistant)
+  /map-filesystem update --all     Update dirs (all projects)
+  /map-filesystem update ~/path    Update one specific directory
+
+CLI:
+  uv run abstract_gen.py list                List (executive-assistant)
+  uv run abstract_gen.py list --all          List (all projects)
+  uv run abstract_gen.py list ~/path         List (custom root)
+  uv run abstract_gen.py scan ~/path         Discover atlas files
+  uv run abstract_gen.py validate ~/path     Check frontmatter
+  uv run abstract_gen.py orphans ~/path      Find missing atlases
 
 Exit codes: 0=ok  1=error  2=empty  3=invalid"""
 

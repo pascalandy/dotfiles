@@ -1,17 +1,21 @@
 # map-filesystem — User Guide
 
-## Commands
-
-| Use case | CLI | AI command |
-|----------|-----|------------|
-| List atlas directories | `uv run abstract_gen.py list` | `/map-filesystem list` |
-| List ALL projects | `uv run abstract_gen.py list --all` | `/map-filesystem list --all` |
-| Update current directory | — | `/map-filesystem` |
-| Update a specific path | — | `/map-filesystem ~/path` |
-| Update all listed dirs | — | `/map-filesystem update` |
-| Update ALL projects | — | `/map-filesystem update --all` |
+Two core commands: **list** and **update**. Both share the same scope logic.
 
 `--all` expands scope from `executive-assistant` to entire `~/Documents/github_local`.
+
+## Commands
+
+| Command | AI | CLI |
+|---------|-----|-----|
+| **list** | | |
+| List atlas dirs (executive-assistant) | `/map-filesystem list` | `uv run abstract_gen.py list` |
+| List atlas dirs (all projects) | `/map-filesystem list --all` | `uv run abstract_gen.py list --all` |
+| List atlas dirs (custom root) | `/map-filesystem list ~/path` | `uv run abstract_gen.py list ~/path` |
+| **update** | | |
+| Update atlas dirs (executive-assistant) | `/map-filesystem update` | — |
+| Update atlas dirs (all projects) | `/map-filesystem update --all` | — |
+| Update one specific directory | `/map-filesystem update ~/path` | — |
 
 ## Glossary
 
@@ -20,23 +24,15 @@
 - **`--all`** — expand scope from executive-assistant to all projects
 - **Atlas** — the pair of `.abstract.md` (L0) + `.overview.md` (L1) that help AI agents navigate
 
-## What happens when you run each command
-
-### `/map-filesystem`
-
-The agent scans the current directory, inspects key files, and writes/updates `.abstract.md` and `.overview.md` at the root.
-
-### `/map-filesystem ~/path/to/folder`
-
-Same as above but targets a specific directory.
+## What happens
 
 ### `/map-filesystem list`
 
-Lists directories with both atlas files under `executive-assistant`. One path per line. No files are modified.
+Prints directories with both atlas files. One path per line. No files are modified.
 
-### `/map-filesystem list --all`
+### `/map-filesystem update ~/path`
 
-Same but scans entire `~/Documents/github_local`. May return many directories.
+The agent reads the atlas-builder guide, scans the directory, inspects key files, and writes/updates `.abstract.md` and `.overview.md`.
 
 ### `/map-filesystem update`
 
@@ -49,29 +45,20 @@ Same but scans entire `~/Documents/github_local`. May return many directories.
 
 Same but uses `list --all` to get all projects.
 
-## CLI (for manual use)
+## CLI diagnostics
 
 ```bash
-# List directories with both atlas files (executive-assistant only)
-uv run abstract_gen.py list
-
-# List ALL projects
-uv run abstract_gen.py list --all
-
-# Custom scan root
-uv run abstract_gen.py list ~/other/path
-
-# JSON output
-uv run abstract_gen.py list --json
-
-# Scan and display atlas files
+# Discover atlas files with filters and output formats
 uv run abstract_gen.py scan ~/path
 
-# Validate frontmatter
+# Validate frontmatter consistency
 uv run abstract_gen.py validate ~/path
 
-# Find directories missing atlases
+# Find directories missing atlas files
 uv run abstract_gen.py orphans ~/path
+
+# List as JSON
+uv run abstract_gen.py list --json
 ```
 
 Run from: `~/.config/opencode/skill/utils/map-filesystem/scripts/`
