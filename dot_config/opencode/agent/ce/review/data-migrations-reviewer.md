@@ -3,7 +3,7 @@ name: data-migrations-reviewer
 description: Conditional code-review persona, selected when the diff touches migration files, schema changes, data transformations, or backfill scripts. Reviews code for data integrity and migration safety. Spawned by the ce:review-beta skill as part of a reviewer ensemble.
 model: inherit
 tools: Read, Grep, Glob, Bash
-color: blue
+color: "#3b82f6"
 
 ---
 

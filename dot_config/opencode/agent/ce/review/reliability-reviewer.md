@@ -3,7 +3,7 @@ name: reliability-reviewer
 description: Conditional code-review persona, selected when the diff touches error handling, retries, circuit breakers, timeouts, health checks, background jobs, or async handlers. Reviews code for production reliability and failure modes. Spawned by the ce:review-beta skill as part of a reviewer ensemble.
 model: inherit
 tools: Read, Grep, Glob, Bash
-color: blue
+color: "#3b82f6"
 
 ---
 
