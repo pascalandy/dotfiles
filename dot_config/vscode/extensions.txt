@@ -54,6 +54,7 @@ qezhu.gitlink
 quicktype.quicktype
 redhat.vscode-yaml
 ritwickdey.liveserver
+sergeyegorov.folder-color
 shd101wyy.markdown-preview-enhanced
 skellock.just
 tamasfe.even-better-toml
