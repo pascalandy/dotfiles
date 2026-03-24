@@ -1,12 +1,22 @@
 # Global User Preferences
 
-## cli default commands to use
-- **CLI defaults**
-  - `rg` instead of `grep`
-  - `fd` instead of `find`
-  - `uv` instead of `python3`
-  - `bun` instead of `npm`
-  - `gh` is available and ready
+## Tooling Reference
+
+| Tool | Purpose |
+|------|---------|
+| `uv` | instead of `python3`, python runtime + package manager |
+| `bun` | instead of `npm`, JS/TS runtime + package manager |
+| `rg` |  instead of `grep`, ripgrep (fast search) |
+| `fd` | instead of `find` |
+| `gh` | GitHub CLI |
+| `trash` | Safe delete (use instead of `rm`) |
+| `shellcheck` | Shell script linter |
+| `shfmt` | Shell script formatter |
+| `ruff` | Python linter + formatter |
+| `pyright` | Python type checker |
+| `bandit` | Python security scanner |
+| `biome` | JS/TS linter + formatter |
+| `agent-browser` | Browser automation CLI |
 - **Screenshots location** → `ls -lt ~/Documents/screenshots | head -2`
 - **`$` prefix** → refers to a skill
 
