@@ -37,9 +37,9 @@ Two core commands: list and update. --all expands scope.
 
 AI harness:
   /map-filesystem list             List dirs (executive-assistant)
-  /map-filesystem list --all       List dirs (all projects)
+  /map-filesystem list all         List dirs (all projects)
   /map-filesystem update           Update dirs (executive-assistant)
-  /map-filesystem update --all     Update dirs (all projects)
+  /map-filesystem update all       Update dirs (all projects)
   /map-filesystem update ~/path    Update one specific directory
 
 CLI:

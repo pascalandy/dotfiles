@@ -14,18 +14,18 @@ Generate or update `.abstract.md` and `.overview.md` files that help AI agents n
 
 Two core commands: `list` and `update`. Both share the same scope logic.
 
-| Command | AI | CLI |
+| Command | AI harness | CLI |
 |---------|-----|-----|
 | **list** | | |
 | List atlas dirs (executive-assistant) | `/map-filesystem list` | `uv run abstract_gen.py list` |
-| List atlas dirs (all projects) | `/map-filesystem list --all` | `uv run abstract_gen.py list --all` |
+| List atlas dirs (all projects) | `/map-filesystem list all` | `uv run abstract_gen.py list --all` |
 | List atlas dirs (custom root) | `/map-filesystem list ~/path` | `uv run abstract_gen.py list ~/path` |
 | **update** | | |
 | Update atlas dirs (executive-assistant) | `/map-filesystem update` | — |
-| Update atlas dirs (all projects) | `/map-filesystem update --all` | — |
+| Update atlas dirs (all projects) | `/map-filesystem update all` | — |
 | Update one specific directory | `/map-filesystem update ~/path` | — |
 
-`--all` expands scope from `executive-assistant` to entire `~/Documents/github_local`.
+`all` expands scope from `executive-assistant` to entire `~/Documents/github_local`.
 
 **CLI-only diagnostics:**
 
@@ -54,7 +54,7 @@ When the user runs `/map-filesystem update ~/path`:
 
 ## Update multiple directories
 
-When the user runs `/map-filesystem update` or `/map-filesystem update --all`:
+When the user runs `/map-filesystem update` or `/map-filesystem update all`:
 
 1. Get the list of directories:
    ```bash

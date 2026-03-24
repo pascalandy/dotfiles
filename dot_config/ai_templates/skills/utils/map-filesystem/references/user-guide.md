@@ -2,7 +2,7 @@
 
 Two core commands: **list** and **update**. Both share the same scope logic.
 
-`--all` expands scope from `executive-assistant` to entire `~/Documents/github_local`.
+`all` expands scope from `executive-assistant` to entire `~/Documents/github_local`.
 
 ## Commands
 
@@ -10,11 +10,11 @@ Two core commands: **list** and **update**. Both share the same scope logic.
 |---------|-----|-----|
 | **list** | | |
 | List atlas dirs (executive-assistant) | `/map-filesystem list` | `uv run abstract_gen.py list` |
-| List atlas dirs (all projects) | `/map-filesystem list --all` | `uv run abstract_gen.py list --all` |
+| List atlas dirs (all projects) | `/map-filesystem list all` | `uv run abstract_gen.py list --all` |
 | List atlas dirs (custom root) | `/map-filesystem list ~/path` | `uv run abstract_gen.py list ~/path` |
 | **update** | | |
 | Update atlas dirs (executive-assistant) | `/map-filesystem update` | — |
-| Update atlas dirs (all projects) | `/map-filesystem update --all` | — |
+| Update atlas dirs (all projects) | `/map-filesystem update all` | — |
 | Update one specific directory | `/map-filesystem update ~/path` | — |
 
 ## Glossary
@@ -41,7 +41,7 @@ The agent reads the atlas-builder guide, scans the directory, inspects key files
 3. Spawns parallel sub-agents — each one updates one directory
 4. Reports results: N succeeded, M failed
 
-### `/map-filesystem update --all`
+### `/map-filesystem update all`
 
 Same but uses `list --all` to get all projects.
 
