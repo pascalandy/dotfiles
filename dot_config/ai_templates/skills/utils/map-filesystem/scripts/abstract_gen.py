@@ -13,6 +13,9 @@
 from __future__ import annotations
 
 import json
+import os
+import signal
+import sys
 import time
 from pathlib import Path
 from typing import Annotated
@@ -51,19 +54,38 @@ app = typer.Typer(
     help=_HELP,
     add_completion=False,
 )
-console = Console()
+
+_no_color = "NO_COLOR" in os.environ
+stdout_console = Console(no_color=_no_color)
+stderr_console = Console(stderr=True, no_color=_no_color)
 
 
-def version_callback(value: bool) -> None:
+def _version_callback(value: bool) -> None:
     if value:
-        console.print("abstract_gen 1.0.0")
+        print("abstract_gen 1.0.0", file=sys.stdout)
         raise typer.Exit()
+
+
+def _no_color_callback(value: bool) -> None:
+    global stdout_console, stderr_console
+    if value:
+        stdout_console = Console(no_color=True)
+        stderr_console = Console(stderr=True, no_color=True)
 
 
 @app.callback()
 def main(
     version: Annotated[
-        bool, typer.Option("--version", "-v", callback=version_callback, is_eager=True)
+        bool, typer.Option("--version", callback=_version_callback, is_eager=True)
+    ] = False,
+    no_color: Annotated[
+        bool,
+        typer.Option(
+            "--no-color",
+            callback=_no_color_callback,
+            is_eager=True,
+            help="Disable color output",
+        ),
     ] = False,
 ) -> None:
     pass
@@ -171,6 +193,7 @@ def orphans(
     format: Annotated[
         str, typer.Option("--format", "-f", help="Output format: human, json")
     ] = "human",
+    verbose: Annotated[bool, typer.Option("--verbose", help="Show progress")] = False,
     quiet: Annotated[
         bool, typer.Option("--quiet", "-q", help="Suppress warnings")
     ] = False,
@@ -181,6 +204,7 @@ def orphans(
         format=format,
         find_orphans=True,
         depth=depth,
+        verbose=verbose,
         quiet=quiet,
     )
 
@@ -193,12 +217,14 @@ def refresh(
         bool,
         typer.Option("--all", help="Output ALL atlas directories (resource-intensive)"),
     ] = False,
+    json_output: Annotated[
+        bool, typer.Option("--json", help="Output as JSON array")
+    ] = False,
     quiet: Annotated[
         bool, typer.Option("--quiet", "-q", help="Suppress warnings")
     ] = False,
 ) -> None:
     """List directories with existing atlas files for batch refresh."""
-    stderr_console = Console(stderr=True)
     resolved = path.expanduser().resolve()
     if not resolved.is_dir():
         stderr_console.print(f"[red]Error:[/red] {resolved} is not a directory")
@@ -216,25 +242,12 @@ def refresh(
     # Deduplicate by directory
     atlas_dirs = sorted({a.dir_path for a in atlases})
 
-    # Group by root project (first component relative to scan root)
-    groups: dict[str, list[Path]] = {}
-    for d in atlas_dirs:
-        try:
-            rel = d.relative_to(resolved)
-            root_name = rel.parts[0] if rel.parts else "."
-        except ValueError:
-            root_name = d.name
-        groups.setdefault(root_name, []).append(d)
-
-    if all_projects:
-        for d in atlas_dirs:
-            print(d)
+    if json_output:
+        print(json.dumps([str(d) for d in atlas_dirs], indent=2), file=sys.stdout)
         raise typer.Exit(0)
 
-    # Default: output only directories under the scan root itself
-    # (the scan root is typically one project like executive-assistant)
     for d in atlas_dirs:
-        print(d)
+        print(d, file=sys.stdout)
     raise typer.Exit(0)
 
 
@@ -259,11 +272,11 @@ def _run_scan(
 
     resolved_path = path.resolve()
     if not resolved_path.exists():
-        console.print(f"[red]Error: Path not found: {resolved_path}[/red]")
+        stderr_console.print(f"[red]Error: Path not found: {resolved_path}[/red]")
         raise typer.Exit(1)
 
     if not resolved_path.is_dir():
-        console.print(f"[red]Error: Not a directory: {resolved_path}[/red]")
+        stderr_console.print(f"[red]Error: Not a directory: {resolved_path}[/red]")
         raise typer.Exit(1)
 
     config = ScannerConfig(
@@ -279,7 +292,7 @@ def _run_scan(
     scanner = Scanner(config)
 
     if verbose:
-        console.print(f"[dim]Scanning {resolved_path}...[/dim]")
+        stderr_console.print(f"[dim]Scanning {resolved_path}...[/dim]")
 
     atlases = scanner.scan()
 
@@ -313,7 +326,7 @@ def _run_scan(
 
     valid_formats = {"human", "json", "yaml", "toml", "plain"}
     if format not in valid_formats:
-        console.print(
+        stderr_console.print(
             f"[red]Error: Invalid format '{format}'. Valid formats: {', '.join(sorted(valid_formats))}[/red]"
         )
         raise typer.Exit(1)
@@ -321,11 +334,11 @@ def _run_scan(
     if show_tree:
         builder = TreeBuilder()
         tree_output = builder.build_ascii_tree(atlases)
-        console.print(tree_output)
+        stdout_console.print(tree_output)
     elif export_format == "graphviz":
         exporter = Exporter(ExportConfig(format="human"))
         dot_output = exporter.export_graphviz(result)
-        console.print(dot_output, markup=False)
+        stdout_console.print(dot_output, markup=False)
     elif find_orphans:
         _output_orphans(orphan_dirs, format)
     else:
@@ -337,7 +350,7 @@ def _run_scan(
             )
         )
         output = exporter.export(result)
-        console.print(output, markup=False)
+        stdout_console.print(output, markup=False)
 
     if not quiet:
         for error in all_errors:
@@ -347,9 +360,9 @@ def _run_scan(
                 ErrorCode.E004,
                 ErrorCode.E011,
             ):
-                console.print(f"[yellow]Warning: {error}[/yellow]")
+                stderr_console.print(f"[yellow]Warning: {error}[/yellow]")
             else:
-                console.print(f"[red]Error: {error}[/red]")
+                stderr_console.print(f"[red]Error: {error}[/red]")
 
     if show_stats:
         stats_table = Table(title="Statistics")
@@ -357,16 +370,16 @@ def _run_scan(
         stats_table.add_column("Value", style="green")
         for key, value in result.stats.items():
             stats_table.add_row(key, str(value))
-        console.print(stats_table)
+        stderr_console.print(stats_table)
 
     if not atlases and not find_orphans:
-        console.print("[yellow]No atlas files found.[/yellow]")
-        console.print("Try a different path or check --help for options.")
+        stderr_console.print("[yellow]No atlas files found.[/yellow]")
+        stderr_console.print("Try a different path or check --help for options.")
         raise typer.Exit(2)
 
     if validate and any(not a.is_valid for a in atlases):
         invalid_count = sum(1 for a in atlases if not a.is_valid)
-        console.print(
+        stderr_console.print(
             f"[red]Validation failed: {invalid_count} invalid atlas file(s)[/red]"
         )
         raise typer.Exit(3)
@@ -374,18 +387,21 @@ def _run_scan(
 
 def _output_orphans(orphan_dirs: list[Path], format: str) -> None:
     if not orphan_dirs:
-        console.print("[green]No orphan directories found.[/green]")
+        stderr_console.print("[green]No orphan directories found.[/green]")
         return
 
     if format == "json":
-        console.print(json.dumps([str(p) for p in orphan_dirs], indent=2), markup=False)
+        stdout_console.print(
+            json.dumps([str(p) for p in orphan_dirs], indent=2), markup=False
+        )
     else:
-        console.print(
+        stderr_console.print(
             f"[yellow]Orphan directories (missing atlases): {len(orphan_dirs)}[/yellow]\n"
         )
         for dir_path in sorted(orphan_dirs):
-            console.print(f"  {dir_path}")
+            stdout_console.print(f"  {dir_path}")
 
 
 if __name__ == "__main__":
+    signal.signal(signal.SIGINT, lambda *_: sys.exit(130))
     app()
