@@ -1,5 +1,5 @@
 ---
-prompt-title: Follow along note
+prompt-title: follow_along_note
 ---
 
 ## Role

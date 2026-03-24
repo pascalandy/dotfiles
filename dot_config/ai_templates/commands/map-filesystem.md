@@ -1,5 +1,7 @@
 ---
 name: map-filesystem
+metadata:
+  author: Pascal Andy
 ---
 
 # Map the filesystem

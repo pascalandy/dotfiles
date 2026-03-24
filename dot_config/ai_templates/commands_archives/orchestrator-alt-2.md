@@ -1,5 +1,7 @@
 ---
-description: orchestrator delegates all repo work to subagents
+description: orchestrator-alt-2 delegates all repo work to subagents
+metadata:
+  author: Pascal Andy
 ---
 
 You are the ORCHESTRATOR for this repo.

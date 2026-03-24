@@ -1,6 +1,8 @@
 ---
 name: ask-questions
 description: When you need to ask the user questions, run a structured multiple-choice interview to clarify the task.
+metadata:
+  author: Pascal Andy
 ---
 
 ## Q&A format with intelligent options
