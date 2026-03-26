@@ -19,10 +19,12 @@ Two core commands: **list** and **update**. Both share the same scope logic.
 
 ## Glossary
 
-- **Update** — create or update `.abstract.md` + `.overview.md` in a directory
+- **Update** — create or update `.abstract.md` + `.overview.md` in a directory, verify AGENTS.md entrypoint and parent-child wiring
 - **List** — show directories that already have both atlas files
 - **`--all`** — expand scope from executive-assistant to all projects
-- **Atlas** — the pair of `.abstract.md` (L0) + `.overview.md` (L1) that help AI agents navigate
+- **Atlas** — the pair of `.abstract.md` + `.overview.md` that help AI agents navigate a directory
+- **Reference Tree** — annotated directory tree inside `.overview.md` that replaces the old Reference Map table and Child Maps section
+- **Level** — directory depth from the repo root (L0 = root, L1 = major subdirs, L2+ = deeper). Levels belong to directories, not files
 
 ## What happens
 
@@ -32,7 +34,7 @@ Prints directories with both atlas files. One path per line. No files are modifi
 
 ### `/map-filesystem update ~/path`
 
-The agent reads the atlas-builder guide, scans the directory, inspects key files, and writes/updates `.abstract.md` and `.overview.md`.
+The agent reads the atlas-builder guide, scans the directory, inspects key files, and writes/updates `.abstract.md` and `.overview.md`. If this is a top-level atlas and `AGENTS.md` exists, verifies the `## Entrypoint` section is present. If child atlases exist, verifies they are wired into the parent's Reference Tree.
 
 ### `/map-filesystem update`
 

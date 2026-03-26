@@ -16,11 +16,16 @@ Use **atlas** to refer to the full navigation system formed by the top-level map
 Keep the file names exactly `.abstract.md` and `.overview.md`.
 Keep the frontmatter schema exactly as specified below, including `type: atlas`.
 
-Your job is to analyze a repository or knowledge folder and generate or refresh a lightweight navigation system for AI agents using three layers:
+Your job is to analyze a repository or knowledge folder and generate or refresh a lightweight navigation system for AI agents.
 
-- **L0** = `.abstract.md` → fast relevance check
-- **L1** = `.overview.md` → navigation map + retrieval guide
-- **L2** = original source files → source of truth
+**Levels belong to directories, not files.** The atlas files (`.abstract.md`, `.overview.md`) are navigation tools that live inside a directory at a given level — they are not levels themselves.
+
+- **L0** = the repo root directory. Contains `.abstract.md` (relevance check) and `.overview.md` (directory router).
+- **L1** = major subdirectories routed from the root `.overview.md`.
+- **L2** = subdirectories inside L1 that have their own child atlas.
+- **LN** = deeper nesting follows the same pattern.
+
+At any level, `.abstract.md` answers "is this directory relevant?" and `.overview.md` answers "where do I go next?"
 
 ## Mission
 
@@ -64,7 +69,7 @@ Tie-breakers:
 - If unsure whether something is `high` or `medium` trust, choose **`medium`**.
 - If unsure whether a corpus is a single type or blended, choose **`mixed`**.
 - If unsure whether a path is authoritative, **do not label it authoritative**.
-- If unsure whether a detail belongs in L0/L1, leave it to **L2**.
+- If unsure whether a detail belongs in `.abstract.md` or `.overview.md`, leave it to the **source files**.
 
 Map(s) for important sub-dir:
 - Using the Agent Atlas Builder rules, generate or refresh the map for this folder
@@ -78,7 +83,7 @@ These rules override any impulse toward completeness:
 - do **not** summarize every important file,
 - do **not** mirror the directory tree unless it helps retrieval,
 - do **not** create sections with weak or generic content,
-- if a section would only repeat the Reference Map, omit it,
+- if a section would only repeat the Reference Tree, omit it,
 - if uncertainty is low and structure is simple, keep the atlas very short,
 - if a section does not materially help an agent reach the right source faster, omit it or compress it.
 
@@ -107,7 +112,7 @@ Default output:
 - one top-level `.overview.md`
 
 **Micro-folder rule:**
-If a folder contains fewer than 10 files and has a clear, high-quality `README.md`, generate only `.abstract.md` (L0) and skip `.overview.md` (L1) entirely. Point the L0 directly to the README as the primary navigation object.
+If a folder contains fewer than 10 files and has a clear, high-quality `README.md`, generate only `.abstract.md` and skip `.overview.md` entirely. Point the `.abstract.md` directly to the README as the primary navigation object.
 
 Strong bias toward **no child maps**.
 
@@ -138,6 +143,27 @@ Field rules:
 - `scope: subtree` → `parent:` must name the parent atlas
 - `root` → plain string (wikilink only if explicitly requested)
 - Do **not** invent fake parents just to satisfy the schema.
+
+## AGENTS.md entrypoint rule
+
+When creating or updating a **top-level** atlas (`scope: top`), check the target directory for an `AGENTS.md` file.
+
+If `AGENTS.md` exists, verify it contains this exact section:
+
+```md
+## Entrypoint
+
+- Before working in this repo, read the atlas files for navigation context:
+  - 1) `.abstract.md` — fast relevance check (what this repo is for)
+  - 2) `.overview.md` — navigation map + retrieval routes
+```
+
+- If the section is missing, append it to `AGENTS.md`.
+- If the section exists but the wording differs, replace it with the exact text above.
+- Do **not** modify any other part of `AGENTS.md`. The entrypoint section is the only thing this skill touches.
+- If `AGENTS.md` does not exist, do **not** create it. The atlas files stand on their own.
+
+This rule applies only to `scope: top`. Child atlases (`scope: subtree`) do not touch `AGENTS.md`.
 
 ## Workflow
 
@@ -191,7 +217,7 @@ Minimum evidence before writing:
 - inspect the top-level structure,
 - inspect at least one primary entry point if one exists,
 - inspect relevant manifest/config files when they shape navigation,
-- inspect at least one representative file from each major area you plan to mention in the Reference Map,
+- inspect at least one representative file from each major area you plan to mention in the Reference Tree,
 - inspect existing atlas files before claiming you are refreshing them.
 
 Infer only what the inspected evidence supports:
@@ -210,7 +236,7 @@ Evidence rules:
 
 Noise and ignores:
 - Respect repo-level `.gitignore` and deprioritize ignored paths unless they are the subject of the repo.
-- **Security Rule:** Never list sensitive files, secrets, `.env` files, or private keys in the Reference Map.
+- **Security Rule:** Never list sensitive files, secrets, `.env` files, or private keys in the Reference Tree.
 - Ignore or treat as low-priority unless clearly canonical: `.git/`, `node_modules/`, `dist/`, `build/`, `.next/`, `.venv/`, `.turbo/`, `coverage/`, `.cache/`, large `data/` dumps, generated clients, lockfiles, vendor bundles.
 - Treat images, PDFs, and diagrams as `auxiliary` unless they are the primary documentation format for the repo.
 
@@ -228,7 +254,7 @@ Child-map decision pass:
   - `create child map now`
   - `recommend child map later` only if the current task forbids writing into that subtree
 - Default to `cover in parent map` when evidence is weak, but still make the decision explicitly.
-- A major subdirectory is any subtree that appears in the parent Reference Map or materially affects routing.
+- A major subdirectory is any subtree that appears in the parent Reference Tree or materially affects routing.
 
 Create a child map for a subtree only if **at least one** of these is true:
 - the subtree is a major area with its own internal structure,
@@ -240,7 +266,7 @@ Create a child map for a subtree only if **at least one** of these is true:
 
 Do **not** create a child map if **any** of these are true:
 - the subtree is simple,
-- the parent can cover it in one or two clear Reference Map rows,
+- the parent can cover it in one or two clear Reference Tree nodes,
 - the retrieval strategy is the same as the parent,
 - file count is the only reason to split,
 - the child map would mostly restate the parent overview.
@@ -273,6 +299,24 @@ When refreshing:
 
 If the current atlas is structurally poor, misleading, or bloated, replace it with a cleaner version that follows this prompt.
 
+### 5) Wire parent ↔ child
+
+After writing or updating atlas files, verify the wiring between levels.
+
+**When creating a child atlas:**
+1. Open the parent's `.overview.md`.
+2. Confirm the child directory appears in the parent's Reference Tree with `has child atlas` on the directory node and a `child atlas | high` annotation on the `.overview.md` node.
+3. If missing, add the child to the parent's Reference Tree.
+
+**When updating a parent atlas:**
+1. For every node in the Reference Tree annotated `has child atlas`, confirm the child's `.overview.md` exists on disk.
+2. If a child atlas was deleted or moved, remove or update the reference.
+
+**When creating a top-level atlas (`scope: top`):**
+1. Apply the AGENTS.md entrypoint rule (see above).
+
+Wiring is not optional. An unwired child atlas is invisible to any agent navigating from the root.
+
 ## Size discipline
 
 Keep maps compact.
@@ -291,12 +335,12 @@ Target:
 - compact and scannable
 - routing-focused, not exhaustive
 
-### Reference Map size
+### Reference Tree size
 Caps:
-- Top-level overviews: **hard cap 10 rows** (prefer 7–9)
-- Child overviews: **hard cap 7 rows** (prefer 4–6)
+- Top-level trees: **hard cap 30 annotated nodes** (prefer 15–25). An annotated node is any line with a `──────` annotation.
+- Child-level trees: **hard cap 15 annotated nodes** (prefer 8–12).
 
-Do **not** keep adding rows because more paths exist.
+Do **not** keep adding nodes because more paths exist.
 Include only the most useful entry points, authoritative files, implementation zones, example zones, and low-priority areas.
 
 ## `.abstract.md` requirements
@@ -326,7 +370,7 @@ Use this body structure, translated to the corpus language:
 - `path/` — ...
 - `path/` — ...
 - `path/` — ...
-- `./.overview.md#reference-map` — Detailed map
+- `./.overview.md#reference-tree` — Detailed map
 
 ## Out of scope
 - ...
@@ -341,14 +385,14 @@ Rules:
 - no file-by-file inventory
 - no invented claims about coverage
 - prefer what the atlas is for over what the corpus contains in general
-- **Pointer Rule:** Add exactly one standalone plain-text pointer to the sibling `.overview.md` Reference Map section (e.g., `./.overview.md#reference-map` — Detailed map). Do not use Markdown links. Match the anchor fragment to the actual heading text used in `.overview.md`.
+- **Pointer Rule:** Add exactly one standalone plain-text pointer to the sibling `.overview.md` Reference Tree section (e.g., `./.overview.md#reference-tree` — Detailed map). Do not use Markdown links. Match the anchor fragment to the actual heading text used in `.overview.md`.
 
 ## `.overview.md` requirements
 
 Purpose: agent navigation layer.
 
 This file must not restate the repo/folder purpose already covered by `.abstract.md`.
-Use L1 for routing, trust, entry points, retrieval paths, ambiguity reduction, and cautions.
+Use `.overview.md` for routing, trust, entry points, retrieval paths, ambiguity reduction, and cautions.
 Do **not** include a general-purpose summary section such as `Purpose`, `Objective`, `What this is`, or equivalent.
 If a sentence does not help an agent decide where to go next, what to trust, or what to ignore, omit it.
 
@@ -358,8 +402,7 @@ If a section would be empty, generic, or redundant, omit it.
 ### Always include
 - `# Overview`
 - `## Corpus Type`
-- `## Reference Map`
-- `## Child Maps`
+- `## Reference Tree`
 
 ### Usually include
 - `## Navigation Strategy` — where to start, what to trust, when to read source files directly
@@ -373,7 +416,7 @@ If `## Navigation Strategy` is included:
 - keep it short,
 - explain where to start,
 - distinguish what to trust,
-- tell the reader when to go straight to L2.
+- tell the reader when to go straight to source files.
 
 If `## Retrieval Routes` is included:
 - make routes task-based,
@@ -382,12 +425,12 @@ If `## Retrieval Routes` is included:
 - include only the routes that materially reduce search time.
 
 If `## Semantic Entry Points` is included:
-- do **not** duplicate the Reference Map,
+- do **not** duplicate the Reference Tree,
 - do **not** invent terms not supported by the corpus,
 - prefer 3 to 8 compact bullets,
 - include symptom phrasing only when troubleshooting is a real use case,
 - include temporal cues only when version drift, deprecations, or archive/current splits matter.
- - omit entirely if the Reference Map already routes cleanly and there are no ambiguous terms.
+ - omit entirely if the Reference Tree already routes cleanly and there are no ambiguous terms.
 
 If `## Gaps and Cautions` is included:
 - include only evidence-backed cautions,
@@ -399,14 +442,45 @@ Path formatting rules:
 - Append `/` for directories and no trailing slash for files.
 - Preserve exact casing; do not prettify.
 
-### Reference Map table
+### Reference Tree
 
-Use this table:
+The `.overview.md` uses a **Reference Tree** instead of a table + a separate Child Maps section. One annotated tree is the single source of truth for structure, roles, trust, and child atlas wiring.
 
-| Path | Role | Use When | Trust Level | Notes |
+Format:
+
+````md
+## Reference Tree
+
+```
+Root (L0)
+├── AGENTS.md ────────────────────── entrypoint | high
+│   Start here. Names the system notes to load first.
+├── .abstract.md ─────────────────── relevance check
+├── .overview.md ─────────────────── this file
+│
+├── some_dir/ (L1) ───────────────── has child atlas
+│   ├── .overview.md ─────────────── child atlas | high
+│   │   Route here for detailed navigation.
+│   └── subdir/ (L2) ────────────── has child atlas
+│       └── .overview.md ─────────── child atlas | high
+│
+├── another_dir/ (L1) ────────────── has index, no child atlas
+│   └── _INDEX_THING.md ──────────── index | medium
+│       Route into things.
+│
+├── excluded/ ────────────────────── excluded surface
+└── .hidden/ ─────────────────────── excluded surface
+```
+````
+
+Annotation format per node:
+- **Dash leaders** (`──────`) connect the path to its annotation. Never use dots (`······`) or spaces.
+- **Annotation** = `role | trust` on the same line as the path.
+- **Description** (optional) = one line below, indented under the tree branch. Only add when it helps routing — most nodes need only the annotation line.
+- **Directory-level labels** = `(L1)`, `(L2)`, etc. after directory names. Add `has child atlas`, `has index`, `no child atlas`, `stub | low`, or `excluded surface` after the dash leaders.
 
 Allowed roles:
-- `entry-point` — best first place to start
+- `entrypoint` — best first place to start
 - `authoritative` — canonical source of truth
 - `tutorial` — guided how-to material
 - `reference` — lookup material, API docs, command docs, specs
@@ -415,8 +489,10 @@ Allowed roles:
 - `index` — directory, index doc, or hub page that routes outward
 - `project-hub` — note hub, dashboard, or MOC used as a central navigation object
 - `evidence` — decisions, issues, ADRs, changelogs, or discussion records that explain why
+- `child atlas` — pointer to a child `.overview.md`
 - `archive` — historical, deprecated, or low-priority material
 - `auxiliary` — supporting material that helps but is not a primary destination
+- `excluded` — explicitly out of scope, never routed
 
 Trust levels:
 - `high` — canonical, maintained, or executable source/config that should win when conflicts exist
@@ -426,46 +502,29 @@ Trust levels:
 Trust rules:
 - if unsure between `high` and `medium`, choose `medium`
 - if a path is example-led, historical, or ambiguous, do not call it `high`
-- if a path is clearly secondary, say so in `Notes`
 
-The table should distinguish:
-- best starting points,
-- source-of-truth files,
-- practical examples,
-- historical or low-priority areas.
+Tree ordering:
+- Group by directory. Within each directory, list atlas files first, then content files, then subdirectories.
+- Order directories by importance to routing, not alphabetically.
 
-Do **not** try to represent the whole tree.
-
-Row ordering (deterministic):
-- Sort rows by role priority, then by path alphabetically.
-- Role priority (highest to lowest): `entry-point`, `authoritative`, `index`, `implementation`, `reference`, `tutorial`, `example`, `auxiliary`, `archive`.
-
-### Child Maps section
-
-If child maps are needed, list them explicitly:
-- `path/to/subtree/.overview.md` — when to use it
-
-If none are needed, say:
-- No child maps currently needed.
+The Reference Tree replaces both the old Reference Map table and the old Child Maps section. Do **not** create separate sections for either. Child atlases appear inline in the tree with `has child atlas` on the directory node and `child atlas | high` on the `.overview.md` node.
 
 If child maps are created:
-- create both that subtree’s `.abstract.md` and `.overview.md`,
-- set `scope: subtree`,
-- set `parent:` to the correct parent atlas name,
-- keep the parent overview short,
-- summarize the subtree at parent level in 1 to 2 lines,
-- point explicitly to the child `.overview.md`,
-- do not recurse endlessly.
+- create both that subtree's `.abstract.md` and `.overview.md`,
+- set `scope: subtree` and `parent:` to the correct parent atlas name,
+- the child must appear in the parent's Reference Tree,
+- keep the parent tree concise — summarize the child subtree in 1–2 annotation lines, do not expand the child's full contents in the parent.
 
-If a subtree is simple, do **not** create child maps. If the parent overview can still stay clear within size targets, prefer **no child maps**.
+If a subtree is simple, do **not** create child maps. If the parent tree can stay clear within size targets, prefer **no child maps**.
 
-## L0 / L1 / L2 model
+## Level model
 
-- Use **L0** (`.abstract.md`) to understand what the corpus is for and whether it is relevant.
-- Use **L1** (`.overview.md`) to decide navigation, trust, and retrieval route.
-- Use **L2** (original files) for exact answers, implementation details, edge cases, and quoting.
+Levels are directory depth from the repo root, not file types.
 
-Never treat L0 or L1 as the final source of truth when exact behavior matters.
+- **L0** (root) → read `.abstract.md` for relevance, `.overview.md` for routing.
+- **L1** (major subdirectories) → follow the root `.overview.md` Reference Tree to reach them. Some have their own atlas, some have an index, some are covered inline by the parent.
+- **L2+** (deeper subdirectories) → reached via child atlases at L1. Each child atlas follows the same pattern: `.abstract.md` + `.overview.md`.
+- **Source files** at any level are the final source of truth. Never treat `.abstract.md` or `.overview.md` as authoritative when exact behavior matters — they are routing aids.
 
 ## Output requirements
 
@@ -494,12 +553,15 @@ Before finalizing, verify all of the following:
 - `scope` and `parent` obey the invariants,
 - section headings are correct,
 - optional sections are included only when they add value,
-- the Reference Map is selective rather than exhaustive,
- - Reference Map row caps are respected,
+- the Reference Tree is selective rather than exhaustive,
+ - Reference Tree node caps are respected,
 - child maps are justified by retrieval benefit,
 - trust levels are conservative and evidence-based,
 - uncertainty is visible when evidence is limited,
-- the result stays compact.
+- the result stays compact,
+- if `scope: top` and `AGENTS.md` exists, the `## Entrypoint` section is present word for word,
+- every child atlas annotated in the Reference Tree has a matching `.overview.md` on disk,
+- every child atlas on disk is wired into its parent's Reference Tree.
 
 ## Quality bar
 

@@ -51,6 +51,8 @@ When the user runs `/map-filesystem update ~/path`:
 
 1. Read the atlas-builder guide: `references/atlas-builder-guide.md`
 2. Follow that guide for the given path: scan, classify, inspect, decide scope, write `.abstract.md` and `.overview.md`, validate.
+3. **AGENTS.md check:** If this is a top-level atlas (`scope: top`) and `AGENTS.md` exists in the target directory, verify the `## Entrypoint` section exists word for word per the atlas-builder guide. Add it if missing. Do not modify anything else in `AGENTS.md`.
+4. **Wiring check:** If child atlases exist, verify they appear in the parent's Reference Tree. If creating a child, update the parent's Reference Tree to include it.
 
 ## Update multiple directories
 
@@ -66,14 +68,17 @@ When the user runs `/map-filesystem update` or `/map-filesystem update all`:
 
 3. Spawn one subagent per directory (Task tool, `subagent_type: "worker"`). They run in parallel — each directory is independent. Prompt each subagent with:
 
-   ```
-   Read the atlas-builder guide:
-   ~/.config/opencode/skill/utils/map-filesystem/references/atlas-builder-guide.md
+    ```
+    Read the atlas-builder guide:
+    ~/.config/opencode/skill/utils/map-filesystem/references/atlas-builder-guide.md
 
-   Execute those instructions for: <path>
-   Write or update .abstract.md and .overview.md in that directory.
-   Return a short summary of what changed.
-   ```
+    Execute those instructions for: <path>
+    Write or update .abstract.md and .overview.md in that directory.
+    If this is a top-level atlas (scope: top) and AGENTS.md exists, verify the
+    ## Entrypoint section exists per the guide. Add if missing, touch nothing else.
+    If child atlases exist, verify wiring in the parent Reference Tree.
+    Return a short summary of what changed.
+    ```
 
 4. Mark each todo complete or cancelled as subagents finish.
 
