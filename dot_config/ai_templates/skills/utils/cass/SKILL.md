@@ -1,477 +1,861 @@
 ---
 name: cass
 description: |
-  Use only when the user explicitly say "cass". CASS Memory System - procedural memory for AI coding agents. Three-layer cognitive architecture with confidence decay, anti-pattern learning, cross-agent knowledge transfer, trauma guard safety system. Bun/TypeScript CLI.
+  Coding Agent Session Search - unified CLI/TUI to index and search local coding agent history from Claude Code, Codex, Gemini, Cursor, Aider, ChatGPT, Pi-Agent, Factory, and more. Purpose-built for AI agent consumption with robot mode.
 ---
 
-# CM - CASS Memory System
+# CASS - Coding Agent Session Search
 
-Procedural memory for AI coding agents. Transforms scattered sessions into persistent, cross-agent memory. Uses a three-layer cognitive architecture that mirrors human expertise development.
+Unified, high-performance CLI/TUI to index and search your local coding agent history. Aggregates sessions from **11 agents**: Codex, Claude Code, Gemini CLI, Cline, OpenCode, Amp, Cursor, ChatGPT, Aider, Pi-Agent, and Factory (Droid).
 
-## Why This Exists
+## CRITICAL: Robot Mode Required for AI Agents
 
-AI coding agents accumulate valuable knowledge but it's:
-- **Trapped in sessions** - Context lost when session ends
-- **Agent-specific** - Claude doesn't know what Cursor learned
-- **Unstructured** - Raw logs aren't actionable guidance
-- **Subject to collapse** - Naive summarization loses critical details
-
-You've solved auth bugs three times this month across different agents. Each time you started from scratch.
-
-CM solves this with cross-agent learning: a pattern discovered in Cursor is immediately available to Claude Code.
-
----
-
-## Three-Layer Cognitive Architecture
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                    EPISODIC MEMORY (cass)                           │
-│   Raw session logs from all agents — the "ground truth"             │
-│   Claude Code │ Codex │ Cursor │ Aider │ PI │ Gemini │ ChatGPT │ ...│
-└───────────────────────────┬─────────────────────────────────────────┘
-                            │ cass search
-                            ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│                    WORKING MEMORY (Diary)                           │
-│   Structured session summaries: accomplishments, decisions, etc.    │
-└───────────────────────────┬─────────────────────────────────────────┘
-                            │ reflect + curate (automated)
-                            ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│                    PROCEDURAL MEMORY (Playbook)                     │
-│   Distilled rules with confidence tracking and decay                │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
-Every agent's sessions feed the shared memory. A pattern discovered in Cursor **automatically** helps Claude Code on the next session.
-
----
-
-## The One Command You Need
+**NEVER run bare `cass`** - it launches an interactive TUI that blocks your session!
 
 ```bash
-cm context "<your task>" --json
+# WRONG - blocks terminal
+cass
+
+# CORRECT - JSON output for agents
+cass search "query" --robot
+cass search "query" --json  # alias
 ```
 
-**Run this before starting any non-trivial task.** Returns:
-- **relevantBullets** - Rules from playbook scored by task relevance
-- **antiPatterns** - Things that have caused problems
-- **historySnippets** - Past sessions (yours and other agents')
-- **suggestedCassQueries** - Deeper investigation searches
+**Always use `--robot` or `--json` flags for machine-readable output.**
 
-### Filtering History by Source
+---
 
-`historySnippets[].origin.kind` is `"local"` or `"remote"`. Remote hits include `origin.host`:
+## Quick Reference for AI Agents
+
+### Pre-Flight Check
+
+```bash
+# Health check (exit 0=healthy, 1=unhealthy, <50ms)
+cass health
+
+# If unhealthy, rebuild index
+cass index --full
+```
+
+### Essential Commands
+
+```bash
+# Find the current session for this workspace
+cass sessions --current --json
+
+# List recent sessions for a specific project
+cass sessions --workspace "$(pwd)" --json --limit 5
+
+# Common agent flow: find current session, then export it
+cass export-html "$(cass sessions --current --json | jq -r '.sessions[0].path')" --json
+
+# Search with JSON output
+cass search "authentication error" --robot --limit 5
+
+# Search with metadata (elapsed_ms, cache stats, freshness)
+cass search "error" --robot --robot-meta
+
+# Minimal payload (path, line, agent only)
+cass search "bug" --robot --fields minimal
+
+# View source at specific line
+cass view /path/to/session.jsonl -n 42 --json
+
+# Expand context around a line
+cass expand /path/to/session.jsonl -n 42 -C 5 --json
+
+# Capabilities discovery
+cass capabilities --json
+
+# Full API schema
+cass introspect --json
+
+# LLM-optimized documentation
+cass robot-docs guide
+cass robot-docs commands
+cass robot-docs schemas
+cass robot-docs examples
+cass robot-docs exit-codes
+```
+
+---
+
+## Why Use CASS
+
+### Cross-Agent Knowledge Transfer
+
+Your coding agents create scattered knowledge:
+- Claude Code sessions in `~/.claude/projects`
+- Codex sessions in `~/.codex/sessions`
+- Cursor state in SQLite databases
+- Aider history in markdown files
+
+CASS **unifies all of this** into a single searchable index. When you're stuck on a problem, search across ALL your past agent sessions to find relevant solutions.
+
+### Use Cases
+
+```bash
+# "I solved this before..."
+cass search "TypeError: Cannot read property" --robot --days 30
+
+# Cross-agent learning (what has ANY agent said about X?)
+cass search "authentication" --robot --workspace /path/to/project
+
+# Agent-to-agent handoff
+cass search "database migration" --robot --fields summary
+
+# Daily review
+cass timeline --today --json
+```
+
+---
+
+## Command Reference
+
+### Indexing
+
+```bash
+# Full rebuild of DB and search index
+cass index --full
+
+# Incremental update (since last scan)
+cass index
+
+# Watch mode: auto-reindex on file changes
+cass index --watch
+
+# Force rebuild even if schema unchanged
+cass index --full --force-rebuild
+
+# Safe retries with idempotency key (24h TTL)
+cass index --full --idempotency-key "build-$(date +%Y%m%d)"
+
+# JSON output with stats
+cass index --full --json
+```
+
+### Search
+
+```bash
+# Basic search (JSON output required for agents!)
+cass search "query" --robot
+
+# With filters
+cass search "error" --robot --agent claude --days 7
+cass search "bug" --robot --workspace /path/to/project
+cass search "panic" --robot --today
+
+# Time filters
+cass search "auth" --robot --since 2024-01-01 --until 2024-01-31
+cass search "test" --robot --yesterday
+cass search "fix" --robot --week
+
+# Wildcards
+cass search "auth*" --robot          # prefix: authentication, authorize
+cass search "*tion" --robot          # suffix: authentication, exception
+cass search "*config*" --robot       # substring: misconfigured
+
+# Token budget management (critical for LLMs!)
+cass search "error" --robot --fields minimal              # path, line, agent only
+cass search "error" --robot --fields summary              # adds title, score
+cass search "error" --robot --max-content-length 500      # truncate fields
+cass search "error" --robot --max-tokens 2000             # soft budget (~4 chars/token)
+cass search "error" --robot --limit 5                     # cap results
+
+# Pagination (cursor-based)
+cass search "TODO" --robot --robot-meta --limit 20
+# Use _meta.next_cursor from response:
+cass search "TODO" --robot --robot-meta --limit 20 --cursor "eyJ..."
+
+# Match highlighting
+cass search "authentication error" --robot --highlight
+
+# Query analysis/debugging
+cass search "auth*" --robot --explain    # parsed query, cost estimates
+cass search "auth error" --robot --dry-run  # validate without executing
+
+# Aggregations (server-side counts)
+cass search "error" --robot --aggregate agent,workspace,date
+
+# Request correlation
+cass search "bug" --robot --request-id "req-12345"
+
+# Source filtering (for multi-machine setups)
+cass search "auth" --robot --source laptop
+cass search "error" --robot --source remote
+
+# Traceability (for debugging agent pipelines)
+cass search "error" --robot --trace-file /tmp/cass-trace.json
+```
+
+### Session Analysis
+
+```bash
+# Export conversation to markdown/HTML/JSON
+cass export /path/to/session.jsonl --format markdown -o conversation.md
+cass export /path/to/session.jsonl --format html -o conversation.html
+cass export /path/to/session.jsonl --format json --include-tools
+
+# Expand context around a line (from search result)
+cass expand /path/to/session.jsonl -n 42 -C 5 --json
+# Shows 5 messages before and after line 42
+
+# View source at line
+cass view /path/to/session.jsonl -n 42 --json
+
+# Activity timeline
+cass timeline --today --json --group-by hour
+cass timeline --days 7 --json --agent claude
+cass timeline --since 7d --json
+
+# Find related sessions for a file
+cass context /path/to/source.ts --json
+```
+
+### Status & Diagnostics
+
+```bash
+# Quick health (<50ms)
+cass health
+cass health --json
+
+# Full status snapshot
+cass status --json
+cass state --json  # alias
+
+# Statistics
+cass stats --json
+cass stats --by-source  # for multi-machine
+
+# Full diagnostics
+cass diag --verbose
+```
+
+---
+
+## Aggregation & Analytics
+
+Aggregate search results server-side to get counts and distributions without transferring full result data:
+
+```bash
+# Count results by agent
+cass search "error" --robot --aggregate agent
+# → { "aggregations": { "agent": { "buckets": [{"key": "claude_code", "count": 45}, ...] } } }
+
+# Multi-field aggregation
+cass search "bug" --robot --aggregate agent,workspace,date
+
+# Combine with filters
+cass search "TODO" --agent claude --robot --aggregate workspace
+```
+
+| Aggregation Field | Description |
+|-------------------|-------------|
+| `agent` | Group by agent type (claude_code, codex, cursor, etc.) |
+| `workspace` | Group by workspace/project path |
+| `date` | Group by date (YYYY-MM-DD) |
+| `match_type` | Group by match quality (exact, prefix, fuzzy) |
+
+Top 10 buckets returned per field, with `other_count` for remaining items.
+
+---
+
+## Remote Sources (Multi-Machine Search)
+
+Search across sessions from multiple machines via SSH/rsync.
+
+### Setup Wizard (Recommended)
+
+```bash
+cass sources setup
+```
+
+The wizard:
+1. Discovers SSH hosts from `~/.ssh/config`
+2. Probes each for agent data and cass installation
+3. Optionally installs cass on remotes
+4. Indexes sessions on remotes
+5. Configures `sources.toml`
+6. Syncs data locally
+
+```bash
+cass sources setup --hosts css,csd,yto  # Specific hosts only
+cass sources setup --dry-run             # Preview without changes
+cass sources setup --resume              # Resume interrupted setup
+```
+
+### Manual Setup
+
+```bash
+# Add a remote machine
+cass sources add user@laptop.local --preset macos-defaults
+cass sources add dev@workstation --path ~/.claude/projects --path ~/.codex/sessions
+
+# List sources
+cass sources list --json
+
+# Sync sessions
+cass sources sync
+cass sources sync --source laptop --verbose
+
+# Check connectivity
+cass sources doctor
+cass sources doctor --source laptop --json
+
+# Path mappings (rewrite remote paths to local)
+cass sources mappings list laptop
+cass sources mappings add laptop --from /home/user/projects --to /Users/me/projects
+cass sources mappings test laptop /home/user/projects/myapp/src/main.rs
+
+# Remove source
+cass sources remove laptop --purge -y
+```
+
+Configuration stored in `~/.config/cass/sources.toml` (Linux) or `~/Library/Application Support/cass/sources.toml` (macOS).
+
+---
+
+## Robot Mode Deep Dive
+
+### Self-Documenting API
+
+CASS teaches agents how to use itself:
+
+```bash
+# Quick capability check
+cass capabilities --json
+# Returns: features, connectors, limits
+
+# Full API schema
+cass introspect --json
+# Returns: all commands, arguments, response shapes
+
+# Topic-based docs (LLM-optimized)
+cass robot-docs commands   # all commands and flags
+cass robot-docs schemas    # response JSON schemas
+cass robot-docs examples   # copy-paste invocations
+cass robot-docs exit-codes # error handling
+cass robot-docs guide      # quick-start walkthrough
+cass robot-docs contracts  # API versioning
+cass robot-docs sources    # remote sources guide
+```
+
+### Forgiving Syntax (Agent-Friendly)
+
+CASS auto-corrects common mistakes:
+
+| What you type | What CASS understands |
+|---------------|----------------------|
+| `cass serach "error"` | `cass search "error"` (typo corrected) |
+| `cass -robot -limit=5` | `cass --robot --limit=5` (single-dash fixed) |
+| `cass --Robot --LIMIT 5` | `cass --robot --limit 5` (case normalized) |
+| `cass find "auth"` | `cass search "auth"` (alias resolved) |
+| `cass --limt 5` | `cass --limit 5` (Levenshtein <=2) |
+
+**Command Aliases:**
+- `find`, `query`, `q`, `lookup`, `grep` → `search`
+- `ls`, `list`, `info`, `summary` → `stats`
+- `st`, `state` → `status`
+- `reindex`, `idx`, `rebuild` → `index`
+- `show`, `get`, `read` → `view`
+- `docs`, `help-robot`, `robotdocs` → `robot-docs`
+
+### Output Formats
+
+```bash
+# Pretty-printed JSON (default)
+cass search "error" --robot
+
+# Streaming JSONL (header + one hit per line)
+cass search "error" --robot-format jsonl
+
+# Compact single-line JSON
+cass search "error" --robot-format compact
+
+# With performance metadata
+cass search "error" --robot --robot-meta
+```
+
+**Design principle:** stdout = JSON only; diagnostics go to stderr.
+
+### Token Budget Management
+
+LLMs have context limits. Control output size:
+
+| Flag | Effect |
+|------|--------|
+| `--fields minimal` | Only `source_path`, `line_number`, `agent` |
+| `--fields summary` | Adds `title`, `score` |
+| `--fields score,title,snippet` | Custom field selection |
+| `--max-content-length 500` | Truncate long fields (UTF-8 safe) |
+| `--max-tokens 2000` | Soft budget (~4 chars/token) |
+| `--limit 5` | Cap number of results |
+
+Truncated fields include `*_truncated: true` indicator.
+
+---
+
+## Structured Error Handling
+
+Errors are JSON with actionable hints:
 
 ```json
 {
-  "historySnippets": [
-    {
-      "source_path": "~/.claude/sessions/session-001.jsonl",
-      "origin": { "kind": "local" }
-    },
-    {
-      "source_path": "/home/user/.codex/sessions/session.jsonl",
-      "origin": { "kind": "remote", "host": "workstation" }
-    }
-  ]
+  "error": {
+    "code": 3,
+    "kind": "index_missing",
+    "message": "Search index not found",
+    "hint": "Run 'cass index --full' to build the index",
+    "retryable": false
+  }
 }
 ```
 
----
+### Exit Codes
 
-## Confidence Decay System
-
-Rules aren't immortal. Confidence decays without revalidation:
-
-| Mechanism | Effect |
-|-----------|--------|
-| **90-day half-life** | Confidence halves every 90 days without feedback |
-| **4x harmful multiplier** | One mistake counts 4× as much as one success |
-| **Maturity progression** | `candidate` → `established` → `proven` |
-
-### Score Decay Visualization
-
-```
-Initial score: 10.0 (10 helpful marks today)
-
-After 90 days (half-life):   5.0
-After 180 days:              2.5
-After 270 days:              1.25
-After 365 days:              0.78
-```
-
-### Effective Score Formula
-
-```typescript
-effectiveScore = decayedHelpful - (4 × decayedHarmful)
-
-// Where decay factor = 0.5 ^ (daysSinceFeedback / 90)
-```
-
-### Maturity State Machine
-
-```
-  ┌──────────┐       ┌─────────────┐    ┌────────┐
-  │ candidate│──────▶│ established │───▶│ proven │
-  └──────────┘       └─────────────┘    └────────┘
-       │                   │                  │
-       │                   │ (harmful >25%)   │
-       │                   ▼                  │
-       │             ┌─────────────┐          │
-       └────────────▶│ deprecated  │◀─────────┘
-                     └─────────────┘
-```
-
-**Transition Rules:**
-
-| Transition | Criteria |
-|------------|----------|
-| `candidate` → `established` | 3+ helpful, harmful ratio <25% |
-| `established` → `proven` | 10+ helpful, harmful ratio <10% |
-| `any` → `deprecated` | Harmful ratio >25% OR explicit deprecation |
+| Code | Meaning | Action |
+|------|---------|--------|
+| 0 | Success | Parse stdout |
+| 1 | Health check failed | Run `cass index --full` |
+| 2 | Usage error | Fix syntax (hint provided) |
+| 3 | Index/DB missing | Run `cass index --full` |
+| 4 | Network error | Check connectivity |
+| 5 | Data corruption | Run `cass index --full --force-rebuild` |
+| 6 | Incompatible version | Update cass |
+| 7 | Lock/busy | Retry later |
+| 8 | Partial result | Increase `--timeout` |
+| 9 | Unknown error | Check `retryable` flag |
 
 ---
 
-## Anti-Pattern Learning
+## Search Modes
 
-Bad rules don't just get deleted. They become warnings:
+Three search modes, selectable with `--mode` flag:
 
-```
-"Cache auth tokens for performance"
-    ↓ (3 harmful marks)
-"PITFALL: Don't cache auth tokens without expiry validation"
-```
-
-When a rule is marked harmful multiple times (>50% harmful ratio with 3+ marks), it's automatically inverted into an anti-pattern.
-
----
-
-## ACE Pipeline (How Rules Are Created)
-
-```
-Generator → Reflector → Validator → Curator
-```
-
-| Stage | Role | LLM? |
-|-------|------|------|
-| **Generator** | Pre-task context hydration (`cm context`) | No |
-| **Reflector** | Extract patterns from sessions (`cm reflect`) | Yes |
-| **Validator** | Evidence gate against cass history | Yes |
-| **Curator** | Deterministic delta merge | **No** |
-
-**Critical:** Curator has NO LLM to prevent context collapse from iterative drift. LLMs propose patterns; deterministic logic manages them.
-
-### Scientific Validation
-
-Before a rule joins your playbook, it's validated against cass history:
-
-```
-Proposed rule: "Always check token expiry before auth debugging"
-    ↓
-Evidence gate: Search cass for sessions where this applied
-    ↓
-Result: 5 sessions found, 4 successful outcomes → ACCEPT
-```
-
-Rules without historical evidence are flagged as candidates until proven.
-
----
-
-## Commands Reference
-
-### Context Retrieval (Primary Workflow)
+| Mode | Algorithm | Best For |
+|------|-----------|----------|
+| **lexical** (default) | BM25 full-text | Exact term matching, code searches |
+| **semantic** | Vector similarity | Conceptual queries, "find similar" |
+| **hybrid** | Reciprocal Rank Fusion | Balanced precision and recall |
 
 ```bash
-# THE MAIN COMMAND - run before non-trivial tasks
-cm context "implement user authentication" --json
-
-# Limit results for token budget
-cm context "fix bug" --json --limit 5 --no-history
-
-# With workspace filter
-cm context "refactor" --json --workspace /path/to/project
-
-# Self-documenting explanation
-cm quickstart --json
-
-# System health
-cm doctor --json
-cm doctor --fix  # Auto-fix issues
-
-# Find similar rules
-cm similar "error handling best practices"
+cass search "authentication" --mode lexical --robot
+cass search "how to handle user login" --mode semantic --robot
+cass search "auth error handling" --mode hybrid --robot
 ```
 
-### Playbook Management
-
-```bash
-cm playbook list                              # All rules
-cm playbook get b-8f3a2c                      # Rule details
-cm playbook add "Always run tests first"      # Add rule
-cm playbook add --file rules.json             # Batch add from file
-cm playbook add --file rules.json --session /path/session.jsonl  # Track source
-cm playbook remove b-xyz --reason "Outdated"  # Remove
-cm playbook export > backup.yaml              # Export
-cm playbook import shared.yaml                # Import
-cm playbook bootstrap react                   # Apply starter to existing
-
-cm top 10                                     # Top effective rules
-cm stale --days 60                            # Rules without recent feedback
-cm why b-8f3a2c                               # Rule provenance
-cm stats --json                               # Playbook health metrics
+**Hybrid** combines lexical and semantic using RRF:
 ```
-
-### Learning & Feedback
-
-```bash
-# Manual feedback
-cm mark b-8f3a2c --helpful
-cm mark b-xyz789 --harmful --reason "Caused regression"
-cm undo b-xyz789                              # Revert feedback
-
-# Session outcomes (positional: status, rules)
-cm outcome success b-8f3a2c,b-def456
-cm outcome failure b-x7k9p1 --summary "Auth approach failed"
-cm outcome-apply                              # Apply to playbook
-
-# Reflection (usually automated)
-cm reflect --days 7 --json
-cm reflect --session /path/to/session.jsonl   # Single session
-cm reflect --workspace /path/to/project       # Project-specific
-
-# Validation
-cm validate "Always check null before dereferencing"
-
-# Audit sessions against rules
-cm audit --days 30
-
-# Deprecate permanently
-cm forget b-xyz789 --reason "Superseded by better pattern"
-```
-
-### Onboarding (Agent-Native)
-
-Zero-cost playbook building using your existing agent:
-
-```bash
-cm onboard status                             # Check progress
-cm onboard gaps                               # Category gaps
-cm onboard sample --fill-gaps                 # Prioritized sessions
-cm onboard sample --agent claude --days 14    # Filter by agent/time
-cm onboard sample --workspace /path/project   # Filter by workspace
-cm onboard sample --include-processed         # Re-analyze sessions
-cm onboard read /path/session.jsonl --template  # Rich context
-cm onboard mark-done /path/session.jsonl      # Mark processed
-cm onboard reset                              # Start fresh
-```
-
-### Trauma Guard (Safety System)
-
-```bash
-cm trauma list                                # Active patterns
-cm trauma add "DROP TABLE" --description "Mass deletion" --severity critical
-cm trauma heal t-abc --reason "Intentional migration"
-cm trauma remove t-abc
-cm trauma scan --days 30                      # Scan for traumas
-cm trauma import shared-traumas.yaml
-
-cm guard --install                            # Claude Code hook
-cm guard --git                                # Git pre-commit hook
-cm guard --install --git                      # Both
-cm guard --status                             # Check installation
-```
-
-### System Commands
-
-```bash
-cm init                                       # Initialize
-cm init --starter typescript                  # With template
-cm init --force                               # Reinitialize (creates backup)
-cm starters                                   # List templates
-cm serve --port 3001                          # MCP server
-cm usage                                      # LLM cost stats
-cm privacy status                             # Privacy settings
-cm privacy enable                             # Enable cross-agent enrichment
-cm privacy disable                            # Disable enrichment
-cm project --format agents.md                 # Export for AGENTS.md
+RRF_score = Σ 1 / (60 + rank_i)
 ```
 
 ---
 
-## Starter Playbooks
+## Pipeline Mode (Chained Search)
 
-Starting with an empty playbook is daunting. Starters provide curated best practices:
-
-```bash
-cm starters                    # List available
-cm init --starter typescript   # Initialize with starter
-cm playbook bootstrap react    # Apply to existing playbook
-```
-
-### Built-in Starters
-
-| Starter | Focus | Rules |
-|---------|-------|-------|
-| **general** | Universal best practices | 5 |
-| **typescript** | TypeScript/Node.js patterns | 4 |
-| **react** | React/Next.js development | 4 |
-| **python** | Python/FastAPI/Django | 4 |
-| **node** | Node.js/Express services | 4 |
-| **rust** | Rust service patterns | 4 |
-
-### Custom Starters
-
-Create YAML files in `~/.cass-memory/starters/`:
-
-```yaml
-# ~/.cass-memory/starters/django.yaml
-name: django
-description: Django web framework best practices
-bullets:
-  - content: "Always use Django's ORM for database operations"
-    category: database
-    maturity: established
-    tags: [django, orm]
-```
-
----
-
-## Inline Feedback (During Work)
-
-Leave feedback in code comments. Parsed during reflection:
-
-```typescript
-// [cass: helpful b-8f3a2c] - this rule saved me from a rabbit hole
-
-// [cass: harmful b-x7k9p1] - this advice was wrong for our use case
-```
-
----
-
-## Agent Protocol
-
-```
-1. START:    cm context "<task>" --json
-2. WORK:     Reference rule IDs when following them (e.g., "Following b-8f3a2c...")
-3. FEEDBACK: Leave inline comments when rules help/hurt
-4. END:      Just finish. Learning happens automatically.
-```
-
-**You do NOT need to:**
-- Run `cm reflect` (automation handles this)
-- Run `cm mark` manually (use inline comments)
-- Manually add rules to the playbook
-
----
-
-## Gap Analysis Categories
-
-| Category | Keywords |
-|----------|----------|
-| `debugging` | error, fix, bug, trace, stack |
-| `testing` | test, mock, assert, expect, jest |
-| `architecture` | design, pattern, module, abstraction |
-| `workflow` | task, CI/CD, deployment |
-| `documentation` | comment, README, API doc |
-| `integration` | API, HTTP, JSON, endpoint |
-| `collaboration` | review, PR, team |
-| `git` | branch, merge, commit |
-| `security` | auth, token, encrypt, permission |
-| `performance` | optimize, cache, profile |
-
-**Category Status Thresholds:**
-
-| Status | Rule Count | Priority |
-|--------|------------|----------|
-| `critical` | 0 rules | High |
-| `underrepresented` | 1-2 rules | Medium |
-| `adequate` | 3-10 rules | Low |
-| `well-covered` | 11+ rules | None |
-
----
-
-## Trauma Guard: Safety System
-
-The "hot stove" principle—learn from past incidents and prevent recurrence.
-
-### How It Works
-
-```
-Session History              Trauma Registry              Runtime Guard
-┌─────────────────┐         ┌─────────────────┐         ┌─────────────────┐
-│ rm -rf /* (oops)│ ──────▶ │ Pattern: rm -rf │ ──────▶ │ BLOCKED: This   │
-│ "sorry, I made  │  scan   │ Severity: FATAL │  hook   │ command matches │
-│  a mistake..."  │         │ Session: abc123 │         │ a trauma pattern│
-└─────────────────┘         └─────────────────┘         └─────────────────┘
-```
-
-### Built-in Doom Patterns (20+)
-
-| Category | Examples |
-|----------|----------|
-| **Filesystem** | `rm -rf /`, `rm -rf ~`, recursive deletes |
-| **Database** | `DROP DATABASE`, `TRUNCATE`, `DELETE FROM` without WHERE |
-| **Git** | `git push --force` to main/master, `git reset --hard` |
-| **Infrastructure** | `terraform destroy -auto-approve`, `kubectl delete namespace` |
-| **Cloud** | `aws s3 rm --recursive`, destructive CloudFormation |
-
-### Pattern Storage
-
-| Scope | Location | Purpose |
-|-------|----------|---------|
-| **Global** | `~/.cass-memory/traumas.jsonl` | Personal patterns |
-| **Project** | `.cass/traumas.jsonl` | Commit to repo for team |
-
-### Pattern Lifecycle
-
-- **Active**: Blocks matching commands
-- **Healed**: Temporarily bypassed (with reason and timestamp)
-- **Deleted**: Removed (can be re-added)
-
----
-
-## MCP Server
-
-Run as MCP server for agent integration:
+Chain searches by piping session paths:
 
 ```bash
-# Local-only (recommended)
-cm serve --port 3001
+# Find sessions mentioning "auth", then search within those for "token"
+cass search "authentication" --robot-format sessions | \
+  cass search "refresh token" --sessions-from - --robot
 
-# With auth token (for non-loopback)
-MCP_HTTP_TOKEN="<random>" cm serve --host 0.0.0.0 --port 3001
+# Build a filtered corpus from today's work
+cass search --today --robot-format sessions > today_sessions.txt
+cass search "bug fix" --sessions-from today_sessions.txt --robot
 ```
 
-### Tools Exposed
+Use cases:
+- **Drill-down**: Broad search → narrow within results
+- **Cross-reference**: Find sessions with term A, then find term B within them
+- **Corpus building**: Save session lists for repeated searches
 
-| Tool | Purpose | Parameters |
-|------|---------|------------|
-| `cm_context` | Get rules + history | `task, limit?, history?, days?, workspace?` |
-| `cm_feedback` | Record feedback | `bulletId, helpful?, harmful?, reason?` |
-| `cm_outcome` | Record session outcome | `sessionId, outcome, rulesUsed?` |
-| `memory_search` | Search playbook/cass | `query, scope?, limit?, days?` |
-| `memory_reflect` | Trigger reflection | `days?, maxSessions?, dryRun?` |
+---
 
-### Resources Exposed
+## Query Language
 
-| URI | Purpose |
-|-----|---------|
-| `cm://playbook` | Current playbook state |
-| `cm://diary` | Recent diary entries |
-| `cm://outcomes` | Session outcomes |
-| `cm://stats` | Playbook health metrics |
+### Basic Queries
 
-### Client Configuration
+| Query | Matches |
+|-------|---------|
+| `error` | Messages containing "error" (case-insensitive) |
+| `python error` | Both "python" AND "error" |
+| `"authentication failed"` | Exact phrase |
 
-**Claude Code** (`~/.config/claude/mcp.json`):
+### Boolean Operators
+
+| Operator | Example | Meaning |
+|----------|---------|---------|
+| `AND` | `python AND error` | Both terms required (default) |
+| `OR` | `error OR warning` | Either term matches |
+| `NOT` | `error NOT test` | First term, excluding second |
+| `-` | `error -test` | Shorthand for NOT |
+
+```bash
+# Complex boolean query
+cass search "authentication AND (error OR failure) NOT test" --robot
+
+# Exclude test files
+cass search "bug fix -test -spec" --robot
+
+# Either error type
+cass search "TypeError OR ValueError" --robot
+```
+
+### Wildcard Patterns
+
+| Pattern | Type | Performance |
+|---------|------|-------------|
+| `auth*` | Prefix | Fast (edge n-grams) |
+| `*tion` | Suffix | Slower (regex) |
+| `*config*` | Substring | Slowest (regex) |
+
+### Match Types
+
+Results include `match_type`:
+
+| Type | Meaning | Score Boost |
+|------|---------|-------------|
+| `exact` | Verbatim match | Highest |
+| `prefix` | Via prefix expansion | High |
+| `suffix` | Via suffix pattern | Medium |
+| `substring` | Via substring pattern | Lower |
+| `fuzzy` | Auto-fallback (sparse results) | Lowest |
+
+### Auto-Fuzzy Fallback
+
+When exact query returns <3 results, CASS automatically retries with wildcards:
+- `auth` → `*auth*`
+- Results flagged with `wildcard_fallback: true`
+
+### Flexible Time Input
+
+CASS accepts a wide variety of time/date formats:
+
+| Format | Examples |
+|--------|----------|
+| **Relative** | `-7d`, `-24h`, `-30m`, `-1w` |
+| **Keywords** | `now`, `today`, `yesterday` |
+| **ISO 8601** | `2024-11-25`, `2024-11-25T14:30:00Z` |
+| **US Dates** | `11/25/2024`, `11-25-2024` |
+| **Unix Timestamp** | `1732579200` (seconds or milliseconds) |
+
+---
+
+## Ranking Modes
+
+Cycle with `F12` in TUI or use `--ranking` flag:
+
+| Mode | Formula | Best For |
+|------|---------|----------|
+| **Recent Heavy** | `relevance*0.3 + recency*0.7` | "What was I working on?" |
+| **Balanced** | `relevance*0.5 + recency*0.5` | General search |
+| **Relevance** | `relevance*0.8 + recency*0.2` | "Best explanation of X" |
+| **Match Quality** | Penalizes fuzzy matches | Precise technical searches |
+| **Date Newest** | Pure chronological | Recent activity |
+| **Date Oldest** | Reverse chronological | "When did I first..." |
+
+### Score Components
+
+- **Text Relevance (BM25)**: Term frequency, inverse document frequency, length normalization
+- **Recency**: Exponential decay (today ~1.0, last week ~0.7, last month ~0.3)
+- **Match Exactness**: Exact phrase=1.0, Prefix=0.9, Suffix=0.8, Substring=0.6, Fuzzy=0.4
+
+### Blended Scoring Formula
+
+```
+Final_Score = BM25_Score × Match_Quality + α × Recency_Factor
+```
+
+| Mode | α Value | Effect |
+|------|---------|--------|
+| Recent Heavy | 1.0 | Recency dominates |
+| Balanced | 0.4 | Moderate recency boost |
+| Relevance Heavy | 0.1 | BM25 dominates |
+| Match Quality | 0.0 | Pure text matching |
+
+---
+
+## Supported Agents (11 Connectors)
+
+| Agent | Location | Format |
+|-------|----------|--------|
+| **Claude Code** | `~/.claude/projects` | JSONL |
+| **Codex** | `~/.codex/sessions` | JSONL (Rollout) |
+| **Gemini CLI** | `~/.gemini/tmp` | JSON |
+| **Cline** | VS Code global storage | Task directories |
+| **OpenCode** | `.opencode` directories | SQLite |
+| **Amp** | `~/.local/share/amp` + VS Code | Mixed |
+| **Cursor** | `~/Library/Application Support/Cursor` | SQLite (state.vscdb) |
+| **ChatGPT** | `~/Library/Application Support/com.openai.chat` | JSON (v1 unencrypted) |
+| **Aider** | `~/.aider.chat.history.md` + per-project | Markdown |
+| **Pi-Agent** | `~/.pi/agent/sessions` | JSONL with thinking |
+| **Factory (Droid)** | `~/.factory/sessions` | JSONL by workspace |
+
+**Note:** ChatGPT v2/v3 are AES-256-GCM encrypted (keychain access required). Legacy v1 unencrypted conversations are indexed automatically.
+
+---
+
+## TUI Features (for Humans)
+
+Launch with `cass` (no flags):
+
+### Keyboard Shortcuts
+
+**Navigation:**
+- `Up/Down`: Move selection
+- `Left/Right`: Switch panes
+- `Tab/Shift+Tab`: Cycle focus
+- `Enter`: Open in `$EDITOR`
+- `Space`: Full-screen detail view
+- `Home/End`: Jump to first/last result
+- `PageUp/PageDown`: Scroll by page
+
+**Filtering:**
+- `F3`: Agent filter
+- `F4`: Workspace filter
+- `F5/F6`: Time filters (from/to)
+- `Shift+F3`: Scope to current result's agent
+- `Shift+F4`: Clear workspace filter
+- `Shift+F5`: Cycle presets (24h/7d/30d/all)
+- `Ctrl+Del`: Clear all filters
+
+**Modes:**
+- `F2`: Toggle theme (6 presets)
+- `F7`: Context window size (S/M/L/XL)
+- `F9`: Match mode (prefix/standard)
+- `F12`: Ranking mode
+- `Ctrl+B`: Toggle border style
+
+**Selection & Actions:**
+- `m`: Toggle selection
+- `Ctrl+A`: Select all
+- `A`: Bulk actions menu
+- `Ctrl+Enter`: Add to queue
+- `Ctrl+O`: Open all queued
+- `y`: Copy path/content
+- `Ctrl+Y`: Copy all selected
+- `/`: Find in detail pane
+- `n/N`: Next/prev match
+
+**Views & Palette:**
+- `Ctrl+P`: Command palette
+- `1-9`: Load saved view
+- `Shift+1-9`: Save view to slot
+
+**Source Filtering (multi-machine):**
+- `F11`: Cycle source filter (all/local/remote)
+- `Shift+F11`: Source selection menu
+
+**Global:**
+- `Ctrl+C`: Quit
+- `F1` or `?`: Toggle help
+- `Ctrl+Shift+R`: Force re-index
+- `Ctrl+Shift+Del`: Reset all TUI state
+
+### Detail Pane Tabs
+
+| Tab | Content | Switch With |
+|-----|---------|-------------|
+| **Messages** | Full conversation with markdown | `[` / `]` |
+| **Snippets** | Keyword-extracted summaries | `[` / `]` |
+| **Raw** | Unformatted JSON/text | `[` / `]` |
+
+### Context Window Sizing
+
+| Size | Characters | Use Case |
+|------|------------|----------|
+| **Small** | ~200 | Quick scanning |
+| **Medium** | ~400 | Default balanced view |
+| **Large** | ~800 | Longer passages |
+| **XLarge** | ~1600 | Full context, code review |
+
+**Peek Mode** (`Ctrl+Space`): Temporarily expand to XL without changing default.
+
+---
+
+## Theme Presets
+
+Cycle through 6 built-in themes with `F2`:
+
+| Theme | Description | Best For |
+|-------|-------------|----------|
+| **Dark** | Tokyo Night-inspired deep blues | Low-light environments |
+| **Light** | High-contrast light background | Bright environments |
+| **Catppuccin** | Warm pastels, reduced eye strain | All-day coding |
+| **Dracula** | Purple-accented dark theme | Popular developer theme |
+| **Nord** | Arctic-inspired cool tones | Calm, focused work |
+| **High Contrast** | Maximum readability | Accessibility needs |
+
+All themes validated against WCAG contrast requirements (4.5:1 minimum for text).
+
+### Role-Aware Message Styling
+
+| Role | Visual Treatment |
+|------|------------------|
+| **User** | Blue-tinted background, bold |
+| **Assistant** | Green-tinted background |
+| **System** | Gray/muted background |
+| **Tool** | Orange-tinted background |
+
+---
+
+## Saved Views
+
+Save filter configurations to 9 slots for instant recall.
+
+**What Gets Saved:**
+- Active filters (agent, workspace, time range)
+- Current ranking mode
+- The search query
+
+**Keyboard:**
+- `Shift+1` through `Shift+9`: Save current view
+- `1` through `9`: Load view from slot
+
+**Via Command Palette:** `Ctrl+P` → "Save/Load view"
+
+Views persist in `tui_state.json` across sessions.
+
+---
+
+## Density Modes
+
+Control lines per search result. Cycle with `Shift+D`:
+
+| Mode | Lines | Best For |
+|------|-------|----------|
+| **Compact** | 3 | Maximum results visible |
+| **Cozy** | 5 | Balanced view (default) |
+| **Spacious** | 8 | Detailed preview |
+
+---
+
+## Bookmark System
+
+Save important results with notes and tags:
+
+In TUI: Press `b` to bookmark, add notes and tags.
+
+**Bookmark Structure:**
+- `title`: Short description
+- `source_path`, `line_number`, `agent`, `workspace`
+- `note`: Your annotations
+- `tags`: Comma-separated labels
+- `snippet`: Extracted content
+
+Storage: `~/.local/share/coding-agent-search/bookmarks.db` (SQLite)
+
+---
+
+## Optional Semantic Search
+
+Local-only semantic search using MiniLM (no cloud):
+
+**Required files** (place in data directory):
+- `model.onnx`
+- `tokenizer.json`
+- `config.json`
+- `special_tokens_map.json`
+- `tokenizer_config.json`
+
+Vector index stored as `vector_index/index-minilm-384.cvvi`.
+
+CASS does NOT auto-download models; you must manually install them.
+
+**Hash Embedder Fallback:** When MiniLM not installed, CASS uses a hash-based embedder for approximate semantic similarity.
+
+---
+
+## Watch Mode
+
+Real-time index updates:
+
+```bash
+cass index --watch
+```
+
+- **Debounce:** 2 seconds (wait for burst to settle)
+- **Max wait:** 5 seconds (force flush during continuous activity)
+- **Incremental:** Only re-scans modified files
+
+TUI automatically starts watch mode in background.
+
+---
+
+## Deduplication Strategy
+
+CASS uses multi-layer deduplication:
+
+1. **Message Hash**: SHA-256 of `(role + content + timestamp)` - identical messages stored once
+2. **Conversation Fingerprint**: Hash of first N message hashes - detects duplicate files
+3. **Search-Time Dedup**: Results deduplicated by content similarity
+
+**Noise Filtering:**
+- Empty messages and pure whitespace
+- System prompts (unless searching for them)
+- Repeated tool acknowledgments
+
+---
+
+## Performance Characteristics
+
+| Operation | Latency |
+|-----------|---------|
+| Prefix search (cached) | 2-8ms |
+| Prefix search (cold) | 40-60ms |
+| Substring search | 80-200ms |
+| Full reindex | 5-30s |
+| Incremental reindex | 50-500ms |
+| Health check | <50ms |
+
+**Memory:** 70-140MB typical (50K messages)
+**Disk:** ~600 bytes/message (including n-gram overhead)
+
+---
+
+## Response Shapes
+
+**Search Response:**
 ```json
 {
-  "mcpServers": {
-    "cm": {
-      "command": "cm",
-      "args": ["serve"]
+  "query": "error",
+  "limit": 10,
+  "count": 5,
+  "total_matches": 42,
+  "hits": [
+    {
+      "source_path": "/path/to/session.jsonl",
+      "line_number": 123,
+      "agent": "claude_code",
+      "workspace": "/projects/myapp",
+      "title": "Authentication debugging",
+      "snippet": "The error occurs when...",
+      "score": 0.85,
+      "match_type": "exact",
+      "created_at": "2024-01-15T10:30:00Z"
+    }
+  ],
+  "_meta": {
+    "elapsed_ms": 12,
+    "cache_hit": true,
+    "wildcard_fallback": false,
+    "next_cursor": "eyJ...",
+    "index_freshness": { "stale": false, "age_seconds": 120 }
+  }
+}
+```
+
+**Aggregation Response:**
+```json
+{
+  "aggregations": {
+    "agent": {
+      "buckets": [
+        {"key": "claude_code", "count": 120},
+        {"key": "codex", "count": 85}
+      ],
+      "other_count": 15
     }
   }
 }
@@ -479,337 +863,88 @@ MCP_HTTP_TOKEN="<random>" cm serve --host 0.0.0.0 --port 3001
 
 ---
 
-## Graceful Degradation
-
-| Condition | Behavior |
-|-----------|----------|
-| No cass | Playbook-only scoring, no history snippets |
-| No playbook | Empty playbook, commands still work |
-| No LLM | Deterministic reflection, no semantic enhancement |
-| Offline | Cached playbook + local diary |
-
----
-
-## Output Format
-
-All commands support `--json` for machine-readable output.
-
-**Design principle:** stdout = JSON only; diagnostics go to stderr.
-
-### Success Response
-
-```json
-{
-  "success": true,
-  "task": "fix the auth timeout bug",
-  "relevantBullets": [
-    {
-      "id": "b-8f3a2c",
-      "content": "Always check token expiry before auth debugging",
-      "effectiveScore": 8.5,
-      "maturity": "proven",
-      "relevanceScore": 0.92,
-      "reasoning": "Extracted from 5 successful sessions"
-    }
-  ],
-  "antiPatterns": [...],
-  "historySnippets": [...],
-  "suggestedCassQueries": [...],
-  "degraded": null
-}
-```
-
-### Error Response
-
-```json
-{
-  "success": false,
-  "code": "PLAYBOOK_NOT_FOUND",
-  "error": "Playbook file not found",
-  "hint": "Run 'cm init' to create a new playbook",
-  "retryable": false,
-  "recovery": ["cm init", "cm doctor --fix"],
-  "docs": "README.md#-troubleshooting"
-}
-```
-
-### Exit Codes
-
-| Code | Meaning |
-|------|---------|
-| 1 | Internal error |
-| 2 | User input/usage |
-| 3 | Configuration |
-| 4 | Filesystem |
-| 5 | Network |
-| 6 | cass error |
-| 7 | LLM/provider error |
-
----
-
-## Token Budget Management
-
-| Flag | Effect |
-|------|--------|
-| `--limit N` | Cap number of rules |
-| `--min-score N` | Only rules above threshold |
-| `--no-history` | Skip historical snippets (faster) |
-| `--json` | Structured output |
-
----
-
-## Configuration
-
-Config lives at `~/.cass-memory/config.json` (global) and `.cass/config.json` (repo).
-
-**Precedence:** CLI flags > Repo config > Global config > Defaults
-
-**Security:** Repo config cannot override sensitive paths or user-level consent settings.
-
-### Key Options
-
-```json
-{
-  "provider": "anthropic",
-  "model": "claude-sonnet-4-20250514",
-  "budget": {
-    "dailyLimit": 0.10,
-    "monthlyLimit": 2.00
-  },
-  "scoring": {
-    "decayHalfLifeDays": 90,
-    "harmfulMultiplier": 4
-  },
-  "maxBulletsInContext": 50,
-  "maxHistoryInContext": 10,
-  "sessionLookbackDays": 7,
-  "crossAgent": {
-    "enabled": false,
-    "consentGiven": false,
-    "auditLog": true
-  },
-  "remoteCass": {
-    "enabled": false,
-    "hosts": [{"host": "workstation", "label": "work"}]
-  },
-  "semanticSearchEnabled": false,
-  "embeddingModel": "Xenova/all-MiniLM-L6-v2",
-  "dedupSimilarityThreshold": 0.85
-}
-```
-
-### Environment Variables
+## Environment Variables
 
 | Variable | Purpose |
 |----------|---------|
-| `ANTHROPIC_API_KEY` | API key for Anthropic (Claude) |
-| `OPENAI_API_KEY` | API key for OpenAI |
-| `GOOGLE_GENERATIVE_AI_API_KEY` | API key for Google Gemini |
-| `CASS_PATH` | Path to cass binary |
-| `CASS_MEMORY_LLM` | Set to `none` for LLM-free mode |
-| `MCP_HTTP_TOKEN` | Auth token for non-loopback MCP server |
+| `CASS_DATA_DIR` | Override data directory |
+| `CHATGPT_ENCRYPTION_KEY` | Base64 key for encrypted ChatGPT |
+| `PI_CODING_AGENT_DIR` | Override Pi-Agent sessions path |
+| `CASS_CACHE_SHARD_CAP` | Per-shard cache entries (default 256) |
+| `CASS_CACHE_TOTAL_CAP` | Total cached hits (default 2048) |
+| `CASS_DEBUG_CACHE_METRICS` | Enable cache debug logging |
+| `CODING_AGENT_SEARCH_NO_UPDATE_PROMPT` | Skip update checks |
 
 ---
 
-## Data Locations
-
-```
-~/.cass-memory/                  # Global (user-level)
-├── config.json                  # Configuration
-├── playbook.yaml                # Personal playbook
-├── diary/                       # Session summaries
-├── outcomes/                    # Session outcomes
-├── traumas.jsonl                # Trauma patterns
-├── starters/                    # Custom starter playbooks
-├── onboarding-state.json        # Onboarding progress
-├── privacy-audit.jsonl          # Cross-agent audit trail
-├── processed-sessions.jsonl     # Reflection progress
-└── usage.jsonl                  # LLM cost tracking
-
-.cass/                           # Project-level (in repo)
-├── config.json                  # Project-specific overrides
-├── playbook.yaml                # Project-specific rules
-├── traumas.jsonl                # Project-specific patterns
-└── blocked.yaml                 # Anti-patterns to block
-```
-
----
-
-## Automating Reflection
-
-### Cron Job
+## Shell Completions
 
 ```bash
-# Daily at 2am
-0 2 * * * /usr/local/bin/cm reflect --days 7 >> ~/.cass-memory/reflect.log 2>&1
-```
-
-### Claude Code Hook
-
-`.claude/hooks.json`:
-```json
-{
-  "post-session": ["cm reflect --days 1"]
-}
+cass completions bash > ~/.local/share/bash-completion/completions/cass
+cass completions zsh > "${fpath[1]}/_cass"
+cass completions fish > ~/.config/fish/completions/cass.fish
+cass completions powershell >> $PROFILE
 ```
 
 ---
 
-## Privacy & Security
-
-### Local-First Design
-
-- All data stays on your machine
-- No cloud sync, no telemetry
-- Cross-agent enrichment is opt-in with explicit consent
-- Audit log for enrichment events
-
-### Secret Sanitization
-
-Before processing, content is sanitized:
-- OpenAI/Anthropic/AWS/Google API keys
-- GitHub tokens
-- JWTs
-- Passwords and secrets in config patterns
-
-### Privacy Controls
+## API Contract & Versioning
 
 ```bash
-cm privacy status    # Check settings
-cm privacy enable    # Enable cross-agent enrichment
-cm privacy disable   # Disable enrichment
+cass api-version --json
+# → { "version": "0.4.0", "contract_version": "1", "breaking_changes": [] }
+
+cass introspect --json
+# → Full schema: all commands, arguments, response types
 ```
 
----
-
-## Performance Characteristics
-
-| Operation | Typical Latency |
-|-----------|-----------------|
-| `cm context` (cached) | 50-150ms |
-| `cm context` (cold) | 200-500ms |
-| `cm context` (no cass) | 30-80ms |
-| `cm reflect` (1 session) | 5-15s |
-| `cm reflect` (5 sessions) | 20-60s |
-| `cm playbook list` | <50ms |
-| `cm similar` (keyword) | 20-50ms |
-| `cm similar` (semantic) | 100-300ms |
-
-### LLM Cost Estimates
-
-| Operation | Typical Cost |
-|-----------|--------------|
-| Reflect (1 session) | $0.01-0.05 |
-| Reflect (7 days) | $0.05-0.20 |
-| Validate (1 rule) | $0.005-0.01 |
-
-With default budget ($0.10/day, $2.00/month): ~5-10 sessions/day.
+**Guaranteed Stable:**
+- Exit codes and their meanings
+- JSON response structure for `--robot` output
+- Flag names and behaviors
+- `_meta` block format
 
 ---
 
-## Batch Rule Addition
+## Integration with CASS Memory (cm)
 
-After analyzing a session, add multiple rules at once:
+CASS provides **episodic memory** (raw sessions). CM extracts **procedural memory** (rules and playbooks):
 
 ```bash
-# Create JSON file
-cat > rules.json << 'EOF'
-[
-  {"content": "Always run tests before committing", "category": "testing"},
-  {"content": "Check token expiry before auth debugging", "category": "debugging"},
-  {"content": "AVOID: Mocking entire modules in tests", "category": "testing"}
-]
-EOF
+# 1. CASS indexes raw sessions
+cass index --full
 
-# Add all rules
-cm playbook add --file rules.json
+# 2. Search for relevant past experience
+cass search "authentication timeout" --robot --limit 10
 
-# Track which session they came from
-cm playbook add --file rules.json --session /path/to/session.jsonl
-
-# Or pipe from stdin
-echo '[{"content": "Rule", "category": "workflow"}]' | cm playbook add --file -
-```
-
----
-
-## Template Output for Onboarding
-
-`--template` provides rich context for rule extraction:
-
-```bash
-cm onboard read /path/to/session.jsonl --template --json
-```
-
-Returns:
-- **metadata**: path, workspace, message count, topic hints
-- **context**: related rules, playbook gaps, suggested focus
-- **extractionFormat**: schema, categories, examples
-- **sessionContent**: actual session data
-
----
-
-## Integration with CASS
-
-CASS provides **episodic memory** (raw sessions).
-CM extracts **procedural memory** (rules and playbooks).
-
-```bash
-# CASS: Search raw sessions
-cass search "authentication timeout" --robot
-
-# CM: Get distilled rules for a task
-cm context "authentication timeout" --json
+# 3. CM reflects on sessions to extract rules
+cm reflect
 ```
 
 ---
 
 ## Troubleshooting
 
-| Error | Solution |
+| Issue | Solution |
 |-------|----------|
-| `cass not found` | Install from [cass repo](https://github.com/Dicklesworthstone/coding_agent_session_search) |
-| `cass search failed` | Run `cass index --full` |
-| `API key missing` | Set `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, or `GOOGLE_GENERATIVE_AI_API_KEY` |
-| `Playbook corrupt` | Run `cm doctor --fix` |
-| `Budget exceeded` | Check `cm usage`, adjust limits |
-
-### Diagnostic Commands
-
-```bash
-cm doctor --json           # System health
-cm doctor --fix            # Auto-fix issues
-cm usage                   # LLM budget status
-cm stats --json            # Playbook health
-cm why <bullet-id>         # Rule provenance
-```
-
-### LLM-Free Mode
-
-```bash
-CASS_MEMORY_LLM=none cm context "task" --json
-```
+| "missing index" | `cass index --full` |
+| Stale warning | Rerun index or enable watch |
+| Empty results | Check `cass stats --json`, verify connectors detected |
+| JSON parsing errors | Use `--robot-format compact` |
+| Watch not triggering | Check `watch_state.json`, verify file event support |
+| Reset TUI state | `cass tui --reset-state` or `Ctrl+Shift+Del` |
 
 ---
 
 ## Installation
 
 ```bash
-# One-liner (recommended)
-curl -fsSL https://raw.githubusercontent.com/Dicklesworthstone/cass_memory_system/main/install.sh \
+# One-liner install
+curl -fsSL https://raw.githubusercontent.com/Dicklesworthstone/coding_agent_session_search/main/install.sh \
   | bash -s -- --easy-mode --verify
 
-# Specific version
-install.sh --version v0.2.2 --verify
-
-# System-wide
-install.sh --system --verify
-
-# From source
-git clone https://github.com/Dicklesworthstone/cass_memory_system.git
-cd cass_memory_system
-bun install && bun run build
-sudo mv ./dist/cass-memory /usr/local/bin/cm
+# Windows
+irm https://raw.githubusercontent.com/Dicklesworthstone/coding_agent_session_search/main/install.ps1 | iex
 ```
 
 ---
@@ -818,7 +953,7 @@ sudo mv ./dist/cass-memory /usr/local/bin/cm
 
 | Tool | Integration |
 |------|-------------|
-| **CASS** | CM reads from cass episodic memory, writes procedural memory |
-| **NTM** | Robot mode integrates with cm for context before agent work |
-| **Agent Mail** | Rules can reference mail threads as provenance |
-| **BV** | Task context enriched with relevant playbook rules |
+| **CM** | CASS provides episodic memory, CM extracts procedural memory |
+| **NTM** | Robot mode flags for searching past sessions |
+| **Agent Mail** | Search threads across agent history |
+| **BV** | Cross-reference beads with past solutions |
