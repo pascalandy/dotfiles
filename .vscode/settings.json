@@ -115,6 +115,30 @@
     {
       "folderPath": "chezmoi/docs/",
       "color": "foldercolorizer.color_00cc00"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/opencode/package.json/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/opencode/config.json/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/opencode/AGENTS.md/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/opencode/tools/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/opencode/skill/",
+      "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/opencode/plugin/",
+      "color": "foldercolorizer.color_888888"
     }
   ]
 }
