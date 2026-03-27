@@ -11,28 +11,33 @@
     "default_model": {
       "provider": "lmstudio",
       "model": "unsloth/qwen3.5-27b",
-      "enable_thinking": false
+      "enable_thinking": false,
     },
     "favorite_models": [],
-    "model_parameters": []
+    "model_parameters": [],
   },
   "completions": {
-    "words_min_length": 5
+    "words_min_length": 5,
   },
   "show_completions_on_input": false,
   "theme": "Gruvbox Dark Soft",
   "agent_servers": {
     "claude-acp": {
       "type": "registry",
-      "default_model": "opus"
+      "default_model": "opus",
     },
     "your_agent": {
       "type": "custom",
       "command": "path_to_executable",
       "args": [],
-      "env": {}
-    }
+      "env": {},
+    },
+  },
+  "autosave": {
+    "after_delay": {
+      "milliseconds": 500,
+    },
   },
   "ui_font_size": 16,
-  "buffer_font_size": 16
+  "buffer_font_size": 16,
 }
