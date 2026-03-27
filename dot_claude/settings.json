@@ -1,14 +1,31 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git commit:*)",
-      "Bash(uv run:*)",
-      "Bash(git log:*)",
-      "Bash(terminal-notifier:*)"
+      "WebSearch",
+      "WebFetch",
+      "Bash",
+      "Read",
+      "Write",
+      "Edit",
+      "Glob",
+      "Grep",
+      "Task",
+      "TodoWrite"
     ],
-    "deny": []
+    "deny": [],
+    "defaultMode": "bypassPermissions"
   },
-  "model": "sonnet",
+  "skipDangerousModePermissionPrompt": true,
+  "alwaysThinkingEnabled": true,
+  "model": "opus",
+  "statusLine": {
+    "type": "command",
+    "command": "bash /Users/andy16/.claude/statusline-command.sh"
+  },
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true
+  },
   "hooks": {
     "PreToolUse": [
       {
@@ -21,15 +38,5 @@
         ]
       }
     ]
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "bash /Users/andy16/.claude/statusline-command.sh"
-  },
-  "enabledPlugins": {
-    "typescript-lsp@claude-plugins-official": true,
-    "pyright-lsp@claude-plugins-official": true
-  },
-  "skipDangerousModePermissionPrompt": true,
-  "alwaysThinkingEnabled": false
+  }
 }
