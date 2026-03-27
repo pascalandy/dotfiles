@@ -24,7 +24,7 @@ bash ~/.codex/skills/utils/last30days/scripts/install_upstream.sh
 2. Before first real use, verify the environment:
 
 ```bash
-python3 ~/.local/share/last30days-skill/scripts/last30days.py --diagnose
+uv run python ~/.local/share/last30days-skill/scripts/last30days.py --diagnose
 ```
 
 3. Read and follow the upstream instruction file:
@@ -66,3 +66,10 @@ Use one of these:
 - `OPENAI_API_KEY` is optional when Codex is already logged in
 - `SCRAPECREATORS_API_KEY` unlocks Reddit, TikTok, and Instagram
 - keep the chezmoi skill directory minimal; do not vendor the whole upstream repo here
+
+## Failure reporting
+
+- If any source fails because of billing, auth, missing modules, rate limits, or runtime errors, report that failure explicitly.
+- Treat a failed source as unavailable coverage, not partial success.
+- Call out the exact source and error before any synthesis.
+- Do not present a synthesis as if Reddit, X, or web contributed when those sources failed.

@@ -26,7 +26,7 @@ bash ~/.config/opencode/skill/utils/last30days/scripts/install_upstream.sh
 Verify with:
 
 ```bash
-python3 ~/.local/share/last30days-skill/scripts/last30days.py --diagnose
+uv run python ~/.local/share/last30days-skill/scripts/last30days.py --diagnose
 ```
 
 ## Why this layout
@@ -46,3 +46,9 @@ The upstream project prefers cookie auth for X search:
 
 `XAI_API_KEY` is only a fallback backend.
 If you only want the skill working quickly, set `AUTH_TOKEN`, `CT0`, and `SCRAPECREATORS_API_KEY` first.
+
+## Error handling
+
+When a source backend fails, surface the exact failure in the final report.
+Examples: ScrapeCreators `402 Payment Required`, missing Node package, expired auth, or API rate limit.
+Do not imply that a source contributed to the synthesis when it returned zero usable results because of an error.

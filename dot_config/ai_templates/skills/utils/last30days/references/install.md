@@ -27,7 +27,7 @@ bash ~/.codex/skills/utils/last30days/scripts/install_upstream.sh
 ## Diagnose runtime
 
 ```bash
-python3 ~/.local/share/last30days-skill/scripts/last30days.py --diagnose
+uv run python ~/.local/share/last30days-skill/scripts/last30days.py --diagnose
 ```
 
 ## Why this layout
