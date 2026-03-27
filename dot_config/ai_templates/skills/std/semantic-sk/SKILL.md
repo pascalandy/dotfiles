@@ -1,6 +1,7 @@
 ---
 name: semantic-sk
-description: use this skill only when the user explicitly ask for `semantic-sk`. This transform user questions into effective vector search queries for RAG systems. Use when building semantic search, designing RAG pipelines, writing retrieval code, or debugging poor recall. Covers query expansion, decomposition, HyDE, metadata filtering, multi-hop retrieval, and result aggregation.
+description: |
+  use this skill only when the user explicitly ask for `semantic-sk`. This transform user questions into effective vector search queries for RAG systems. Use when building semantic search, designing RAG pipelines, writing retrieval code, or debugging poor recall. Covers query expansion, decomposition, HyDE, metadata filtering, multi-hop retrieval, and result aggregation.
 ---
 
 # Semantic Search Query Patterns
