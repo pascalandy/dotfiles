@@ -1,5 +1,15 @@
 # Internals: Data Structures, Concurrency, Status Codes, Schemas, WSGI, Patterns
 
+## Table of Contents
+
+- Data structures
+- Concurrency utilities
+- Status codes
+- API schemas
+- Database and GraphQL
+- WSGI compatibility
+- Common patterns
+
 ## Data Structures
 
 ### URL
@@ -224,6 +234,23 @@ routes = [
 **Requires**: `uv add pyyaml`
 
 Schema content is parsed from YAML in endpoint docstrings (after an optional `---` separator).
+
+Generate a schema directly when you need to export or inspect it without serving
+an endpoint:
+
+```python
+schema = schemas.get_schema(routes=app.routes)
+print(schema["paths"])
+```
+
+Typical export pattern:
+
+```python
+import yaml
+
+schema = schemas.get_schema(routes=app.routes)
+print(yaml.dump(schema, default_flow_style=False))
+```
 
 ---
 

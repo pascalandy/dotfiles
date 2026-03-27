@@ -2,6 +2,33 @@
 
 ## TestClient (Synchronous, Built on httpx)
 
+### Constructor Surface
+
+```python
+from starlette.testclient import TestClient
+
+client = TestClient(
+    app,
+    base_url="http://testserver",
+    raise_server_exceptions=True,
+    root_path="",
+    backend="asyncio",                # or "trio"
+    backend_options=None,
+    cookies={"session": "abc"},
+    headers={"X-Test": "1"},
+    follow_redirects=True,
+    client=("testclient", 50000),     # remote address in request.client
+)
+```
+
+Useful options:
+
+- `raise_server_exceptions=False` to inspect 500 responses.
+- `headers=` and `cookies=` for default request context.
+- `follow_redirects=False` when asserting redirects.
+- `client=(host, port)` when application logic depends on `request.client`.
+- `backend="trio"` or `backend_options={"use_uvloop": True}` for backend-specific tests.
+
 ```python
 from starlette.testclient import TestClient
 

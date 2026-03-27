@@ -1,5 +1,15 @@
 # Features: Configuration, Lifespan, WebSockets, Static Files, Templates, Auth, Background Tasks
 
+## Table of Contents
+
+- Configuration
+- Lifespan
+- WebSockets
+- Static files
+- Templates
+- Authentication
+- Background tasks
+
 ## Configuration
 
 ### Config from .env Files
@@ -322,6 +332,16 @@ def test_homepage():
     assert "title" in response.context
 ```
 
+### Async Template Rendering Guidance
+
+Jinja2 can render templates asynchronously, but keep templates free of I/O-heavy
+logic whenever possible.
+
+- Do database queries, API calls, and other I/O in the endpoint first.
+- Pass fully prepared values into the template context.
+- Use async rendering only when you deliberately need async template features,
+  not as a substitute for endpoint logic.
+
 ---
 
 ## Authentication
@@ -409,6 +429,11 @@ class Dashboard(HTTPEndpoint):
     async def get(self, request: Request):
         ...
 ```
+
+For WebSockets, `@requires(..., status_code=404)` is not supported. Starlette
+always uses `403 Forbidden` for denied WebSocket permissions. If you need a
+custom rejection body for WebSockets, perform the check manually and use
+`websocket.send_denial_response(...)`.
 
 ### Custom Auth Error Handler
 

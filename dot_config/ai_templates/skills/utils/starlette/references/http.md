@@ -1,5 +1,37 @@
 # HTTP Core: Routing, Requests, Responses, Endpoints, Exceptions
 
+## Table of Contents
+
+- ASGI toolkit mode
+- Routing
+- Requests
+- Responses
+- Endpoints
+- Exception handling
+
+## ASGI Toolkit Mode
+
+Starlette can be used as a full framework or as a toolkit of reusable ASGI
+components.
+
+```python
+from starlette.requests import Request
+from starlette.responses import PlainTextResponse
+
+
+async def app(scope, receive, send):
+    assert scope["type"] == "http"
+    request = Request(scope, receive)
+    response = PlainTextResponse(f"{request.method} {request.url.path}")
+    await response(scope, receive, send)
+```
+
+Use this pattern when:
+
+- working inside FastAPI internals or custom middleware
+- building a tiny ASGI app without `Starlette(...)`
+- reusing `Request`, `Response`, `Headers`, `URL`, or other Starlette primitives directly
+
 ## Routing
 
 ### HTTP Routes with Path Parameters
@@ -137,6 +169,8 @@ router = Router(
 from starlette.requests import Request
 
 async def handler(request: Request):
+    request["path"]             # mapping interface onto ASGI scope
+    request.scope               # raw ASGI scope dict
     request.method              # "GET", "POST", etc.
     request.url                 # URL object (str-like): "https://example.com/path?q=1"
     request.url.path            # "/path"

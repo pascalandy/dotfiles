@@ -1,19 +1,34 @@
 ---
 name: starlette
 description: >
-  Build async Python web applications and APIs with Starlette 1.0, the lightweight ASGI
-  framework. Use this skill when creating HTTP endpoints, WebSocket servers, middleware,
-  routing, static file serving, templates, authentication, background tasks, configuration,
-  testing, or any ASGI application. Triggers on mentions of Starlette, ASGI framework,
-  async web Python, or when building APIs that need routing, middleware, WebSocket support,
-  or server-sent events with Python's async ecosystem. Also use when the user mentions
-  FastAPI internals, since FastAPI is built on Starlette.
+  Build, debug, and extend Starlette applications and Starlette-powered internals. Use this
+  skill when the user mentions Starlette directly, needs routing/requests/responses,
+  middleware, WebSockets, templates, static files, authentication, sessions, background
+  tasks, testing, OpenAPI schemas, thread-pool behavior, or raw ASGI toolkit patterns built
+  from Starlette primitives. Also use this skill when the user is working on FastAPI
+  internals, because FastAPI is built on Starlette. Prefer more framework-specific skills
+  only when the task is primarily about another framework's higher-level conventions.
 ---
 
-# Starlette 1.0 -- Complete Reference
+# Starlette Reference + Agent Playbook
 
-Starlette 1.0.0 is a lightweight ASGI framework/toolkit for async web services in Python.
-Requires Python >= 3.10. Core dependency: `anyio` (supports both asyncio and trio).
+Starlette is a lightweight ASGI framework/toolkit for async web services in Python.
+Requires Python `>=3.10`. Core dependency: `anyio` (supports both `asyncio` and `trio`).
+
+This bundle is intended to help an AI agent handle both:
+
+- Starlette as a full web framework.
+- Starlette as a lower-level ASGI toolkit reused inside projects like FastAPI.
+
+Version note:
+
+- This skill was audited against the official `starlette.dev` docs and release notes on
+  `2026-03-27`.
+- Official release surfaces were not fully aligned at audit time: `starlette.dev`
+  release notes listed `1.0.0rc1` on `February 23, 2026`, while stable 0.x releases were
+  still documented in the same stream.
+- Before relying on release-specific behavior, verify the installed Starlette version in the
+  target project and check the release notes for that exact version.
 
 ### Bundled references
 
@@ -27,6 +42,51 @@ Read these when you need full parameter details, advanced patterns, or edge case
 | `references/testing.md` | TestClient (HTTP, WebSocket, lifespan, error responses). Async testing with httpx. Backend selection (asyncio/trio). |
 | `references/internals.md` | Data structures (URL, Headers, QueryParams, MultiDict, State, FormData, URLPath, Secret). Concurrency utilities. Status codes. API schemas (OpenAPI). WSGI compatibility. Common patterns (REST API, SSE, file upload, multi-tenant). |
 | `references/ecosystem.md` | Third-party packages: auth, WebSocket, compression, monitoring, admin, deployment, and frameworks built on Starlette. |
+
+---
+
+## Start Here
+
+Choose the smallest useful slice before reading the full bundle:
+
+- Building or modifying HTTP routes, requests, responses, cookies, endpoints, or exception
+  handlers: start with `references/http.md`.
+- Working on middleware, FastAPI internals, request/response interception, or ASGI flow:
+  start with `references/middleware.md`, then `references/http.md`.
+- Building templates, sessions, auth, WebSockets, static files, background tasks, or
+  lifespan-managed resources: start with `references/features.md`.
+- Writing tests or debugging client behavior: start with `references/testing.md`.
+- Debugging thread-pool behavior, schema generation, status codes, WSGI migration, or
+  reusable Starlette data structures: start with `references/internals.md`.
+- Choosing third-party packages or deployment adapters: start with
+  `references/ecosystem.md`.
+
+## Common Use Cases
+
+Use these as starting patterns when the user asks for a project or feature:
+
+- JSON API or admin backend: Quick Start, Application Scaffold, `references/http.md`,
+  `references/testing.md`.
+- HTML app with templates, static files, sessions, and login: Application Scaffold,
+  `references/features.md`, `references/testing.md`.
+- WebSocket notifications/chat/realtime dashboard: Application Scaffold,
+  `references/features.md`, `references/testing.md`.
+- FastAPI internals, middleware bugs, or raw request/response behavior:
+  `references/middleware.md`, `references/http.md`, `references/internals.md`.
+- Server-sent events, long polling, or streaming downloads: `references/http.md`,
+  `references/internals.md`.
+- Multi-tenant or host-based routing: `references/http.md`, `references/internals.md`.
+- Serverless or adapter-based deployment: `references/ecosystem.md`.
+
+## Version And Security Hygiene
+
+When the task touches file serving, multipart parsing, uploads, or static files:
+
+- Check the installed Starlette version before copying examples blindly.
+- Prefer current defaults and documented safety limits such as `request.form(...)`
+  bounds.
+- Be cautious with `FileResponse`, `StaticFiles`, and multipart parsing in older versions,
+  because Starlette has shipped recent security fixes in those areas.
 
 ---
 
@@ -330,15 +390,49 @@ with client.websocket_connect("/ws") as ws:
     assert ws.receive_text() == "Echo: hello"
 ```
 
+### Toolkit Mode / FastAPI Internals -> `references/http.md`, `references/middleware.md`
+
+```python
+from starlette.requests import Request
+from starlette.responses import PlainTextResponse
+
+
+async def app(scope, receive, send):
+    assert scope["type"] == "http"
+    request = Request(scope, receive)
+    response = PlainTextResponse(f"{request.method} {request.url.path}")
+    await response(scope, receive, send)
+```
+
 ---
 
-## Why uv
+## Python Tooling Policy
 
-Starlette itself uses uv. The repo has a committed `uv.lock`, all dev scripts use
-`uv run` and `uv sync`, and `pyproject.toml` declares `required-version = ">=0.8.6"`
-under `[tool.uv]`. The maintainer (Kludex) chose uv for the project's own workflow.
+This skill intentionally prefers `uv` for Python package management and command
+execution. The goal is to stop agents from defaulting to raw `python3` and
+`pip` commands when setting up or running Starlette projects.
 
-Always use `uv` instead of `pip` or `python3` when working with Starlette:
+Treat this as agent operating guidance, not a claim that every Starlette
+project everywhere must use `uv`.
+
+Default behavior:
+
+- Use `uv` for new Starlette projects.
+- Prefer `uv run ...` over `python3 ...`.
+- Prefer `uv add ...` over `pip install ...`.
+- Prefer `uv sync` when the project is already using `uv`.
+- If the target repository already has an explicit Python workflow
+  (`poetry`, `pdm`, `hatch`, `pip-tools`, `nix`, CI-pinned scripts, etc.),
+  preserve that workflow instead of forcing a migration to `uv`.
+
+Why this skill defaults to `uv`:
+
+- It matches Starlette's own current development workflow.
+- It avoids ad-hoc interpreter and virtualenv handling.
+- It gives agents a consistent install/run pattern across tasks.
+
+Use `uv` instead of `pip` or `python3` when there is no stronger project-level
+tooling convention:
 
 ```bash
 uv init myproject && cd myproject
@@ -355,8 +449,9 @@ uv run pytest
 - **Implicit venv management.** `uv run` creates and reuses a venv automatically.
 - **Full compatibility.** uv reads standard `pyproject.toml` and `requirements.txt`.
 
-On macOS, avoid calling `python3` directly. Use `uv run` which manages the
-interpreter and virtual environment for you.
+On macOS and Linux, avoid calling `python3` directly unless an existing project
+workflow explicitly requires it. Prefer `uv run`, which manages the interpreter
+and virtual environment for you.
 
 ---
 

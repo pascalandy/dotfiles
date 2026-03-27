@@ -46,6 +46,13 @@ If the user asks for watchlists, briefings, or history mode, also read:
 ~/.codex/skills/utils/last30days/references/install.md
 ```
 
+## OpenCode/Codex execution rule
+
+- In this setup, always run the real runtime from `~/.local/share/last30days-skill`.
+- Always use `uv run python ~/.local/share/last30days-skill/scripts/last30days.py ...`.
+- Do not run `scripts/last30days.py` from the synced skill directory.
+- For X, do not invoke the vendored Bird module directly; rely on `AUTH_TOKEN` and `CT0` injected through `~/.config/last30days/.env`.
+
 ## Config locations
 
 The upstream skill loads config in this order:
