@@ -15,6 +15,12 @@ description: >
 Starlette 1.0.0 is a lightweight ASGI framework/toolkit for async web services in Python.
 Requires Python >= 3.10. Core dependency: `anyio` (supports both asyncio and trio).
 
+### Bundled references
+
+| File | When to read it |
+|---|---|
+| `references/ecosystem.md` | When choosing third-party packages, middleware, auth libraries, deployment adapters, or evaluating frameworks built on Starlette. |
+
 ---
 
 ## Quick Start
