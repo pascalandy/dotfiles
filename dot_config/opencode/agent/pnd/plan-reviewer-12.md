@@ -1,8 +1,11 @@
 ---
-name: plan-reviewer-12
 description: "Scope and feasibility plan reviewer. Attacks scope creep, unjustified complexity, technical feasibility gaps, and tests whether the plan can actually be built as described. Dispatched by the plan review loop orchestrator."
 mode: subagent
-hidden: true
+model: anthropic/claude-opus-4-6
+temperature: 0.2
+thinking:
+  type: enabled
+  budgetTokens: 32000
 permission:
   edit: deny
   bash: deny

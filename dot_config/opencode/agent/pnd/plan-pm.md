@@ -1,8 +1,11 @@
 ---
-name: plan-pm
 description: "Product manager for the plan review loop. Has decision authority over all reviewer feedback. Processes findings, updates the plan, maintains the decision log, commits changes, and tracks scorecard convergence. Persistent across rounds via task_id."
 mode: subagent
-hidden: true
+model: anthropic/claude-sonnet-4-6
+temperature: 0.2
+thinking:
+  type: enabled
+  budgetTokens: 8000
 permission:
   edit: allow
   bash:

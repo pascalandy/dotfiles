@@ -1,8 +1,9 @@
 ---
-name: plan-reviewer-13
 description: "Completeness and coherence plan reviewer. Hunts for gaps in requirements, contradictions between sections, ambiguous language, missing edge cases, and broken internal logic. Dispatched by the plan review loop orchestrator."
 mode: subagent
-hidden: true
+model: openai/gpt-5.4
+reasoningEffort: high
+temperature: 0.1
 permission:
   edit: deny
   bash: deny
