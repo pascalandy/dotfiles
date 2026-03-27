@@ -93,7 +93,9 @@ When the task touches file serving, multipart parsing, uploads, or static files:
 ## Quick Start
 
 ```bash
-uv init myapp && cd myapp
+# Idempotent: only inits if pyproject.toml is missing
+[ -f myapp/pyproject.toml ] || uv init myapp
+cd myapp
 uv add starlette uvicorn
 ```
 
@@ -118,7 +120,7 @@ app = Starlette(routes=[
 Run:
 
 ```bash
-uv run uvicorn app:app --reload
+uv run uvicorn app:app --host 127.0.0.1 --port 8000 --reload
 ```
 
 Both sync and async endpoint functions are supported. Sync functions automatically
@@ -438,7 +440,7 @@ tooling convention:
 uv init myproject && cd myproject
 uv add starlette uvicorn
 uv add starlette[full]            # all optional deps
-uv run uvicorn app:app --reload
+uv run uvicorn app:app --host 127.0.0.1 --port 8000 --reload
 uv run pytest
 ```
 
@@ -471,8 +473,43 @@ and virtual environment for you.
 
 ## ASGI Servers
 
+### Development
+
 ```bash
-uv run uvicorn myapp:app --reload   # recommended
-uv run daphne myapp:app
-uv run hypercorn myapp:app
+uv run uvicorn myapp:app --host 127.0.0.1 --port 8000 --reload
+```
+
+### Production
+
+```bash
+# Uvicorn with multiple workers
+uv run uvicorn myapp:app \
+  --host 0.0.0.0 \
+  --port 8000 \
+  --workers 4 \
+  --log-level info
+
+# Alternative servers (same explicit-binding principle)
+uv run daphne --bind 0.0.0.0 --port 8000 myapp:app
+uv run hypercorn --bind 0.0.0.0:8000 myapp:app
+```
+
+### Programmatic start
+
+Useful as a script entrypoint or when wrapping the server in a CLI tool:
+
+```python
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("app:app", host="127.0.0.1", port=8000, reload=True)
+```
+
+### Discovering flags
+
+Each server supports `--help` for the full flag list:
+
+```bash
+uv run uvicorn --help
+uv run daphne --help
+uv run hypercorn --help
 ```
