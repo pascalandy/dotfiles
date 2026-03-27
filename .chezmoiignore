@@ -13,6 +13,7 @@
 # Environment variables and API keys
 .env
 **/.env
+!.config/last30days/.env
 .env.local
 **/.env.local
 .env.production
