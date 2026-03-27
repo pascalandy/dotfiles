@@ -1,6 +1,7 @@
 ---
 name: last30days
-description: Research topics, news, trends, and recommendations from the last 30 days across Reddit, X, YouTube, TikTok, Instagram, Hacker News, Polymarket, Bluesky, and the web. Also triggered by 'last30'.
+description: |
+  Use only when the user explicitly say "last30days". Research topics, news, trends, and recommendations from the last 30 days across Reddit, X, YouTube, TikTok, Instagram, Hacker News, Polymarket, Bluesky, and the web. 
 ---
 
 # last30days

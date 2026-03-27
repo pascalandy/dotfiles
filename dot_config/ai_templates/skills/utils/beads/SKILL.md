@@ -1,6 +1,6 @@
 ---
 name: beads
-description: >
+description: |
   Use only when the user explicitly say "bd" or "beads" to search Git-backed issue tracker. This is where we track of our most tasks. It's for multi-session work with dependencies and persistent memory across conversation compaction. Use when work spans sessions, has blockers, or needs context recovery after compaction.
 allowed-tools: "Read,Bash(bd:*)"
 version: "0.47.1"
