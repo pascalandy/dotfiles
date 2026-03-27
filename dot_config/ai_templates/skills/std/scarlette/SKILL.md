@@ -20,7 +20,8 @@ Requires Python >= 3.10. Core dependency: `anyio` (supports both asyncio and tri
 ## Quick Start
 
 ```bash
-pip install starlette uvicorn
+uv init myapp && cd myapp
+uv add starlette uvicorn
 ```
 
 Create `app.py`:
@@ -44,7 +45,7 @@ app = Starlette(routes=[
 Run:
 
 ```bash
-uvicorn app:app --reload
+uv run uvicorn app:app --reload
 ```
 
 Starlette can also be used as a bare ASGI toolkit without the framework class:
@@ -501,7 +502,7 @@ async with request.form(
     ...
 ```
 
-**Requires**: `pip install python-multipart` for `request.form()`.
+**Requires**: `uv add python-multipart` for `request.form()`.
 
 ### UploadFile
 
@@ -817,7 +818,7 @@ async def handler(request: Request):
     request.session.clear()                     # clear all
 ```
 
-**Requires**: `pip install itsdangerous`
+**Requires**: `uv add itsdangerous`
 
 ### GZipMiddleware
 
@@ -1186,7 +1187,7 @@ routes = [
 ]
 ```
 
-**Requires**: `pip install jinja2`
+**Requires**: `uv add jinja2`
 
 ### url_for in Templates
 
@@ -1417,7 +1418,7 @@ response = client.get("/error")
 assert response.status_code == 500
 ```
 
-**Requires**: `pip install httpx`
+**Requires**: `uv add httpx`
 
 ### Lifespan Testing
 
@@ -1503,7 +1504,7 @@ routes = [
 ]
 ```
 
-**Requires**: `pip install pyyaml`
+**Requires**: `uv add pyyaml`
 
 Schema content is parsed from YAML in endpoint docstrings (after an optional `---` separator).
 
@@ -1878,6 +1879,47 @@ routes = [
 
 ---
 
+## Why uv
+
+Starlette itself uses uv. The repo has a committed `uv.lock`, all dev scripts use
+`uv run` and `uv sync`, and `pyproject.toml` declares `required-version = ">=0.8.6"`
+under `[tool.uv]`. The maintainer (Kludex) chose uv for the project's own workflow.
+
+Always use `uv` instead of `pip` or `python3` when working with Starlette:
+
+```bash
+# Project setup
+uv init myproject && cd myproject
+uv add starlette uvicorn
+
+# Install all optional deps at once
+uv add starlette[full]
+
+# Run the dev server
+uv run uvicorn app:app --reload
+
+# Run tests (matching Starlette's own scripts/test)
+uv run pytest
+```
+
+**Why this matters:**
+
+- **Matches upstream.** Starlette's `scripts/install` is `uv sync --frozen`.
+  Their test runner is `uv run coverage run -m pytest`. Using uv means your
+  local workflow mirrors the project's CI.
+- **Speed.** `uv add starlette[full]` resolves and installs in under a second.
+  pip takes 5-15x longer on the same dependency set.
+- **Deterministic lockfile.** `uv.lock` pins exact versions across all platforms.
+  `pip freeze` is a weaker, platform-specific guarantee.
+- **Implicit venv management.** `uv run uvicorn app:app` creates and reuses a
+  virtual environment automatically. No `python -m venv .venv && source .venv/bin/activate`
+  ceremony.
+- **Full compatibility.** uv reads standard `pyproject.toml` and `requirements.txt`.
+  Nothing changes about how Starlette declares its dependencies.
+
+On macOS, avoid calling `python3` directly. Use `uv run` which manages the
+interpreter and virtual environment for you.
+
 ## Dependencies
 
 | Feature | Required Package |
@@ -1890,12 +1932,12 @@ routes = [
 | Schema YAML | `pyyaml` |
 | Python | `>=3.10` |
 | Async backends | `asyncio` (default), `trio` |
-| Install all | `pip install starlette[full]` |
+| Install all | `uv add starlette[full]` |
 
 ## ASGI Servers
 
 ```bash
-uvicorn myapp:app --reload          # recommended
-daphne myapp:app
-hypercorn myapp:app
+uv run uvicorn myapp:app --reload   # recommended
+uv run daphne myapp:app
+uv run hypercorn myapp:app
 ```
