@@ -281,9 +281,14 @@ FEAT subsection structure (v1.1):
 - `What It Does`: Covers both the capability and why it matters. Do not create a separate "Why It Matters" subsection — if the reason is not obvious from context, add it as a bullet here.
 - `How It Works`: Covers mechanism and user-facing behavior together. In a product-facing document, describing how a feature works already describes what the user sees. Do not create a separate "User-Facing Behavior" subsection.
 - `Inputs` / `Outputs`: What goes in, what comes out.
-- `Product Rules / Constraints`: Limits, rules, guardrails.
+- `Product Rules / Constraints`: Limits, rules, guardrails. For every rule, the AI assistant must generate 2-3 concrete examples that disambiguate it (principles from BDD). A rule without examples is ambiguous by definition. Format: state the rule, then show what happens with specific inputs.
+  - Bad: "Loyal customers get a discount."
+  - Good: "Customers with 12+ months of tenure receive 15% off. Example: Marie, 14 months, 100$ cart → pays 85$. Example: Paul, 3 months, 100$ cart → pays 100$. Example: Luc, exactly 12 months → pays 85$."
+  - If the AI assistant cannot generate concrete examples for a rule, the rule is not understood well enough. Flag it as an open question in Section 6.
 - `Edge Cases / Failure Handling`: What breaks and what happens when it does.
-- `Acceptance Criteria`: Observable conditions that prove the FEAT works.
+- `Acceptance Criteria`: Observable conditions that prove the FEAT works. Each criterion must include a concrete scenario with specific data, not an abstract assertion (principles from BDD). The AI assistant must write criteria that a reviewer can mentally execute and say "yes, that is correct" or "no, that is wrong."
+  - Bad: "User can cancel within 24h."
+  - Good: "Marie places an order at 14:00 Monday. She cancels at 13:59 Tuesday → cancellation succeeds. She cancels at 14:01 Tuesday → cancellation is refused with message 'Cancellation window has passed.'"
 - No `Dependencies` subsection at the FEAT level. Dependencies are managed in the Delivery Plan (Section 7) using `←` notation. Duplicating them per FEAT creates drift.
 
 Additional COMPONENTS:
