@@ -212,6 +212,9 @@ EXPECTATIONS about this document.
 
 This template is optimized for a solo founder working with AI assistants.
 
+Before drafting, the AI assistant must also read `bdd_principles.md` in the same directory as this template.
+That document defines the writing principles (concrete examples, domain language, declarative style, etc.) that apply across every section of the plan.
+
 When the AI assistant has a question for the user, always leave a comment starting with the flag: 0o0o
 - These four characters make it easy for the user to find items that need attention.
 
