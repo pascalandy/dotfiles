@@ -73,11 +73,12 @@ flowchart TD
 ### What It Does
 `[One concise paragraph describing the capability.]`
 
-### Why It Matters
 `[Why this FEAT exists and what it unlocks.]`
 
 ### How It Works
 - `[Key behavior or mechanism]`
+- `[What the user sees, does, receives, or controls.]`
+
 - ..
 ### Inputs
 - `[Input source]`
@@ -87,15 +88,8 @@ flowchart TD
 - `[Output / artifact / visible result]`
 - ..
 
-### User-Facing Behavior
-`[What the user sees, does, receives, or controls.]`
-
 ### Product Rules / Constraints
 - `[Rule, limit, or product constraint]`
-- ..
-
-### Dependencies
-- `[Dependency on another FEAT, asset, workflow, or prerequisite]`
 - ..
 
 ### Edge Cases / Failure Handling
@@ -157,9 +151,14 @@ flowchart TD
 - `[Dependency]`
 - ..
 
-## 8. Annexes (Optional)
+## 8. Evolution
 
-## 9. Acceptance Plan (E2E QA)
+- `[Deferred capability]` — `[Why it matters]`
+- ..
+
+## 9. Annexes (Optional)
+
+## 10. Acceptance Plan (E2E QA)
 
 ### Test Strategy
 - `[Explain the overall E2E testing approach in 3-6 bullets.]`
@@ -181,7 +180,7 @@ flowchart TD
 
 ### E2E Ticket List
 
-#### 9.1 `[Atomic E2E ticket]`
+#### 10.1 `[Atomic E2E ticket]`
 - Type: `[Core flow]`
 - Covers flow: `[Single user flow or validation target]`
 - Covers FEATs:
@@ -229,7 +228,7 @@ This PRD may include build-order and acceptance-test planning when those details
   - COMPONENT = major product area
   - FEAT = feature inside a COMPONENT
 
-- template_version: v1.0
+- template_version: v2.1
 
 =—=—=—=—=—=—=—=—=—=—=—=—=—=—=
 ## 1. Abstract
@@ -244,6 +243,14 @@ Add product, technical, or business context only when it directly helps.
 ## 3. Scope Overview
 Be explicit.
 For solo work, this section is one of the main defenses against accidental bloat.
+
+`Out of Scope for This Version` is a hard boundary — items explicitly excluded from the current version.
+Keep it lean and firm. No rationale needed here; just the line in the sand.
+
+Do not use `Out of Scope` to park future ideas. Deferred ideas with future value belong in Section 8 (Evolution).
+The distinction matters:
+- Out of Scope = "We are not doing this now. Stop asking."
+- Evolution = "We want this later. Here is rough thinking on why and when."
 
 =—=—=—=—=—=—=—=—=—=—=—=—=—=—=
 ## 5. Functional Spec
@@ -269,6 +276,15 @@ FEAT guidance:
 - Keep this section product-facing.
 - If the AI assistant feels tempted to specify schema fields or endpoint payloads, move that to the Technical Spec.
 - Duplicate more FEAT blocks as needed by copying FEAT 1.1 and trimming or expanding it based on the actual FEAT.
+
+FEAT subsection structure (v1.1):
+- `What It Does`: Covers both the capability and why it matters. Do not create a separate "Why It Matters" subsection — if the reason is not obvious from context, add it as a bullet here.
+- `How It Works`: Covers mechanism and user-facing behavior together. In a product-facing document, describing how a feature works already describes what the user sees. Do not create a separate "User-Facing Behavior" subsection.
+- `Inputs` / `Outputs`: What goes in, what comes out.
+- `Product Rules / Constraints`: Limits, rules, guardrails.
+- `Edge Cases / Failure Handling`: What breaks and what happens when it does.
+- `Acceptance Criteria`: Observable conditions that prove the FEAT works.
+- No `Dependencies` subsection at the FEAT level. Dependencies are managed in the Delivery Plan (Section 7) using `←` notation. Duplicating them per FEAT creates drift.
 
 Additional COMPONENTS:
 - Add as many COMPONENTS as needed.
@@ -317,7 +333,23 @@ Keys:
   ```
 
 =—=—=—=—=—=—=—=—=—=—=—=—=—=—=
-## 8. Annexes (Optional)
+## 8. Evolution
+This section captures ideas that are explicitly out of scope for the current version but worth preserving for future iterations.
+
+Why this section exists:
+- `Out of Scope` in Section 3 is a hard boundary. Its job is to say "no" and protect the current version from creep.
+- `Evolution` is forward-looking. Its job is to say "not yet" and preserve ideas that have future value.
+- Without this section, deferred ideas end up in `Out of Scope` where they are framed as rejections and forgotten.
+- With this section, the PM and reviewers can explicitly distinguish between "rejected" and "deferred with intent."
+
+Rules:
+- Do not turn this section into a backlog. Keep it to the 3-7 most important items.
+- Each item needs a one-line rationale. Bare bullet lists without context lose their value across sessions.
+- Do not describe implementation. This is product-level thinking: what and why, not how.
+- If an item in `Out of Scope` (Section 3) has future value, it should appear here too. The duplication is intentional — different framing for different purposes.
+
+=—=—=—=—=—=—=—=—=—=—=—=—=—=—=
+## 9. Annexes (Optional)
 Use this section as annex material if needed.
 Only for useful supporting material that helps execution or review, but does not belong in the core PRD structure.
 
@@ -336,7 +368,7 @@ Annex examples:
 - Other Notes
 
 =—=—=—=—=—=—=—=—=—=—=—=—=—=—=
-## 9. Acceptance Plan (E2E QA)
+## 10. Acceptance Plan (E2E QA)
 This section is extremely important.
 
 The AI assistant should strongly recommend this section by default.
@@ -360,7 +392,7 @@ Bad:
 - "Test checkout"
 - "Test everything around uploads"
 
-Before writing the `9.x` tickets, the AI assistant should identify:
+Before writing the `10.x` tickets, the AI assistant should identify:
 - critical paths that must work before ship
 - important edge cases
 - affected pages/routes if this is a UI product
@@ -372,7 +404,7 @@ Delete any subsection that does not apply.
 Do not add API contracts, CLI contracts, service contracts, or technical design material here.
 
 Ticketing rules:
-- Every E2E test must become its own ticket under section `9.x`.
+- Every E2E test must become its own ticket under section `10.x`.
 - Every ticket must be independently executable.
 - Every ticket must have a single clear pass/fail outcome.
 - Every ticket must name the exact flow, edge case, or failure mode being tested.
@@ -380,7 +412,7 @@ Ticketing rules:
 - A single atomic E2E ticket may cover multiple FEATs.
 - Use explicit references such as `FEAT 1.1`, `FEAT 1.2`, `FEAT 2.3`.
 - Use `Preconditions` only when the test needs specific state, data, or environment setup.
-- Add as many `9.x` atomic E2E tickets as needed.
+- Add as many `10.x` atomic E2E tickets as needed.
 
 About beads:
 - When creating beads (`bd`) tasks, assignee="qa-e2e"
@@ -390,7 +422,7 @@ About beads:
   - then create a separate code-review EPIC using skill `review-diff`
   - then create a separate Acceptance Plan (E2E QA) EPIC
   - the Acceptance Plan (E2E QA) EPIC must depend on the previous implementation EPICs it needs
-  - create one child beads task per `9.x` E2E ticket under the Acceptance Plan (E2E QA) EPIC
+  - create one child beads task per `10.x` E2E ticket under the Acceptance Plan (E2E QA) EPIC
   - create logical dependencies between these EPICs
 - These tests should not be run by the developer who implemented the related FEATs.
 - They should be run by someone else acting as the tester.
