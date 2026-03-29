@@ -99,6 +99,10 @@ fct_sync_agent_assets() {
 	fct_copy_dir "$commands_src" "$HOME/.config/agents/commands"
 	fct_copy_dir "$skills_src" "$HOME/.config/agents/skills"
 
+	# Factory
+	fct_copy_dir "$commands_src" "$HOME/.factory/commands"
+	fct_copy_dir "$skills_src" "$HOME/.factory/skills"
+
 	# OpenCode
 	# Keep OpenCode-specific commands/skills managed directly by chezmoi.
 	# Shared ai_templates assets should merge in without deleting extra entries.
