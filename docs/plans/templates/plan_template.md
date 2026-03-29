@@ -304,6 +304,10 @@ Do not let the cross-cutting checklist bury:
 - unknowns
 - unresolved questions
 
+### Open Questions
+- Open Questions should contain unresolved items that affect this plan now. So no questions are allowed for the evolution. When the user will tackle elements from the evolution, you will create a brand new plan. 
+- If there is no open question, simply write `None at this time.`
+
 This section should help the AI assistant decide whether to ship, prototype, or narrow scope.
 
 =—=—=—=—=—=—=—=—=—=—=—=—=—=—=
