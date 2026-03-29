@@ -4,7 +4,7 @@
   // Open Questions & Decisions: `docs/features/opencode/opencode-configurations.md`
   // ==================================================
   "default_agent": "gpt",
-  "small_model": "minimax",
+  "small_model": "gptmini",
   "agent": {
     "plan": {
       "disable": true
@@ -51,7 +51,7 @@
         "effort": "low"
       }
     },
-    "GLM": {
+    "glm": {
       "description": "GLM 5.1",
       "disable": false,
       "mode": "all",
@@ -647,9 +647,9 @@
             "output": 16384
           }
         },
-        "minimax-m2.5": {
-          "id": "minimax-m2.5",
-          "name": "MiniMax M2.5 (Zen)",
+        "minimax-m2.7": {
+          "id": "minimax-m2.7",
+          "name": "MiniMax M2.7 (Zen)",
           "tool_call": true,
           "temperature": true,
           "reasoning": true,
