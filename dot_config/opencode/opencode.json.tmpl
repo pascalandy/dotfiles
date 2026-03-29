@@ -117,10 +117,10 @@
       }
     },
     "6-kimi": {
-      "description": "Kimi K2.5",
+      "description": "Kimi 2.5 Turbo preset.",
       "disable": false,
       "mode": "all",
-      "model": "opencode/kimi-k2.5",
+      "model": "fireworks-ai/accounts/fireworks/routers/kimi-k2p5-turbo",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
@@ -276,7 +276,7 @@
     },
     "minimax": {
       "description": "MiniMax 2.7",
-      "disable": false,
+      "disable": true,
       "mode": "subagent",
       "model": "openrouter/minimax/minimax-m2.7",
       "temperature": 0.2,
@@ -289,18 +289,6 @@
     // ==========================================================
     // Disabled agents
     // ==========================================================
-    "kimi-fire": {
-      "description": "Kimi 2.5 Turbo preset.",
-      "disable": true,
-      "mode": "all",
-      "model": "fireworks-ai/accounts/fireworks/routers/kimi-k2p5-turbo",
-      "temperature": 0.2,
-      "permission": {
-        "write": "allow",
-        "edit": "allow",
-        "bash": "allow"
-      }
-    },
     "grok": {
       "description": "Grok 4.20 Beta via OpenRouter.",
       "disable": true,
@@ -637,7 +625,7 @@
             "output": 65536
           }
         },
-        "kimi": {
+        "kimi-zen": {
           "disable": true,
           "id": "kimi-k2.5",
           "name": "Kimi K2.5 (Zen)",
@@ -680,7 +668,7 @@
       },
       "models": {
         "accounts/fireworks/routers/kimi-k2p5-turbo": {
-          "id": "accounts/fireworks/routers/kimi-k2p5-turbo",
+          "id": "fireworks-ai/accounts/fireworks/routers/kimi-k2p5-turbo",
           "name": "Kimi K2.5 Turbo (Fireworks)",
           "tool_call": true,
           "temperature": true,
