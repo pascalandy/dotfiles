@@ -253,7 +253,7 @@
       "prefix": "📚"
     }
   ],
-  "workbench.colorTheme": "Catppuccin Frappé",
+  "workbench.colorTheme": "Atom One Dark",
   "editor.minimap.enabled": false,
   "application.shellEnvironmentResolutionTimeout": 20,
   "githubPullRequests.createOnPublishBranch": "never",
