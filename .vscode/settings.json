@@ -139,6 +139,10 @@
     {
       "folderPath": "chezmoi/dot_config/opencode/plugin/",
       "color": "foldercolorizer.color_888888"
+    },
+    {
+      "folderPath": "chezmoi/dot_local/bin/",
+      "color": "foldercolorizer.color_66cc99"
     }
   ]
 }

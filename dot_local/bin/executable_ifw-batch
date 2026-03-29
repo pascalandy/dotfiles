@@ -1,0 +1,388 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+# ==============================================================================
+# ifw-batch — Batch transcribe mp3 files with insanely-fast-whisper
+# ==============================================================================
+
+readonly SCRIPT_VERSION="0.4.0"
+readonly SCRIPT_PATH="${BASH_SOURCE[0]}"
+readonly SCRIPT_NAME="${SCRIPT_PATH##*/}"
+
+readonly DEFAULT_MODEL="openai/whisper-large-v3"
+readonly DEFAULT_BATCH_SIZE="24"
+readonly DEFAULT_DEVICE="mps"
+
+# Runtime options
+BATCH_SIZE="${DEFAULT_BATCH_SIZE}"
+MODEL="${DEFAULT_MODEL}"
+TRANSCRIPT_DIR=""
+FORCE=0
+DRY_RUN=0
+VERBOSE=0
+POSITIONAL_ARGS=()
+
+# ==============================================================================
+# Logging (stderr only)
+# ==============================================================================
+
+fct_log_info() { printf '[info] %s\n' "$*" >&2; }
+fct_log_warn() { printf '[warn] %s\n' "$*" >&2; }
+fct_log_error() { printf '[error] %s\n' "$*" >&2; }
+fct_log_debug() {
+	if [[ "${VERBOSE}" -eq 1 ]]; then
+		printf '[debug] %s\n' "$*" >&2
+	fi
+}
+
+fct_die() {
+	fct_log_error "$1"
+	exit "${2:-1}"
+}
+
+# ==============================================================================
+# Usage
+# ==============================================================================
+
+fct_usage() {
+	cat <<EOF
+${SCRIPT_NAME} v${SCRIPT_VERSION}
+Batch transcribe mp3 files with insanely-fast-whisper on Mac (MPS).
+
+Usage:
+  ${SCRIPT_NAME} [options] [file1.mp3 file2.mp3 ...]
+
+When no files are given, processes all .mp3 files in the current directory.
+
+Options:
+  -h, --help              Show this help and exit
+  -V, --version           Show version and exit
+  -v, --verbose           Enable debug logging
+  --batch-size N          Batch size for whisper (default: ${DEFAULT_BATCH_SIZE})
+  --model NAME            HuggingFace model (default: ${DEFAULT_MODEL})
+  --transcript-dir DIR    Directory for output json files (default: same as input)
+  --force                 Re-transcribe even if output json already exists
+  --dry-run               Show what would be processed without running whisper
+
+Examples:
+  ${SCRIPT_NAME}
+  ${SCRIPT_NAME} meeting.mp3 interview.mp3
+  ${SCRIPT_NAME} --batch-size 32 --transcript-dir ./transcripts
+  ${SCRIPT_NAME} --dry-run
+  ${SCRIPT_NAME} --force meeting.mp3
+EOF
+}
+
+# ==============================================================================
+# Argument parsing
+# ==============================================================================
+
+fct_parse_arguments() {
+	POSITIONAL_ARGS=()
+
+	while [[ $# -gt 0 ]]; do
+		case "$1" in
+		-h | --help)
+			fct_usage
+			exit 0
+			;;
+		-V | --version)
+			printf '%s\n' "${SCRIPT_NAME} v${SCRIPT_VERSION}"
+			exit 0
+			;;
+		-v | --verbose)
+			VERBOSE=1
+			shift
+			;;
+		--batch-size)
+			[[ $# -lt 2 ]] && fct_die "Option --batch-size requires a number." 2
+			BATCH_SIZE="${2}"
+			shift 2
+			;;
+		--batch-size=*)
+			BATCH_SIZE="${1#*=}"
+			shift
+			;;
+		--model)
+			[[ $# -lt 2 ]] && fct_die "Option --model requires a model name." 2
+			MODEL="${2}"
+			shift 2
+			;;
+		--model=*)
+			MODEL="${1#*=}"
+			shift
+			;;
+		--transcript-dir)
+			[[ $# -lt 2 ]] && fct_die "Option --transcript-dir requires a path." 2
+			TRANSCRIPT_DIR="${2}"
+			shift 2
+			;;
+		--transcript-dir=*)
+			TRANSCRIPT_DIR="${1#*=}"
+			shift
+			;;
+		--force)
+			FORCE=1
+			shift
+			;;
+		--dry-run)
+			DRY_RUN=1
+			shift
+			;;
+		--)
+			shift
+			POSITIONAL_ARGS+=("$@")
+			break
+			;;
+		-*)
+			fct_die "Unknown option: $1\n  Run: ${SCRIPT_NAME} --help" 2
+			;;
+		*)
+			POSITIONAL_ARGS+=("$1")
+			shift
+			;;
+		esac
+	done
+}
+
+# ==============================================================================
+# Preflight checks
+# ==============================================================================
+
+fct_check_command() {
+	local cmd="${1}"
+	local install_hint="${2}"
+
+	if ! command -v "${cmd}" >/dev/null 2>&1; then
+		fct_die "Required command not found: ${cmd}\n  Install: ${install_hint}" 4
+	fi
+	fct_log_debug "found: ${cmd} ($(command -v "${cmd}"))"
+}
+
+fct_check_ffmpeg() {
+	fct_check_command "ffmpeg" "brew install ffmpeg"
+
+	local ffmpeg_version
+	ffmpeg_version="$(ffmpeg -version 2>/dev/null | head -1 || true)"
+	fct_log_debug "ffmpeg: ${ffmpeg_version}"
+}
+
+fct_check_model() {
+	# HuggingFace caches models in ~/.cache/huggingface/hub/
+	local cache_dir="${HOME}/.cache/huggingface/hub"
+	# HuggingFace stores "openai/whisper-large-v3" as "models--openai--whisper-large-v3"
+	local safe_model="${MODEL//\//--}"
+	local model_path="${cache_dir}/models--${safe_model}"
+
+	if [[ -d "${model_path}" ]]; then
+		fct_log_info "model cached: ${MODEL}"
+		return 0
+	fi
+
+	fct_log_warn "model not found in local cache: ${MODEL}"
+	fct_log_warn "first run will download the model (~3GB for whisper-large-v3)"
+	fct_log_warn "to pre-download: python3 -c \"from transformers import pipeline; pipeline('automatic-speech-recognition', model='${MODEL}')\""
+	return 0
+}
+
+fct_check_torchcodec() {
+	# torchcodec is incompatible with the current PyTorch version on Mac.
+	# If present, it crashes the transcription pipeline.
+	# The fix: remove it so transformers falls back to soundfile/ffmpeg.
+	local whisper_venv="${HOME}/.local/share/uv/tools/insanely-fast-whisper"
+	local site_packages
+	site_packages="$(find "${whisper_venv}/lib" -maxdepth 2 -type d -name "torchcodec" 2>/dev/null | head -1)"
+
+	if [[ -n "${site_packages}" ]]; then
+		fct_log_warn "torchcodec is installed but incompatible with current PyTorch on Mac"
+		fct_log_warn "removing torchcodec to fix transcription crashes..."
+		uv pip uninstall torchcodec --python "${whisper_venv}/bin/python" 2>/dev/null || true
+		fct_log_info "torchcodec removed, transcription will use soundfile/ffmpeg fallback"
+	fi
+}
+
+fct_preflight() {
+	fct_log_info "preflight checks"
+	fct_check_command "insanely-fast-whisper" "uv tool install insanely-fast-whisper"
+	fct_check_ffmpeg
+	fct_check_torchcodec
+	fct_check_model
+	fct_log_info "preflight passed"
+}
+
+# ==============================================================================
+# Transcript path helpers
+# ==============================================================================
+
+fct_transcript_path() {
+	local input_file="${1}"
+	local basename="${input_file##*/}"
+	local stem="${basename%.*}"
+
+	if [[ -n "${TRANSCRIPT_DIR}" ]]; then
+		printf '%s/%s.json' "${TRANSCRIPT_DIR}" "${stem}"
+	else
+		local dir="${input_file%/*}"
+		[[ "${dir}" == "${input_file}" ]] && dir="."
+		printf '%s/%s.json' "${dir}" "${stem}"
+	fi
+}
+
+fct_should_skip() {
+	local input_file="${1}"
+	local output_file="${2}"
+
+	if [[ "${FORCE}" -eq 1 ]]; then
+		return 1
+	fi
+
+	if [[ -f "${output_file}" && -s "${output_file}" ]]; then
+		return 0
+	fi
+
+	return 1
+}
+
+# ==============================================================================
+# Core logic
+# ==============================================================================
+
+fct_run_whisper() {
+	local input_file="${1}"
+	local output_file="${2}"
+	local stderr_log
+	stderr_log="$(mktemp "${TMPDIR:-/tmp}/ifw-stderr.XXXXXXXX")"
+
+	# Capture stderr to file, then filter it after the command finishes.
+	# This avoids process substitution race conditions.
+	local exit_code=0
+	insanely-fast-whisper \
+		--file-name "${input_file}" \
+		--device-id "${DEFAULT_DEVICE}" \
+		--batch-size "${BATCH_SIZE}" \
+		--model-name "${MODEL}" \
+		--transcript-path "${output_file}" \
+		2>"${stderr_log}" || exit_code=$?
+
+	# Filter and display stderr
+	fct_filter_stderr "${stderr_log}"
+	rm -f "${stderr_log}"
+
+	return "${exit_code}"
+}
+
+fct_filter_stderr() {
+	local stderr_file="${1}"
+	[[ ! -s "${stderr_file}" ]] && return 0
+
+	local in_torchcodec_block=0
+
+	while IFS= read -r line || [[ -n "${line}" ]]; do
+		# Torchcodec traceback block (start)
+		if [[ "${line}" == *"torchcodec is not installed correctly"* ]] || [[ "${line}" == *"Could not load libtorchcodec"* ]]; then
+			in_torchcodec_block=1
+			continue
+		fi
+		# Torchcodec traceback block (inside)
+		if [[ "${in_torchcodec_block}" -eq 1 ]]; then
+			if [[ "${line}" == *"[end of libtorchcodec loading traceback]"* ]]; then
+				in_torchcodec_block=0
+			fi
+			continue
+		fi
+		# Known harmless warnings (one-liners)
+		if [[ "${line}" == *"torch_dtype"*"is deprecated"* ]]; then continue; fi
+		if [[ "${line}" == *"warnings.warn("* ]]; then continue; fi
+		if [[ "${line}" == *"UserWarning:"* ]]; then continue; fi
+		if [[ "${line}" == *"unauthenticated requests"*"HF"* ]]; then continue; fi
+		if [[ "${line}" == *"Please set a HF_TOKEN"* ]]; then continue; fi
+		if [[ "${line}" == *"chunk_length_s"*"very experimental"* ]]; then continue; fi
+		if [[ "${line}" == *"pyannote/audio/core/io.py"* ]]; then continue; fi
+		# Pass real output through to stderr
+		printf '%s\n' "${line}" >&2
+	done <"${stderr_file}"
+}
+
+fct_process_files() {
+	local files=("${POSITIONAL_ARGS[@]}")
+
+	# Default: all mp3 files in current directory
+	if [[ "${#files[@]}" -eq 0 ]]; then
+		shopt -s nullglob
+		files=(./*.mp3)
+		shopt -u nullglob
+	fi
+
+	if [[ "${#files[@]}" -eq 0 ]]; then
+		fct_die "No .mp3 files found.\n  Provide files as arguments or run from a directory containing .mp3 files." 1
+	fi
+
+	# Create transcript dir if specified
+	if [[ -n "${TRANSCRIPT_DIR}" ]]; then
+		mkdir -p "${TRANSCRIPT_DIR}"
+	fi
+
+	local total="${#files[@]}"
+	local processed=0
+	local skipped=0
+	local failed=0
+	local current=0
+
+	for input_file in "${files[@]}"; do
+		((current++)) || true
+
+		if [[ ! -f "${input_file}" ]]; then
+			fct_log_warn "[${current}/${total}] skipping (not a file): ${input_file}"
+			continue
+		fi
+
+		local output_file
+		output_file="$(fct_transcript_path "${input_file}")"
+
+		if fct_should_skip "${input_file}" "${output_file}"; then
+			fct_log_info "[${current}/${total}] skip (transcript exists): ${input_file} -> ${output_file}"
+			((skipped++)) || true
+			continue
+		fi
+
+		if [[ "${DRY_RUN}" -eq 1 ]]; then
+			fct_log_info "[${current}/${total}] would process: ${input_file} -> ${output_file}"
+			((processed++)) || true
+			continue
+		fi
+
+		fct_log_info "[${current}/${total}] processing: ${input_file} -> ${output_file}"
+
+		if fct_run_whisper "${input_file}" "${output_file}"; then
+			fct_log_info "[${current}/${total}] done: ${output_file}"
+			((processed++)) || true
+		else
+			fct_log_error "[${current}/${total}] failed: ${input_file}"
+			((failed++)) || true
+		fi
+	done
+
+	# Summary
+	fct_log_info "batch complete: ${processed} processed, ${skipped} skipped, ${failed} failed (${total} total)"
+
+	if [[ "${failed}" -gt 0 ]]; then
+		return 1
+	fi
+	return 0
+}
+
+# ==============================================================================
+# Main
+# ==============================================================================
+
+fct_main() {
+	fct_parse_arguments "$@"
+
+	if [[ "${DRY_RUN}" -eq 0 ]]; then
+		fct_preflight
+	fi
+
+	fct_process_files
+}
+
+fct_main "$@"
