@@ -1,0 +1,29 @@
+{
+  "overview": {
+    "depth": 3,
+    "keywords": 8
+  },
+  "search": {
+    "limit": 30,
+    "snippetLines": 0
+  },
+  "daily": {
+    "folder": "daily",
+    "format": "YYYY-MM-DD"
+  },
+  "templates": {
+    "folder": "Templates"
+  },
+  "distill": {
+    "enabled": false,
+    "intervalMinutes": 60,
+    "model": {
+      "provider": "anthropic",
+      "id": "claude-sonnet-4-6"
+    },
+    "templates": []
+  },
+  "graph": {
+    "renderer": "auto"
+  }
+}
