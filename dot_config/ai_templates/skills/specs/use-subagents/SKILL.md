@@ -29,10 +29,6 @@ When the main agent (`1-kimi`) needs to delegate work, use this skill to determi
   - **Speed**: Medium-fast | **Cost**: Low | **Intelligence**: High (coding-optimized)
   - **Use for**: Batch tasks, bulk operations, large-scale refactoring, heavy tasks where cost matters.
 
-- **`4-sonnet`** (Claude Sonnet 4.6 via Anthropic)
-  - **Speed**: Medium-fast | **Cost**: Medium | **Intelligence**: High
-  - **Use for**: When you need Claude capabilities but Opus is too slow.
-
 ## Review Workflow
 
 When the user requests a review, they explicitly say "do a two pass review", "do a three pass review", or "do a four pass review". The main agent (`1-kimi`) spawns sub-agents accordingly:
@@ -47,4 +43,7 @@ When the user requests a review, they explicitly say "do a two pass review", "do
 3. Main agent calls subagent `3-gpthigh` for different reasoning perspective
 
 **4-Pass Review** (when user explicitly requests):
+1. Main agent calls subagent `1-kimi` (fresh instance) for initial review
+2. Main agent calls subagent `2-opus` for thorough, deep analysis
+3. Main agent calls subagent `3-gpthigh` for different reasoning perspective
 4. Main agent calls subagent `gemini` for additional perspective
