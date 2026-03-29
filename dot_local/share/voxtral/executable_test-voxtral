@@ -1,0 +1,130 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+readonly SCRIPT_NAME="${BASH_SOURCE[0]##*/}"
+readonly VOXTRAL_BIN="${HOME}/.local/bin/voxtral"
+readonly SAMPLE_TEXT="Hey, what's up? This is a test. One, two."
+
+RUN_SMOKE=0
+TMP_DIR=""
+
+fct_usage() {
+	cat <<EOF
+${SCRIPT_NAME}
+
+Usage:
+  ${SCRIPT_NAME} [--smoke]
+
+Options:
+  --smoke    Run a live synthesis smoke test after local checks
+  -h, --help Show this help and exit
+
+Examples:
+  ${SCRIPT_NAME}
+  ${SCRIPT_NAME} --smoke
+EOF
+}
+
+fct_fail() {
+	local message="$1"
+	local exit_code="${2:-1}"
+	printf '%s\n' "${SCRIPT_NAME}: ${message}" >&2
+	exit "${exit_code}"
+}
+
+fct_assert_contains() {
+	local haystack="$1"
+	local needle="$2"
+	local context="$3"
+
+	if [[ "${haystack}" != *"${needle}"* ]]; then
+		fct_fail "Expected '${needle}' in ${context}."
+	fi
+}
+
+fct_assert_json_field() {
+	local json_input="$1"
+	local jq_filter="$2"
+	local expected="$3"
+	local context="$4"
+	local actual=""
+
+	actual="$(printf '%s' "${json_input}" | jq -r "${jq_filter}")"
+	if [[ "${actual}" != "${expected}" ]]; then
+		fct_fail "Expected ${context} to be '${expected}', got '${actual}'."
+	fi
+}
+
+fct_cleanup() {
+	if [[ -n "${TMP_DIR}" && -d "${TMP_DIR}" ]]; then
+		rm -rf "${TMP_DIR}"
+	fi
+}
+
+fct_parse_arguments() {
+	while [[ $# -gt 0 ]]; do
+		case "$1" in
+		--smoke)
+			RUN_SMOKE=1
+			shift
+			;;
+		-h | --help)
+			fct_usage
+			exit 0
+			;;
+		*)
+			fct_fail "Unknown option '$1'. Run '${SCRIPT_NAME} --help'." 2
+			;;
+		esac
+	done
+}
+
+fct_main() {
+	local help_output=""
+	local version_output=""
+	local voices_json=""
+	local check_json=""
+	local error_output=""
+	local smoke_output=""
+
+	fct_parse_arguments "$@"
+
+	[[ -x "${VOXTRAL_BIN}" ]] || fct_fail "Missing executable: ${VOXTRAL_BIN}"
+
+	TMP_DIR="$(mktemp -d "/tmp/${SCRIPT_NAME}.XXXXXX")"
+
+	help_output="$("${VOXTRAL_BIN}" --help)"
+	fct_assert_contains "${help_output}" "--check" "help output"
+	fct_assert_contains "${help_output}" "${SAMPLE_TEXT}" "help examples"
+
+	version_output="$("${VOXTRAL_BIN}" --version)"
+	fct_assert_contains "${version_output}" "voxtral v" "version output"
+
+	voices_json="$("${VOXTRAL_BIN}" --voices --json)"
+	fct_assert_json_field "${voices_json}" '.[0].name' 'neutral' 'first voice name'
+	fct_assert_json_field "${voices_json}" '.[3].name' 'frustrated' 'last voice name'
+
+	check_json="$("${VOXTRAL_BIN}" --check --json)"
+	fct_assert_json_field "${check_json}" '.status' 'ok' 'check status'
+	fct_assert_json_field "${check_json}" '.api_key' 'configured' 'check api_key state'
+
+	if "${VOXTRAL_BIN}" --format flac "hello" >"${TMP_DIR}/invalid.out" 2>"${TMP_DIR}/invalid.err"; then
+		fct_fail "Invalid format command unexpectedly succeeded."
+	fi
+	error_output="$(<"${TMP_DIR}/invalid.err")"
+	fct_assert_contains "${error_output}" "Unsupported format 'flac'" "invalid format error"
+
+	printf 'local checks: ok\n'
+
+	if [[ "${RUN_SMOKE}" -eq 1 ]]; then
+		smoke_output="$("${VOXTRAL_BIN}" "${SAMPLE_TEXT}")"
+		[[ -f "${smoke_output}" ]] || fct_fail "Smoke test did not produce an audio file."
+		printf 'smoke test: ok\n'
+		printf 'history_file: %s\n' "${smoke_output}"
+	fi
+}
+
+trap 'fct_cleanup' EXIT
+
+fct_main "$@"

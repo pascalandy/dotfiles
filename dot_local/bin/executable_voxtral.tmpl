@@ -1,0 +1,532 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+readonly SCRIPT_VERSION="0.2.0"
+readonly SCRIPT_AUTHOR="Pascal Andy"
+readonly SCRIPT_DESCRIPTION="Speak text with Mistral Voxtral TTS."
+readonly SCRIPT_NAME="${BASH_SOURCE[0]##*/}"
+
+readonly API_URL="https://api.mistral.ai/v1/audio/speech"
+readonly MODEL_NAME="voxtral-mini-tts-2603"
+readonly MISTRAL_API_KEY='{{ keyring "voxtral" "api_key" }}'
+readonly EXPORT_DIR="/Users/andy16/Documents/_my_docs/63-voxtral"
+readonly MAX_CHARS=250
+readonly SAMPLE_TEXT="Hey, what's up? This is a test. One, two."
+
+VOICE_SHORTHAND="neutral"
+OUTPUT_PATH=""
+INPUT_FILE=""
+FORMAT="mp3"
+CHECK_ONLY=0
+LIST_VOICES=0
+OUTPUT_JSON=0
+READ_FROM_STDIN=0
+POSITIONAL_ARGS=()
+TMP_FILES=()
+
+fct_log_error() {
+	printf '%s\n' "$*" >&2
+}
+
+fct_die() {
+	local message="$1"
+	local exit_code="${2:-1}"
+	fct_log_error "${SCRIPT_NAME}: ${message}"
+	exit "${exit_code}"
+}
+
+fct_usage() {
+	cat <<EOF
+${SCRIPT_NAME} v${SCRIPT_VERSION}
+${SCRIPT_DESCRIPTION}
+Author: ${SCRIPT_AUTHOR}
+
+Usage:
+  ${SCRIPT_NAME} [options] [text]
+  ${SCRIPT_NAME} --stdin [options]
+  ${SCRIPT_NAME} -f FILE [options]
+  command | ${SCRIPT_NAME} [options]
+
+Options:
+  -v VOICE        Voice preset: neutral, confident, cheerful, frustrated
+  -o FILE         Save an additional copy to FILE
+  -f FILE         Read input text from FILE
+  --stdin         Read input text from stdin explicitly
+  --format FMT    Audio format: mp3 or wav
+  --voices        List available preset voices
+  --check         Validate runtime requirements without generating audio
+  --json          Emit JSON for --check, --voices, or successful synthesis
+  -V, --version   Show version and exit
+  -h, --help      Show this help and exit
+
+Examples:
+  ${SCRIPT_NAME} "${SAMPLE_TEXT}"
+  printf '%s' "Quarterly review starts now." | ${SCRIPT_NAME} --stdin
+  ${SCRIPT_NAME} -v cheerful -o /tmp/welcome.mp3 "Welcome aboard."
+  ${SCRIPT_NAME} --check
+  ${SCRIPT_NAME} --voices --json
+
+Notes:
+  Positional text wins over -f and stdin.
+  Input is trimmed before the 250-character limit is enforced.
+  A history copy is always saved to ${EXPORT_DIR}/.
+EOF
+}
+
+fct_show_version() {
+	printf '%s\n' "${SCRIPT_NAME} v${SCRIPT_VERSION}"
+}
+
+fct_cleanup() {
+	local tmp_file=""
+	for tmp_file in "${TMP_FILES[@]:-}"; do
+		if [[ -n "${tmp_file}" && -e "${tmp_file}" ]]; then
+			rm -f "${tmp_file}"
+		fi
+	done
+}
+
+fct_emit_voices() {
+	if [[ "${OUTPUT_JSON}" -eq 1 ]]; then
+		jq -n '[
+			{name: "neutral", slug: "en_paul_neutral", id: "c69964a6-ab8b-4f8a-9465-ec0925096ec8"},
+			{name: "confident", slug: "en_paul_confident", id: "98559b22-62b5-4a64-a7cd-fc78ca41faa8"},
+			{name: "cheerful", slug: "en_paul_cheerful", id: "01d985cd-5e0c-4457-bfd8-80ba31a5bc03"},
+			{name: "frustrated", slug: "en_paul_frustrated", id: "1f017bcb-02e5-460d-989b-db065c0c6122"}
+		]'
+		return 0
+	fi
+
+	cat <<EOF
+neutral    en_paul_neutral      c69964a6-ab8b-4f8a-9465-ec0925096ec8
+confident  en_paul_confident    98559b22-62b5-4a64-a7cd-fc78ca41faa8
+cheerful   en_paul_cheerful     01d985cd-5e0c-4457-bfd8-80ba31a5bc03
+frustrated en_paul_frustrated   1f017bcb-02e5-460d-989b-db065c0c6122
+EOF
+}
+
+fct_require_command() {
+	local command_name="$1"
+	local install_hint="${2:-}"
+
+	if ! command -v "${command_name}" >/dev/null 2>&1; then
+		if [[ -n "${install_hint}" ]]; then
+			fct_die "Missing required command '${command_name}'. ${install_hint}" 1
+		fi
+		fct_die "Missing required command '${command_name}'." 1
+	fi
+}
+
+fct_command_path() {
+	local command_name="$1"
+	command -v "${command_name}" 2>/dev/null || true
+}
+
+fct_trim_whitespace() {
+	local value="$1"
+
+	value="${value#"${value%%[![:space:]]*}"}"
+	value="${value%"${value##*[![:space:]]}"}"
+	printf '%s' "${value}"
+}
+
+fct_voice_id() {
+	case "$1" in
+	neutral) printf '%s' "c69964a6-ab8b-4f8a-9465-ec0925096ec8" ;;
+	confident) printf '%s' "98559b22-62b5-4a64-a7cd-fc78ca41faa8" ;;
+	cheerful) printf '%s' "01d985cd-5e0c-4457-bfd8-80ba31a5bc03" ;;
+	frustrated) printf '%s' "1f017bcb-02e5-460d-989b-db065c0c6122" ;;
+	*) return 1 ;;
+	esac
+}
+
+fct_parse_arguments() {
+	while [[ $# -gt 0 ]]; do
+		case "$1" in
+		-h | --help)
+			fct_usage
+			exit 0
+			;;
+		-V | --version)
+			fct_show_version
+			exit 0
+			;;
+		--voices)
+			LIST_VOICES=1
+			shift
+			;;
+		--check)
+			CHECK_ONLY=1
+			shift
+			;;
+		--json)
+			OUTPUT_JSON=1
+			shift
+			;;
+		--stdin)
+			READ_FROM_STDIN=1
+			shift
+			;;
+		-v)
+			[[ $# -ge 2 ]] || fct_die "Option -v requires a voice. Use: ${SCRIPT_NAME} -v neutral \"${SAMPLE_TEXT}\"" 2
+			VOICE_SHORTHAND="$2"
+			shift 2
+			;;
+		-o)
+			[[ $# -ge 2 ]] || fct_die "Option -o requires a path. Use: ${SCRIPT_NAME} -o /tmp/sample.mp3 \"${SAMPLE_TEXT}\"" 2
+			OUTPUT_PATH="$2"
+			shift 2
+			;;
+		-f)
+			[[ $# -ge 2 ]] || fct_die "Option -f requires a file path. Use: ${SCRIPT_NAME} -f notes.txt" 2
+			INPUT_FILE="$2"
+			shift 2
+			;;
+		--format)
+			[[ $# -ge 2 ]] || fct_die "Option --format requires a value. Use: ${SCRIPT_NAME} --format mp3 \"${SAMPLE_TEXT}\"" 2
+			FORMAT="$2"
+			shift 2
+			;;
+		--format=*)
+			FORMAT="${1#*=}"
+			shift
+			;;
+		--)
+			shift
+			POSITIONAL_ARGS+=("$@")
+			break
+			;;
+		-)
+			READ_FROM_STDIN=1
+			shift
+			;;
+		-*)
+			fct_die "Unknown option '$1'. Run '${SCRIPT_NAME} --help'." 2
+			;;
+		*)
+			POSITIONAL_ARGS+=("$1")
+			shift
+			;;
+		esac
+	done
+}
+
+fct_validate_options() {
+	case "${FORMAT}" in
+	mp3 | wav) ;;
+	*)
+		fct_die "Unsupported format '${FORMAT}'. Use: ${SCRIPT_NAME} --format mp3 \"${SAMPLE_TEXT}\"" 2
+		;;
+	esac
+
+	if ! fct_voice_id "${VOICE_SHORTHAND}" >/dev/null; then
+		fct_die "Unknown voice '${VOICE_SHORTHAND}'. Run '${SCRIPT_NAME} --voices' for valid values." 2
+	fi
+
+	if [[ -n "${INPUT_FILE}" && ! -f "${INPUT_FILE}" ]]; then
+		fct_die "Input file not found: ${INPUT_FILE}. Use: ${SCRIPT_NAME} -f notes.txt" 2
+	fi
+
+	if [[ "${CHECK_ONLY}" -eq 1 ]]; then
+		if [[ ${#POSITIONAL_ARGS[@]} -gt 0 || -n "${INPUT_FILE}" || -n "${OUTPUT_PATH}" || "${READ_FROM_STDIN}" -eq 1 || "${FORMAT}" != "mp3" || "${VOICE_SHORTHAND}" != "neutral" ]]; then
+			fct_die "--check does not accept text, -f, -o, --stdin, --format, or -v. Use: ${SCRIPT_NAME} --check" 2
+		fi
+	fi
+}
+
+fct_read_stdin() {
+	local stdin_text=""
+	stdin_text="$(cat)"
+	printf '%s' "${stdin_text}"
+}
+
+fct_resolve_input_text() {
+	local text=""
+
+	if [[ ${#POSITIONAL_ARGS[@]} -gt 0 ]]; then
+		text="${POSITIONAL_ARGS[*]}"
+	elif [[ -n "${INPUT_FILE}" ]]; then
+		text="$(<"${INPUT_FILE}")"
+	elif [[ "${READ_FROM_STDIN}" -eq 1 || ! -t 0 ]]; then
+		text="$(fct_read_stdin)"
+	fi
+
+	text="$(fct_trim_whitespace "${text}")"
+
+	if [[ -z "${text}" ]]; then
+		fct_die "No input text provided. Use: ${SCRIPT_NAME} \"${SAMPLE_TEXT}\" or pipe text with --stdin." 2
+	fi
+
+	if ((${#text} > MAX_CHARS)); then
+		fct_die "Input exceeds ${MAX_CHARS} characters (${#text}). Shorten the text and try again." 2
+	fi
+
+	printf '%s' "${text}"
+}
+
+fct_require_runtime() {
+	fct_require_command "curl"
+	fct_require_command "jq" "Install it first, for example with: brew install jq"
+	fct_require_command "afplay"
+	fct_require_command "base64"
+
+	if [[ -z "${MISTRAL_API_KEY}" ]]; then
+		fct_die "Mistral API key is empty. Set it with: chezmoi secret keyring set --service=voxtral --user=api_key" 1
+	fi
+
+	mkdir -p "${EXPORT_DIR}"
+}
+
+fct_temp_file() {
+	local tmp_file=""
+	tmp_file="$(mktemp "/tmp/${SCRIPT_NAME}.XXXXXX")"
+	TMP_FILES+=("${tmp_file}")
+	printf '%s' "${tmp_file}"
+}
+
+fct_emit_check_result() {
+	local status="$1"
+	local curl_path="$2"
+	local jq_path="$3"
+	local afplay_path="$4"
+	local base64_path="$5"
+	local export_dir_state="$6"
+	local api_key_state="$7"
+
+	if [[ "${OUTPUT_JSON}" -eq 1 && -n "${jq_path}" ]]; then
+		jq -n \
+			--arg status "${status}" \
+			--arg curl_path "${curl_path}" \
+			--arg jq_path "${jq_path}" \
+			--arg afplay_path "${afplay_path}" \
+			--arg base64_path "${base64_path}" \
+			--arg export_dir "${EXPORT_DIR}" \
+			--arg export_dir_state "${export_dir_state}" \
+			--arg api_key_state "${api_key_state}" \
+			--arg default_voice "${VOICE_SHORTHAND}" \
+			--arg default_format "${FORMAT}" \
+			--arg sample_text "${SAMPLE_TEXT}" \
+			'{
+				status: $status,
+				api_key: $api_key_state,
+				commands: {
+					curl: $curl_path,
+					jq: $jq_path,
+					afplay: $afplay_path,
+					base64: $base64_path
+				},
+				export_dir: {
+					path: $export_dir,
+					state: $export_dir_state
+				},
+				defaults: {
+					voice: $default_voice,
+					format: $default_format,
+					sample_text: $sample_text
+				}
+			}'
+		return 0
+	fi
+
+	printf 'status: %s\n' "${status}"
+	printf 'api_key: %s\n' "${api_key_state}"
+	printf 'curl: %s\n' "${curl_path:-missing}"
+	printf 'jq: %s\n' "${jq_path:-missing}"
+	printf 'afplay: %s\n' "${afplay_path:-missing}"
+	printf 'base64: %s\n' "${base64_path:-missing}"
+	printf 'export_dir: %s (%s)\n' "${EXPORT_DIR}" "${export_dir_state}"
+	printf 'default_voice: %s\n' "${VOICE_SHORTHAND}"
+	printf 'default_format: %s\n' "${FORMAT}"
+	printf 'sample_text: %s\n' "${SAMPLE_TEXT}"
+}
+
+fct_run_check() {
+	local curl_path=""
+	local jq_path=""
+	local afplay_path=""
+	local base64_path=""
+	local export_parent=""
+	local export_dir_state="ready"
+	local api_key_state="configured"
+	local status="ok"
+
+	curl_path="$(fct_command_path "curl")"
+	jq_path="$(fct_command_path "jq")"
+	afplay_path="$(fct_command_path "afplay")"
+	base64_path="$(fct_command_path "base64")"
+	export_parent="$(dirname "${EXPORT_DIR}")"
+
+	if [[ -z "${curl_path}" || -z "${jq_path}" || -z "${afplay_path}" || -z "${base64_path}" ]]; then
+		status="error"
+	fi
+
+	if [[ "${OUTPUT_JSON}" -eq 1 && -z "${jq_path}" ]]; then
+		fct_die "Cannot use --json with --check because 'jq' is missing. Install it first, for example with: brew install jq" 1
+	fi
+
+	if [[ -z "${MISTRAL_API_KEY}" ]]; then
+		status="error"
+		api_key_state="missing"
+	fi
+
+	if [[ -d "${EXPORT_DIR}" ]]; then
+		export_dir_state="ready"
+	elif [[ -d "${export_parent}" && -w "${export_parent}" ]]; then
+		export_dir_state="creatable"
+	else
+		status="error"
+		export_dir_state="unwritable"
+	fi
+
+	fct_emit_check_result "${status}" "${curl_path}" "${jq_path}" "${afplay_path}" "${base64_path}" "${export_dir_state}" "${api_key_state}"
+
+	if [[ "${status}" != "ok" ]]; then
+		exit 1
+	fi
+
+	exit 0
+}
+
+fct_request_speech() {
+	local input_text="$1"
+	local voice_id="$2"
+	local response_file="$3"
+	local request_body=""
+	local http_code=""
+
+	request_body="$(jq -n \
+		--arg model "${MODEL_NAME}" \
+		--arg input "${input_text}" \
+		--arg voice_id "${voice_id}" \
+		--arg response_format "${FORMAT}" \
+		'{model: $model, input: $input, voice_id: $voice_id, response_format: $response_format}')"
+
+	if ! http_code="$(curl \
+		--silent \
+		--show-error \
+		--output "${response_file}" \
+		--write-out '%{http_code}' \
+		-X POST "${API_URL}" \
+		-H "Authorization: Bearer ${MISTRAL_API_KEY}" \
+		-H 'Content-Type: application/json' \
+		--data "${request_body}")"; then
+		fct_die "Network request failed while calling Mistral TTS." 1
+	fi
+
+	if [[ ! "${http_code}" =~ ^2 ]]; then
+		local api_message=""
+		api_message="$(jq -r '.message // .error // .detail // empty' "${response_file}" 2>/dev/null || true)"
+		if [[ -z "${api_message}" || "${api_message}" == "null" ]]; then
+			api_message="HTTP ${http_code}"
+		else
+			api_message="HTTP ${http_code}: ${api_message}"
+		fi
+		fct_die "Mistral TTS request failed. ${api_message}" 1
+	fi
+}
+
+fct_decode_audio() {
+	local response_file="$1"
+	local target_file="$2"
+	local audio_data=""
+
+	audio_data="$(jq -r '.audio_data // empty' "${response_file}")"
+	if [[ -z "${audio_data}" ]]; then
+		fct_die "Mistral TTS response did not include audio data." 1
+	fi
+
+	if ! printf '%s' "${audio_data}" | base64 -D >"${target_file}"; then
+		fct_die "Failed to decode audio data." 1
+	fi
+}
+
+fct_history_file_path() {
+	local dir_name=""
+	dir_name="$(basename "${PWD}")"
+	printf '%s/%s_%s_%s.%s' \
+		"${EXPORT_DIR}" \
+		"$(date '+%Y_%m_%d_%Hh%Ms%S')" \
+		"${dir_name}" \
+		"${VOICE_SHORTHAND}" \
+		"${FORMAT}"
+}
+
+fct_copy_output() {
+	local source_file="$1"
+	local destination_file="$2"
+	local destination_dir=""
+
+	destination_dir="$(dirname "${destination_file}")"
+	mkdir -p "${destination_dir}"
+	cp "${source_file}" "${destination_file}"
+}
+
+fct_emit_success() {
+	local history_file="$1"
+	local text_length="$2"
+
+	if [[ "${OUTPUT_JSON}" -eq 1 ]]; then
+		jq -n \
+			--arg history_file "${history_file}" \
+			--arg output_file "${OUTPUT_PATH}" \
+			--arg voice "${VOICE_SHORTHAND}" \
+			--arg format "${FORMAT}" \
+			--argjson text_length "${text_length}" \
+			'{
+				history_file: $history_file,
+				output_file: (if $output_file == "" then null else $output_file end),
+				voice: $voice,
+				format: $format,
+				text_length: $text_length
+			}'
+		return 0
+	fi
+
+	printf '%s\n' "${history_file}"
+}
+
+fct_execute() {
+	local input_text=""
+	local voice_id=""
+	local response_file=""
+	local decoded_file=""
+	local history_file=""
+
+	fct_parse_arguments "$@"
+	fct_validate_options
+
+	if [[ "${LIST_VOICES}" -eq 1 ]]; then
+		fct_require_command "jq" "Install it first, for example with: brew install jq"
+		fct_emit_voices
+		exit 0
+	fi
+
+	if [[ "${CHECK_ONLY}" -eq 1 ]]; then
+		fct_run_check
+	fi
+
+	fct_require_runtime
+	input_text="$(fct_resolve_input_text)"
+	voice_id="$(fct_voice_id "${VOICE_SHORTHAND}")"
+
+	response_file="$(fct_temp_file)"
+	decoded_file="$(fct_temp_file)"
+
+	fct_request_speech "${input_text}" "${voice_id}" "${response_file}"
+	fct_decode_audio "${response_file}" "${decoded_file}"
+
+	history_file="$(fct_history_file_path)"
+	fct_copy_output "${decoded_file}" "${history_file}"
+
+	if [[ -n "${OUTPUT_PATH}" ]]; then
+		fct_copy_output "${decoded_file}" "${OUTPUT_PATH}"
+	fi
+
+	afplay "${history_file}"
+	fct_emit_success "${history_file}" "${#input_text}"
+}
+
+trap 'fct_cleanup' EXIT
+
+fct_execute "$@"
