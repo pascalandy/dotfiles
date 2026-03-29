@@ -27,15 +27,15 @@ Agent names use a numbered prefix (`1-` through `6-`) to control display order i
 
 | # | Key | Model | Provider |
 |---|-----|-------|----------|
-| 1 | `1-opus` | Claude Opus 4.6 | Anthropic |
-| 2 | `2-gpt` | GPT-5.4 (medium reasoning) | OpenAI |
-| 3 | `3-gptmini` | GPT-5.4 Mini (low reasoning) | OpenAI |
-| 4 | `4-glm` | GLM 5.1 | zai-coding-plan |
-| 5 | `5-sonnet` | Claude Sonnet 4.6 (low effort) | Anthropic |
-| 6 | `6-kimi` | Kimi K2.5 | OpenCode Zen |
+| 1 | `1-kimi` | Kimi K2.5 Turbo | Fireworks AI |
+| 2 | `2-opus` | Claude Opus 4.6 | Anthropic |
+| 3 | `3-gpt` | GPT-5.4 (high reasoning) | OpenAI |
+| 4 | `4-sonnet` | Claude Sonnet 4.6 (low effort) | Anthropic |
 
 ### Subagent handles
 
+- `@gptmini` — GPT-5.4 Mini (low reasoning)
+- `@glm` — GLM 5.1 via zai-coding-plan
 - `@gpthigh` — GPT-5.4 with high reasoning effort
 - `@gptxhigh` — GPT-5.4 with xhigh reasoning effort
 - `@worker` — GPT-5.4 general worker
@@ -55,15 +55,24 @@ Agent names use a numbered prefix (`1-` through `6-`) to control display order i
 
 ## Defaults
 
-- Default agent: `1-opus`
-- Small model: `3-gptmini`
+- Default agent: `1-kimi`
+- Small model: `gptmini`
 
-Why `1-opus` is the default:
-- Claude Opus 4.6 is the most capable model available
-- Adaptive thinking with low effort setting balances quality and cost
-- Pinned to position 1 in the Tab picker
+Why `1-kimi` is the default:
+- Kimi K2.5 Turbo via Fireworks AI provides fast, capable responses
+- Positioned as the primary agent (slot 1) for quick access via Tab cycling
+- Routes through Fireworks AI for optimized inference
 
 ## Provider routing decisions
+
+### Kimi routing
+
+Primary Kimi K2.5 access via Fireworks AI provider as `1-kimi`.
+
+Guideline:
+- `1-kimi` routes through Fireworks AI (`fireworks-ai/accounts/fireworks/routers/kimi-k2p5-turbo`)
+- This is the default agent and primary entry point
+- Keep OpenRouter (`moonshotai/kimi-k2.5:nitro`) available as fallback when needed (currently disabled as `kimi-oc`)
 
 ### GPT routing
 
@@ -89,7 +98,7 @@ Use OpenRouter for Grok when the newest Grok models are only available there.
 
 ### GLM routing
 
-Primary GLM 5.1 access via `zai-coding-plan` provider (coding-optimized endpoint) as `4-glm`.
+GLM 5.1 is available as a subagent only via `zai-coding-plan` provider as `@glm`.
 Keep Zen (`opencode/glm-5.1`) available as `glm-zen` fallback when needed (currently disabled).
 
 ### Local model usage

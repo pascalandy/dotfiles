@@ -3,8 +3,8 @@
   // ==================================================
   // Open Questions & Decisions: `docs/features/opencode/opencode-configurations.md`
   // ==================================================
-  "default_agent": "1-opus",
-  "small_model": "3-gptmini",
+  "default_agent": "1-kimi",
+  "small_model": "gptmini",
   "agent": {
     // ==========================================================
     // Built-in agents (disabled)
@@ -21,7 +21,19 @@
     // ==========================================================
     // Primary agents (1-6, ordered for Tab cycling)
     // ==========================================================
-    "1-opus": {
+    "1-kimi": {
+      "description": "Kimi 2.5 Turbo preset.",
+      "disable": false,
+      "mode": "all",
+      "model": "fireworks-ai/accounts/fireworks/routers/kimi-k2p5-turbo",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
+    "2-opus": {
       "description": "Primary Claude thinking preset.",
       "disable": false,
       "mode": "all",
@@ -39,7 +51,7 @@
         "effort": "low"
       }
     },
-    "2-gpt": {
+    "3-gpt": {
       "description": "GPT-5.4 preset.",
       "disable": false,
       "mode": "all",
@@ -52,7 +64,7 @@
       },
       "options": {
         "reasoning": {
-          "effort": "medium",
+          "effort": "high",
           "summary": "none"
         },
         "text": {
@@ -60,45 +72,7 @@
         }
       }
     },
-    "3-gptmini": {
-      "description": "GPT-5.4 mini.",
-      "disable": false,
-      "mode": "all",
-      "model": "openai/gpt-5.4-mini",
-      "temperature": 0.1,
-      "permission": {
-        "write": "allow",
-        "edit": "allow",
-        "bash": "allow"
-      },
-      "options": {
-        "reasoning": {
-          "effort": "low",
-          "summary": "none"
-        },
-        "text": {
-          "verbosity": "low"
-        }
-      }
-    },
-    "4-glm": {
-      "description": "GLM 5.1",
-      "disable": false,
-      "mode": "all",
-      "model": "zai-coding-plan/glm-5.1",
-      "temperature": 0.1,
-      "permission": {
-        "write": "allow",
-        "edit": "allow",
-        "bash": "allow"
-      },
-      "options": {
-        "thinking": {
-          "type": "enabled"
-        }
-      }
-    },
-    "5-sonnet": {
+    "4-sonnet": {
       "description": "Primary Claude thinking preset.",
       "disable": false,
       "mode": "all",
@@ -116,21 +90,49 @@
         "effort": "low"
       }
     },
-    "6-kimi": {
-      "description": "Kimi 2.5 Turbo preset.",
+    // ==========================================================
+    // Subagents (organized by provider/purpose)
+    // ==========================================================
+    // Small/fast models
+    "gptmini": {
+      "description": "GPT-5.4 mini.",
       "disable": false,
-      "mode": "all",
-      "model": "fireworks-ai/accounts/fireworks/routers/kimi-k2p5-turbo",
-      "temperature": 0.2,
+      "mode": "subagent",
+      "model": "openai/gpt-5.4-mini",
+      "temperature": 0.1,
       "permission": {
         "write": "allow",
         "edit": "allow",
         "bash": "allow"
+      },
+      "options": {
+        "reasoning": {
+          "effort": "low",
+          "summary": "none"
+        },
+        "text": {
+          "verbosity": "low"
+        }
       }
     },
-    // ==========================================================
-    // Subagents
-    // ==========================================================
+    "glm": {
+      "description": "GLM 5.1",
+      "disable": false,
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-5.1",
+      "temperature": 0.1,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "thinking": {
+          "type": "enabled"
+        }
+      }
+    },
+    // GPT variants
     "gpthigh": {
       "description": "GPT-5.4 high reasoning preset.",
       "disable": false,
@@ -194,6 +196,7 @@
         }
       }
     },
+    // Claude variants
     "worker1": {
       "description": "Primary Claude thinking preset.",
       "disable": false,
@@ -212,6 +215,7 @@
         "effort": "low"
       }
     },
+    // GLM variants
     "worker2": {
       "description": "GLM 5",
       "disable": false,
@@ -229,6 +233,7 @@
         }
       }
     },
+    // Mini variants
     "worker3": {
       "description": "agt mini",
       "disable": false,
@@ -250,6 +255,7 @@
         }
       }
     },
+    // Gemini variants (via OpenRouter)
     "gemini": {
       "description": "Gemini 3.1 Pro",
       "disable": false,
@@ -274,6 +280,10 @@
         "bash": "allow"
       }
     },
+    // ==========================================================
+    // Disabled agents (parked for future use or alternatives)
+    // ==========================================================
+    // Alternative providers
     "minimax": {
       "description": "MiniMax 2.7",
       "disable": true,
@@ -286,9 +296,6 @@
         "bash": "allow"
       }
     },
-    // ==========================================================
-    // Disabled agents
-    // ==========================================================
     "grok": {
       "description": "Grok 4.20 Beta via OpenRouter.",
       "disable": true,
@@ -313,6 +320,7 @@
         "bash": "allow"
       }
     },
+    // Kimi alternatives
     "kimi-oc": {
       "description": "Kimi fallback preset.",
       "disable": true,
@@ -324,6 +332,7 @@
         "bash": "allow"
       }
     },
+    // Local models
     "qwen": {
       "description": "LM Studio preset",
       "disable": true,
@@ -336,6 +345,7 @@
         "bash": "allow"
       }
     },
+    // Zen provider alternatives
     "gemini-zen": {
       "description": "Gemini 3.1 Pro",
       "disable": true,
@@ -668,7 +678,7 @@
       },
       "models": {
         "accounts/fireworks/routers/kimi-k2p5-turbo": {
-          "id": "fireworks-ai/accounts/fireworks/routers/kimi-k2p5-turbo",
+          "id": "accounts/fireworks/routers/kimi-k2p5-turbo",
           "name": "Kimi K2.5 Turbo (Fireworks)",
           "tool_call": true,
           "temperature": true,
