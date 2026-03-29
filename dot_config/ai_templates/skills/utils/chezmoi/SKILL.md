@@ -3,57 +3,83 @@ name: chezmoi
 description: Manage dotfiles via chezmoi CLI. Use when reading, modifying, or adding config files (dotfiles) in user's home directory. Ensures edits happen in chezmoi source (~/.local/share/chezmoi) and apply correctly.
 ---
 
-# Cli Chezmoi
+# Chezmoi Skill
 
-Ce skill permet de gérer les fichiers de configuration (dotfiles) de l'utilisateur en utilisant l'outil `chezmoi`. Il assure que les modifications ne sont pas faites directement sur les fichiers dans le home directory, mais via le système de gestion de `chezmoi`.
+Manage dotfiles using chezmoi. All edits MUST happen in the chezmoi source directory (`~/.local/share/chezmoi/`), never directly under `~/`.
 
-## Workflow de base
+## Critical Rule
 
-### 1. Identifier un dotfile
-
-Avant de modifier un fichier de configuration (ex: `.zshrc`, `.gitconfig`), vérifiez s'il est géré par chezmoi.
+**Never edit files under home directory.** Files under `~/` and `~/.config/` are applied copies. Always edit the chezmoi source, then apply.
 
 ```bash
-chezmoi list | grep <nom_du_fichier>
+# Step 1: Check if managed
+chezmoi managed | grep <filename>
+
+# Step 2: Edit the source (translates path automatically)
+chezmoi edit ~/.zshrc
+
+# Step 3: Apply changes to home
+chezmoi apply -v
 ```
 
-### 2. Modifier un fichier
+## Core Workflow
 
-N'éditez JAMAIS un fichier directement dans le home directory s'il est géré par chezmoi. Utilisez la commande `edit` :
+### Identify a dotfile
+
+```bash
+chezmoi managed | grep <filename>
+```
+
+### Edit a managed file
 
 ```bash
 chezmoi edit ~/.zshrc
 ```
 
-Cela ouvrira le fichier source (ex: `~/.local/share/chezmoi/dot_zshrc`) dans votre éditeur.
+Opens the source file (e.g., `~/.local/share/chezmoi/dot_zshrc`).
 
-### 3. Appliquer les changements
-
-Après avoir modifié un fichier via `chezmoi edit`, ou si vous avez modifié manuellement un fichier dans `~/.local/share/chezmoi`, appliquez les changements :
+### Apply changes
 
 ```bash
 chezmoi apply -v
 ```
 
-### 4. Ajouter un nouveau fichier
-
-Pour commencer à gérer un nouveau fichier avec chezmoi :
+### Add a new file
 
 ```bash
 chezmoi add ~/.new_config
 ```
 
-## Commandes Utiles
+## Common Commands
 
-- `chezmoi status` : Voir l'état des fichiers (modifiés, à appliquer).
-- `chezmoi diff` : Voir les différences entre les fichiers gérés et les fichiers réels.
-- `chezmoi cd` : Se déplacer dans le répertoire source de chezmoi.
-- `chezmoi managed` : Lister tous les fichiers gérés.
+| Command | Purpose |
+|---------|---------|
+| `chezmoi status` | Show file states (modified, pending) |
+| `chezmoi diff` | Diff between source and target |
+| `chezmoi cd` | Shell into the source directory |
+| `chezmoi managed` | List all managed files |
+| `chezmoi data` | Show available template variables |
 
-## Références
+## Naming Conventions
 
-Pour plus de détails sur les commandes et les templates, consultez [references/api_reference.md](references/cli_reference.md).
+| Prefix/Suffix | Meaning |
+|---------------|---------|
+| `dot_` | File starts with `.` (e.g., `dot_zshrc` -> `.zshrc`) |
+| `private_` | Applied with `600`/`700` permissions |
+| `executable_` | Applied with execute permission |
+| `symlink_` | Creates a symlink |
+| `.tmpl` | Template file (processes `{{ }}` variables) |
 
-## cli-btca
+## References
 
-Donne accès aux docs du repo offciel via le skill cli `cli-btca`
+| Document | Path | Content |
+|----------|------|---------|
+| **CLI Reference** | [references/cli_reference.md](references/cli_reference.md) | Full command table, naming conventions, template syntax |
+| **Secrets Management** | [references/secrets.md](references/secrets.md) | Keyring integration, API keys, alternative backends, best practices, .env migration |
+| **Source** | [references/source.md](references/source.md) | External links and upstream documentation |
+
+## Scripts
+
+| Script | Path | Purpose |
+|--------|------|---------|
+| **Apply** | [scripts/apply_chezmoi.sh](scripts/apply_chezmoi.sh) | Runs `chezmoi apply -v` with logging, strict mode, and dependency checks |

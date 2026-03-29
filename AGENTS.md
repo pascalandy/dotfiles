@@ -19,18 +19,33 @@ Chezmoi stores desired state here and syncs to home via `chezmoi apply` (copies,
 
 ## Critical Rules
 
-### Never Edit Target Files Directly
+### NEVER Edit Files Under Home Directory
 
-Files in `~/` that are managed by chezmoi should NEVER be edited directly.
-Always edit the source in `~/.local/share/chezmoi/` or use `chezmoi edit`.
+**This is the #1 rule in this repository. No exceptions.**
+
+The source of truth is ALWAYS `~/.local/share/chezmoi/`. Files under `~/` (including `~/.config/`) are **applied copies** that get overwritten on every `chezmoi apply`.
+
+**Before writing or editing ANY file, you MUST check:**
 
 ```bash
-# Check if a file is managed
 chezmoi managed | grep <filename>
-
-# Edit via chezmoi (opens source file)
-chezmoi edit ~/.zshrc
 ```
+
+If the file is managed, edit the **chezmoi source** -- never the target. Common mistakes:
+
+| WRONG (applied/target path) | CORRECT (chezmoi source path) |
+|------------------------------|-------------------------------|
+| `~/.config/opencode/skill/...` | `~/.local/share/chezmoi/dot_config/ai_templates/skills/...` |
+| `~/.config/opencode/opencode.json` | `~/.local/share/chezmoi/dot_config/opencode/opencode.json.tmpl` |
+| `~/.zshrc` | `~/.local/share/chezmoi/dot_zshrc` |
+| `~/.gitconfig` | `~/.local/share/chezmoi/dot_gitconfig` |
+| `~/.config/...` | `~/.local/share/chezmoi/dot_config/...` |
+
+**Workflow:**
+1. Run `chezmoi managed | grep <filename>` to check if managed
+2. If managed: edit under `~/.local/share/chezmoi/` (translate path using `dot_` prefix rules)
+3. Run `chezmoi apply -v` to sync changes to home
+4. If NOT managed: safe to edit directly, or `chezmoi add` to start managing it
 
 ### Chezmoi Naming Conventions
 
