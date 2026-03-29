@@ -1,7 +1,7 @@
 ---
 name: run-codex
 description: |
-  Use only when the user explicitly say "run-codex". Headless Codex to use codex exec commands"
+  Use only when the user explicitly says `run-codex`. Headless Codex to use codex exec commands.
 ---
 
 # Headless Codex

@@ -1,7 +1,7 @@
 ---
 name: map-filesystem
 description: >
-  Use only when the user explicitly say "map-filesystem" to generate or update
+  Use only when the user explicitly says "map-filesystem" to generate or update
   .abstract.md and .overview.md atlas files for repositories and knowledge folders.
   Also use when the user wants to list or update multiple atlas directories.
 ---

@@ -1,7 +1,7 @@
 ---
 name: last30days
 description: |
-  Use only when the user explicitly say "last30days". Research topics, news, trends, and recommendations from the last 30 days across Reddit, X, YouTube, TikTok, Instagram, Hacker News, Polymarket, Bluesky, Truth Social, Xiaohongshu, Tavily, and the web (Parallel AI, Brave, OpenRouter, or assistant fallback).
+  Use only when the user explicitly says "last30days". Research topics, news, trends, and recommendations from the last 30 days across Reddit, X, YouTube, TikTok, Instagram, Hacker News, Polymarket, Bluesky, Truth Social, Xiaohongshu, Tavily, and the web (Parallel AI, Brave, OpenRouter, or assistant fallback).
 ---
 
 # last30days

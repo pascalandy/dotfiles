@@ -1,7 +1,7 @@
 ---
 name: tavily-sk
 description: |
-  Use only when the user explicitly say "tavily-sk". Use when a task needs to deep reseach the web for data, URL extraction, site mapping, or page crawling—and no built-in web tool is available.
+  Use only when the user explicitly says "tavily-sk". Use when a task needs to deep reseach the web for data, URL extraction, site mapping, or page crawling—and no built-in web tool is available.
 ---
 
 # Tavily REST API

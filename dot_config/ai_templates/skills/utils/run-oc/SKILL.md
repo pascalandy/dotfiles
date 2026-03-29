@@ -1,7 +1,7 @@
 ---
 name: run-oc
 description: |
-  Use only when the user explicitly say "run-oc". Headless opencode to use opencode run commands"
+  Use only when the user explicitly says `run-oc`. Headless opencode to use opencode run commands
 ---
 
 # Headless OpenCode
