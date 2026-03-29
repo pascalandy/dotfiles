@@ -1,5 +1,12 @@
 # AGENTS.md - Chezmoi Dotfiles Repository
 
+## Project overview using progressive disclosure
+
+1. Read and understand: `.napkin/NAPKIN.md`
+2. run `napkin overview --json`
+
+---
+
 This file provides guidelines for AI coding agents working in this repository.
 
 ## File Structure
