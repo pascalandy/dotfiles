@@ -9,47 +9,29 @@ When the main agent (`1-kimi`) needs to delegate work, use this skill to determi
 
 ## Matrix
 
-- **Default / General / exploration / Commits / research (local / web)** → `1-kimi`
-- **Code Review** → `1-kimi` → `2-opus` → `3-gpthigh` → `gemini`
-- **Batch Tasks** → `glm`
+- **`1-kimi`** (Kimi K2.5 Turbo via Fireworks AI)
+  - **Speed**: Fastest | **Cost**: Lowest | **Intelligence**: High
+  - **Use for**: Default for everything. First-pass reviews, commits, quick edits, general tasks, exploration, research.
 
-## Agent Profiles
+- **`2-opus`** (Claude Opus 4.6 via Anthropic)
+  - **Speed**: Slow | **Cost**: High | **Intelligence**: Highest
+  - **Use for**: Second-pass reviews. Complex architecture, hard problems requiring deep reasoning.
 
-### `1-kimi` (Kimi K2.5 Turbo via Fireworks AI)
-- **Speed**: Fastest
-- **Cost**: Lowest  
-- **Intelligence**: High
-- **Use for**: Everything by default. First-pass reviews, commits, quick edits, general tasks.
+- **`3-gpthigh`** (GPT-5.4 High Reasoning via OpenAI)
+  - **Speed**: Medium | **Cost**: Medium-high | **Intelligence**: Very high
+  - **Use for**: Third-pass reviews. Different reasoning perspective—catches issues Opus misses.
 
-### `2-opus` (Claude Opus 4.6 via Anthropic)
-- **Speed**: Slow (adaptive thinking)
-- **Cost**: High
-- **Intelligence**: Highest available
-- **Use for**: Second-pass reviews, complex architecture, hard problems requiring deep reasoning.
+- **`gemini`** (Gemini 3.1 Pro via OpenRouter)
+  - **Speed**: Medium | **Cost**: Medium | **Intelligence**: High
+  - **Use for**: Fourth-pass reviews only when user explicitly requests 4 rounds.
 
-### `3-gpthigh` (GPT-5.4 High Reasoning via OpenAI)
-- **Speed**: Medium
-- **Cost**: Medium-high
-- **Intelligence**: Very high with explicit reasoning effort
-- **Use for**: Third-pass reviews. Catches issues Opus misses due to different training.
+- **`glm`** (GLM 5.1 via zai-coding-plan)
+  - **Speed**: Medium-fast | **Cost**: Low | **Intelligence**: High (coding-optimized)
+  - **Use for**: Batch tasks, bulk operations, large-scale refactoring, heavy tasks where cost matters.
 
-### `gemini` (Gemini 3.1 Pro via OpenRouter)
-- **Speed**: Medium
-- **Cost**: Medium
-- **Intelligence**: High with different architectural strengths
-- **Use for**: Fourth-pass reviews only when user explicitly requests 4 rounds.
-
-### `glm` (GLM 5.1 via zai-coding-plan)
-- **Speed**: Medium-fast
-- **Cost**: Low
-- **Intelligence**: High, coding-optimized
-- **Use for**: Bulk operations, large-scale refactoring, heavy tasks where cost matters.
-
-### `4-sonnet` (Claude Sonnet 4.6 via Anthropic)
-- **Speed**: Medium-fast (faster than Opus)
-- **Cost**: Medium
-- **Intelligence**: High
-- **Use for**: When you need Claude capabilities but Opus is too slow.
+- **`4-sonnet`** (Claude Sonnet 4.6 via Anthropic)
+  - **Speed**: Medium-fast | **Cost**: Medium | **Intelligence**: High
+  - **Use for**: When you need Claude capabilities but Opus is too slow.
 
 ## Review Workflow
 
