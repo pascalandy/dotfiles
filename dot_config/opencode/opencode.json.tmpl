@@ -3,7 +3,7 @@
   // ==================================================
   // Open Questions & Decisions: `docs/features/opencode/opencode-configurations.md`
   // ==================================================
-  "default_agent": "glm",
+  "default_agent": "gpt",
   "small_model": "minimax",
   "agent": {
     "plan": {
@@ -22,15 +22,6 @@
         "write": "allow",
         "edit": "allow",
         "bash": "allow"
-      },
-      "options": {
-        "reasoning": {
-          "effort": "medium",
-          "summary": "none"
-        },
-        "text": {
-          "verbosity": "low"
-        }
       }
     },
     "opus": {
@@ -109,7 +100,7 @@
       "description": "GLM 5",
       "disable": false,
       "mode": "subagent",
-      "model": "zai-coding-plan/glm-5",
+      "model": "zai-coding-plan/glm-5.1",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
@@ -122,11 +113,11 @@
         }
       }
     },
-    "glm": {
+    "GLM": {
       "description": "GLM 5 plan",
       "disable": false,
       "mode": "all",
-      "model": "zai-coding-plan/glm-5",
+      "model": "zai-coding-plan/glm-5.1",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
@@ -149,6 +140,27 @@
         "write": "allow",
         "edit": "allow",
         "bash": "allow"
+      }
+    },
+    "gptmini": {
+      "description": "GPT-5.4 mini.",
+      "disable": false,
+      "mode": "all",
+      "model": "openai/gpt-5.4-mini",
+      "temperature": 0.1,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "reasoning": {
+          "effort": "low",
+          "summary": "none"
+        },
+        "text": {
+          "verbosity": "low"
+        }
       }
     },
     "gpt": {
@@ -239,7 +251,7 @@
       "model": "openrouter/google/gemini-3.1-pro-preview",
       "disable": false,
       "mode": "all",
-      "description": "Gemini 3.1 Pro QA via OpenRouter.",
+      "description": "Gemini 3.1 Pro",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
@@ -251,7 +263,7 @@
       "model": "openrouter/google/gemini-3-flash-preview",
       "disable": false,
       "mode": "subagent",
-      "description": "Gemini 3 Flash QA via OpenRouter.",
+      "description": "Gemini 3 Flash",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
@@ -274,7 +286,7 @@
     "minimax": {
       "description": "MiniMax 2.7",
       "disable": false,
-      "mode": "all",
+      "mode": "subagent",
       "model": "openrouter/minimax/minimax-m2.7",
       "temperature": 0.2,
       "permission": {
@@ -358,7 +370,7 @@
       "description": "GLM 5 (Zen)",
       "disable": true,
       "mode": "all",
-      "model": "opencode/glm-5",
+      "model": "opencode/glm-5.1",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
