@@ -278,9 +278,9 @@ fct_prompt() {
 		exit 0
 	fi
 
-	# Find changed SKILL.md files
+	# Find changed SKILL.md files (scoped to GStack subdirectory)
 	local changed_files
-	changed_files="$(git -C "$GSTACK_SOURCE" diff --name-only "$baseline_commit..$current_head" -- '*/SKILL.md' 'SKILL.md')"
+	changed_files="$(git -C "$GIT_ROOT" diff --name-only "$baseline_commit..$current_head" -- "${GIT_PREFIX}*/SKILL.md" "${GIT_PREFIX}SKILL.md" | sed "s|^${GIT_PREFIX}||")"
 
 	if [[ -z "$changed_files" ]]; then
 		echo "No SKILL.md files changed. Nothing to update."
@@ -324,7 +324,7 @@ Baseline commit: $baseline_commit
 Current HEAD:    $current_head
 
 To see the full diff, run in terminal:
-  git -C $GSTACK_SOURCE diff $baseline_commit..$current_head -- '*/SKILL.md' 'SKILL.md'
+  git -C $GIT_ROOT diff $baseline_commit..$current_head -- '${GIT_PREFIX}*/SKILL.md' '${GIT_PREFIX}SKILL.md'
 
 ## Changed Skills (${#changed_skills[@]})
 
@@ -340,7 +340,7 @@ PROMPT
 		echo ""
 		echo "Diff:"
 		echo '```'
-		git -C "$GSTACK_SOURCE" diff --stat "$baseline_commit..$current_head" -- "$skill_path"
+		git -C "$GIT_ROOT" diff --stat "$baseline_commit..$current_head" -- "${GIT_PREFIX}${skill_path}"
 		echo '```'
 		echo ""
 	done
