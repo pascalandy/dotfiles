@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+#
+# Auto-sync specific files back to chezmoi source when they change.
+# Run this as a background process or via launchd on macOS.
+#
+# Usage: chezmoi-auto-sync &
+
+set -Eeuo pipefail
+
+# Files to watch (format: "source_path|chezmoi_target_name")
+# Add your frequently-updating files here
+WATCHED_FILES=(
+	"$HOME/.pi/agent/settings.json|dot_pi/agent/settings.json"
+	# Add more files as needed:
+	# "$HOME/.some-tool/config.json|dot_config/some-tool/config.json"
+)
+
+log() {
+	printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$1"
+}
+
+sync_file() {
+	local src_path="$1"
+	local chezmoi_name="$2"
+	local chezmoi_root
+
+	chezmoi_root="${CHEZMOI_ROOT:-$HOME/.local/share/chezmoi}"
+
+	if [[ ! -f "$src_path" ]]; then
+		log "WARN: Source file does not exist: $src_path"
+		return 0
+	fi
+
+	local target_path="$chezmoi_root/$chezmoi_name"
+
+	# Check if file is already managed by chezmoi
+	if ! chezmoi managed "$src_path" &>/dev/null; then
+		log "WARN: File not managed by chezmoi yet: $src_path"
+		log "Run: chezmoi add $src_path"
+		return 0
+	fi
+
+	# Compare and sync if different
+	if [[ -f "$target_path" ]] && cmp -s "$src_path" "$target_path"; then
+		return 0
+	fi
+
+	log "SYNC: $src_path -> $chezmoi_name"
+	chezmoi add "$src_path"
+}
+
+# Initial sync
+log "Starting auto-sync for ${#WATCHED_FILES[@]} file(s)..."
+for entry in "${WATCHED_FILES[@]}"; do
+	IFS='|' read -r src_path chezmoi_name <<<"$entry"
+	sync_file "$src_path" "$chezmoi_name"
+done
+
+# Watch for changes (requires fswatch: brew install fswatch)
+if ! command -v fswatch &>/dev/null; then
+	log "ERROR: fswatch not installed. Run: brew install fswatch"
+	exit 1
+fi
+
+log "Watching for changes..."
+
+# Build fswatch arguments
+fswatch_paths=()
+for entry in "${WATCHED_FILES[@]}"; do
+	IFS='|' read -r src_path _ <<<"$entry"
+	fswatch_paths+=("$src_path")
+done
+
+fswatch -o "${fswatch_paths[@]}" | while read -r _; do
+	# Small debounce delay
+	sleep 0.5
+
+	for entry in "${WATCHED_FILES[@]}"; do
+		IFS='|' read -r src_path chezmoi_name <<<"$entry"
+		sync_file "$src_path" "$chezmoi_name"
+	done
+done
