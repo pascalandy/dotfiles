@@ -1,0 +1,29 @@
+import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
+
+export default function (pi: ExtensionAPI) {
+  pi.registerProvider("fireworks", {
+    baseUrl: "https://api.fireworks.ai/inference/v1",
+    apiKey: "{{ keyring "fireworks-fireplan" "api_key" }}",
+    api: "openai-completions",
+    models: [
+      {
+        id: "accounts/fireworks/models/kimi-k2-thinking",
+        name: "Kimi K2 Thinking",
+        reasoning: true,
+        input: ["text"],
+        cost: { input: 0.60, output: 2.50, cacheRead: 0, cacheWrite: 0 },
+        contextWindow: 256000,
+        maxTokens: 256000
+      },
+      {
+        id: "accounts/fireworks/routers/kimi-k2p5-turbo",
+        name: "Kimi K2.5 Turbo",
+        reasoning: true,
+        input: ["text", "image"],
+        cost: { input: 0.60, output: 3.00, cacheRead: 0, cacheWrite: 0 },
+        contextWindow: 262144,
+        maxTokens: 16384
+      }
+    ]
+  });
+}

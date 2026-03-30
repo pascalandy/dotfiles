@@ -4,6 +4,7 @@
 
 # Package manager files
 **/package.json
+!dot_pi/agent/extensions/**/package.json
 **/package-lock.json
 **/yarn.lock
 **/pnpm-lock.yaml

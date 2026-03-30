@@ -17,6 +17,7 @@
         "+ralph-wiggum/SKILL.md"
       ]
     },
+    "~/.pi/agent/extensions/pi-fireworks-provider",
     "npm:pi-powerline-footer",
     {
       "source": "npm:pi-hooks",
