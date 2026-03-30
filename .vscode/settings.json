@@ -143,6 +143,22 @@
     {
       "folderPath": "chezmoi/dot_local/bin/",
       "color": "foldercolorizer.color_66cc99"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/ai_templates/skills/",
+      "color": "foldercolorizer.color_66cc99"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/ai_templates/commands/",
+      "color": "foldercolorizer.color_66cc99"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/ai_templates/commands_archives/",
+      "color": "foldercolorizer.color_66cc99"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/ai_templates/skills_archived/",
+      "color": "foldercolorizer.color_66cc99"
     }
   ]
 }
