@@ -37,7 +37,9 @@
     "prompts/andy"
   ],
   "enabledModels": [
-    "openai-codex/gpt-5.4"
+    "openai-codex/gpt-5.4",
+    "fireworks/accounts/fireworks/models/kimi-k2-thinking",
+    "fireworks/accounts/fireworks/routers/kimi-k2p5-turbo"
   ],
   "powerline": "default",
   "quietStartup": true
