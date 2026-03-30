@@ -112,7 +112,7 @@ cm-edit path:
 
 readd:
     chezmoi re-add ~/.pi/agent/settings.json
-
+    chezmoi re-add ~/.opencode/agent/settings.json
 # -----------------------------------------------------------------------------
 # Utilities
 # -----------------------------------------------------------------------------
