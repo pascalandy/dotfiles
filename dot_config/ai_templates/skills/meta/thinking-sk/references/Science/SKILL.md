@@ -1,0 +1,149 @@
+---
+name: Science
+description: Hypothesis-test-analyze cycles for systematic problem-solving — the meta-skill governing all others. Includes define goal, generate hypotheses, design experiment, measure results, analyze results, iterate, full cycle, quick diagnosis, and structured investigation. USE WHEN think about, figure out, try approaches, experiment with, iterate on, improve, optimize, define goal, generate hypotheses, design experiment, measure results, analyze results, full cycle, quick diagnosis, structured investigation, science, hypothesis.
+---
+
+## Customization
+
+If the current assistant supports user-specific overrides, apply them before execution. Otherwise, use the defaults in this folder.
+
+## Status Update
+
+Before executing, emit a brief text status update such as:
+`Running the **WorkflowName** workflow in the **Science** skill to ACTION...`
+
+# Science - The Universal Algorithm
+
+**The scientific method applied to everything. The meta-skill that governs all other skills.**
+
+## The Universal Cycle
+
+```
+GOAL -----> What does success look like?
+   |
+OBSERVE --> What is the current state?
+   |
+HYPOTHESIZE -> What might work? (Generate MULTIPLE)
+   |
+EXPERIMENT -> Design and run the test
+   |
+MEASURE --> What happened? (Data collection)
+   |
+ANALYZE --> How does it compare to the goal?
+   |
+ITERATE --> Adjust hypothesis and repeat
+   |
+   +------> Back to HYPOTHESIZE
+```
+
+**The goal is CRITICAL.** Without clear success criteria, you cannot judge results.
+
+---
+
+
+## Workflow Routing
+
+**Output when executing:** `Running the **WorkflowName** workflow in the **Science** skill to ACTION...`
+
+### Core Workflows
+
+| Trigger | Workflow |
+|---------|----------|
+| "define the goal", "what are we trying to achieve" | `workflows/DefineGoal.md` |
+| "what might work", "ideas", "hypotheses" | `workflows/GenerateHypotheses.md` |
+| "how do we test", "experiment design" | `workflows/DesignExperiment.md` |
+| "what happened", "measure", "results" | `workflows/MeasureResults.md` |
+| "analyze", "compare to goal" | `workflows/AnalyzeResults.md` |
+| "iterate", "try again", "next cycle" | `workflows/Iterate.md` |
+| Full structured cycle | `workflows/FullCycle.md` |
+
+### Diagnostic Workflows
+
+| Trigger | Workflow |
+|---------|----------|
+| Quick debugging (15-min rule) | `workflows/QuickDiagnosis.md` |
+| Complex investigation | `workflows/StructuredInvestigation.md` |
+
+---
+
+## Resource Index
+
+| Resource | Description |
+|----------|-------------|
+| `references/METHODOLOGY.md` | Deep dive into each phase |
+| `references/Protocol.md` | How skills implement Science |
+| `references/Templates.md` | Goal, Hypothesis, Experiment, Results templates |
+| `references/Examples.md` | Worked examples across scales |
+
+---
+
+## Domain Applications
+
+| Domain | Manifestation | Related Skill |
+|--------|---------------|---------------|
+| **Coding** | TDD (Red-Green-Refactor) | Development |
+| **Products** | MVP -> Measure -> Iterate | Development |
+| **Research** | Question -> Study -> Analyze | Research |
+| **Prompts** | Prompt -> Eval -> Iterate | Evals |
+| **Decisions** | Options -> Council -> Choose | Council |
+
+---
+
+## Scale of Application
+
+| Level | Cycle Time | Example |
+|-------|-----------|---------|
+| **Micro** | Minutes | TDD: test, code, refactor |
+| **Meso** | Hours-Days | Feature: spec, implement, validate |
+| **Macro** | Weeks-Months | Product: MVP, launch, measure PMF |
+
+---
+
+## Integration Points
+
+| Phase | Skills to Invoke |
+|-------|-----------------|
+| **Goal** | Council for validation |
+| **Observe** | Research for context |
+| **Hypothesize** | Council for ideas, RedTeam for stress-test |
+| **Experiment** | Development (Worktrees) for parallel tests |
+| **Measure** | Evals for structured measurement |
+| **Analyze** | Council for multi-perspective analysis |
+
+---
+
+## Key Principles (Quick Reference)
+
+1. **Goal-First** - Define success before starting
+2. **Hypothesis Plurality** - NEVER just one idea (minimum 3)
+3. **Minimum Viable Experiments** - Smallest test that teaches
+4. **Falsifiability** - Experiments must be able to fail
+5. **Measure What Matters** - Only goal-relevant data
+6. **Honest Analysis** - Compare to goal, not expectations
+7. **Rapid Iteration** - Cycle speed > perfect experiments
+
+---
+
+## Anti-Patterns
+
+| Bad | Good |
+|-----|------|
+| "Make it better" | "Reduce load time from 3s to 1s" |
+| "I think X will work" | "Here are 3 approaches: X, Y, Z" |
+| "Prove I'm right" | "Design test that could disprove" |
+| "Pretend failure didn't happen" | "What did we learn?" |
+| "Keep experimenting forever" | "Ship and learn from production" |
+
+---
+
+## Quick Start
+
+1. **Goal** - What does success look like?
+2. **Observe** - What do we know?
+3. **Hypothesize** - At least 3 ideas
+4. **Experiment** - Minimum viable tests
+5. **Measure** - Collect goal-relevant data
+6. **Analyze** - Compare to success criteria
+7. **Iterate** - Adjust and repeat
+
+**The answer emerges from the cycle, not from guessing.**
