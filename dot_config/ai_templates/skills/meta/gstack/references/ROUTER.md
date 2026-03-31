@@ -1,6 +1,6 @@
 ---
 name: gstack
-description: "Unified gstack routing across idea shaping, scope, strategy, architecture, design direction, implementation-adjacent execution, debugging, review, QA, browser work, security, performance, shipping, deployment, docs, retros, safety controls, setup, and learning maintenance. USE WHEN brainstorm, idea, scope, strategy, architecture, plan, design, implementation, debug, inspect, review, QA, browser, security, benchmark, ship, deploy, docs, retro, safety, setup, learn."
+description: "Unified gstack routing across planning, active work, and shipping. USE WHEN idea, brainstorm, wedge, founder review, office hours, architecture review, data flow, edge cases, test plan, design system, visual direction, debug, broken flow, root cause, investigate, inspect, browser, Chrome, review diff, review branch, QA, test and fix, QA report only, security review, threat model, OWASP, benchmark, performance baseline, ship, open PR, push, release, deploy, canary, setup deploy, safety mode, freeze, guard, unfreeze, import cookies, update docs after shipping, retro, learn, upgrade gstack."
 ---
 
 # gstack
@@ -9,6 +9,6 @@ description: "Unified gstack routing across idea shaping, scope, strategy, archi
 
 | Request Pattern | Route To |
 |---|---|
-| brainstorm, idea, worth building, scope, strategy, architecture, plan, design system, design direction | `ShapeTheWork/SKILL.md` |
-| implement, html from mockup, debug, inspect, browser, review, QA, security, benchmark, fix what's broken | `BuildAndVerify/SKILL.md` |
-| ship, release, deploy, docs, retro, safety, freeze, guard, setup cookies, upgrade, learn | `ShipAndSteward/SKILL.md` |
+| brainstorm, idea, wedge, founder review, office hours, scope, strategy, architecture, data flow, test plan, design system, visual direction | `Plan/SKILL.md` |
+| debug, broken flow, root cause, investigate, inspect, browser, Chrome, review diff, review branch, QA, security review, threat model, OWASP, benchmark, performance baseline | `Work/SKILL.md` |
+| ship, open PR, push, release, deploy, canary, setup deploy, docs, retro, safety mode, freeze, guard, unfreeze, import cookies, learn, upgrade gstack | `Ship/SKILL.md` |

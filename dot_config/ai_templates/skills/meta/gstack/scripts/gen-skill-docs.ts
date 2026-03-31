@@ -308,6 +308,32 @@ function rewriteSkillPathsForExternalHost(content: string, sourceFile: string, t
   });
 }
 
+function externalReferencesMatch(outputDir: string): boolean {
+  const sourceReferencesDir = path.join(ROOT, 'references');
+  const targetReferencesDir = path.join(outputDir, 'references');
+  if (!fs.existsSync(sourceReferencesDir) || !fs.existsSync(targetReferencesDir)) return false;
+
+  const sourceFiles = listFilesRecursive(sourceReferencesDir);
+  const targetFiles = listFilesRecursive(targetReferencesDir);
+  if (sourceFiles.join('\n') !== targetFiles.join('\n')) return false;
+
+  for (const relativePath of sourceFiles) {
+    const sourceFile = path.join(sourceReferencesDir, relativePath);
+    const targetFile = path.join(targetReferencesDir, relativePath);
+    if (!fs.existsSync(targetFile)) return false;
+
+    let expectedContent = fs.readFileSync(sourceFile, 'utf-8');
+    if (targetFile.endsWith('.md')) {
+      expectedContent = rewriteSkillPathsForExternalHost(expectedContent, sourceFile, targetFile, outputDir);
+    }
+
+    const actualContent = fs.readFileSync(targetFile, 'utf-8');
+    if (expectedContent !== actualContent) return false;
+  }
+
+  return true;
+}
+
 function syncExternalRootReferences(outputDir: string): string {
   const sourceReferencesDir = path.join(ROOT, 'references');
   const targetReferencesDir = path.join(outputDir, 'references');
@@ -519,7 +545,7 @@ for (const currentHost of hostsToRun) {
           if (fs.existsSync(sourceReferencesDir)) {
             const targetReferencesDir = path.join(path.dirname(outputPath), 'references');
             const relTargetReferencesDir = path.relative(ROOT, targetReferencesDir);
-            if (!directoriesMatch(sourceReferencesDir, targetReferencesDir)) {
+            if (!externalReferencesMatch(path.dirname(outputPath))) {
               console.log(`STALE: ${relTargetReferencesDir}/`);
               hasChanges = true;
             } else {

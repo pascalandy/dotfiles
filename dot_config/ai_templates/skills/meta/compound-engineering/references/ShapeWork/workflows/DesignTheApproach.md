@@ -6,9 +6,9 @@ Use this workflow when the direction is chosen and the remaining work is technic
 
 | Need | Load |
 |---|---|
-| Turn a feature or requirements doc into an implementation plan | `../../../skills/ce-plan/SKILL.md` |
-| Deepen an existing plan, strengthen sequencing, or add research-backed detail | `../../../skills/ce-plan/SKILL.md` |
-| Review a requirements or plan document for coherence, feasibility, design, scope, or security gaps | `../../../skills/document-review/SKILL.md` |
+| Turn a feature or requirements doc into an implementation plan | `../../ce-plan/SKILL.md` |
+| Deepen an existing plan, strengthen sequencing, or add research-backed detail | `../../ce-plan/SKILL.md` |
+| Review a requirements or plan document for coherence, feasibility, design, scope, or security gaps | `../../document-review/SKILL.md` |
 
 ## Expected Result
 

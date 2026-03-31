@@ -6,12 +6,12 @@ Use this workflow when review output already exists and the remaining work is to
 
 | Need | Load |
 |---|---|
-| Resolve GitHub PR comments and review threads | `../../../skills/resolve-pr-feedback/SKILL.md` |
-| Create a durable todo entry for follow-up work | `../../../skills/todo-create/SKILL.md` |
-| Triage an existing todo backlog | `../../../skills/todo-triage/SKILL.md` |
-| Resolve pending todos in parallel | `../../../skills/todo-resolve/SKILL.md` |
-| Configure project review-agent behavior | `../../../skills/setup/SKILL.md` |
-| Report a bug in the compound-engineering plugin itself | `../../../skills/report-bug-ce/SKILL.md` |
+| Resolve GitHub PR comments and review threads | `../../resolve-pr-feedback/SKILL.md` |
+| Create a durable todo entry for follow-up work | `../../todo-create/SKILL.md` |
+| Triage an existing todo backlog | `../../todo-triage/SKILL.md` |
+| Resolve pending todos in parallel | `../../todo-resolve/SKILL.md` |
+| Configure project review-agent behavior | `../../setup/SKILL.md` |
+| Report a bug in the compound-engineering plugin itself | `../../report-bug-ce/SKILL.md` |
 
 ## Expected Result
 

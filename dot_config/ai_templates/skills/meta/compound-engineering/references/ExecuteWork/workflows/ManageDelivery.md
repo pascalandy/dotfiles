@@ -6,10 +6,10 @@ Use this workflow when the implementation exists and the remaining work is branc
 
 | Need | Load |
 |---|---|
-| Create an isolated worktree or branch for parallel development | `../../../skills/git-worktree/SKILL.md` |
-| Create a clean commit with a useful message | `../../../skills/git-commit/SKILL.md` |
-| Commit, push, and open or update a pull request | `../../../skills/git-commit-push-pr/SKILL.md` |
-| Prepare docs for GitHub Pages deployment | `../../../skills/deploy-docs/SKILL.md` |
+| Create an isolated worktree or branch for parallel development | `../../git-worktree/SKILL.md` |
+| Create a clean commit with a useful message | `../../git-commit/SKILL.md` |
+| Commit, push, and open or update a pull request | `../../git-commit-push-pr/SKILL.md` |
+| Prepare docs for GitHub Pages deployment | `../../deploy-docs/SKILL.md` |
 
 ## Expected Result
 

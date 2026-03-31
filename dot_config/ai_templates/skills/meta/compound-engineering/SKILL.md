@@ -1,12 +1,12 @@
 ---
 name: compound-engineering
-description: "Unified compound-engineering meta-skill for shaping work, executing delivery, and reviewing or compounding results. Use when the user needs help deciding what to build, planning implementation, reviewing requirements or plans, executing code changes, validating work, or capturing reusable learnings through one entry point."
+description: "Unified compound-engineering meta-skill for shaping work, executing delivery, and verifying or compounding results. Use when the user needs one entry point for ideation, requirements, planning, implementation, delivery, review, QA, documentation, or reusable learnings."
 keywords: [compound-engineering, ideate, brainstorm, requirements, plan, document-review, code-review, architecture, onboarding, implement, execute, code, frontend, rails, ruby, dspy, agent, browser, image, git, worktree, commit, pull request, qa, bug, feedback, todo, changelog, documentation, learnings, compound]
 ---
 
 # Compound Engineering
 
-> One entry point for compound-engineering work. Describe the outcome needed, and the router loads the specialist for shaping the work, executing it, or validating and compounding the result.
+> One entry point for compound-engineering work. Describe the outcome needed, and the router loads the lifecycle specialist that fits the request.
 
 ## Routing
 
@@ -26,9 +26,17 @@ This meta-skill groups the pack into three non-overlapping lifecycle specialists
 
 1. `ShapeWork` owns discovery, requirements, planning, and architectural direction before implementation starts.
 2. `ExecuteWork` owns implementation, focused builders, automation, and delivery mechanics while work is in flight.
-3. `VerifyAndCompound` owns review, validation, feedback resolution, documentation polish, and knowledge capture after or around implementation.
+3. `VerifyAndCompound` owns review, validation, feedback resolution, release polish, and knowledge capture after or around implementation.
 
 The collection stays readable, the router stays minimal, and each specialist stays standalone.
+
+## Design Guarantees
+
+- Single entry point: users invoke `compound-engineering`, not an internal specialist.
+- Invisible delegation: the router decides which specialist to load.
+- No domain overlap: shaping, execution, and verification stay separate.
+- Consistent anatomy: each specialist has its own `SKILL.md` and `workflows/`.
+- Additive scaling: add one specialist directory and one router row.
 
 ## What's Included
 
@@ -38,7 +46,7 @@ The collection stays readable, the router stays minimal, and each specialist sta
 | Router | `references/ROUTER.md` | Maps requests to the right lifecycle specialist | N/A |
 | Shaping specialist | `references/ShapeWork/SKILL.md` | Discovery, requirements, planning, and architecture | `DiscoverDirection`, `DesignTheApproach`, `ChooseSpecializedPatterns` |
 | Execution specialist | `references/ExecuteWork/SKILL.md` | Implementation, focused builders, automation, and delivery mechanics | `ImplementFromPlan`, `UseFocusedBuilders`, `ManageDelivery` |
-| Verification and knowledge specialist | `references/VerifyAndCompound/SKILL.md` | Review, QA, feedback handling, docs polish, and learnings | `ReviewAndValidate`, `ResolveFeedbackAndTrack`, `CaptureAndShare` |
+| Verification and compounding specialist | `references/VerifyAndCompound/SKILL.md` | Review, QA, feedback handling, docs polish, and learnings | `ReviewAndValidate`, `ResolveFeedbackAndTrack`, `CaptureAndShare` |
 
 ## Invocation Scenarios
 
@@ -64,7 +72,7 @@ User: we have a vague idea for improving onboarding. help me figure out what to 
 
 AI routes to ShapeWork and returns:
 - Workflow: `DiscoverDirection`
-- Downstream skill: `skills/ce-brainstorm/SKILL.md`
+- Downstream skill: `references/ce-brainstorm/SKILL.md`
 - Reason: the request is still framing the problem and narrowing scope
 - Expected artifact: a requirements document or a clear recommended direction
 ```
@@ -76,8 +84,8 @@ User: implement the approved plan and use the existing Rails style in this repo.
 
 AI routes to ExecuteWork and returns:
 - Workflow: `ImplementFromPlan`
-- Downstream skill: `skills/ce-work/SKILL.md`
-- Supporting specialized pattern: `skills/dhh-rails-style/SKILL.md`
+- Downstream skill: `references/ce-work/SKILL.md`
+- Supporting specialized pattern: `references/dhh-rails-style/SKILL.md`
 - Expected artifact: finished code changes with verification completed during execution
 ```
 
@@ -88,7 +96,7 @@ User: review the branch, fix the feedback, then write up the learning.
 
 AI routes to VerifyAndCompound and returns:
 - Workflow: `ReviewAndValidate` followed by `ResolveFeedbackAndTrack` and `CaptureAndShare`
-- Downstream skills: `skills/ce-review/SKILL.md`, `skills/resolve-pr-feedback/SKILL.md`, `skills/ce-compound/SKILL.md`
+- Downstream skills: `references/ce-review/SKILL.md`, `references/resolve-pr-feedback/SKILL.md`, `references/ce-compound/SKILL.md`
 - Expected artifact: findings resolved, branch hardened, and a reusable solution document captured
 ```
 
@@ -108,3 +116,5 @@ AI routes to VerifyAndCompound and returns:
 - [x] Three distinct, non-overlapping lifecycle specialists
 - [x] Standalone sub-skills with consistent anatomy
 - [x] Additive structure for future compound-engineering modes
+- [x] Relative routing paths stay inside this skill pack
+- [x] Collection and specialists remain harness agnostic
