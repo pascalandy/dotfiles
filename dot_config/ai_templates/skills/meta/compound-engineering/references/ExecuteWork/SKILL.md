@@ -5,7 +5,7 @@ description: "Execute compound-engineering work by implementing code, using focu
 
 # ExecuteWork
 
-ExecuteWork owns in-flight delivery. Use it when the path is understood and the main job is to change code, build assets, automate implementation, or move work through branch and PR mechanics.
+ExecuteWork owns in-flight delivery. It works standalone or via the meta-skill router. Use it when the path is understood and the main job is to change code, build assets, automate implementation, or move work through branch and PR mechanics.
 
 ## Core Concept
 

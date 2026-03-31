@@ -1,7 +1,7 @@
 ---
 name: compound-engineering
-description: "Unified compound-engineering meta-skill for shaping work, executing delivery, and reviewing or compounding results. Use when the user needs help deciding what to build, planning implementation, executing code changes, validating work, or capturing reusable learnings through one entry point."
-keywords: [compound-engineering, ideate, brainstorm, requirements, plan, architecture, onboarding, implement, execute, code, frontend, rails, ruby, dspy, agent, browser, image, git, worktree, commit, pull request, review, qa, bug, todo, changelog, documentation, learnings, compound]
+description: "Unified compound-engineering meta-skill for shaping work, executing delivery, and reviewing or compounding results. Use when the user needs help deciding what to build, planning implementation, reviewing requirements or plans, executing code changes, validating work, or capturing reusable learnings through one entry point."
+keywords: [compound-engineering, ideate, brainstorm, requirements, plan, document-review, code-review, architecture, onboarding, implement, execute, code, frontend, rails, ruby, dspy, agent, browser, image, git, worktree, commit, pull request, qa, bug, feedback, todo, changelog, documentation, learnings, compound]
 ---
 
 # Compound Engineering
@@ -46,6 +46,7 @@ The collection stays readable, the router stays minimal, and each specialist sta
 |---|---|
 | "help me think through this feature" | Routes to `ShapeWork`, then runs `DiscoverDirection` |
 | "plan this implementation" | Routes to `ShapeWork`, then runs `DesignTheApproach` |
+| "review this plan before we build it" | Routes to `ShapeWork`, then runs `DesignTheApproach` |
 | "what pattern should we use for this agent system" | Routes to `ShapeWork`, then runs `ChooseSpecializedPatterns` |
 | "implement this plan" | Routes to `ExecuteWork`, then runs `ImplementFromPlan` |
 | "design the frontend for this flow" | Routes to `ExecuteWork`, then runs `UseFocusedBuilders` |

@@ -5,7 +5,7 @@ description: "Shape compound-engineering work before implementation by clarifyin
 
 # ShapeWork
 
-ShapeWork owns pre-implementation thinking. Use it when the work still needs to be framed, scoped, turned into a plan, or aligned to a specific architectural or framework pattern.
+ShapeWork owns pre-implementation thinking. It works standalone or via the meta-skill router. Use it when the work still needs to be framed, scoped, turned into a plan, or aligned to a specific architectural or framework pattern.
 
 ## Core Concept
 

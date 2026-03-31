@@ -5,7 +5,7 @@ description: "Verify compound-engineering work after or around implementation by
 
 # VerifyAndCompound
 
-VerifyAndCompound owns post-implementation quality and compounding. Use it when the code exists or the branch is active and the main job is to review, validate, resolve follow-up work, or preserve reusable knowledge.
+VerifyAndCompound owns post-implementation quality and compounding. It works standalone or via the meta-skill router. Use it when the code exists or the branch is active and the main job is to review code, validate behavior, resolve follow-up work, or preserve reusable knowledge.
 
 ## Core Concept
 
