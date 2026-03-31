@@ -17,7 +17,7 @@ When the main agent (`1-kimi`) needs to delegate work, use this skill to determi
   - **Speed**: Slow | **Cost**: High | **Intelligence**: Highest
   - **Use for**: Second-pass reviews. Complex architecture, hard problems requiring deep reasoning.
 
-- **`3-gpthigh`** (GPT-5.4 High Reasoning via OpenAI)
+- **`gpthigh`** (GPT-5.4 High Reasoning via OpenAI)
   - **Speed**: Medium | **Cost**: Medium-high | **Intelligence**: Very high
   - **Use for**: Third-pass reviews. Different reasoning perspective—catches issues Opus misses.
 
