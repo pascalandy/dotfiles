@@ -1,285 +1,117 @@
 ---
 name: gstack
-preamble-tier: 1
-version: 1.1.0
-description: |
-  Fast headless browser for QA testing and site dogfooding. Navigate pages, interact with
-  elements, verify state, diff before/after, take annotated screenshots, test responsive
-  layouts, forms, uploads, dialogs, and capture bug evidence. Use when asked to open or
-  test a site, verify a deployment, dogfood a user flow, or file a bug with screenshots. (gstack)
-allowed-tools:
-  - Bash
-  - Read
-  - AskUserQuestion
-
+description: "Unified gstack meta-skill for the AI engineering lifecycle. Use when the user needs product framing, planning, implementation-adjacent execution, validation, release, deployment, docs, safety, or operating guidance and should not have to pick the right gstack specialist manually."
+keywords: [gstack, brainstorm, idea, scope, strategy, plan, architecture, design, implementation, debug, review, qa, browser, security, benchmark, ship, deploy, docs, retro, safety, learn]
 ---
 
-{{PREAMBLE}}
+# gstack
 
-If `PROACTIVE` is `false`: do NOT proactively invoke or suggest other gstack skills during
-this session. Only run skills the user explicitly invokes. This preference persists across
-sessions via `gstack-config`.
+> One entry point for gstack. Describe the outcome needed, and the router loads the right lifecycle specialist, which then routes to the concrete gstack skill.
 
-If `PROACTIVE` is `true` (default): **invoke the Skill tool** when the user's request
-matches a skill's purpose. Do NOT answer directly when a skill exists for the task.
-Use the Skill tool to invoke it. The skill has specialized workflows, checklists, and
-quality gates that produce better results than answering inline.
+## Routing
 
-**Routing rules — when you see these patterns, INVOKE the skill via the Skill tool:**
-- User describes a new idea, asks "is this worth building", wants to brainstorm → invoke `/office-hours`
-- User asks about strategy, scope, ambition, "think bigger" → invoke `/plan-ceo-review`
-- User asks to review architecture, lock in the plan → invoke `/plan-eng-review`
-- User asks about design system, brand, visual identity → invoke `/design-consultation`
-- User asks to review design of a plan → invoke `/plan-design-review`
-- User wants all reviews done automatically → invoke `/autoplan`
-- User reports a bug, error, broken behavior, asks "why is this broken" → invoke `/investigate`
-- User asks to test the site, find bugs, QA → invoke `/qa`
-- User asks to review code, check the diff, pre-landing review → invoke `/review`
-- User asks about visual polish, design audit of a live site → invoke `/design-review`
-- User asks to ship, deploy, push, create a PR → invoke `/ship`
-- User asks to update docs after shipping → invoke `/document-release`
-- User asks for a weekly retro, what did we ship → invoke `/retro`
-- User asks for a second opinion, codex review → invoke `/codex`
-- User asks for safety mode, careful mode → invoke `/careful` or `/guard`
-- User asks to restrict edits to a directory → invoke `/freeze` or `/unfreeze`
-- User asks to upgrade gstack → invoke `/gstack-upgrade`
+Load `references/ROUTER.md` to determine which sub-skill handles this request.
 
-**Do NOT answer the user's question directly when a matching skill exists.** The skill
-provides a structured, multi-step workflow that is always better than an ad-hoc answer.
-Invoke the skill first. If no skill matches, answer directly as usual.
+## The Problem
 
-If the user opts out of suggestions, run `gstack-config set proactive false`.
-If they opt back in, run `gstack-config set proactive true`.
+The gstack pack already has strong specialist skills, but the top-level interface still assumes the user knows which one to pick.
 
-# gstack browse: QA Testing & Dogfooding
+- Product questions, architecture reviews, QA requests, and release work live in different places
+- Related skills are easy to miss when the user only describes the outcome
+- The pack has depth, but not a single progressive entry point
 
-Persistent headless Chromium. First call auto-starts (~3s), then ~100-200ms per command.
-Auto-shuts down after 30 min idle. State persists between calls (cookies, tabs, sessions).
+## The Solution
 
-{{BROWSE_SETUP}}
+This collection groups gstack into three non-overlapping lifecycle specialists:
 
-## IMPORTANT
+1. `ShapeTheWork` owns problem framing, scope, architecture, and design direction before main execution.
+2. `BuildAndVerify` owns active implementation-adjacent work: debugging, browser inspection, review, QA, security, performance, and design fix loops.
+3. `ShipAndSteward` owns release, deployment, post-ship upkeep, safety controls, setup tasks, and learning maintenance.
 
-- Use the compiled binary via Bash: `$B <command>`
-- NEVER use `mcp__claude-in-chrome__*` tools. They are slow and unreliable.
-- Browser persists between calls — cookies, login sessions, and tabs carry over.
-- Dialogs (alert/confirm/prompt) are auto-accepted by default — no browser lockup.
-- **Show screenshots:** After `$B screenshot`, `$B snapshot -a -o`, or `$B responsive`, always use the Read tool on the output PNG(s) so the user can see them. Without this, screenshots are invisible.
+The collection stays readable, the router stays minimal, and each specialist remains standalone.
 
-## QA Workflows
+## What's Included
 
-> **Credential safety:** Use environment variables for test credentials.
-> Set them before running: `export TEST_EMAIL="..." TEST_PASSWORD="..."`
+| Component | Path | Purpose | Workflows |
+|---|---|---|---|
+| Collection entry point | `SKILL.md` | User-facing overview and invocation guide | N/A |
+| Router | `references/ROUTER.md` | Maps requests to the right lifecycle specialist | N/A |
+| Shaping specialist | `references/ShapeTheWork/SKILL.md` | Product framing, planning, architecture, and design direction | `ProductAndScope`, `ArchitectureAndPlan`, `DesignDirection` |
+| Build and verification specialist | `references/BuildAndVerify/SKILL.md` | Implementation-adjacent execution, debugging, testing, review, browser work, security, and performance | `BuildAndInspect`, `ReviewAndTest`, `RiskAndPerformance` |
+| Shipping and stewardship specialist | `references/ShipAndSteward/SKILL.md` | Release, deployment, docs, retros, safety controls, setup, and learnings | `ReleaseAndDeploy`, `SafetyAndControl`, `OperateAndImprove` |
 
-### Test a user flow (login, signup, checkout, etc.)
+## Invocation Scenarios
 
-```bash
-# 1. Go to the page
-$B goto https://app.example.com/login
+| Trigger Phrase | What Happens |
+|---|---|
+| "help me think through this idea" | Routes to `ShapeTheWork`, then `ProductAndScope`, then to `office-hours/SKILL.md` |
+| "review the architecture before we build" | Routes to `ShapeTheWork`, then `ArchitectureAndPlan`, then to `plan-eng-review/SKILL.md` |
+| "design system for this product" | Routes to `ShapeTheWork`, then `DesignDirection`, then to `design-consultation/SKILL.md` |
+| "debug this broken flow" | Routes to `BuildAndVerify`, then `BuildAndInspect`, then to `investigate/SKILL.md` |
+| "review the branch and QA the app" | Routes to `BuildAndVerify`, then `ReviewAndTest`, then to `review/SKILL.md` or `qa/SKILL.md` |
+| "run a security check" | Routes to `BuildAndVerify`, then `RiskAndPerformance`, then to `cso/SKILL.md` |
+| "ship this and open the PR" | Routes to `ShipAndSteward`, then `ReleaseAndDeploy`, then to `ship/SKILL.md` |
+| "lock this directory before I debug" | Routes to `ShipAndSteward`, then `SafetyAndControl`, then to `freeze/SKILL.md` or `guard/SKILL.md` |
+| "update docs after deploy" | Routes to `ShipAndSteward`, then `OperateAndImprove`, then to `document-release/SKILL.md` |
 
-# 2. See what's interactive
-$B snapshot -i
+## Example Usage
 
-# 3. Fill the form using refs
-$B fill @e3 "$TEST_EMAIL"
-$B fill @e4 "$TEST_PASSWORD"
-$B click @e5
+### Shape The Work
 
-# 4. Verify it worked
-$B snapshot -D              # diff shows what changed after clicking
-$B is visible ".dashboard"  # assert the dashboard appeared
-$B screenshot /tmp/after-login.png
+```text
+User: I have a rough product idea and need help narrowing the wedge.
+
+AI routes to ShapeTheWork and returns:
+- Workflow: `ProductAndScope`
+- Downstream skill: `office-hours/SKILL.md`
+- Reason: the request is still framing the problem and narrowing scope
+- Expected artifact: a clearer product direction or design doc
 ```
 
-### Verify a deployment / check prod
+### Build And Verify
 
-```bash
-$B goto https://yourapp.com
-$B text                          # read the page — does it load?
-$B console                       # any JS errors?
-$B network                       # any failed requests?
-$B js "document.title"           # correct title?
-$B is visible ".hero-section"    # key elements present?
-$B screenshot /tmp/prod-check.png
+```text
+User: the feature is implemented, now debug the flaky part and QA the flow.
+
+AI routes to BuildAndVerify and returns:
+- Workflow: `BuildAndInspect` followed by `ReviewAndTest`
+- Downstream skills: `investigate/SKILL.md`, `qa/SKILL.md`
+- Reason: the work is in-flight and needs verification before shipping
+- Expected artifact: root cause, verified fixes, and test evidence
 ```
 
-### Dogfood a feature end-to-end
+### Ship And Steward
 
-```bash
-# Navigate to the feature
-$B goto https://app.example.com/new-feature
+```text
+User: create the PR, deploy it, then update the docs.
 
-# Take annotated screenshot — shows every interactive element with labels
-$B snapshot -i -a -o /tmp/feature-annotated.png
-
-# Find ALL clickable things (including divs with cursor:pointer)
-$B snapshot -C
-
-# Walk through the flow
-$B snapshot -i          # baseline
-$B click @e3            # interact
-$B snapshot -D          # what changed? (unified diff)
-
-# Check element states
-$B is visible ".success-toast"
-$B is enabled "#next-step-btn"
-$B is checked "#agree-checkbox"
-
-# Check console for errors after interactions
-$B console
+AI routes to ShipAndSteward and returns:
+- Workflow: `ReleaseAndDeploy` followed by `OperateAndImprove`
+- Downstream skills: `ship/SKILL.md`, `land-and-deploy/SKILL.md`, `document-release/SKILL.md`
+- Reason: the request is explicitly about release and post-ship upkeep
+- Expected artifact: release completed and docs brought back in sync
 ```
 
-### Test responsive layouts
+## Harness Agnostic Notes
 
-```bash
-# Quick: 3 screenshots at mobile/tablet/desktop
-$B goto https://yourapp.com
-$B responsive /tmp/layout
+- Use only relative skill paths such as `references/ROUTER.md` or `../../qa/SKILL.md`
+- Do not assume assistant-specific hooks, internal directories, or path conventions
+- Describe the action to take, then let the host map that action to its own tools
 
-# Manual: specific viewport
-$B viewport 375x812     # iPhone
-$B screenshot /tmp/mobile.png
-$B viewport 1440x900    # Desktop
-$B screenshot /tmp/desktop.png
+## Customization
 
-# Element screenshot (crop to specific element)
-$B screenshot "#hero-banner" /tmp/hero.png
-$B snapshot -i
-$B screenshot @e3 /tmp/button.png
+| Area | Location | Purpose |
+|---|---|---|
+| Root routing keywords | `references/ROUTER.md` | Add a new trigger phrase or specialist |
+| Shape workflows | `references/ShapeTheWork/workflows/` | Expand product, planning, or design routing |
+| Build workflows | `references/BuildAndVerify/workflows/` | Expand debugging, QA, or browser routing |
+| Stewardship workflows | `references/ShipAndSteward/workflows/` | Expand release, safety, or upkeep routing |
 
-# Region crop
-$B screenshot --clip 0,0,800,600 /tmp/above-fold.png
+## Acceptance Checklist
 
-# Viewport only (no scroll)
-$B screenshot --viewport /tmp/viewport.png
-```
-
-### Test file upload
-
-```bash
-$B goto https://app.example.com/upload
-$B snapshot -i
-$B upload @e3 /path/to/test-file.pdf
-$B is visible ".upload-success"
-$B screenshot /tmp/upload-result.png
-```
-
-### Test forms with validation
-
-```bash
-$B goto https://app.example.com/form
-$B snapshot -i
-
-# Submit empty — check validation errors appear
-$B click @e10                        # submit button
-$B snapshot -D                       # diff shows error messages appeared
-$B is visible ".error-message"
-
-# Fill and resubmit
-$B fill @e3 "valid input"
-$B click @e10
-$B snapshot -D                       # diff shows errors gone, success state
-```
-
-### Test dialogs (delete confirmations, prompts)
-
-```bash
-# Set up dialog handling BEFORE triggering
-$B dialog-accept              # will auto-accept next alert/confirm
-$B click "#delete-button"     # triggers confirmation dialog
-$B dialog                     # see what dialog appeared
-$B snapshot -D                # verify the item was deleted
-
-# For prompts that need input
-$B dialog-accept "my answer"  # accept with text
-$B click "#rename-button"     # triggers prompt
-```
-
-### Test authenticated pages (import real browser cookies)
-
-```bash
-# Import cookies from your real browser (opens interactive picker)
-$B cookie-import-browser
-
-# Or import a specific domain directly
-$B cookie-import-browser comet --domain .github.com
-
-# Now test authenticated pages
-$B goto https://github.com/settings/profile
-$B snapshot -i
-$B screenshot /tmp/github-profile.png
-```
-
-> **Cookie safety:** `cookie-import-browser` transfers real session data.
-> Only import cookies from browsers you control.
-
-### Compare two pages / environments
-
-```bash
-$B diff https://staging.app.com https://prod.app.com
-```
-
-### Multi-step chain (efficient for long flows)
-
-```bash
-echo '[
-  ["goto","https://app.example.com"],
-  ["snapshot","-i"],
-  ["fill","@e3","$TEST_EMAIL"],
-  ["fill","@e4","$TEST_PASSWORD"],
-  ["click","@e5"],
-  ["snapshot","-D"],
-  ["screenshot","/tmp/result.png"]
-]' | $B chain
-```
-
-## Quick Assertion Patterns
-
-```bash
-# Element exists and is visible
-$B is visible ".modal"
-
-# Button is enabled/disabled
-$B is enabled "#submit-btn"
-$B is disabled "#submit-btn"
-
-# Checkbox state
-$B is checked "#agree"
-
-# Input is editable
-$B is editable "#name-field"
-
-# Element has focus
-$B is focused "#search-input"
-
-# Page contains text
-$B js "document.body.textContent.includes('Success')"
-
-# Element count
-$B js "document.querySelectorAll('.list-item').length"
-
-# Specific attribute value
-$B attrs "#logo"    # returns all attributes as JSON
-
-# CSS property
-$B css ".button" "background-color"
-```
-
-## Snapshot System
-
-{{SNAPSHOT_FLAGS}}
-
-## Command Reference
-
-{{COMMAND_REFERENCE}}
-
-## Tips
-
-1. **Navigate once, query many times.** `goto` loads the page; then `text`, `js`, `screenshot` all hit the loaded page instantly.
-2. **Use `snapshot -i` first.** See all interactive elements, then click/fill by ref. No CSS selector guessing.
-3. **Use `snapshot -D` to verify.** Baseline → action → diff. See exactly what changed.
-4. **Use `is` for assertions.** `is visible .modal` is faster and more reliable than parsing page text.
-5. **Use `snapshot -a` for evidence.** Annotated screenshots are great for bug reports.
-6. **Use `snapshot -C` for tricky UIs.** Finds clickable divs that the accessibility tree misses.
-7. **Check `console` after actions.** Catch JS errors that don't surface visually.
-8. **Use `chain` for long flows.** Single command, no per-step CLI overhead.
+- [x] Single user-facing entry point
+- [x] Router isolated in `references/ROUTER.md`
+- [x] Three distinct, non-overlapping lifecycle specialists
+- [x] Standalone sub-skills with consistent anatomy
+- [x] Relative-path routing with no harness-specific assumptions in the meta-layer
+- [x] Additive structure for future specialists
