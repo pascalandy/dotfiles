@@ -1,7 +1,7 @@
 ---
 name: cmux
 description: Unified cmux control through one entry point for topology management, browser surfaces, markdown panels, and debug windows.
-keywords: [cmux, topology, windows, workspaces, panes, surfaces, focus, split, move, reorder, identify, browser, webview, snapshot, wait, authentication, markdown, preview, live-reload, debug windows, sidebar debug, background debug, menu bar extra]
+keywords: [cmux, topology, windows, workspaces, panes, surfaces, inspect, identify, split, create, focus, move, reorder, trigger-flash, health check, browser, webview, open site, click, fill, type, submit, snapshot, wait, login, authentication, auth state, session state, cookies, storage, extract data, markdown, preview, live reload, plan panel, docs panel, notes viewer, documentation, readme, debug windows, sidebar debug, background debug, menu bar extra debug, debug menu, copy config, debug snapshot]
 ---
 
 # cmux
@@ -125,11 +125,3 @@ Optional customization points:
 | Browser workflows | `references/BrowserAutomation/workflows/` | Add patterns for richer webview tasks |
 | Markdown workflows | `references/MarkdownPanels/workflows/` | Add panel-management conventions |
 | Debug workflows | `references/DebugWindows/workflows/` | Expand debug maintenance procedures |
-
-## Acceptance Checklist
-
-- [x] Single user-facing entry point
-- [x] Router isolated in `references/ROUTER.md`
-- [x] Distinct, non-overlapping specialists
-- [x] Consistent sub-skill anatomy
-- [x] Additive layout for future cmux modes

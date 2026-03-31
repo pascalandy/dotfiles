@@ -10,6 +10,12 @@ AI-powered development tools that get smarter with every use. Make each unit of 
 | Skills | 40+ |
 | MCP Servers | 1 |
 
+## Unified Entry Point
+
+| Entry | Description |
+|-------|-------------|
+| `SKILL.md` (`compound-engineering`) | Meta-skill entry point that routes requests to `ShapeWork`, `ExecuteWork`, or `VerifyAndCompound` so users can start from one surface instead of choosing a specialist up front |
+
 ## Skills
 
 ### Core Workflow
