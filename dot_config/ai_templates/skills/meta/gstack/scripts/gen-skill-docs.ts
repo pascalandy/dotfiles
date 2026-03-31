@@ -17,7 +17,7 @@ import * as path from 'path';
 import type { Host, TemplateContext } from './resolvers/types';
 import { HOST_PATHS } from './resolvers/types';
 import { RESOLVERS } from './resolvers/index';
-import { externalSkillName, extractHookSafetyProse as _extractHookSafetyProse, extractNameAndDescription as _extractNameAndDescription, condenseOpenAIShortDescription as _condenseOpenAIShortDescription, generateOpenAIYaml as _generateOpenAIYaml } from './resolvers/codex-helpers';
+import { extractHookSafetyProse as _extractHookSafetyProse, extractNameAndDescription as _extractNameAndDescription, condenseOpenAIShortDescription as _condenseOpenAIShortDescription, generateOpenAIYaml as _generateOpenAIYaml } from './resolvers/codex-helpers';
 import { generatePlanCompletionAuditShip, generatePlanCompletionAuditReview, generatePlanVerificationExec } from './resolvers/review';
 
 const ROOT = path.resolve(import.meta.dir, '..');
@@ -105,6 +105,13 @@ function extractNameAndDescription(content: string): { name: string; description
   const name = nameMatch ? nameMatch[1].trim() : '';
 
   let description = '';
+  const normalizeQuotedScalar = (value: string): string => {
+    const trimmed = value.trim();
+    if ((trimmed.startsWith('"') && trimmed.endsWith('"')) || (trimmed.startsWith("'") && trimmed.endsWith("'"))) {
+      return trimmed.slice(1, -1);
+    }
+    return trimmed;
+  };
   const lines = frontmatter.split('\n');
   let inDescription = false;
   const descLines: string[] = [];
@@ -114,7 +121,7 @@ function extractNameAndDescription(content: string): { name: string; description
       continue;
     }
     if (line.match(/^description:\s*\S/)) {
-      description = line.replace(/^description:\s*/, '').trim();
+      description = normalizeQuotedScalar(line.replace(/^description:\s*/, ''));
       break;
     }
     if (inDescription) {
@@ -126,7 +133,7 @@ function extractNameAndDescription(content: string): { name: string; description
     }
   }
   if (descLines.length > 0) {
-    description = descLines.join('\n').trim();
+    description = normalizeQuotedScalar(descLines.join('\n'));
   }
 
   return { name, description };
@@ -210,9 +217,10 @@ function extractHookSafetyProse(tmplContent: string): string | null {
   // Parse the hook matchers to build a human-readable safety description
   const matchers: string[] = [];
   const matcherRegex = /matcher:\s*"(\w+)"/g;
-  let m;
-  while ((m = matcherRegex.exec(tmplContent)) !== null) {
+  let m: RegExpExecArray | null = matcherRegex.exec(tmplContent);
+  while (m !== null) {
     if (!matchers.includes(m[1])) matchers.push(m[1]);
+    m = matcherRegex.exec(tmplContent);
   }
 
   if (matchers.length === 0) return null;
@@ -243,6 +251,83 @@ const EXTERNAL_HOST_CONFIG: Record<string, ExternalHostConfig> = {
   codex:   { hostSubdir: '.agents',  generateMetadata: true,  descriptionLimit: 1024 },
   factory: { hostSubdir: '.factory', generateMetadata: false },
 };
+
+function listFilesRecursive(dir: string, base = dir): string[] {
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  const files: string[] = [];
+
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...listFilesRecursive(fullPath, base));
+      continue;
+    }
+    files.push(path.relative(base, fullPath));
+  }
+
+  return files.sort();
+}
+
+function directoriesMatch(sourceDir: string, targetDir: string): boolean {
+  if (!fs.existsSync(sourceDir) || !fs.existsSync(targetDir)) return false;
+
+  const sourceFiles = listFilesRecursive(sourceDir);
+  const targetFiles = listFilesRecursive(targetDir);
+  if (sourceFiles.join('\n') !== targetFiles.join('\n')) return false;
+
+  for (const relativePath of sourceFiles) {
+    const sourceFile = path.join(sourceDir, relativePath);
+    const targetFile = path.join(targetDir, relativePath);
+    if (!fs.existsSync(targetFile)) return false;
+
+    const sourceContent = fs.readFileSync(sourceFile);
+    const targetContent = fs.readFileSync(targetFile);
+    if (!sourceContent.equals(targetContent)) return false;
+  }
+
+  return true;
+}
+
+function rewriteSkillPathsForExternalHost(content: string, sourceFile: string, targetFile: string, outputDir: string): string {
+  return content.replace(/`([^`\n]+\/SKILL\.md)`/g, (_match, rawPath: string) => {
+    const sourceTarget = path.resolve(path.dirname(sourceFile), rawPath);
+    if (!sourceTarget.startsWith(ROOT)) return `\`${rawPath}\``;
+
+    const sourceRelative = path.relative(ROOT, sourceTarget);
+    let externalTarget: string;
+
+    if (sourceRelative.startsWith('references/')) {
+      externalTarget = path.join(outputDir, sourceRelative);
+    } else {
+      const sourceSkillDir = path.relative(ROOT, path.dirname(sourceTarget));
+      externalTarget = path.join(path.dirname(outputDir), externalSkillName(sourceSkillDir), path.basename(sourceTarget));
+    }
+
+    const rewritten = path.relative(path.dirname(targetFile), externalTarget).replace(/\\/g, '/');
+    return `\`${rewritten}\``;
+  });
+}
+
+function syncExternalRootReferences(outputDir: string): string {
+  const sourceReferencesDir = path.join(ROOT, 'references');
+  const targetReferencesDir = path.join(outputDir, 'references');
+
+  if (!fs.existsSync(sourceReferencesDir)) return targetReferencesDir;
+
+  fs.rmSync(targetReferencesDir, { recursive: true, force: true });
+  fs.cpSync(sourceReferencesDir, targetReferencesDir, { recursive: true });
+
+  for (const relativePath of listFilesRecursive(targetReferencesDir)) {
+    const sourceFile = path.join(sourceReferencesDir, relativePath);
+    const targetFile = path.join(targetReferencesDir, relativePath);
+    if (!targetFile.endsWith('.md')) continue;
+
+    const rewritten = rewriteSkillPathsForExternalHost(fs.readFileSync(targetFile, 'utf-8'), sourceFile, targetFile, outputDir);
+    fs.writeFileSync(targetFile, rewritten);
+  }
+
+  return targetReferencesDir;
+}
 
 // ─── Template Processing ────────────────────────────────────
 
@@ -299,6 +384,7 @@ function processExternalHost(
   result = result.replace(/\.claude\/skills\/gstack/g, ctx.paths.localSkillRoot);
   result = result.replace(/\.claude\/skills\/review/g, `${config.hostSubdir}/skills/gstack/review`);
   result = result.replace(/\.claude\/skills/g, `${config.hostSubdir}/skills`);
+  result = rewriteSkillPathsForExternalHost(result, claudePath, outputPath, outputDir);
 
   // Factory-only: translate Claude Code tool names to generic phrasing
   if (host === 'factory') {
@@ -415,6 +501,7 @@ for (const currentHost of hostsToRun) {
 
       const { outputPath, content, symlinkLoop } = processTemplate(tmplPath, currentHost);
       const relOutput = path.relative(ROOT, outputPath);
+      const isRootTemplate = path.relative(ROOT, path.dirname(tmplPath)) === '';
 
       if (symlinkLoop) {
         console.log(`SKIPPED (symlink loop): ${relOutput}`);
@@ -426,9 +513,30 @@ for (const currentHost of hostsToRun) {
         } else {
           console.log(`FRESH: ${relOutput}`);
         }
+
+        if (currentHost !== 'claude' && isRootTemplate) {
+          const sourceReferencesDir = path.join(ROOT, 'references');
+          if (fs.existsSync(sourceReferencesDir)) {
+            const targetReferencesDir = path.join(path.dirname(outputPath), 'references');
+            const relTargetReferencesDir = path.relative(ROOT, targetReferencesDir);
+            if (!directoriesMatch(sourceReferencesDir, targetReferencesDir)) {
+              console.log(`STALE: ${relTargetReferencesDir}/`);
+              hasChanges = true;
+            } else {
+              console.log(`FRESH: ${relTargetReferencesDir}/`);
+            }
+          }
+        }
       } else {
         fs.writeFileSync(outputPath, content);
         console.log(`GENERATED: ${relOutput}`);
+
+        if (currentHost !== 'claude' && isRootTemplate) {
+          const syncedReferencesDir = syncExternalRootReferences(path.dirname(outputPath));
+          if (fs.existsSync(syncedReferencesDir)) {
+            console.log(`SYNCED: ${path.relative(ROOT, syncedReferencesDir)}/`);
+          }
+        }
       }
 
       // Track token budget
