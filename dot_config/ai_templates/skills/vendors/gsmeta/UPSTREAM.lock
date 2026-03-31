@@ -1,8 +1,0 @@
-## gsmeta upstream lock
-## This file records which GStack commit was used to generate/update the references.
-## Do not edit manually. Updated by scripts/sync-upstream.sh after a successful sync.
-
-upstream_repo=/Users/andy16/Documents/github_local/SKILLS_MONO/vendors/garrytan-gstack
-upstream_commit=3fe29583d3a2a45affb87f24cc6299624fcb7145
-upstream_version=0.13.6.0
-synced_at=2026-03-29T23:12:09-04:00

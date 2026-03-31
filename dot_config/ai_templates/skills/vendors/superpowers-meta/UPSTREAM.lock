@@ -1,8 +1,0 @@
-## superpowers upstream lock
-## Records which source commit was used to generate/update the references.
-## Do not edit manually. Updated by scripts/sync-upstream.sh after a successful sync.
-
-upstream_repo=/Users/andy16/Documents/github_local/SKILLS_MONO/vendors/obra-superpowers
-upstream_commit=3fe29583d3a2a45affb87f24cc6299624fcb7145
-upstream_version=5.0.6
-synced_at=2026-03-30T23:37:49Z
