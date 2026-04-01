@@ -41,7 +41,7 @@ Interpret the result this way:
 
 ### DU-1: Confirm intent
 
-Ask the user to confirm: "Update the PR description for this branch?" Use the platform's blocking question tool (`AskUserQuestion` in Claude Code, `request_user_input` in Codex, `ask_user` in Gemini). If no question tool is available, present the question and wait for the user's reply.
+Ask the user to confirm: "Update the PR description for this branch?" Use the platform's blocking question tool if available. If no question tool is available, present the question and wait for the user's reply.
 
 If the user declines, stop.
 
@@ -83,7 +83,7 @@ gh pr view --json body --jq '.body'
 
 Follow the "Detect the base branch and remote" and "Gather the branch scope" sections of Step 6 to get the full branch diff. Use the PR found in DU-2 as the existing PR for base branch detection. Then write a new description following the writing principles in Step 6. If the user provided a focus, incorporate it into the description alongside the branch diff context.
 
-Compare the new description against the current one and summarize the substantial changes for the user (e.g., "Added coverage of the new caching layer, updated test plan, removed outdated migration notes"). If the user provided a focus, confirm it was addressed. Ask the user to confirm before applying. Use the platform's blocking question tool (`AskUserQuestion` in Claude Code, `request_user_input` in Codex, `ask_user` in Gemini). If no question tool is available, present the summary and wait for the user's reply.
+Compare the new description against the current one and summarize the substantial changes for the user (e.g., "Added coverage of the new caching layer, updated test plan, removed outdated migration notes"). If the user provided a focus, confirm it was addressed. Ask the user to confirm before applying. Use the platform's blocking question tool if available. If no question tool is available, present the summary and wait for the user's reply.
 
 If confirmed, apply:
 
@@ -120,7 +120,7 @@ gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name'
 
 If both fail, fall back to `main`.
 
-Run `git branch --show-current`. If it returns an empty result, the repository is in detached HEAD state. Explain that a branch is required before committing and pushing. Ask whether to create a feature branch now. Use the platform's blocking question tool (`AskUserQuestion` in Claude Code, `request_user_input` in Codex, `ask_user` in Gemini). If no question tool is available, present the options and wait for the user's reply.
+Run `git branch --show-current`. If it returns an empty result, the repository is in detached HEAD state. Explain that a branch is required before committing and pushing. Ask whether to create a feature branch now. Use the platform's blocking question tool if available. If no question tool is available, present the options and wait for the user's reply.
 
 - If the user agrees, derive a descriptive branch name from the change content, create it with `git checkout -b <branch-name>`, then run `git branch --show-current` again and use that result as the current branch name for the rest of the workflow.
 - If the user declines, stop.
@@ -132,7 +132,7 @@ If the `git status` result from this step shows a clean working tree (no staged,
 3. If the command succeeds, run `git log <upstream>..HEAD --oneline` using the upstream name from the previous command.
 4. If an upstream is configured, check for an existing PR using the method in Step 3.
 
-- If the current branch is `main`, `master`, or the resolved default branch from Step 1 and there is **no upstream** or there are **unpushed commits**, explain that pushing now would use the default branch directly. Ask whether to create a feature branch first. Use the platform's blocking question tool (`AskUserQuestion` in Claude Code, `request_user_input` in Codex, `ask_user` in Gemini). If no question tool is available, present the options and wait for the user's reply.
+- If the current branch is `main`, `master`, or the resolved default branch from Step 1 and there is **no upstream** or there are **unpushed commits**, explain that pushing now would use the default branch directly. Ask whether to create a feature branch first. Use the platform's blocking question tool if available. If no question tool is available, present the options and wait for the user's reply.
 - If the user agrees, derive a descriptive branch name from the change content, create it with `git checkout -b <branch-name>`, then continue from Step 5 (push).
 - If the user declines, report that this workflow cannot open a PR from the default branch directly and stop.
 - If there is **no upstream**, treat the branch as needing its first push. Skip Step 4 (commit) and continue from Step 5 (push).
@@ -219,7 +219,7 @@ Use this fallback chain. Stop at the first that succeeds:
    ```
    Use `origin` as the base remote.
 
-If none resolve, ask the user to specify the target branch. Use the platform's blocking question tool (`AskUserQuestion` in Claude Code, `request_user_input` in Codex, `ask_user` in Gemini). If no question tool is available, present the options and wait for the user's reply.
+If none resolve, ask the user to specify the target branch. Use the platform's blocking question tool if available. If no question tool is available, present the options and wait for the user's reply.
 
 #### Gather the branch scope
 
@@ -342,14 +342,13 @@ Write:
 
 When referencing actual GitHub issues or PRs, use the full format: `org/repo#123` or the full URL. Never use bare `#123` unless you have verified it refers to the correct issue in the current repository.
 
-#### Compound Engineering badge
+#### Generation footer
 
-Append a badge footer to the PR description, separated by a `---` rule. Do not add one if the description already contains a Compound Engineering badge (e.g., added by another skill like ce-work).
+Append a lightweight generation footer to the PR description, separated by a `---` rule, when that context helps reviewers.
 
 ```markdown
 ---
 
-[![Compound Engineering v[VERSION]](https://img.shields.io/badge/Compound_Engineering-v[VERSION]-6366f1)](https://github.com/EveryInc/compound-engineering-plugin)
 🤖 Generated with [MODEL] ([CONTEXT] context, [THINKING]) via [HARNESS](HARNESS_URL)
 ```
 
@@ -360,9 +359,8 @@ Fill in at PR creation time:
 | `[MODEL]` | Model name | Claude Opus 4.6, GPT-5.4 |
 | `[CONTEXT]` | Context window (if known) | 200K, 1M |
 | `[THINKING]` | Thinking level (if known) | extended thinking |
-| `[HARNESS]` | Tool running you | Claude Code, Codex, Gemini CLI |
+| `[HARNESS]` | Tool running you | Current agent tool |
 | `[HARNESS_URL]` | Link to that tool | `https://claude.com/claude-code` |
-| `[VERSION]` | `plugin.json` -> `version` | 2.40.0 |
 
 ### Step 7: Create or update the PR
 
@@ -374,8 +372,7 @@ PR description here
 
 ---
 
-[![Compound Engineering v[VERSION]](https://img.shields.io/badge/Compound_Engineering-v[VERSION]-6366f1)](https://github.com/EveryInc/compound-engineering-plugin)
-🤖 Generated with [MODEL] ([CONTEXT] context, [THINKING]) via [HARNESS](HARNESS_URL)
+Generated with [MODEL] ([CONTEXT] context, [THINKING]) via [HARNESS](HARNESS_URL)
 EOF
 )"
 ```
@@ -384,9 +381,9 @@ Keep the PR title under 72 characters. The title follows the same convention as 
 
 #### Existing PR (found in Step 3)
 
-The new commits are already on the PR from the push in Step 5. Report the PR URL, then ask the user whether they want the PR description updated to reflect the new changes. Use the platform's blocking question tool (`AskUserQuestion` in Claude Code, `request_user_input` in Codex, `ask_user` in Gemini). If no question tool is available, present the option and wait for the user's reply before proceeding.
+The new commits are already on the PR from the push in Step 5. Report the PR URL, then ask the user whether they want the PR description updated to reflect the new changes. Use the platform's blocking question tool if available. If no question tool is available, present the option and wait for the user's reply before proceeding.
 
-- If **yes** -- write a new description following the same principles in Step 6 (size the full PR, not just the new commits), including the Compound Engineering badge unless one is already present in the existing description. Apply it:
+- If **yes** -- write a new description following the same principles in Step 6 (size the full PR, not just the new commits), including the generation footer when helpful. Apply it:
 
   ```bash
   gh pr edit --body "$(cat <<'EOF'

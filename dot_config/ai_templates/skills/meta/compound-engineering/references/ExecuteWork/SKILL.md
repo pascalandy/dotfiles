@@ -17,7 +17,7 @@ Prefer direct execution once the scope is clear. Keep the router thin, then hand
 |---|---|
 | Need to implement work from a prompt, todo, or plan | `workflows/ImplementFromPlan.md` |
 | Need a focused builder for frontend, browser, media, or specialized generation work | `workflows/UseFocusedBuilders.md` |
-| Need branch, commit, PR, or deploy-doc mechanics around the change | `workflows/ManageDelivery.md` |
+| Need branch, commit, PR, or documentation publication mechanics around the change | `workflows/ManageDelivery.md` |
 
 ## Output Format
 
@@ -35,7 +35,7 @@ User: execute this plan and finish the feature end to end
 
 Route:
 - Workflow: `ImplementFromPlan`
-- Downstream skill: `../../ce-work/SKILL.md`
+- Downstream skill: `../ce-work/SKILL.md`
 - Why: the work is implementation-focused and already scoped
 - Expected artifact: completed code changes with verification performed during execution
 ```
@@ -45,7 +45,7 @@ User: create the UI for this onboarding flow and keep the design quality high
 
 Route:
 - Workflow: `UseFocusedBuilders`
-- Downstream skill: `../../frontend-design/SKILL.md`
+- Downstream skill: `../frontend-design/SKILL.md`
 - Why: the request is a specialized implementation task with a strong design requirement
 - Expected artifact: production-ready frontend changes and validation guidance
 ```

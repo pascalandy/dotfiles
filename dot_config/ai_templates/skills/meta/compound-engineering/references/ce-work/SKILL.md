@@ -376,7 +376,7 @@ Determine how to proceed based on what was provided in `<input_document>`.
 
 ## Swarm Mode with Agent Teams (Optional)
 
-For genuinely large plans where agents need to communicate with each other, challenge approaches, or coordinate across 10+ tasks with persistent specialized roles, use agent team capabilities if available (e.g., Agent Teams in Claude Code, multi-agent workflows in Codex).
+For genuinely large plans where agents need to communicate with each other, challenge approaches, or coordinate across 10+ tasks with persistent specialized roles, use the platform's agent-team capability if available.
 
 **Agent teams are typically experimental and require opt-in.** Do not attempt to use agent teams unless the user explicitly requests swarm mode or agent teams, and the platform supports it.
 

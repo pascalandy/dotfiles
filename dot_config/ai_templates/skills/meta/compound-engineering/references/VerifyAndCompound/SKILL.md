@@ -35,7 +35,7 @@ User: run a full review of this branch before I open the PR
 
 Route:
 - Workflow: `ReviewAndValidate`
-- Downstream skill: `../../ce-review/SKILL.md`
+- Downstream skill: `../ce-review/SKILL.md`
 - Why: the branch exists and the priority is structured validation
 - Expected artifact: findings report, safe autofixes where allowed, and residual risks
 ```
@@ -45,7 +45,7 @@ User: write up the fix so the team does not rediscover it next month
 
 Route:
 - Workflow: `CaptureAndShare`
-- Downstream skill: `../../ce-compound/SKILL.md`
+- Downstream skill: `../ce-compound/SKILL.md`
 - Why: the implementation is done and the request is about preserving knowledge
 - Expected artifact: solution document in `docs/solutions/`
 ```

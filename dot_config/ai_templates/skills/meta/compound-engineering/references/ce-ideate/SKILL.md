@@ -18,7 +18,7 @@ This workflow produces a ranked ideation artifact in `docs/ideation/`. It does *
 
 ## Interaction Method
 
-Use the platform's blocking question tool when available (`AskUserQuestion` in Claude Code, `request_user_input` in Codex, `ask_user` in Gemini). Otherwise, present numbered options in chat and wait for the user's reply before proceeding.
+Use the platform's blocking question tool when available. Otherwise, present numbered options in chat and wait for the user's reply before proceeding.
 
 Ask one question at a time. Prefer concise single-select choices when natural options exist.
 
@@ -29,7 +29,7 @@ Ask one question at a time. Prefer concise single-select choices when natural op
 Interpret any provided argument as optional context. It may be:
 
 - a concept such as `DX improvements`
-- a path such as `plugins/compound-engineering/skills/`
+- a path such as `app/services/` or `docs/`
 - a constraint such as `low-complexity quick wins`
 - a volume hint such as `top 3`, `100 ideas`, or `raise the bar`
 
@@ -103,7 +103,7 @@ Run agents in parallel in the **foreground** (do not use background dispatch —
 
 1. **Quick context scan** — dispatch a general-purpose sub-agent with this prompt:
 
-   > Read the project's AGENTS.md (or CLAUDE.md only as compatibility fallback, then README.md if neither exists), then discover the top-level directory layout using the native file-search/glob tool (e.g., `Glob` with pattern `*` or `*/*` in Claude Code). Return a concise summary (under 30 lines) covering:
+   > Read the project's AGENTS.md (or a comparable instruction file if present, then README.md if neither exists), then discover the top-level directory layout using the platform's native file-search/glob tool. Return a concise summary (under 30 lines) covering:
    > - project shape (language, framework, top-level directory layout)
    > - notable patterns or conventions
    > - obvious pain points or gaps
@@ -344,7 +344,7 @@ After each refinement:
 
 #### 6.3 Share to Proof
 
-If requested, share the ideation document using the standard Proof markdown upload pattern already used elsewhere in the plugin.
+If requested, share the ideation document using the standard Proof markdown upload pattern already used elsewhere in this skill pack.
 
 Return to the next-step options after sharing.
 

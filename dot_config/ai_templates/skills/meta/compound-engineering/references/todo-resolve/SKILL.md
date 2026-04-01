@@ -26,7 +26,7 @@ Skip any todo that recommends deleting, removing, or gitignoring files in `docs/
 
 ### 2. Plan
 
-Create a task list grouped by type (e.g., `TaskCreate` in Claude Code, `update_plan` in Codex). Analyze dependencies -- items that others depend on run first. Output a mermaid diagram showing execution order and parallelism.
+Create a task list grouped by type using the platform's task or planning tool. Analyze dependencies -- items that others depend on run first. Output a mermaid diagram showing execution order and parallelism.
 
 ### 3. Implement (PARALLEL)
 

@@ -10,31 +10,20 @@ Validate the documentation site and prepare it for GitHub Pages deployment.
 
 ## Step 1: Validate Documentation
 
-Run these checks:
+Run checks that match the current repository's docs layout.
 
 ```bash
-# Count components
-echo "Agents: $(ls plugins/compound-engineering/agents/*.md | wc -l)"
-echo "Skills: $(ls -d plugins/compound-engineering/skills/*/ 2>/dev/null | wc -l)"
+# Replace placeholders with paths from this repo before running.
 
-# Validate JSON
-cat .claude-plugin/marketplace.json | jq . > /dev/null && echo "✓ marketplace.json valid"
-cat plugins/compound-engineering/.claude-plugin/plugin.json | jq . > /dev/null && echo "✓ plugin.json valid"
-
-# Check all HTML files exist
-for page in index agents commands skills mcp-servers changelog getting-started; do
-  if [ -f "plugins/compound-engineering/docs/pages/${page}.html" ] || [ -f "plugins/compound-engineering/docs/${page}.html" ]; then
-    echo "✓ ${page}.html exists"
-  else
-    echo "✗ ${page}.html MISSING"
-  fi
-done
+test -d "[docs-path]" && echo "✓ docs directory exists" || echo "✗ docs directory missing"
+test -f "[manifest-path]" && jq . "[manifest-path]" > /dev/null && echo "✓ metadata valid" || echo "! metadata file optional or invalid"
+test -f "[index-page]" && echo "✓ index page exists" || echo "✗ index page missing"
 ```
 
 ## Step 2: Check for Uncommitted Changes
 
 ```bash
-git status --porcelain plugins/compound-engineering/docs/
+git status --porcelain "[docs-path]"
 ```
 
 If there are uncommitted changes, warn the user to commit first.
@@ -66,7 +55,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'plugins/compound-engineering/docs/**'
+      - '[docs-path]/**'
   workflow_dispatch:
 
 permissions:
@@ -89,7 +78,7 @@ jobs:
       - uses: actions/configure-pages@v4
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: 'plugins/compound-engineering/docs'
+          path: '[docs-path]'
       - uses: actions/deploy-pages@v4
 ```
 
@@ -100,13 +89,13 @@ Provide a summary:
 ```
 ## Deployment Readiness
 
-✓ All HTML pages present
-✓ JSON files valid
-✓ Component counts match
+✓ Required docs assets present
+✓ Metadata files valid
+✓ Deployment workflow ready
 
 ### Next Steps
 - [ ] Commit any pending changes
 - [ ] Push to main branch
 - [ ] Verify GitHub Pages workflow exists
-- [ ] Check deployment at https://everyinc.github.io/compound-engineering-plugin/
+- [ ] Check deployment at [site-url]
 ```

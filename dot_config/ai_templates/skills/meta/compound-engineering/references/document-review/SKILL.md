@@ -16,7 +16,7 @@ If `mode:headless` is present, set **headless mode** for the rest of the workflo
 
 **Headless mode** changes the interaction model, not the classification boundaries. Document-review still applies the same judgment about what has one clear correct fix vs. what needs user judgment. The only difference is how non-auto findings are delivered:
 - `auto` fixes are applied silently (same as interactive)
-- `present` findings are returned as structured text for the caller to handle -- no AskUserQuestion prompts, no interactive approval
+- `present` findings are returned as structured text for the caller to handle -- no interactive approval prompts
 - Phase 5 returns immediately with "Review complete" (no refine/complete question)
 
 The caller receives findings with their original classifications intact and decides what to do with them.
@@ -33,7 +33,7 @@ If `mode:headless` is not present, the skill runs in its default interactive mod
 
 **If a document path is provided:** Read it, then proceed.
 
-**If no document is specified (interactive mode):** Ask which document to review, or find the most recent in `docs/brainstorms/` or `docs/plans/` using a file-search/glob tool (e.g., Glob in Claude Code).
+**If no document is specified (interactive mode):** Ask which document to review, or find the most recent in `docs/brainstorms/` or `docs/plans/` using the platform's native file-search/glob tool.
 
 **If no document is specified (headless mode):** Output "Review failed: headless mode requires a document path. Re-invoke with: Skill(\"compound-engineering:document-review\", \"mode:headless <path>\")" without dispatching agents.
 
@@ -107,7 +107,7 @@ Add activated conditional personas:
 
 ### Dispatch
 
-Dispatch all agents in **parallel** using the platform's task/agent tool (e.g., Agent tool in Claude Code, spawn in Codex). Each agent receives the prompt built from the subagent template included below with these variables filled:
+Dispatch all agents in **parallel** using the platform's task or agent tool. Each agent receives the prompt built from the subagent template included below with these variables filled:
 
 | Variable | Value |
 |----------|-------|
@@ -249,11 +249,9 @@ These are pipeline artifacts and must not be flagged for removal.
 
 **Interactive mode:**
 
-**Ask using the platform's interactive question tool** -- do not print the question as plain text output:
-- Claude Code: `AskUserQuestion`
-- Codex: `request_user_input`
-- Gemini: `ask_user`
-- Fallback (no question tool available): present numbered options and stop; wait for the user's next message
+**Ask using the platform's interactive question tool** -- do not print the question as plain text output when a blocking question primitive exists.
+
+Fallback when no question tool is available: present numbered options and stop; wait for the user's next message.
 
 Offer these two options. Use the document type from Phase 1 to set the "Review complete" description:
 
@@ -272,7 +270,7 @@ Return "Review complete" as the terminal signal for callers.
 - Do not add new sections or requirements the user didn't discuss
 - Do not over-engineer or add complexity
 - Do not create separate review files or add metadata sections
-- Do not modify caller skills (ce-brainstorm, ce-plan, or external plugin skills that invoke document-review)
+- Do not modify caller skills (ce-brainstorm, ce-plan, or external caller skills that invoke document-review)
 
 ## Iteration Guidance
 

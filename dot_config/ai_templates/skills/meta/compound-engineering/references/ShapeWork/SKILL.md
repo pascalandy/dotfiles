@@ -35,7 +35,7 @@ User: brainstorm the safest way to roll out this billing feature
 
 Route:
 - Workflow: `DiscoverDirection`
-- Downstream skill: `../../ce-brainstorm/SKILL.md`
+- Downstream skill: `../ce-brainstorm/SKILL.md`
 - Why: product framing and scope need to be clarified before planning
 - Expected artifact: requirements document with success criteria and scope boundaries
 ```
@@ -45,7 +45,7 @@ User: deepen this implementation plan and pressure-test the risks
 
 Route:
 - Workflow: `DesignTheApproach`
-- Downstream skill: `../../ce-plan/SKILL.md`
+- Downstream skill: `../ce-plan/SKILL.md`
 - Why: the request is about improving the implementation plan rather than writing code
 - Expected artifact: revised plan with stronger sequencing, files, risks, and verification
 ```

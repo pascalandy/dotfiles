@@ -1,6 +1,6 @@
 # ManageDelivery
 
-Use this workflow when the implementation exists and the remaining work is branch, commit, PR, or publication mechanics.
+Use this workflow when the implementation exists and the remaining work is branch, commit, PR, or documentation publication mechanics.
 
 ## Route Selection
 

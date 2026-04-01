@@ -14,9 +14,8 @@ This workflow uses the `agent-browser` CLI exclusively. Do not use any alternati
 
 Use `agent-browser` for: opening pages, clicking elements, filling forms, taking screenshots, and scraping rendered content.
 
-Platform-specific hints:
-- In Claude Code, do not use Chrome MCP tools (`mcp__claude-in-chrome__*`).
-- In Codex, do not substitute unrelated browsing tools.
+Platform-specific hint:
+- Do not substitute unrelated browser automation tools when `agent-browser` is available.
 
 ## Prerequisites
 
@@ -52,7 +51,7 @@ If installation fails, inform the user and stop.
 
 ### 2. Ask Browser Mode
 
-Ask the user whether to run headed or headless (using the platform's question tool — e.g., `AskUserQuestion` in Claude Code, `request_user_input` in Codex, `ask_user` in Gemini — or present options and wait for a reply):
+Ask the user whether to run headed or headless using the platform's question tool when available. Otherwise, present options and wait for a reply:
 
 ```
 Do you want to watch the browser tests run?
