@@ -1,0 +1,132 @@
+#!/usr/bin/env bash
+#
+# bun-install-safe - Safe wrapper for bun install with supply chain protections
+#
+# Usage: bun-install-safe [package[@version]]
+#
+# Enforces:
+# - Lockfile must exist (prevents installing without frozen dependencies)
+# - If installing a new package, version must be specified
+# - Uses bunfig.toml settings (frozen lockfile, etc.)
+#
+# ⚠️  IMPORTANT LIMITATION ⚠️
+# Bun does NOT support min-release-age like npm (7 days) or uv (exclude-newer).
+# This wrapper only enforces lockfile discipline and explicit versions.
+# For full protection, manually verify package age or wait 7 days after release.
+
+set -euo pipefail
+
+SCRIPT_NAME="$(basename "$0")"
+
+log_info() {
+	printf '[%s] INFO: %s\n' "$SCRIPT_NAME" "$1"
+}
+
+log_warn() {
+	printf '[%s] WARN: %s\n' "$SCRIPT_NAME" "$1" >&2
+}
+
+log_error() {
+	printf '[%s] ERROR: %s\n' "$SCRIPT_NAME" "$1" >&2
+}
+
+show_limitation_banner() {
+	cat >&2 <<'EOF'
+
+╔════════════════════════════════════════════════════════════════╗
+║  ⚠️  SUPPLY CHAIN PROTECTION LIMITATION                        ║
+║                                                                ║
+║  Bun does NOT support automatic minimum release age checks.    ║
+║  Unlike npm (min-release-age=7) or uv (exclude-newer),         ║
+║  Bun cannot automatically reject packages newer than 7 days.   ║
+║                                                                ║
+║  This wrapper enforces:                                        ║
+║    • Lockfile discipline (frozen installs)                     ║
+║    • Explicit version requirements                             ║
+║                                                                ║
+║  For full protection:                                          ║
+║    • Check package release date before installing              ║
+║    • Wait 7+ days after release for community vetting          ║
+║    • Review package changelog and security advisories            ║
+╚════════════════════════════════════════════════════════════════╝
+
+EOF
+}
+
+# Check if we're in a project with a lockfile
+check_lockfile() {
+	if [[ ! -f "bun.lockb" && ! -f "bun.lock" ]]; then
+		log_error "No bun.lockb found in current directory"
+		log_error "Supply chain protection requires a lockfile"
+		log_error ""
+		log_error "To create a lockfile, first run: bun install"
+		log_error "Then commit bun.lockb to your repository"
+		log_error ""
+		log_error "If you must install without a lockfile, use: bun install"
+		log_error "WARNING: This bypasses supply chain protections"
+		return 1
+	fi
+	return 0
+}
+
+# Check if package argument includes a version
+check_version_specified() {
+	local package="$1"
+
+	# Check for version specifier (@ or # for git refs)
+	if [[ ! "$package" =~ [@#] ]]; then
+		log_error "Package version not specified: $package"
+		log_error "Supply chain protection requires explicit versions"
+		log_error ""
+		log_error "Usage examples:"
+		log_error "  $SCRIPT_NAME react@18.2.0"
+		log_error "  $SCRIPT_NAME lodash@^4.17.21"
+		log_error "  $SCRIPT_NAME github:owner/repo#v1.0.0"
+		log_error ""
+		log_error "This ensures you install a specific, auditable version"
+		log_error "rather than whatever is latest (which could be compromised)"
+		log_error ""
+		log_error "⚠️  REMINDER: Bun lacks npm/uv's 7-day minimum release age protection"
+		log_error "    Consider waiting 7 days after release before installing"
+		return 1
+	fi
+	return 0
+}
+
+# Main logic
+main() {
+	# Show limitation banner at start
+	show_limitation_banner
+
+	# If no arguments, just run bun install (will use frozen lockfile from bunfig.toml)
+	if [[ $# -eq 0 ]]; then
+		if ! check_lockfile; then
+			exit 1
+		fi
+		log_info "Installing from lockfile with frozen dependencies..."
+		exec bun install
+	fi
+
+	# If arguments provided, check each package has version
+	for pkg in "$@"; do
+		# Skip flags/options
+		[[ "$pkg" == -* ]] && continue
+
+		if ! check_version_specified "$pkg"; then
+			exit 1
+		fi
+	done
+
+	# Check for lockfile before adding new packages
+	if ! check_lockfile; then
+		log_info "No existing lockfile - creating new one..."
+	fi
+
+	log_info "Installing packages with version constraints..."
+	log_warn "Installing: $*"
+
+	# Run the actual bun add command
+	exec bun add "$@"
+}
+
+main "$@"

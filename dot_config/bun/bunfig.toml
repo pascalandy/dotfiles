@@ -1,0 +1,21 @@
+# Bun configuration for supply chain security
+# Managed by chezmoi - DO NOT EDIT DIRECTLY
+
+[install]
+# Always use lockfile for reproducible installs
+lockfile = true
+
+# Require frozen lockfile (fail if lockfile needs updates)
+# This prevents automatic updates that could pull in compromised packages
+frozen = true
+
+# Cache settings
+cache = true
+
+[install.scopes]
+# Define registry scopes if using private registries
+# "@mycompany" = { url = "https://registry.mycompany.com", token = "$NPM_TOKEN" }
+
+[run]
+# Bun runtime settings
+bun = true
