@@ -33,7 +33,7 @@ Use one of these verdicts:
 6. Explain the verdict.
 Tie the recommendation directly to evidence and note which unanswered questions could still change the decision.
 
-If the decision depends on deeper infrastructure analysis, route that part to `../../infrastructure-intel/SKILL.md` after the business-level assessment is complete.
+If the decision depends on deeper infrastructure analysis, route that part to `references/infrastructure-intel/SKILL.md` after the business-level assessment is complete.
 
 ## Deliverable
 

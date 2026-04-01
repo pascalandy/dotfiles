@@ -1,7 +1,7 @@
 ---
 name: investigation
-description: Structured public-source investigation skill with automatic routing for people investigations, business due diligence, and infrastructure intelligence. USE WHEN find person, locate someone, reconnect, people search, social media search, public records, public records search, map public footprint, reverse lookup, phone lookup, email lookup, username lookup, image lookup, verify identity, background on person, company intel, company lookup, business background, leadership review, due diligence, vendor vetting, investment review, go or no-go recommendation, business investigation, organization research, nonprofit research, association research, academic research, government body research, domain lookup, DNS review, subdomain discovery, hosting analysis, infrastructure mapping, IP investigation, URL investigation, hash lookup, threat intel, IOC analysis, technical entity investigation, discover sources, niche OSINT sources, research new tools for a technical case.
-keywords: ["find person", "locate someone", "reconnect", "people search", "social media search", "public records", "public records search", "map public footprint", "reverse lookup", "phone lookup", "email lookup", "username lookup", "image lookup", "verify identity", "background on person", "company intel", "company lookup", "business background", "leadership review", "due diligence", "vendor vetting", "investment review", "go or no-go recommendation", "business investigation", "organization research", "nonprofit research", "association research", "academic research", "government body research", "domain lookup", "DNS review", "subdomain discovery", "hosting analysis", "infrastructure mapping", "IP investigation", "URL investigation", "hash lookup", "threat intel", "IOC analysis", "technical entity investigation", "discover sources", "niche OSINT sources", "research new tools for a technical case"]
+description: Structured public-source investigation skill with automatic routing for people investigations, business due diligence, and infrastructure intelligence. USE WHEN find person, locate someone, reconnect, people search, social media search, person public records, people public records search, map public footprint, reverse lookup, phone lookup, email lookup, username lookup, image lookup, verify identity, background on person, company intel, company lookup, business background, leadership review, due diligence, vendor vetting, investment review, go or no-go recommendation, business investigation, organization research, nonprofit research, association research, academic research, government body research, domain lookup, DNS review, subdomain discovery, hosting analysis, infrastructure mapping, IP investigation, URL investigation, hash lookup, threat intel, IOC analysis, technical entity investigation, discover sources, niche OSINT sources, research new tools for a technical case.
+keywords: ["find person", "locate someone", "reconnect", "people search", "social media search", "person public records", "people public records search", "map public footprint", "reverse lookup", "phone lookup", "email lookup", "username lookup", "image lookup", "verify identity", "background on person", "company intel", "company lookup", "business background", "leadership review", "due diligence", "vendor vetting", "investment review", "go or no-go recommendation", "business investigation", "organization research", "nonprofit research", "association research", "academic research", "government body research", "domain lookup", "DNS review", "subdomain discovery", "hosting analysis", "infrastructure mapping", "IP investigation", "URL investigation", "hash lookup", "threat intel", "IOC analysis", "technical entity investigation", "discover sources", "niche OSINT sources", "research new tools for a technical case"]
 ---
 
 # Investigation
@@ -83,6 +83,14 @@ Assistant:
 Routes to people-investigation.
 Runs FindAndVerifyPerson.
 Builds the subject profile, gathers public-source candidates, compares independent identifiers, and returns ranked matches with a confidence score.
+
+Output excerpt:
+
+Objective: Reconnect with former classmate
+Candidate matches: 3
+Verified findings: 1 strong match with school, city, and employer alignment
+Confidence assessment: High
+Recommended next public-source step: Confirm through one additional independent profile
 ```
 
 ### Business Due Diligence
@@ -94,6 +102,13 @@ Assistant:
 Routes to business-intelligence.
 Runs CompanyDueDiligence.
 Checks registrations, leadership, market signals, legal issues, technical footprint, and produces a risk summary with unresolved questions.
+
+Output excerpt:
+
+Decision to support: Vendor onboarding
+Verified positives: Active registration, consistent leadership history, credible customer references
+Material risks: One unresolved lawsuit and limited security transparency
+Verdict: Proceed with conditions
 ```
 
 ### Infrastructure Intelligence
@@ -105,6 +120,14 @@ Assistant:
 Routes to infrastructure-intel.
 Runs DomainLookup.
 Collects WHOIS, DNS, certificate, hosting, and reputation evidence, then pivots to related infrastructure with confidence notes.
+
+Output excerpt:
+
+Seed entity: suspicious-site.com
+Classification: Domain
+Infrastructure facts: 14 subdomains, Cloudflare fronting, recent certificate rotation
+Reputation and threat signals: Mixed, one reputation source flags abuse and two remain inconclusive
+Recommended next step: Review related IP infrastructure for corroboration
 ```
 
 ## Customization

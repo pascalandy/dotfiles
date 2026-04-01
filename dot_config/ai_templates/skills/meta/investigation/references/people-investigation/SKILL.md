@@ -1,6 +1,6 @@
 ---
 name: people-investigation
-description: Ethical public-source people investigations for locating someone, mapping a public footprint, running reverse lookups, and verifying identity with confidence scoring. USE WHEN find person, locate someone, reconnect, people search, social media search, public records, public records search, map public footprint, reverse lookup, phone lookup, email lookup, username lookup, image lookup, verify identity, background on person.
+description: Ethical public-source people investigations for locating someone, mapping a public footprint, running reverse lookups, and verifying identity with confidence scoring. USE WHEN find person, locate someone, reconnect, people search, social media search, person public records, people public records search, map public footprint, reverse lookup, phone lookup, email lookup, username lookup, image lookup, verify identity, background on person.
 ---
 
 # People Investigation
@@ -20,7 +20,7 @@ Hard boundaries:
 | Intent | Workflow |
 |---|---|
 | find person, locate someone, reconnect, background on person | `workflows/FindAndVerifyPerson.md` |
-| social media search, public records search, map public footprint | `workflows/PublicFootprint.md` |
+| social media search, person public records, people public records search, map public footprint | `workflows/PublicFootprint.md` |
 | reverse lookup, phone lookup, email lookup, username lookup, image lookup | `workflows/ReverseLookup.md` |
 
 ## Method
