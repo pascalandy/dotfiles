@@ -76,6 +76,12 @@ fct_sync_agent_assets() {
 	local commands_src="$1"
 	local skills_src="$2"
 
+	# OpenCode
+	# Keep OpenCode-specific commands/skills managed directly by chezmoi.
+	# Shared ai_templates assets should merge in without deleting extra entries.
+	fct_copy_dir "$commands_src" "$HOME/.config/opencode/command" "merge"
+	fct_copy_dir "$skills_src" "$HOME/.config/opencode/skill" "merge" --exclude 'skill-creator'
+
 	# Pi
 	fct_copy_dir "$commands_src" "$HOME/.pi/agent/prompts"
 	fct_copy_dir "$skills_src" "$HOME/.pi/agent/skills"
@@ -102,12 +108,6 @@ fct_sync_agent_assets() {
 	# Factory
 	fct_copy_dir "$commands_src" "$HOME/.factory/commands"
 	fct_copy_dir "$skills_src" "$HOME/.factory/skills"
-
-	# OpenCode
-	# Keep OpenCode-specific commands/skills managed directly by chezmoi.
-	# Shared ai_templates assets should merge in without deleting extra entries.
-	fct_copy_dir "$commands_src" "$HOME/.config/opencode/command" "merge"
-	fct_copy_dir "$skills_src" "$HOME/.config/opencode/skill" "merge" --exclude 'skill-creator'
 }
 
 fct_render_ai_templates() {
