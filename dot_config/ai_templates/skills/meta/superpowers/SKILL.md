@@ -1,7 +1,7 @@
 ---
 name: superpowers
 description: "Use only when the user explicitly asks for superpowers workflows or sends a superpowers `>` command such as `>brainstorm`, `>plan`, `>debug`, or `>tdd`. Routes to the matching superpowers methodology."
-keywords: [superpowers, brainstorm, plan, debug, tdd, review, worktree, subagent, verify]
+keywords: [superpowers, brainstorm, plan, debug, tdd, review, request-review, receive-review, code-reviewer, worktree, subagent, subagent-dev, verify, finish, parallel, execute, write-skill, intro]
 ---
 
 # Superpowers

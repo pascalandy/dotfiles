@@ -203,10 +203,10 @@ When a methodology says `superpowers:X` or "use superpowers:X", it resolves as f
 | `superpowers:finish` / `superpowers:finishing-a-development-branch` | `references/finishing-a-development-branch.md` | Branch finish, PR creation |
 | `superpowers:request-review` / `superpowers:requesting-code-review` | `references/requesting-code-review.md` | Review dispatch (also contains code-reviewer agent prompt) |
 | `superpowers:receive-review` / `superpowers:receiving-code-review` | `references/receiving-code-review.md` | Review response methodology |
-| `superpowers:code-reviewer` | Prompt embedded in `references/requesting-code-review.md` | Agent prompt, NOT a separate skill file |
+| `superpowers:code-reviewer` | `references/code-reviewer-agent.md` | Standalone agent spec for the code reviewer role. The fill-in-the-blank prompt template with `{BASE_SHA}` placeholders is embedded in `references/requesting-code-review.md` |
 | `superpowers:dispatching-parallel-agents` | `references/dispatching-parallel-agents.md` | General parallel agent patterns |
 
-**Important:** `superpowers:code-reviewer` refers to the **agent prompt template** embedded inside `requesting-code-review.md`, not to a standalone skill file. When dispatching this agent in Codex, extract the prompt from that reference file and use the message framing pattern described above.
+**Note:** The code-reviewer has two representations: `code-reviewer-agent.md` provides the standalone agent role description (loaded by `>code-reviewer`), while `requesting-code-review.md` embeds the fill-in-the-blank prompt template used when dispatching a review subagent. Use the template from `requesting-code-review.md` when spawning a review subagent with specific SHAs and context.
 
 Do NOT attempt to load external skill files or use harness-specific skill loading mechanisms for cross-references within this package.
 
@@ -218,5 +218,3 @@ When a reference file says "use superpowers:X", translate as:
 2. Read `references/<target>.md` from this package
 3. Follow its methodology
 4. Return to the calling methodology when complete
-
-For agent-type cross-references (e.g., `superpowers:code-reviewer`), extract the embedded prompt from the listed reference file rather than looking for a separate file.

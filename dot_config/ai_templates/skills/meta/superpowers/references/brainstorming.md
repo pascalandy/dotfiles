@@ -158,6 +158,8 @@ Invoke the writing-plans skill to create a detailed implementation plan. Do NOT 
 
 ## Visual Companion Guide
 
+> **Upstream dependency:** The Visual Companion requires server scripts (`start-server.sh`, `stop-server.sh`, `server.cjs`, `helper.js`, `frame-template.html`) from the upstream [Superpowers project](https://github.com/obra/superpowers) `skills/brainstorming/scripts/` directory. These scripts are not bundled in this meta-skill package. If unavailable, degrade to text-only brainstorming -- the core methodology works without the visual companion.
+
 A browser-based companion for showing mockups, diagrams, and visual options during brainstorming. Available as a tool — not a mode. Accepting the companion means it's available for questions that benefit from visual treatment; it does NOT mean every question goes through the browser.
 
 ### Per-Question Decision Rule

@@ -244,7 +244,7 @@ Need to show information?
               └─ NO  → Use markdown (table/list)
 ```
 
-**Rendering flowcharts:** Use `render-graphs.js` to render dot diagrams to SVG for review:
+**Rendering flowcharts:** Use `render-graphs.js` (from the upstream [Superpowers project](https://github.com/obra/superpowers) `skills/writing-skills/`) to render dot diagrams to SVG for review:
 ```bash
 ./render-graphs.js ../some-skill           # Each diagram separately
 ./render-graphs.js ../some-skill --combine # All diagrams in one SVG
@@ -922,4 +922,4 @@ This ensures you're solving actual problems rather than anticipating requirement
 - Personal skills directory: platform-dependent (check your harness documentation)
 - Never use `@` syntax for cross-references — it force-loads files and burns context
 - Word count verification: run `wc -w skills/path/SKILL.md` in terminal
-- Flowchart rendering: use `render-graphs.js` to render dot diagrams to SVG for review
+- Flowchart rendering: use `render-graphs.js` (upstream script, not bundled) to render dot diagrams to SVG for review

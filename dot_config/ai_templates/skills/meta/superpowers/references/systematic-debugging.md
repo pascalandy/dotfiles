@@ -166,7 +166,7 @@ Found immediate cause
 
 **Finding test pollution (when tests pass alone but fail together):**
 
-Use `find-polluter.sh` — a bisection script that runs each test file in isolation and checks whether a specific file/dir is created after each run:
+Use `find-polluter.sh` (from the upstream [Superpowers project](https://github.com/obra/superpowers) `skills/systematic-debugging/`) — a bisection script that runs each test file in isolation and checks whether a specific file/dir is created after each run:
 
 ```bash
 # Find which test creates an unwanted .git directory

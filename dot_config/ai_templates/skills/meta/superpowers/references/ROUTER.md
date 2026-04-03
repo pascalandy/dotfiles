@@ -1,3 +1,8 @@
+---
+name: superpowers
+description: "Superpowers methodology routing. USE WHEN superpowers, brainstorm, plan, debug, tdd, review, request-review, receive-review, code-reviewer, worktree, subagent, subagent-dev, verify, finish, parallel, execute, write-skill, intro, menu."
+---
+
 # Router
 
 Use this table to map explicit Superpowers commands to the correct methodology file.
