@@ -8,20 +8,15 @@ homepage: https://developer.atlassian.com/cloud/trello/rest/
 
 Manage Trello boards, lists, and cards.
 
-## Setup
-
-1. Get your API key: https://trello.com/app-key
-2. Generate a token (click "Token" link on that page)
-3. Set environment variables:
-   ```bash
-  export TRELLO_API_KEY="$(chezmoi secret keyring get --service=TRELLO_API_KEY --user=api_key)"
-  export TRELLO_TOKEN="$(chezmoi secret keyring get --service=TRELLO_TOKEN --user=api_key)"
-   ```
-
 ## Usage
 
 All commands use curl to hit the Trello REST API.
 
+### Validate the API call is working
+
+````bash
+export TRELLO_API_KEY="$(chezmoi secret keyring get --service=TRELLO_API_KEY --user=api_key)" && export TRELLO_TOKEN="$(chezmoi secret keyring get --service=TRELLO_TOKEN --user=api_key)" && curl -s "https://api.trello.com/1/members/me?key=$TRELLO_API_KEY&token=$TRELLO_TOKEN" | jq
+````
 ### List boards
 
 ```bash
@@ -87,4 +82,17 @@ curl -s "https://api.trello.com/1/members/me/boards?key=$TRELLO_API_KEY&token=$T
 
 # Get all cards on a board
 curl -s "https://api.trello.com/1/boards/{boardId}/cards?key=$TRELLO_API_KEY&token=$TRELLO_TOKEN" | jq '.[] | {name, list: .idList}'
+```
+
+## Setup
+
+Here's the instructions if it's not already done. 
+
+1. Get your API key: https://trello.com/app-key
+2. Generate a token (click "Token" link on that page)
+3. Set environment variables:
+
+```bash
+export TRELLO_API_KEY="$(chezmoi secret keyring get --service=TRELLO_API_KEY --user=api_key)"
+export TRELLO_TOKEN="$(chezmoi secret keyring get --service=TRELLO_TOKEN --user=api_key)"
 ```
