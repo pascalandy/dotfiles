@@ -1,7 +1,7 @@
 ---
 name: gstack
 description: "Unified gstack workflow routing across planning, active execution, and shipping. Use when the user wants one entry point that automatically delegates to the right gstack specialist skill."
-keywords: [gstack, idea, brainstorm, wedge, founder-review, office-hours, plan, architecture, design, debug, investigate, browser, review, qa, security, benchmark, ship, release, deploy, canary, docs, retro, safety, freeze, guard, setup, learn, upgrade]
+keywords: [gstack, idea, brainstorm, wedge, founder-review, office-hours, plan, architecture, design, debug, investigate, browser, review, qa, security, benchmark, codex, second-opinion, ship, release, deploy, canary, docs, retro, safety, freeze, guard, setup, learn, upgrade]
 ---
 
 # gstack
@@ -49,7 +49,7 @@ This collection owns three non-overlapping lifecycle phases:
 | Collection entry point | `SKILL.md` | User-facing overview, lifecycle framing, and examples | `references/ROUTER.md` |
 | Core router | `references/ROUTER.md` | Direct one-hop routing to concrete skills | All concrete skills under `references/` |
 | Plan phase | `SKILL.md` and `references/ROUTER.md` | Organize pre-build requests without adding another routing hop | `office-hours`, `plan-ceo-review`, `autoplan`, `plan-eng-review`, `plan-design-review`, `design-consultation`, `design-shotgun` |
-| Work phase | `SKILL.md` and `references/ROUTER.md` | Organize active implementation and validation requests without adding another routing hop | `investigate`, `browse`, `connect-chrome`, `design-html`, `review`, `qa`, `qa-only`, `design-review`, `cso`, `benchmark` |
+| Work phase | `SKILL.md` and `references/ROUTER.md` | Organize active implementation and validation requests without adding another routing hop | `investigate`, `browse`, `connect-chrome`, `design-html`, `review`, `qa`, `qa-only`, `design-review`, `cso`, `benchmark`, `codex` |
 | Ship phase | `SKILL.md` and `references/ROUTER.md` | Organize release and operational follow-through without adding another routing hop | `ship`, `land-and-deploy`, `canary`, `setup-deploy`, `careful`, `freeze`, `guard`, `unfreeze`, `setup-browser-cookies`, `document-release`, `retro`, `learn`, `gstack-upgrade` |
 
 ## Invocation Scenarios
@@ -64,6 +64,7 @@ This collection owns three non-overlapping lifecycle phases:
 | "inspect the live page and capture evidence" | Routes directly to `references/browse/SKILL.md` in the `Work` phase |
 | "review the branch and QA the app" | Routes directly to `references/review/SKILL.md` or `references/qa/SKILL.md` in the `Work` phase |
 | "run a security check" | Routes directly to `references/cso/SKILL.md` in the `Work` phase |
+| "get a second opinion on this code" | Routes directly to `references/codex/SKILL.md` in the `Work` phase |
 | "ship this and open the PR" | Routes directly to `references/ship/SKILL.md` in the `Ship` phase |
 | "watch the rollout after deploy" | Routes directly to `references/canary/SKILL.md` in the `Ship` phase |
 | "lock this directory before I debug" | Routes directly to `references/freeze/SKILL.md` or `references/guard/SKILL.md` in the `Ship` phase |

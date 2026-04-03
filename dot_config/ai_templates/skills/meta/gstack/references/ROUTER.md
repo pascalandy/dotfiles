@@ -1,6 +1,6 @@
 ---
 name: gstack
-description: "Unified gstack routing across planning, active work, and shipping. USE WHEN idea, brainstorm, wedge, founder review, office hours, architecture review, data flow, edge cases, test plan, design system, visual direction, debug, broken flow, root cause, investigate, inspect, browser, Chrome, review diff, review branch, QA, test and fix, QA report only, security review, threat model, OWASP, benchmark, performance baseline, ship, open PR, push, release, deploy, canary, setup deploy, safety mode, freeze, guard, unfreeze, import cookies, update docs after shipping, retro, learn, upgrade gstack."
+description: "Unified gstack routing across planning, active work, and shipping. USE WHEN idea, brainstorm, wedge, founder review, office hours, architecture review, data flow, edge cases, test plan, design system, visual direction, debug, broken flow, root cause, investigate, inspect, browser, Chrome, review diff, review branch, QA, test and fix, QA report only, security review, threat model, OWASP, benchmark, performance baseline, codex review, codex challenge, second opinion, consult codex, ship, open PR, push, release, deploy, canary, setup deploy, safety mode, freeze, guard, unfreeze, import cookies, update docs after shipping, retro, learn, upgrade gstack."
 ---
 
 # gstack
@@ -26,6 +26,7 @@ description: "Unified gstack routing across planning, active work, and shipping.
 | Work | polish the live UI with fixes | `design-review/SKILL.md` | The user wants visual QA plus direct UI corrections |
 | Work | security review, threat model, OWASP | `cso/SKILL.md` | The user needs security posture, threat, or abuse-case analysis |
 | Work | benchmark, compare before and after, performance baseline | `benchmark/SKILL.md` | The user needs measured performance comparison or baseline capture |
+| Work | codex review, codex challenge, second opinion, consult codex | `codex/SKILL.md` | The user wants an independent Codex-powered code review, adversarial challenge, or consultation |
 | Ship | ship, open PR, push, prepare release | `ship/SKILL.md` | The user wants the standard shipping workflow |
 | Ship | merge and deploy, verify production | `land-and-deploy/SKILL.md` | The user wants merge-to-prod execution plus verification |
 | Ship | watch rollout, canary check | `canary/SKILL.md` | The user wants rollout observation after deployment |
