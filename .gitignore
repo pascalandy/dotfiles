@@ -165,3 +165,6 @@ jspm_packages/
 # Archived configs backup
 bienvenue_chez_moi/
 .last_brewfile_sync
+
+# opensrc - source code for packages
+opensrc/
