@@ -29,8 +29,7 @@
         "-token-rate/token-rate.ts"
       ]
     },
-    "npm:pi-subagents",
-    "npm:pi-web-access"
+    "npm:pi-subagents"
   ],
   "prompts": [
     "prompts",
@@ -38,7 +37,6 @@
   ],
   "enabledModels": [
     "openai-codex/gpt-5.4",
-    "fireworks/accounts/fireworks/models/kimi-k2-thinking",
     "fireworks/accounts/fireworks/routers/kimi-k2p5-turbo"
   ],
   "powerline": "default",
