@@ -70,7 +70,7 @@ The collection loads the router, which dispatches to the right domain based on k
 **Summary:**
 - **Domains:** 5 (ProductPlanning, ArchitectureDesign, TDD, IssueTriage, Writing)
 - **Workflows:** 14 across all domains
-- **Supporting references:** 7 reference files
+- **Supporting references:** 8 reference files
 - **Dependencies:** None (works standalone, uses `gh` CLI for GitHub operations when available)
 
 ---
@@ -205,7 +205,7 @@ Optional: `gh` CLI for GitHub operations (issue creation, triage workflows). Wit
 - Initial release
 - Five domains: ProductPlanning, ArchitectureDesign, TDD, IssueTriage, Writing
 - 14 workflows across all domains
-- 7 supporting reference files
+- 8 supporting reference files
 - TypeScript code examples in TDD references
 - Complete worked examples in AgentBrief, OutOfScope, and UbiquitousLanguage
 - Label-based state machine for GitHub issue triage
