@@ -162,3 +162,14 @@ This repo has two run scripts located in `.chezmoiscripts/` (chezmoi v2.9+ conve
 - Renders `dot_config/ai_templates/` through chezmoi and syncs shared commands/skills to multiple agent homes
 - Uses merge behavior for OpenCode shared assets so OpenCode-specific entries can stay managed separately
 
+<!-- opensrc:start -->
+
+## Source Code Reference
+
+Source code for dependencies is available in `opensrc/` for deeper understanding of implementation details.
+
+See `opensrc/sources.json` for the list of available packages and their versions.
+
+Use this source code when you need to understand how a package works internally, not just its types/interface.
+
+<!-- opensrc:end -->
