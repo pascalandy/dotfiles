@@ -19,6 +19,14 @@ export TRELLO_API_KEY="$(chezmoi secret keyring get --service=TRELLO_API_KEY --u
 ````
 ### List boards
 
+By default, the user is working on this board (SDC):
+
+````shell
+chezmoi secret keyring get --service=TRELLO_BOARD_SDC --user=url
+````
+
+to list them all:
+
 ```bash
 curl -s "https://api.trello.com/1/members/me/boards?key=$TRELLO_API_KEY&token=$TRELLO_TOKEN" | jq '.[] | {name, id}'
 ```
