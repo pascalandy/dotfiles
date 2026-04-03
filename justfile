@@ -176,6 +176,10 @@ alias ttr := transcript
 transcript url *args:
     uv run ~/.local/share/chezmoi/dot_config/ai_templates/skills/utils/transcript-sk/scripts/transcript.py {{quote(url)}} {{args}}
 
+# Update all opensrc repositories listed in sources.json.
+update-oss:
+    cat opensrc/sources.json | jq -r '.repos[].name' | sed 's|github.com/||' | xargs opensrc
+
 # -----------------------------------------------------------------------------
 # git
 # -----------------------------------------------------------------------------
