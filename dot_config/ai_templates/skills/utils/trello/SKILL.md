@@ -14,8 +14,8 @@ Manage Trello boards, lists, and cards.
 2. Generate a token (click "Token" link on that page)
 3. Set environment variables:
    ```bash
-   export TRELLO_API_KEY="chezmoi secret keyring get --service=TRELLO_API_KEY --user=api_key"
-   export TRELLO_TOKEN="chezmoi secret keyring get --service=TRELLO_TOKEN --user=api_key"
+  export TRELLO_API_KEY="$(chezmoi secret keyring get --service=TRELLO_API_KEY --user=api_key)"
+  export TRELLO_TOKEN="$(chezmoi secret keyring get --service=TRELLO_TOKEN --user=api_key)"
    ```
 
 ## Usage
