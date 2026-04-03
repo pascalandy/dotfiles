@@ -11,6 +11,7 @@ Use this workflow when the core question is which specialized engineering patter
 | Plan a Ruby gem using Andrew Kane patterns | `../../andrew-kane-gem-writer/SKILL.md` |
 | Align an upcoming Rails implementation with DHH-style architecture | `../../dhh-rails-style/SKILL.md` |
 | Shape a DSPy.rb approach before building | `../../dspy-ruby/SKILL.md` |
+| Plan multi-agent swarm coordination or teammate orchestration | `../../orchestrating-swarms/SKILL.md` |
 
 ## Expected Result
 

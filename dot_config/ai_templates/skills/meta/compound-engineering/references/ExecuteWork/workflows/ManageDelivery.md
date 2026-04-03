@@ -10,6 +10,8 @@ Use this workflow when the implementation exists and the remaining work is branc
 | Create a clean commit with a useful message | `../../git-commit/SKILL.md` |
 | Commit, push, and open or update a pull request | `../../git-commit-push-pr/SKILL.md` |
 | Prepare docs for GitHub Pages deployment | `../../deploy-docs/SKILL.md` |
+| Clean stale local branches whose remote tracking branch is gone | `../../git-clean-gone-branches/SKILL.md` |
+| Optimize coding agent permissions and allowlists | `../../claude-permissions-optimizer/SKILL.md` |
 
 ## Expected Result
 

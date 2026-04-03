@@ -11,6 +11,8 @@ Use this workflow when review output already exists and the remaining work is to
 | Create a durable todo entry for follow-up work | `../../todo-create/SKILL.md` |
 | Triage an existing todo backlog | `../../todo-triage/SKILL.md` |
 | Resolve pending todos in parallel | `../../todo-resolve/SKILL.md` |
+| Report a bug in the compound-engineering plugin | `../../report-bug-ce/SKILL.md` |
+| Configure project-level compound-engineering settings | `../../setup/SKILL.md` |
 
 ## Expected Result
 

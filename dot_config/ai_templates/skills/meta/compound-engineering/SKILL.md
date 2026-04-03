@@ -1,7 +1,7 @@
 ---
 name: compound-engineering
 description: "Unified compound-engineering meta-skill for shaping work, executing delivery, and verifying or compounding results. Use when the user needs one entry point for ideation, requirements, planning, implementation, delivery, review, QA, documentation, or reusable learnings."
-keywords: [compound-engineering, ideate, brainstorm, requirements, plan, document-review, code-review, architecture, onboarding, implement, execute, code, frontend, rails, ruby, dspy, agent, browser, image, git, worktree, commit, pull request, qa, bug, feedback, todo, changelog, documentation, learnings, compound]
+keywords: [compound-engineering, ideate, brainstorm, requirements, plan, document-review, code-review, architecture, onboarding, swarm, implement, execute, code, frontend, rails, ruby, dspy, agent, browser, image, git, worktree, commit, pull request, deploy, clean branches, permissions, qa, bug, report bug, feedback, todo, changelog, documentation, learnings, compound, setup, configure]
 ---
 
 # Compound Engineering
