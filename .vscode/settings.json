@@ -146,7 +146,7 @@
     },
     {
       "folderPath": "chezmoi/dot_config/ai_templates/skills/",
-      "color": "foldercolorizer.color_66cc99"
+      "color": "foldercolorizer.color_66ff33"
     },
     {
       "folderPath": "chezmoi/dot_config/ai_templates/commands/",
@@ -158,7 +158,7 @@
     },
     {
       "folderPath": "chezmoi/dot_config/ai_templates/skills_archived/",
-      "color": "foldercolorizer.color_66cc99"
+      "color": "foldercolorizer.color_336666"
     }
   ]
 }
