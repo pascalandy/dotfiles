@@ -212,3 +212,31 @@ Use conservative defaults unless deeper recall is needed:
 | 401/403 | Verify key in keyring: `chezmoi secret keyring get --service=tavily --user=api_key` |
 | Timeout | Reduce `max_depth`/`limit` or use `search_depth: basic` |
 | Response too large | Lower `max_results` or `chunks_per_source` |
+
+## Bundled Scripts
+
+### grokipedia.py — Search Grokipedia.com
+
+Domain-scoped search restricted to `grokipedia.com` and `grokxpedia.us` using Tavily's `include_domains` parameter. Equivalent to Google's `site:grokipedia.com` operator.
+
+```bash
+# Basic search
+uv run scripts/grokipedia.py "quantum computing"
+
+# More results
+uv run scripts/grokipedia.py "Italian cuisine" -n 10
+
+# Include raw page content
+uv run scripts/grokipedia.py "AI history" --raw
+
+# JSON output for piping
+uv run scripts/grokipedia.py "neural networks" --json | jq '.results[].url'
+```
+
+| Flag | Description |
+|------|-------------|
+| `query` | Search query (positional, required) |
+| `-n, --max-results` | Number of results, 1-20 (default: 5) |
+| `--raw` | Include raw page content |
+| `--json` | Machine-readable JSON output |
+| `--version` | Print version and exit |
