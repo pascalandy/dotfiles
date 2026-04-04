@@ -5,15 +5,9 @@
 1. Read and understand: `.napkin/NAPKIN.md`
 2. run `napkin overview --json`
 
----
+## Custom tools
 
-This file provides guidelines for AI coding agents working in this repository.
-
-## File Structure
-
-Read the atlas files for navigation context:
-1. `.abstract.md` — fast relevance check (what this repo is for)
-2. `.overview.md` — navigation map + retrieval routes
+When showing gif diff changes, use skill: `hunk-review`
 
 ## Repository Overview
 
@@ -120,12 +114,6 @@ opencode.json
 
 # Correct: chezmoi processes templates
 opencode.json.tmpl
-```
-
-Define variables in `~/.config/chezmoi/chezmoi.toml`:
-```toml
-[data]
-openrouter_api_key = "sk-or-v1-.."
 ```
 
 ## Testing Changes
