@@ -27,10 +27,10 @@ Use Grep/Glob tools on the vault path. For CLI fallback:
 
 ```bash
 # By filename
-fd -e md "keyword" /Users/andy16/Documents/_my_docs/10_obsidian/vault_obsidian
+fd -e md "keyword" "$OBSIDIAN_VAULT_PATH"
 
 # By content
-rg -l "keyword" /Users/andy16/Documents/_my_docs/10_obsidian/vault_obsidian --glob "*.md"
+rg -l "keyword" "$OBSIDIAN_VAULT_PATH" --glob "*.md"
 ```
 
 ### Create a new note
@@ -44,13 +44,13 @@ rg -l "keyword" /Users/andy16/Documents/_my_docs/10_obsidian/vault_obsidian --gl
 ### Find backlinks
 
 ```bash
-rg -l "\[\[Note Title\]\]" /Users/andy16/Documents/_my_docs/10_obsidian/vault_obsidian --glob "*.md"
+rg -l "\[\[Note Title\]\]" "$OBSIDIAN_VAULT_PATH" --glob "*.md"
 ```
 
 ### Find index notes
 
 ```bash
-fd -e md "Index" /Users/andy16/Documents/_my_docs/10_obsidian/vault_obsidian
+fd -e md "Index" "$OBSIDIAN_VAULT_PATH"
 ```
 
 ## Obsidian-specific syntax
