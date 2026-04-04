@@ -2,7 +2,7 @@
 
 ## Goal
 
-Model a common software-delivery path as a durable, resumable workflow in Absurd: plan to implementation to review to merge. This document is the bonified spec for building the actual workflow — it defines every prompt, skill, agent, and Absurd primitive needed.
+Model a common software-delivery path as a durable, resumable workflow in Absurd: plan to implementation to review to merge. This is the spec for building the actual workflow — it defines every prompt, skill, agent, and Absurd primitive needed.
 
 ## Prerequisites
 
@@ -684,7 +684,7 @@ Steps:
 
 Return JSON:
 {
-  "status": "pass" | "fail",
+  "status": "pass" | "warn" | "fail",
   "tests_run": <count>,
   "tests_passed": <count>,
   "tests_failed": <count>,
@@ -694,6 +694,11 @@ Return JSON:
   "plan_items_verified": <count>,
   "plan_items_total": <count>
 }
+
+Status derivation:
+- `pass`: all tests pass, all plan items verified, no coverage gaps
+- `warn`: all tests pass but coverage gaps exist, OR a small number of known-flaky tests fail (< 5% of total)
+- `fail`: any non-flaky test fails, OR plan items are missing implementation
 ```
 
 **Input params:**
@@ -708,7 +713,7 @@ Return JSON:
 
 ```json
 {
-  "status": "pass | fail",
+  "status": "pass | warn | fail",
   "tests_run": "int",
   "tests_passed": "int",
   "tests_failed": "int",
@@ -779,10 +784,10 @@ Return the UAT brief as a structured JSON:
 
 ```bash
 # Human approves
-absurdctl emit-event "uat-approved:<task-id>" -q delivery-orchestrator -P approved=true
+absurdctl emit-event "uat-approved:<task-id>" --queue delivery-orchestrator -P approved=true
 
 # Human rejects with feedback
-absurdctl emit-event "uat-approved:<task-id>" -q delivery-orchestrator -P approved=false -P feedback="description of issue"
+absurdctl emit-event "uat-approved:<task-id>" --queue delivery-orchestrator -P approved=false -P feedback="description of issue"
 ```
 
 **On rejection:** The parent replays steps 2-6 with `feedback` passed as the optional feedback param to `implement-from-plan`. The `retry_count` is incremented. Max 3 loops.
@@ -1001,7 +1006,7 @@ const ciResult = await ctx.awaitEvent(`ci-complete:${params.pr_number}`, {
 **Queue:** `delivery-ops`
 **Agent:** none (deterministic logic, no model needed)
 **Skill:** none
-**Absurd feature:** Deterministic gate check on 8a + 8b results.
+**Absurd feature:** Deterministic gate check on 9a + 9b results.
 **Activation flag:** `optional_tasks.auto_merge = true` in `prompt-config.toml`
 
 **No prompt file.** This is a code-only task.
@@ -1211,7 +1216,7 @@ After 3 failed loops, the parent fails the workflow:
 
 ### The human experience
 
-1. Workflow reaches step 6 (`uat-handoff`)
+1. Workflow reaches step 7 (`uat-handoff`)
 2. The UAT brief is produced and displayed (console, Habitat dashboard, or notification)
 3. The workflow **sleeps** — no worker, no poller, no resources consumed
 4. The human reviews:
@@ -1224,12 +1229,12 @@ After 3 failed loops, the parent fails the workflow:
 ```bash
 # Approve — workflow advances to Phase 3
 absurdctl emit-event "uat-approved:<task-id>" \
-  -q delivery-orchestrator \
+  --queue delivery-orchestrator \
   -P approved=true
 
 # Reject with feedback — workflow loops back to step 2
 absurdctl emit-event "uat-approved:<task-id>" \
-  -q delivery-orchestrator \
+  --queue delivery-orchestrator \
   -P approved=false \
   -P feedback="The login form doesn't validate email format. Also the loading spinner is missing on the submit button."
 ```
