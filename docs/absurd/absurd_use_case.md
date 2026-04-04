@@ -113,7 +113,7 @@ If the worker dies during implementation, Absurd resumes from the last durable c
 
 ### Phase 2: LSP / lint
 
-After implementation succeeds, the parent spawns `run-lsp-and-lint`.
+After implementation succeeds, the parent spawns `run-lsp-and-lint` on `delivery-review`.
 
 This phase is mostly deterministic.
 
@@ -153,7 +153,7 @@ That loop is exactly where Absurd helps, because the workflow can re-enter revie
 
 ### Phase 4: QA
 
-Then the parent spawns `qa-branch`.
+Then the parent spawns `qa-branch` on 0o0o
 
 This is where you validate user-visible behavior, not just static correctness.
 
@@ -173,7 +173,7 @@ What gets persisted:
 
 ### Phase 5: Commit all
 
-Once build, lint, review, and QA are acceptable, the parent spawns `commit-branch`.
+Once build, lint, review, and QA are acceptable, the parent spawns `commit-branch` on 0o0o
 
 This phase should:
 
@@ -242,9 +242,11 @@ Then the parent either triggers deploy directly or waits for the normal CI/deplo
 
 The child task `wait-for-ci` should:
 
+- wait for about two minutes 
 - fetch the current check state
 - decide what checks matter
 - wait for the terminal CI result
+- If the CI needs more time, check every 30 seconds. 
 
 This is also a durable wait problem.
 
@@ -281,6 +283,8 @@ This phase should:
 - persist the merge commit or merge reference
 
 At the end, the parent task can return a compact delivery summary.
+
+---
 
 ## How prompt management should work
 
