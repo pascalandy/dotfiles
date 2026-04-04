@@ -166,5 +166,8 @@ jspm_packages/
 bienvenue_chez_moi/
 .last_brewfile_sync
 
+# Archived skills
+skills_archived/
+
 # opensrc - source code for packages
 opensrc/
