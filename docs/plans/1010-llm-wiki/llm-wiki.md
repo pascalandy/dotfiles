@@ -24,17 +24,17 @@ This can apply to a lot of different contexts. A few examples:
 
 ## Architecture
 
-There are three layers:
+There are two layers:
 
-**Raw sources** — your curated collection of source documents. Articles, papers, images, data files. These are immutable — the LLM reads from them but never modifies them. This is your source of truth.
-
-**The wiki** — a directory of LLM-generated markdown files. Summaries, entity pages, concept pages, comparisons, an overview, a synthesis. The LLM owns this layer entirely. It creates pages, updates them when new sources arrive, maintains cross-references, and keeps everything consistent. You read it; the LLM writes it.
+**The wiki** — all markdown files live in `/references/`. This includes source material (`kind/webclip`), synthesized pages (research, relationships, concepts), operational records (LOG.md), and everything else. The `kind/` tag distinguishes what each file is. INDEX.md at the root catalogs them. The LLM creates pages, updates them when new sources arrive, maintains cross-references, and keeps everything consistent. You read it; the LLM writes it.
 
 **The schema** — a global document (AGENTS.md) that tells the LLM how wikis are structured, what the conventions are, and what workflows to follow when ingesting sources, answering questions, or maintaining the wiki. This is not per-wiki — it's a single set of instructions shared across all wiki instances. This is the key configuration file — it's what makes the LLM a disciplined wiki maintainer rather than a generic chatbot. You and the LLM co-evolve this over time as you figure out what works.
 
 ## Operations
 
-**Ingest.** You drop a new source into the raw collection and tell the LLM to process it. An example flow: the LLM reads the source, discusses key takeaways with you, writes a summary page in the wiki, updates the index, updates relevant entity and concept pages across the wiki, and appends an entry to the log. A single source might touch 10-15 wiki pages. Personally I prefer to ingest sources one at a time and stay involved — I read the summaries, check the updates, and guide the LLM on what to emphasize. But you could also batch-ingest many sources at once with less supervision. It's up to you to develop the workflow that fits your style and document it in the schema for future sessions.
+**Ingest.** You add a new source to `/references/` as a webclip and tell the LLM to process it. An example flow: the LLM reads the source, discusses key takeaways with you, writes a summary page in the wiki, updates the index, updates relevant entity and concept pages across the wiki, and appends an entry to the log. A single source might touch 10-15 wiki pages. Personally I prefer to ingest sources one at a time and stay involved — I read the summaries, check the updates, and guide the LLM on what to emphasize. But you could also batch-ingest many sources at once with less supervision. It's up to you to develop the workflow that fits your style and document it in the schema for future sessions.
+
+**New page vs update.** If the new source covers an entity or concept that already has a page, update the existing page with the new information. If it covers a distinct subtopic, create a new page and cross-link it. Webclips (`kind/webclip`) always get their own page — they're source snapshots, not synthesized content.
 
 **Query.** You ask questions against the wiki. The LLM searches for relevant pages, reads them, and synthesizes an answer with citations. Answers can take different forms depending on the question — a markdown page, a comparison table, a slide deck (Marp), a chart (matplotlib), a canvas. The important insight: **good answers can be filed back into the wiki as new pages.** A comparison you asked for, an analysis, a connection you discovered — these are valuable and shouldn't disappear into chat history. This way your explorations compound in the knowledge base just like ingested sources do.
 
@@ -44,14 +44,36 @@ There are three layers:
 
 Two special files help the LLM (and you) navigate the wiki as it grows. They serve different purposes:
 
-**INDEX.md** is content-oriented. It's a catalog of everything in the wiki — each page listed with a link, a one-line summary, and optionally metadata like date or source count. Organized by category (entities, concepts, sources, etc.). The LLM updates it on every ingest. When answering a query, the LLM reads the index first to find relevant pages, then drills into them. This works surprisingly well at moderate scale (~100 sources, ~hundreds of pages) and avoids the need for embedding-based RAG infrastructure.
+**INDEX.md** is content-oriented. It's a catalog of everything in the wiki — a table with a link and a one-line description per page. The LLM updates it on every ingest. When answering a query, the LLM reads the index first to find relevant pages, then drills into them. This works surprisingly well at moderate scale (~100 sources, ~hundreds of pages) and avoids the need for embedding-based RAG infrastructure.
 
-**LOG.md** is chronological. It's an append-only record of what happened and when — ingests, queries, lint passes. A useful tip: if each entry starts with a consistent prefix (e.g. `## [[2026-04-02]] ingest | Article Title`), the log becomes parseable with simple unix tools — `grep "^## \[" log.md | tail -5` gives you the last 5 entries. The log gives you a timeline of the wiki's evolution and helps the LLM understand what's been done recently.
+Example:
+
+```md
+## wiki map
+
+| File | Description |
+|------|-------------|
+| `references/vitamin-d-and-sleep.md` | Research on vitamin D's effect on sleep quality |
+| `references/dr-smith-profile.md` | Dr. Smith — endocrinologist, author of sleep study |
+| `references/supplement-comparison.md` | Side-by-side comparison of vitamin D brands |
+```
+
+**LOG.md** lives in `/references/` (`kind/log`). It's an append-only record of what happened and when. Each entry is a markdown list item with a fixed format for easy parsing:
+
+```md
+- [[2026-04-04]] ingest | vitamin-d-and-sleep | Ingested article, created entity page for Dr. Smith, updated supplement comparison
+- [[2026-04-03]] query | magnesium-vs-zinc | Generated comparison table, filed as new page
+- [[2026-04-02]] lint | full sweep | Found 3 orphan pages, added cross-references
+```
+
+Retrieve the latest entries with: `grep "^- \[\[" references/LOG.md | tail -10`
+
+The log gives you a timeline of the wiki's evolution and helps the LLM understand what's been done recently.
 
 ## Tips and tricks
 
 - **Obsidian Web Clipper** is a browser extension that converts web articles to markdown. Very useful for quickly getting sources into your raw collection.
-- **Download images locally.** In Obsidian Settings → Files and links, set "Attachment folder path" to a fixed directory (e.g. `raw/assets/`). Then in Settings → Hotkeys, search for "Download" to find "Download attachments for current file" and bind it to a hotkey (e.g. Ctrl+Shift+D). After clipping an article, hit the hotkey and all images get downloaded to local disk. This is optional but useful — it lets the LLM view and reference images directly instead of relying on URLs that may break. Note that LLMs can't natively read markdown with inline images in one pass — the workaround is to have the LLM read the text first, then view some or all of the referenced images separately to gain additional context. It's a bit clunky but works well enough.
+- **Download images locally.** In Obsidian Settings → Files and links, set "Attachment folder path" to a fixed directory (e.g. `assets/`). Then in Settings → Hotkeys, search for "Download" to find "Download attachments for current file" and bind it to a hotkey (e.g. Ctrl+Shift+D). After clipping an article, hit the hotkey and all images get downloaded to local disk. This is optional but useful — it lets the LLM view and reference images directly instead of relying on URLs that may break. Note that LLMs can't natively read markdown with inline images in one pass — the workaround is to have the LLM read the text first, then view some or all of the referenced images separately to gain additional context. It's a bit clunky but works well enough.
 - **Obsidian's graph view** is the best way to see the shape of your wiki — what's connected to what, which pages are hubs, which are orphans.
 - **Marp** is a markdown-based slide deck format. Obsidian has a plugin for it. Useful for generating presentations directly from wiki content.
 - **Bases** is an Obsidian core plugin that manage queries within Obsidian.
@@ -77,20 +99,79 @@ The idea is related in spirit to Vannevar Bush's Memex (1945) — a personal, cu
 ```txt
 {dir_name}/
   INDEX.md            # content catalog (area/ea/index)
-  /references/        # all wiki pages: sources, logs, entities, concepts, etc.
+  /references/        # all wiki md pages: sources, logs, entities, concepts, etc.
+  /scripts/           # scripts (optional)
+  /assets/            # non-md files: images, PDFs, etc. (optional)
 ```
 
-All content lives in `/references/` — raw webclips (`kind/webclip`), LOG.md (`kind/log`), entity pages, concept pages, summaries, and everything else. INDEX.md sits at the root and catalogs them.
+All content lives in `/references/` — flat, no subdirectories. Webclips (`kind/webclip`), LOG.md (`kind/log`), entity pages, concept pages, summaries, and everything else. Tags handle categorization; the filesystem stays simple. INDEX.md sits at the root and catalogs them.
 
 The schema (conventions, workflows, structure rules) is defined globally in AGENTS.md, not per-wiki.
+
+Each `{dir_name}/` is self-contained with its own INDEX.md and LOG.md. All wikis live in the same Obsidian vault, so `[[wikilinks]]` resolve across wikis naturally.
 
 ## Frontmatter and metadata
 
 ### General rule
 
-- Every markdown file must include a YAML frontmatter with at minimum: `tags` and `date_updated`.
+- Every markdown file must include a YAML frontmatter with at minimum: `name`, `description`, `tags`, and `date_updated`.
 - Non-markdown files (code, images, PDF, etc.) are exempt from frontmatter.
 - Tags are lowercase only, no spaces.
+- Bump `date_updated` on any content change — new sections, revised claims, new cross-references, fixes during lint.
+
+Example:
+
+```yaml
+---
+tags:
+  - area/ea/wiki
+  - kind/research
+  - status/open
+date_updated: 2026-04-04
+---
+```
+
+### File naming and cross-references
+
+- Filenames use **kebab-case**: `vitamin-d-and-sleep.md`, `dr-smith-profile.md`.
+- Cross-references between pages use **Obsidian wikilinks**: `[[vitamin-d-and-sleep]]`.
+
+### Page structure
+
+Every wiki page follows this structure:
+
+```yaml
+---
+name: Short human-readable title
+description: One-line summary of what this page covers
+tags:
+  - area/ea/wiki
+  - kind/research
+  - status/open
+date_updated: 2026-04-04
+---
+```
+
+Body starts with a summary paragraph, then sections as needed, ending with:
+
+```md
+## Related
+
+- [[other-page]]
+- [[another-page]]
+```
+
+INDEX.md uses the same frontmatter convention:
+
+```yaml
+---
+name: Health Wiki
+description: Personal wiki tracking nutrition, supplements, sleep, and exercise
+tags:
+  - area/ea/index
+date_updated: 2026-04-04
+---
+```
 
 ### Label model — 4 orthogonal axes
 
@@ -107,8 +188,9 @@ Tags are distributed across 4 independent axes. Each axis answers a distinct que
 
 - `kind/playbook` — reusable procedure or prompt
 - `kind/relationship` — person or organization
-- `kind/plan` — exploratory plan or idea
+- `kind/plan` — exploratory plan
 - `kind/research` — research
+- `kind/blog` — to mange my blog content
 - `kind/idea` — idea
 - `kind/webclip` — source, scrap from the web
 - `kind/milestone` — project progress tracking (e.g. ACV4)
@@ -116,11 +198,11 @@ Tags are distributed across 4 independent axes. Each axis answers a distinct que
 - `kind/log` — operational log, batch of historical decisions, retrospective
 - `kind/task` — ad-hoc work
 - `kind/doc/template` — reusable scaffold
-- `kind/doc/reference` — read-only document
 - `kind/hygiene` — drift sweep, metadata cleanup, structural maintenance
 - `kind/bug` — system failure, broken tool, unexpected behavior
 - `kind/strategy` — strategic direction or analysis
 - `kind/role` — team role description (`TEAM_*.md` files)
+- `kind/random` — for anything else
 
 **Axis 3 — STATUS: where in the workflow?** (required for `area/ea/wiki`, except `kind/project/*`)
 
@@ -131,11 +213,13 @@ Tags are distributed across 4 independent axes. Each axis answers a distinct que
 - `status/parked` — intentionally suspended
 - `status/close` — closed, resolved
 
-**Axis 4 — PRIORITY: how urgent?** (required for `area/ea/wiki`, except `kind/project/*`)
+**Axis 4 — PRIORITY: how urgent?** (only for actionable kinds: `kind/task`, `kind/bug`, `kind/plan`, `kind/hygiene`)
 
 - `pty/p1` — urgent
 - `pty/p2` — normal. Default when not specified.
 - `pty/p3` — low priority
+
+Knowledge kinds (`kind/research`, `kind/relationship`, `kind/webclip`, `kind/idea`, `kind/milestone`, `kind/strategy`, `kind/playbook`, `kind/role`, `kind/log`, `kind/random`, `kind/doc/*`) do not get priority tags.
 
 ### Tag order
 
