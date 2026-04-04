@@ -7,7 +7,6 @@ Model a common software-delivery path as a durable, resumable workflow in Absurd
 ## Prerequisites
 
 - A detailed plan (PRD) provided by the user
-- A git branch ready for the work (or branch creation as a step)
 - A running Postgres instance with the Absurd schema installed
 - Four queues created: `delivery-orchestrator`, `delivery-build`, `delivery-review`, `delivery-ops`
 - Prompt files versioned on disk (the `prompts/` directory)
@@ -20,27 +19,74 @@ queues (flat, all peers):
   delivery-orchestrator   ← deliver-change (parent task)
   delivery-build          ← implement-from-plan
   delivery-review         ← run-lsp-and-lint, review-diff, qa-branch
-  delivery-ops            ← commit-branch, open-pull-request, request-greptile-review,
-                             wait-for-ci, merge-when-green
+  delivery-ops            ← create-branch, uat-handoff, open-pull-request,
+                             request-greptile-review, wait-for-ci,
+                             merge-when-green
 ```
 
 ## Parent task: `deliver-change`
 
-Runs on `delivery-orchestrator`. 
+Runs on `delivery-orchestrator`.
 
-Acts as a release manager: loads the plan, spawns child tasks on the right queues, awaits each result, stops early on hard failure, waits durably for external events (CI, Greptile).
+Acts as a release manager: loads the plan, spawns child tasks on the right queues, awaits each result, stops early on hard failure, waits durably for external events (CI, Greptile, human UAT approval).
+
+The parent collects each child result and passes them forward as params to downstream tasks (e.g. qa-branch results fed to uat-handoff).
+
+### Loop-back rules
+
+- On `review-diff` failure or UAT rejection, the parent replays steps 2-5 (implement → lint → review → qa), not just implementation alone.
+- Maximum 3 loop iterations per feedback cycle. After 3 failures, the parent fails the workflow with a clear message instead of spawning another attempt.
 
 ## Execution flow
 
-Each phase is a child task. The parent awaits each result before deciding to continue or stop. Each child can fail, retry, sleep, or wait independently without losing the whole workflow.
+The workflow runs in two phases separated by a human gate.
+
+### Phase 1 -- automated, runs to completion
 
 | Order | Child task | Queue | Absurd feature used |
 |---|---|---|---|
-| 1 | `implement-from-plan` | `delivery-build` | checkpointed steps (TDD slices survive crashes) |
-| 2 | `run-lsp-and-lint` | `delivery-review` | retry (auto-fix then rerun) |
-| 3 | `review-diff` | `delivery-review` | task result drives pass/fail gate; on failure, parent re-spawns `implement-from-plan` with review feedback |
-| 4 | `qa-branch` | `delivery-review` | task result drives pass/fail gate |
-| 5 | `commit-branch` | `delivery-ops` | step persists commit SHA |
+| 1 | `create-branch` | `delivery-ops` | step persists branch name; basic model selection |
+| 2 | `implement-from-plan` | `delivery-build` | checkpointed steps (TDD slices survive crashes) |
+| 3 | `run-lsp-and-lint` | `delivery-review` | retry (auto-fix then rerun) |
+| 4 | `review-diff` | `delivery-review` | task result drives pass/fail gate; on failure, parent replays steps 2-5 with review feedback (max 3 loops) |
+| 5 | `qa-branch` | `delivery-review` | task result drives pass/fail gate |
+
+After step 5 completes, the parent enters a durable event wait. The code is implemented, linted, reviewed, and tested -- but not committed. The working tree is what the human validates.
+
+### Phase 2 -- human-triggered after UAT
+
+| Order | Child task | Queue | Absurd feature used |
+|---|---|---|---|
+| 6 | `uat-handoff` | `delivery-ops` | durable event wait for human approval signal |
+| 7 | `open-pull-request` | `delivery-ops` | checkpointed steps: step 1 commits (persists SHA), step 2 opens PR (persists URL) |
+| 8a | `request-greptile-review` | `delivery-ops` | durable event wait (external async system) |
+| 8b | `wait-for-ci` | `delivery-ops` | durable sleep (poll CI status) or webhook event |
+| 9 | `merge-when-green` | `delivery-ops` | deterministic gate check on 8a + 8b results, no model needed |
+
+Steps 8a and 8b run in parallel -- Greptile and CI are independent external systems. The parent spawns both and awaits both results before proceeding to step 9.
+
+On UAT rejection, the parent replays steps 2-5 with human feedback (max 3 loops), then re-enters the UAT gate.
+
+### UAT handoff details
+
+`uat-handoff` produces a brief for the human containing:
+
+- Summary of what was implemented (from the plan params)
+- What `qa-branch` tested and its results (passed/failed tests, coverage)
+- What `review-diff` found (any warnings, the pass result)
+- The branch name and how to check it out locally
+- Exact commands to run the app/tests locally
+- What the human should manually verify (derived from the plan)
+
+The parent durably waits for one of:
+
+```bash
+# approve
+absurdctl emit-event "uat-approved:<task-id>" -q delivery-orchestrator -P approved=true
+
+# reject with feedback
+absurdctl emit-event "uat-approved:<task-id>" -q delivery-orchestrator -P approved=false -P feedback="description of issue"
+```
 
 ## Prompt management
 
@@ -54,9 +100,12 @@ prompt layer (application code, not Absurd):
       v1.md
     qa-branch/
       v1.md
+    uat-handoff/
+      v1.md
     ...
   prompt-config.toml        ← maps step → prompt version + model profile
 ````
+
 ## Keep in mind
 
 The focus is not code. The focus is:
@@ -70,7 +119,7 @@ What Absurd owns:
 
 - queues, tasks, steps, checkpoints, retries, events, sleeps.
 
-What you own: 
+What you own:
 
 - prompts, model selection, calling the model (e.g. `opencode run --agent`).
 
@@ -78,5 +127,6 @@ Key durability points:
 
 - If a worker dies mid-implementation, Absurd resumes from the last checkpoint, not from zero.
 - Greptile and CI waits are durable sleeps or event waits -- no long-lived in-memory poller.
-- Review failures can loop the workflow back to implementation without losing execution history.
-- The parent stops early on any hard failure.
+- Review and UAT failures can loop the workflow back to implementation without losing execution history (max 3 loops per feedback cycle).
+- The parent stops early on any hard failure or after exhausting loop retries.
+- If merge fails due to conflicts, the workflow fails cleanly -- no automatic rebase.
