@@ -19,7 +19,7 @@ Model a common software-delivery path as a durable, resumable workflow in Absurd
 queues (flat, all peers):
   delivery-orchestrator   ← deliver-change (parent task)
   delivery-build          ← implement-from-plan
-  delivery-review         ← run-lsp-and-lint, review-diff, qa-branch
+  delivery-review         ← run-lsp-and-lint, review-diff-pass1, review-diff-pass2, qa-branch
   delivery-ops            ← create-branch, uat-handoff, open-pull-request,
                              [optional] request-greptile-review, wait-for-ci,
                              merge-when-green
@@ -45,20 +45,55 @@ Each child task runs via `opencode run --agent <agent>`. Agent selection is per-
 
 **Role:** Release manager. Loads the plan, spawns child tasks on the right queues, awaits each result, passes results forward as params to downstream children, stops early on hard failure, waits durably for external events.
 
-### Orchestrator design
+### Orchestrator design: hybrid gates
 
-**Option C: Hybrid (recommended)**
-- Deterministic gates for clear results: `status == "pass"` → proceed, `status == "fail"` → loop back
-- Model invoked only when `status == "warn"` or result is ambiguous
-- The orchestrator prompt is loaded conditionally — only for ambiguous gates
-- Pro: Fast for the common case, smart for edge cases
-- Con: Slightly more complex to implement
+The parent uses **deterministic gates** for clear results and **invokes a model** only for ambiguous ones.
 
-**Recommendation:** Option C. Most child tasks produce clear pass/fail. The model is only needed when `review-diff` returns warnings or `qa-branch` has partial failures.
+**Deterministic path (no model cost, fastest):**
+- Child returns `status == "pass"` → proceed to next step
+- Child returns `status == "fail"` → loop back to step 2 with `feedback_for_retry`
+- UAT event has `approved == true` → proceed to Phase 3
+- UAT event has `approved == false` → loop back to step 2 with human feedback
+
+**Model-assisted path (invoked conditionally):**
+- Child returns `status == "warn"` → spawn a lightweight model call (`1-kimi`) to interpret the warnings and decide: proceed or loop back
+- This only applies to `review-diff-pass1` / `review-diff-pass2` (warnings from review) and `qa-branch` (partial test failures)
+
+**Prompt file:** `prompts/orchestrator-gate/v1.md` (loaded only for `warn` status)
+
+```markdown
+## Task
+
+A child task returned status "warn". Decide whether the workflow should proceed or loop back.
+
+## Child task: {{ child_task_name }}
+## Result:
+
+{{ child_result_json }}
+
+## Rules
+
+- If all critical/important issues are resolved and only minor items remain: proceed
+- If any critical issue exists: loop back
+- If important issues exist but are cosmetic or low-risk: proceed with a note
+- If test failures exist but are flaky (passed on prior runs): proceed
+
+## Output
+
+Return JSON:
+{
+  "decision": "proceed" | "loop_back",
+  "reason": "one-line explanation"
+}
+```
+
+**Agent for gate decisions:** `1-kimi` (fast, cheap — this is a simple classification task)
+
+**Why hybrid:** Most child tasks produce clear pass/fail, so the model is never invoked for the common case. The model is only needed when `review-diff-pass1` or `review-diff-pass2` returns warnings (e.g., "3 minor issues, no critical") or `qa-branch` has partial failures (e.g., "48/50 tests pass, 2 flaky").
 
 ### Loop-back rules
 
-- On `review-diff` failure or UAT rejection: replay steps 2-5 (implement → lint → review → qa)
+- On `review-diff-pass1` or `review-diff-pass2` failure or UAT rejection: replay steps 2-6 (implement → lint → review-pass1 → review-pass2 → qa)
 - The replay passes the failure feedback as an optional param to `implement-from-plan`
 - Maximum 3 loop iterations per feedback cycle
 - After 3 failures: parent fails the workflow with a clear error message
@@ -69,9 +104,10 @@ The parent collects each child's result JSON and passes relevant fields forward:
 
 ```
 create-branch.result.branch_name → implement-from-plan.params.branch_name
-implement-from-plan.result.files_changed → review-diff.params.files_changed
+implement-from-plan.result.files_changed → review-diff-pass1.params.files_changed
+review-diff-pass1.result.findings → review-diff-pass2.params.pass1_findings
 qa-branch.result.test_summary → uat-handoff.params.test_summary
-review-diff.result.findings → uat-handoff.params.review_findings
+review-diff-pass2.result.findings → uat-handoff.params.review_findings
 ```
 
 ---
@@ -83,25 +119,26 @@ review-diff.result.findings → uat-handoff.params.review_findings
 | Order | Child task | Queue | Agent | Skill | Sub-skill |
 |---|---|---|---|---|---|
 | 1 | `create-branch` | `delivery-ops` | `1-kimi` | superpowers | `>worktree` |
-| 2 | `implement-from-plan` | `delivery-build` | `gpthigh` (controller) | superpowers | `>subagent-dev` |
+| 2 | `implement-from-plan` | `delivery-build` | `2-opus` (controller) | superpowers | `>subagent-dev` |
 | 3 | `run-lsp-and-lint` | `delivery-review` | `1-kimi` | superpowers | `>verify` |
-| 4 | `review-diff` | `delivery-review` | `1-kimi` then `gpthigh` | superpowers | `>request-review` (two-pass) |
-| 5 | `qa-branch` | `delivery-review` | `1-kimi` | superpowers | `>verify` + `>tdd` |
+| 4 | `review-diff-pass1` | `delivery-review` | `1-kimi` | superpowers | `>request-review` |
+| 5 | `review-diff-pass2` | `delivery-review` | `gpthigh` | superpowers | `>request-review` |
+| 6 | `qa-branch` | `delivery-review` | `1-kimi` | superpowers | `>verify` + `>tdd` |
 
 ### Phase 2 — User UAT gate
 
 | Order | Child task | Queue | Agent | Skill | Sub-skill |
 |---|---|---|---|---|---|
-| 6 | `uat-handoff` | `delivery-ops` | `1-kimi` | compound-engineering | VerifyAndCompound → CaptureAndShare |
+| 7 | `uat-handoff` | `delivery-ops` | `1-kimi` | compound-engineering | VerifyAndCompound → CaptureAndShare |
 
 ### Phase 3 — Automated delivery (optional tasks marked)
 
 | Order | Child task | Queue | Agent | Skill | Sub-skill | Optional |
 |---|---|---|---|---|---|---|
-| 7 | `open-pull-request` | `delivery-ops` | `1-kimi` | compound-engineering | ExecuteWork → ManageDelivery | no |
-| 8a | `request-greptile-review` | `delivery-ops` | `1-kimi` | gstack | review → greptile-triage | **yes** |
-| 8b | `wait-for-ci` | `delivery-ops` | none | — (pure ops script) | — | **yes** |
-| 9 | `merge-when-green` | `delivery-ops` | none | — (deterministic gate) | — | **yes** |
+| 8 | `open-pull-request` | `delivery-ops` | `1-kimi` | compound-engineering | ExecuteWork → ManageDelivery | no |
+| 9a | `request-greptile-review` | `delivery-ops` | `1-kimi` | gstack | review → greptile-triage | **yes** |
+| 9b | `wait-for-ci` | `delivery-ops` | none | — (pure ops script) | — | **yes** |
+| 10 | `merge-when-green` | `delivery-ops` | none | — (deterministic gate) | — | **yes** |
 
 ---
 
@@ -172,7 +209,7 @@ Return JSON:
 
 ### 2. `implement-from-plan`
 
-**Purpose:** Implement the plan with TDD discipline. Includes internal self-review per the subagent-dev methodology, but defers formal code review to `review-diff`.
+**Purpose:** Implement the plan with TDD discipline. Includes internal self-review per the subagent-dev methodology, but defers formal code review to `review-diff-pass1` and `review-diff-pass2`.
 
 **Queue:** `delivery-build`
 **Agent:** `2-opus` (as controller); the controller may dispatch `glm` workers for mechanical sub-tasks
@@ -200,7 +237,7 @@ and dispatch a fresh subagent per task. Each subagent must:
 
 **Internal review:** Run implementer self-review only. Do NOT run the full two-stage
 spec compliance + code quality review from subagent-dev. Formal review is handled
-by the separate `review-diff` task downstream.
+by the separate `review-diff-pass1` and `review-diff-pass2` tasks downstream.
 
 **Model selection for subagents:**
 - Mechanical tasks (1-2 files, clear spec): use `glm`
@@ -244,7 +281,7 @@ Return JSON:
 | `worktree_path` | string | From `create-branch` result |
 | `branch_name` | string | From `create-branch` result |
 | `base_sha` | string | From `create-branch` result |
-| `feedback` | string? | Optional. From `review-diff` or `uat-handoff` on retry |
+| `feedback` | string? | Optional. From `review-diff-pass1`, `review-diff-pass2`, or `uat-handoff` on retry |
 | `retry_count` | int | 0 on first run, incremented on loop-back (max 3) |
 
 **Output schema:**
@@ -331,50 +368,35 @@ Return JSON:
 
 ---
 
-### 4. `review-diff`
+### 4. `review-diff-pass1`
 
-**Purpose:** Two-pass code review. First pass with `1-kimi` (fast, catches obvious issues). Second pass with `gpthigh` (different reasoning perspective, catches what the first missed).
+**Purpose:** First-pass code review. Fast scan for obvious issues: spec compliance, code quality, test coverage, security.
 
 **Queue:** `delivery-review`
-**Agent:** `1-kimi` (pass 1), then `gpthigh` (pass 2) — sequential within one Absurd task
+**Agent:** `1-kimi`
 **Skill:** superpowers → `>request-review` (requesting-code-review)
-**Absurd feature:** Task result drives pass/fail gate. On failure, parent replays steps 2-5 with review feedback (max 3 loops).
+**Absurd feature:** Task result drives pass/fail gate. On failure, parent replays steps 2-6 with review feedback (max 3 loops).
 
-**Prompt file:** `prompts/review-diff/v1.md`
+**Prompt file:** `prompts/review-diff-pass1/v1.md`
 
 **Prompt:**
 
 ```markdown
 ## Task
 
-Run a two-pass code review on the implementation diff.
+Run a first-pass code review on the implementation diff.
 
 ## Instructions
 
 Load skill `superpowers` and use sub-skill `>request-review`.
 
-This review runs in two sequential passes:
-
-### Pass 1 (agent: 1-kimi)
-
-Fast review for obvious issues:
+You are the first reviewer. Focus on catching obvious issues fast:
 - Spec compliance: does the diff match the plan?
 - Code quality: clean separation, error handling, type safety
 - Test coverage: tests verify behavior, not mocks
 - Security: no obvious vulnerabilities
 
 Use git range: `{{ base_sha }}..{{ head_sha }}`
-
-### Pass 2 (agent: gpthigh)
-
-Deep review from a different reasoning perspective:
-- Architecture: sound design decisions, scalability
-- Edge cases: what the first pass missed
-- Production readiness: migration safety, backward compatibility
-- Subtle bugs: race conditions, state management
-
-Use the same git range. The second reviewer receives pass 1 findings to avoid
-duplicate reporting.
 
 ## Params
 
@@ -398,25 +420,20 @@ Focus on whether the feedback items were addressed.
 Return JSON:
 {
   "status": "pass" | "warn" | "fail",
-  "pass1_findings": {
+  "findings": {
     "critical": ["file:line — description"],
     "important": ["file:line — description"],
     "minor": ["file:line — description"]
   },
-  "pass2_findings": {
-    "critical": ["file:line — description"],
-    "important": ["file:line — description"],
-    "minor": ["file:line — description"]
-  },
-  "combined_assessment": "Ready to merge | Fix critical issues | Needs rework",
+  "assessment": "Ready to proceed | Fix critical issues | Needs rework",
   "feedback_for_retry": "string (populated when status is fail)"
 }
 ```
 
-**Gate logic:**
-- `status == "pass"` → proceed to `qa-branch`
-- `status == "warn"` → if orchestrator is Option C, invoke model to decide; otherwise proceed
-- `status == "fail"` → parent loops back to step 2 with `feedback_for_retry` as the feedback param
+**Gate logic (hybrid):**
+- `status == "pass"` → proceed to `review-diff-pass2` (deterministic, no model)
+- `status == "warn"` → parent loads `orchestrator-gate/v1.md` and invokes `1-kimi` to classify: proceed or loop back
+- `status == "fail"` → parent loops back to step 2 with `feedback_for_retry` (deterministic, no model)
 
 **Input params:**
 
@@ -434,24 +451,121 @@ Return JSON:
 ```json
 {
   "status": "pass | warn | fail",
-  "pass1_findings": {
+  "findings": {
     "critical": ["string"],
     "important": ["string"],
     "minor": ["string"]
   },
-  "pass2_findings": {
-    "critical": ["string"],
-    "important": ["string"],
-    "minor": ["string"]
-  },
-  "combined_assessment": "string",
+  "assessment": "string",
   "feedback_for_retry": "string"
 }
 ```
 
 ---
 
-### 5. `qa-branch`
+### 5. `review-diff-pass2`
+
+**Purpose:** Second-pass code review. Deep review from a different model and reasoning perspective. Catches what the first pass missed: architecture, edge cases, subtle bugs.
+
+**Queue:** `delivery-review`
+**Agent:** `gpthigh`
+**Skill:** superpowers → `>request-review` (requesting-code-review)
+**Absurd feature:** Task result drives pass/fail gate. On failure, parent replays steps 2-6 with review feedback (max 3 loops).
+
+**Prompt file:** `prompts/review-diff-pass2/v1.md`
+
+**Prompt:**
+
+```markdown
+## Task
+
+Run a second-pass code review on the implementation diff.
+
+## Instructions
+
+Load skill `superpowers` and use sub-skill `>request-review`.
+
+You are the second reviewer, providing a different reasoning perspective.
+A first-pass review has already been completed. Its findings are below —
+do NOT repeat them. Focus on what it missed:
+- Architecture: sound design decisions, scalability
+- Edge cases: boundary conditions, null/empty handling
+- Production readiness: migration safety, backward compatibility
+- Subtle bugs: race conditions, state management, concurrency
+
+Use git range: `{{ base_sha }}..{{ head_sha }}`
+
+## First-pass findings (already reported, do not duplicate)
+
+{{ pass1_findings }}
+
+## Params
+
+- `base_sha`: {{ base_sha }}
+- `head_sha`: {{ head_sha }}
+- `plan_content`: {{ plan_content }}
+- `files_changed`: {{ files_changed }}
+
+{{ #if feedback }}
+## Prior feedback (retry cycle {{ retry_count }}/3)
+
+This is a re-review after implementation was revised. Previous feedback:
+
+{{ feedback }}
+
+Focus on whether the feedback items were addressed.
+{{ /if }}
+
+## Output
+
+Return JSON:
+{
+  "status": "pass" | "warn" | "fail",
+  "findings": {
+    "critical": ["file:line — description"],
+    "important": ["file:line — description"],
+    "minor": ["file:line — description"]
+  },
+  "assessment": "Ready to proceed | Fix critical issues | Needs rework",
+  "feedback_for_retry": "string (populated when status is fail)"
+}
+```
+
+**Gate logic (hybrid):**
+- `status == "pass"` → proceed to `qa-branch` (deterministic, no model)
+- `status == "warn"` → parent loads `orchestrator-gate/v1.md` and invokes `1-kimi` to classify: proceed or loop back
+- `status == "fail"` → parent loops back to step 2 with `feedback_for_retry` (deterministic, no model)
+
+**Input params:**
+
+| Param | Type | Source |
+|---|---|---|
+| `base_sha` | string | From `create-branch` result |
+| `head_sha` | string | From `implement-from-plan` result |
+| `plan_content` | string | Original plan text |
+| `files_changed` | string[] | From `implement-from-plan` result |
+| `pass1_findings` | object | From `review-diff-pass1` result |
+| `feedback` | string? | Optional. From prior review cycle |
+| `retry_count` | int | 0 on first run |
+
+**Output schema:**
+
+```json
+{
+  "status": "pass | warn | fail",
+  "findings": {
+    "critical": ["string"],
+    "important": ["string"],
+    "minor": ["string"]
+  },
+  "assessment": "string",
+  "feedback_for_retry": "string"
+}
+```
+
+---
+
+### 6. `qa-branch`
 
 **Purpose:** Run the full test suite and verify behavior matches the plan.
 
@@ -556,7 +670,7 @@ Generate a clear, actionable UAT brief containing:
 
 1. **Summary of what was implemented** (from the plan)
 2. **QA results** — what `qa-branch` tested, pass/fail counts, coverage
-3. **Review findings** — what `review-diff` found, any warnings
+3. **Review findings** — what `review-diff-pass1` and `review-diff-pass2` found, any warnings
 4. **Branch checkout instructions** — branch name and exact commands
 5. **How to run locally** — exact commands to run the app and tests
 6. **What to manually verify** — derived from the plan, specific user flows to check
@@ -592,7 +706,7 @@ absurdctl emit-event "uat-approved:<task-id>" -q delivery-orchestrator -P approv
 absurdctl emit-event "uat-approved:<task-id>" -q delivery-orchestrator -P approved=false -P feedback="description of issue"
 ```
 
-**On rejection:** The parent replays steps 2-5 with `feedback` passed as the optional feedback param to `implement-from-plan`. The `retry_count` is incremented. Max 3 loops.
+**On rejection:** The parent replays steps 2-6 with `feedback` passed as the optional feedback param to `implement-from-plan`. The `retry_count` is incremented. Max 3 loops.
 
 **On approval:** Proceed to Phase 3.
 
@@ -604,7 +718,7 @@ absurdctl emit-event "uat-approved:<task-id>" -q delivery-orchestrator -P approv
 | `branch_name` | string | From `create-branch` result |
 | `worktree_path` | string | From `create-branch` result |
 | `qa_results` | object | From `qa-branch` result |
-| `review_findings` | object | From `review-diff` result |
+| `review_findings` | object | From `review-diff-pass1` + `review-diff-pass2` results |
 | `files_changed` | string[] | From `implement-from-plan` result |
 
 ---
@@ -674,7 +788,7 @@ Return JSON:
 | `base_branch` | string | Defaults to `main` |
 | `worktree_path` | string | From `create-branch` result |
 | `qa_results` | object | From `qa-branch` result |
-| `review_findings` | object | From `review-diff` result |
+| `review_findings` | object | From `review-diff-pass1` + `review-diff-pass2` results |
 | `files_changed` | string[] | From `implement-from-plan` result |
 
 **Output schema:**
@@ -838,7 +952,9 @@ prompts/
     v1.md
   run-lsp-and-lint/
     v1.md
-  review-diff/
+  review-diff-pass1/
+    v1.md
+  review-diff-pass2/
     v1.md
   qa-branch/
     v1.md
@@ -848,6 +964,8 @@ prompts/
     v1.md
   request-greptile-review/
     v1.md                     ← only used when optional task is activated
+  orchestrator-gate/
+    v1.md                     ← only loaded when a child returns status "warn"
 prompt-config.toml
 ```
 
@@ -879,9 +997,14 @@ prompt = "prompts/run-lsp-and-lint/v1.md"
 agent = "1-kimi"
 queue = "delivery-review"
 
-[steps.review-diff]
-prompt = "prompts/review-diff/v1.md"
-agent = ["1-kimi", "gpthigh"]    # Sequential two-pass
+[steps.review-diff-pass1]
+prompt = "prompts/review-diff-pass1/v1.md"
+agent = "1-kimi"
+queue = "delivery-review"
+
+[steps.review-diff-pass2]
+prompt = "prompts/review-diff-pass2/v1.md"
+agent = "gpthigh"
 queue = "delivery-review"
 
 [steps.qa-branch]
@@ -904,6 +1027,12 @@ prompt = "prompts/request-greptile-review/v1.md"
 agent = "1-kimi"
 queue = "delivery-ops"
 
+# Orchestrator gate — loaded conditionally when a child returns status "warn"
+[steps.orchestrator-gate]
+prompt = "prompts/orchestrator-gate/v1.md"
+agent = "1-kimi"
+queue = "delivery-orchestrator"
+
 # No prompt entries for wait-for-ci and merge-when-green (code-only tasks)
 
 # ──────────────────────────────────────────────
@@ -921,8 +1050,8 @@ auto_merge = false
 
 [loopback]
 max_retries = 3
-# Steps replayed on failure: implement-from-plan → run-lsp-and-lint → review-diff → qa-branch
-replay_steps = ["implement-from-plan", "run-lsp-and-lint", "review-diff", "qa-branch"]
+# Steps replayed on failure: implement → lint → review-pass1 → review-pass2 → qa
+replay_steps = ["implement-from-plan", "run-lsp-and-lint", "review-diff-pass1", "review-diff-pass2", "qa-branch"]
 ```
 
 ---
@@ -931,17 +1060,17 @@ replay_steps = ["implement-from-plan", "run-lsp-and-lint", "review-diff", "qa-br
 
 ### How feedback flows
 
-When `review-diff` or `uat-handoff` rejects the implementation, the parent orchestrator replays steps 2-5 with feedback injected.
+When `review-diff-pass1`, `review-diff-pass2`, or `uat-handoff` rejects the implementation, the parent orchestrator replays steps 2-6 with feedback injected.
 
 ```
-review-diff fails
-  → parent reads review-diff.result.feedback_for_retry
+review-diff-pass1 or review-diff-pass2 fails
+  → parent reads the failing task's result.feedback_for_retry
   → parent increments retry_count (0 → 1 → 2 → max 3)
   → parent spawns implement-from-plan with:
-      params.feedback = review-diff.result.feedback_for_retry
+      params.feedback = <failing review>.result.feedback_for_retry
       params.retry_count = <incremented>
   → implement-from-plan prompt renders the "Prior feedback" section
-  → pipeline continues: lint → review → qa
+  → pipeline continues: lint → review-pass1 → review-pass2 → qa
 
 uat-handoff rejected
   → human emits event with feedback="description of issue"
@@ -949,12 +1078,12 @@ uat-handoff rejected
   → parent spawns implement-from-plan with:
       params.feedback = event.feedback
       params.retry_count = <incremented>
-  → pipeline continues: implement → lint → review → qa → uat-handoff (re-enters gate)
+  → pipeline continues: implement → lint → review-pass1 → review-pass2 → qa → uat-handoff (re-enters gate)
 ```
 
 ### Same prompt, optional field
 
-The `implement-from-plan` and `review-diff` prompts use conditional sections:
+The `implement-from-plan`, `review-diff-pass1`, and `review-diff-pass2` prompts use conditional sections:
 
 ```markdown
 {{ #if feedback }}
@@ -978,8 +1107,8 @@ After 3 failed loops, the parent fails the workflow:
   "reason": "Maximum retry count (3) exceeded",
   "last_feedback": "<feedback from last review/UAT>",
   "retry_history": [
-    { "cycle": 1, "source": "review-diff", "feedback": "..." },
-    { "cycle": 2, "source": "review-diff", "feedback": "..." },
+    { "cycle": 1, "source": "review-diff-pass2", "feedback": "..." },
+    { "cycle": 2, "source": "review-diff-pass1", "feedback": "..." },
     { "cycle": 3, "source": "uat-handoff", "feedback": "..." }
   ]
 }
@@ -1032,11 +1161,11 @@ opencode run --agent 1-kimi "$(cat prompts/create-branch/v1.md | render_template
 # Example: implement-from-plan (with feedback on retry)
 opencode run --agent gpthigh "$(cat prompts/implement-from-plan/v1.md | render_template --feedback='fix the email validation' --retry_count=1)"
 
-# Example: review-diff pass 1
-opencode run --agent 1-kimi "$(cat prompts/review-diff/v1.md | render_template --pass=1)"
+# Example: review-diff-pass1
+opencode run --agent 1-kimi "$(cat prompts/review-diff-pass1/v1.md | render_template)"
 
-# Example: review-diff pass 2
-opencode run --agent gpthigh "$(cat prompts/review-diff/v1.md | render_template --pass=2 --pass1_findings='...')"
+# Example: review-diff-pass2 (receives pass1 findings)
+opencode run --agent gpthigh "$(cat prompts/review-diff-pass2/v1.md | render_template --pass1_findings='...')"
 ```
 
 The `render_template` function is application code that:
@@ -1073,4 +1202,4 @@ The `render_template` function is application code that:
 - Calling the model (`opencode run --agent <name> "<prompt>"`)
 - Template rendering (resolving params into prompts)
 - Optional task activation flags
-- Orchestrator gate logic (Option A, B, or C)
+- Orchestrator hybrid gate logic (deterministic for pass/fail, model for warn)
