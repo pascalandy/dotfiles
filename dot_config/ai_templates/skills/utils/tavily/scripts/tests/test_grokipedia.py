@@ -225,6 +225,55 @@ class TestGetApiKey:
         with patch("grokipedia.subprocess.run", return_value=mock_result):
             assert grokipedia.get_api_key() == "tvly-abc123"
 
+    # --- Gap: error message actionability ---
+
+    def test_unit_file_not_found_error_includes_install_url(self) -> None:
+        """Error for missing chezmoi must include the install URL."""
+        with patch("grokipedia.subprocess.run", side_effect=FileNotFoundError):
+            with pytest.raises(grokipedia.ApiKeyError, match="chezmoi.io/install"):
+                grokipedia.get_api_key()
+
+    def test_unit_subprocess_error_includes_set_command(self) -> None:
+        """Error for keyring failure must include the set command."""
+        with patch(
+            "grokipedia.subprocess.run",
+            side_effect=subprocess.CalledProcessError(1, "chezmoi"),
+        ):
+            with pytest.raises(
+                grokipedia.ApiKeyError, match="chezmoi secret keyring set"
+            ):
+                grokipedia.get_api_key()
+
+    def test_unit_empty_key_error_includes_set_command(self) -> None:
+        """Error for empty key must include actionable set command."""
+        mock_result = subprocess.CompletedProcess(
+            args=[], returncode=0, stdout="  \n", stderr=""
+        )
+        with patch("grokipedia.subprocess.run", return_value=mock_result):
+            with pytest.raises(
+                grokipedia.ApiKeyError, match="chezmoi secret keyring set"
+            ):
+                grokipedia.get_api_key()
+
+    # --- Gap: exception chaining ---
+
+    def test_unit_file_not_found_chains_original_exception(self) -> None:
+        """ApiKeyError must chain the original FileNotFoundError via __cause__."""
+        with patch("grokipedia.subprocess.run", side_effect=FileNotFoundError("nope")):
+            with pytest.raises(grokipedia.ApiKeyError) as exc_info:
+                grokipedia.get_api_key()
+            assert isinstance(exc_info.value.__cause__, FileNotFoundError)
+
+    def test_unit_subprocess_error_chains_original_exception(self) -> None:
+        """ApiKeyError must chain the original CalledProcessError via __cause__."""
+        with patch(
+            "grokipedia.subprocess.run",
+            side_effect=subprocess.CalledProcessError(1, "chezmoi"),
+        ):
+            with pytest.raises(grokipedia.ApiKeyError) as exc_info:
+                grokipedia.get_api_key()
+            assert isinstance(exc_info.value.__cause__, subprocess.CalledProcessError)
+
 
 # ===================================================================
 # Unit Tests -- search_grokipedia
@@ -365,6 +414,29 @@ class TestSearchGrokipedia:
         result = grokipedia.search_grokipedia("test", api_key="k")
         assert isinstance(result, dict)
 
+    # --- Gap: default parameter values and header completeness ---
+
+    @respx.mock
+    def test_unit_default_max_results_is_5_in_payload(self) -> None:
+        """When max_results is not specified, payload must default to 5."""
+        captured, _ = _capture_payload(grokipedia.TAVILY_API_URL)
+        grokipedia.search_grokipedia("test", api_key="k")
+        assert captured["max_results"] == 5
+
+    @respx.mock
+    def test_unit_content_type_header_is_json(self) -> None:
+        """Content-Type header must be application/json."""
+        captured_ct: str = ""
+
+        def capture_request(request: httpx.Request) -> httpx.Response:
+            nonlocal captured_ct
+            captured_ct = request.headers.get("content-type", "")
+            return httpx.Response(200, json=FAKE_RESPONSE)
+
+        respx.post(grokipedia.TAVILY_API_URL).mock(side_effect=capture_request)
+        grokipedia.search_grokipedia("test", api_key="k")
+        assert captured_ct == "application/json"
+
 
 # ===================================================================
 # Unit Tests -- display_results
@@ -430,6 +502,26 @@ class TestDisplayResults:
         """Full valid data with raw=True must render without error."""
         grokipedia.display_results(FAKE_RESPONSE, raw=True)
 
+    # --- Gap: raw content truncation boundary ---
+
+    def test_unit_raw_long_content_truncated_at_500(self) -> None:
+        """Raw content >500 chars with raw=True must not crash (truncation is visual)."""
+        data = {
+            "query": "long",
+            "results": [
+                {
+                    "title": "Long Article",
+                    "url": "https://grokipedia.com/page/Long",
+                    "content": "Short snippet.",
+                    "score": 0.8,
+                    "raw_content": "x" * 1000,
+                }
+            ],
+            "response_time": 0.5,
+        }
+        # Must not raise; truncation happens inside display logic
+        grokipedia.display_results(data, raw=True)
+
 
 # ===================================================================
 # Unit Tests -- parse_arguments
@@ -474,6 +566,20 @@ class TestParseArguments:
         with patch("sys.argv", ["grokipedia.py", "quantum computing"]):
             args = grokipedia.parse_arguments()
             assert args.query == "quantum computing"
+
+    # --- Gap: short and long flag variants ---
+
+    def test_unit_short_n_flag_sets_max_results(self) -> None:
+        """-n must set max_results."""
+        with patch("sys.argv", ["grokipedia.py", "test", "-n", "10"]):
+            args = grokipedia.parse_arguments()
+            assert args.max_results == 10
+
+    def test_unit_long_max_results_flag_sets_value(self) -> None:
+        """--max-results must set max_results."""
+        with patch("sys.argv", ["grokipedia.py", "test", "--max-results", "15"]):
+            args = grokipedia.parse_arguments()
+            assert args.max_results == 15
 
 
 # ===================================================================
@@ -625,6 +731,27 @@ class TestMainFunction:
         with patch("sys.argv", ["grokipedia.py", "test", "-n", "0"]):
             assert grokipedia.main() == 2
 
+    # --- Gap: resilience to missing keys in API response ---
+
+    @respx.mock
+    def test_unit_response_missing_results_key_still_exits_0(self) -> None:
+        """API response with no 'results' key must not crash."""
+        no_results_response: dict[str, Any] = {
+            "query": "test",
+            "answer": "An answer.",
+            "response_time": 0.5,
+            # "results" key is absent entirely
+        }
+        respx.post(grokipedia.TAVILY_API_URL).mock(
+            return_value=httpx.Response(200, json=no_results_response)
+        )
+        respx.post(grokipedia.TAVILY_EXTRACT_URL).mock(
+            return_value=httpx.Response(200, json=FAKE_EXTRACT_FAIL_RESPONSE)
+        )
+        with patch("grokipedia.get_api_key", return_value="key"):
+            with patch("sys.argv", ["grokipedia.py", "test"]):
+                assert grokipedia.main() == 0
+
 
 # ===================================================================
 # Unit Tests -- normalize_page_title
@@ -674,6 +801,23 @@ class TestNormalizePageTitle:
     def test_unit_tabs_and_mixed_whitespace(self) -> None:
         """Tabs and newlines must be handled like spaces."""
         assert grokipedia.normalize_page_title("\t foo \n") == "Foo"
+
+    # --- Gap: non-alpha first characters ---
+
+    def test_unit_numeric_first_char_preserved(self) -> None:
+        """Digit first char must pass through .upper() as no-op."""
+        assert grokipedia.normalize_page_title("42 things") == "42_things"
+
+    def test_unit_hyphenated_words_preserved(self) -> None:
+        """Hyphens within words must be preserved (not split)."""
+        assert (
+            grokipedia.normalize_page_title("well-known pattern")
+            == "Well-known_pattern"
+        )
+
+    def test_unit_single_uppercase_char_identity(self) -> None:
+        """Already-uppercase single char must be identity."""
+        assert grokipedia.normalize_page_title("Z") == "Z"
 
 
 # ===================================================================
@@ -887,6 +1031,38 @@ class TestExtractExactPage:
         with patch("grokipedia.get_api_key", return_value="resolved") as mock_get:
             grokipedia.extract_exact_page("pattern", api_key=None)
             mock_get.assert_called_once()
+
+    # --- Gap: returned dict completeness and missing-key resilience ---
+
+    @respx.mock
+    def test_unit_result_dict_has_all_required_keys(self) -> None:
+        """Returned dict must contain exactly: title, url, content, score, raw_content."""
+        respx.post(grokipedia.TAVILY_EXTRACT_URL).mock(
+            return_value=httpx.Response(200, json=FAKE_EXTRACT_RESPONSE)
+        )
+        result = grokipedia.extract_exact_page("pattern", api_key="fake-key")
+        assert result is not None
+        assert set(result.keys()) == {"title", "url", "content", "score", "raw_content"}
+
+    @respx.mock
+    def test_unit_missing_raw_content_key_in_api_response(self) -> None:
+        """API response missing raw_content key must fall back to empty string."""
+        no_raw_key_response = {
+            "results": [
+                {
+                    "url": "https://grokipedia.com/page/Pattern",
+                    # "raw_content" key is absent entirely
+                }
+            ],
+            "failed_results": [],
+            "response_time": 0.5,
+        }
+        respx.post(grokipedia.TAVILY_EXTRACT_URL).mock(
+            return_value=httpx.Response(200, json=no_raw_key_response)
+        )
+        result = grokipedia.extract_exact_page("pattern", api_key="fake-key")
+        assert result is not None
+        assert result["raw_content"] == ""
 
 
 # ===================================================================
