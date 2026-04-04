@@ -39,7 +39,7 @@ The parent collects each child result and passes them forward as params to downs
 
 ## Execution flow
 
-The workflow runs in two phases separated by a human gate.
+The workflow runs in three phases: automated build, human validation, automated delivery.
 
 ### Phase 1 -- automated, runs to completion
 
@@ -51,21 +51,28 @@ The workflow runs in two phases separated by a human gate.
 | 4 | `review-diff` | `delivery-review` | task result drives pass/fail gate; on failure, parent replays steps 2-5 with review feedback (max 3 loops) |
 | 5 | `qa-branch` | `delivery-review` | task result drives pass/fail gate |
 
-After step 5 completes, the parent enters a durable event wait. The code is implemented, linted, reviewed, and tested -- but not committed. The working tree is what the human validates.
+After step 5 completes, the code is implemented, linted, reviewed, and tested -- but not committed. The working tree is what the human validates.
 
-### Phase 2 -- human-triggered after UAT
+### Phase 2 -- human UAT gate
 
 | Order | Child task | Queue | Absurd feature used |
 |---|---|---|---|
 | 6 | `uat-handoff` | `delivery-ops` | durable event wait for human approval signal |
+
+The parent spawns `uat-handoff`, which produces a UAT brief (see details below), then enters a durable event wait. The workflow is now sleeping in Postgres -- no worker, no poller, no resources consumed -- until the human signals approval or rejection.
+
+On rejection, the parent replays steps 2-5 with the human's feedback (max 3 loops), then re-enters this gate. On approval, the workflow advances to Phase 3.
+
+### Phase 3 -- automated delivery
+
+| Order | Child task | Queue | Absurd feature used |
+|---|---|---|---|
 | 7 | `open-pull-request` | `delivery-ops` | checkpointed steps: step 1 commits (persists SHA), step 2 opens PR (persists URL) |
 | 8a | `request-greptile-review` | `delivery-ops` | durable event wait (external async system) |
 | 8b | `wait-for-ci` | `delivery-ops` | durable sleep (poll CI status) or webhook event |
 | 9 | `merge-when-green` | `delivery-ops` | deterministic gate check on 8a + 8b results, no model needed |
 
 Steps 8a and 8b run in parallel -- Greptile and CI are independent external systems. The parent spawns both and awaits both results before proceeding to step 9.
-
-On UAT rejection, the parent replays steps 2-5 with human feedback (max 3 loops), then re-enters the UAT gate.
 
 ### UAT handoff details
 
