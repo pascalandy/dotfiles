@@ -105,6 +105,15 @@ Keep Zen (`opencode/glm-5.1`) available as `glm-zen` fallback when needed (curre
 
 Keep at least one local LM Studio option available for small or offline-friendly tasks.
 
+## Updating skills
+
+When we update and/or change these configurations, they impact our skills such as:
+
+- `dot_config/ai_templates/skills/specs/use-subagents`
+- `dot_config/ai_templates/skills/specs/run-oc`
+
+**IMPORTANT**: Always update these skills in order to avoid drift. 
+
 ## Documentation boundary
 
 When updating this note in the future:
