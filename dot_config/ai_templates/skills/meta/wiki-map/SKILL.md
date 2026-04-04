@@ -1,9 +1,9 @@
 ---
-name: map-wiki
-description: Build and maintain LLM-written personal wikis -- ingest sources into structured interlinked markdown, query across pages with synthesized answers, and lint for contradictions, orphans, and gaps. USE WHEN wiki, ingest source, process article, add to wiki, query wiki, search wiki, ask wiki, lint wiki, wiki health check, wiki maintenance, knowledge base, personal wiki, research wiki, webclip, cross-reference, wiki index, wiki log.
+name: wiki-map
+description: Build and maintain LLM-written personal wikis -- ingest sources into structured interlinked markdown, query across pages with synthesized answers, and lint for contradictions, orphans, and gaps. USE WHEN wiki, ingest, ingest source, process source, process article, add to wiki, add source, add article, new source, webclip, batch ingest, create wiki, bootstrap wiki, init wiki, new wiki, query wiki, search wiki, ask wiki, synthesize, deep query, what does the wiki say, find in wiki, compare, file answer, save answer, save as wiki page, compound answer, lint wiki, health check, wiki health check, wiki maintenance, find orphans, find contradictions, stale pages, missing cross-references, wiki cleanup, wiki audit, check wiki, wiki health, knowledge base, personal wiki, research wiki, wiki index, wiki log, cross-reference, update wiki.
 ---
 
-# Map Wiki
+# Wiki Map
 
 > Three wiki operations in one skill -- ingest sources into a persistent knowledge base, query across pages with citations, and lint for structural health -- routed automatically based on what you need.
 
@@ -184,7 +184,11 @@ Every wiki page uses YAML frontmatter with four tag axes:
 
 Tags always appear in order: `area` -> `kind` -> `status` -> `pty`.
 
-See the plan document for the full label model with all valid tag values.
+**Valid `kind/*` values:** wiki, research, relationship, webclip, log, plan, idea, playbook, blog, tracking, project/{name}, task, template, hygiene, bug, role, random.
+
+**Valid `status/*` values:** draft, open, stable, blocked, parked, closed.
+
+**Valid `pty/*` values:** p1 (urgent), p2 (normal), p3 (low). Only for actionable kinds: task, bug, plan, project/{name}, hygiene.
 
 ---
 
