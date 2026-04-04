@@ -211,7 +211,7 @@ Tags are distributed across 4 independent axes. Each axis answers a distinct que
 - `kind/role` — team role description (`TEAM_*.md` files)
 - `kind/random` — for anything else
 
-**Axis 3 — STATUS: where in the workflow?** (required on every wiki note, except `kind/project/*`)
+**Axis 3 — STATUS: where in the workflow?** (required on every wiki note)
 
 - `status/draft` — structure laid out, minimal content
 - `status/open` — in progress, partial. Default for new wiki pages.
@@ -220,19 +220,27 @@ Tags are distributed across 4 independent axes. Each axis answers a distinct que
 - `status/parked` — intentionally suspended
 - `status/closed` — closed
 
-Knowledge kinds (research, relationship, webclip, etc.) typically flow `draft` → `open` → `stable`. Actionable kinds (task, bug, plan, hygiene) use the full range including `blocked`, `parked`, `closed`.
+Knowledge kinds (research, relationship, webclip, etc.) typically flow `draft` → `open` → `stable`. Actionable kinds (task, bug, plan, project, hygiene) use the full range including `blocked`, `parked`, `closed`.
 
-**Axis 4 — PRIORITY: how urgent?** (only for actionable kinds: `kind/task`, `kind/bug`, `kind/plan`, `kind/hygiene`)
+**Axis 4 — PRIORITY: how urgent?** (only for actionable kinds: `kind/task`, `kind/bug`, `kind/plan`, `kind/project/{name}`, `kind/hygiene`)
 
 - `pty/p1` — urgent
-- `pty/p2` — normal. Default when not specified.
-- `pty/p3` — low priority
+- `pty/p2` — normal
+- `pty/p3` — low priority. Default for `kind/project/{name}`.
 
 Knowledge kinds (`kind/wiki`, `kind/research`, `kind/relationship`, `kind/webclip`, `kind/idea`, `kind/tracking`, `kind/playbook`, `kind/blog`, `kind/role`, `kind/log`, `kind/random`, `kind/template`, `kind/project/{name}`) do not get priority tags.
 
 ### Tag order
 
 Tags in the frontmatter always follow this order: `area` → `kind` → `status` → `pty`.
+
+---
+
+# FAQ
+
+## How big can a wiki get before it breaks?
+
+The flat structure and INDEX.md approach work well at moderate scale (~100 sources, ~hundreds of pages). But this assumes **one wiki per git repo** — not your entire life in a single vault. Each wiki is scoped to a specific domain (a research project, a book you're reading, a health tracking system). You won't reach thousands of files because you'll spin up a new wiki when the topic diverges. The INDEX.md stays lean because it's scoped, not universal.
 
 ---
 
