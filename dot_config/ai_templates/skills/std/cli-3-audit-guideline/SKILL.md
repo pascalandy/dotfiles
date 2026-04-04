@@ -1,7 +1,7 @@
 ---
-name: cli-level-1
+name: cli-3-audit-guideline
 description: |
-  Use this skill only when the user explicitly ask for `cli-level-1`. Requirements spec for building agent-friendly CLI scripts and tools. Apply these rules to every CLI being built or reviewed — they govern flags, help text, errors, output, safety, and composability so the resulting tool works for both humans and AI agents. Load this skill whenever building a new CLI script, adding flags/subcommands, designing error messages, or structuring command output. Complements cli-guideline-deep (human-first UX) with the agent-operability layer.
+  Use this skill only when the user explicitly ask for `cli-3-audit-guideline`. Requirements spec for building agent-friendly CLI scripts and tools. Apply these rules to every CLI being built or reviewed — they govern flags, help text, errors, output, safety, and composability so the resulting tool works for both humans and AI agents. Load this skill whenever building a new CLI script, adding flags/subcommands, designing error messages, or structuring command output. Complements cli-guideline-deep (human-first UX) with the agent-operability layer.
 ---
 
 # CLI Requirements — Agent-Friendly

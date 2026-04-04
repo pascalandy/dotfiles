@@ -1,6 +1,6 @@
 ---
-name: cli-guideline-short
-description: Design CLI parameters and UX (arguments, flags, subcommands, help text, output formats, error messages, exit codes, config/env precedence). Use when designing a CLI spec before implementation or refactoring CLI surface area.
+name: cli-1-spec-guideline
+description: Use this skill only when the user explicitly ask for `cli-1-spec-guideline`. Design CLI parameters and UX (arguments, flags, subcommands, help text, output formats, error messages, exit codes, config/env precedence). Use when designing a CLI spec before implementation or refactoring CLI surface area.
 ---
 
 # Create CLI

@@ -1,6 +1,6 @@
 ---
-name: cli-guideline-deep
-description: Build CLI tools (Python, JS, Bash, Go) following modern best practices. Use when creating new CLIs, reviewing CLI UX, implementing help/errors/output, or adding flags/args/subcommands.
+name: cli-2-impl-guideline
+description: Use this skill only when the user explicitly ask for `cli-2-impl-guideline`. Build CLI tools (Python, JS, Bash, Go) following modern best practices. Use when creating new CLIs, reviewing CLI UX, implementing help/errors/output, or adding flags/args/subcommands.
 ---
 
 # Skill: CLI Guideline
