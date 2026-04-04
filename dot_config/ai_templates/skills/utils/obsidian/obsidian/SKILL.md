@@ -1,18 +1,15 @@
 ---
 name: obsidian
 description: >
-  Search, create, edit, and organize notes in the user's Obsidian vault using
-  wikilinks, embeds, callouts, properties, and Obsidian Flavored Markdown.
-  Use when the user mentions Obsidian notes, vault search, wikilinks,
-  frontmatter, tags, embeds, callouts, or wants to find, create, or manage
-  notes in Obsidian -- even if they don't say "Obsidian" explicitly.
+  Use only when the user explicitly says "obsidian". Search, create, edit, and organize notes in the user's  Obsidian vault using wikilinks, embeds, callouts, properties, and Obsidian Flavored Markdown. Use when the user mentions Obsidian notes, vault search, wikilinks,
+  frontmatter, tags, embeds, callouts, or wants to find, create, or manage notes in Obsidian. Do not use that skill automatically.
 ---
 
 # Obsidian Vault
 
 ## Quick orientation
 
-Vault path: `/Users/andy16/Documents/_my_docs/10_obsidian/vault_obsidian`
+OBSIDIAN_VAULT_PATH=$(chezmoi secret keyring get --service=OBSIDIAN_VAULT --user=path)
 
 Read `_bases/The Vault 🧠.base` for 40+ curated views of the vault.
 
