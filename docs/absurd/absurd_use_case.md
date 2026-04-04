@@ -2,24 +2,7 @@
 
 ## Goal
 
-This document shows what a high-level, durable development workflow could look like with Absurd for a very common software-delivery path:
-
-1. read plan and implement with red/green TDD
-2. lsp / lint
-3. code review
-4. qa
-5. commit all
-6. open pr
-7. pr review with Greptile
-8. deploy and wait for ci
-9. merge to main
-
-The focus here is not code. The focus is:
-
-- what the workflow looks like at a high level
-- how prompts are managed across steps
-- how model choice is decided per step
-- how Absurd helps make the whole thing durable and resumable
+Model a common software-delivery path as a durable, resumable workflow in Absurd: plan to implementation to review to merge.
 
 ## Prerequisites
 
@@ -32,86 +15,24 @@ The focus here is not code. The focus is:
 
 ## At a glance
 
-The cleanest way to model this in Absurd is as one parent task that orchestrates a set of durable phases.
-
-```txt
+```
 queues (flat, all peers):
   delivery-orchestrator   ← deliver-change (parent task)
   delivery-build          ← implement-from-plan
   delivery-review         ← run-lsp-and-lint, review-diff, qa-branch
   delivery-ops            ← commit-branch, open-pull-request, request-greptile-review,
                              wait-for-ci, merge-when-green
-
-child tasks:
-  implement-from-plan     ← delivery-build
-  run-lsp-and-lint        ← delivery-review
-  review-diff             ← delivery-review
-  qa-branch               ← delivery-review
-  commit-branch           ← delivery-ops
-  open-pull-request       ← delivery-ops
-  request-greptile-review ← delivery-ops
-  wait-for-ci             ← delivery-ops
-  merge-when-green        ← delivery-ops
-
-prompt layer (application code, not Absurd):
-  prompts/
-    implement-from-plan/
-      v1.md
-      v2.md
-    review-diff/
-      v1.md
-    qa-branch/
-      v1.md
-    ...
-  prompt-config.toml        ← maps step → prompt version + model profile
 ```
 
-Why split queues:
+## Parent task: `deliver-change`
 
-- implementation and review often want different concurrency profiles
-- child-task waits should happen cross-queue, which aligns well with Absurd `0.3.0`
-- operations such as PR creation, CI waiting, and merge gating are easier to isolate
+Runs on `delivery-orchestrator`. 
 
-What Absurd owns: queues, tasks, steps, checkpoints, retries, events, sleeps.
-What you own: prompts, model selection, calling the model (e.g. `opencode run --agent`).
-
-## What the parent workflow is responsible for
-
-The parent task is not where all detailed work happens.
-
-The parent task should:
-
-- load the plan and metadata for the change
-- decide the execution order
-- spawn child tasks on the right queues
-- await the terminal result of each child task
-- stop early on hard failures
-- persist all decision points and artifacts
-- wait durably for external events such as CI completion or Greptile feedback
-
-At this level, the parent task is a release manager.
-
-## What the child tasks are responsible for
-
-Each major stage becomes one child task with its own prompt policy, model policy, acceptance criteria, and output contract.
-
-Suggested child tasks:
-
-- `implement-from-plan`
-- `run-lsp-and-lint`
-- `review-diff`
-- `qa-branch`
-- `commit-branch`
-- `open-pull-request`
-- `request-greptile-review`
-- `wait-for-ci`
-- `merge-when-green`
-
-This is useful because each child task can fail, retry, sleep, or wait independently without losing the whole workflow.
+Acts as a release manager: loads the plan, spawns child tasks on the right queues, awaits each result, stops early on hard failure, waits durably for external events (CI, Greptile).
 
 ## Execution flow
 
-The parent task (`deliver-change`) runs on `delivery-orchestrator` and drives the sequence. Each phase is a child task spawned on the appropriate queue. The parent awaits each result before deciding to continue or stop.
+Each phase is a child task. The parent awaits each result before deciding to continue or stop. Each child can fail, retry, sleep, or wait independently without losing the whole workflow.
 
 | Order | Child task | Queue | Absurd feature used |
 |---|---|---|---|
@@ -124,6 +45,38 @@ The parent task (`deliver-change`) runs on `delivery-orchestrator` and drives th
 | 7 | `request-greptile-review` | `delivery-ops` | durable event wait (external async system) |
 | 8 | `wait-for-ci` | `delivery-ops` | durable sleep + periodic wake or webhook event |
 | 9 | `merge-when-green` | `delivery-ops` | deterministic gate check, no model needed |
+
+## Prompt management
+
+````txt
+prompt layer (application code, not Absurd):
+  prompts/
+    implement-from-plan/
+      v1.md
+      v2.md
+    review-diff/
+      v1.md
+    qa-branch/
+      v1.md
+    ...
+  prompt-config.toml        ← maps step → prompt version + model profile
+````
+## Keep in mind
+
+The focus is not code. The focus is:
+
+- what the workflow looks like at a high level
+- how prompts are managed across steps
+- how model choice is decided per step
+- how Absurd helps make the whole thing durable and resumable
+
+What Absurd owns:
+
+- queues, tasks, steps, checkpoints, retries, events, sleeps.
+
+What you own: 
+
+- prompts, model selection, calling the model (e.g. `opencode run --agent`).
 
 Key durability points:
 
