@@ -123,6 +123,8 @@ Example:
 
 ```yaml
 ---
+name: Vitamin D and Sleep
+description: Research on vitamin D's effect on sleep quality
 tags:
   - area/ea/wiki
   - kind/research
@@ -191,19 +193,18 @@ Tags are distributed across 4 independent axes. Each axis answers a distinct que
 kind:
 - `kind/playbook` — reusable procedure or prompt
 - `kind/relationship` — person or organization
-- `kind/plan` — exploratory plan
+- `kind/plan` — plan for something you intend to build or execute, may include strategic analysis
 - `kind/research` — research
-- `kind/blog` — to mange my blog content
-- `kind/idea` — idea
+- `kind/blog` — draft or published blog post, content intended for external publication
+- `kind/idea` — brainstorm or early-stage thinking, not tied to something you intend to build
 - `kind/webclip` — source, scrap from the web
-- `kind/milestone` — project progress tracking (e.g. ACV4)
+- `kind/tracking` — status/progress page that monitors something over time (projects, goals, personal metrics). Not tied to a single managed project — a dashboard you keep updated. (e.g. ACV4 status, health goals, quarterly OKRs)
 - `kind/project/{name}` — artifact within a project. `{name}` matches the project root directory name (e.g. `kind/project/cass`, `kind/project/ccl`)
 - `kind/log` — operational log, batch of historical decisions, retrospective
 - `kind/task` — ad-hoc work
-- `kind/doc/template` — reusable scaffold
+- `kind/template` — reusable scaffold
 - `kind/hygiene` — drift sweep, metadata cleanup, structural maintenance
 - `kind/bug` — system failure, broken tool, unexpected behavior
-- `kind/strategy` — strategic direction or analysis
 - `kind/role` — team role description (`TEAM_*.md` files)
 - `kind/random` — for anything else
 
@@ -216,13 +217,15 @@ kind:
 - `status/parked` — intentionally suspended
 - `status/closed` — closed
 
+Knowledge kinds (research, relationship, webclip, etc.) typically flow `draft` → `open` → `stable`. Actionable kinds (task, bug, plan, hygiene) use the full range including `blocked`, `parked`, `closed`.
+
 **Axis 4 — PRIORITY: how urgent?** (only for actionable kinds: `kind/task`, `kind/bug`, `kind/plan`, `kind/hygiene`)
 
 - `pty/p1` — urgent
 - `pty/p2` — normal. Default when not specified.
 - `pty/p3` — low priority
 
-Knowledge kinds (`kind/research`, `kind/relationship`, `kind/webclip`, `kind/idea`, `kind/milestone`, `kind/strategy`, `kind/playbook`, `kind/role`, `kind/log`, `kind/random`, `kind/doc/*`) do not get priority tags.
+Knowledge kinds (`kind/research`, `kind/relationship`, `kind/webclip`, `kind/idea`, `kind/tracking`, `kind/playbook`, `kind/blog`, `kind/role`, `kind/log`, `kind/random`, `kind/template`) do not get priority tags.
 
 ### Tag order
 
