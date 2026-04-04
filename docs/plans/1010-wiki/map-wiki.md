@@ -184,13 +184,11 @@ Tags are distributed across 4 independent axes. Each axis answers a distinct que
 
 **Axis 1 — AREA: which system component?** (required on every markdown file)
 
-- `area/ea/index`    # apply only to INDEX.md at {dir_name}
+- `area/ea`    # Apply to each and every notes under any given wiki including INDEX.md
 
 **Axis 2 — KIND: what is this file?** (required for `area/ea/wiki`)
 
-- `area/ea/wiki`     # apply to all note under /references
-
-kind:
+- `kind/wiki`  # apply only to INDEX.md at {dir_name}
 - `kind/playbook` — reusable procedure or prompt
 - `kind/relationship` — person or organization
 - `kind/plan` — plan for something you intend to build or execute, may include strategic analysis
