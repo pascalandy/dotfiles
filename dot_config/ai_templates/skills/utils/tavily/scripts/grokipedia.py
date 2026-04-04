@@ -38,8 +38,19 @@ out = Console()
 err = Console(stderr=True)
 
 
+class ApiKeyError(Exception):
+    """Raised when the Tavily API key cannot be retrieved."""
+
+
 def get_api_key() -> str:
-    """Retrieve Tavily API key from macOS keyring via chezmoi."""
+    """Retrieve Tavily API key from macOS keyring via chezmoi.
+
+    Returns:
+        The API key string, stripped of whitespace.
+
+    Raises:
+        ApiKeyError: If chezmoi is missing, keyring lookup fails, or key is empty.
+    """
     try:
         result = subprocess.run(
             [
@@ -54,21 +65,30 @@ def get_api_key() -> str:
             text=True,
             check=True,
         )
-        return result.stdout.strip()
-    except FileNotFoundError:
-        err.print("[red]Error: chezmoi not found in PATH[/red]")
-        err.print("  Install chezmoi: https://www.chezmoi.io/install/")
-        sys.exit(1)
-    except subprocess.CalledProcessError:
-        err.print("[red]Error: Could not retrieve Tavily API key from keyring[/red]")
-        err.print(
+        key = result.stdout.strip()
+        if not key:
+            raise ApiKeyError(
+                "Tavily API key from keyring is empty.\n"
+                "  Set it with: chezmoi secret keyring set --service=tavily --user=api_key"
+            )
+        return key
+    except FileNotFoundError as exc:
+        raise ApiKeyError(
+            "chezmoi not found in PATH.\n"
+            "  Install chezmoi: https://www.chezmoi.io/install/"
+        ) from exc
+    except subprocess.CalledProcessError as exc:
+        raise ApiKeyError(
+            "Could not retrieve Tavily API key from keyring.\n"
             "  Set it with: chezmoi secret keyring set --service=tavily --user=api_key"
-        )
-        sys.exit(1)
+        ) from exc
 
 
 def search_grokipedia(
-    query: str, max_results: int = 5, include_raw: bool = False
+    query: str,
+    max_results: int = 5,
+    include_raw: bool = False,
+    api_key: str | None = None,
 ) -> dict[str, Any]:
     """Search grokipedia.com using Tavily API with include_domains filter.
 
@@ -76,15 +96,18 @@ def search_grokipedia(
         query: Search query string.
         max_results: Maximum number of results (1-20).
         include_raw: Whether to include raw page content.
+        api_key: Tavily API key. If None, retrieved from keyring via get_api_key().
 
     Returns:
         Tavily API response as a dictionary.
 
     Raises:
+        ApiKeyError: If api_key is None and keyring lookup fails.
         httpx.HTTPStatusError: On non-2xx response.
         httpx.RequestError: On connection/timeout failure.
     """
-    api_key = get_api_key()
+    if api_key is None:
+        api_key = get_api_key()
 
     payload = {
         "query": query,
@@ -148,32 +171,40 @@ def display_results(data: dict[str, Any], raw: bool = False) -> None:
     out.print(f"\n[bold]Found {len(results)} result(s):[/bold]\n")
 
     for i, result in enumerate(results, 1):
-        title = result.get("title", "No title")
-        url = result.get("url", "")
-        content = result.get("content", "")
-        score = result.get("score", 0)
+        title = result.get("title") or "No title"
+        url = result.get("url") or ""
+        content = result.get("content") or ""
+        score = result.get("score")
 
         title_text = Text()
         title_text.append(f"{i}. ", style="bold cyan")
         title_text.append(title, style="bold white underline")
         out.print(title_text)
         out.print(f"   [dim]{url}[/dim]")
-        out.print(f"   [dim]Relevance: {score:.2f}[/dim]")
+        if score is not None:
+            out.print(f"   [dim]Relevance: {score:.2f}[/dim]")
+        else:
+            out.print("   [dim]Relevance: N/A[/dim]")
 
         if content:
             snippet = content[:300] + "..." if len(content) > 300 else content
             out.print(Panel(snippet, border_style="dim", padding=(0, 2)))
 
-        if raw and result.get("raw_content"):
+        raw_content = result.get("raw_content") or ""
+        if raw and raw_content:
             out.print("[dim]--- Raw Content ---[/dim]")
-            raw_text = result["raw_content"]
-            out.print(raw_text[:500] + "..." if len(raw_text) > 500 else raw_text)
+            out.print(
+                raw_content[:500] + "..." if len(raw_content) > 500 else raw_content
+            )
 
         out.print()
 
     # Footer
-    response_time = data.get("response_time", 0)
-    out.print(f"[dim]Response time: {response_time:.2f}s[/dim]")
+    response_time = data.get("response_time")
+    if response_time is not None:
+        out.print(f"[dim]Response time: {response_time:.2f}s[/dim]")
+    else:
+        out.print("[dim]Response time: N/A[/dim]")
 
 
 def parse_arguments() -> argparse.Namespace:
@@ -234,6 +265,12 @@ def main() -> int:
     args = parse_arguments()
 
     # Validate inputs before doing any work
+    query = args.query.strip()
+    if not query:
+        err.print("[red]Error: query must not be empty[/red]")
+        err.print('  uv run grokipedia.py "your search terms"')
+        return 2
+
     if args.max_results < 1 or args.max_results > 20:
         err.print(
             f"[red]Error: --max-results must be 1-20, got {args.max_results}[/red]"
@@ -243,7 +280,7 @@ def main() -> int:
 
     try:
         data = search_grokipedia(
-            query=args.query,
+            query=query,
             max_results=args.max_results,
             include_raw=args.raw,
         )
@@ -254,6 +291,10 @@ def main() -> int:
             display_results(data, raw=args.raw)
 
         return 0
+
+    except ApiKeyError as e:
+        err.print(f"[red]Error: {e}[/red]")
+        return 1
 
     except httpx.HTTPStatusError as e:
         status = e.response.status_code
@@ -269,7 +310,7 @@ def main() -> int:
         return 1
 
     except httpx.RequestError as e:
-        err.print(f"[red]Error: Could not reach Tavily API[/red]")
+        err.print("[red]Error: Could not reach Tavily API[/red]")
         err.print(f"  {e}")
         err.print("  Check your internet connection and try again.")
         return 1
