@@ -17,7 +17,7 @@ You never (or rarely) write the wiki yourself — the LLM writes and maintains a
 This can apply to a lot of different contexts. A few examples:
 
 - **Personal**: tracking your own goals, project management, health, psychology, self-improvement — filing journal entries, articles, podcast notes, and building up a structured picture of yourself over time.
-- **Business/team**: an internal wiki maintained by LLMs, a federation of "Personal" wiki. It can be feed by Slack threads, meeting transcripts, project documents, customer calls. Possibly with humans in the loop reviewing updates. The wiki stays current because the LLM does the maintenance that no one on the team wants to do.
+- **Business/team**: an internal wiki maintained by LLMs, a federation of "Personal" wiki. It can be fed by Slack threads, meeting transcripts, project documents, customer calls. Possibly with humans in the loop reviewing updates. The wiki stays current because the LLM does the maintenance that no one on the team wants to do.
 - **Research**: going deep on a topic over weeks or months — reading papers, articles, reports, and incrementally building a comprehensive wiki with an evolving thesis.
 - **Competitive analysis, due diligence, trip planning, course notes, hobby deep-dives** — anything where you're accumulating knowledge over time and want it organized rather than scattered.
 - **Reading a book**: filing each chapter as you go, building out pages for characters, themes, plot threads, and how they connect. By the end you have a rich companion wiki. Think of fan wikis like [Tolkien Gateway](https://tolkiengateway.net/wiki/Main_Page) — thousands of interlinked pages covering characters, places, events, languages, built by a community of volunteers over years. You could build something like that personally as you read, with the LLM doing all the cross-referencing and maintenance.
@@ -76,7 +76,7 @@ The log gives you a timeline of the wiki's evolution and helps the LLM understan
 - **Download images locally.** In Obsidian Settings → Files and links, set "Attachment folder path" to a fixed directory (e.g. `assets/`). Then in Settings → Hotkeys, search for "Download" to find "Download attachments for current file" and bind it to a hotkey (e.g. Ctrl+Shift+D). After clipping an article, hit the hotkey and all images get downloaded to local disk. This is optional but useful — it lets the LLM view and reference images directly instead of relying on URLs that may break. Note that LLMs can't natively read markdown with inline images in one pass — the workaround is to have the LLM read the text first, then view some or all of the referenced images separately to gain additional context. It's a bit clunky but works well enough.
 - **Obsidian's graph view** is the best way to see the shape of your wiki — what's connected to what, which pages are hubs, which are orphans.
 - **Marp** is a markdown-based slide deck format. Obsidian has a plugin for it. Useful for generating presentations directly from wiki content.
-- **Bases** is an Obsidian core plugin that manage queries within Obsidian.
+- **Bases** is an Obsidian core plugin that manages queries within Obsidian.
 - if needed check skill `obsidian`
 - The wiki is just a git repo of markdown files. You get version history, branching, and collaboration for free.
 
@@ -98,7 +98,7 @@ The idea is related in spirit to Vannevar Bush's Memex (1945) — a personal, cu
 
 ```txt
 {dir_name}/
-  INDEX.md            # content catalog (area/ea/index)
+  INDEX.md            # content catalog (area/ea, kind/wiki)
   /references/        # all wiki md pages: sources, logs, entities, concepts, etc.
   /scripts/           # scripts (optional)
   /assets/            # non-md files: images, PDFs, etc. (optional)
@@ -126,7 +126,7 @@ Example:
 name: Vitamin D and Sleep
 description: Research on vitamin D's effect on sleep quality
 tags:
-  - area/ea/wiki
+  - area/ea
   - kind/research
   - status/open
 date_updated: 2026-04-04
@@ -147,7 +147,7 @@ Every wiki page follows this structure:
 name: Short human-readable title
 description: One-line summary of what this page covers
 tags:
-  - area/ea/wiki
+  - area/ea
   - kind/research
   - status/open
 date_updated: 2026-04-04
@@ -170,7 +170,8 @@ INDEX.md uses the same frontmatter convention:
 name: Health Wiki
 description: Personal wiki tracking nutrition, supplements, sleep, and exercise
 tags:
-  - area/ea/index
+  - area/ea
+  - kind/wiki
 date_updated: 2026-04-04
 ---
 ```
@@ -181,12 +182,12 @@ Tags are distributed across 4 independent axes. Each axis answers a distinct que
 
 `ea` = executive assistant — marks files managed by the AI assistant.
 
-
 **Axis 1 — AREA: which system component?** (required on every markdown file)
 
-- `area/ea`    # Apply to each and every notes under any given wiki including INDEX.md
+- INDEX.md     # content catalog (`area/ea`, `kind/wiki`)
+- `area/ea`    # Apply to each and every note under any given wiki including INDEX.md
 
-**Axis 2 — KIND: what is this file?** (required for `area/ea/wiki`)
+**Axis 2 — KIND: what is this file?** (required on every wiki note)
 
 - `kind/wiki`  # apply only to INDEX.md at {dir_name}
 - `kind/playbook` — reusable procedure or prompt
@@ -206,7 +207,7 @@ Tags are distributed across 4 independent axes. Each axis answers a distinct que
 - `kind/role` — team role description (`TEAM_*.md` files)
 - `kind/random` — for anything else
 
-**Axis 3 — STATUS: where in the workflow?** (required for `area/ea/wiki`, except `kind/project/*`)
+**Axis 3 — STATUS: where in the workflow?** (required on every wiki note, except `kind/project/*`)
 
 - `status/draft` — structure laid out, minimal content
 - `status/open` — in progress, partial. Default for new wiki pages.
@@ -223,7 +224,7 @@ Knowledge kinds (research, relationship, webclip, etc.) typically flow `draft` �
 - `pty/p2` — normal. Default when not specified.
 - `pty/p3` — low priority
 
-Knowledge kinds (`kind/research`, `kind/relationship`, `kind/webclip`, `kind/idea`, `kind/tracking`, `kind/playbook`, `kind/blog`, `kind/role`, `kind/log`, `kind/random`, `kind/template`) do not get priority tags.
+Knowledge kinds (`kind/wiki`, `kind/research`, `kind/relationship`, `kind/webclip`, `kind/idea`, `kind/tracking`, `kind/playbook`, `kind/blog`, `kind/role`, `kind/log`, `kind/random`, `kind/template`, `kind/project/{name}`) do not get priority tags.
 
 ### Tag order
 
