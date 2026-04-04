@@ -1,5 +1,44 @@
 # Absurd Use Case: End-to-End Development Workflow
 
+## At a glance
+
+```
+queues (flat, all peers):
+  delivery-orchestrator   ← deliver-change (parent task)
+  delivery-build          ← implement-from-plan
+  delivery-review         ← run-lsp-and-lint, review-diff, qa-branch
+  delivery-ops            ← commit-branch, open-pull-request, request-greptile-review,
+                             wait-for-ci, merge-when-green
+
+child tasks:
+  implement-from-plan
+  run-lsp-and-lint
+  review-diff
+  qa-branch
+  commit-branch
+  open-pull-request
+  request-greptile-review
+  wait-for-ci
+  merge-when-green
+
+prompt layer (application code, not Absurd):
+  prompts/
+    implement-from-plan/
+      v1.md
+      v2.md
+    review-diff/
+      v1.md
+    qa-branch/
+      v1.md
+    ...
+  prompt-config.toml        ← maps step → prompt version + model profile
+```
+
+What Absurd owns: queues, tasks, steps, checkpoints, retries, events, sleeps.
+What you own: prompts, model selection, calling the model (e.g. `opencode run --agent`).
+
+---
+
 ## Goal
 
 This document shows what a high-level, durable development workflow could look like with Absurd for a very common software-delivery path:
@@ -153,7 +192,7 @@ That loop is exactly where Absurd helps, because the workflow can re-enter revie
 
 ### Phase 4: QA
 
-Then the parent spawns `qa-branch` on 0o0o
+Then the parent spawns `qa-branch` on `delivery-review`.
 
 This is where you validate user-visible behavior, not just static correctness.
 
@@ -173,7 +212,7 @@ What gets persisted:
 
 ### Phase 5: Commit all
 
-Once build, lint, review, and QA are acceptable, the parent spawns `commit-branch` on 0o0o
+Once build, lint, review, and QA are acceptable, the parent spawns `commit-branch` on `delivery-ops`.
 
 This phase should:
 
