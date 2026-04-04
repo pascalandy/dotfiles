@@ -30,7 +30,7 @@ There are three layers:
 
 **The wiki** — a directory of LLM-generated markdown files. Summaries, entity pages, concept pages, comparisons, an overview, a synthesis. The LLM owns this layer entirely. It creates pages, updates them when new sources arrive, maintains cross-references, and keeps everything consistent. You read it; the LLM writes it.
 
-**The schema** — a document like AGENTS.md that tells the LLM how the wiki is structured, what the conventions are, and what workflows to follow when ingesting sources, answering questions, or maintaining the wiki. This is the key configuration file — it's what makes the LLM a disciplined wiki maintainer rather than a generic chatbot. You and the LLM co-evolve this over time as you figure out what works for your domain.
+**The schema** — a global document (AGENTS.md) that tells the LLM how wikis are structured, what the conventions are, and what workflows to follow when ingesting sources, answering questions, or maintaining the wiki. This is not per-wiki — it's a single set of instructions shared across all wiki instances. This is the key configuration file — it's what makes the LLM a disciplined wiki maintainer rather than a generic chatbot. You and the LLM co-evolve this over time as you figure out what works.
 
 ## Operations
 
@@ -75,35 +75,42 @@ The idea is related in spirit to Vannevar Bush's Memex (1945) — a personal, cu
 ## File structure
 
 ```txt
-{dir_name}
-  /references
-  INDEX.md
+{dir_name}/
+  INDEX.md            # content catalog (area/ea/index)
+  /references/        # all wiki pages: sources, logs, entities, concepts, etc.
 ```
+
+All content lives in `/references/` — raw webclips (`kind/webclip`), LOG.md (`kind/log`), entity pages, concept pages, summaries, and everything else. INDEX.md sits at the root and catalogs them.
+
+The schema (conventions, workflows, structure rules) is defined globally in AGENTS.md, not per-wiki.
 
 ## Frontmatter and metadata
 
-### 5.1 General rule
+### General rule
 
 - Every markdown file must include a YAML frontmatter with at minimum: `tags` and `date_updated`.
 - Non-markdown files (code, images, PDF, etc.) are exempt from frontmatter.
 - Tags are lowercase only, no spaces.
 
-### 5.2 Label model — 4 orthogonal axes
+### Label model — 4 orthogonal axes
 
-CRM tags are distributed across 4 independent axes. Each axis answers a distinct question.
+Tags are distributed across 4 independent axes. Each axis answers a distinct question.
 
 **Axis 1 — AREA: which system component?** (required on every markdown file)
 
-- `area/ea/index     # for {dir_name}
-- `area/ea/ticket`    # everything in /references
+`ea` = executive assistant — marks files managed by the AI assistant.
 
-**Axis 2 — KIND: what is this file?** (required for `area/ea/ticket`)
+- `area/ea/index`    # INDEX.md at {dir_name} root
+- `area/ea/wiki`     # everything in /references
+
+**Axis 2 — KIND: what is this file?** (required for `area/ea/wiki`)
 
 - `kind/playbook` — reusable procedure or prompt
 - `kind/relationship` — person or organization
 - `kind/plan` — exploratory plan or idea
 - `kind/research` — research
 - `kind/idea` — idea
+- `kind/webclip` — source, scrap from the web
 - `kind/milestone` — project progress tracking (e.g. ACV4)
 - `kind/project/{name}` — artifact within a project. `{name}` matches the project root directory name (e.g. `kind/project/cass`, `kind/project/ccl`)
 - `kind/log` — operational log, batch of historical decisions, retrospective
@@ -115,21 +122,27 @@ CRM tags are distributed across 4 independent axes. Each axis answers a distinct
 - `kind/strategy` — strategic direction or analysis
 - `kind/role` — team role description (`TEAM_*.md` files)
 
-**Axis 3 — STATUS: where in the workflow?** (required for `area/ea/crm` and `area/ea/ticket`, except `kind/project/*`)
+**Axis 3 — STATUS: where in the workflow?** (required for `area/ea/wiki`, except `kind/project/*`)
 
 - `status/draft` — structure laid out, minimal content
-- `status/open` — in progress, partial. Default for new tickets.
+- `status/open` — in progress, partial. Default for new wiki pages.
 - `status/stable` — complete, reliable reference
 - `status/blocked` — waiting on external input or a dependency
 - `status/parked` — intentionally suspended
 - `status/close` — closed, resolved
 
-**Axis 4 — PRIORITY: how urgent?** (required for `area/ea/ticket` except `kind/project/*`, forbidden for `area/ea/crm`)
+**Axis 4 — PRIORITY: how urgent?** (required for `area/ea/wiki`, except `kind/project/*`)
 
 - `pty/p1` — urgent
-- `pty/p2` — normal. Default when the CEO does not specify priority.
+- `pty/p2` — normal. Default when not specified.
 - `pty/p3` — low priority
 
-### 5.3 Tag order
+### Tag order
 
 Tags in the frontmatter always follow this order: `area` → `kind` → `status` → `pty`.
+
+---
+
+# use cases
+
+tbd
