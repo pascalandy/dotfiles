@@ -114,214 +114,28 @@ Suggested child tasks:
 
 This is useful because each child task can fail, retry, sleep, or wait independently without losing the whole workflow.
 
-## The workflow as an execution story
-
-Here is what a typical run looks like from the outside.
-
-### Phase 1: Read plan and implement with red/green TDD
-
-The parent task starts by loading:
-
-- the plan document
-- branch metadata
-- repository context
-- acceptance criteria
-- risk level
-
-Then it spawns `implement-from-plan` on `delivery-build`.
-
-That child task usually has internal checkpoints like:
-
-- interpret plan
-- identify slice 1
-- write failing test
-- implement minimal fix
-- make test pass
-- refactor safely
-- repeat for remaining slices
-
-What gets persisted:
-
-- plan version used
-- implementation strategy chosen
-- tests added or changed
-- files changed
-- unresolved issues or tradeoffs
-
-If the worker dies during implementation, Absurd resumes from the last durable checkpoint instead of restarting from zero.
-
-### Phase 2: LSP / lint
-
-After implementation succeeds, the parent spawns `run-lsp-and-lint` on `delivery-review`.
-
-This phase is mostly deterministic.
-
-Typical behavior:
-
-- run LSP diagnostics
-- run lint and formatting
-- if fixable mechanically, fix and rerun
-- if not fixable mechanically, invoke a model-guided repair substep
-
-What gets persisted:
-
-- tool outputs
-- files auto-fixed
-- remaining diagnostics
-- pass/fail state
-
-### Phase 3: Code review
-
-Then the parent spawns `review-diff` on `delivery-review`.
-
-This phase should behave like a reviewer, not like an implementer.
-
-Expected output shape:
-
-- findings ordered by severity
-- impacted files or areas
-- open risks
-- explicit statement if no findings were found
-
-If findings are found, the parent can either:
-
-- fail the run and require human intervention
-- or loop back into a fix-and-rerun branch
-
-That loop is exactly where Absurd helps, because the workflow can re-enter review after a repair without losing the full execution history.
-
-### Phase 4: QA
-
-Then the parent spawns `qa-branch` on `delivery-review`.
-
-This is where you validate user-visible behavior, not just static correctness.
-
-Typical behavior:
-
-- run the app or targeted test surface
-- execute a browser or user-flow check
-- verify edge cases from the plan
-- produce a ship/no-ship result
-
-What gets persisted:
-
-- scenarios tested
-- failures found
-- screenshots or browser artifacts if applicable
-- final QA verdict
-
-### Phase 5: Commit all
-
-Once build, lint, review, and QA are acceptable, the parent spawns `commit-branch` on `delivery-ops`.
-
-This phase should:
-
-- inspect staged and unstaged changes
-- generate a commit message aligned with repo style
-- stage the right files
-- create the commit
-- verify the branch state afterward
-
-What gets persisted:
-
-- commit SHA
-- commit message
-- staged file list
-- post-commit git status
-
-### Phase 6: Open PR
-
-Then the parent spawns `open-pull-request` on `delivery-ops`.
-
-This phase should:
-
-- inspect branch status relative to base
-- decide whether push is needed
-- push if needed
-- create the PR
-- produce the PR URL
-
-What gets persisted:
-
-- base branch
-- branch name
-- PR title
-- PR body summary
-- PR URL
-
-### Phase 7: PR review with Greptile
-
-Then the parent spawns `request-greptile-review`.
-
-This is a good example of an external asynchronous system.
-
-The task should:
-
-- submit the PR for Greptile review
-- record the request id or tracking metadata
-- wait durably for the review result event
-
-In Absurd terms, this is a natural event wait.
-
-The task sleeps until one of these happens:
-
-- Greptile returns no issues
-- Greptile returns findings
-- the request times out
-
-What gets persisted:
-
-- Greptile request metadata
-- returned findings
-- review disposition
-
-### Phase 8: Deploy and wait for CI
-
-Then the parent either triggers deploy directly or waits for the normal CI/deploy pipeline after PR creation or merge approval.
-
-The child task `wait-for-ci` should:
-
-- wait for about two minutes 
-- fetch the current check state
-- decide what checks matter
-- wait for the terminal CI result
-- If the CI needs more time, check every 30 seconds. 
-
-This is also a durable wait problem.
-
-Instead of polling in memory for hours, the task can:
-
-- wake periodically
-- or suspend until a GitHub webhook event is emitted into Absurd
-
-What gets persisted:
-
-- required checks
-- latest CI state
-- timestamps
-- final green or red outcome
-
-### Phase 9: Merge to main
-
-Finally the parent spawns `merge-when-green`.
-
-This phase should only run if all gates passed:
-
-- implementation complete
-- lint clean
-- review acceptable
-- QA acceptable
-- PR open
-- Greptile acceptable
-- CI green
-
-This phase should:
-
-- verify the merge gate one last time
-- merge the PR
-- persist the merge commit or merge reference
-
-At the end, the parent task can return a compact delivery summary.
+## Execution flow
+
+The parent task (`deliver-change`) runs on `delivery-orchestrator` and drives the sequence. Each phase is a child task spawned on the appropriate queue. The parent awaits each result before deciding to continue or stop.
+
+| Order | Child task | Queue | Absurd feature used |
+|---|---|---|---|
+| 1 | `implement-from-plan` | `delivery-build` | checkpointed steps (TDD slices survive crashes) |
+| 2 | `run-lsp-and-lint` | `delivery-review` | retry (auto-fix then rerun) |
+| 3 | `review-diff` | `delivery-review` | step result drives pass/fail gate; parent can loop back to build on failure |
+| 4 | `qa-branch` | `delivery-review` | step result drives ship/no-ship gate |
+| 5 | `commit-branch` | `delivery-ops` | step persists commit SHA |
+| 6 | `open-pull-request` | `delivery-ops` | step persists PR URL |
+| 7 | `request-greptile-review` | `delivery-ops` | durable event wait (external async system) |
+| 8 | `wait-for-ci` | `delivery-ops` | durable sleep + periodic wake or webhook event |
+| 9 | `merge-when-green` | `delivery-ops` | deterministic gate check, no model needed |
+
+Key durability points:
+
+- If a worker dies mid-implementation, Absurd resumes from the last checkpoint, not from zero.
+- Greptile and CI waits are durable sleeps or event waits -- no long-lived in-memory poller.
+- Review failures can loop the workflow back to implementation without losing execution history.
+- The parent stops early on any hard failure.
 
 ---
 
@@ -339,326 +153,35 @@ A better approach is:
 - persist which model was selected
 - persist the important artifacts that were fed into the prompt
 
-## A practical prompt model
-
-Each step should have three layers of prompt material.
-
-### 1. Stable system behavior
-
-This is the durable role definition for the phase.
-
-Examples:
-
-- implementation phase: act as a TDD implementer
-- review phase: act as a strict reviewer focused on findings
-- QA phase: act as a user-flow validator
-- PR phase: act as a summarizer for reviewers
-
-This layer changes rarely.
-
-### 2. Step-specific instructions
-
-This is where you say what the current step must do.
-
-Examples:
-
-- read this plan and implement the smallest red/green slice
-- run lint and resolve only the concrete diagnostics
-- review the current diff and return findings only
-- review this PR and summarize actionable findings
-
-This layer is specific to the workflow stage.
-
-### 3. Runtime context
-
-This is the concrete payload for the step.
-
-Examples:
-
-- plan content
-- affected files
-- test failures
-- diff summary
-- QA target URL
-- PR URL
-- CI check list
-
-This layer changes every run.
-
-## What should be versioned
-
-For every AI-backed step, you want durable provenance.
-
-Persist at least:
-
-- prompt family name
-- prompt version
-- model profile name
-- concrete model name
-- important input artifacts
-- expected output schema version
-
-That way, months later, you can answer:
-
-- which prompt produced this commit
-- which model reviewed this diff
-- why did the QA step decide to pass
-
-## What a good prompt contract looks like
-
-Each workflow phase should define four things.
-
-### Input contract
-
-What must be present before the step starts.
-
-Examples:
-
-- plan path
-- repo status
-- diff summary
-- PR URL
-- target environment URL
-
-### Behavior contract
-
-What the model is allowed to do.
-
-Examples:
-
-- implementation can edit code and run tests
-- reviewer cannot modify code and must only produce findings
-- PR summarizer cannot change code, only write title/body
-
-### Output contract
-
-What shape the step must return.
-
-Examples:
-
-- implementation summary plus changed files
-- list of lint issues fixed and remaining
-- review findings with severity and file references
-- QA verdict and evidence
-
-### Escalation contract
-
-When the step must stop and ask for human input.
-
-Examples:
-
-- ambiguous plan
-- conflicting review findings
-- CI failure that looks environmental
-- deploy gate blocked by missing approval
-
-## How to choose models per step
-
-The best pattern is to separate model policy from workflow logic.
-
-Do not hardcode model names directly into the task logic.
-
-Instead, define model profiles and let each phase choose a profile.
-
-## Recommended model profiles
-
-Suggested profiles:
-
-- `builder-strong`
-- `builder-fast`
-- `reviewer-strong`
-- `reviewer-cheap`
-- `qa-browser`
-- `ops-safe`
-- `summarizer-fast`
-
-Then map each profile to a concrete model in configuration.
-
-That gives you two levers:
-
-- workflow code chooses a profile by task type
-- environment config resolves the profile to a real model
-
-This is much easier to change than editing workflow logic everywhere.
-
-## Example routing by phase
-
-### Read plan and implement with TDD
-
-Goal:
-
-- deep reasoning
-- repo awareness
-- good code changes
-- strong test judgment
-
-Best profile:
-
-- `builder-strong`
-
-Typical concrete model choice:
-
-- strongest coding model available in your stack
-
-Why:
-
-- this step has the highest complexity and the highest downstream blast radius
-
-### LSP / lint
-
-Goal:
-
-- deterministic cleanup
-- cheap iteration
-
-Best profile:
-
-- `builder-fast`
-
-Typical concrete model choice:
-
-- small or medium coding model only when auto-fix cannot handle it
-
-Why:
-
-- most of this step should be tooling-first, not model-first
-
-### Code review
-
-Goal:
-
-- high-signal findings
-- low false positives
-- reviewer mindset
-
-Best profile:
-
-- `reviewer-strong`
-
-Typical concrete model choice:
-
-- strongest review-oriented model available
-
-Why:
-
-- bad review quality either blocks good code or misses bad code
-
-### QA
-
-Goal:
-
-- tool use
-- browser or user-flow reliability
-- evidence production
-
-Best profile:
-
-- `qa-browser`
-
-Typical concrete model choice:
-
-- model that works well with browser/tool loops and concise reporting
-
-Why:
-
-- this is usually less about deep architecture and more about observation and execution
-
-### Commit all
-
-Goal:
-
-- concise accurate summarization
-- low creativity
-
-Best profile:
-
-- `summarizer-fast`
-
-Typical concrete model choice:
-
-- cheap, fast summarization model
-
-Why:
-
-- the hard work is already done
-
-### Open PR
-
-Goal:
-
-- clear reviewer-facing communication
-- branch-awareness
-
-Best profile:
-
-- `summarizer-fast`
-
-or, if the change is risky:
-
-- `reviewer-cheap` plus a stronger summarizer fallback
-
-### PR review with Greptile
-
-Goal:
-
-- external second opinion
-
-Model choice:
-
-- not your concern inside the workflow if Greptile is the service doing the review
-- your workflow should only manage submission, waiting, ingestion, and gating
-
-### Deploy and wait for CI
-
-Goal:
-
-- safe operational decisions
-- minimal hallucination risk
-
-Best profile:
-
-- `ops-safe`
-
-Typical concrete model choice:
-
-- conservative tool-using model, or no model at all if purely deterministic
-
-Why:
-
-- this phase should be mostly state-machine logic and tool checks
-
-### Merge to main
-
-Goal:
-
-- strict gate enforcement
-
-Best profile:
-
-- `ops-safe`
-
-Why:
-
-- ideally this is mostly deterministic and policy-driven
-
-## A good model selection rule
-
-Choose the model based on the job, not based on a global favorite model.
-
-Three questions are enough:
-
-1. Is this step creative or mostly deterministic?
-2. Is the cost of a bad answer high or low?
-3. Does this step need deep reasoning, tool use, or just summarization?
-
-That gives you the routing logic:
-
-- deep code change: strongest builder
-- deterministic cleanup: cheap fast builder or no model
-- review: strongest reviewer
-- browser validation: tool-centric QA model
-- PR and commit copy: fast summarizer
-- deploy and merge: conservative ops model or deterministic logic
+## Prompt model
+
+Each prompt has three layers:
+
+| Layer | Changes | Example |
+|---|---|---|
+| System behavior | rarely | "act as a TDD implementer" |
+| Step instructions | per phase | "implement the smallest red/green slice from this plan" |
+| Runtime context | every run | plan content, diff, PR URL, CI check list |
+
+Each phase should define four contracts: input (what must be present), behavior (what the model may do), output (what shape it returns), escalation (when to stop and ask a human).
+
+Persist provenance with every AI-backed step: prompt family, prompt version, model profile, concrete model, key input artifacts.
+
+## Model profiles
+
+Route by profile name in workflow code. Resolve to a concrete model in config.
+
+| Child task | Model profile | Why |
+|---|---|---|
+| `implement-from-plan` | `builder-strong` | highest complexity, highest blast radius |
+| `run-lsp-and-lint` | `builder-fast` | mostly tooling, model only for unfixable cases |
+| `review-diff` | `reviewer-strong` | bad review blocks good code or misses bad code |
+| `qa-branch` | `qa-browser` | observation and tool use, not deep reasoning |
+| `commit-branch` | `summarizer-fast` | hard work already done |
+| `open-pull-request` | `summarizer-fast` | clear communication, low creativity |
+| `request-greptile-review` | n/a | external service, not your model |
+| `wait-for-ci` | `ops-safe` | deterministic gate, minimal hallucination risk |
+| `merge-when-green` | `ops-safe` | deterministic gate |
 
 ## Recommended prompt and model matrix
 
