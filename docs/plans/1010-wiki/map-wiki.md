@@ -177,15 +177,18 @@ date_updated: 2026-04-04
 
 Tags are distributed across 4 independent axes. Each axis answers a distinct question.
 
-**Axis 1 — AREA: which system component?** (required on every markdown file)
-
 `ea` = executive assistant — marks files managed by the AI assistant.
 
-- `area/ea/index`    # INDEX.md at {dir_name} root
-- `area/ea/wiki`     # everything in /references
+
+**Axis 1 — AREA: which system component?** (required on every markdown file)
+
+- `area/ea/index`    # apply only to INDEX.md at {dir_name}
 
 **Axis 2 — KIND: what is this file?** (required for `area/ea/wiki`)
 
+- `area/ea/wiki`     # apply to all note under /references
+
+kind:
 - `kind/playbook` — reusable procedure or prompt
 - `kind/relationship` — person or organization
 - `kind/plan` — exploratory plan
@@ -208,10 +211,10 @@ Tags are distributed across 4 independent axes. Each axis answers a distinct que
 
 - `status/draft` — structure laid out, minimal content
 - `status/open` — in progress, partial. Default for new wiki pages.
-- `status/stable` — complete, reliable reference
+- `status/stable` — complete, reliable reference (blog post)
 - `status/blocked` — waiting on external input or a dependency
 - `status/parked` — intentionally suspended
-- `status/close` — closed, resolved
+- `status/closed` — closed
 
 **Axis 4 — PRIORITY: how urgent?** (only for actionable kinds: `kind/task`, `kind/bug`, `kind/plan`, `kind/hygiene`)
 
