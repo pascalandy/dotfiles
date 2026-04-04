@@ -38,12 +38,12 @@ Each phase is a child task. The parent awaits each result before deciding to con
 |---|---|---|---|
 | 1 | `implement-from-plan` | `delivery-build` | checkpointed steps (TDD slices survive crashes) |
 | 2 | `run-lsp-and-lint` | `delivery-review` | retry (auto-fix then rerun) |
-| 3 | `review-diff` | `delivery-review` | step result drives pass/fail gate; parent can loop back to build on failure |
-| 4 | `qa-branch` | `delivery-review` | step result drives ship/no-ship gate |
+| 3 | `review-diff` | `delivery-review` | task result drives pass/fail gate; on failure, parent re-spawns `implement-from-plan` with review feedback |
+| 4 | `qa-branch` | `delivery-review` | task result drives pass/fail gate |
 | 5 | `commit-branch` | `delivery-ops` | step persists commit SHA |
 | 6 | `open-pull-request` | `delivery-ops` | step persists PR URL |
 | 7 | `request-greptile-review` | `delivery-ops` | durable event wait (external async system) |
-| 8 | `wait-for-ci` | `delivery-ops` | durable sleep + periodic wake or webhook event |
+| 8 | `wait-for-ci` | `delivery-ops` | durable sleep (poll CI status) or webhook event |
 | 9 | `merge-when-green` | `delivery-ops` | deterministic gate check, no model needed |
 
 ## Prompt management
