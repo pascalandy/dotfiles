@@ -110,6 +110,10 @@ The schema (conventions, workflows, structure rules) is defined globally in AGEN
 
 Each `{dir_name}/` is self-contained with its own INDEX.md and LOG.md. All wikis live in the same Obsidian vault, so `[[wikilinks]]` resolve across wikis naturally.
 
+### Nesting
+
+Wikis can be nested under a parent directory for organizational purposes (e.g. `kitchen/desserts/`, `kitchen/soups/`). Each wiki remains self-contained — the nesting is a user-side grouping that doesn't change how the LLM operates on any individual wiki. Since every INDEX.md carries the `kind/wiki` tag, discovering all wikis (including children) is a simple query — the file paths reveal the parent-child hierarchy.
+
 ## Frontmatter and metadata
 
 ### General rule
