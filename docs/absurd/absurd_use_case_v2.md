@@ -64,32 +64,35 @@ The parent uses **deterministic gates** for clear results and **invokes a model*
 ```markdown
 ## Task
 
-A child task returned status "warn". Decide whether the workflow should proceed or loop back.
+A child task returned status "warn". All blocker criteria passed, but one or more
+non-blocker criteria scored <= 2. Decide whether the workflow should proceed or loop back.
 
 ## Child task: {{ child_task_name }}
-## Result:
+## Criteria results:
 
-{{ child_result_json }}
+{{ child_criteria_json }}
 
 ## Rules
 
-- If all critical/important issues are resolved and only minor items remain: proceed
-- If any critical issue exists: loop back
-- If important issues exist but are cosmetic or low-risk: proceed with a note
-- If test failures exist but are flaky (passed on prior runs): proceed
+- "warn" means all blocker criteria passed. Only non-blocker criteria failed.
+- Count the non-blocker criteria that scored <= 2 (decision = "no").
+- Ignore criteria scored 0 (n/a) — they are excluded from the tally.
+- If all failing non-blockers are cosmetic (naming, style, minor patterns): proceed.
+- If any failing non-blocker has a justification citing a concrete runtime risk (data corruption, crash, wrong output): loop back.
+- When in doubt, proceed. Non-blockers are non-blockers for a reason.
 
 ## Output
 
 Return JSON:
 {
   "decision": "proceed" | "loop_back",
-  "reason": "one-line explanation"
+  "reason": "one-line explanation citing the specific criteria IDs that drove the decision"
 }
 ```
 
 **Agent for gate decisions:** `1-kimi` (fast, cheap — this is a simple classification task)
 
-**Why hybrid:** Most child tasks produce clear pass/fail, so the model is never invoked for the common case. The model is only needed when `review-diff-pass1` or `review-diff-pass2` returns warnings (e.g., "3 minor issues, no critical") or `qa-branch` has partial failures (e.g., "48/50 tests pass, 2 flaky").
+**Why hybrid:** Most child tasks produce clear pass/fail, so the model is never invoked for the common case. The model is only needed when `review-diff-pass1` or `review-diff-pass2` returns `warn` (all blockers passed but some non-blocker criteria scored <= 2) or `qa-branch` has partial failures (e.g., "48/50 tests pass, 2 flaky").
 
 ### Loop-back rules
 
@@ -105,9 +108,9 @@ The parent collects each child's result JSON and passes relevant fields forward:
 ```
 create-branch.result.branch_name → implement-from-plan.params.branch_name
 implement-from-plan.result.files_changed → review-diff-pass1.params.files_changed
-review-diff-pass1.result.findings → review-diff-pass2.params.pass1_findings
+review-diff-pass1.result.criteria → review-diff-pass2.params.pass1_criteria
 qa-branch.result.test_summary → uat-handoff.params.test_summary
-review-diff-pass2.result.findings → uat-handoff.params.review_findings
+review-diff-pass1.result.criteria + review-diff-pass2.result.criteria → uat-handoff.params.review_findings
 ```
 
 ---
@@ -370,11 +373,11 @@ Return JSON:
 
 ### 4. `review-diff-pass1`
 
-**Purpose:** First-pass code review. Fast scan for obvious issues: spec compliance, code quality, test coverage, security.
+**Purpose:** First-pass code review. Fast scan using structured rubric scoring. Each criterion is evaluated independently with the `eval-rubric` skill.
 
 **Queue:** `delivery-review`
 **Agent:** `1-kimi`
-**Skill:** superpowers → `>request-review` (requesting-code-review)
+**Skill:** superpowers → `>request-review` (requesting-code-review) + `eval-rubric`
 **Absurd feature:** Task result drives pass/fail gate. On failure, parent replays steps 2-6 with review feedback (max 3 loops).
 
 **Prompt file:** `prompts/review-diff-pass1/v1.md`
@@ -384,19 +387,42 @@ Return JSON:
 ```markdown
 ## Task
 
-Run a first-pass code review on the implementation diff.
+Run a first-pass code review on the implementation diff using structured rubric scoring.
 
 ## Instructions
 
 Load skill `superpowers` and use sub-skill `>request-review`.
+Load skill `eval-rubric` for the scoring methodology.
 
-You are the first reviewer. Focus on catching obvious issues fast:
-- Spec compliance: does the diff match the plan?
-- Code quality: clean separation, error handling, type safety
-- Test coverage: tests verify behavior, not mocks
-- Security: no obvious vulnerabilities
+You are the first reviewer. Evaluate the diff against the rubric below.
+Score each criterion independently using the eval-rubric rating system (0-4).
+Only inspect observable evidence in the diff. Do not reward intent or effort.
 
 Use git range: `{{ base_sha }}..{{ head_sha }}`
+
+## Rubric
+
+| ID | Criterion | Blocker | What to check |
+|----|-----------|---------|---------------|
+| P1-1 | Spec compliance | yes | Every plan item has a corresponding code change. No plan item is missing or only partially implemented. |
+| P1-2 | Error handling | yes | All new public functions handle error paths. No swallowed exceptions, no missing error returns. |
+| P1-3 | Type safety | no | No `any` types, no unchecked casts, no missing null checks in new code. Score 0 if the language has no static type system. |
+| P1-4 | Test behavior coverage | yes | Every new behavior has at least one test that asserts the behavior through the public interface. No test-free features. |
+| P1-5 | Security basics | no | No hardcoded secrets, no unsanitized user input in queries/commands, no new endpoints without auth checks. Score 0 if the diff has no user-facing input paths. |
+
+**Scoring rules (from eval-rubric):**
+
+1. Does this criterion apply to this diff? If not applicable → score `0`, decision `n/a`.
+2. Does the diff clearly fail this criterion? → score `1`, decision `no`.
+3. Is evidence partial, ambiguous, or missing? → score `2`, decision `no`.
+4. Meets the criterion with only minor non-material issues? → score `3`, decision `yes`.
+5. Meets the criterion with strong, clean evidence? → score `4`, decision `yes`.
+
+**Status derivation:**
+
+- `pass`: all applicable criteria score >= 3
+- `fail`: any **blocker** criterion scores <= 2
+- `warn`: only **non-blocker** criteria score <= 2, all blockers pass
 
 ## Params
 
@@ -420,13 +446,18 @@ Focus on whether the feedback items were addressed.
 Return JSON:
 {
   "status": "pass" | "warn" | "fail",
-  "findings": {
-    "critical": ["file:line — description"],
-    "important": ["file:line — description"],
-    "minor": ["file:line — description"]
-  },
-  "assessment": "Ready to proceed | Fix critical issues | Needs rework",
-  "feedback_for_retry": "string (populated when status is fail)"
+  "criteria": [
+    {
+      "id": "P1-1",
+      "name": "Spec compliance",
+      "blocker": true,
+      "score": 0-4,
+      "decision": "yes" | "no" | "n/a",
+      "justification": "one sentence citing observable evidence"
+    }
+  ],
+  "blockers_failed": ["P1-1 — justification"],
+  "feedback_for_retry": "string (populated when status is fail — list each failed blocker and what must change)"
 }
 ```
 
@@ -451,12 +482,17 @@ Return JSON:
 ```json
 {
   "status": "pass | warn | fail",
-  "findings": {
-    "critical": ["string"],
-    "important": ["string"],
-    "minor": ["string"]
-  },
-  "assessment": "string",
+  "criteria": [
+    {
+      "id": "string",
+      "name": "string",
+      "blocker": "bool",
+      "score": "int (0-4)",
+      "decision": "yes | no | n/a",
+      "justification": "string"
+    }
+  ],
+  "blockers_failed": ["string"],
   "feedback_for_retry": "string"
 }
 ```
@@ -465,11 +501,11 @@ Return JSON:
 
 ### 5. `review-diff-pass2`
 
-**Purpose:** Second-pass code review. Deep review from a different model and reasoning perspective. Catches what the first pass missed: architecture, edge cases, subtle bugs.
+**Purpose:** Second-pass code review. Deep review from a different model using structured rubric scoring. Catches what the first pass missed. Each criterion is evaluated independently with the `eval-rubric` skill.
 
 **Queue:** `delivery-review`
 **Agent:** `gpthigh`
-**Skill:** superpowers → `>request-review` (requesting-code-review)
+**Skill:** superpowers → `>request-review` (requesting-code-review) + `eval-rubric`
 **Absurd feature:** Task result drives pass/fail gate. On failure, parent replays steps 2-6 with review feedback (max 3 loops).
 
 **Prompt file:** `prompts/review-diff-pass2/v1.md`
@@ -479,25 +515,50 @@ Return JSON:
 ```markdown
 ## Task
 
-Run a second-pass code review on the implementation diff.
+Run a second-pass code review on the implementation diff using structured rubric scoring.
 
 ## Instructions
 
 Load skill `superpowers` and use sub-skill `>request-review`.
+Load skill `eval-rubric` for the scoring methodology.
 
 You are the second reviewer, providing a different reasoning perspective.
-A first-pass review has already been completed. Its findings are below —
-do NOT repeat them. Focus on what it missed:
-- Architecture: sound design decisions, scalability
-- Edge cases: boundary conditions, null/empty handling
-- Production readiness: migration safety, backward compatibility
-- Subtle bugs: race conditions, state management, concurrency
+A first-pass review has already been completed. Its criteria results are below —
+do NOT re-evaluate pass-1 criteria. Your rubric is different.
+
+Evaluate the diff against the rubric below.
+Score each criterion independently using the eval-rubric rating system (0-4).
+Only inspect observable evidence in the diff. Do not reward intent or effort.
 
 Use git range: `{{ base_sha }}..{{ head_sha }}`
 
-## First-pass findings (already reported, do not duplicate)
+## First-pass results (already evaluated, do not duplicate)
 
-{{ pass1_findings }}
+{{ pass1_criteria }}
+
+## Rubric
+
+| ID | Criterion | Blocker | What to check |
+|----|-----------|---------|---------------|
+| P2-1 | Codebase pattern conformance | no | Changes follow existing module boundaries, naming conventions, and architectural patterns in the repo. |
+| P2-2 | Edge case handling | yes | Boundary conditions (empty collections, zero/negative values, max-length inputs, null/undefined) are handled explicitly. |
+| P2-3 | Migration & data safety | yes | Schema changes are backward-compatible. No data loss paths. Migrations are reversible or additive-only. Score 0 if the diff contains no schema changes or data migrations. |
+| P2-4 | Concurrency correctness | no | Shared state access is synchronized. No race conditions in async paths. No unguarded concurrent mutations. Score 0 if the diff has no concurrent or async code paths. |
+| P2-5 | API backward compatibility | no | Existing public interfaces, return types, and API contracts are preserved or versioned. Score 0 if the diff does not modify any public API surface. |
+
+**Scoring rules (from eval-rubric):**
+
+1. Does this criterion apply to this diff? If not applicable → score `0`, decision `n/a`.
+2. Does the diff clearly fail this criterion? → score `1`, decision `no`.
+3. Is evidence partial, ambiguous, or missing? → score `2`, decision `no`.
+4. Meets the criterion with only minor non-material issues? → score `3`, decision `yes`.
+5. Meets the criterion with strong, clean evidence? → score `4`, decision `yes`.
+
+**Status derivation:**
+
+- `pass`: all applicable criteria score >= 3
+- `fail`: any **blocker** criterion scores <= 2
+- `warn`: only **non-blocker** criteria score <= 2, all blockers pass
 
 ## Params
 
@@ -521,13 +582,18 @@ Focus on whether the feedback items were addressed.
 Return JSON:
 {
   "status": "pass" | "warn" | "fail",
-  "findings": {
-    "critical": ["file:line — description"],
-    "important": ["file:line — description"],
-    "minor": ["file:line — description"]
-  },
-  "assessment": "Ready to proceed | Fix critical issues | Needs rework",
-  "feedback_for_retry": "string (populated when status is fail)"
+  "criteria": [
+    {
+      "id": "P2-1",
+      "name": "Codebase pattern conformance",
+      "blocker": false,
+      "score": 0-4,
+      "decision": "yes" | "no" | "n/a",
+      "justification": "one sentence citing observable evidence"
+    }
+  ],
+  "blockers_failed": ["P2-2 — justification"],
+  "feedback_for_retry": "string (populated when status is fail — list each failed blocker and what must change)"
 }
 ```
 
@@ -544,7 +610,7 @@ Return JSON:
 | `head_sha` | string | From `implement-from-plan` result |
 | `plan_content` | string | Original plan text |
 | `files_changed` | string[] | From `implement-from-plan` result |
-| `pass1_findings` | object | From `review-diff-pass1` result |
+| `pass1_criteria` | array | From `review-diff-pass1` result `.criteria` |
 | `feedback` | string? | Optional. From prior review cycle |
 | `retry_count` | int | 0 on first run |
 
@@ -553,12 +619,17 @@ Return JSON:
 ```json
 {
   "status": "pass | warn | fail",
-  "findings": {
-    "critical": ["string"],
-    "important": ["string"],
-    "minor": ["string"]
-  },
-  "assessment": "string",
+  "criteria": [
+    {
+      "id": "string",
+      "name": "string",
+      "blocker": "bool",
+      "score": "int (0-4)",
+      "decision": "yes | no | n/a",
+      "justification": "string"
+    }
+  ],
+  "blockers_failed": ["string"],
   "feedback_for_retry": "string"
 }
 ```
