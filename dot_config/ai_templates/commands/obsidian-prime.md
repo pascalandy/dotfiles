@@ -1,5 +1,5 @@
 ---
-description: obsidian
+description: obsidian-prime
 ---
 
 Load skill: `obsidian`

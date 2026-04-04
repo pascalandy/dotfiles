@@ -1,5 +1,5 @@
 ---
-description: review-draft (note personnel)
+description: review-note (personnel)
 ---
 
 Tu dois agir comme un rédacteur. Je te confie de notes personnelles donc conserve le ton personnel, le ton raw.
