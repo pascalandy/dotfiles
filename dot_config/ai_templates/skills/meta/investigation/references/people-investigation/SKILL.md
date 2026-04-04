@@ -15,6 +15,8 @@ Hard boundaries:
 - No impersonation, pretexting, credential use, stalking, or harassment.
 - Stop if the user intent is coercive, invasive, or otherwise illegitimate.
 
+Before starting any workflow, verify authorization per `references/EthicalFramework.md` (shared reference at the meta-skill level). Apply the confidence and reporting standards from `references/Methodology.md`.
+
 ## Workflow Routing
 
 | Intent | Workflow |
@@ -62,3 +64,11 @@ Route: workflows/ReverseLookup.md
 User: map this person's public footprint before outreach
 Route: workflows/PublicFootprint.md
 ```
+
+## References
+
+| File | Purpose |
+|---|---|
+| `references/SourcesAndTools.md` | People search engines, username tools, email/phone/image lookup, public records, and tool selection by scenario |
+| `../EthicalFramework.md` | Shared authorization, legal, and ethical requirements |
+| `../Methodology.md` | Shared source hierarchy, confidence scoring, and reporting standards |

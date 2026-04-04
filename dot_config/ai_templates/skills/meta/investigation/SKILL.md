@@ -45,17 +45,22 @@ Each sub-skill also works if loaded directly, but the normal path is through the
 |---|---|---|
 | Collection entry point | `SKILL.md` | User-facing docs, framing, examples, and router bridge |
 | Router | `references/ROUTER.md` | Minimal request-pattern dispatch table |
+| Ethical framework | `references/EthicalFramework.md` | Shared authorization, legal, and ethical requirements for all sub-skills |
+| Methodology | `references/Methodology.md` | Shared source hierarchy, confidence scoring, verification, and reporting standards |
 | people-investigation sub-skill | `references/people-investigation/SKILL.md` | Person-focused investigation methodology |
+| People sources | `references/people-investigation/references/SourcesAndTools.md` | People search engines, username tools, email/phone/image lookup catalog |
 | People workflow | `references/people-investigation/workflows/FindAndVerifyPerson.md` | Full person search with verification |
 | People workflow | `references/people-investigation/workflows/PublicFootprint.md` | Social, public-record, and profile mapping |
 | People workflow | `references/people-investigation/workflows/ReverseLookup.md` | Phone, email, username, and image pivots |
 | business-intelligence sub-skill | `references/business-intelligence/SKILL.md` | Company and organization research methodology |
+| Business sources | `references/business-intelligence/references/SourcesAndTools.md` | Business registries, financial databases, sanctions, competitive intelligence catalog |
 | Business workflow | `references/business-intelligence/workflows/CompanyLookup.md` | Fast company intelligence baseline |
-| Business workflow | `references/business-intelligence/workflows/CompanyDueDiligence.md` | Structured vendor or investment vetting |
+| Business workflow | `references/business-intelligence/workflows/CompanyDueDiligence.md` | Structured vendor or investment vetting with domain-first protocol |
 | Business workflow | `references/business-intelligence/workflows/OrganizationLookup.md` | Nonprofit, association, academic, and government research |
 | infrastructure-intel sub-skill | `references/infrastructure-intel/SKILL.md` | Technical entity and infrastructure methodology |
-| Infrastructure workflow | `references/infrastructure-intel/workflows/DomainLookup.md` | Domain, DNS, certificate, and hosting analysis |
-| Infrastructure workflow | `references/infrastructure-intel/workflows/EntityLookup.md` | IP, URL, hash, and threat-entity investigation |
+| Infrastructure sources | `references/infrastructure-intel/references/SourcesAndTools.md` | DNS, IP, threat intel, malware analysis, vulnerability databases catalog |
+| Infrastructure workflow | `references/infrastructure-intel/workflows/DomainLookup.md` | Domain, DNS, certificate, subdomain, and hosting analysis |
+| Infrastructure workflow | `references/infrastructure-intel/workflows/EntityLookup.md` | IP, URL, hash, IOC, and threat-entity investigation |
 | Infrastructure workflow | `references/infrastructure-intel/workflows/DiscoverSources.md` | Find and qualify new public-source resources for a niche case |
 
 ## Invocation Scenarios
@@ -143,9 +148,19 @@ Optional customization points:
 | Business risk thresholds | `references/business-intelligence/workflows/CompanyDueDiligence.md` | Tune verdict criteria |
 | Infrastructure pivot depth | `references/infrastructure-intel/SKILL.md` | Change how aggressively the workflow broadens from the seed entity |
 
+## Shared References
+
+Two shared reference documents apply across all sub-skills:
+
+- `references/EthicalFramework.md` -- Authorization checklist, legal considerations by domain, ethical boundaries, proportionality test, data handling, escalation procedures, and red lines. Every workflow must verify authorization before starting.
+- `references/Methodology.md` -- Intelligence cycle, source hierarchy (Tier 1-4), multi-source verification thresholds, confidence levels (High/Medium/Low/Speculative), red flag classification, reporting standards, and quality gates.
+
+Each sub-skill also has its own `references/SourcesAndTools.md` with domain-specific tool and source catalogs.
+
 ## Design Notes
 
 - Single entry point: the user invokes `investigation`, not a sub-skill name.
 - Invisible delegation: routing happens through `references/ROUTER.md`.
 - No domain overlap: each sub-skill owns a separate investigation surface.
 - Additive scaling: a new specialty only needs one new directory and one new router row.
+- Harness agnostic: no assistant-specific paths, tools, or dependencies. Relative paths only.

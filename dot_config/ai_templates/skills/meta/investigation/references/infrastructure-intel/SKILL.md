@@ -17,6 +17,8 @@ Boundaries:
 - Route organization-level vetting to `business-intelligence`.
 - Route people work to `people-investigation`.
 
+Before starting any workflow, verify authorization per `references/EthicalFramework.md` (shared reference at the meta-skill level). Apply the confidence and reporting standards from `references/Methodology.md`.
+
 ## Workflow Routing
 
 | Intent | Workflow |
@@ -63,3 +65,11 @@ Route: workflows/EntityLookup.md
 User: find better public sources for maritime threat intelligence
 Route: workflows/DiscoverSources.md
 ```
+
+## References
+
+| File | Purpose |
+|---|---|
+| `references/SourcesAndTools.md` | DNS, IP, threat intel, malware analysis, vulnerability databases, dark web monitoring, and OSINT meta-resources |
+| `../EthicalFramework.md` | Shared authorization, legal, and ethical requirements |
+| `../Methodology.md` | Shared source hierarchy, confidence scoring, and reporting standards |

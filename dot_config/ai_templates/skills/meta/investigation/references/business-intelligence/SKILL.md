@@ -17,6 +17,8 @@ Boundaries:
 - Route person-centric work to `people-investigation`.
 - Route deep domain, IP, URL, or IOC analysis to `infrastructure-intel`.
 
+Before starting any workflow, verify authorization per `references/EthicalFramework.md` (shared reference at the meta-skill level). Apply the confidence and reporting standards from `references/Methodology.md`.
+
 ## Workflow Routing
 
 | Intent | Workflow |
@@ -65,3 +67,11 @@ Route: workflows/CompanyDueDiligence.md
 User: research this nonprofit and its board
 Route: workflows/OrganizationLookup.md
 ```
+
+## References
+
+| File | Purpose |
+|---|---|
+| `references/SourcesAndTools.md` | Business registries, financial databases, legal records, sanctions, competitive intelligence, and nonprofit sources |
+| `../EthicalFramework.md` | Shared authorization, legal, and ethical requirements |
+| `../Methodology.md` | Shared source hierarchy, confidence scoring, and reporting standards |
