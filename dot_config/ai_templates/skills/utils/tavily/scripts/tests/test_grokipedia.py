@@ -348,6 +348,10 @@ class TestMainFunction:
         respx.post(grokipedia.TAVILY_API_URL).mock(
             return_value=httpx.Response(200, json=FAKE_RESPONSE)
         )
+        # Mock extract endpoint (hybrid lookup for canonical page)
+        respx.post(grokipedia.TAVILY_EXTRACT_URL).mock(
+            return_value=httpx.Response(200, json=FAKE_EXTRACT_FAIL_RESPONSE)
+        )
         with patch("grokipedia.get_api_key", return_value="fake-key"):
             with patch("sys.argv", ["grokipedia.py", "test query"]):
                 assert grokipedia.main() == 0
@@ -356,6 +360,10 @@ class TestMainFunction:
     def test_json_output_is_valid_json(self) -> None:
         respx.post(grokipedia.TAVILY_API_URL).mock(
             return_value=httpx.Response(200, json=FAKE_RESPONSE)
+        )
+        # Mock extract endpoint (hybrid lookup for canonical page)
+        respx.post(grokipedia.TAVILY_EXTRACT_URL).mock(
+            return_value=httpx.Response(200, json=FAKE_EXTRACT_FAIL_RESPONSE)
         )
         with patch("grokipedia.get_api_key", return_value="fake-key"):
             with patch("sys.argv", ["grokipedia.py", "test query", "--json"]):
@@ -416,3 +424,247 @@ class TestMainFunction:
     def test_max_results_out_of_range_returns_2(self) -> None:
         with patch("sys.argv", ["grokipedia.py", "test", "-n", "25"]):
             assert grokipedia.main() == 2
+
+
+# ===================================================================
+# Unit Tests -- normalize_page_title
+# ===================================================================
+
+
+class TestNormalizePageTitle:
+    """normalize_page_title must convert queries to Grokipedia URL path segments."""
+
+    def test_single_word_lowercase(self) -> None:
+        assert grokipedia.normalize_page_title("pattern") == "Pattern"
+
+    def test_single_word_uppercase(self) -> None:
+        assert grokipedia.normalize_page_title("Pattern") == "Pattern"
+
+    def test_multi_word_spaces_to_underscores(self) -> None:
+        assert (
+            grokipedia.normalize_page_title("quantum computing") == "Quantum_computing"
+        )
+
+    def test_preserves_interior_caps(self) -> None:
+        """Acronyms like AI should stay uppercase."""
+        assert grokipedia.normalize_page_title("AI history") == "AI_history"
+
+    def test_strips_whitespace(self) -> None:
+        assert grokipedia.normalize_page_title("  pattern  ") == "Pattern"
+
+    def test_collapses_multiple_spaces(self) -> None:
+        assert (
+            grokipedia.normalize_page_title("quantum   computing")
+            == "Quantum_computing"
+        )
+
+    def test_empty_string(self) -> None:
+        assert grokipedia.normalize_page_title("") == ""
+
+
+# ===================================================================
+# Unit Tests -- extract_exact_page
+# ===================================================================
+
+
+FAKE_EXTRACT_RESPONSE: dict[str, Any] = {
+    "results": [
+        {
+            "url": "https://grokipedia.com/page/Pattern",
+            "raw_content": "A pattern is a regularity in the world...",
+        }
+    ],
+    "failed_results": [],
+    "response_time": 0.8,
+}
+
+FAKE_EXTRACT_FAIL_RESPONSE: dict[str, Any] = {
+    "results": [],
+    "failed_results": [
+        {"url": "https://grokipedia.com/page/Nonexistent", "error": "404"}
+    ],
+    "response_time": 0.3,
+}
+
+
+class TestExtractExactPage:
+    """extract_exact_page must try the canonical URL and return a result dict or None."""
+
+    @respx.mock
+    def test_returns_result_when_page_exists(self) -> None:
+        respx.post(grokipedia.TAVILY_EXTRACT_URL).mock(
+            return_value=httpx.Response(200, json=FAKE_EXTRACT_RESPONSE)
+        )
+        result = grokipedia.extract_exact_page("pattern", api_key="fake-key")
+        assert result is not None
+        assert result["url"] == "https://grokipedia.com/page/Pattern"
+        assert result["title"] == "Pattern"
+        assert "content" in result
+        assert result["score"] == 1.0  # exact match gets perfect score
+
+    @respx.mock
+    def test_returns_none_when_page_missing(self) -> None:
+        respx.post(grokipedia.TAVILY_EXTRACT_URL).mock(
+            return_value=httpx.Response(200, json=FAKE_EXTRACT_FAIL_RESPONSE)
+        )
+        result = grokipedia.extract_exact_page("nonexistent", api_key="fake-key")
+        assert result is None
+
+    @respx.mock
+    def test_returns_none_on_http_error(self) -> None:
+        """Network/API errors should not crash, just return None."""
+        respx.post(grokipedia.TAVILY_EXTRACT_URL).mock(
+            return_value=httpx.Response(500, text="server error")
+        )
+        result = grokipedia.extract_exact_page("pattern", api_key="fake-key")
+        assert result is None
+
+    @respx.mock
+    def test_returns_none_on_connection_error(self) -> None:
+        respx.post(grokipedia.TAVILY_EXTRACT_URL).mock(
+            side_effect=httpx.ConnectError("timeout")
+        )
+        result = grokipedia.extract_exact_page("pattern", api_key="fake-key")
+        assert result is None
+
+    @respx.mock
+    def test_content_truncated_for_snippet(self) -> None:
+        """Content in the result should be a short snippet, not the full page."""
+        long_response = {
+            "results": [
+                {
+                    "url": "https://grokipedia.com/page/Pattern",
+                    "raw_content": "x" * 10000,
+                }
+            ],
+            "failed_results": [],
+            "response_time": 0.5,
+        }
+        respx.post(grokipedia.TAVILY_EXTRACT_URL).mock(
+            return_value=httpx.Response(200, json=long_response)
+        )
+        result = grokipedia.extract_exact_page("pattern", api_key="fake-key")
+        assert result is not None
+        assert len(result["content"]) <= 503  # 500 chars + "..."
+
+
+# ===================================================================
+# Unit Tests -- hybrid merge in main()
+# ===================================================================
+
+
+class TestHybridSearch:
+    """main() must inject exact-page result when search misses it."""
+
+    @respx.mock
+    def test_exact_page_injected_when_missing_from_search(self) -> None:
+        """If search doesn't return /page/Pattern, extract should inject it."""
+        # Search returns results that DON'T include /page/Pattern
+        search_response = {
+            "query": "pattern",
+            "answer": "Patterns are everywhere.",
+            "response_time": 1.0,
+            "results": [
+                {
+                    "title": "Pattern grammar",
+                    "url": "https://grokipedia.com/page/pattern_grammar",
+                    "content": "About pattern grammar.",
+                    "score": 0.96,
+                }
+            ],
+        }
+        respx.post(grokipedia.TAVILY_API_URL).mock(
+            return_value=httpx.Response(200, json=search_response)
+        )
+        respx.post(grokipedia.TAVILY_EXTRACT_URL).mock(
+            return_value=httpx.Response(200, json=FAKE_EXTRACT_RESPONSE)
+        )
+
+        import io
+
+        captured = io.StringIO()
+        with patch("grokipedia.get_api_key", return_value="fake-key"):
+            with patch("sys.argv", ["grokipedia.py", "pattern", "--json"]):
+                with patch("sys.stdout", captured):
+                    code = grokipedia.main()
+
+        assert code == 0
+        data = json.loads(captured.getvalue())
+        urls = [r["url"] for r in data["results"]]
+        assert "https://grokipedia.com/page/Pattern" in urls
+        # Exact match should be first
+        assert data["results"][0]["url"] == "https://grokipedia.com/page/Pattern"
+
+    @respx.mock
+    def test_no_duplicate_when_search_already_has_page(self) -> None:
+        """If search already includes the exact page, don't add it twice."""
+        search_response = {
+            "query": "pattern",
+            "answer": None,
+            "response_time": 1.0,
+            "results": [
+                {
+                    "title": "Pattern",
+                    "url": "https://grokipedia.com/page/Pattern",
+                    "content": "A pattern is...",
+                    "score": 0.99,
+                }
+            ],
+        }
+        respx.post(grokipedia.TAVILY_API_URL).mock(
+            return_value=httpx.Response(200, json=search_response)
+        )
+        # Extract should NOT be called if search already has it,
+        # but even if it is, no duplicate should appear.
+
+        import io
+
+        captured = io.StringIO()
+        with patch("grokipedia.get_api_key", return_value="fake-key"):
+            with patch("sys.argv", ["grokipedia.py", "pattern", "--json"]):
+                with patch("sys.stdout", captured):
+                    code = grokipedia.main()
+
+        assert code == 0
+        data = json.loads(captured.getvalue())
+        pattern_urls = [
+            r["url"]
+            for r in data["results"]
+            if r["url"] == "https://grokipedia.com/page/Pattern"
+        ]
+        assert len(pattern_urls) == 1  # no duplicate
+
+    @respx.mock
+    def test_extract_failure_does_not_break_search(self) -> None:
+        """If extract fails, search results should still display normally."""
+        search_response = {
+            "query": "pattern",
+            "answer": None,
+            "response_time": 1.0,
+            "results": [
+                {
+                    "title": "Pattern grammar",
+                    "url": "https://grokipedia.com/page/pattern_grammar",
+                    "content": "Grammar stuff.",
+                    "score": 0.96,
+                }
+            ],
+        }
+        respx.post(grokipedia.TAVILY_API_URL).mock(
+            return_value=httpx.Response(200, json=search_response)
+        )
+        respx.post(grokipedia.TAVILY_EXTRACT_URL).mock(
+            side_effect=httpx.ConnectError("timeout")
+        )
+
+        import io
+
+        captured = io.StringIO()
+        with patch("grokipedia.get_api_key", return_value="fake-key"):
+            with patch("sys.argv", ["grokipedia.py", "pattern", "--json"]):
+                with patch("sys.stdout", captured):
+                    code = grokipedia.main()
+
+        assert code == 0
+        data = json.loads(captured.getvalue())
+        assert len(data["results"]) == 1  # just the search result, no crash

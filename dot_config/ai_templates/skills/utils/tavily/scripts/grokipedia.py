@@ -31,6 +31,8 @@ from rich.text import Text
 __version__ = "0.1.0"
 
 TAVILY_API_URL = "https://api.tavily.com/search"
+TAVILY_EXTRACT_URL = "https://api.tavily.com/extract"
+GROKIPEDIA_BASE = "https://grokipedia.com/page"
 SEARCH_DOMAINS = ["grokipedia.com", "grokxpedia.us"]
 
 # Separate consoles: stdout for data, stderr for diagnostics
@@ -130,6 +132,87 @@ def search_grokipedia(
         )
         response.raise_for_status()
         return response.json()
+
+
+def normalize_page_title(query: str) -> str:
+    """Convert a search query to a Grokipedia URL path segment.
+
+    Follows MediaWiki URL conventions: first letter capitalized,
+    spaces replaced with underscores, interior casing preserved.
+
+    Args:
+        query: Raw search query string.
+
+    Returns:
+        URL-ready page title (e.g., "quantum computing" -> "Quantum_computing").
+    """
+    title = query.strip()
+    if not title:
+        return ""
+    # Collapse multiple spaces, replace with underscores
+    parts = title.split()
+    title = "_".join(parts)
+    # Capitalize first letter only, preserve the rest
+    return title[0].upper() + title[1:]
+
+
+def extract_exact_page(
+    query: str,
+    api_key: str | None = None,
+) -> dict[str, Any] | None:
+    """Try to extract the canonical Grokipedia page matching the query.
+
+    Constructs the URL ``grokipedia.com/page/{Title}`` and uses Tavily's
+    /extract endpoint. Returns a search-result-compatible dict if the page
+    exists, or None on any failure.
+
+    Args:
+        query: Search query to derive the page title from.
+        api_key: Tavily API key. If None, retrieved from keyring.
+
+    Returns:
+        A dict with keys (title, url, content, score, raw_content) or None.
+    """
+    if api_key is None:
+        api_key = get_api_key()
+
+    title = normalize_page_title(query)
+    if not title:
+        return None
+
+    canonical_url = f"{GROKIPEDIA_BASE}/{title}"
+
+    try:
+        with httpx.Client(timeout=15.0) as client:
+            response = client.post(
+                TAVILY_EXTRACT_URL,
+                headers={
+                    "Authorization": f"Bearer {api_key}",
+                    "Content-Type": "application/json",
+                },
+                json={"urls": [canonical_url], "format": "markdown"},
+            )
+            response.raise_for_status()
+            data = response.json()
+
+        results = data.get("results", [])
+        if not results:
+            return None
+
+        raw_content = results[0].get("raw_content") or ""
+        # Build a snippet from the first 500 chars of the page
+        snippet = raw_content[:500] + "..." if len(raw_content) > 500 else raw_content
+
+        return {
+            "title": title.replace("_", " "),
+            "url": canonical_url,
+            "content": snippet,
+            "score": 1.0,  # exact match
+            "raw_content": raw_content,
+        }
+
+    except (httpx.HTTPStatusError, httpx.RequestError):
+        return None
 
 
 def display_results(data: dict[str, Any], raw: bool = False) -> None:
@@ -279,11 +362,25 @@ def main() -> int:
         return 2
 
     try:
+        api_key = get_api_key()
+
         data = search_grokipedia(
             query=query,
             max_results=args.max_results,
             include_raw=args.raw,
+            api_key=api_key,
         )
+
+        # Hybrid lookup: if the canonical page isn't in search results,
+        # try extracting it directly and prepend it.
+        title = normalize_page_title(query)
+        canonical_url = f"{GROKIPEDIA_BASE}/{title}"
+        existing_urls = {r.get("url", "").lower() for r in data.get("results", [])}
+
+        if canonical_url.lower() not in existing_urls:
+            exact = extract_exact_page(query, api_key=api_key)
+            if exact is not None:
+                data.setdefault("results", []).insert(0, exact)
 
         if args.json_output:
             print(json.dumps(data, indent=2))
