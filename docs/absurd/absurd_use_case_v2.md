@@ -106,11 +106,18 @@ Return JSON:
 The parent collects each child's result JSON and passes relevant fields forward:
 
 ```
-create-branch.result.branch_name → implement-from-plan.params.branch_name
+create-branch.result.branch_name    → implement-from-plan.params.branch_name
+create-branch.result.worktree_path   → implement-from-plan.params.worktree_path (and all downstream tasks)
+create-branch.result.base_sha        → review-diff-pass1.params.base_sha, review-diff-pass2.params.base_sha
 implement-from-plan.result.files_changed → review-diff-pass1.params.files_changed
-review-diff-pass1.result.criteria → review-diff-pass2.params.pass1_criteria
-qa-branch.result.test_summary → uat-handoff.params.test_summary
+implement-from-plan.result.head_sha  → review-diff-pass1.params.head_sha, review-diff-pass2.params.head_sha
+review-diff-pass1.result.criteria    → review-diff-pass2.params.pass1_criteria
+qa-branch.result (full object)       → uat-handoff.params.qa_results
 review-diff-pass1.result.criteria + review-diff-pass2.result.criteria → uat-handoff.params.review_findings
+qa-branch.result (full object)       → open-pull-request.params.qa_results
+review results (combined)            → open-pull-request.params.review_findings
+open-pull-request.result.pr_number   → request-greptile-review.params.pr_number
+open-pull-request.result.pr_url      → request-greptile-review.params.pr_url
 ```
 
 ---
@@ -196,6 +203,7 @@ Return JSON:
 | `plan_title` | string | User-provided plan |
 | `base_branch` | string | Defaults to `main` |
 | `branch_name` | string | Derived from plan title or user-specified |
+| `worktree_path` | string | Derived convention, e.g. `../worktrees/<branch_name>` |
 
 **Output schema:**
 
@@ -714,7 +722,7 @@ Return JSON:
 
 ---
 
-### 6. `uat-handoff`
+### 7. `uat-handoff`
 
 **Purpose:** Produce a UAT brief for the human, then durably wait for approval or rejection.
 
@@ -792,9 +800,21 @@ absurdctl emit-event "uat-approved:<task-id>" -q delivery-orchestrator -P approv
 | `review_findings` | object | From `review-diff-pass1` + `review-diff-pass2` results |
 | `files_changed` | string[] | From `implement-from-plan` result |
 
+**Output schema:**
+
+```json
+{
+  "status": "pass",
+  "brief_markdown": "string (full UAT brief in markdown)",
+  "checkout_command": "string",
+  "test_commands": ["string"],
+  "manual_checks": ["string"]
+}
+```
+
 ---
 
-### 7. `open-pull-request`
+### 8. `open-pull-request`
 
 **Purpose:** Commit the work and open a pull request.
 
@@ -875,7 +895,7 @@ Return JSON:
 
 ---
 
-### 8a. `request-greptile-review` (OPTIONAL — disabled by default)
+### 9a. `request-greptile-review` (OPTIONAL — disabled by default)
 
 **Purpose:** Request an external Greptile code review on the PR, then durably wait for results.
 
@@ -928,7 +948,7 @@ Return JSON:
 
 ---
 
-### 8b. `wait-for-ci` (OPTIONAL — disabled by default)
+### 9b. `wait-for-ci` (OPTIONAL — disabled by default)
 
 **Purpose:** Wait for CI pipeline to complete.
 
@@ -974,7 +994,7 @@ const ciResult = await ctx.awaitEvent(`ci-complete:${params.pr_number}`, {
 
 ---
 
-### 9. `merge-when-green` (OPTIONAL — disabled by default)
+### 10. `merge-when-green` (OPTIONAL — disabled by default)
 
 **Purpose:** Deterministic gate check — merge if all conditions are met.
 
@@ -1230,13 +1250,13 @@ opencode run --agent <agent> "<rendered prompt>"
 opencode run --agent 1-kimi "$(cat prompts/create-branch/v1.md | render_template)"
 
 # Example: implement-from-plan (with feedback on retry)
-opencode run --agent gpthigh "$(cat prompts/implement-from-plan/v1.md | render_template --feedback='fix the email validation' --retry_count=1)"
+opencode run --agent 2-opus "$(cat prompts/implement-from-plan/v1.md | render_template --feedback='fix the email validation' --retry_count=1)"
 
 # Example: review-diff-pass1
 opencode run --agent 1-kimi "$(cat prompts/review-diff-pass1/v1.md | render_template)"
 
 # Example: review-diff-pass2 (receives pass1 findings)
-opencode run --agent gpthigh "$(cat prompts/review-diff-pass2/v1.md | render_template --pass1_findings='...')"
+opencode run --agent gpthigh "$(cat prompts/review-diff-pass2/v1.md | render_template --pass1_criteria='...')"
 ```
 
 The `render_template` function is application code that:
