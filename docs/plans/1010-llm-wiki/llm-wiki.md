@@ -4,7 +4,7 @@ A pattern for building personal knowledge bases using LLMs.
 
 This is an idea file, it is designed to be copy pasted to your own LLM Agent (e.g. OpenAI Codex, Claude Code, OpenCode / Pi, or etc.). Its goal is to communicate the high level idea, but your agent will build out the specifics in collaboration with you.
 
-## The core idea
+# The core idea
 
 Most people's experience with LLMs and documents looks like RAG: you upload a collection of files, the LLM retrieves relevant chunks at query time, and generates an answer. This works, but the LLM is rediscovering knowledge from scratch on every question. There's no accumulation. Ask a subtle question that requires synthesizing five documents, and the LLM has to find and piece together the relevant fragments every time. Nothing is built up. NotebookLM, ChatGPT file uploads, and most RAG systems work this way.
 
@@ -16,7 +16,7 @@ You never (or rarely) write the wiki yourself — the LLM writes and maintains a
 
 This can apply to a lot of different contexts. A few examples:
 
-- **Personal**: tracking your own goals, health, psychology, self-improvement — filing journal entries, articles, podcast notes, and building up a structured picture of yourself over time.
+- **Personal**: tracking your own goals, project management, health, psychology, self-improvement — filing journal entries, articles, podcast notes, and building up a structured picture of yourself over time.
 - **Business/team**: an internal wiki maintained by LLMs, a federation of "Personal" wiki. It can be feed by Slack threads, meeting transcripts, project documents, customer calls. Possibly with humans in the loop reviewing updates. The wiki stays current because the LLM does the maintenance that no one on the team wants to do.
 - **Research**: going deep on a topic over weeks or months — reading papers, articles, reports, and incrementally building a comprehensive wiki with an evolving thesis.
 - **Competitive analysis, due diligence, trip planning, course notes, hobby deep-dives** — anything where you're accumulating knowledge over time and want it organized rather than scattered.
@@ -66,3 +66,70 @@ The human's job is to curate sources, direct the analysis, ask good questions, a
 
 The idea is related in spirit to Vannevar Bush's Memex (1945) — a personal, curated knowledge store with associative trails between documents. Bush's vision was closer to this than to what the web became: private, actively curated, with the connections between documents as valuable as the documents themselves. The part he couldn't solve was who does the maintenance. The LLM handles that.
 
+---
+
+# Implementation
+
+<!-- CEO / Validated [[2026-04-02]] -->
+
+## File structure
+
+```txt
+{dir_name}
+  /references
+  INDEX.md
+```
+
+## Frontmatter and metadata
+
+### 5.1 General rule
+
+- Every markdown file must include a YAML frontmatter with at minimum: `tags` and `date_updated`.
+- Non-markdown files (code, images, PDF, etc.) are exempt from frontmatter.
+- Tags are lowercase only, no spaces.
+
+### 5.2 Label model — 4 orthogonal axes
+
+CRM tags are distributed across 4 independent axes. Each axis answers a distinct question.
+
+**Axis 1 — AREA: which system component?** (required on every markdown file)
+
+- `area/ea/index     # for {dir_name}
+- `area/ea/ticket`    # everything in /references
+
+**Axis 2 — KIND: what is this file?** (required for `area/ea/ticket`)
+
+- `kind/playbook` — reusable procedure or prompt
+- `kind/relationship` — person or organization
+- `kind/plan` — exploratory plan or idea
+- `kind/research` — research
+- `kind/idea` — idea
+- `kind/milestone` — project progress tracking (e.g. ACV4)
+- `kind/project/{name}` — artifact within a project. `{name}` matches the project root directory name (e.g. `kind/project/cass`, `kind/project/ccl`)
+- `kind/log` — operational log, batch of historical decisions, retrospective
+- `kind/task` — ad-hoc work
+- `kind/doc/template` — reusable scaffold
+- `kind/doc/reference` — read-only document
+- `kind/hygiene` — drift sweep, metadata cleanup, structural maintenance
+- `kind/bug` — system failure, broken tool, unexpected behavior
+- `kind/strategy` — strategic direction or analysis
+- `kind/role` — team role description (`TEAM_*.md` files)
+
+**Axis 3 — STATUS: where in the workflow?** (required for `area/ea/crm` and `area/ea/ticket`, except `kind/project/*`)
+
+- `status/draft` — structure laid out, minimal content
+- `status/open` — in progress, partial. Default for new tickets.
+- `status/stable` — complete, reliable reference
+- `status/blocked` — waiting on external input or a dependency
+- `status/parked` — intentionally suspended
+- `status/close` — closed, resolved
+
+**Axis 4 — PRIORITY: how urgent?** (required for `area/ea/ticket` except `kind/project/*`, forbidden for `area/ea/crm`)
+
+- `pty/p1` — urgent
+- `pty/p2` — normal. Default when the CEO does not specify priority.
+- `pty/p3` — low priority
+
+### 5.3 Tag order
+
+Tags in the frontmatter always follow this order: `area` → `kind` → `status` → `pty`.
