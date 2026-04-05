@@ -1,3 +1,13 @@
+---
+name: Basecamp Markdown Export Research (1011)
+description: Research on Basecamp 3 API data model, CLI commands, proposed markdown export architecture with frontmatter state management
+tags:
+  - area/ea
+  - kind/research
+  - status/open
+date_updated: 2026-04-04
+---
+
 # Basecamp → Markdown Export: Research & Architecture
 
 ## Overview

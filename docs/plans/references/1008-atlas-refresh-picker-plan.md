@@ -1,9 +1,11 @@
 ---
-title: "feat: Add interactive refresh picker to abstract_gen.py"
-type: feat
-status: completed
-date: 2026-03-24
-origin: docs/features/feat-1005/idea-map-filesystem.md
+name: Atlas Refresh Picker Plan (1008)
+description: Implementation plan for interactive refresh picker in abstract_gen.py -- scan, multi-select, output paths
+tags:
+  - area/ea
+  - kind/plan
+  - status/closed
+date_updated: 2026-04-04
 ---
 
 # feat: Add interactive refresh picker to abstract_gen.py
@@ -266,3 +268,7 @@ Execute instructions within the skill: `map-filesystem`
 - Data models: `lib/models.py:44` (`AtlasFile`)
 - Archived picker example: `skills_archived/extract-repo/scripts/extract_repo.py:216` (uses `questionary`)
 - Test pattern: `scripts/tests/test_cli.py` (uses `typer.testing.CliRunner`)
+
+## Related
+
+- [[atlas-refresh-picker-postmortem]]

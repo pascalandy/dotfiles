@@ -1,10 +1,11 @@
 ---
-links:
-  - "[rel path/[PRD Title]]"
-  - "[Link / path / note]"
-owner: "Pascal Andy"
-status: "[Draft / In Progress / Ready / Shipped / Parked]"
-date_updated: "[YYYY-MM-DD] / v0.1"
+name: PRD Template v2.1
+description: Full PRD template for solo-founder + AI workflows -- 10 sections covering Abstract through E2E Acceptance Plan
+tags:
+  - area/ea
+  - kind/template
+  - status/stable
+date_updated: 2026-04-04
 ---
 
 <!--
@@ -441,3 +442,9 @@ The AI assistant should generate enough atomic tickets so that:
 - each ticket stays small and easy to execute
 
 -->
+
+## Related
+
+- [[bdd-principles-for-plans]]
+- [[plan-template-alt-lightweight]]
+- [[1004-feature-plan-template]]

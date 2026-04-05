@@ -1,8 +1,11 @@
 ---
-status: proposed
-owners:
-  - @askpascalandy
-created: 2026-03-11
+name: Agent Chain Review Artifact Recursive Feedback (1004)
+description: Plan to redesign plan-review workflow -- reviewers create standalone review artifacts, PO consolidates into plan, decision log prevents churn
+tags:
+  - area/ea
+  - kind/plan
+  - status/stable
+date_updated: 2026-04-04
 ---
 
 # Agent Chain Review Artifact Recursive Feedback
@@ -223,3 +226,12 @@ SUMMARY: <one concise sentence>
 - Then update reviewer and PO personas together; changing only one side would break the loop.
 - Update commit behavior after PO deletion behavior is defined, otherwise the audit step will still assume plan-only commits.
 - Only after persona/prompt alignment should any extension-level observability or polish be considered.
+
+## Related
+
+- [[1004-workflow-diagram]]
+- [[1004-agent-plan-reviewer-persona]]
+- [[1004-agent-product-manager-persona]]
+- [[1004-agent-plan-init-persona]]
+- [[1004-agent-chain-config]]
+- [[1004-feature-plan-template]]
