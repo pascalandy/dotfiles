@@ -1138,50 +1138,119 @@ If the task is event-driven, also search for the event name.
 
 **Task 1**
 - [ ] Confirm the release target and source set.
+Acceptance criteria:
+- Latest stable release is identified as `0.3.0`.
+- The docs site, repo, upstream skill, and release diff are all in scope.
+- Any claim in the draft can be traced back to one of those sources.
 
 **Task 2**
 - [ ] Inventory the core durable-execution model.
+Acceptance criteria:
+- The draft explains queues, tasks, runs, steps, events, sleeps, retries, and workers.
+- The draft distinguishes `task_id` from `run_id`.
+- The draft warns that code outside steps can run more than once.
 
 **Task 3**
 - [ ] Inventory release-specific additions in `0.3.0`.
+Acceptance criteria:
+- Decomposed steps are called out.
+- `absurdctl install-skill` is called out.
+- range-based `migrate --dump-sql` is called out.
+- guarded cross-queue child waits are called out.
 
 **Task 4**
 - [ ] Cover setup and migration workflows.
+Acceptance criteria:
+- Fresh install examples exist.
+- pinned-release install examples exist.
+- upgrade and dry-run examples exist.
+- migration SQL generation examples exist.
 
 **Task 5**
 - [ ] Cover queue lifecycle operations.
+Acceptance criteria:
+- queue creation, listing, and deletion are shown.
+- at least one CLI example exists.
+- at least one SDK example exists.
 
 **Task 6**
 - [ ] Cover task registration and checkpoint semantics.
+Acceptance criteria:
+- shared task-registration examples exist for TypeScript and Python.
+- checkpointed `step` usage is shown.
+- cancellation defaults and retry defaults are demonstrated.
 
 **Task 7**
 - [ ] Cover every task-context primitive.
+Acceptance criteria:
+- `step` is shown.
+- `beginStep` / `completeStep` and `begin_step` / `complete_step` are shown.
+- sleep APIs are shown.
+- event-wait APIs are shown.
+- `awaitTaskResult` inside a task is shown.
+- `heartbeat` is shown.
+- in-task `emitEvent` / `emit_event` is shown.
 
 **Task 8**
 - [ ] Cover spawn-time controls and result inspection.
+Acceptance criteria:
+- examples include retries, headers, queue override, cancellation, and idempotency.
+- `fetchTaskResult` / `fetch_task_result` are shown.
+- `awaitTaskResult` / `await_task_result` are shown.
+- result snapshots and terminal states are described.
 
 **Task 9**
 - [ ] Cover worker operation and recovery APIs.
+Acceptance criteria:
+- `startWorker` / `start_worker` are shown.
+- batch processing is shown.
+- cancel and retry APIs are shown.
+- same-queue child waits are explicitly described as invalid.
 
 **Task 10**
 - [ ] Cover language-specific extras.
+Acceptance criteria:
+- Python `run_step` is shown.
+- Python `get_current_context` is shown.
+- Python sync-async switching is shown.
+- TypeScript connection binding is shown.
+- hooks are shown for both ecosystems.
 
 **Task 11**
 - [ ] Cover the full `absurdctl` operator surface.
+Acceptance criteria:
+- schema commands are shown.
+- queue commands are shown.
+- spawn, list, dump, cancel, retry, emit, cleanup, and install-skill are shown.
+- examples cover typed params and JSON payload forms.
 
 **Task 12**
 - [ ] Cover Habitat and operational patterns.
+Acceptance criteria:
+- Habitat launch and configuration examples exist.
+- reverse-proxy example exists.
+- cleanup SQL and cron-style retention examples exist.
+- the draft explains what Habitat shows.
 
 **Task 13**
 - [ ] Cover long-lived workflow patterns.
+Acceptance criteria:
+- cron deduplication is shown.
+- code-evolution guidance is shown.
+- pi durable-agent turns are shown.
+- the draft states when to rename a step versus normalize checkpoint data.
 
 **Task 14**
 - [ ] Review for safety, ordering, and agent usability.
+Acceptance criteria:
+- the draft tells agents to inspect state before code.
+- state-changing commands are marked as sensitive.
+- copy-paste playbooks exist for common debugging flows.
+- unsupported claims and speculative behavior are removed.
 
 **Task 15**
 - [ ] Final coverage pass.
-
-## Related
-
-- [[delivery-workflow-v2]]
-- [[delivery-workflow-v1]]
+Acceptance criteria:
+- every documented feature category has at least one example.
+- all examples are internally consistent with `0.3.0` naming.
+- the proposed `SKILL.md` can be extracted cleanly from this draft packet.
