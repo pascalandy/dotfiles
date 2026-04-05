@@ -56,7 +56,7 @@ Each wiki instance is a self-contained directory:
   /assets/            # Non-markdown files: images, PDFs (optional)
 ```
 
-All content lives in `/references/` -- flat, no subdirectories. Tags handle categorization; the filesystem stays simple. INDEX.md sits at the root and catalogs every page.
+All new content goes into `/references/` -- keep it flat, do not create subdirectories or move files between directories. The user manages directory structure; the assistant processes files wherever they are. For example, users often create archive subdirectories for old content -- include those in the index but never move files out of them. Tags handle categorization; the filesystem stays simple. INDEX.md sits at the root and catalogs every page.
 
 The schema (conventions, workflows, structure rules) is defined globally, not per-wiki.
 

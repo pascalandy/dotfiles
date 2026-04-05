@@ -60,7 +60,7 @@ Each wiki instance follows this structure:
 ```
 {wiki-name}/
   INDEX.md              # Content catalog (tags: area/ea, kind/wiki)
-  references/           # All wiki pages (flat, no subdirectories)
+  references/           # All wiki pages (keep flat -- do not create subdirectories or move files; process files wherever they are)
     LOG.md              # Append-only operational log (kind/log)
     {page-name}.md      # Entity, concept, research, webclip pages
   assets/               # Images, PDFs, non-markdown files (optional)
