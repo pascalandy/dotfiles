@@ -1,13 +1,3 @@
----
-name: BDD Principles for Plan Writing
-description: BDD principles for product planning -- concrete examples, domain language, one-behavior-per-criterion, declarative style
-tags:
-  - area/ea
-  - kind/template
-  - status/stable
-date_updated: 2026-04-04
----
-
 # BDD Principles for Plan Writing
 
 This document defines how the AI assistant should apply BDD thinking when writing plans from the PRD template.
@@ -194,8 +184,3 @@ Before finalizing a plan, ask:
 - Does each criterion express one behavior and one observable result?
 - Are open questions visible instead of guessed away?
 - Did I spend effort on Tier 1 before formatting tricks?
-
-## Related
-
-- [[plan-template-prd]]
-- [[1004-feature-plan-template]]

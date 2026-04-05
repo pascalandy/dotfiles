@@ -1,13 +1,3 @@
----
-name: Plan Review Pipeline Workflow Diagram (1004)
-description: Mermaid sequence diagram of the full plan-review pipeline -- PM, reviewer, CEO across multiple rounds with commits
-tags:
-  - area/ea
-  - kind/plan
-  - status/stable
-date_updated: 2026-04-04
----
-
 # Plan Review Pipeline Workflow
 
 ```mermaid
@@ -96,7 +86,3 @@ docs/features/
 |----------|---------|---------|
 | Reviewer | `review-r{round}-{timestamp}-{suffix}.md` | `review-r1-2026-03-15_12h30_abc.md` |
 | CEO | `review-ceo-r{round}.md` | `review-ceo-r1.md`, `review-ceo-r2.md` |
-
-## Related
-
-- [[1004-agent-chain-review-feedback]]

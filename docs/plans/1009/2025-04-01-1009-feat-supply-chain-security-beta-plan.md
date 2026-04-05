@@ -1,11 +1,8 @@
 ---
-name: Supply Chain Security Beta (1009)
-description: Plan for minimum release age protection across package managers -- npm/uv native, pip/Go/Cargo/Bun defense-in-depth
-tags:
-  - area/ea
-  - kind/plan
-  - status/open
-date_updated: 2026-04-04
+title: Supply Chain Security - Minimum Release Age Protection
+type: feat
+status: active
+date: 2025-04-01
 ---
 
 # Supply Chain Security - Minimum Release Age Protection

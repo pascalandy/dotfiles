@@ -1,13 +1,3 @@
----
-name: LLM Wiki Design (1010)
-description: Design document for LLM-maintained persistent interlinked wikis -- ingest, query, lint operations with Obsidian integration
-tags:
-  - area/ea
-  - kind/plan
-  - status/open
-date_updated: 2026-04-04
----
-
 # LLM Wiki
 
 A pattern for building personal knowledge bases using LLMs.
