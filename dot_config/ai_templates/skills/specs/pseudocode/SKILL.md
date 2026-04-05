@@ -146,7 +146,9 @@ This sits between a plan and implementation. The plan says *what* to build. Pseu
 
 ## Syntax Reference
 
-Use ` ```js ` for all pseudocode blocks. JS syntax highlighting gives three visual layers that make flows scannable at a glance.
+Use ` ```js ` for all pseudocode blocks. JS syntax highlighting gives four visual layers that make flows scannable at a glance.
+
+See `assets/pseudocode-dx.jpeg` for a screenshot showing all four layers in action (checkout flow example with green backtick tags, yellow state tags, purple JS keywords, and white square-bracket UI content).
 
 ### Structure
 
