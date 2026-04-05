@@ -15,6 +15,8 @@ Downloads YouTube audio, transcribes with Deepgram nova-3,
 and outputs timestamped transcripts in multiple formats.
 """
 
+__version__ = "1.0.0"
+
 import argparse
 import json
 import os
@@ -26,6 +28,7 @@ import sys
 import time
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 import requests
 import tiktoken
@@ -37,8 +40,6 @@ from rich.status import Status
 
 class SummaryCLIError(Exception):
     """Exception for summary CLI failures (timeout, context limit, etc.)."""
-
-    pass
 
 
 # Paths (repo-relative by default)
@@ -80,10 +81,29 @@ SUMMARY_MAX_RETRIES = 3  # Retry attempts for summary CLI failures
 console = Console()
 
 
-def retry_request(func, max_attempts: int = 3, initial_delay: float = 1.0):
-    """Execute function with exponential backoff retry logic."""
+from typing import Callable, TypeVar
+
+_T = TypeVar("_T")
+
+
+def retry_request(
+    func: Callable[[], _T], max_attempts: int = 3, initial_delay: float = 1.0
+) -> _T:
+    """Execute *func* with exponential backoff retry logic.
+
+    Args:
+        func: Zero-argument callable to execute.
+        max_attempts: Maximum number of tries (must be >= 1).
+        initial_delay: Seconds to wait before the first retry.
+
+    Returns:
+        The return value of *func* on the first successful call.
+
+    Raises:
+        Exception: Re-raises the last exception after all attempts are exhausted.
+    """
     delay = initial_delay
-    last_exception = None
+    last_exception: Exception | None = None
 
     for attempt in range(1, max_attempts + 1):
         try:
@@ -94,37 +114,41 @@ def retry_request(func, max_attempts: int = 3, initial_delay: float = 1.0):
             last_exception = e
             if attempt == max_attempts:
                 console.print(f"   [red]Failed after {max_attempts} attempts[/red]")
-                raise last_exception from None  # type: ignore[reportGeneralTypeIssues]
+                raise
             console.print(f"   [yellow]Failed, retrying in {delay}s...[/yellow]")
             time.sleep(delay)
+            delay *= 2  # actual exponential backoff
 
-    raise last_exception  # type: ignore[reportGeneralTypeIssues]
+    # Unreachable when max_attempts >= 1, but satisfies the type checker
+    raise RuntimeError("retry_request called with max_attempts < 1")
+
+
+def run_ytdlp(args: list[str], url: str) -> subprocess.CompletedProcess[str]:
+    """Run yt-dlp with automatic cookie fallback.
+
+    Tries without cookies first (works for public videos), then retries
+    with ``--cookies-from-browser chrome`` if the first attempt fails.
+
+    Args:
+        args: Extra yt-dlp flags (inserted before the URL).
+        url: YouTube URL (appended last).
+
+    Raises:
+        subprocess.CalledProcessError: If both attempts fail.
+    """
+    cmd_base = ["yt-dlp", *args, url]
+    result = subprocess.run(cmd_base, capture_output=True, text=True)
+    if result.returncode != 0:
+        cmd_cookies = ["yt-dlp", "--cookies-from-browser", "chrome", *args, url]
+        result = subprocess.run(cmd_cookies, capture_output=True, text=True, check=True)
+    return result
 
 
 def get_video_info(url: str) -> dict:
     """Get video title and ID using yt-dlp."""
-    # Try without cookies first (works for public videos)
-    result = subprocess.run(
-        ["yt-dlp", "--get-title", "--get-id", url],
-        capture_output=True,
-        text=True,
-    )
-    # Fall back to cookies if needed
-    if result.returncode != 0:
-        result = subprocess.run(
-            [
-                "yt-dlp",
-                "--cookies-from-browser",
-                "chrome",
-                "--get-title",
-                "--get-id",
-                url,
-            ],
-            capture_output=True,
-            text=True,
-            check=True,
-        )
-    elif not result.stdout.strip():
+    result = run_ytdlp(["--get-title", "--get-id"], url)
+
+    if not result.stdout.strip():
         raise ValueError("Could not retrieve video info")
 
     lines = result.stdout.strip().split("\n")
@@ -160,40 +184,10 @@ def create_output_dir(title: str, video_id: str) -> Path:
 def download_audio(url: str, output_dir: Path) -> Path:
     """Download audio from YouTube as MP3."""
     output_template = str(output_dir / "audio.%(ext)s")
-    # Try without cookies first (works for public videos)
-    result = subprocess.run(
-        [
-            "yt-dlp",
-            "-x",
-            "--audio-format",
-            "mp3",
-            "--audio-quality",
-            "0",
-            "-o",
-            output_template,
-            url,
-        ],
-        capture_output=True,
+    run_ytdlp(
+        ["-x", "--audio-format", "mp3", "--audio-quality", "0", "-o", output_template],
+        url,
     )
-    # Fall back to cookies if needed
-    if result.returncode != 0:
-        subprocess.run(
-            [
-                "yt-dlp",
-                "--cookies-from-browser",
-                "chrome",
-                "-x",
-                "--audio-format",
-                "mp3",
-                "--audio-quality",
-                "0",
-                "-o",
-                output_template,
-                url,
-            ],
-            check=True,
-            capture_output=True,
-        )
     audio_path = output_dir / "audio.mp3"
     if not audio_path.exists():
         raise FileNotFoundError("Audio download failed")
@@ -707,8 +701,6 @@ def parse_args() -> argparse.Namespace:
     )
     help_width = min(shutil.get_terminal_size(fallback=(100, 24)).columns, 100)
 
-    help_width = min(shutil.get_terminal_size(fallback=(100, 24)).columns, 100)
-
     parser = argparse.ArgumentParser(
         description=f"""YouTube Transcript Generator from Deepgram
 
@@ -731,6 +723,11 @@ Environment:
         add_help=False,
     )
     parser.add_argument("-h", "--help", action="help", help=argparse.SUPPRESS)
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"transcript {__version__}",
+    )
     required_group = parser.add_argument_group("Required argument")
     required_group.add_argument(
         "url",
@@ -805,8 +802,6 @@ Environment:
 
 def main() -> None:
     """Main workflow."""
-    # Load environment
-    load_dotenv(dotenv_path=DOTENV_PATH)
     args = parse_args()
     prompts = scan_prompts(SCRIPT_DIR / "prompts")
 
@@ -826,7 +821,7 @@ def main() -> None:
             selected_prompt = resolve_prompt(prompts, args.prompt)
         except ValueError as e:
             console.print(f"[red]{e}[/red]")
-            sys.exit(1)
+            sys.exit(2)
 
     selected_model = resolve_model(args.provider, args.model)
     if not is_valid_model(args.provider, selected_model):
@@ -834,7 +829,7 @@ def main() -> None:
             "[red]Invalid Claude model:[/red] "
             f"{selected_model}. Use --list-models --provider claude"
         )
-        sys.exit(1)
+        sys.exit(2)
 
     # Resolve effort with provider-aware defaults and validation
     if args.provider == PROVIDER_CLAUDE:
@@ -844,7 +839,7 @@ def main() -> None:
                 f"[red]Invalid Claude effort:[/red] {selected_effort}. "
                 f"Valid: {', '.join(VALID_CLAUDE_EFFORTS)}"
             )
-            sys.exit(1)
+            sys.exit(2)
     else:
         selected_effort = args.effort or DEFAULT_CODEX_REASONING_EFFORT
         if selected_effort not in VALID_CODEX_REASONING_EFFORTS:
@@ -852,14 +847,14 @@ def main() -> None:
                 f"[red]Invalid Codex effort:[/red] {selected_effort}. "
                 f"Valid: {', '.join(VALID_CODEX_REASONING_EFFORTS)}"
             )
-            sys.exit(1)
+            sys.exit(2)
 
     api_key = validate_env()
 
     # Validate URL
     if not validate_youtube_url(args.url):
         console.print(f"[red]Invalid YouTube URL:[/red] {args.url}")
-        sys.exit(1)
+        sys.exit(2)
 
     console.print()
 
