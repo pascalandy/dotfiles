@@ -35,7 +35,7 @@ The LLM incrementally builds and maintains a persistent wiki -- a structured, in
 
 Three operations make this work:
 
-1. **Ingest** -- Process new sources into the wiki. The LLM reads a source, discusses key takeaways, writes or updates wiki pages, maintains cross-references, updates the index and log. A single source might touch 10-15 pages. Three workflows: Bootstrap (initialize a new wiki), IngestSingle (process one source interactively), IngestBatch (process multiple sources).
+1. **Ingest** -- Two distinct operations. **CreateWikiMap** organizes existing files into a wiki structure -- moving, renaming, adding frontmatter, building the index -- without touching file body content. **IngestSingle** and **IngestBatch** are the synthesis operations: the LLM reads a source, discusses key takeaways, writes or updates wiki pages, maintains cross-references. A single ingest might touch 10-15 pages. Three workflows: CreateWikiMap (organize files / initialize wiki), IngestSingle (process one source interactively), IngestBatch (process multiple sources).
 
 2. **Query** -- Search the wiki and synthesize answers. The LLM reads the index to find relevant pages, drills into them, and produces an answer with citations. Answers can take different forms: a markdown page, a comparison table, a timeline. Valuable answers can be filed back into the wiki as new pages, so explorations compound alongside ingested sources. Three workflows: Search, DeepQuery, FileAnswer.
 
@@ -67,8 +67,8 @@ The schema (conventions, workflows, structure rules) is defined globally, not pe
 | Component | Path | Purpose |
 |-----------|------|---------|
 | Skill router | `references/ROUTER.md` | Dispatch table routing requests to sub-skills |
-| Ingest skill | `references/Ingest/SKILL.md` | Process sources into the wiki |
-| Ingest workflows | `references/Ingest/workflows/` | 3 workflows: Bootstrap, IngestSingle, IngestBatch |
+| Ingest skill | `references/Ingest/SKILL.md` | Organize files and process sources into the wiki |
+| Ingest workflows | `references/Ingest/workflows/` | 3 workflows: CreateWikiMap (read-only), IngestSingle, IngestBatch |
 | Query skill | `references/Query/SKILL.md` | Search and synthesize answers from wiki |
 | Query workflows | `references/Query/workflows/` | 3 workflows: Search, DeepQuery, FileAnswer |
 | Lint skill | `references/Lint/SKILL.md` | Health-check and maintain wiki quality |
@@ -85,10 +85,12 @@ The schema (conventions, workflows, structure rules) is defined globally, not pe
 
 | Trigger | What Happens |
 |---------|--------------|
-| "create a new wiki for [topic]" | Routes to Ingest -- runs Bootstrap workflow |
-| "ingest this article into the wiki" | Routes to Ingest -- runs IngestSingle workflow |
-| "process these 5 sources" | Routes to Ingest -- runs IngestBatch workflow |
-| "add this webclip to the wiki" | Routes to Ingest -- runs IngestSingle workflow |
+| "create a wiki map for [topic]" | Routes to Ingest -- runs CreateWikiMap workflow (content read-only) |
+| "create a new wiki for [topic]" | Routes to Ingest -- runs CreateWikiMap workflow (content read-only) |
+| "organize these files into a wiki" | Routes to Ingest -- runs CreateWikiMap workflow (content read-only) |
+| "ingest this article into the wiki" | Routes to Ingest -- runs IngestSingle workflow (synthesis) |
+| "process these 5 sources" | Routes to Ingest -- runs IngestBatch workflow (synthesis) |
+| "add this webclip to the wiki" | Routes to Ingest -- runs IngestSingle workflow (synthesis) |
 | "what does the wiki say about X?" | Routes to Query -- runs Search or DeepQuery workflow |
 | "synthesize everything we know about X" | Routes to Query -- runs DeepQuery workflow |
 | "save that answer as a wiki page" | Routes to Query -- runs FileAnswer workflow |
@@ -101,6 +103,39 @@ The schema (conventions, workflows, structure rules) is defined globally, not pe
 ---
 
 ## Example Usage
+
+### Creating a Wiki Map
+
+```
+User: create a wiki map from my health-notes folder
+
+AI responds:
+Running the **CreateWikiMap** workflow in the **Ingest** skill...
+
+Directory scan: health-notes/
+Files found: 12
+Need to move to references/: 10
+
+| File | Current Location | Proposed Name |
+|------|-----------------|---------------|
+| Vitamin D Notes.md | ./ | references/vitamin-d-notes.md |
+| sleep_tracking.md | ./ | references/sleep-tracking.md |
+| Dr Smith article.md | ./ | references/dr-smith-article.md |
+
+Proceed? [user confirms]
+
+Actions taken:
+- Moved 10 files into references/ (body content untouched)
+- Renamed 8 files to kebab-case
+- Added frontmatter to 6 files (body content untouched)
+- Created: INDEX.md (12 entries)
+- Created: references/LOG.md
+
+Next steps:
+- Review the wiki map in INDEX.md
+- Refine kind/ tags where the default doesn't fit
+- Tell me to "ingest" a specific file when you want synthesis
+```
 
 ### Ingesting a Source
 

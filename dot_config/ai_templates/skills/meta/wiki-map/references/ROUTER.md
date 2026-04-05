@@ -9,8 +9,8 @@ description: Build and maintain LLM-written personal wikis -- ingest sources, qu
 
 | Request Pattern | Route To |
 |---|---|
-| create wiki, bootstrap, init wiki, new wiki | `Ingest/SKILL.md` |
-| ingest, process source, add source, add to wiki, webclip, batch ingest | `Ingest/SKILL.md` |
+| create wiki map, create wiki, bootstrap, init wiki, new wiki, organize files | `Ingest/SKILL.md` -> `workflows/CreateWikiMap.md` (content read-only) |
+| ingest, process source, add source, add to wiki, webclip, batch ingest | `Ingest/SKILL.md` -> `workflows/IngestSingle.md` or `IngestBatch.md` |
 | query, search wiki, ask wiki, synthesize, deep query, what does the wiki say | `Query/SKILL.md` |
 | file answer, save answer, save as wiki page, compound answer | `Query/SKILL.md` |
 | lint, health check, wiki maintenance, find orphans, find contradictions, stale pages, missing cross-references | `Lint/SKILL.md` |

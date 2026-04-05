@@ -14,9 +14,17 @@ Before executing, emit a brief text status update such as:
 
 # Ingest
 
-Process new sources into a persistent, interlinked wiki. The LLM reads a source, extracts key information, and integrates it into the existing wiki -- creating new pages, updating existing ones, maintaining cross-references, and keeping the index and log current.
+Two distinct operations live here: **organizing files** (CreateWikiMap) and **processing sources** (IngestSingle, IngestBatch). They have different rules.
 
-## Core Concept
+## Critical Guardrail: Organize vs Process
+
+**CreateWikiMap is read-only on file body content.** It moves files, renames them, adds frontmatter, and builds the index. It never reads file bodies for synthesis, never rewrites content, never adds cross-references to existing text. The user's files come out with the same body they went in with.
+
+**IngestSingle and IngestBatch are write operations.** They read a source, synthesize key information, and integrate it into the wiki structure. These only run when the user explicitly asks to "ingest" or "process" a specific source.
+
+Never conflate the two. When the user says "create a wiki" or "organize these files", that is CreateWikiMap. When the user says "ingest this article" or "process this source", that is IngestSingle/IngestBatch.
+
+## Core Concept (Ingest only)
 
 Ingestion is not indexing. The LLM does not store the source for later retrieval. It reads the source, synthesizes the key information, and writes it into the wiki's structure. A single source might touch 10-15 wiki pages. The cross-references are built at ingest time, not at query time.
 
@@ -24,7 +32,8 @@ Ingestion is not indexing. The LLM does not store the source for later retrieval
 
 ## When to Use
 
-- **Starting a new wiki** -- Bootstrap creates the directory structure, INDEX.md, and LOG.md
+- **Organizing existing files into a wiki** -- CreateWikiMap scans, moves, renames, builds index (content untouched)
+- **Starting an empty wiki** -- CreateWikiMap handles this too (empty-directory case)
 - **Adding a web article** -- IngestSingle processes it interactively with discussion
 - **Processing research papers** -- IngestSingle for deep engagement, IngestBatch for volume
 - **Bulk import** -- IngestBatch processes multiple sources sequentially with less supervision
@@ -40,9 +49,9 @@ Route to the appropriate workflow based on the request.
 Running the **WorkflowName** workflow in the **Ingest** skill to ACTION...
 ```
 
-- Create a new wiki from scratch -> `workflows/Bootstrap.md`
-- Process one source interactively -> `workflows/IngestSingle.md`
-- Process multiple sources in sequence -> `workflows/IngestBatch.md`
+- Create a wiki map / organize existing files / new wiki -> `workflows/CreateWikiMap.md`
+- Process one source interactively (user explicitly asks to ingest) -> `workflows/IngestSingle.md`
+- Process multiple sources in sequence (user explicitly asks to ingest) -> `workflows/IngestBatch.md`
 
 ## Wiki Structure Reference
 
