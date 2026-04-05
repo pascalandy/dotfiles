@@ -15,19 +15,19 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 
 ```js
 // start-shorthand
-()=> user lands on signup page
-()=> user sees: email field, password field, "Create Account" button
-()=> user types email
-  ()=> if email format is wrong, show inline error "Please enter a valid email" as they type
-  ()=> if email is already taken, show "This email is already registered — log in instead?" with a link
-()=> user types password
-  ()=> if under 8 characters, show strength indicator in red with "8 characters minimum"
-  ()=> as password gets stronger, indicator turns yellow then green
-()=> user clicks "Create Account"
-  ()=> button shows spinner, form fields become disabled
-  ()=> if success, redirect to welcome page with "Check your email to verify"
-  ()=> if server error, form stays filled, banner at top: "Something went wrong. Please try again."
-// end-shorthand
+()=> `action` user lands on page [signup]
+()=> user sees: email field, password field, `click` button [Create Account]
+()=> `action` user types [email]
+  ()=> if email format is wrong, show inline 'error' [Please enter a valid email]
+  ()=> if email is already taken, show `warning` [Already registered — log in instead?] with a link
+()=> `action` user types [password]
+  ()=> if under 8 characters, 'warning' in red [8 characters minimum]
+  ()=> while typing, strength `indicator` updates from red to yellow to green
+()=> user `click` [Create Account]
+  ()=> while submitting, `feedback` shows spinner with fields disabled
+  ()=> if success, `return` to welcome page with [Check your email to verify]
+  ()=> if server `error`, form stays filled with banner [Something went wrong. Please try again.]
+// end-shorthand]
 ```
 
 ### Checkout Flow
@@ -36,17 +36,17 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 // start-shorthand
 ()=> user reviews cart with item names, quantities, and total
 ()=> user clicks "Place Order"
-()=> show loading overlay on the cart
+()=> while processing, show loading overlay on the cart
   ()=> if payment succeeds
-    ()=> redirect to confirmation page with order number
+    ()=> return to confirmation page with order number
     ()=> show estimated delivery date
   ()=> if card declined
-    ()=> return to checkout, card field highlighted in red
-    ()=> message: "Payment failed — please try another card"
+    ()=> return to checkout with card field highlighted in red
+    ()=> show message: "Payment failed — please try another card"
     ()=> other form fields stay filled
   ()=> if cart changed since page load
     ()=> show modal: "Some items changed. Review your updated cart."
-    ()=> user clicks "Review" → scroll to changed items, highlighted in yellow
+    ()=> if user clicks "Review", scroll to changed items highlighted in yellow
 // end-shorthand
 ```
 
@@ -56,12 +56,12 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 // start-shorthand
 ()=> user logs in and lands on dashboard
   ()=> if first time ever, show onboarding tour overlay with 3 steps
-  ()=> if returning user, go straight to dashboard
-()=> dashboard shows skeleton loaders in each widget while data loads
+  ()=> if returning user, return to dashboard directly
+()=> while data loads, show skeleton loaders in each widget
   ()=> if all data loads, replace skeletons with charts and numbers
-  ()=> if one widget fails, that widget shows "Couldn't load — Retry" with a retry link
+  ()=> if one widget fails, show "Couldn't load — Retry" in that widget with a retry link
   ()=> other widgets still work independently
-  ()=> if everything fails, full-page message: "We're having trouble loading your data. Try again in a moment."
+  ()=> if everything fails, show full-page message: "We're having trouble. Try again in a moment."
 ()=> user clicks a chart
   ()=> chart expands to detail view with date range picker
 // end-shorthand
@@ -73,12 +73,11 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 // start-shorthand
 ()=> user sees search bar with placeholder "Search projects..."
 ()=> user types a query
-  ()=> after 300ms pause, show results below the search bar
+  ()=> while typing, wait 300ms pause then show results below the search bar
   ()=> if results found, show list with project name, owner, last updated
   ()=> if no results, show: "No projects match '[query]'. Try a different search."
   ()=> if search fails, show: "Search is temporarily unavailable" with a retry link
-()=> user clears the search bar
-  ()=> return to the default view (recent projects)
+()=> if user clears the search bar, return to default view with recent projects
 // end-shorthand
 ```
 
@@ -91,8 +90,8 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 // start-shorthand
 ()=> user fills out all required fields
 ()=> user clicks "Save"
-()=> button shows spinner
-()=> success: redirect to the saved item page with a "Saved" confirmation banner
+()=> while saving, button shows spinner
+()=> if success, return to the saved item page with a "Saved" banner
 // end-shorthand
 
 // Bad -- too much crammed in one line
@@ -108,8 +107,8 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 ()=> user clicks "Delete Account"
 ()=> show confirmation modal: "This is permanent. Type your email to confirm."
   ()=> if user types email and clicks "Delete"
-    ()=> show spinner in the modal
-    ()=> redirect to goodbye page: "Your account has been deleted"
+    ()=> while deleting, show spinner in the modal
+    ()=> return to goodbye page: "Your account has been deleted"
   ()=> if user clicks "Cancel"
     ()=> modal closes, nothing changes
   ()=> if user closes the modal by clicking outside
@@ -124,7 +123,8 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 ()=> user clicks "Upload File"
   ()=> if file is too large, show: "File must be under 10MB. Yours is [size]."
   ()=> if wrong file type, show: "Only PDF and PNG files are accepted."
-  ()=> if upload fails mid-way, show progress bar frozen at [X]% with "Upload failed — Retry"
+  ()=> while uploading, show progress bar
+    ()=> if upload fails mid-way, freeze progress bar at [X]% with "Upload failed — Retry"
   ()=> if success, show filename with a green checkmark and "Remove" link
 // end-shorthand
 ```
@@ -148,7 +148,19 @@ You don't need every state for every user case. But scanning this list before wr
 
 ## Format Notes
 
-- Use ` ```text ` for all pseudocode blocks. The language hint is irrelevant — this is about user experience, not code.
-- `// start-shorthand` and `// end-shorthand` delimit pseudocode sections.
+- Use ` ```js ` for all pseudocode blocks. JS syntax highlighting makes keywords pop in purple.
+- `// start-shorthand` and `// end-shorthand` delimit pseudocode sections (rendered as comments).
 - `()=>` marks each step. One user moment per line.
 - Indentation (2 spaces) marks conditional branches — what happens when the experience forks.
+
+### Keyword conventions
+
+Use these JS keywords deliberately so they highlight and make flows scannable:
+
+| Keyword | Use for | Example |
+|---|---|---|
+| `if` | conditional branch | `if payment fails, show error in red` |
+| `return` | navigate to a page/screen | `return to dashboard with success banner` |
+| `while` | loading / waiting / in-progress | `while uploading, show progress bar` |
+| `in` | location on screen | `show error in the modal` |
+| `with` | accompaniment | `return to page with confirmation banner` |
