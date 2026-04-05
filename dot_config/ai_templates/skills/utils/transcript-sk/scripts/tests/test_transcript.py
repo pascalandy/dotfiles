@@ -7,7 +7,6 @@ imports to test pure functions. No network calls.
 from __future__ import annotations
 
 import subprocess
-import sys
 from pathlib import Path
 
 SCRIPT_PATH = Path(__file__).parent.parent / "transcript.py"

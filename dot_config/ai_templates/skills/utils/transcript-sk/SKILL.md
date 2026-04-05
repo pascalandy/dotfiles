@@ -29,13 +29,13 @@ uv run ~/.config/opencode/skill/transcript/scripts/transcript.py --help
 
 ## Choose flags from user intent
 
-**Default behavior**: Script defaults to `follow_along_note` prompt with `codex`. Just provide the URL.
+**Default behavior**: Script defaults to `follow_along_note` prompt with `claude`. Just provide the URL.
 
-- **Default** (user gives URL only) → run with just `<url>` (script defaults to `codex` + follow_along_note)
-- **Use Claude** → add `--provider claude`
+- **Default** (user gives URL only) → run with just `<url>` (script defaults to `claude` + follow_along_note)
+- **Use Codex** → add `--provider codex`
 - **Transcript only** (user explicitly says "transcript only" or "no summary") → add `--no-prompt`
 - **Different prompt requested** (user says `short_summary`, `summary_with_quotes`, etc.) → add `--prompt <stem>`
-- **Codex model requested** → add `--model <name>` (default: `gpt-5.4`, reasoning: `high`)
+- **Codex model requested** → add `--provider codex --model <name>` (default: `gpt-5.4`, reasoning: `high`)
 - **Claude model requested** (user says `haiku`/`sonnet`/`opus`) → add:
   - `haiku` → `--model claude-haiku-4-5`
   - `sonnet` → `--model claude-sonnet-4-5`

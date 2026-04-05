@@ -16,13 +16,13 @@ This skill runs `~/.config/opencode/skill/transcript/scripts/transcript.py` to d
 
 ## Defaults
 
-- **Default provider**: `codex`
+- **Default provider**: `claude`
+- **Default Claude model**: `claude-opus-4-6` with effort `medium`
 - **Default Codex model**: `gpt-5.4` with reasoning effort `high`
-- **Default Claude model**: `claude-opus-4-5`
 - **Default prompt**: `follow_along_note` (comprehensive follow-along notes with the transcript)
 - **Available prompts**: `follow_along_note`, `short_summary`, `summary_with_quotes`
 - **Transcript only**: use `--no-prompt` flag
-- **Use Claude**: add `--provider claude`
+- **Use Codex**: add `--provider codex`
 
 ## Output files
 
