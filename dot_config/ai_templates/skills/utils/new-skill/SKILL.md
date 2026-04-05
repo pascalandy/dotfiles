@@ -9,7 +9,7 @@ metadata:
 
 ## Workflow
 
-1. Ask the user: skill name, what it does, and when it should trigger
+1. If the skill name, purpose, and trigger conditions are clear from context, proceed directly. Only ask if something is ambiguous or missing.
 2. Create the skill directory and `SKILL.md`
 3. Add scripts/references/assets only if needed
 
