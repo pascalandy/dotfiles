@@ -1,3 +1,12 @@
+---
+name: Absurd In Production
+description: Production experience report on Absurd durable execution system at Earendil
+tags:
+  - area/ea
+  - kind/webclip
+  - status/stable
+date_updated: 2026-04-04
+---
 
 About five months ago I wrote about [Absurd](https://lucumr.pocoo.org/2025/11/3/absurd-workflows/), a durable execution system we built for our own use at Earendil, sitting entirely on top of Postgres and Postgres alone. The pitch was simple: you don’t need a [separate](https://hatchet.run/) [service](https://www.inngest.com/), [a compiler plugin](https://useworkflow.dev/), or [an entire runtime](https://temporal.io/) to get durable workflows. You need a SQL file and a thin SDK.
 

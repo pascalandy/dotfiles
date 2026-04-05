@@ -1,19 +1,28 @@
+---
+name: Absurd Workflows -- Durable Execution With Just Postgres
+description: Original blog post introducing Absurd -- durable execution on Postgres with thin SDKs
+tags:
+  - area/ea
+  - kind/webclip
+  - status/stable
+date_updated: 2026-04-04
+---
 
-It’s probably no surprise to you that we’re building [agents](https://www.anthropic.com/engineering/building-effective-agents) somewhere. Everybody does it. Building a good agent, however, brings back some of the historic challenges involving durable execution.
+It\u2019s probably no surprise to you that we\u2019re building [agents](https://www.anthropic.com/engineering/building-effective-agents) somewhere. Everybody does it. Building a good agent, however, brings back some of the historic challenges involving durable execution.
 
-Entirely unsurprisingly, a lot of people are now building durable execution systems. Many of these, however, are incredibly complex and require you to sign up for another third-party service. I generally try to avoid bringing in extra complexity if I can avoid it, so I wanted to see how far I can go with just Postgres. To this end, I wrote [Absurd](https://github.com/earendil-works/absurd) [^1], a tiny SQL-only library with a very thin SDK to enable durable workflows on top of just Postgres — no extension needed.
+Entirely unsurprisingly, a lot of people are now building durable execution systems. Many of these, however, are incredibly complex and require you to sign up for another third-party service. I generally try to avoid bringing in extra complexity if I can avoid it, so I wanted to see how far I can go with just Postgres. To this end, I wrote [Absurd](https://github.com/earendil-works/absurd) [^1], a tiny SQL-only library with a very thin SDK to enable durable workflows on top of just Postgres \u2014 no extension needed.
 
 ## Durable Execution 101
 
 Durable execution (or durable workflows) is a way to run long-lived, reliable functions that can survive crashes, restarts, and network failures without losing state or duplicating work. Durable execution can be thought of as the combination of a queue system and a state store that remembers the most recently seen execution state.
 
-Because Postgres [is excellent at queues](https://web.archive.org/web/20190530143429/https://www.2ndquadrant.com/en/blog/what-is-select-skip-locked-for-in-postgresql-9-5/) thanks to `SELECT ... FOR UPDATE SKIP LOCKED`, you can use it for the queue (e.g., with [pgmq](https://github.com/pgmq/pgmq)). And because it’s a database, you can also use it to store the state.
+Because Postgres [is excellent at queues](https://web.archive.org/web/20190530143429/https://www.2ndquadrant.com/en/blog/what-is-select-skip-locked-for-in-postgresql-9-5/) thanks to `SELECT ... FOR UPDATE SKIP LOCKED`, you can use it for the queue (e.g., with [pgmq](https://github.com/pgmq/pgmq)). And because it\u2019s a database, you can also use it to store the state.
 
 The state is important. With durable execution, instead of running your logic in memory, the goal is to decompose a task into smaller pieces (step functions) and record every step and decision. When the process stops (whether it fails, intentionally suspends, or a machine dies) the engine can replay those events to restore the exact state and continue where it left off, as if nothing happened.
 
 ## Absurd At A High Level
 
-Absurd at the core is a single `.sql` file ([`absurd.sql`](https://github.com/earendil-works/absurd/blob/main/sql/absurd.sql)) which needs to be applied to a database of your choice. That SQL file’s goal is to move the complexity of SDKs into the database. SDKs then make the system convenient by abstracting the low-level operations in a way that leverages the ergonomics of the language you are working with.
+Absurd at the core is a single `.sql` file ([`absurd.sql`](https://github.com/earendil-works/absurd/blob/main/sql/absurd.sql)) which needs to be applied to a database of your choice. That SQL file\u2019s goal is to move the complexity of SDKs into the database. SDKs then make the system convenient by abstracting the low-level operations in a way that leverages the ergonomics of the language you are working with.
 
 The system is very simple: A *task* dispatches onto a given *queue* from where a *worker* picks it up to work on. Tasks are subdivided into *steps*, which are executed in sequence by the worker. Tasks can be suspended or fail, and when that happens, they execute again (a *run*). The result of a step is stored in the database (a *checkpoint*). To avoid repeating work, checkpoints are automatically loaded from the state storage in Postgres again.
 
@@ -105,7 +114,7 @@ await ctx.sleep(60 * 60 * 24 * 7); // sleep for 7 days
 Or if you want to wait for an event:
 
 ```
-const eventName = \`email-confirmation-${userId}\`;
+const eventName = `email-confirmation-${userId}`;
 try {
   const payload = await ctx.waitForEvent(eventName, {timeout: 60 * 5});
   // handle event payload
@@ -121,17 +130,17 @@ try {
 Which someone else can emit:
 
 ```
-const eventName = \`email-confirmation-${userId}\`;
+const eventName = `email-confirmation-${userId}`;
 await absurd.emitEvent(eventName, { confirmedAt: new Date().toISOString() });
 ```
 
-## That’s it!
+## That's it!
 
-Really, that’s it. There is really not much to it. It’s just a queue and a state store — that’s all you need. There is [no compiler plugin](https://useworkflow.dev/) and no [separate service](https://www.inngest.com/) or [whole runtime integration](https://temporal.io/). Just Postgres. That’s not to throw shade on these other solutions; they are great. But not every problem necessarily needs to scale to that level of complexity, and you can get quite far with much less. Particularly if you want to build software that other people should be able to self-host, that might be quite appealing.
+Really, that's it. There is really not much to it. It's just a queue and a state store \u2014 that's all you need. There is [no compiler plugin](https://useworkflow.dev/) and no [separate service](https://www.inngest.com/) or [whole runtime integration](https://temporal.io/). Just Postgres. That\u2019s not to throw shade on these other solutions; they are great. But not every problem necessarily needs to scale to that level of complexity, and you can get quite far with much less. Particularly if you want to build software that other people should be able to self-host, that might be quite appealing.
 
 [copy as](https://lucumr.pocoo.org/2025/11/3/absurd-workflows.md) / [view](https://lucumr.pocoo.org/2025/11/3/absurd-workflows.md) markdown
 
-[^1]: It’s named Absurd because durable workflows are absurdly simple, but have been overcomplicated in recent years.
+[^1]: It\u2019s named Absurd because durable workflows are absurdly simple, but have been overcomplicated in recent years.
 
 ## REF
 
