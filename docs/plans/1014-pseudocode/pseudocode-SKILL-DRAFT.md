@@ -27,7 +27,7 @@ description: Expand plan user cases into step-by-step pseudocode describing what
   ()=> while submitting, `feedback` shows spinner with fields disabled
   ()=> if success, `return` to welcome page with [Check your email to verify]
   ()=> if server `error`, form stays filled with banner [Something went wrong. Please try again.]
-// end-shorthand]
+// end-shorthand
 ```
 
 ### Checkout Flow
@@ -75,9 +75,44 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 ()=> `input` user types a query
   ()=> while typing, wait 300ms then `display` results below the search bar
   ()=> if 'success' results found, `display` list with project name, owner, last updated
-  ()=> if 'empty' no results, `display` [No projects match '[query]'. Try a different search.]
+  ()=> if 'empty' no results, `display` [No projects match your search. Try a different query.]
   ()=> if 'error' search fails, `display` [Search is temporarily unavailable] with a retry link
 ()=> if user clears search bar, `return` to default view with recent projects
+// end-shorthand
+```
+
+### CLI Script — YouTube Transcript Pipeline
+
+```js
+// start-shorthand
+()=> `input` user provides a [YouTube URL] as argument
+  ()=> if 'error' URL is missing, `display` [Usage — transcript {youtube-url}]
+  ()=> if 'error' URL is not a valid YouTube link, `display` [Invalid YouTube URL]
+
+// step 1 — download audio
+()=> while downloading, `feedback` [Downloading audio from YouTube...]
+  ()=> if 'error' video not found or private, `display` [Video unavailable — check the URL]
+  ()=> if 'error' download fails, `display` [Download failed — retrying...] then retry once
+  ()=> if 'success', `display` [Audio saved — /tmp/audio-{id}.mp3]
+
+// step 2 — transcribe via DeepGram
+()=> while transcribing, `feedback` [Sending audio to DeepGram API...]
+  ()=> if 'error' API key missing, `display` [DEEPGRAM_API_KEY not set]
+  ()=> if 'error' API returns 4xx or 5xx, `display` [DeepGram error {status} — {message}]
+  ()=> if 'success', `display` [Transcript ready]
+    ()=> save raw transcript as [transcript-{id}.txt]
+    ()=> save JSON with timestamps as [transcript-{id}.json]
+
+// step 3 — summarize via OpenCode headless
+()=> while processing, `feedback` [Running OpenCode to generate summary...]
+  ()=> `input` pass transcript + prompt to opencode in headless mode
+  ()=> if 'error' opencode not found, `display` [opencode CLI not installed]
+  ()=> if 'error' model fails or times out, `display` [Summary generation failed — transcript files still available]
+  ()=> if 'success', save markdown as [summary-{id}.md]
+    ()=> `display` [Done — files saved]
+    ()=> `display` [transcript-{id}.txt]
+    ()=> `display` [transcript-{id}.json]
+    ()=> `display` [summary-{id}.md]
 // end-shorthand
 ```
 
@@ -121,7 +156,7 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 ```js
 // start-shorthand
 ()=> user `click` [Upload File]
-  ()=> if 'error' file too large, 'error' [File must be under 10MB. Yours is [size].]
+  ()=> if 'error' file too large, 'error' [File must be under 10MB. Yours is {size}.]
   ()=> if 'error' wrong file type, 'error' [Only PDF and PNG files are accepted.]
   ()=> while uploading, `indicator` progress bar
     ()=> if 'error' upload fails mid-way, `indicator` frozen at [X]% with [Upload failed — Retry]
@@ -152,6 +187,7 @@ Use ` ```js ` for all pseudocode blocks. JS syntax highlighting gives you three 
 - `// start-shorthand` and `// end-shorthand` — delimit pseudocode sections (gray, italic)
 - `()=>` — marks each step. One user moment per line.
 - Indentation (2 spaces) — conditional branches, what happens when the experience forks.
+- **Avoid breaking JS highlighting** — no `:` inside `[]`, no `<>` angle brackets (use `{}` for variables), no nested `[]`, no `'` quotes inside `[]`.
 
 ### Layer 1 — Backtick tags (green) — what's happening
 
