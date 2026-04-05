@@ -149,10 +149,3 @@ Sub-skills:
 1. **[ModeA]** -- [what it does, when to use it]
 2. **[ModeB]** -- [what it does, when to use it]
 3. **[ModeC]** -- [what it does, when to use it]
-
---
-
-Finally, create a list that is checkable:
-
-- [ ] Sequential go through every steps of these instructions, plan, an create a list of tasks
-- [ ] Sequential go through every tasks, execute them carefully
