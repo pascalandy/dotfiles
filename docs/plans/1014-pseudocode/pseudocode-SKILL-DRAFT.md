@@ -58,10 +58,10 @@ description: Expand plan user cases into step-by-step pseudocode describing what
   ()=> if first time ever, `modal` onboarding tour overlay with 3 steps
   ()=> if returning user, `return` to dashboard directly
 ()=> while data loads, `feedback` skeleton loaders in each widget
-  ()=> if 'success' all data loads, `display` charts and numbers
-  ()=> if 'error' one widget fails, show [Couldn't load — Retry] in that widget
+  ()=> if 'success' all data loads, charts and numbers replace skeletons
+  ()=> if 'error' one widget fails, [Couldn't load — Retry] in that widget
   ()=> other widgets still work independently
-  ()=> if 'error' everything fails, `display` full-page [We're having trouble. Try again in a moment.]
+  ()=> if 'error' everything fails, full-page [We're having trouble. Try again in a moment.]
 ()=> user `click` a chart
   ()=> `display` detail view with date range picker
 // end-shorthand
@@ -74,9 +74,9 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 ()=> user sees search bar with [Search projects...]
 ()=> `input` user types a query
   ()=> while typing, wait 300ms then `display` results below the search bar
-  ()=> if 'success' results found, `display` list with project name, owner, last updated
-  ()=> if 'empty' no results, `display` [No projects match your search. Try a different query.]
-  ()=> if 'error' search fails, `display` [Search is temporarily unavailable] with a retry link
+  ()=> if 'success' results found, list with project name, owner, last updated
+  ()=> if 'empty' no results, [No projects match your search. Try a different query.]
+  ()=> if 'error' search fails, [Search is temporarily unavailable] with a retry link
 ()=> if user clears search bar, `return` to default view with recent projects
 // end-shorthand
 ```
@@ -86,28 +86,28 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 ```js
 // start-shorthand
 ()=> `input` user provides a [YouTube URL] as argument
-  ()=> if 'error' URL is missing, `display` [Usage — transcript {youtube-url}]
-  ()=> if 'error' URL is not a valid YouTube link, `display` [Invalid YouTube URL]
+  ()=> if 'error' URL is missing, [Usage — transcript {youtube-url}]
+  ()=> if 'error' URL is not a valid YouTube link, [Invalid YouTube URL]
 
 // step 1 — download audio
 ()=> while downloading, `feedback` [Downloading audio from YouTube...]
-  ()=> if 'error' video not found or private, `display` [Video unavailable — check the URL]
-  ()=> if 'error' download fails, `display` [Download failed — retrying...] then retry once
-  ()=> if 'success', `display` [Audio saved — /tmp/audio-{id}.mp3]
+  ()=> if 'error' video not found or private, [Video unavailable — check the URL]
+  ()=> if 'error' download fails, [Download failed — retrying...] then retry once
+  ()=> if 'success', [Audio saved — /tmp/audio-{id}.mp3]
 
 // step 2 — transcribe via DeepGram
 ()=> while transcribing, `feedback` [Sending audio to DeepGram API...]
-  ()=> if 'error' API key missing, `display` [DEEPGRAM_API_KEY not set]
-  ()=> if 'error' API returns 4xx or 5xx, `display` [DeepGram error {status} — {message}]
-  ()=> if 'success', `display` [Transcript ready]
+  ()=> if 'error' API key missing, [DEEPGRAM_API_KEY not set]
+  ()=> if 'error' API returns 4xx or 5xx, [DeepGram error {status} — {message}]
+  ()=> if 'success', [Transcript ready]
     ()=> save raw transcript as [transcript-{id}.txt]
     ()=> save JSON with timestamps as [transcript-{id}.json]
 
 // step 3 — summarize via OpenCode headless
 ()=> while processing, `feedback` [Running OpenCode to generate summary...]
   ()=> `input` pass transcript + prompt to opencode in headless mode
-  ()=> if 'error' opencode not found, `display` [opencode CLI not installed]
-  ()=> if 'error' model fails or times out, `display` [Summary generation failed — transcript files still available]
+  ()=> if 'error' opencode not found, [opencode CLI not installed]
+  ()=> if 'error' model fails or times out, [Summary generation failed — transcript files still available]
   ()=> if 'success', save markdown as [summary-{id}.md]
     ()=> `display` [Done — files saved]
     ()=> `display` [transcript-{id}.txt]
@@ -156,11 +156,11 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 ```js
 // start-shorthand
 ()=> user `click` [Upload File]
-  ()=> if 'error' file too large, 'error' [File must be under 10MB. Yours is {size}.]
-  ()=> if 'error' wrong file type, 'error' [Only PDF and PNG files are accepted.]
+  ()=> if 'error' file too large, [File must be under 10MB. Yours is {size}.]
+  ()=> if 'error' wrong file type, [Only PDF and PNG files are accepted.]
   ()=> while uploading, `indicator` progress bar
     ()=> if 'error' upload fails mid-way, `indicator` frozen at [X]% with [Upload failed — Retry]
-  ()=> if 'success', `display` filename with green checkmark and [Remove] link
+  ()=> if 'success', filename with green checkmark and [Remove] link
 // end-shorthand
 ```
 
@@ -202,7 +202,7 @@ Categorize the interaction type. Place before the thing it describes.
 | `` `feedback` `` | System visual response | `` `feedback` spinner on button `` |
 | `` `indicator` `` | State display element | `` `indicator` progress bar `` |
 | `` `modal` `` | Popup/overlay appears | `` `modal` [Are you sure?] `` |
-| `` `display` `` | Content renders/appears | `` `display` list with project name, owner `` |
+| `` `display` `` | Content renders (standalone, not after a state tag) | `` `display` detail view with date range picker `` |
 | `` `dismiss` `` | User closes/removes | `` `dismiss` modal, nothing changes `` |
 | `` `toggle` `` | User switches on/off | `` user `toggle` [Dark mode] `` |
 
@@ -215,10 +215,10 @@ Mark the condition or severity. Place before the description.
 | `'error'` | Something failed | `` 'error' [Payment failed — try another card] `` |
 | `'warning'` | Caution / attention | `` 'warning' in red [8 characters minimum] `` |
 | `'success'` | Action completed | `` if 'success', `return` to confirmation page `` |
-| `'empty'` | No data / first time | `` if 'empty' no results, `display` [No matches found] `` |
+| `'empty'` | No data / first time | `` if 'empty' no results, [No matches found] `` |
 | `'info'` | Informational message | `` 'info' [Your trial ends in 3 days] `` |
 | `'disabled'` | Element not interactive | `` 'disabled' submit button until form is valid `` |
-| `'denied'` | No permission | `` if 'denied', `display` [You don't have access] `` |
+| `'denied'` | No permission | `` if 'denied', [You don't have access] `` |
 
 ### Layer 3 — JS keywords (purple) — flow control
 
