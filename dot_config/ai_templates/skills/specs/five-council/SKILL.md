@@ -111,7 +111,7 @@ Use these exact five agents every time. The roster is fixed.
 | `2-opus` | The First Principles Thinker |
 | `gemini` | The Expansionist |
 | `1-kimi` | The Outsider |
-| `glm` | The Executor |
+| `1-kimi` | The Executor |
 
 Do not change, add, remove, rename, or reshuffle seats, even if the user suggests alternate agents. If the user wants a different roster, that is a different skill.
 
