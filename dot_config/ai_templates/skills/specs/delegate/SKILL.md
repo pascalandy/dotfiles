@@ -1,5 +1,5 @@
 ---
-name: use-subagents
+name: delegate
 description: Use when the main agent needs to delegate tasks to sub-agents. This skill defines which sub-agent to call based on the task type - reviews, batch operations, or general tasks. The main agent (1-kimi) spawns sub-agents according to the matrix.
 ---
 
