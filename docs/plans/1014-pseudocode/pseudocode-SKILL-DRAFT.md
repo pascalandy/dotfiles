@@ -35,18 +35,18 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 ```js
 // start-shorthand
 ()=> user reviews cart with item names, quantities, and total
-()=> user clicks "Place Order"
-()=> while processing, show loading overlay on the cart
-  ()=> if payment succeeds
-    ()=> return to confirmation page with order number
-    ()=> show estimated delivery date
-  ()=> if card declined
-    ()=> return to checkout with card field highlighted in red
-    ()=> show message: "Payment failed — please try another card"
+()=> user `click` [Place Order]
+()=> while processing, `feedback` loading overlay on the cart
+  ()=> if 'success' payment goes through
+    ()=> `return` to confirmation page with [order number]
+    ()=> `display` estimated delivery date
+  ()=> if 'error' card declined
+    ()=> `return` to checkout with card field in red
+    ()=> 'error' [Payment failed — please try another card]
     ()=> other form fields stay filled
-  ()=> if cart changed since page load
-    ()=> show modal: "Some items changed. Review your updated cart."
-    ()=> if user clicks "Review", scroll to changed items highlighted in yellow
+  ()=> if 'warning' cart changed since page load
+    ()=> `modal` [Some items changed. Review your updated cart.]
+    ()=> if user `click` [Review], scroll to changed items in yellow
 // end-shorthand
 ```
 
@@ -54,16 +54,16 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 
 ```js
 // start-shorthand
-()=> user logs in and lands on dashboard
-  ()=> if first time ever, show onboarding tour overlay with 3 steps
-  ()=> if returning user, return to dashboard directly
-()=> while data loads, show skeleton loaders in each widget
-  ()=> if all data loads, replace skeletons with charts and numbers
-  ()=> if one widget fails, show "Couldn't load — Retry" in that widget with a retry link
+()=> `action` user logs in and lands on page [dashboard]
+  ()=> if first time ever, `modal` onboarding tour overlay with 3 steps
+  ()=> if returning user, `return` to dashboard directly
+()=> while data loads, `feedback` skeleton loaders in each widget
+  ()=> if 'success' all data loads, `display` charts and numbers
+  ()=> if 'error' one widget fails, show [Couldn't load — Retry] in that widget
   ()=> other widgets still work independently
-  ()=> if everything fails, show full-page message: "We're having trouble. Try again in a moment."
-()=> user clicks a chart
-  ()=> chart expands to detail view with date range picker
+  ()=> if 'error' everything fails, `display` full-page [We're having trouble. Try again in a moment.]
+()=> user `click` a chart
+  ()=> `display` detail view with date range picker
 // end-shorthand
 ```
 
@@ -71,13 +71,13 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 
 ```js
 // start-shorthand
-()=> user sees search bar with placeholder "Search projects..."
-()=> user types a query
-  ()=> while typing, wait 300ms pause then show results below the search bar
-  ()=> if results found, show list with project name, owner, last updated
-  ()=> if no results, show: "No projects match '[query]'. Try a different search."
-  ()=> if search fails, show: "Search is temporarily unavailable" with a retry link
-()=> if user clears the search bar, return to default view with recent projects
+()=> user sees search bar with [Search projects...]
+()=> `input` user types a query
+  ()=> while typing, wait 300ms then `display` results below the search bar
+  ()=> if 'success' results found, `display` list with project name, owner, last updated
+  ()=> if 'empty' no results, `display` [No projects match '[query]'. Try a different search.]
+  ()=> if 'error' search fails, `display` [Search is temporarily unavailable] with a retry link
+()=> if user clears search bar, `return` to default view with recent projects
 // end-shorthand
 ```
 
@@ -88,10 +88,10 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 ```js
 // Good -- one moment per line
 // start-shorthand
-()=> user fills out all required fields
-()=> user clicks "Save"
-()=> while saving, button shows spinner
-()=> if success, return to the saved item page with a "Saved" banner
+()=> `action` user fills out all required fields
+()=> user `click` [Save]
+()=> while saving, `feedback` spinner on button
+()=> if 'success', `return` to saved item page with [Saved] banner
 // end-shorthand
 
 // Bad -- too much crammed in one line
@@ -104,15 +104,15 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 
 ```js
 // start-shorthand
-()=> user clicks "Delete Account"
-()=> show confirmation modal: "This is permanent. Type your email to confirm."
-  ()=> if user types email and clicks "Delete"
-    ()=> while deleting, show spinner in the modal
-    ()=> return to goodbye page: "Your account has been deleted"
-  ()=> if user clicks "Cancel"
-    ()=> modal closes, nothing changes
-  ()=> if user closes the modal by clicking outside
-    ()=> same as cancel — nothing changes
+()=> user `click` [Delete Account]
+()=> `modal` [This is permanent. Type your email to confirm.]
+  ()=> if user `input` email and `click` [Delete]
+    ()=> while deleting, `feedback` spinner in the modal
+    ()=> `return` to goodbye page with [Your account has been deleted]
+  ()=> if user `click` [Cancel]
+    ()=> `dismiss` modal, nothing changes
+  ()=> if user `click` outside the modal
+    ()=> `dismiss` modal, nothing changes
 // end-shorthand
 ```
 
@@ -120,12 +120,12 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 
 ```js
 // start-shorthand
-()=> user clicks "Upload File"
-  ()=> if file is too large, show: "File must be under 10MB. Yours is [size]."
-  ()=> if wrong file type, show: "Only PDF and PNG files are accepted."
-  ()=> while uploading, show progress bar
-    ()=> if upload fails mid-way, freeze progress bar at [X]% with "Upload failed — Retry"
-  ()=> if success, show filename with a green checkmark and "Remove" link
+()=> user `click` [Upload File]
+  ()=> if 'error' file too large, 'error' [File must be under 10MB. Yours is [size].]
+  ()=> if 'error' wrong file type, 'error' [Only PDF and PNG files are accepted.]
+  ()=> while uploading, `indicator` progress bar
+    ()=> if 'error' upload fails mid-way, `indicator` frozen at [X]% with [Upload failed — Retry]
+  ()=> if 'success', `display` filename with green checkmark and [Remove] link
 // end-shorthand
 ```
 
@@ -146,21 +146,67 @@ For each user case, walk through what the user experiences in each state. This i
 
 You don't need every state for every user case. But scanning this list before writing pseudocode will surface the flows your plan didn't cover.
 
-## Format Notes
+## Syntax Reference
 
-- Use ` ```js ` for all pseudocode blocks. JS syntax highlighting makes keywords pop in purple.
-- `// start-shorthand` and `// end-shorthand` delimit pseudocode sections (rendered as comments).
-- `()=>` marks each step. One user moment per line.
-- Indentation (2 spaces) marks conditional branches — what happens when the experience forks.
+Use ` ```js ` for all pseudocode blocks. JS syntax highlighting gives you three visual layers that make flows scannable at a glance.
 
-### Keyword conventions
+### Structure
 
-Use these JS keywords deliberately so they highlight and make flows scannable:
+- `// start-shorthand` and `// end-shorthand` — delimit pseudocode sections (gray, italic)
+- `()=>` — marks each step. One user moment per line.
+- Indentation (2 spaces) — conditional branches, what happens when the experience forks.
+
+### Layer 1 — Backtick tags (green) — what's happening
+
+Categorize the interaction type. Place before the thing it describes.
+
+| Tag | Use for | Example |
+|---|---|---|
+| `` `action` `` | User does something | `` `action` user lands on page [settings] `` |
+| `` `click` `` | User clicks/taps | `` user `click` [Save] `` |
+| `` `input` `` | User types/enters data | `` `input` user types [email] `` |
+| `` `return` `` | Navigate to a page | `` `return` to dashboard with [Saved] banner `` |
+| `` `feedback` `` | System visual response | `` `feedback` spinner on button `` |
+| `` `indicator` `` | State display element | `` `indicator` progress bar `` |
+| `` `modal` `` | Popup/overlay appears | `` `modal` [Are you sure?] `` |
+| `` `display` `` | Content renders/appears | `` `display` list with project name, owner `` |
+| `` `dismiss` `` | User closes/removes | `` `dismiss` modal, nothing changes `` |
+| `` `toggle` `` | User switches on/off | `` user `toggle` [Dark mode] `` |
+
+### Layer 2 — Single-quote tags (yellow) — what state it's in
+
+Mark the condition or severity. Place before the description.
+
+| Tag | Use for | Example |
+|---|---|---|
+| `'error'` | Something failed | `` 'error' [Payment failed — try another card] `` |
+| `'warning'` | Caution / attention | `` 'warning' in red [8 characters minimum] `` |
+| `'success'` | Action completed | `` if 'success', `return` to confirmation page `` |
+| `'empty'` | No data / first time | `` if 'empty' no results, `display` [No matches found] `` |
+| `'info'` | Informational message | `` 'info' [Your trial ends in 3 days] `` |
+| `'disabled'` | Element not interactive | `` 'disabled' submit button until form is valid `` |
+| `'denied'` | No permission | `` if 'denied', `display` [You don't have access] `` |
+
+### Layer 3 — JS keywords (purple) — flow control
+
+These highlight automatically. Use them to control the flow.
 
 | Keyword | Use for | Example |
 |---|---|---|
-| `if` | conditional branch | `if payment fails, show error in red` |
-| `return` | navigate to a page/screen | `return to dashboard with success banner` |
-| `while` | loading / waiting / in-progress | `while uploading, show progress bar` |
-| `in` | location on screen | `show error in the modal` |
-| `with` | accompaniment | `return to page with confirmation banner` |
+| `if` | Conditional branch | `if email is taken, show 'warning'` |
+| `while` | Loading / waiting | `while submitting, `feedback` spinner` |
+| `return` | Navigate (as keyword) | `return to default view` |
+| `in` | Location on screen | `show 'error' in the modal` |
+| `with` | Accompaniment | `return to page with [Saved] banner` |
+
+### Layer 4 — Square brackets — UI content
+
+Wrap any text the user literally sees on screen: button labels, page names, error messages, field names.
+
+| Usage | Example |
+|---|---|
+| Button label | `` user `click` [Create Account] `` |
+| Page name | `` `action` user lands on page [signup] `` |
+| Error message | `` 'error' [File must be under 10MB] `` |
+| Field name | `` `input` user types [email] `` |
+| Banner text | `` `return` to page with [Changes saved] `` |
