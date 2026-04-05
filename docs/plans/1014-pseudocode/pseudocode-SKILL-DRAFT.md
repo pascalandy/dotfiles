@@ -131,20 +131,17 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 
 ## User States Checklist
 
-For each user case, walk through what the user experiences in each state. This is where plans have gaps — the happy path is obvious, the rest is not.
+Before writing pseudocode for a user case, scan the tags below and ask: did I cover this state? Plans usually only cover `'success'`. The rest is where gaps hide.
 
-| State | Ask yourself... |
+| Tag to use | Ask yourself... |
 |---|---|
-| **Loading** | What does the user see while waiting? Spinner? Skeleton? Nothing? |
-| **Empty** | What if there's no data yet? First-time user, empty list, no results? |
-| **Error** | What does the user see when something fails? Can they retry? |
-| **Partial** | What if some parts loaded and others didn't? |
-| **Success** | What confirms the action worked? Banner, redirect, animation? |
-| **Denied** | What if they don't have permission? What do they see instead? |
-| **Repeat** | What if they do the same action twice? Double submit, back button? |
-| **Slow** | What if the network is slow? Does the UI feel stuck? |
-
-You don't need every state for every user case. But scanning this list before writing pseudocode will surface the flows your plan didn't cover.
+| `while` + `` `feedback` `` | What does the user see while waiting? Spinner? Skeleton? Nothing? What if it's slow? |
+| `'empty'` | What if there's no data yet? First-time user, empty list, no results? |
+| `'error'` | What does the user see when something fails? Can they retry? What if only part of the page fails? |
+| `'success'` | What confirms the action worked? Banner, redirect, animation? |
+| `'warning'` | Is there something the user should know before proceeding? What if they repeat the same action twice? |
+| `'denied'` | What if they don't have permission? What do they see instead? |
+| `'info'` | Is there context the user needs that isn't an error or warning? |
 
 ## Syntax Reference
 
