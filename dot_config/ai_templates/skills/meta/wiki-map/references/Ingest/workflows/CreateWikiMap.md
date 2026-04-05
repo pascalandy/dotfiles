@@ -26,11 +26,13 @@ If the directory already exists, list what's in it:
 **Files found:** {count}
 **Already in references/:** {count}
 **Need to move:** {count}
+**Subdirectories to preserve:** {list}
 
 | File | Current Location | Proposed Name |
 |------|-----------------|---------------|
 | My Article.md | ./ | references/my-article.md |
 | notes_on_sleep.md | ./ | references/notes-on-sleep.md |
+| z_varia/old-draft.md | z_varia/ | references/z_varia/old-draft.md |
 | references/already-here.md | references/ | (no change) |
 
 Proceed?
@@ -50,16 +52,20 @@ Wait for user confirmation before moving anything.
 
 If the directory already exists, only create what's missing.
 
-### 3. Move Files into references/
+### 3. Move Everything into references/
 
-For each file not already in `references/`:
+Create `references/` then move **all** existing files and folders into it as-is:
 
-- **Move** (rename) the file into `references/`
-- Convert filename to **kebab-case**: spaces to hyphens, underscores to hyphens, lowercase, strip special characters
+- Move every file and subdirectory from the wiki root into `references/`
+- **Preserve the existing structure exactly** -- subdirectories go in intact, files keep their relative paths
+- After the move, rename files to **kebab-case**: spaces to hyphens, underscores to hyphens, lowercase, strip special characters
 - Use `git mv` if inside a git repo, plain `mv` otherwise
-- **Do not read, modify, or rewrite the file body**
+- **Do not read, modify, or rewrite file bodies**
+- **Never flatten, reorganize, or split subdirectories**
 
 If a naming collision would occur, append a suffix: `my-article-2.md`.
+
+Only INDEX.md and AGENTS.md (if present) stay at the wiki root.
 
 ### 4. Add Frontmatter Where Missing
 
