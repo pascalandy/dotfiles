@@ -11,22 +11,57 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 
 ## Examples
 
+### CLI Script — YouTube Transcript Pipeline
+
+```js
+// start-shorthand
+()=> `input` user provides a ["YouTube URL"] as argument
+  ()=> if 'error' URL is missing, ["Usage — transcript {youtube-url}"]
+  ()=> if 'error' URL is not a valid YouTube link, ["Invalid YouTube URL"]
+
+// step 1 — download audio
+()=> while downloading, `feedback` ["Downloading audio from YouTube..."]
+  ()=> if 'error' video not found or private, ["Video unavailable — check the URL"]
+  ()=> if 'error' download fails, ["Download failed — retrying..."] then retry 3x times
+  ()=> if 'success', ["Audio saved — /tmp/audio-{id}.mp3"]
+
+// step 2 — transcribe via DeepGram
+()=> while transcribing, `feedback` ["Sending audio to DeepGram API..."]
+  ()=> if 'error' API key missing, ["DEEPGRAM_API_KEY not set"]
+  ()=> if 'error' API returns 4xx or 5xx, ["DeepGram error {status} — {message}"]
+  ()=> if 'success', ["Transcript ready"]
+    ()=> save raw transcript as ["transcript-{id}.txt"]
+    ()=> save JSON with timestamps as ["transcript-{id}.json"]
+
+// step 3 — summarize via OpenCode headless
+()=> while processing, `feedback` ["Running OpenCode to generate summary..."]
+  ()=> `input` pass transcript + prompt to opencode in headless mode
+  ()=> if 'error' opencode not found, ["opencode CLI not installed"]
+  ()=> if 'error' model fails or times out, ["Summary generation failed — transcript files still available"]
+  ()=> if 'success', save markdown as ["summary-{id}.md"]
+    ()=> ["Done — files saved"]
+    ()=> ["transcript-{id}.txt"]
+    ()=> ["transcript-{id}.json"]
+    ()=> ["summary-{id}.md"]
+// end-shorthand
+```
+
 ### Signup Form
 
 ```js
 // start-shorthand
-()=> `action` user lands on page [signup]
-()=> user sees: email field, password field, `click` button [Create Account]
-()=> `action` user types [email]
-  ()=> if email format is wrong, show inline 'error' [Please enter a valid email]
-  ()=> if email is already taken, show `warning` [Already registered — log in instead?] with a link
-()=> `action` user types [password]
-  ()=> if under 8 characters, 'warning' in red [8 characters minimum]
+()=> `action` user lands on page ["signup"]
+()=> user sees: email field, password field, `click` button ["Create Account"]
+()=> `action` user types ["email"]
+  ()=> if email format is wrong, show inline 'error' ["Please enter a valid email"]
+  ()=> if email is already taken, show `warning` ["Already registered — log in instead?"] with a link
+()=> `action` user types ["password"]
+  ()=> if under 8 characters, 'warning' in red ["8 characters minimum"]
   ()=> while typing, strength `indicator` updates from red to yellow to green
-()=> user `click` [Create Account]
+()=> user `click` ["Create Account"]
   ()=> while submitting, `feedback` shows spinner with fields disabled
-  ()=> if success, `return` to welcome page with [Check your email to verify]
-  ()=> if server `error`, form stays filled with banner [Something went wrong. Please try again.]
+  ()=> if success, `return` to welcome page with ["Check your email to verify"]
+  ()=> if server `error`, form stays filled with banner ["Something went wrong. Please try again."]
 // end-shorthand
 ```
 
@@ -35,18 +70,18 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 ```js
 // start-shorthand
 ()=> user reviews cart with item names, quantities, and total
-()=> user `click` [Place Order]
+()=> user `click` ["Place Order"]
 ()=> while processing, `feedback` loading overlay on the cart
   ()=> if 'success' payment goes through
-    ()=> `return` to confirmation page with [order number]
-    ()=> `display` estimated delivery date
+    ()=> `return` to confirmation page with ["order number"]
+    ()=> ["estimated delivery date"]
   ()=> if 'error' card declined
     ()=> `return` to checkout with card field in red
-    ()=> 'error' [Payment failed — please try another card]
+    ()=> 'error' ["Payment failed — please try another card"]
     ()=> other form fields stay filled
   ()=> if 'warning' cart changed since page load
-    ()=> `modal` [Some items changed. Review your updated cart.]
-    ()=> if user `click` [Review], scroll to changed items in yellow
+    ()=> `modal` ["Some items changed. Review your updated cart."]
+    ()=> if user `click` ["Review"], scroll to changed items in yellow
 // end-shorthand
 ```
 
@@ -54,14 +89,14 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 
 ```js
 // start-shorthand
-()=> `action` user logs in and lands on page [dashboard]
+()=> `action` user logs in and lands on page ["dashboard"]
   ()=> if first time ever, `modal` onboarding tour overlay with 3 steps
   ()=> if returning user, `return` to dashboard directly
 ()=> while data loads, `feedback` skeleton loaders in each widget
   ()=> if 'success' all data loads, charts and numbers replace skeletons
-  ()=> if 'error' one widget fails, [Couldn't load — Retry] in that widget
+  ()=> if 'error' one widget fails, ["Couldn't load — Retry"] in that widget
   ()=> other widgets still work independently
-  ()=> if 'error' everything fails, full-page [We're having trouble. Try again in a moment.]
+  ()=> if 'error' everything fails, full-page ["We're having trouble. Try again in a moment."]
 ()=> user `click` a chart
   ()=> `display` detail view with date range picker
 // end-shorthand
@@ -71,48 +106,13 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 
 ```js
 // start-shorthand
-()=> user sees search bar with [Search projects...]
+()=> user sees search bar with ["Search projects..."]
 ()=> `input` user types a query
   ()=> while typing, wait 300ms then `display` results below the search bar
   ()=> if 'success' results found, list with project name, owner, last updated
-  ()=> if 'empty' no results, [No projects match your search. Try a different query.]
-  ()=> if 'error' search fails, [Search is temporarily unavailable] with a retry link
+  ()=> if 'empty' no results, ["No projects match your search. Try a different query."]
+  ()=> if 'error' search fails, ["Search is temporarily unavailable"] with a retry link
 ()=> if user clears search bar, `return` to default view with recent projects
-// end-shorthand
-```
-
-### CLI Script — YouTube Transcript Pipeline
-
-```js
-// start-shorthand
-()=> `input` user provides a [YouTube URL] as argument
-  ()=> if 'error' URL is missing, [Usage — transcript {youtube-url}]
-  ()=> if 'error' URL is not a valid YouTube link, [Invalid YouTube URL]
-
-// step 1 — download audio
-()=> while downloading, `feedback` [Downloading audio from YouTube...]
-  ()=> if 'error' video not found or private, [Video unavailable — check the URL]
-  ()=> if 'error' download fails, [Download failed — retrying...] then retry once
-  ()=> if 'success', [Audio saved — /tmp/audio-{id}.mp3]
-
-// step 2 — transcribe via DeepGram
-()=> while transcribing, `feedback` [Sending audio to DeepGram API...]
-  ()=> if 'error' API key missing, [DEEPGRAM_API_KEY not set]
-  ()=> if 'error' API returns 4xx or 5xx, [DeepGram error {status} — {message}]
-  ()=> if 'success', [Transcript ready]
-    ()=> save raw transcript as [transcript-{id}.txt]
-    ()=> save JSON with timestamps as [transcript-{id}.json]
-
-// step 3 — summarize via OpenCode headless
-()=> while processing, `feedback` [Running OpenCode to generate summary...]
-  ()=> `input` pass transcript + prompt to opencode in headless mode
-  ()=> if 'error' opencode not found, [opencode CLI not installed]
-  ()=> if 'error' model fails or times out, [Summary generation failed — transcript files still available]
-  ()=> if 'success', save markdown as [summary-{id}.md]
-    ()=> `display` [Done — files saved]
-    ()=> `display` [transcript-{id}.txt]
-    ()=> `display` [transcript-{id}.json]
-    ()=> `display` [summary-{id}.md]
 // end-shorthand
 ```
 
@@ -124,9 +124,9 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 // Good -- one moment per line
 // start-shorthand
 ()=> `action` user fills out all required fields
-()=> user `click` [Save]
+()=> user `click` ["Save"]
 ()=> while saving, `feedback` spinner on button
-()=> if 'success', `return` to saved item page with [Saved] banner
+()=> if 'success', `return` to saved item page with ["Saved"] banner
 // end-shorthand
 
 // Bad -- too much crammed in one line
@@ -139,12 +139,12 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 
 ```js
 // start-shorthand
-()=> user `click` [Delete Account]
-()=> `modal` [This is permanent. Type your email to confirm.]
-  ()=> if user `input` email and `click` [Delete]
+()=> user `click` ["Delete Account"]
+()=> `modal` ["This is permanent. Type your email to confirm."]
+  ()=> if user `input` email and `click` ["Delete"]
     ()=> while deleting, `feedback` spinner in the modal
-    ()=> `return` to goodbye page with [Your account has been deleted]
-  ()=> if user `click` [Cancel]
+    ()=> `return` to goodbye page with ["Your account has been deleted"]
+  ()=> if user `click` ["Cancel"]
     ()=> `dismiss` modal, nothing changes
   ()=> if user `click` outside the modal
     ()=> `dismiss` modal, nothing changes
@@ -155,12 +155,12 @@ description: Expand plan user cases into step-by-step pseudocode describing what
 
 ```js
 // start-shorthand
-()=> user `click` [Upload File]
-  ()=> if 'error' file too large, [File must be under 10MB. Yours is {size}.]
-  ()=> if 'error' wrong file type, [Only PDF and PNG files are accepted.]
+()=> user `click` ["Upload File"]
+  ()=> if 'error' file too large, ["File must be under 10MB. Yours is {size}."]
+  ()=> if 'error' wrong file type, ["Only PDF and PNG files are accepted."]
   ()=> while uploading, `indicator` progress bar
-    ()=> if 'error' upload fails mid-way, `indicator` frozen at [X]% with [Upload failed — Retry]
-  ()=> if 'success', filename with green checkmark and [Remove] link
+    ()=> if 'error' upload fails mid-way, `indicator` frozen at ["X"]% with ["Upload failed — Retry"]
+  ()=> if 'success', filename with green checkmark and ["Remove"] link
 // end-shorthand
 ```
 
@@ -187,7 +187,7 @@ Use ` ```js ` for all pseudocode blocks. JS syntax highlighting gives you three 
 - `// start-shorthand` and `// end-shorthand` — delimit pseudocode sections (gray, italic)
 - `()=>` — marks each step. One user moment per line.
 - Indentation (2 spaces) — conditional branches, what happens when the experience forks.
-- **Avoid breaking JS highlighting** — no `:` inside `[]`, no `<>` angle brackets (use `{}` for variables), no nested `[]`, no `'` quotes inside `[]`.
+- **Avoid breaking JS highlighting** — no `<>` angle brackets (use `{}` for variables), no nested `[""]`.
 
 ### Layer 1 — Backtick tags (green) — what's happening
 
@@ -195,16 +195,16 @@ Categorize the interaction type. Place before the thing it describes.
 
 | Tag | Use for | Example |
 |---|---|---|
-| `` `action` `` | User does something | `` `action` user lands on page [settings] `` |
-| `` `click` `` | User clicks/taps | `` user `click` [Save] `` |
-| `` `input` `` | User types/enters data | `` `input` user types [email] `` |
-| `` `return` `` | Navigate to a page | `` `return` to dashboard with [Saved] banner `` |
+| `` `action` `` | User does something | `` `action` user lands on page ["settings"] `` |
+| `` `click` `` | User clicks/taps | `` user `click` ["Save"] `` |
+| `` `input` `` | User types/enters data | `` `input` user types ["email"] `` |
+| `` `return` `` | Navigate to a page | `` `return` to dashboard with ["Saved"] banner `` |
 | `` `feedback` `` | System visual response | `` `feedback` spinner on button `` |
 | `` `indicator` `` | State display element | `` `indicator` progress bar `` |
-| `` `modal` `` | Popup/overlay appears | `` `modal` [Are you sure?] `` |
+| `` `modal` `` | Popup/overlay appears | `` `modal` ["Are you sure?"] `` |
 | `` `display` `` | Content renders (standalone, not after a state tag) | `` `display` detail view with date range picker `` |
 | `` `dismiss` `` | User closes/removes | `` `dismiss` modal, nothing changes `` |
-| `` `toggle` `` | User switches on/off | `` user `toggle` [Dark mode] `` |
+| `` `toggle` `` | User switches on/off | `` user `toggle` ["Dark mode"] `` |
 
 ### Layer 2 — Single-quote tags (yellow) — what state it's in
 
@@ -212,13 +212,13 @@ Mark the condition or severity. Place before the description.
 
 | Tag | Use for | Example |
 |---|---|---|
-| `'error'` | Something failed | `` 'error' [Payment failed — try another card] `` |
-| `'warning'` | Caution / attention | `` 'warning' in red [8 characters minimum] `` |
+| `'error'` | Something failed | `` 'error' ["Payment failed — try another card"] `` |
+| `'warning'` | Caution / attention | `` 'warning' in red ["8 characters minimum"] `` |
 | `'success'` | Action completed | `` if 'success', `return` to confirmation page `` |
-| `'empty'` | No data / first time | `` if 'empty' no results, [No matches found] `` |
-| `'info'` | Informational message | `` 'info' [Your trial ends in 3 days] `` |
+| `'empty'` | No data / first time | `` if 'empty' no results, ["No matches found"] `` |
+| `'info'` | Informational message | `` 'info' ["Your trial ends in 3 days"] `` |
 | `'disabled'` | Element not interactive | `` 'disabled' submit button until form is valid `` |
-| `'denied'` | No permission | `` if 'denied', [You don't have access] `` |
+| `'denied'` | No permission | `` if 'denied', ["You don't have access"] `` |
 
 ### Layer 3 — JS keywords (purple) — flow control
 
@@ -228,9 +228,8 @@ These highlight automatically. Use them to control the flow.
 |---|---|---|
 | `if` | Conditional branch | `if email is taken, show 'warning'` |
 | `while` | Loading / waiting | `while submitting, `feedback` spinner` |
-| `return` | Navigate (as keyword) | `return to default view` |
 | `in` | Location on screen | `show 'error' in the modal` |
-| `with` | Accompaniment | `return to page with [Saved] banner` |
+| `with` | Accompaniment | `return to page with ["Saved"] banner` |
 
 ### Layer 4 — Square brackets — UI content
 
@@ -238,8 +237,8 @@ Wrap any text the user literally sees on screen: button labels, page names, erro
 
 | Usage | Example |
 |---|---|
-| Button label | `` user `click` [Create Account] `` |
-| Page name | `` `action` user lands on page [signup] `` |
-| Error message | `` 'error' [File must be under 10MB] `` |
-| Field name | `` `input` user types [email] `` |
-| Banner text | `` `return` to page with [Changes saved] `` |
+| Button label | `` user `click` ["Create Account"] `` |
+| Page name | `` `action` user lands on page ["signup"] `` |
+| Error message | `` 'error' ["File must be under 10MB"] `` |
+| Field name | `` `input` user types ["email"] `` |
+| Banner text | `` `return` to page with ["Changes saved"] `` |
