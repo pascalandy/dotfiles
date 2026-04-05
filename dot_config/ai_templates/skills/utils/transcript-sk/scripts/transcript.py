@@ -51,23 +51,24 @@ OUTPUT_DIR = Path("~/Documents/_my_docs/61_transcription_exports_yt").expanduser
 PROVIDER_CODEX = "codex"
 PROVIDER_CLAUDE = "claude"
 VALID_PROVIDERS = (PROVIDER_CODEX, PROVIDER_CLAUDE)
-DEFAULT_PROVIDER = PROVIDER_CODEX
+DEFAULT_PROVIDER = PROVIDER_CLAUDE
 
 # Claude models for prompt summaries
 VALID_CLAUDE_MODELS = (
+    "claude-opus-4-6",
     "claude-opus-4-5",
     "claude-sonnet-4-5",
     "claude-haiku-4-5",
 )
-DEFAULT_CLAUDE_MODEL = "claude-opus-4-5"
+DEFAULT_CLAUDE_MODEL = "claude-opus-4-6"
+VALID_CLAUDE_EFFORTS = ("low", "medium", "high", "max")
+DEFAULT_CLAUDE_EFFORT = "medium"
 
 # Codex defaults for prompt summaries
 DEFAULT_CODEX_MODEL = "gpt-5.4"
 VALID_CODEX_REASONING_EFFORTS = ("low", "medium", "high", "xhigh")
 DEFAULT_CODEX_REASONING_EFFORT = "high"
-CODEX_SUGGESTED_MODELS = (
-    "gpt-5.4",
-)
+CODEX_SUGGESTED_MODELS = ("gpt-5.4",)
 
 DEFAULT_PROMPT = "follow_along_note"
 
@@ -473,7 +474,9 @@ def run_summary_prompt(
 ) -> dict:
     """Run provider-specific summary generation."""
     if provider == PROVIDER_CLAUDE:
-        return run_claude_prompt(transcript_path, prompt_path, output_path, model_name)
+        return run_claude_prompt(
+            transcript_path, prompt_path, output_path, model_name, effort
+        )
     return run_codex_prompt(
         transcript_path, prompt_path, output_path, model_name, effort
     )
@@ -482,6 +485,9 @@ def run_summary_prompt(
 def print_summary_usage(usage_stats: dict) -> None:
     """Print summary provider usage details."""
     if usage_stats.get("provider") == PROVIDER_CLAUDE:
+        console.print(
+            f"[dim]⚙️ {usage_stats['model']} (effort: {usage_stats['effort']})[/dim]"
+        )
         console.print(f"[dim]📊 Total: {usage_stats['total_tokens']:,} tokens[/dim]")
         return
 
@@ -495,6 +501,7 @@ def format_summary_meta(usage_stats: dict | None) -> str:
     if usage_stats and usage_stats.get("provider") == PROVIDER_CLAUDE:
         return (
             "Claude: "
+            f"{usage_stats['model']} (effort: {usage_stats['effort']}) "
             f"{usage_stats['total_tokens']:,} tokens "
             f"(input: {usage_stats['input_tokens']:,}, output: {usage_stats['output_tokens']:,})"
         )
@@ -508,7 +515,11 @@ def format_summary_meta(usage_stats: dict | None) -> str:
 
 
 def run_claude_prompt(
-    transcript_path: Path, prompt_path: Path, output_path: Path, model_name: str
+    transcript_path: Path,
+    prompt_path: Path,
+    output_path: Path,
+    model_name: str,
+    effort: str = DEFAULT_CLAUDE_EFFORT,
 ) -> dict:
     """
     Run Claude CLI with transcript and prompt, save output.
@@ -548,6 +559,8 @@ def run_claude_prompt(
                 "--dangerously-skip-permissions",
                 "--model",
                 model_name,
+                "--effort",
+                effort,
                 "--tools",
                 "",  # Disable all tools - forces text output only
                 "--output-format",
@@ -603,6 +616,7 @@ def run_claude_prompt(
     return {
         "provider": PROVIDER_CLAUDE,
         "model": model_name,
+        "effort": effort,
         "input_tokens": input_tokens,
         "output_tokens": output_tokens,
         "total_tokens": input_tokens + output_tokens,
@@ -755,11 +769,13 @@ Environment:
     )
     options_group.add_argument(
         "--effort",
-        choices=VALID_CODEX_REASONING_EFFORTS,
-        default=DEFAULT_CODEX_REASONING_EFFORT,
+        type=str,
+        default=None,
+        metavar="LEVEL",
         help=(
-            "Codex reasoning effort "
-            f"(default: {DEFAULT_CODEX_REASONING_EFFORT})"
+            "Effort level. "
+            f"Claude: {', '.join(VALID_CLAUDE_EFFORTS)} (default: {DEFAULT_CLAUDE_EFFORT}). "
+            f"Codex: {', '.join(VALID_CODEX_REASONING_EFFORTS)} (default: {DEFAULT_CODEX_REASONING_EFFORT})"
         ),
     )
     options_group.add_argument(
@@ -819,6 +835,24 @@ def main() -> None:
             f"{selected_model}. Use --list-models --provider claude"
         )
         sys.exit(1)
+
+    # Resolve effort with provider-aware defaults and validation
+    if args.provider == PROVIDER_CLAUDE:
+        selected_effort = args.effort or DEFAULT_CLAUDE_EFFORT
+        if selected_effort not in VALID_CLAUDE_EFFORTS:
+            console.print(
+                f"[red]Invalid Claude effort:[/red] {selected_effort}. "
+                f"Valid: {', '.join(VALID_CLAUDE_EFFORTS)}"
+            )
+            sys.exit(1)
+    else:
+        selected_effort = args.effort or DEFAULT_CODEX_REASONING_EFFORT
+        if selected_effort not in VALID_CODEX_REASONING_EFFORTS:
+            console.print(
+                f"[red]Invalid Codex effort:[/red] {selected_effort}. "
+                f"Valid: {', '.join(VALID_CODEX_REASONING_EFFORTS)}"
+            )
+            sys.exit(1)
 
     api_key = validate_env()
 
@@ -885,7 +919,7 @@ def main() -> None:
                     selected_prompt["path"],
                     output_file,
                     selected_model,
-                    args.effort,
+                    selected_effort,
                 )
 
                 summary_path = output_file
