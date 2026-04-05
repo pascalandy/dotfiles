@@ -1,7 +1,7 @@
 #!/usr/bin/env uv run python3
 # /// script
 # dependencies = [
-#     "requests",
+#     "httpx",
 #     "python-dotenv",
 #     "tiktoken",
 #     "yt-dlp",
@@ -28,9 +28,9 @@ import sys
 import time
 from datetime import datetime
 from pathlib import Path
-from typing import Any
+from typing import Callable, TypeVar
 
-import requests
+import httpx
 import tiktoken
 from dotenv import load_dotenv
 from rich.console import Console
@@ -80,8 +80,6 @@ SUMMARY_MAX_RETRIES = 3  # Retry attempts for summary CLI failures
 
 console = Console()
 
-
-from typing import Callable, TypeVar
 
 _T = TypeVar("_T")
 
@@ -171,14 +169,20 @@ def clean_title(title: str) -> str:
     return cleaned[:50]
 
 
-def create_output_dir(title: str, video_id: str) -> Path:
-    """Create timestamped output directory."""
+def create_output_dir(title: str, video_id: str, base_dir: Path | None = None) -> Path:
+    """Create timestamped output directory.
+
+    Args:
+        title: Video title (sanitized for filesystem).
+        video_id: YouTube video ID.
+        base_dir: Override the default OUTPUT_DIR.
+    """
     date_formatted = datetime.now().strftime("%Y_%m_%d_%Hh%M")
     cleaned_title = clean_title(title)
     dir_name = f"{date_formatted}_{cleaned_title}_{video_id}"
-    output_dir = Path(OUTPUT_DIR) / dir_name
-    output_dir.mkdir(parents=True, exist_ok=True)
-    return output_dir
+    out = (base_dir or OUTPUT_DIR) / dir_name
+    out.mkdir(parents=True, exist_ok=True)
+    return out
 
 
 def download_audio(url: str, output_dir: Path) -> Path:
@@ -209,8 +213,8 @@ def transcribe_audio(audio_path: Path, api_key: str) -> dict:
     }
 
     with open(audio_path, "rb") as audio_file:
-        response = requests.post(
-            url, params=params, headers=headers, data=audio_file, timeout=300
+        response = httpx.post(
+            url, params=params, headers=headers, content=audio_file.read(), timeout=300
         )
 
     response.raise_for_status()
@@ -704,7 +708,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=f"""YouTube Transcript Generator from Deepgram
 
-Default (transcript + follow_along_note prompt via Codex):
+Default (transcript + {DEFAULT_PROMPT} prompt via {DEFAULT_PROVIDER}):
   uv run %(prog)s "https://youtu.be/dQw4w9WgXcQ"
 """,
         formatter_class=lambda prog: argparse.RawDescriptionHelpFormatter(
@@ -774,6 +778,13 @@ Environment:
             f"Claude: {', '.join(VALID_CLAUDE_EFFORTS)} (default: {DEFAULT_CLAUDE_EFFORT}). "
             f"Codex: {', '.join(VALID_CODEX_REASONING_EFFORTS)} (default: {DEFAULT_CODEX_REASONING_EFFORT})"
         ),
+    )
+    options_group.add_argument(
+        "--output-dir",
+        type=Path,
+        default=None,
+        metavar="DIR",
+        help=f"Output directory (default: {OUTPUT_DIR})",
     )
     options_group.add_argument(
         "--list-prompts",
@@ -870,7 +881,8 @@ def main() -> None:
     console.print()
 
     # Create output directory
-    output_dir = create_output_dir(info["title"], info["video_id"])
+    base_dir = args.output_dir.expanduser() if args.output_dir else None
+    output_dir = create_output_dir(info["title"], info["video_id"], base_dir=base_dir)
 
     # Download audio
     with Status("[cyan]Downloading audio...[/cyan]", console=console):
@@ -885,7 +897,7 @@ def main() -> None:
     with Status("[cyan]Transcribing with Deepgram...[/cyan]", console=console):
         try:
             response = retry_request(lambda: transcribe_audio(audio_path, api_key))
-        except requests.RequestException as e:
+        except httpx.HTTPError as e:
             console.print(f"[red]Transcription failed:[/red] {e}")
             sys.exit(1)
     console.print("[green]📝 Transcribed[/green]")
@@ -895,7 +907,7 @@ def main() -> None:
     save_outputs(output_dir, transcript, sentences, json_data)
 
     # Cleanup audio
-    audio_path.unlink()
+    audio_path.unlink(missing_ok=True)
 
     # Run summary prompt if selected
     summary_path: Path | None = None
