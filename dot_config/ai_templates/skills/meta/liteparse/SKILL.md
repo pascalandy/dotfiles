@@ -7,20 +7,24 @@ description: Parse, convert, or extract text from unstructured documents (PDF, D
 
 Local, fast, dependency-light document parsing via the `lit` CLI. This meta-skill bundles user preferences, parsing commands, page screenshots, and install steps.
 
-## Auto-detect rule (do not ask, just run)
+## Canonical entry point: `lykra-parse`
 
-When the user provides a path:
+When the user provides a path, run **one command**:
 
-- **File** → `lit parse` with the user's config (see `Preferences`).
-- **Directory** → `lit batch-parse` with the user's config (see `Preferences`).
+```bash
+lykra-parse <file-or-dir>          # English (default)
+lykra-parse <file-or-dir> --fr     # French
+```
 
-Do not prompt for format, language, DPI, or confirmation when a path is given. Execute immediately using the language config (`config.en.json` by default, `config.fr.json` if French is indicated). Output is plain text (`.txt`) by default. Only ask if the path is missing or ambiguous.
+`lykra-parse` is a wrapper at `~/.local/bin/lykra-parse` (chezmoi-managed) that:
+- auto-detects file vs directory
+- loads `~/.config/liteparse/config.{en,fr}.json`
+- runs `lit parse` or `lit batch-parse`
+- atomically renames outputs to `_lykra.txt`
 
-**Output location & naming convention:**
-- Single file `path/to/doc.pdf` → `path/to/doc_LYKRA.txt`
-- Directory `path/to/dir/` → `path/to/dir_LYKRA/` (sibling directory). Files inside get `_LYKRA.txt` suffix via post-processing rename (LiteParse does not apply the suffix natively).
+**Do not call `lit` directly** unless the user asks for a non-default option (json output, page range, screenshots, etc.) — those go through `Parse` or `Screenshot`.
 
-**Required flags for batch:** `lit batch-parse <input-dir> <output-dir> --config <path>` — both directory args are mandatory.
+Do not prompt for format, language, DPI, or confirmation when a path is given. Run `lykra-parse` immediately. Only ask if the path is missing.
 
 ## What's Included
 

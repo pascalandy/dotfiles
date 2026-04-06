@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+# lykra-parse — wrapper around `lit` (LiteParse) that applies user defaults
+# and the _lykra.txt naming convention atomically.
+#
+# Usage:
+#   lykra-parse <file-or-dir> [--fr]
+#
+# Behavior:
+#   - File  → lit parse  → <basename>_lykra.txt next to input
+#   - Dir   → lit batch-parse → <dirname>_lykra/ sibling, files renamed to *_lykra.txt
+#   - Default config: ~/.config/liteparse/config.en.json
+#   - --fr  → ~/.config/liteparse/config.fr.json
+
+set -euo pipefail
+
+fct_die() {
+	printf 'lykra-parse: %s\n' "$1" >&2
+	exit 1
+}
+
+fct_usage() {
+	cat >&2 <<'EOF'
+Usage: lykra-parse <file-or-dir> [--fr]
+
+  <file-or-dir>  PDF, DOCX, image, or directory of supported files
+  --fr           Use French OCR (default: English)
+
+Configs: ~/.config/liteparse/config.{en,fr}.json
+EOF
+	exit 1
+}
+
+[[ $# -lt 1 || $# -gt 2 ]] && fct_usage
+
+input_path=""
+lang="en"
+
+for arg in "$@"; do
+	case "$arg" in
+	--fr) lang="fr" ;;
+	--en) lang="en" ;;
+	-h | --help) fct_usage ;;
+	-*) fct_die "unknown flag: $arg" ;;
+	*)
+		[[ -n "$input_path" ]] && fct_die "only one path argument allowed"
+		input_path="$arg"
+		;;
+	esac
+done
+
+[[ -z "$input_path" ]] && fct_usage
+
+config_file="$HOME/.config/liteparse/config.${lang}.json"
+[[ -f "$config_file" ]] || fct_die "config not found: $config_file (run 'chezmoi apply')"
+
+command -v lit >/dev/null 2>&1 || fct_die "lit not installed (run: bun i -g @llamaindex/liteparse)"
+
+# Resolve to absolute path before changing directory
+if [[ -e "$input_path" ]]; then
+	abs_input="$(cd "$(dirname "$input_path")" && pwd)/$(basename "$input_path")"
+else
+	fct_die "not a file or directory: $input_path"
+fi
+
+# Tesseract.js drops *.traineddata in cwd. Pin a stable cache dir.
+tessdata_cache="$HOME/.cache/liteparse/tessdata"
+mkdir -p "$tessdata_cache"
+cd "$tessdata_cache"
+
+if [[ -f "$abs_input" ]]; then
+	# Single file mode
+	dir="$(dirname "$abs_input")"
+	base="$(basename "$abs_input")"
+	stem="${base%.*}"
+	output_file="${dir}/${stem}_lykra.txt"
+
+	printf 'Parsing file: %s\n' "$abs_input" >&2
+	printf 'Output:       %s\n' "$output_file" >&2
+	lit parse "$abs_input" --config "$config_file" -o "$output_file"
+	printf 'Done: %s\n' "$output_file"
+
+elif [[ -d "$abs_input" ]]; then
+	# Directory mode
+	clean_input="${abs_input%/}"
+	output_dir="${clean_input}_lykra"
+
+	printf 'Batch parsing: %s\n' "$clean_input" >&2
+	printf 'Output dir:    %s\n' "$output_dir" >&2
+
+	mkdir -p "$output_dir"
+	lit batch-parse "$clean_input" "$output_dir" --config "$config_file" --recursive
+
+	# Rename outputs to add _lykra.txt suffix
+	renamed=0
+	while IFS= read -r -d '' f; do
+		new="${f%.txt}_lykra.txt"
+		mv "$f" "$new"
+		renamed=$((renamed + 1))
+	done < <(find "$output_dir" -type f -name '*.txt' ! -name '*_lykra.txt' -print0)
+
+	printf 'Done: %d files in %s\n' "$renamed" "$output_dir"
+fi

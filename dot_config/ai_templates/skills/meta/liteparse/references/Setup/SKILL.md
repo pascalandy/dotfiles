@@ -34,9 +34,18 @@ brew install imagemagick
 apt-get install imagemagick
 ```
 
-## User configs
+## User configs and wrapper
 
-`~/.config/liteparse/config.en.json` and `config.fr.json` are managed by chezmoi (`dot_config/liteparse/` in source). Run `chezmoi apply` to install/update.
+Managed by chezmoi (run `chezmoi apply` to install/update):
+
+- `~/.config/liteparse/config.en.json` / `config.fr.json` — language configs (source: `dot_config/liteparse/`)
+- `~/.local/bin/lykra-parse` — wrapper script that calls `lit` with defaults and applies the `_lykra.txt` naming (source: `dot_local/bin/executable_lykra-parse`)
+
+Ensure `~/.local/bin` is in `PATH`.
+
+## Tesseract OCR models
+
+Tesseract.js downloads `*.traineddata` files (e.g. `eng.traineddata`, ~10 MB) on first OCR run. The wrapper `cd`s into `~/.cache/liteparse/tessdata/` before invoking `lit`, so models cache there once and stay out of your working directories. Safe to keep; deleting forces re-download.
 
 ## Supported input formats
 

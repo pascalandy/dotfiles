@@ -3,6 +3,6 @@
   "ocrEnabled": true,
   "dpi": 300,
   "outputFormat": "text",
-  "outputSuffix": "_LYKRA.txt",
+  "outputSuffix": "_lykra.txt",
   "preciseBoundingBox": true
 }
