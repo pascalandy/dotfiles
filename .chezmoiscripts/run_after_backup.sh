@@ -28,7 +28,7 @@ fct_copy_dir() {
 	rsync_args=(-a --exclude '.DS_Store')
 
 	if [[ "$sync_mode" == "delete" ]]; then
-		rsync_args+=(--delete)
+		rsync_args+=(--delete --delete-excluded --force)
 	fi
 
 	if [[ "${#extra_args[@]}" -gt 0 ]]; then
