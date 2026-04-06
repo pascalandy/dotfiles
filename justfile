@@ -12,7 +12,26 @@ ci:
     just gitleaks
     just shellcheck
     just shfmt
+    just test-all
     chezmoi apply -n -v
+
+test-all:
+    just test-transcript
+    just test-banana
+    just test-map-fs
+    just test-tavily
+
+test-transcript:
+    uv run --with pytest --with httpx --with tiktoken --with yt-dlp --with rich pytest dot_config/ai_templates/skills/utils/transcript-sk/scripts/tests/ -v
+
+test-banana:
+    uv run --with pytest --with openai --with typer --with rich --with pillow pytest dot_config/ai_templates/skills/utils/nano-banana-sk/scripts/tests/ -v
+
+test-map-fs:
+    uv run --with pytest --with typer --with rich --with pyyaml --with tomli-w pytest dot_config/ai_templates/skills/utils/map-filesystem-abstract/scripts/tests/ -v
+
+test-tavily:
+    uv run --with pytest --with httpx --with rich --with respx pytest dot_config/ai_templates/skills/utils/tavily/scripts/tests/ -v
 
 # Run gitleaks across the repository.
 gitleaks:
