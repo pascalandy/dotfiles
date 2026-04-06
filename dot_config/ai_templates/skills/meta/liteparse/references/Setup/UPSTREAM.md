@@ -16,4 +16,4 @@ Single source of truth for provenance. Do not duplicate this information elsewhe
 ## Local modifications
 
 - Restructured the original single `SKILL.md` into a hierarchical meta-skill (`Preferences`, `Parse`, `Screenshot`, `Setup`).
-- Added `Preferences/config.json` as the single source of truth for user defaults (`ocrLanguage`, `dpi`, `outputFormat`, `outputSuffix=_LYKRA`).
+- Added per-language configs `Preferences/config.en.json` and `Preferences/config.fr.json` as the single source of truth for user defaults (`ocrLanguage`, `dpi`, `outputFormat`, `outputSuffix=_LYKRA.md`).

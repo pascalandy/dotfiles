@@ -14,13 +14,19 @@ When the user provides a path:
 - **File** → `lit parse` with the user's config (see `Preferences`).
 - **Directory** → `lit batch-parse` with the user's config (see `Preferences`).
 
-Do not prompt for format, language, DPI, or confirmation when a path is given. Execute immediately using `Preferences/config.json`. Output is markdown (`.md`) by default. Only ask if the path is missing or ambiguous.
+Do not prompt for format, language, DPI, or confirmation when a path is given. Execute immediately using the language config from `Preferences/` (`config.en.json` by default, `config.fr.json` if French is indicated). Output is markdown (`.md`) by default. Only ask if the path is missing or ambiguous.
+
+**Output location convention:**
+- Single file `path/to/doc.pdf` → `path/to/doc_LYKRA.md`
+- Directory `path/to/dir/` → `path/to/dir_LYKRA/` (sibling directory, must be passed explicitly to `lit batch-parse`)
+
+**Required flags for batch:** `lit batch-parse <input-dir> <output-dir> --config <path>` — both directory args are mandatory.
 
 ## What's Included
 
 | Sub-skill | Purpose |
 |---|---|
-| `Preferences` | User defaults (lang, dpi, format, output suffix) stored in `config.json` |
+| `Preferences` | User defaults (lang, dpi, format, output suffix) stored in `config.en.json` / `config.fr.json` |
 | `Parse` | Full `lit parse` / `lit batch-parse` reference and options |
 | `Screenshot` | `lit screenshot` for rendering pages as images |
 | `Setup` | Install LiteParse + LibreOffice + ImageMagick; upstream provenance |

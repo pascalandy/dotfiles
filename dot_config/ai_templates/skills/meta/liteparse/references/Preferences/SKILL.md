@@ -17,10 +17,16 @@ Output is plain text saved with a `.md` extension so it renders in markdown view
 ## Auto-detect rules (do not ask, just run)
 
 **Path type:**
-- **File** → `lit parse`
-- **Directory** → `lit batch-parse`
+- **File** → `lit parse <file> --config <cfg> -o <file_basename>_LYKRA.md`
+- **Directory** → `lit batch-parse <input-dir> <input-dir>_LYKRA --config <cfg> --recursive`
 
 **Language:** default to `config.en.json`. Switch to `config.fr.json` only if the user explicitly says French / français / fr / fra, or if filenames/content clearly indicate French.
+
+**Output location convention:**
+- File → output sibling file: `<dir>/<basename>_LYKRA.md`
+- Directory → output sibling directory: `<parent>/<dirname>_LYKRA/`
+
+`lit batch-parse` REQUIRES both `<input-dir>` and `<output-dir>` positional arguments. Never call it with only one path.
 
 Do not prompt for format, DPI, or confirmation when a path is given. Execute immediately.
 
@@ -33,36 +39,24 @@ mkdir -p ~/.config/liteparse
 cp ./config.en.json ./config.fr.json ~/.config/liteparse/
 ```
 
-Single file (English default):
+Single file (English default) — example with `~/Downloads/doc.pdf`:
 
 ```bash
-lit parse <file> \
+lit parse ~/Downloads/doc.pdf \
   --config ~/.config/liteparse/config.en.json \
-  -o "$(basename <file> .pdf)_LYKRA.md"
+  -o ~/Downloads/doc_LYKRA.md
 ```
 
-Single file (French):
+Batch a directory (English) — example with `~/Downloads/screenshot_test/`:
 
 ```bash
-lit parse <file> \
-  --config ~/.config/liteparse/config.fr.json \
-  -o "$(basename <file> .pdf)_LYKRA.md"
-```
-
-Batch a directory (English):
-
-```bash
-lit batch-parse <input-dir> <output-dir> \
+lit batch-parse \
+  ~/Downloads/screenshot_test \
+  ~/Downloads/screenshot_test_LYKRA \
   --config ~/.config/liteparse/config.en.json \
   --recursive
 ```
 
-Batch a directory (French):
-
-```bash
-lit batch-parse <input-dir> <output-dir> \
-  --config ~/.config/liteparse/config.fr.json \
-  --recursive
-```
+For French, swap the config flag to `~/.config/liteparse/config.fr.json`.
 
 For full option reference, see `../Parse/SKILL.md`.
