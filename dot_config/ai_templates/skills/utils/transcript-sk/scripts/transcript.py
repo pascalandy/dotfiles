@@ -2,7 +2,6 @@
 # /// script
 # dependencies = [
 #     "httpx",
-#     "python-dotenv",
 #     "tiktoken",
 #     "yt-dlp",
 #     "rich",
@@ -32,7 +31,6 @@ from typing import Callable, TypeVar
 
 import httpx
 import tiktoken
-from dotenv import load_dotenv
 from rich.console import Console
 from rich.markdown import Markdown
 from rich.status import Status
@@ -44,7 +42,6 @@ class SummaryCLIError(Exception):
 
 # Paths (repo-relative by default)
 SCRIPT_DIR = Path(__file__).parent.resolve()
-DOTENV_PATH = SCRIPT_DIR / ".env"
 # Export directory (hardcoded per project conventions)
 OUTPUT_DIR = Path("~/Documents/_my_docs/61_transcription_exports_yt").expanduser()
 
@@ -694,8 +691,6 @@ def run_codex_prompt(
 
 def parse_args() -> argparse.Namespace:
     """Parse command line arguments."""
-    # Load env early to check API key status for help
-    load_dotenv(dotenv_path=DOTENV_PATH)
     api_key_status = (
         "set"
         if (get_api_key_from_keyring() or os.getenv("DEEPGRAM_API_KEY"))
