@@ -5,14 +5,13 @@
 #     "openai",
 #     "typer",
 #     "rich",
-#     "python-dotenv",
 #     "pillow",
 # ]
 # ///
 """
 Generate images using OpenRouter API with Gemini 3 Pro Image model.
 
-Requires OPENROUTER_API_KEY in environment or .env file.
+Requires OPENROUTER_API_KEY via chezmoi keyring or environment variable.
 
 Examples:
     # Show help
@@ -45,7 +44,6 @@ from io import BytesIO
 from pathlib import Path
 
 import typer
-from dotenv import load_dotenv
 from openai import OpenAI
 from PIL import Image
 from rich.console import Console
@@ -67,12 +65,30 @@ console_stderr = Console(file=sys.stderr)
 
 
 def get_api_key() -> str | None:
-    """Get API key from .env, then environment."""
-    # Load .env from script directory and current directory
-    script_dir = Path(__file__).parent.parent
-    load_dotenv(script_dir / ".env")
-    load_dotenv()  # Also check current directory
+    """Get API key from chezmoi keyring, then environment."""
+    # Try chezmoi keyring first (skip in test environments)
+    if os.environ.get("_TEST_SKIP_KEYRING"):
+        return os.environ.get("OPENROUTER_API_KEY") or None
+    try:
+        result = subprocess.run(
+            [
+                "chezmoi",
+                "secret",
+                "keyring",
+                "get",
+                "--service=OPENROUTER_API_KEY",
+                "--user=api_key",
+            ],
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+        if result.returncode == 0 and result.stdout.strip():
+            return result.stdout.strip()
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        pass
 
+    # Fallback to environment variable
     return os.environ.get("OPENROUTER_API_KEY")
 
 
@@ -477,7 +493,9 @@ def generate(
     # Validate API key
     if not resolved_key:
         console_stderr.print("[red]Error:[/red] No API key provided.")
-        console_stderr.print("Set OPENROUTER_API_KEY in .env or environment variable.")
+        console_stderr.print(
+            "Set via: chezmoi secret keyring set --service=OPENROUTER_API_KEY --user=api_key"
+        )
         console_stderr.print("Get your key at: https://openrouter.ai/keys")
         raise typer.Exit(1)
 

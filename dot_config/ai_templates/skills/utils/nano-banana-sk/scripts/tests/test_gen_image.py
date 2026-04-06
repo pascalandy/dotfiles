@@ -299,18 +299,33 @@ class TestOptionValues:
     def test_all_sizes_accepted(self):
         """All valid sizes (1K, 2K, 4K) are accepted."""
         for size in ["1K", "2K", "4K"]:
-            stdout, stderr, code = run_script("--prompt", "test", "--size", size, "--dry-run")
+            stdout, stderr, code = run_script(
+                "--prompt", "test", "--size", size, "--dry-run"
+            )
             assert code == 0, f"Size {size} should be valid"
 
     def test_all_formats_accepted(self):
         """All valid formats (png, jpeg) are accepted."""
         for fmt in ["png", "jpeg"]:
-            stdout, stderr, code = run_script("--prompt", "test", "--format", fmt, "--dry-run")
+            stdout, stderr, code = run_script(
+                "--prompt", "test", "--format", fmt, "--dry-run"
+            )
             assert code == 0, f"Format {fmt} should be valid"
 
     def test_all_aspect_ratios_accepted(self):
         """All valid aspect ratios are accepted."""
-        ratios = ["1:1", "2:3", "3:2", "3:4", "4:3", "4:5", "5:4", "9:16", "16:9", "21:9"]
+        ratios = [
+            "1:1",
+            "2:3",
+            "3:2",
+            "3:4",
+            "4:3",
+            "4:5",
+            "5:4",
+            "9:16",
+            "16:9",
+            "21:9",
+        ]
         for ratio in ratios:
             stdout, stderr, code = run_script(
                 "--prompt", "test", "--aspect-ratio", ratio, "--dry-run"
@@ -320,13 +335,17 @@ class TestOptionValues:
     def test_all_thinking_modes_accepted(self):
         """All valid thinking modes (low, medium, high) are accepted."""
         for mode in ["low", "medium", "high"]:
-            stdout, stderr, code = run_script("--prompt", "test", "--thinking", mode, "--dry-run")
+            stdout, stderr, code = run_script(
+                "--prompt", "test", "--thinking", mode, "--dry-run"
+            )
             assert code == 0, f"Thinking mode {mode} should be valid"
 
     def test_all_safety_levels_accepted(self):
         """All valid safety levels (off, low, medium, high) are accepted."""
         for level in ["off", "low", "medium", "high"]:
-            stdout, stderr, code = run_script("--prompt", "test", "--safety", level, "--dry-run")
+            stdout, stderr, code = run_script(
+                "--prompt", "test", "--safety", level, "--dry-run"
+            )
             assert code == 0, f"Safety level {level} should be valid"
 
 
@@ -400,26 +419,38 @@ class TestFileHandling:
             "--prompt", "test", "--filename", "my-custom-image.png", "--dry-run"
         )
         assert code == 0
-        assert "my-custom-image.png" in stderr
+        # Remove newlines for path comparison (Rich wraps long paths)
+        stderr_joined = stderr.replace("\n", "")
+        assert "my-custom-image.png" in stderr_joined
 
     def test_filename_extension_matches_format(self):
         """Filename extension should match --format flag."""
         # Test PNG format
-        stdout, stderr, code = run_script("--prompt", "test", "--format", "png", "--dry-run")
+        stdout, stderr, code = run_script(
+            "--prompt", "test", "--format", "png", "--dry-run"
+        )
         assert code == 0
         assert ".png" in stderr
 
         # Test JPEG format
-        stdout, stderr, code = run_script("--prompt", "test", "--format", "jpeg", "--dry-run")
+        stdout, stderr, code = run_script(
+            "--prompt", "test", "--format", "jpeg", "--dry-run"
+        )
         assert code == 0
         assert ".jpeg" in stderr or ".jpg" in stderr
 
     def test_multiple_output_filenames_generated(self):
         """Multiple images should generate multiple filenames."""
-        stdout, stderr, code = run_script("--prompt", "test", "--nbr-img-output", "3", "--dry-run")
+        stdout, stderr, code = run_script(
+            "--prompt", "test", "--nbr-img-output", "3", "--dry-run"
+        )
         assert code == 0
         # Should show multiple output files
-        assert stderr.count("Output") >= 3 or stderr.count("-1") > 0 or stderr.count("-2") > 0
+        assert (
+            stderr.count("Output") >= 3
+            or stderr.count("-1") > 0
+            or stderr.count("-2") > 0
+        )
 
 
 class TestStreamBehavior:
@@ -434,7 +465,9 @@ class TestStreamBehavior:
             temp_path = f.name
         try:
             # Dry run with quiet mode
-            stdout, stderr, code = run_script("--prompt", "test", "--dry-run", "--quiet")
+            stdout, stderr, code = run_script(
+                "--prompt", "test", "--dry-run", "--quiet"
+            )
             assert code == 0
             # In dry-run, stdout should be empty
             assert stdout.strip() == ""
@@ -480,9 +513,13 @@ class TestBoundaryConditions:
     def test_special_characters_in_filename(self):
         """Special characters in filename should be handled."""
         filename = "test-image_2025.png"
-        stdout, stderr, code = run_script("--prompt", "test", "--filename", filename, "--dry-run")
+        stdout, stderr, code = run_script(
+            "--prompt", "test", "--filename", filename, "--dry-run"
+        )
         assert code == 0
-        assert filename in stderr
+        # Remove newlines for path comparison (Rich wraps long paths)
+        stderr_joined = stderr.replace("\n", "")
+        assert filename in stderr_joined
 
     def test_unicode_in_prompt(self):
         """Unicode characters in prompt should be accepted."""
@@ -494,11 +531,15 @@ class TestBoundaryConditions:
     def test_max_nbr_images_boundary(self):
         """Max 4 images should work, 5 should error."""
         # 4 should work
-        stdout, stderr, code = run_script("--prompt", "test", "--nbr-img-output", "4", "--dry-run")
+        stdout, stderr, code = run_script(
+            "--prompt", "test", "--nbr-img-output", "4", "--dry-run"
+        )
         assert code == 0
 
         # 5 should fail (if there's validation)
-        stdout, stderr, code = run_script("--prompt", "test", "--nbr-img-output", "5", "--dry-run")
+        stdout, stderr, code = run_script(
+            "--prompt", "test", "--nbr-img-output", "5", "--dry-run"
+        )
         # Might succeed if not validated, that's fine
         assert code in [0, 2]
 
@@ -545,8 +586,9 @@ class TestErrorMessages:
         import os
 
         env = os.environ.copy()
-        # Set API key to empty string to override .env file value
+        # Clear API key and skip chezmoi keyring lookup
         env["OPENROUTER_API_KEY"] = ""
+        env["_TEST_SKIP_KEYRING"] = "1"
 
         stdout, stderr, code = run_script("--prompt", "test", env=env)
         assert code == 1  # Runtime error
@@ -575,7 +617,11 @@ class TestFlagCombinations:
     def test_negative_prompt_with_positive(self):
         """Negative and positive prompts should work together."""
         stdout, stderr, code = run_script(
-            "--prompt", "beautiful sunset", "--negative-prompt", "people, buildings", "--dry-run"
+            "--prompt",
+            "beautiful sunset",
+            "--negative-prompt",
+            "people, buildings",
+            "--dry-run",
         )
         assert code == 0
         assert "sunset" in stderr.lower()
@@ -583,7 +629,9 @@ class TestFlagCombinations:
 
     def test_quiet_and_verbose_together(self):
         """--quiet and --verbose together should still work (quiet takes precedence in output)."""
-        stdout, stderr, code = run_script("--prompt", "test", "--quiet", "--verbose", "--dry-run")
+        stdout, stderr, code = run_script(
+            "--prompt", "test", "--quiet", "--verbose", "--dry-run"
+        )
         assert code == 0
 
     def test_no_color_with_other_flags(self):
@@ -602,7 +650,9 @@ class TestQuietMode:
 
     def test_quiet_mode_suppresses_progress(self):
         """--quiet should suppress progress messages."""
-        stdout_normal, stderr_normal, code_normal = run_script("--prompt", "test", "--dry-run")
+        stdout_normal, stderr_normal, code_normal = run_script(
+            "--prompt", "test", "--dry-run"
+        )
         stdout_quiet, stderr_quiet, code_quiet = run_script(
             "--prompt", "test", "--dry-run", "--quiet"
         )

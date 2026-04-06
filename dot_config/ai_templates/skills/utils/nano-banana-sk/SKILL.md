@@ -41,21 +41,27 @@ gen_image.py --prompt "Make the sky dramatic" --input-image photo.jpg
 
 ## API Key
 
-Set `OPENROUTER_API_KEY` in `.env` or environment variable.
+Stored in the system keyring via chezmoi:
 
 ```bash
-echo "OPENROUTER_API_KEY=your-key-here" > .env
+# Set the key (one-time)
+chezmoi secret keyring set --service=OPENROUTER_API_KEY --user=api_key
+
+# Verify it's stored
+chezmoi secret keyring get --service=OPENROUTER_API_KEY --user=api_key
 ```
 
 Get key at: https://openrouter.ai/keys
 
+Fallback: the script also checks the `OPENROUTER_API_KEY` environment variable.
+
 ## Common Failures
 
-| Error                   | Solution                                  |
-| ----------------------- | ----------------------------------------- |
-| `No API key provided`   | Set OPENROUTER_API_KEY in .env            |
-| `No image generated`    | Model returned text; try different prompt |
-| API errors (403, quota) | Check credits at openrouter.ai            |
+| Error                   | Solution                                                        |
+| ----------------------- | --------------------------------------------------------------- |
+| `No API key provided`   | Run `chezmoi secret keyring set --service=OPENROUTER_API_KEY --user=api_key` |
+| `No image generated`    | Model returned text; try different prompt                       |
+| API errors (403, quota) | Check credits at openrouter.ai                                  |
 
 ## Output
 
