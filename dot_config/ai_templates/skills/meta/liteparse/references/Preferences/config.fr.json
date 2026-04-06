@@ -1,0 +1,8 @@
+{
+  "ocrLanguage": "fra",
+  "ocrEnabled": true,
+  "dpi": 300,
+  "outputFormat": "text",
+  "outputSuffix": "_LYKRA.md",
+  "preciseBoundingBox": true
+}
