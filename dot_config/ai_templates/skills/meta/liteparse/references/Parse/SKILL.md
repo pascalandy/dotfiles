@@ -7,7 +7,7 @@ description: Full reference for `lit parse` and `lit batch-parse` -- options, OC
 
 For user defaults, see `../Preferences/SKILL.md`. This file documents the full CLI surface.
 
-**Note on markdown output:** LiteParse natively supports only `--format text` and `--format json`. There is no `markdown` format. The user convention is to save text output with a `.md` extension so it renders in markdown viewers.
+**Note on output formats:** LiteParse natively supports only `--format text` and `--format json`. There is no markdown format. The `outputSuffix` field in user configs is a local naming convention applied by post-processing rename, not by `lit` itself.
 
 ## Single file
 

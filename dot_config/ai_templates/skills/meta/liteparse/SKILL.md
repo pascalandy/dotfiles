@@ -14,11 +14,11 @@ When the user provides a path:
 - **File** → `lit parse` with the user's config (see `Preferences`).
 - **Directory** → `lit batch-parse` with the user's config (see `Preferences`).
 
-Do not prompt for format, language, DPI, or confirmation when a path is given. Execute immediately using the language config from `Preferences/` (`config.en.json` by default, `config.fr.json` if French is indicated). Output is markdown (`.md`) by default. Only ask if the path is missing or ambiguous.
+Do not prompt for format, language, DPI, or confirmation when a path is given. Execute immediately using the language config (`config.en.json` by default, `config.fr.json` if French is indicated). Output is plain text (`.txt`) by default. Only ask if the path is missing or ambiguous.
 
-**Output location convention:**
-- Single file `path/to/doc.pdf` → `path/to/doc_LYKRA.md`
-- Directory `path/to/dir/` → `path/to/dir_LYKRA/` (sibling directory, must be passed explicitly to `lit batch-parse`)
+**Output location & naming convention:**
+- Single file `path/to/doc.pdf` → `path/to/doc_LYKRA.txt`
+- Directory `path/to/dir/` → `path/to/dir_LYKRA/` (sibling directory). Files inside get `_LYKRA.txt` suffix via post-processing rename (LiteParse does not apply the suffix natively).
 
 **Required flags for batch:** `lit batch-parse <input-dir> <output-dir> --config <path>` — both directory args are mandatory.
 

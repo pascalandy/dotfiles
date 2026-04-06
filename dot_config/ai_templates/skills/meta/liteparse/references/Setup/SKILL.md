@@ -34,12 +34,9 @@ brew install imagemagick
 apt-get install imagemagick
 ```
 
-## Install user configs
+## User configs
 
-```bash
-mkdir -p ~/.config/liteparse
-cp ../Preferences/config.en.json ../Preferences/config.fr.json ~/.config/liteparse/
-```
+`~/.config/liteparse/config.en.json` and `config.fr.json` are managed by chezmoi (`dot_config/liteparse/` in source). Run `chezmoi apply` to install/update.
 
 ## Supported input formats
 
