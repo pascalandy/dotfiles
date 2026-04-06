@@ -68,11 +68,10 @@ mkdir -p "$tessdata_cache"
 cd "$tessdata_cache"
 
 if [[ -f "$abs_input" ]]; then
-	# Single file mode
+	# Single file mode — keep original extension in output name
 	dir="$(dirname "$abs_input")"
 	base="$(basename "$abs_input")"
-	stem="${base%.*}"
-	output_file="${dir}/${stem}_lykra.txt"
+	output_file="${dir}/${base}_lykra.txt"
 
 	printf 'Parsing file: %s\n' "$abs_input" >&2
 	printf 'Output:       %s\n' "$output_file" >&2
@@ -87,13 +86,79 @@ elif [[ -d "$abs_input" ]]; then
 	printf 'Batch parsing: %s\n' "$clean_input" >&2
 	printf 'Output dir:    %s\n' "$output_dir" >&2
 
+	# Pre-flight: detect stem collisions that would clobber lit's output.
+	# lit batch-parse writes <stem>.txt, stripping extension. Two inputs
+	# sharing the same relative stem (e.g. foo.jpg + foo.png in the same
+	# subdir) will overwrite each other; text from all but one is lost.
+	collision_report="$(
+		find "$clean_input" -type f -print0 |
+			while IFS= read -r -d '' f; do
+				rel="${f#"$clean_input"/}"
+				reldir="$(dirname "$rel")"
+				base="$(basename "$rel")"
+				stem="${base%.*}"
+				printf '%s\t%s\n' "${reldir}/${stem}" "$f"
+			done |
+			sort |
+			awk -F'\t' '
+				{
+					if ($1 == prev_key) {
+						if (!printed_key) {
+							printf "⚠  lykra-parse: stem collision — output will be clobbered\n"
+							printf "   stem: \"%s\"\n", $1
+							printf "   files:\n     - %s\n", prev_file
+							printed_key = 1
+						}
+						printf "     - %s\n", $2
+						found = 1
+					} else {
+						if (printed_key) printf "   only one *.txt output will survive; text from the others will be LOST\n\n"
+						printed_key = 0
+					}
+					prev_key = $1
+					prev_file = $2
+				}
+				END {
+					if (printed_key) printf "   only one *.txt output will survive; text from the others will be LOST\n"
+					exit found ? 0 : 1
+				}
+			'
+	)" || true
+
+	if [[ -n "$collision_report" ]]; then
+		printf '%s\n' "$collision_report" >&2
+	fi
+
 	mkdir -p "$output_dir"
 	lit batch-parse "$clean_input" "$output_dir" --config "$config_file" --recursive
 
-	# Rename outputs to add _lykra.txt suffix
+	# Rename outputs: look up original file by stem, preserve its extension.
 	renamed=0
 	while IFS= read -r -d '' f; do
-		new="${f%.txt}_lykra.txt"
+		rel="${f#"$output_dir"/}"
+		reldir="$(dirname "$rel")"
+		stem="$(basename "$rel" .txt)"
+		# Find the original input file matching this stem in the same relative dir
+		src_dir="${clean_input}/${reldir}"
+		original=""
+		if [[ -d "$src_dir" ]]; then
+			while IFS= read -r -d '' candidate; do
+				cbase="$(basename "$candidate")"
+				cstem="${cbase%.*}"
+				if [[ "$cstem" == "$stem" ]]; then
+					original="$cbase"
+					break
+				fi
+			done < <(find "$src_dir" -maxdepth 1 -type f -print0)
+		fi
+		if [[ -n "$original" ]]; then
+			new="${output_dir}/${reldir}/${original}_lykra.txt"
+		else
+			# Fallback: no matching input found, use stem only
+			new="${output_dir}/${reldir}/${stem}_lykra.txt"
+		fi
+		# Normalize ./ prefix when reldir == .
+		new="${new//\/.\//\/}"
 		mv "$f" "$new"
 		renamed=$((renamed + 1))
 	done < <(find "$output_dir" -type f -name '*.txt' ! -name '*_lykra.txt' -print0)
