@@ -1,7 +1,7 @@
 ---
 title: Create nia-docs skill for centralized documentation browsing
 type: feat
-  - status/stable
+  - status/close
 date: 2026-04-07
 ---
 

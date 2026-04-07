@@ -4,7 +4,7 @@ description: Brief overview of distill meta-skills project
 tags:
   - area/ea
   - kind/project
-  - status/stable
+  - status/close
 date_created: 2026-04-07
 date_updated: 2026-04-07
 ---

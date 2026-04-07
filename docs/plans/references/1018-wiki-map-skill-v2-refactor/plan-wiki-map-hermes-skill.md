@@ -14,7 +14,7 @@ metadata:
         description: Path to the LLM Wiki knowledge base directory
         default: "~/wiki"
         prompt: Wiki directory path
-  - status/stable
+  - status/close
 ---
 
 # Karpathy's LLM Wiki

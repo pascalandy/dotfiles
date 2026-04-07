@@ -4,7 +4,7 @@ description: Pattern for building personal knowledge bases using LLMs
 tags:
   - area/ea
   - kind/research
-  - status/stable
+  - status/close
 date_created: 2026-04-07
 date_updated: 2026-04-07
 ---
@@ -224,7 +224,7 @@ Tags are distributed across 4 independent axes. Each axis answers a distinct que
 
 - `status/draft` — structure laid out, minimal content
 - `status/open` — in progress, partial. Default for new wiki pages.
-- `status/stable` — complete, reliable reference (blog post)
+- `status/close` — complete, reliable reference (blog post)
 - `status/blocked` — waiting on external input or a dependency
 - `status/parked` — intentionally suspended
 - `status/closed` — closed

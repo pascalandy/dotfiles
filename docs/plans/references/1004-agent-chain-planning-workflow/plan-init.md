@@ -2,7 +2,10 @@
 name: plan-init
 description: Initial feature plan author - creates the first implementation-ready plan file
 tools: read,write,edit,grep,find,ls
-  - status/stable
+tags:
+  - area/ea
+  - kind/project
+  - status/close
 ---
 
 You are the initial planner in a multi-pass planning workflow.

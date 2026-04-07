@@ -2,7 +2,7 @@
 name: pseudocode
 description: Expand plan user cases into step-by-step pseudocode describing what the user sees, does, and experiences at each moment. Use when a plan exists but user flows need more detail before implementation, when the user says "pseudocode this", "expand user cases", "walk through the flow", "detail the user journey", or when a plan's user cases section needs to go deeper without writing real code.
 final_output: dot_config/ai_templates/skills/specs/pseudocode
-  - status/stable
+  - status/close
 ---
 
 # Pseudocode — User Journey Detail

@@ -4,7 +4,7 @@ description: Refactor plan for wiki-map skill based on Hermes llm-wiki analysis
 tags:
   - area/ea
   - kind/project
-  - status/stable
+  - status/close
 date_created: 2026-04-07
 date_updated: 2026-04-07
 ---
@@ -137,7 +137,7 @@ topic/reference       # Reference material
 ```
 status/draft     # Structure set, minimal content
 status/open      # Active work, partial — default for new tickets
-status/stable    # Complete, reliable reference
+status/close    # Complete, reliable reference
 status/blocked   # Waiting on external input or dependency
 status/parked    # Intentionally suspended
 status/close     # Resolved, done (replaces "archive")
@@ -589,7 +589,7 @@ Step 6 — Report
 9. Thin/long pages
 
 **Removed:**
-- "3x average updated date" staleness rule (was fragile). Replaced by **absolute threshold: pages with `date_updated` more than 180 days old** AND `status/open` or `status/stable`.
+- "3x average updated date" staleness rule (was fragile). Replaced by **absolute threshold: pages with `date_updated` more than 180 days old** AND `status/open` or `status/close`.
 
 ### 9.9 QuickCheck (Lint)
 

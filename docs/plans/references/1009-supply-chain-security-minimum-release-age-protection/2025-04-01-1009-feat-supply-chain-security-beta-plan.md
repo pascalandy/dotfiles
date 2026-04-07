@@ -1,7 +1,7 @@
 ---
 title: Supply Chain Security - Minimum Release Age Protection
 type: feat
-  - status/stable
+  - status/close
 date: 2025-04-01
 ---
 

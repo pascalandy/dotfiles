@@ -1,7 +1,7 @@
 ---
 title: "feat: Add interactive refresh picker to abstract_gen.py"
 type: feat
-  - status/stable
+  - status/close
 date: 2026-03-24
 origin: docs/features/feat-1005/idea-map-filesystem.md
 ---

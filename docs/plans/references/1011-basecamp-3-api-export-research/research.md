@@ -4,7 +4,7 @@ description: Research on Basecamp 3 API and markdown export architecture
 tags:
   - area/ea
   - kind/research
-  - status/stable
+  - status/close
 date_created: 2026-04-07
 date_updated: 2026-04-07
 ---

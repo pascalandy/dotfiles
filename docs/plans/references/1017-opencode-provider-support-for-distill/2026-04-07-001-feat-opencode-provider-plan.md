@@ -1,7 +1,7 @@
 ---
 title: Add OpenCode CLI Provider Support to distill
 type: feat
-  - status/stable
+  - status/close
 date: 2026-04-07
 ---
 
