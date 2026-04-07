@@ -25,9 +25,10 @@ In headless mode, permission handling determines whether the run completes or ha
 | Fully automatic | `claude -p --permission-mode auto "query"` | Claude decides what to approve |
 | Fully unattended with all tools | `claude -p --dangerously-skip-permissions "query"` | Skips all prompts; highest risk |
 | Enable bypass as an option (not default) | `claude -p --allow-dangerously-skip-permissions "query"` | Makes bypass available without enabling it by default; for sandboxes |
-| Fine-grained tool allowlist | `claude -p --allowedTools "Bash(git *)" "Read" "query"` | Specific commands auto-approved, rest prompt |
+| Fine-grained tool allowlist | `claude -p --allowedTools "Bash(git:*)" "Read" "query"` | Specific commands auto-approved, rest prompt |
 | Restrict available tools | `claude -p --tools "Bash,Read" "query"` | Only listed tools exist in context |
 | Block specific tools | `claude -p --disallowedTools "Edit" "query"` | Named tools removed from context entirely |
+| Disable all skills | `claude -p --disable-slash-commands "query"` | Skip skill resolution for faster startup |
 
 Permission mode choices: `default`, `plan`, `acceptEdits`, `dontAsk`, `auto`, `bypassPermissions`.
 
@@ -85,15 +86,55 @@ Use `--fallback-model` to auto-fallback when the primary model is overloaded (pr
 claude -p --fallback-model sonnet "Review this code"
 ```
 
+### Beta headers
+
+Include beta headers in API requests (API key users only):
+
+```bash
+claude -p --betas beta1 beta2 "query"
+```
+
+### Verbose mode
+
+```bash
+claude -p --verbose "query"
+```
+
 ### Effort level
 
 ```bash
 claude --effort low -p "Quick check"
+claude --effort medium -p "Standard review"
 claude --effort high -p "Deep code review"
 claude --effort max -p "Exhaustive analysis"
 ```
 
 Options: `low`, `medium`, `high`, `max` (`max` requires Opus 4.6).
+
+### Chrome integration
+
+Enable or disable Claude in Chrome integration:
+
+```bash
+claude -p --chrome "query"       # Enable Chrome integration
+claude -p --no-chrome "query"    # Disable Chrome integration
+```
+
+### IDE integration
+
+Automatically connect to IDE on startup if exactly one valid IDE is available:
+
+```bash
+claude -p --ide "Review this code"
+```
+
+### Brief mode
+
+Enable `SendUserMessage` tool for agent-to-user communication:
+
+```bash
+claude -p --brief "query"
+```
 
 ### Agents
 
@@ -137,6 +178,14 @@ claude -p --input-format stream-json --output-format stream-json "query"
 claude -p --input-format stream-json --output-format stream-json --replay-user-messages "query"
 ```
 
+### File resources
+
+Download files at startup by specifying file ID and relative path:
+
+```bash
+claude -p --file file_abc:doc.txt --file file_def:img.png "Analyze these files"
+```
+
 ### Structured output with JSON Schema
 
 ```bash
@@ -151,7 +200,7 @@ claude -p --max-budget-usd 5.00 "Expensive task"
 
 ## Fast startup
 
-Use `--bare` to skip hooks, LSP, plugin sync, attribution, auto-memory, background prefetches, keychain reads, and CLAUDE.md auto-discovery. Claude retains Bash, file read, and file edit tools. Sets `CLAUDE_CODE_SIMPLE=1`. Skills still resolve via `/skill-name`.
+Use `--bare` to skip hooks, LSP, plugin sync, attribution, auto-memory, background prefetches, keychain reads, and CLAUDE.md auto-discovery. Claude retains Bash, file read, and file edit tools. Sets `CLAUDE_CODE_SIMPLE=1`. Skills still resolve via `/skill-name`. Anthropic auth uses strictly `ANTHROPIC_API_KEY` or `apiKeyHelper` via `--settings` (OAuth and keychain are never read).
 
 When using `--bare`, provide context explicitly:
 
@@ -160,7 +209,7 @@ claude --bare -p "Quick question about Python syntax"
 claude --bare --system-prompt "You are a Python expert" --add-dir ../lib -p "Review"
 ```
 
-Available context flags with `--bare`: `--system-prompt`, `--append-system-prompt`, `--add-dir`, `--mcp-config`, `--settings`, `--agents`, `--plugin-dir`.
+Available context flags with `--bare`: `--system-prompt`, `--append-system-prompt`, `--add-dir`, `--mcp-config`, `--settings`, `--agents`, `--plugin-dir`, `--verbose`.
 
 ## System prompt customization
 
@@ -242,6 +291,8 @@ claude --debug "api,mcp" -p "query"
 claude --debug-file /tmp/claude-debug.log -p "query"
 ```
 
+Note: `--mcp-debug` is deprecated; use `--debug mcp` instead.
+
 ## Subcommands
 
 ```bash
@@ -249,6 +300,7 @@ claude agents              # List configured agents
 claude auth status --text  # Check auth status
 claude auto-mode           # Inspect auto mode classifier
 claude doctor              # Health check for auto-updater
+claude install [target]    # Install native build (stable, latest, or specific version)
 claude mcp                 # Configure MCP servers
 claude plugin              # Manage plugins
 claude setup-token         # Set up long-lived auth token
@@ -272,6 +324,13 @@ claude auth status --text
 
 ## Update This Skill
 
-Triggered when the user says something like "skill headless-claude, check if we need to update".
+Triggered when the user wants to refresh the skill against the latest official documentation.
 
-Load `references/UPDATE.md` for the update workflow.
+**Trigger phrases:**
+- "update the headless-claude skill"
+- "about skill headless-claude, UPDATE the skill"
+- "skill headless-claude, check if we need to update"
+- "refresh headless-claude skill"
+- "sync headless-claude with latest docs"
+
+Load `references/UPDATE.md` and follow the `npx nia-docs` workflow to check the official CLI documentation.
