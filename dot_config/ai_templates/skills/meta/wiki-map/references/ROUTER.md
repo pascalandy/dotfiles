@@ -1,6 +1,6 @@
 ---
 name: wiki-map
-description: Build and maintain LLM-written personal wikis -- ingest sources, query across pages, and lint for health. USE WHEN wiki, ingest, ingest source, process source, process article, add to wiki, add source, add article, new source, webclip, batch ingest, create wiki, bootstrap wiki, init wiki, new wiki, delete wiki page, remove wiki page, delete webclip, upgrade wiki, upgrade schema, query wiki, search wiki, ask wiki, synthesize, deep query, what does the wiki say, find in wiki, compare, file answer, save answer, save as wiki page, compound answer, lint wiki, health check, wiki maintenance, find orphans, find contradictions, stale pages, missing cross-references, provenance, orphan webclips, tag order, big pages, log size, index size.
+description: Route wiki-map requests to ingest, query, or lint workflows.
 ---
 
 # Wiki Map

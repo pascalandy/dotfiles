@@ -1,6 +1,6 @@
 ---
 name: ingest
-description: Process sources into an LLM-maintained wiki -- bootstrap new wikis, ingest single sources interactively, batch-process sources atomically, delete pages safely, and upgrade old wikis to the current schema. USE WHEN ingest, process source, add source, add to wiki, webclip, batch ingest, create wiki, bootstrap wiki, init wiki, new wiki, process article, delete page, remove page, upgrade wiki, upgrade schema.
+description: Organize wiki files, ingest sources, delete pages safely, and upgrade old wikis.
 ---
 
 ## Customization

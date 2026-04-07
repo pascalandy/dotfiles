@@ -1,6 +1,6 @@
 ---
 name: lint
-description: Health-check and maintain wiki quality -- find contradictions, orphan pages, stale content, provenance gaps, missing cross-references, and schema drift. USE WHEN lint wiki, health check, wiki maintenance, find orphans, find contradictions, stale pages, missing cross-references, wiki cleanup, wiki audit, check wiki, wiki health, provenance, orphan webclips, topic tags, tag order, long pages, log size, index size.
+description: Health-check the wiki for contradictions, provenance gaps, cross-link issues, and drift.
 ---
 
 ## Customization

@@ -1,6 +1,6 @@
 ---
 name: query
-description: Search the wiki and synthesize answers with citations -- find relevant pages via the index, combine knowledge across pages, and optionally file answers back as new wiki pages. USE WHEN query wiki, search wiki, ask wiki, synthesize, deep query, what does the wiki say, find in wiki, compare, file answer, save answer, save as wiki page, compound answer.
+description: Search the wiki, synthesize answers with citations, and file durable query pages.
 ---
 
 ## Customization
