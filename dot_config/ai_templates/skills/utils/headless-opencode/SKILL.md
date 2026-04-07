@@ -114,3 +114,9 @@ opencode run --attach http://localhost:4096 "Explain async/await"
 - `--continue` resumes with the same agent; use `--fork` to switch agents mid-session
 - When using `--attach`, the server must already be running via `opencode serve`
 - For CI/CD automation, prefer `--format json` for reliable output parsing
+
+## Update This Skill
+
+Triggered when the user says something like "skill headless-opencode, check if we need to update".
+
+Load `references/UPDATE.md` for the update workflow.
