@@ -269,3 +269,9 @@ claude --help
 claude --version
 claude auth status --text
 ```
+
+## Update This Skill
+
+Triggered when the user says something like "skill headless-claude, check if we need to update".
+
+Load `references/UPDATE.md` for the update workflow.
