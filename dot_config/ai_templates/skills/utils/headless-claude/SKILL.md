@@ -198,6 +198,12 @@ claude -p --json-schema '{"type":"object","properties":{"summary":{"type":"strin
 claude -p --max-budget-usd 5.00 "Expensive task"
 ```
 
+### Turn limits
+
+```bash
+claude -p --max-turns 3 "Limited interaction"
+```
+
 ## Fast startup
 
 Use `--bare` to skip hooks, LSP, plugin sync, attribution, auto-memory, background prefetches, keychain reads, and CLAUDE.md auto-discovery. Claude retains Bash, file read, and file edit tools. Sets `CLAUDE_CODE_SIMPLE=1`. Skills still resolve via `/skill-name`. Anthropic auth uses strictly `ANTHROPIC_API_KEY` or `apiKeyHelper` via `--settings` (OAuth and keychain are never read).
@@ -213,15 +219,16 @@ Available context flags with `--bare`: `--system-prompt`, `--append-system-promp
 
 ## System prompt customization
 
-```bash
-# Replace entire system prompt
-claude --system-prompt "You are a Python expert" -p "query"
+Claude Code provides four flags for customizing the system prompt. All four work in both interactive and non-interactive modes.
 
-# Append to default prompt
-claude --append-system-prompt "Always respond in JSON" -p "query"
-```
+| Flag | Behavior | Example |
+| --- | --- | --- |
+| `--system-prompt` | Replaces the entire default prompt | `claude --system-prompt "You are a Python expert"` |
+| `--system-prompt-file` | Replaces with file contents | `claude --system-prompt-file ./prompts/review.txt` |
+| `--append-system-prompt` | Appends to the default prompt | `claude --append-system-prompt "Always use TypeScript"` |
+| `--append-system-prompt-file` | Appends file contents to the default prompt | `claude --append-system-prompt-file ./style-rules.txt` |
 
-`--system-prompt` replaces the default. `--append-system-prompt` adds to it. Both accept inline strings.
+`--system-prompt` and `--system-prompt-file` are mutually exclusive. The append flags can be combined with either replacement flag. For most use cases, use an append flag. Appending preserves Claude Code's built-in capabilities while adding your requirements. Use a replacement flag only when you need complete control over the system prompt.
 
 ## Session management
 
@@ -303,6 +310,7 @@ claude doctor              # Health check for auto-updater
 claude install [target]    # Install native build (stable, latest, or specific version)
 claude mcp                 # Configure MCP servers
 claude plugin              # Manage plugins
+claude remote-control      # Start a Remote Control server
 claude setup-token         # Set up long-lived auth token
 claude update              # Check for and install updates
 ```
@@ -322,9 +330,82 @@ claude --version
 claude auth status --text
 ```
 
-## Update This Skill
+## Remote Control and web sessions
 
-Triggered when the user wants to refresh the skill against the latest official documentation.
+Start a Remote Control server to control Claude Code from Claude.ai or the Claude app:
+
+```bash
+# Start remote control server (runs in server mode, no local interactive session)
+claude remote-control --name "My Project"
+
+# Start interactive session with Remote Control enabled
+claude --remote-control "My Project"
+claude --rc "My Project"  # Short form
+
+# Set prefix for auto-generated session names
+claude remote-control --remote-control-session-name-prefix dev-box
+
+# Create a new web session on claude.ai
+claude --remote "Fix the login bug"
+
+# Resume a web session in your local terminal
+claude --teleport
+```
+
+## Hooks and initialization
+
+```bash
+# Run initialization hooks and start interactive mode
+claude --init
+
+# Run initialization hooks and exit (no interactive session)
+claude --init-only
+
+# Run maintenance hooks and start interactive mode
+claude --maintenance
+
+# Include all hook lifecycle events in output stream (requires --output-format stream-json)
+claude -p --output-format stream-json --include-hook-events "query"
+```
+
+## Additional flags
+
+### Plugin directory
+
+```bash
+claude --plugin-dir ./my-plugins -p "query"
+```
+
+### Auto mode
+
+```bash
+# Unlock auto mode in the Shift+Tab cycle (requires Team/Enterprise/API plan)
+claude --enable-auto-mode
+```
+
+### Channels (Research preview)
+
+```bash
+# Listen for channel notifications from MCP servers
+claude --channels plugin:my-notifier@my-marketplace -p "query"
+
+# Enable development channels not on the approved allowlist
+claude --dangerously-load-development-channels server:webhook -p "query"
+```
+
+### Teammate display mode
+
+```bash
+claude --teammate-mode in-process -p "query"  # Options: auto, in-process, tmux
+```
+
+### Permission prompt tool
+
+```bash
+claude -p --permission-prompt-tool mcp_auth_tool "query"
+```
+
+## Update This Skill
 
 **Trigger phrases:**
 - "update the headless-claude skill"
