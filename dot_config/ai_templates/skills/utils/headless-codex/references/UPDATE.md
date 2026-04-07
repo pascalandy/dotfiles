@@ -2,6 +2,7 @@
 
 Triggered when the user says something like "skill headless-codex, check if we need to update".
 
+**Important:** This updates the skill documentation from official docs — NOT the CLI tool itself. To update the CLI, use `codex update` or your package manager.
 
 To keep this skill current with the latest documentation, check the official docs using `npx nia-docs`.
 
