@@ -1,43 +1,20 @@
 # Update This Skill
 
-Triggered when the user says something like "skill headless-claude, check if we need to update".
+## Intro
 
-**Important:** This updates the skill documentation from official docs — NOT the CLI tool itself. To update the CLI, use `claude update` or your package manager.
+Triggered when the user says something like "skill headless-opencode, check if we need to update".
+
+**Important:** This updates the skill documentation from official docs — NOT the CLI tool itself. To update the CLI, use your package manager.
 
 To keep this skill current with the latest documentation, check the official docs using `npx nia-docs`.
 
 ## Configuration
 
-Set the documentation URL (source of truth):
-
 ```bash
 DOC_URL="https://code.claude.com/docs/en/cli-reference"
 ```
 
-## Quick Reference
-
-```bash
-# Search for a topic
-npx nia-docs "$DOC_URL" -c "grep -rl 'topic' ."
-
-# Read a specific page
-npx nia-docs "$DOC_URL" -c "cat page-name.md"
-
-# Find all markdown files
-npx nia-docs "$DOC_URL" -c "find . -name '*.md'"
-
-# List top-level structure
-npx nia-docs "$DOC_URL" -c "tree -L 1"
-
-# Browse interactively
-npx nia-docs "$DOC_URL"
-```
-
-## Usage Notes
-
-- The shell starts in the docs root
-- Use `.` for relative paths
-- All standard Unix tools work: `grep`, `find`, `cat`, `tree`, `ls`, `head`, `tail`, `wc`
+Then, load skill `nia-docs` for command patterns and usage guidance.
 
 ## What to Check For
 
@@ -51,8 +28,9 @@ When updating this skill, verify:
 
 ## Update Checklist
 
-- [ ] Run `npx nia-docs "$DOC_URL" -c "cat ./cli-reference.md"` (or main reference file) and compare flags/options
+- [ ] Run `npx nia-docs "$DOC_URL" -c "cat ./cli.md"` (or main reference file) and compare flags/options
 - [ ] Verify all referenced items match the current implementation
+- [ ] run cli --help and check for any gaps
 - [ ] Check for new examples or use cases in the docs
 - [ ] Update the Gotchas section if new pitfalls are discovered
 - [ ] Test any new commands before documenting them
