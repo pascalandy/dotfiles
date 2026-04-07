@@ -1,6 +1,6 @@
 # distill
 
-Distill a local text file through a named prompt using Claude or Codex.
+Distill a local text file through a named prompt using Claude, Codex, or OpenCode.
 
 ## Synopsis
 
@@ -32,15 +32,18 @@ Distill prompt to apply. STEM matches a folder in `meta/distill-prompt/reference
 
 ### Provider & model
 
-**`--provider {claude,codex}`** - default: `claude`
+**`--provider {claude,codex,opencode}`** - default: `claude`
 LLM backend to use.
 
 **`--model MODEL`**
 Specific model name. Defaults depend on provider:
 - claude -> `claude-opus-4-6`
 - codex -> `gpt-5.4`
+- opencode -> `1-kimi`
 
 Available Claude models: `claude-opus-4-6`, `claude-sonnet-4-6`
+
+Available OpenCode agents: `1-kimi`, `2-opus`, `3-gpt`, `4-sonnet`, `worker`, `worker1`, `worker2`, `worker3`, `glm`, `gemini`, `gpthigh`, `gptxhigh`, `gptmini`, `flash`
 
 Use `--list-models` to see all supported values.
 
@@ -55,6 +58,8 @@ Reasoning effort. Canonical vocabulary; the script translates per provider:
 | `max` | `max` | `xhigh` |
 
 **Note:** `claude-sonnet-4-6` defaults to `low` effort for faster, more economical results. Opus defaults to `medium`.
+
+**OpenCode note:** `--effort` is not supported with `--provider opencode`. OpenCode reasoning behavior is defined by the selected curated agent.
 
 ### Output
 
@@ -94,6 +99,7 @@ Show program version and exit.
 | Provider | `claude` |
 | Model (claude) | `claude-opus-4-6` |
 | Model (codex) | `gpt-5.4` |
+| Model (opencode) | `1-kimi` |
 | Effort | `medium` (or `low` for Sonnet models) |
 | Output dir | parent directory of the input file |
 | Run folder name | `{slug}_{timestamp}_{prompt}/` |
@@ -142,6 +148,11 @@ distill --prompt short_summary ~/notes.txt
 distill --provider codex --model gpt-5.4 --effort max ./meeting.md
 ```
 
+**Use OpenCode with the default curated agent:**
+```bash
+distill --provider opencode ~/Documents/article.md
+```
+
 **See what prompts exist:**
 ```bash
 distill --list-prompts
@@ -155,6 +166,18 @@ distill --list-models --provider claude
 **Verify flags without running:**
 ```bash
 distill --dry-run --prompt summary_with_quotes ~/Documents/article.md
+```
+
+## E2E tests
+
+**opencode**
+```bash
+uv run ~/.local/share/chezmoi/dot_config/ai_templates/skills/meta/distill/scripts/distill.py --provider opencode --prompt short_summary ~/Documents/_my_docs/62_distill_exports/raw_transcript.txt
+```
+
+**claude**
+```bash
+uv run ~/.local/share/chezmoi/dot_config/ai_templates/skills/meta/distill/scripts/distill.py --provider claude --prompt short_summary ~/Documents/_my_docs/62_distill_exports/raw_transcript.txt
 ```
 
 ## See also

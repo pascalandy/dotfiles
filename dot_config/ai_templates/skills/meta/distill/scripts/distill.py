@@ -5,7 +5,7 @@
 #     "tiktoken",
 # ]
 # ///
-"""Distill a local text file through a named prompt using Claude or Codex.
+"""Distill a local text file through a named prompt using Claude, Codex, or OpenCode.
 
 Reads an input file and a prompt file, runs the prompt against the selected
 LLM provider CLI, and writes the distilled output to a timestamped folder
@@ -48,7 +48,12 @@ PROMPTS_DIR = SKILL_DIR.parent / "distill-prompt" / "references"
 
 PROVIDER_CLAUDE = "claude"
 PROVIDER_CODEX = "codex"
-VALID_PROVIDERS: tuple[str, ...] = (PROVIDER_CLAUDE, PROVIDER_CODEX)
+PROVIDER_OPENCODE = "opencode"
+VALID_PROVIDERS: tuple[str, ...] = (
+    PROVIDER_CLAUDE,
+    PROVIDER_CODEX,
+    PROVIDER_OPENCODE,
+)
 DEFAULT_PROVIDER = PROVIDER_CLAUDE
 
 VALID_CLAUDE_MODELS: tuple[str, ...] = (
@@ -62,6 +67,24 @@ SONNET_MODELS: tuple[str, ...] = ("claude-sonnet-4-6",)
 
 VALID_CODEX_MODELS: tuple[str, ...] = ("gpt-5.4",)
 DEFAULT_CODEX_MODEL = "gpt-5.4"
+
+VALID_OPENCODE_MODELS: tuple[str, ...] = (
+    "1-kimi",
+    "2-opus",
+    "3-gpt",
+    "4-sonnet",
+    "worker",
+    "worker1",
+    "worker2",
+    "worker3",
+    "glm",
+    "gemini",
+    "gpthigh",
+    "gptxhigh",
+    "gptmini",
+    "flash",
+)
+DEFAULT_OPENCODE_MODEL = "1-kimi"
 
 CANONICAL_EFFORTS: tuple[str, ...] = ("low", "medium", "high", "max")
 DEFAULT_EFFORT = "medium"
@@ -87,6 +110,7 @@ EFFORT_ETL: dict[str, dict[str, str]] = {
 CONTEXT_LIMITS: dict[str, int] = {
     PROVIDER_CLAUDE: 600_000,
     PROVIDER_CODEX: 450_000,
+    PROVIDER_OPENCODE: 250_000,
 }
 
 LLM_CLI_TIMEOUT_SECONDS = 600  # 10 minutes
@@ -352,7 +376,7 @@ def build_parser() -> argparse.ArgumentParser:
         metavar="MODEL",
         help=(
             f"Model name. Defaults: claude={DEFAULT_CLAUDE_MODEL}, "
-            f"codex={DEFAULT_CODEX_MODEL}."
+            f"codex={DEFAULT_CODEX_MODEL}, opencode={DEFAULT_OPENCODE_MODEL}."
         ),
     )
     parser.add_argument(
@@ -405,6 +429,10 @@ def build_parser() -> argparse.ArgumentParser:
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = build_parser()
     args = parser.parse_args(argv)
+    provider = args.provider or DEFAULT_PROVIDER
+
+    if provider == PROVIDER_OPENCODE and args.effort is not None:
+        parser.error("--effort is not supported with --provider opencode")
 
     # Validate: if not using a discovery command, input is required
     if not args.list_models and not args.list_prompts:
@@ -481,14 +509,26 @@ def resolve_model(provider: str, raw_model: str | None) -> str:
             )
         return model
 
-    # codex
-    model = (raw_model or DEFAULT_CODEX_MODEL).strip()
-    if model not in VALID_CODEX_MODELS:
+    if provider == PROVIDER_CODEX:
+        model = (raw_model or DEFAULT_CODEX_MODEL).strip()
+        if model not in VALID_CODEX_MODELS:
+            raise DistillError(
+                (
+                    f"Invalid codex model: {model}. "
+                    f"Valid: {', '.join(VALID_CODEX_MODELS)}. "
+                    f"Run with --list-models --provider codex to see the list."
+                ),
+                exit_code=EXIT_USAGE,
+            )
+        return model
+
+    model = (raw_model or DEFAULT_OPENCODE_MODEL).strip()
+    if model not in VALID_OPENCODE_MODELS:
         raise DistillError(
             (
-                f"Invalid codex model: {model}. "
-                f"Valid: {', '.join(VALID_CODEX_MODELS)}. "
-                f"Run with --list-models --provider codex to see the list."
+                f"Invalid opencode model: {model}. "
+                f"Valid: {', '.join(VALID_OPENCODE_MODELS)}. "
+                f"Run with --list-models --provider opencode to see the list."
             ),
             exit_code=EXIT_USAGE,
         )
@@ -598,15 +638,19 @@ def build_plan(args: argparse.Namespace) -> ResolvedPlan:
 
     model = resolve_model(provider, args.model)
 
-    # Determine effort: use explicit value, or default based on model
-    if args.effort is not None:
-        effort_canonical: str = args.effort
+    # Determine effort: use explicit value, or default based on model.
+    if provider == PROVIDER_OPENCODE:
+        effort_canonical = "agent-defined"
+        effort_vendor = "agent-defined"
+    elif args.effort is not None:
+        effort_canonical = args.effort
+        effort_vendor = translate_effort(provider, effort_canonical)
     elif model in SONNET_MODELS:
         effort_canonical = "low"
+        effort_vendor = translate_effort(provider, effort_canonical)
     else:
         effort_canonical = DEFAULT_EFFORT
-
-    effort_vendor = translate_effort(provider, effort_canonical)
+        effort_vendor = translate_effort(provider, effort_canonical)
 
     input_tokens = check_context_size(provider, input_text, prompt_text)
 
@@ -652,6 +696,7 @@ def build_plan(args: argparse.Namespace) -> ResolvedPlan:
 def print_list_models(provider_filter: str | None) -> None:
     show_claude = provider_filter in (None, PROVIDER_CLAUDE)
     show_codex = provider_filter in (None, PROVIDER_CODEX)
+    show_opencode = provider_filter in (None, PROVIDER_OPENCODE)
 
     if show_claude:
         console.print("[bold]Claude models:[/bold]")
@@ -664,6 +709,13 @@ def print_list_models(provider_filter: str | None) -> None:
         console.print("[bold]Codex models:[/bold]")
         for model in VALID_CODEX_MODELS:
             suffix = "  (default)" if model == DEFAULT_CODEX_MODEL else ""
+            console.print(f"  {model}{suffix}")
+        console.print()
+
+    if show_opencode:
+        console.print("[bold]OpenCode agents:[/bold]")
+        for model in VALID_OPENCODE_MODELS:
+            suffix = "  (default)" if model == DEFAULT_OPENCODE_MODEL else ""
             console.print(f"  {model}{suffix}")
         console.print()
 
@@ -685,6 +737,10 @@ def print_list_models(provider_filter: str | None) -> None:
         console.print("  canonical  codex")
         for level in CANONICAL_EFFORTS:
             console.print(f"  {level:<9}  {EFFORT_ETL[PROVIDER_CODEX][level]}")
+        return
+
+    if provider_filter == PROVIDER_OPENCODE:
+        console.print("  OpenCode uses agent-defined reasoning presets.")
         return
 
     console.print("  canonical  claude   codex")
@@ -890,10 +946,95 @@ def run_codex(
     }
 
 
+def run_opencode(
+    plan: ResolvedPlan,
+    output_file: Path,
+) -> dict[str, int | str]:
+    """Invoke the opencode CLI and write the distilled output to ``output_file``."""
+    user_message = (
+        f"{plan.prompt_text.strip()}\n\n{USER_MESSAGE_OVERHEAD}{plan.input_text}"
+    )
+
+    def _run() -> subprocess.CompletedProcess[str]:
+        return subprocess.run(
+            [
+                "opencode",
+                "run",
+                "--agent",
+                plan.model,
+                "--format",
+                "json",
+                "-",
+            ],
+            input=user_message,
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=LLM_CLI_TIMEOUT_SECONDS,
+        )
+
+    try:
+        result = retry_request(_run, max_attempts=LLM_MAX_RETRIES, quiet=plan.quiet)
+    except subprocess.TimeoutExpired as exc:
+        raise LLMCallError(
+            f"opencode CLI timed out after {LLM_CLI_TIMEOUT_SECONDS}s. "
+            f"Input may be too large or the agent overloaded."
+        ) from exc
+    except subprocess.CalledProcessError as exc:
+        details = exc.stderr or exc.stdout or str(exc)
+        raise LLMCallError(f"opencode CLI failed: {details}") from exc
+
+    chunks: list[str] = []
+    total_tokens = 0
+    for line in result.stdout.splitlines():
+        stripped = line.strip()
+        if not stripped:
+            continue
+        if stripped[0] not in "[{":
+            continue
+
+        try:
+            event = json.loads(stripped)
+        except json.JSONDecodeError as exc:
+            raise LLMCallError(f"Failed to parse opencode JSON event: {exc}") from exc
+
+        event_type = event.get("type")
+        if event_type == "text":
+            part = event.get("part", {})
+            text = part.get("text") if isinstance(part, dict) else None
+            if isinstance(text, str) and text:
+                chunks.append(text)
+            continue
+
+        if event_type == "step_finish":
+            part = event.get("part", {})
+            tokens = part.get("tokens") if isinstance(part, dict) else None
+            if isinstance(tokens, dict):
+                total = tokens.get("total")
+                if isinstance(total, int):
+                    total_tokens = total
+
+    content = "\n".join(chunk.strip() for chunk in chunks if chunk.strip()).strip()
+    if not content:
+        raise LLMCallError("opencode returned empty output.")
+
+    output_file.write_text(content + "\n", encoding="utf-8")
+
+    return {
+        "provider": PROVIDER_OPENCODE,
+        "model": plan.model,
+        "effort_canonical": plan.effort_canonical,
+        "effort_vendor": plan.effort_vendor,
+        "total_tokens": total_tokens,
+    }
+
+
 def run_llm(plan: ResolvedPlan, output_file: Path) -> dict[str, int | str]:
     if plan.provider == PROVIDER_CLAUDE:
         return run_claude(plan, output_file)
-    return run_codex(plan, output_file)
+    if plan.provider == PROVIDER_CODEX:
+        return run_codex(plan, output_file)
+    return run_opencode(plan, output_file)
 
 
 # -------------------------------------------------------------------------
@@ -932,6 +1073,10 @@ def write_meta(
             lines.append(f"total_tokens:    {total_tokens:,}")
         if isinstance(output_tokens, int):
             lines.append(f"output_tokens:   {output_tokens:,}")
+    elif plan.provider == PROVIDER_OPENCODE:
+        total_tokens = usage.get("total_tokens")
+        if isinstance(total_tokens, int) and total_tokens > 0:
+            lines.append(f"total_tokens:    {total_tokens:,}")
 
     lines.append(f"distill_version: {__version__}")
 

@@ -10,9 +10,8 @@ import pytest
 
 SCRIPT_PATH = Path(__file__).parent.parent / "distill.py"
 PROMPTS_DIR = SCRIPT_PATH.parent.parent.parent / "distill-prompt" / "references"
-E2E_INPUT_PATH = Path(
-    "/Users/andy16/Documents/_my_docs/62_distill_exports/raw_transcript.txt"
-)
+E2E_INPUT_DIR = Path("/Users/andy16/Documents/_my_docs/62_distill_exports")
+E2E_INPUT_PATH = E2E_INPUT_DIR / "raw_transcript.txt"
 
 
 def make_executable(path: Path, content: str) -> None:
@@ -73,6 +72,79 @@ print(json.dumps({{
     )
 
 
+def make_fake_opencode(bin_dir: Path) -> None:
+    make_executable(
+        bin_dir / "opencode",
+        """#!/usr/bin/env python3
+import json
+import sys
+
+args = sys.argv[1:]
+
+if args[:1] == ["run"]:
+    payload = sys.stdin.read()
+    if "hello from opencode" not in payload:
+        print("stdin payload was not passed to opencode", file=sys.stderr)
+        raise SystemExit(4)
+
+    if "--agent" not in args:
+        print("missing --agent", file=sys.stderr)
+        raise SystemExit(2)
+
+    if "--format" not in args:
+        print("missing --format", file=sys.stderr)
+        raise SystemExit(2)
+
+    print("OK: 0 plugin file(s)")
+    print(json.dumps({"type": "step_start"}))
+    print(json.dumps({"type": "text", "part": {"text": "## OpenCode output"}}))
+    print(json.dumps({"type": "step_finish"}))
+    raise SystemExit(0)
+
+print("unsupported command", file=sys.stderr)
+raise SystemExit(9)
+""",
+    )
+
+
+def make_asserting_fake_opencode(bin_dir: Path, expected_snippet: str) -> None:
+    make_executable(
+        bin_dir / "opencode",
+        f"""#!/usr/bin/env python3
+import json
+import sys
+
+args = sys.argv[1:]
+
+if args[:1] != ["run"]:
+    print("unsupported command", file=sys.stderr)
+    raise SystemExit(9)
+
+if "--agent" not in args:
+    print("missing --agent", file=sys.stderr)
+    raise SystemExit(2)
+
+if "--format" not in args:
+    print("missing --format", file=sys.stderr)
+    raise SystemExit(2)
+
+payload = sys.stdin.read()
+if "Quick high-level summary" not in payload:
+    print("short-summary prompt was not passed to opencode", file=sys.stderr)
+    raise SystemExit(3)
+
+if {expected_snippet!r} not in payload:
+    print("input transcript content was not passed to opencode", file=sys.stderr)
+    raise SystemExit(4)
+
+print("OK: 0 plugin file(s)")
+print(json.dumps({{"type": "step_start"}}))
+print(json.dumps({{"type": "text", "part": {{"text": "## VaultWarden OpenCode Summary\\n\\n### Overview\\n\\nA quick integration summary."}}}}))
+print(json.dumps({{"type": "step_finish", "part": {{"tokens": {{"total": 51}}}}}}))
+""",
+    )
+
+
 def run_script(*args: str, env: dict[str, str] | None = None) -> tuple[str, str, int]:
     result = subprocess.run(
         ["uv", "run", str(SCRIPT_PATH), *args],
@@ -88,6 +160,16 @@ def env_with_fake_claude(tmp_path: Path) -> dict[str, str]:
     bin_dir = tmp_path / "bin"
     bin_dir.mkdir()
     make_fake_claude(bin_dir)
+
+    env = os.environ.copy()
+    env["PATH"] = f"{bin_dir}:{env['PATH']}"
+    return env
+
+
+def env_with_fake_opencode(tmp_path: Path) -> dict[str, str]:
+    bin_dir = tmp_path / "bin"
+    bin_dir.mkdir()
+    make_fake_opencode(bin_dir)
 
     env = os.environ.copy()
     env["PATH"] = f"{bin_dir}:{env['PATH']}"
@@ -174,6 +256,50 @@ class TestPromptDrivenCli:
         ) == input_file.read_text(encoding="utf-8")
 
 
+class TestOpenCodeProvider:
+    def test_opencode_real_run_writes_text_events(self, tmp_path: Path) -> None:
+        env = env_with_fake_opencode(tmp_path)
+        input_file = tmp_path / "article.md"
+        input_file.write_text("hello from opencode\n", encoding="utf-8")
+
+        _stdout, stderr, code = run_script(
+            "--provider",
+            "opencode",
+            str(input_file),
+            "--no-open",
+            env=env,
+        )
+
+        assert code == 0, stderr
+        run_dirs = [
+            path
+            for path in tmp_path.iterdir()
+            if path.is_dir() and path.name.startswith("article_")
+        ]
+        assert len(run_dirs) == 1
+        assert (run_dirs[0] / "follow_along_note.md").read_text(encoding="utf-8") == (
+            "## OpenCode output\n"
+        )
+
+    def test_opencode_rejects_effort_flag(self, tmp_path: Path) -> None:
+        env = env_with_fake_opencode(tmp_path)
+        input_file = tmp_path / "article.md"
+        input_file.write_text("hello from opencode\n", encoding="utf-8")
+
+        _stdout, stderr, code = run_script(
+            "--provider",
+            "opencode",
+            "--effort",
+            "high",
+            str(input_file),
+            "--dry-run",
+            env=env,
+        )
+
+        assert code == 2
+        assert "--effort is not supported with --provider opencode" in stderr
+
+
 @pytest.mark.skipif(not E2E_INPUT_PATH.exists(), reason="E2E input file is unavailable")
 class TestEndToEndWithRealTranscript:
     def test_short_summary_prompt_flows_from_library_into_provider(
@@ -212,5 +338,46 @@ class TestEndToEndWithRealTranscript:
         output_file = run_dir / "short_summary.md"
         assert output_file.exists()
         assert "VaultWarden Summary" in output_file.read_text(encoding="utf-8")
+        copied_input = run_dir / E2E_INPUT_PATH.name
+        assert copied_input.exists()
+
+    def test_short_summary_prompt_flows_from_library_into_opencode(
+        self, tmp_path: Path
+    ) -> None:
+        bin_dir = tmp_path / "bin"
+        bin_dir.mkdir()
+        make_asserting_fake_opencode(
+            bin_dir,
+            expected_snippet="Most people now think password managers are just another subscription",
+        )
+
+        env = os.environ.copy()
+        env["PATH"] = f"{bin_dir}:{env['PATH']}"
+
+        stdout, stderr, code = run_script(
+            "--provider",
+            "opencode",
+            "--prompt",
+            "short_summary",
+            str(E2E_INPUT_PATH),
+            "--output-dir",
+            str(tmp_path),
+            "--no-open",
+            env=env,
+        )
+
+        assert code == 0, stderr
+
+        run_dirs = [
+            path
+            for path in tmp_path.iterdir()
+            if path.is_dir() and path.name.startswith("raw_transcript_")
+        ]
+        assert len(run_dirs) == 1
+
+        run_dir = run_dirs[0]
+        output_file = run_dir / "short_summary.md"
+        assert output_file.exists()
+        assert "VaultWarden OpenCode Summary" in output_file.read_text(encoding="utf-8")
         copied_input = run_dir / E2E_INPUT_PATH.name
         assert copied_input.exists()
