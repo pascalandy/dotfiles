@@ -1,4 +1,7 @@
-# Updating This Skill
+# Update This Skill
+
+Triggered when the user says something like "skill headless-opencode, check if we need to update".
+
 
 To keep this skill current with the latest documentation, check the official docs using `npx nia-docs`.
 
