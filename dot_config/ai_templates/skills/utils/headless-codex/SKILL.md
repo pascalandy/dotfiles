@@ -6,76 +6,167 @@ description: |
 
 # Headless Codex
 
-## Scope
+Run OpenAI Codex CLI in non-interactive headless mode using `codex exec`.
 
-Run the modern OpenAI Codex CLI in headless mode with `codex exec`.
-If behavior differs across versions, trust the installed CLI help output over old blog posts or legacy TypeScript-era examples.
-
-## Essential command patterns
-
-### Models and reasoning
-
-Prefer the configured Codex default unless the user asks for a specific model.
+## Quick Start
 
 ```bash
-codex -m gpt-5.4 -c 'model_reasoning_effort="xhigh"' -a never exec -s read-only "Tell me what I should know about this repo within two or three sentences."
+codex exec "Your prompt here"
+codex exec -m gpt-5.4 "Your prompt"
 ```
 
-reasoning-effort values include: - `none`, `minimal`, `low`, `medium`, `high`, `xhigh`
+## Model Selection
 
-### resume from the most recent session
+**Override the default model:**
+```bash
+codex exec -m gpt-5.4 "Your prompt"
+codex exec -m gpt-5-codex "Your prompt"
+```
+
+**Use local OSS model (requires Ollama):**
+```bash
+codex exec --oss "Your prompt"
+```
+
+## Reasoning Effort
+
+Control the model's reasoning depth with inline config:
 
 ```bash
-codex -m gpt-5.4 -c 'model_reasoning_effort="xhigh"' -a never exec -s read-only resume --last "Now tell me in 3 paragraph"
+codex exec -c 'model_reasoning_effort="high"' "Analyze this codebase"
+codex exec -c 'model_reasoning_effort="xhigh"' "Deep architectural review"
 ```
 
-### Pipe
+Reasoning effort values: `none`, `minimal`, `low`, `medium`, `high`, `xhigh`
 
+## Session Management
+
+**Resume the most recent session:**
 ```bash
-cat prompt.md | codex -m gpt-5.4 -c 'model_reasoning_effort="xhigh"' -a never exec -s read-only -
+codex exec resume --last "Continue where we left off"
 ```
 
-## Other options
+**Resume a specific session:**
+```bash
+codex exec resume SESSION_ID "Follow-up question"
+```
 
-### Approvals
+**Resume from any directory:**
+```bash
+codex exec resume --last --all "Continue from anywhere"
+```
 
-Be explicit about approvals and sandboxing.
+**Ephemeral run (no session persistence):**
+```bash
+codex exec --ephemeral "One-off task"
+```
 
-| Goal | Recommended shape | Why |
-| --- | --- | --- |
-| Read-only analysis (default) | `codex -a never exec -s read-only ...` | Safe default for audits, summaries, reviews |
-| Workspace edits | `codex -a never exec -s workspace-write ...` | Lets Codex modify files without hanging on approval prompts |
-| Low-friction local run with a human nearby | `codex exec --full-auto ...` | Shortcut for `on-request` + `workspace-write` |
-| Externally sandboxed runner only | `codex exec --dangerously-bypass-approvals-and-sandbox ...` | Highest risk; only with explicit user permission |
+## File Attachments & Images
 
-Important:
+**Attach images:**
+```bash
+codex exec -i screenshot.png "Explain this UI"
+codex exec -i image1.png,image2.png "Compare these images"
+```
 
-- For truly unattended headless execution, prefer `-a never`.
-- `--full-auto` is not the same as fully unattended execution; it maps to `--ask-for-approval on-request` plus `--sandbox workspace-write`.
-- Ask before using `danger-full-access` or `--dangerously-bypass-approvals-and-sandbox`.
+**Set working directory:**
+```bash
+codex exec -C /path/to/project "Analyze this repo"
+```
 
-### Output handling
+## Output Handling
 
-By default, `codex exec` prints the final agent message to stdout.
-Progress and event-style diagnostics may appear separately, so redirect carefully.
+**JSON output for programmatic use:**
+```bash
+codex exec --json "List all functions"
+```
 
-Guidelines:
+**Save final message to file:**
+```bash
+codex exec -o output.txt "Generate a summary"
+```
 
-- Keep stderr visible while debugging auth, sandbox, or startup problems.
-- If you need clean machine-readable output, prefer `--json` and/or `-o` instead of blindly suppressing stderr.
-- If the user only wants a concise summary, run Codex, then summarize the result in plain language.
-- When relevant, include changed files, tests run, warnings, and the session ID in your summary.
+**Disable colors:**
+```bash
+codex exec --color never "Plain text output"
+```
 
-### Failure handling
+## Approvals & Sandboxing
 
-- On non-zero exit, report the exact failure and ask before retrying with broader access.
-- If a run stalls because Codex needs approvals, rerun with explicit `-a never` and the smallest sandbox that still fits the task.
-- If resume warns about a model mismatch, keep the existing model unless the user wants to switch.
-- Ask before escalating from `read-only` to `workspace-write`, and again before any full-access mode.
+Be explicit about approvals and sandboxing for unattended execution.
 
-### Verification shortcuts
+| Goal | Recommended Command | Why |
+|------|---------------------|-----|
+| Read-only analysis (safest) | `codex exec -a never -s read-only "Review this code"` | Safe default for audits, summaries, reviews |
+| Workspace edits (automated) | `codex exec -a never -s workspace-write "Refactor this file"` | Lets Codex modify files without hanging on approval prompts |
+| Low-friction local work | `codex exec --full-auto "Quick task"` | Shortcut for `-a on-request -s workspace-write` |
+| Externally sandboxed only | `codex exec --dangerously-bypass-approvals-and-sandbox "Risky task"` | Highest risk; only with explicit user permission |
 
-If you need to confirm current syntax:
+**Important:**
+- For truly unattended headless execution, prefer `-a never`
+- `--full-auto` is NOT the same as fully unattended; it maps to `--ask-for-approval on-request` plus `--sandbox workspace-write`
+- Ask before using `--dangerously-bypass-approvals-and-sandbox` or `danger-full-access`
+
+## Piping Input
+
+**Pipe a prompt from stdin:**
+```bash
+cat prompt.md | codex exec -a never -s read-only -
+```
+
+**Pipe with model and reasoning:**
+```bash
+cat prompt.md | codex exec -m gpt-5.4 -c 'model_reasoning_effort="xhigh"' -a never -s read-only -
+```
+
+## Flags Reference
+
+| Flag | Short | Description |
+|------|-------|-------------|
+| `--model` | `-m` | Model to use (e.g., `gpt-5.4`, `gpt-5-codex`) |
+| `--ask-for-approval` | `-a` | Approval mode: `never`, `on-request`, `untrusted` |
+| `--sandbox` | `-s` | Sandbox policy: `read-only`, `workspace-write`, `danger-full-access` |
+| `--full-auto` | | Shortcut for `-a on-request -s workspace-write` |
+| `--config` | `-c` | Inline config override (e.g., `-c 'model_reasoning_effort="high"'`) |
+| `--json` | | Output newline-delimited JSON events |
+| `--output-last-message` | `-o` | Write final message to file |
+| `--color` | | Color mode: `always`, `never`, `auto` |
+| `--image` | `-i` | Attach image(s) to the prompt |
+| `--cd` | `-C` | Set working directory |
+| `--ephemeral` | | Run without persisting session |
+| `--oss` | | Use local OSS model provider (Ollama) |
+| `--profile` | `-p` | Load configuration profile |
+| `--search` | | Enable live web search |
+| `--skip-git-repo-check` | | Allow running outside a Git repository |
+| `--dangerously-bypass-approvals-and-sandbox` | `--yolo` | Bypass all approvals and sandboxing (dangerous) |
+
+## Subcommands
+
+| Command | Description |
+|---------|-------------|
+| `codex exec resume` | Resume a previous exec session by ID |
+| `codex exec resume --last` | Resume the most recent session |
+| `codex exec resume --all` | Include sessions from any directory |
+
+## Output Handling Best Practices
+
+- Default: formatted text to stdout
+- `--json`: newline-delimited JSON events for parsing
+- Progress and diagnostics appear on stderr
+- Keep stderr visible for debugging
+- Use `--json` or `-o` for clean machine-readable output
+- If the user only wants a concise summary, run Codex, then summarize the result in plain language
+- When relevant, include changed files, tests run, warnings, and the session ID in your summary
+
+## Failure Handling
+
+- On non-zero exit, report the exact failure and ask before retrying with broader access
+- If a run stalls because Codex needs approvals, rerun with explicit `-a never` and the smallest sandbox that still fits the task
+- If resume warns about a model mismatch, keep the existing model unless the user wants to switch
+- Ask before escalating from `read-only` to `workspace-write`
+- Ask again before any `danger-full-access` or `--dangerously-bypass-approvals-and-sandbox`
+
+## Verification Shortcuts
 
 ```bash
 codex --help
@@ -83,3 +174,17 @@ codex exec --help
 codex exec resume --help
 codex login --help
 ```
+
+## Gotchas
+
+- `codex exec` is the headless command; plain `codex` launches the interactive TUI
+- `--full-auto` is NOT the same as fully unattended; it still prompts on-request
+- For CI/CD automation, always use `-a never` with explicit sandbox level
+- Session resume uses the original working directory unless overridden with `-C`
+- When using `--oss`, ensure Ollama is running first
+
+## Update This Skill
+
+Triggered when the user says something like "skill headless-codex, check if we need to update".
+
+Load `references/UPDATE.md` for the update workflow.
