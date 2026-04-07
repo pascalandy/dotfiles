@@ -2,7 +2,7 @@
 
 ## Intro
 
-Triggered when the user says something like "skill headless-opencode, check if we need to update".
+Triggered when the user says something like "skill headless-claude, check if we need to update".
 
 **Important:** This updates the skill documentation from official docs — NOT the CLI tool itself. To update the CLI, use your package manager.
 
