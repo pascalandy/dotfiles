@@ -40,9 +40,11 @@ Specific model name. Defaults depend on provider:
 - claude -> `claude-opus-4-6`
 - codex -> `gpt-5.4`
 
+Available Claude models: `claude-opus-4-6`, `claude-sonnet-4-6`
+
 Use `--list-models` to see all supported values.
 
-**`--effort {low,medium,high,max}`** - default: `medium`
+**`--effort {low,medium,high,max}`** - default: `medium` (or `low` for Sonnet models)
 Reasoning effort. Canonical vocabulary; the script translates per provider:
 
 | Canonical | Claude | Codex |
@@ -51,6 +53,8 @@ Reasoning effort. Canonical vocabulary; the script translates per provider:
 | `medium` | `med` | `medium` |
 | `high` | `high` | `high` |
 | `max` | `max` | `xhigh` |
+
+**Note:** `claude-sonnet-4-6` defaults to `low` effort for faster, more economical results. Opus defaults to `medium`.
 
 ### Output
 
@@ -90,7 +94,7 @@ Show program version and exit.
 | Provider | `claude` |
 | Model (claude) | `claude-opus-4-6` |
 | Model (codex) | `gpt-5.4` |
-| Effort | `medium` -> `med` (claude) / `medium` (codex) |
+| Effort | `medium` (or `low` for Sonnet models) |
 | Output dir | parent directory of the input file |
 | Run folder name | `{slug}_{timestamp}_{prompt}/` |
 | Timestamp format | `YYYY-MM-DD_HH-MM-SS` |

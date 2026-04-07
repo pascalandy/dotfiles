@@ -53,11 +53,12 @@ DEFAULT_PROVIDER = PROVIDER_CLAUDE
 
 VALID_CLAUDE_MODELS: tuple[str, ...] = (
     "claude-opus-4-6",
-    "claude-opus-4-5",
-    "claude-sonnet-4-5",
-    "claude-haiku-4-5",
+    "claude-sonnet-4-6",
 )
 DEFAULT_CLAUDE_MODEL = "claude-opus-4-6"
+
+# Models that default to 'low' effort (faster, cheaper)
+SONNET_MODELS: tuple[str, ...] = ("claude-sonnet-4-6",)
 
 VALID_CODEX_MODELS: tuple[str, ...] = ("gpt-5.4",)
 DEFAULT_CODEX_MODEL = "gpt-5.4"
@@ -357,8 +358,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--effort",
         choices=CANONICAL_EFFORTS,
-        default=DEFAULT_EFFORT,
-        help=f"Reasoning effort (default: {DEFAULT_EFFORT}).",
+        default=None,
+        help=(f"Reasoning effort. Defaults: {DEFAULT_EFFORT} (low for Sonnet models)."),
     )
 
     parser.add_argument(
@@ -596,7 +597,15 @@ def build_plan(args: argparse.Namespace) -> ResolvedPlan:
     provider_cli_path = ensure_cli_available(provider)
 
     model = resolve_model(provider, args.model)
-    effort_canonical: str = args.effort
+
+    # Determine effort: use explicit value, or default based on model
+    if args.effort is not None:
+        effort_canonical: str = args.effort
+    elif model in SONNET_MODELS:
+        effort_canonical = "low"
+    else:
+        effort_canonical = DEFAULT_EFFORT
+
     effort_vendor = translate_effort(provider, effort_canonical)
 
     input_tokens = check_context_size(provider, input_text, prompt_text)
