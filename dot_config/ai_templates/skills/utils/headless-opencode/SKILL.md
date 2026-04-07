@@ -90,6 +90,8 @@ opencode run --attach http://localhost:4096 "Explain async/await"
 |------|-------|-------------|
 | `--agent` | | Agent to use (preferred) |
 | `--model` | `-m` | Model to use (provider/model format) |
+| `--variant` | | Model variant (provider-specific reasoning effort, e.g., high, max, minimal) |
+| `--thinking` | | Show thinking blocks |
 | `--command` | | Command to run (use message for args) |
 | `--continue` | `-c` | Continue the last session |
 | `--session` | `-s` | Session ID to continue |
@@ -99,7 +101,12 @@ opencode run --attach http://localhost:4096 "Explain async/await"
 | `--title` | | Title for the session |
 | `--share` | | Share the session |
 | `--attach` | | Attach to running server (e.g., `http://localhost:4096`) |
-| `--port` | | Port for local server |
+| `--password` | `-p` | Basic auth password (defaults to OPENCODE_SERVER_PASSWORD) |
+| `--dir` | | Directory to run in, or path on remote server if attaching |
+| `--port` | | Port for local server (defaults to random if not specified) |
+| `--pure` | | Run without external plugins |
+| `--log-level` | | Log level: DEBUG, INFO, WARN, ERROR |
+| `--print-logs` | | Print logs to stderr |
 
 ## Output Handling
 
@@ -114,6 +121,10 @@ opencode run --attach http://localhost:4096 "Explain async/await"
 - `--continue` resumes with the same agent; use `--fork` to switch agents mid-session
 - When using `--attach`, the server must already be running via `opencode serve`
 - For CI/CD automation, prefer `--format json` for reliable output parsing
+- Use `--variant` to specify reasoning effort (high, max, minimal) for supported models
+- Use `--thinking` to display model thinking blocks in output
+- Use `--pure` to run without loading external plugins
+- Use `--dir` when attaching to specify the remote working directory
 
 ## Update This Skill
 
