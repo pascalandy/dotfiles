@@ -91,7 +91,7 @@ name: {derived from filename}
 description: {first heading or filename}
 tags:
   - area/ea
-  - kind/research
+  - kind/project
   - status/open
 date_created: {today}
 date_updated: {today}
@@ -135,7 +135,7 @@ date_updated: {today}
 |------|-------------|
 | `references/LOG.md` | Operational log |
 
-### kind/research
+### kind/project
 
 | File | Description |
 |------|-------------|

@@ -88,7 +88,7 @@ For each page in the plan:
 - add `topic/*` only when it clarifies the subject
 - set `date_created` and `date_updated` on new pages
 - bump only `date_updated` on existing pages
-- populate `sources:` with the relevant source page names for `kind/research`, `kind/doc`, and `kind/query`
+- populate `sources:` with the relevant source page names for `kind/project`, `kind/doc`, and `kind/query`
 - maintain or add outbound `[[wikilinks]]` per the schema minimums
 
 ### 4.5 Mass-Update Gate

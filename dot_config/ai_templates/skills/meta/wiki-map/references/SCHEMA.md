@@ -42,7 +42,7 @@ area/* -> kind/* -> topic/* -> status/* -> pty/*
 - `kind/plan`
 - `kind/log`
 - `kind/wiki`
-- `kind/research`
+- `kind/project`
 - `kind/webclip`
 - `kind/query`
 - `kind/tracking`
@@ -54,7 +54,7 @@ Notes:
 
 ### topic/*
 
-- `topic/project/{name}`
+- `topic/{name}`
 - `topic/milestone`
 - `topic/playbook`
 - `topic/relationship`
@@ -90,8 +90,8 @@ name: Page Title
 description: One-line summary
 tags:
   - area/ea
-  - kind/research
-  - topic/project/example      # optional
+  - kind/project
+  - topic/example              # optional
   - status/open
   - pty/p2                     # optional
 date_created: YYYY-MM-DD
@@ -106,7 +106,7 @@ contradictions:
 Rules:
 - `date_created` is set once when the page is created and never changed.
 - `date_updated` is bumped on every content change.
-- `sources` lists wiki page names, not file paths, and is required for `kind/research`, `kind/doc`, and `kind/query`.
+- `sources` lists wiki page names, not file paths, and is required for `kind/project`, `kind/doc`, and `kind/query`.
 - Omit empty `sources` and `contradictions` fields.
 - `contradictions` is machine-readable frontmatter. If you also use a `## Contradictions` body section, keep both in sync.
 
@@ -160,7 +160,7 @@ date_updated: YYYY-MM-DD
 |------|-------------|
 | `references/LOG.md` | Operational log |
 
-### kind/research
+### kind/project
 
 | File | Description |
 |------|-------------|
@@ -222,7 +222,7 @@ Do not create pages for passing mentions or off-scope references.
 ### Outbound wikilink minimum
 
 Content kinds must contain at least 2 outbound `[[wikilinks]]`:
-- `kind/research`
+- `kind/project`
 - `kind/doc`
 - `kind/plan`
 - `kind/query`

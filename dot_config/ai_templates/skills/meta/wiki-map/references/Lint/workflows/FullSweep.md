@@ -47,7 +47,7 @@ Run all of these checks:
 - **Contradictions and provenance**
   - unresolved contradictions from `contradictions:` frontmatter
   - broken `sources:` entries pointing to missing pages
-  - `kind/research`, `kind/doc`, and `kind/query` pages missing `sources:`
+  - `kind/project`, `kind/doc`, and `kind/query` pages missing `sources:`
 
 - **Content structure**
   - pages over 200 lines

@@ -130,7 +130,7 @@ Key takeaways:
 3. Dr. Smith's 2024 study used a 500-person cohort
 
 Actions taken:
-- Created: references/vitamin-d-and-sleep.md (kind/research)
+- Created: references/vitamin-d-and-sleep.md (kind/project)
 - Created: references/dr-smith-profile.md (topic/relationship)
 - Updated: references/sleep-quality-factors.md
 - Updated: references/supplement-comparison.md
