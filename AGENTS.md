@@ -1,13 +1,22 @@
 # AGENTS.md - Chezmoi Dotfiles Repository
 
-## Project overview using progressive disclosure
-
-1. Read and understand: `.napkin/NAPKIN.md`
-2. run `napkin overview --json`
-
 ## Custom tools
 
 When showing gif diff changes, use skill: `hunk-review`
+
+## Exporting a plan
+
+When the user wants to export/save a plan from our conversation to the wiki:
+
+1. Determine the next available ID by checking existing directories in `docs/plans/references/`
+2. Create directory: `docs/plans/references/{id}-{title}/`
+3. Use skill `wiki-map` to organize the exported plan content into that directory
+
+Example workflow:
+- User says "export this plan" or "save the plan to wiki"
+- Check: `ls docs/plans/references/ | sort -V | tail -5`
+- Create: `docs/plans/references/042-migration-strategy/`
+- Run: skill `wiki-map` to structure the content
 
 ## Repository Overview
 
