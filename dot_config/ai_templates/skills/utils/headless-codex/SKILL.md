@@ -185,6 +185,13 @@ codex login --help
 
 ## Update This Skill
 
-Triggered when the user says something like "skill headless-codex, check if we need to update".
+Triggered when the user wants to refresh the skill against the latest official documentation.
 
-Load `references/UPDATE.md` for the update workflow.
+**Trigger phrases:**
+- "update the headless-codex skill"
+- "about skill headless-codex, UPDATE the skill"
+- "skill headless-codex, check if we need to update"
+- "refresh headless-codex skill"
+- "sync headless-codex with latest docs"
+
+Load `references/UPDATE.md` and follow the `npx nia-docs` workflow to check the official CLI documentation.

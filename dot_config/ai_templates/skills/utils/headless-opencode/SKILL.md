@@ -117,6 +117,13 @@ opencode run --attach http://localhost:4096 "Explain async/await"
 
 ## Update This Skill
 
-Triggered when the user says something like "skill headless-opencode, check if we need to update".
+Triggered when the user wants to refresh the skill against the latest official documentation.
 
-Load `references/UPDATE.md` for the update workflow.
+**Trigger phrases:**
+- "update the headless-opencode skill"
+- "about skill headless-opencode, UPDATE the skill"
+- "skill headless-opencode, check if we need to update"
+- "refresh headless-opencode skill"
+- "sync headless-opencode with latest docs"
+
+Load `references/UPDATE.md` and follow the `npx nia-docs` workflow to check the official CLI documentation.
