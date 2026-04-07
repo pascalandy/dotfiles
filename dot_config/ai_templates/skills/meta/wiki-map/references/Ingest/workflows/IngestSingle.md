@@ -1,24 +1,41 @@
 # IngestSingle Workflow
 
-Process one source interactively into the wiki. The LLM reads the source, discusses key takeaways with the user, then integrates it into the wiki structure.
+Process one source into an existing or newly created wiki. Read the source, optionally discuss key takeaways with the user, then integrate it into the wiki with provenance and cross-references.
 
 ## When to Use
 
-- Adding a single article, paper, transcript, or note
+- Adding a single article, paper, transcript, note, or webclip
 - User wants to stay involved and guide emphasis
 - User says "ingest this", "process this article", "add this to the wiki"
 
 ## Steps
 
+### 0. Orientation
+
+Always read the meta-skill `references/SCHEMA.md`.
+
+If the wiki already exists:
+- read `INDEX.md`
+- read the last 30 entries of the active `references/LOG.md`
+- if the wiki has 100 or more pages, search for the topic before creating any new page
+- check for subdirectory drift against the recent log; note it, do not normalize it, and ask whether `INDEX.md` should reflect it if drift is detected
+
+Emit a one-line summary:
+
+```text
+Oriented: {wiki-name} | {N} pages | {M} recent log entries | {drift status}
+```
+
 ### 1. Read the Source
 
-- Read the source file (or content provided by the user)
-- If the source is a URL, ask the user to provide it as a webclip in `references/`
-- Identify: key entities, concepts, claims, data points, relationships
+- Read the source file or content provided by the user
+- If the source is a URL, fetch it with whatever capability is available and save it as a local webclip before ingestion
+- If you cannot fetch the URL, ask the user to save it locally and provide the path
+- Identify key entities, concepts, claims, data points, and contradictions with existing wiki content
 
-### 2. Discuss with User
+### 2. Discuss with User When Interactive
 
-Present a brief summary:
+In interactive mode, present a short summary and ask whether to proceed.
 
 ```markdown
 ## Source Summary: {source title}
@@ -28,18 +45,18 @@ Present a brief summary:
 2. {takeaway 2}
 3. {takeaway 3}
 
-**Entities identified:** {list of people, orgs, tools}
-**Concepts:** {list of topics/themes}
-**Notable claims:** {anything surprising or contradicting existing wiki content}
+**Entities identified:** {list}
+**Concepts:** {list}
+**Notable claims:** {list}
 
 Shall I proceed with ingestion? Anything to emphasize or skip?
 ```
 
-Wait for user confirmation or guidance before proceeding.
+In automated mode, skip this conversational gate.
 
-### 3. Create Webclip Page
+### 3. Create or Update the Webclip Page
 
-If the source is external content, create a webclip page:
+If the source is external content or a source snapshot, create or update a `kind/webclip` page:
 
 ```yaml
 ---
@@ -49,53 +66,80 @@ tags:
   - area/ea
   - kind/webclip
   - status/stable
+date_created: {today if new}
 date_updated: {today}
 ---
 ```
 
-The webclip page preserves the source content as-is. It is a snapshot, not synthesized.
+Webclips preserve source content as-is. Do not add synthetic links just to satisfy cross-reference rules. Webclips are exempt from the outbound-link minimum.
 
-### 4. Create or Update Wiki Pages
+### 4. Plan Page Writes
 
-For each key entity, concept, or theme:
+Before writing, decide which pages to create and which to update.
 
-- **If a page exists** -- update it with new information from this source. Add a section or extend existing sections. Add the source to the Related section.
-- **If no page exists** -- create a new page with the appropriate `kind/` tag.
+Create a new page only when:
+- the entity, concept, or topic appears in 2 or more sources, or
+- it is the central subject of this source
 
-For each page touched:
-- Add or update cross-references (`[[wikilinks]]`)
-- Bump `date_updated`
-- Ensure the `## Related` section includes relevant links
+Update an existing page when it already covers the topic.
 
-### 5. Update INDEX.md
+For each page in the plan:
+- choose the right `kind/*` tag
+- add `topic/*` only when it clarifies the subject
+- set `date_created` and `date_updated` on new pages
+- bump only `date_updated` on existing pages
+- populate `sources:` with the relevant source page names for `kind/research`, `kind/doc`, and `kind/query`
+- maintain or add outbound `[[wikilinks]]` per the schema minimums
 
-Add new pages to the wiki map table. Update descriptions for modified pages if the scope changed. Bump `date_updated`.
+### 4.5 Mass-Update Gate
 
-### 6. Update LOG.md
+If the operation would create or modify 10 or more pages:
+- stop after planning
+- list all pages that would be touched
+- ask for confirmation before writing
 
-Append an entry:
+In automated mode, halt, append a log entry noting the gate trigger, and exit without writing.
+
+### 5. Apply the Plan
+
+For each planned page:
+- create the page if it does not exist
+- update the page if it does exist
+- keep provenance in `sources:`
+- preserve `date_created`
+- bump `date_updated`
+- ensure `## Related` contains the relevant links unless the page kind is exempt
+
+### 6. Handle Contradictions
+
+If the new source contradicts existing wiki content:
+- add the conflicting page name to `contradictions:` frontmatter on both pages
+- optionally maintain a `## Contradictions` body section if the page already uses one
+- do not silently overwrite older claims
+
+### 7. Update INDEX.md
+
+- Add new pages to the table
+- Update descriptions if a page's scope changed materially
+- Update the stats line and `date_updated`
+
+### 8. Update LOG.md
+
+Append one entry:
 
 ```markdown
-- [[{today}]] ingest | {source-name} | {summary of all changes: pages created, pages updated}
+- [[{today}]] ingest | {source-name} | created: [page-a, page-b], updated: [page-c], sources: [source-page]
 ```
 
-### 7. Report to User
+### 9. Report to User
 
 ```markdown
 ## Ingestion Complete: {source title}
 
 **Created:** {list of new pages}
 **Updated:** {list of modified pages}
-**Cross-references added:** {count}
-**Contradictions flagged:** {any, or "none"}
+**Contradictions flagged:** {list or none}
+**Provenance updated:** {count of pages with sources:}
 
-LOG.md and INDEX.md updated.
+INDEX.md and LOG.md updated.
 ```
-
-## Handling Contradictions
-
-If the new source contradicts existing wiki content:
-1. Note the contradiction in both the new page and the existing page
-2. Use a callout or dedicated section: `## Contradictions`
-3. Cite both sources with dates
-4. Do not silently overwrite -- flag for user review

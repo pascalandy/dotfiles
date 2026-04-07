@@ -1,29 +1,35 @@
 # Search Workflow
 
-Find relevant wiki pages for a topic and return a curated list with summaries.
+Find relevant wiki pages for a topic and return a curated list with short summaries.
 
 ## When to Use
 
 - Quick lookup: "what pages cover X?"
 - Orientation: "what do we have on topic Y?"
-- Before a deep query: identify which pages are relevant
+- Before a deep query
 
 ## Steps
 
-### 1. Read INDEX.md
+### 1. Orientation
 
-Read the wiki's INDEX.md to scan the page catalog. Identify pages whose name, description, or tags match the query topic.
+- Read the meta-skill `references/SCHEMA.md`
+- Read the wiki's `INDEX.md`
+- Read the last 30 entries of `references/LOG.md`
+- If `references/_meta/topic-map.md` exists, read it too
+- Check for subdirectory drift against the recent log; note it, do not normalize it, and ask whether `INDEX.md` should reflect it if drift is detected
 
 ### 2. Rank Relevance
 
-For each candidate page, assess relevance:
-- **Direct match** -- page is specifically about the query topic
-- **Related** -- page mentions the topic or covers a related concept
-- **Tangential** -- page touches the topic indirectly
+Identify candidate pages whose name, description, or tags match the query topic.
 
-### 3. Read Top Pages (Optional)
+Use three buckets:
+- direct match
+- related
+- tangential
 
-If the index descriptions are insufficient to judge relevance, read the top candidate pages to confirm they are relevant.
+### 3. Read Top Pages When Needed
+
+If `INDEX.md` descriptions are not enough, read the strongest candidates to confirm relevance.
 
 ### 4. Present Results
 
@@ -31,14 +37,13 @@ If the index descriptions are insufficient to judge relevance, read the top cand
 ## Search Results: {query topic}
 
 **Direct matches:**
-- [[page-name]] — {description from INDEX.md}
-- [[page-name-2]] — {description}
+- [[page-name]] -- {description}
 
 **Related:**
-- [[related-page]] — {description, with note on how it connects}
+- [[related-page]] -- {description and connection}
 
 **Tangential:**
-- [[tangential-page]] — {brief note on the connection}
+- [[tangential-page]] -- {brief note}
 
 **Pages found:** {count} | **Wiki total:** {count from INDEX.md}
 ```
@@ -46,5 +51,5 @@ If the index descriptions are insufficient to judge relevance, read the top cand
 ### 5. Suggest Next Steps
 
 If the results warrant deeper synthesis:
-- "Want me to synthesize across these pages? (DeepQuery)"
-- "The wiki has no page specifically on {topic}. Want me to create one? (FileAnswer)"
+- suggest `DeepQuery`
+- if there is no dedicated page yet, suggest creating or filing one only if the result would be substantial

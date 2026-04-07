@@ -1,6 +1,6 @@
 # DeepQuery Workflow
 
-Synthesize an answer across multiple wiki pages with full citations.
+Synthesize an answer across multiple wiki pages with citations and contradiction awareness.
 
 ## When to Use
 
@@ -11,86 +11,57 @@ Synthesize an answer across multiple wiki pages with full citations.
 
 ## Steps
 
-### 1. Find Relevant Pages
+### 1. Orientation
 
-Follow the Search workflow (steps 1-3) to identify all relevant pages. Read each one.
+- Read the meta-skill `references/SCHEMA.md`
+- Read the wiki's `INDEX.md`
+- Read the last 30 entries of `references/LOG.md`
+- Check for subdirectory drift against the recent log; note it, do not normalize it, and ask whether `INDEX.md` should reflect it if drift is detected
 
-### 2. Follow Cross-References
+### 2. Find Relevant Pages
 
-For each page read, check its `## Related` section and `[[wikilinks]]` in the body. If a linked page is relevant to the query, read it too. Continue until no new relevant pages are found (typically 1-2 hops).
+Follow the Search workflow to identify relevant pages, then read each one.
 
-### 3. Synthesize
+### 3. Follow Cross-References
 
-Combine the knowledge from all pages into a coherent answer. Structure depends on the question type:
+Use body wikilinks and `## Related` links to pull in relevant adjacent pages. Stop when additional hops no longer change the answer.
 
-**Factual question** -- prose summary with inline citations:
+### 4. Trace Provenance
 
-```markdown
-## {Question}
+Use `sources:` frontmatter on synthesized pages to trace claims back to source pages when stronger citations are needed.
 
-{Synthesized answer with [[page]] citations for each claim.}
+### 5. Synthesize
 
-### Sources
-- [[page-1]] — {what it contributed}
-- [[page-2]] — {what it contributed}
-```
+Structure the answer to fit the question:
+- prose summary
+- comparison table
+- timeline
+- contradictions report
 
-**Comparison** -- structured table:
+Always cite wiki pages inline.
 
-```markdown
-## Comparison: {A} vs {B}
+### 6. Surface Contradictions
 
-| Dimension | {A} | {B} | Source |
-|-----------|-----|-----|--------|
-| {dim 1} | {value} | {value} | [[page]] |
-| {dim 2} | {value} | {value} | [[page]] |
-```
+Read contradictions from frontmatter `contradictions:` first. If two pages disagree, report both positions with citations.
 
-**Timeline** -- chronological:
+### 7. Identify Gaps
 
-```markdown
-## Timeline: {Topic}
+Call out what the wiki does not yet cover.
 
-| Date | Event | Source |
-|------|-------|--------|
-| {date} | {event} | [[page]] |
-```
+### 8. Suggest Filing Only When Worthwhile
 
-### 4. Surface Contradictions
+Suggest `FileAnswer` only when the answer is worth preserving, such as:
+- it synthesizes 3 or more pages
+- it creates a novel comparison, timeline, or synthesis
+- the user explicitly asked to save it
 
-If pages disagree on a claim, report both positions:
+Do not suggest filing a simple one-page lookup.
 
-```markdown
-### Contradictions
+In automated mode, skip the filing prompt entirely.
 
-- **{claim}**: [[page-a]] states {position A} (based on {evidence}).
-  [[page-b]] states {position B} (based on {evidence}).
-  No resolution in the wiki.
-```
+### 9. Log the Query
 
-### 5. Identify Gaps
-
-Note what the wiki does not cover that would help answer the question:
-
-```markdown
-### Gaps
-
-- No page covers {missing topic}
-- {Page} mentions {concept} but lacks detail
-- No data on {specific dimension}
-```
-
-### 6. Suggest Filing
-
-If the synthesized answer is substantive (more than a few sentences), suggest:
-
-```
-This answer synthesizes {N} pages. Want me to save it as a wiki page? (FileAnswer)
-```
-
-### 7. Log the Query
-
-Append to LOG.md:
+Append to `LOG.md`:
 
 ```markdown
 - [[{today}]] query | {query-topic} | Synthesized from {N} pages, {contradictions} contradictions

@@ -1,6 +1,6 @@
 ---
 name: lint
-description: Health-check and maintain wiki quality -- find contradictions, orphan pages, stale content, missing cross-references, and data gaps. USE WHEN lint wiki, health check, wiki maintenance, find orphans, find contradictions, stale pages, missing cross-references, wiki cleanup, wiki audit, check wiki, wiki health.
+description: Health-check and maintain wiki quality -- find contradictions, orphan pages, stale content, provenance gaps, missing cross-references, and schema drift. USE WHEN lint wiki, health check, wiki maintenance, find orphans, find contradictions, stale pages, missing cross-references, wiki cleanup, wiki audit, check wiki, wiki health, provenance, orphan webclips, topic tags, tag order, long pages, log size, index size.
 ---
 
 ## Customization
@@ -10,62 +10,41 @@ If the current assistant supports user-specific overrides, apply them before exe
 ## Status Update
 
 Before executing, emit a brief text status update such as:
-`Running the **WorkflowName** workflow in the **Lint** skill to ACTION...`
+`Running the **WorkflowName** workflow in the **Lint** skill...`
 
 # Lint
 
-Health-check the wiki and surface structural issues that degrade quality over time. The LLM systematically examines pages for contradictions, orphans, staleness, missing links, and gaps -- then suggests or applies fixes.
+Health-check the wiki and surface structural issues that degrade quality over time. Lint reads the whole wiki, validates it against the shared schema, and reports findings in severity order.
+
+For the full schema, hard rules, and orientation protocol, read `../SCHEMA.md`.
 
 ## Core Concept
 
-Wikis decay silently. New sources contradict old claims. Pages lose their cross-references. Important concepts get mentioned but never get their own page. Summaries grow stale as newer data supersedes them. Without periodic maintenance, the wiki's reliability degrades even as it grows.
-
-Lint is the maintenance operation. It treats the wiki like a codebase: run checks, find issues, report or fix them. The LLM is good at this because it can read every page, hold the full structure in context, and spot inconsistencies a human would miss.
-
-## When to Use
-
-- **Periodic maintenance** -- run a full sweep weekly or after a batch of ingestions
-- **Targeted check** -- "are there any orphan pages?", "find contradictions"
-- **After major ingestion** -- verify the wiki stayed consistent
-- **Before a deep query** -- ensure the wiki is healthy before relying on it
+Wikis decay silently. New sources contradict old claims. Provenance links break. Pages lose cross-references. INDEX drifts away from the filesystem. Lint treats the wiki like a codebase: run checks, report findings, then fix carefully.
 
 ## Workflow Routing
 
-Route to the appropriate workflow based on the request.
-
-**When executing a workflow, output this notification directly:**
-
-```
-Running the **WorkflowName** workflow in the **Lint** skill to ACTION...
-```
-
 - Comprehensive health check -> `workflows/FullSweep.md`
-- Check for a specific issue type -> `workflows/QuickCheck.md`
+- Check for one issue type -> `workflows/QuickCheck.md`
 
-## Issue Categories
+## Severity Ordering
 
-| Category | What to Look For |
-|----------|-----------------|
-| **Contradictions** | Pages that make conflicting claims about the same topic |
-| **Orphans** | Pages with zero inbound `[[wikilinks]]` from other pages |
-| **Stale** | Pages with `date_updated` significantly older than related pages, or claims superseded by newer sources |
-| **Missing pages** | Concepts mentioned in 2+ pages via `[[wikilink]]` that have no corresponding page |
-| **Missing cross-refs** | Pages that cover related topics but do not link to each other |
-| **Tag issues** | Missing required tags, wrong tag axis order, invalid tag values |
-| **INDEX drift** | Pages that exist in `references/` but are not listed in INDEX.md, or INDEX.md entries pointing to deleted pages |
+Within each severity tier, report issues in this order:
 
-## Severity Levels
-
-| Level | Meaning | Action |
-|-------|---------|--------|
-| **Critical** | Contradictions, INDEX drift | Fix immediately or flag for user |
-| **Warning** | Orphans, missing pages, stale content | Suggest fixes |
-| **Info** | Missing cross-refs, tag issues | Fix automatically or note |
+1. broken wikilinks
+2. broken `sources:` provenance
+3. contradictions
+4. orphan pages and orphan webclips
+5. missing pages
+6. stale content
+7. missing cross-references
+8. tag and frontmatter issues
+9. thin or long pages
 
 ## Principles
 
-1. **Read everything** -- lint requires reading all pages, not sampling
-2. **Report before fixing** -- present findings to the user before making changes
-3. **Severity matters** -- contradictions are critical; missing cross-refs are minor
-4. **Suggest sources** -- if a gap is identified, suggest what source could fill it
-5. **Log the sweep** -- every lint operation gets a LOG.md entry
+1. **Read the whole wiki** -- lint is comprehensive by default
+2. **Use the shared schema** -- validate against one canonical rule set
+3. **Exclude closed pages where required** -- orphan, stale, and weak-link checks skip them
+4. **Report before fixing** -- especially for contradictions and provenance issues
+5. **Log every sweep** -- health checks leave an audit trail

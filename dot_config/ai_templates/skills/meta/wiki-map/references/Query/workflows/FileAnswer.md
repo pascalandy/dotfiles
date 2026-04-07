@@ -1,25 +1,45 @@
 # FileAnswer Workflow
 
-Save a synthesized answer back into the wiki as a new page, so explorations compound alongside ingested sources.
+Save a synthesized answer back into the wiki as a new page so the answer compounds instead of disappearing into chat history.
 
 ## When to Use
 
 - After a DeepQuery produces a substantive answer
-- User says "save that answer", "file this as a wiki page", "add this to the wiki"
-- Any time a valuable synthesis should be preserved
+- User says "save that answer", "file this as a wiki page", or "add this to the wiki"
 
 ## Steps
 
-### 1. Determine Page Metadata
+### 0. Orientation
 
-Ask (or infer from context):
-- **Filename** -- kebab-case, descriptive (e.g., `magnesium-vs-zinc-comparison.md`)
-- **Kind tag** -- typically `kind/research` for synthesized knowledge, but could be `kind/plan`, `kind/idea`, etc.
-- **Status** -- typically `status/open` (can be refined later)
+- Read the meta-skill `references/SCHEMA.md`
+- Read the wiki's `INDEX.md`
+- Read the last 30 entries of `references/LOG.md`
+- If the wiki has 100 or more pages, search for the current request topic before planning a new page
+- Check for subdirectory drift against the recent log; note it, do not normalize it, and ask whether `INDEX.md` should reflect it if drift is detected
 
-### 2. Format as Wiki Page
+### 1. Wiki-Worthy Judgment
 
-Convert the answer into standard wiki page format:
+File the answer when:
+- re-deriving it would require reading 3 or more pages
+- it is a useful comparison, synthesis, timeline, or decision record
+- the user explicitly asks to save it
+
+Do not file when:
+- it is a simple lookup from one page
+- it mostly restates an existing page
+
+If the answer is not worth filing, offer to add a short note or backlink to an existing page instead.
+
+### 2. Determine Metadata
+
+- Choose a descriptive kebab-case filename
+- Use `kind/query`
+- Use `status/open` unless there is a better status from context
+- Add `topic/*` only when it clarifies the subject
+
+### 3. Format as a Wiki Page
+
+Use v2 frontmatter:
 
 ```yaml
 ---
@@ -27,37 +47,39 @@ name: {Title}
 description: {One-line summary}
 tags:
   - area/ea
-  - kind/{type}
+  - kind/query
   - status/open
+date_created: {today}
 date_updated: {today}
+sources:
+  - page-a
+  - page-b
 ---
 ```
 
-Body:
-- Start with a summary paragraph
-- Include the synthesized content with `[[wikilinks]]` preserved
-- Add citations as inline wikilinks
-- End with `## Related` linking to all source pages
+Body rules:
+- start with a summary paragraph
+- preserve inline `[[wikilinks]]`
+- end with `## Related`
+- satisfy the outbound-link minimum for content kinds
 
-### 3. Check for Existing Page
+### 4. Check for Existing Coverage
 
-Before writing, verify no existing page covers the same topic. If one does:
-- Ask the user: merge into the existing page or create a separate page?
-- If merging, follow the update pattern from IngestSingle step 4
+If an existing page already covers the same topic, ask whether to merge into it or keep a separate filed answer.
 
-### 4. Write the Page
+### 5. Respect the Mass-Update Gate
 
-Save to `references/{filename}.md` in the wiki directory.
+If filing the answer would touch 10 or more total pages, counting the new `kind/query` page plus any existing pages to update, stop and ask for confirmation before writing.
 
-### 5. Update INDEX.md
+In automated mode, halt, append a log entry noting the gate trigger, and exit without writing.
 
-Add the new page to the wiki map table. Bump `date_updated`.
+### 6. Write the Page and Update Links
 
-### 6. Update Cross-References
+- save the new page under `references/`
+- add it to `INDEX.md`
+- add backlinks from cited pages when appropriate
 
-For each page cited in the answer, add a backlink to the new page in their `## Related` section (if not already present).
-
-### 7. Update LOG.md
+### 7. Log the Action
 
 ```markdown
 - [[{today}]] query | {page-name} | Filed query answer as wiki page, cites {N} pages
@@ -68,7 +90,7 @@ For each page cited in the answer, add a backlink to the new page in their `## R
 ```markdown
 ## Filed: {page title}
 
-Saved as `references/{filename}.md` (kind/{type}).
+Saved as `references/{filename}.md` (kind/query).
 Cross-referenced with {N} existing pages.
 INDEX.md and LOG.md updated.
 ```

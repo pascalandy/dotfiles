@@ -1,52 +1,77 @@
 # FullSweep Workflow
 
-Comprehensive health check of the entire wiki. Examines every page across all issue categories.
+Comprehensive health check of the entire wiki. Read every page, validate against the shared schema, and report findings by severity.
 
 ## When to Use
 
-- Periodic maintenance (weekly, after batch ingestion)
-- User says "health check the wiki", "lint the wiki", "full sweep"
-- Before relying on the wiki for an important analysis
+- periodic maintenance
+- after batch ingestion
+- before relying on the wiki for an important analysis
+- user says "health check the wiki", "lint the wiki", or "full sweep"
 
 ## Steps
 
-### 1. Read All Pages
+### 1. Orientation and Read Set
 
-- Read INDEX.md
-- Read every page listed in INDEX.md
-- Scan `references/` directory for any files not in INDEX.md
+- read the meta-skill `references/SCHEMA.md`
+- read `INDEX.md`
+- read the last 30 entries of `references/LOG.md`
+- read any rotated `LOG-YYYY.md` files when checking rotation sanity or overlap
+- check for subdirectory drift against the recent log; note it, do not normalize it, and ask whether `INDEX.md` should reflect it if drift is detected
+- read every page listed in `INDEX.md`
+- scan `references/` for files missing from `INDEX.md`
 
-### 2. Check INDEX Integrity
+### 2. Run Checks
 
-- **Missing from INDEX**: files in `references/` not listed in INDEX.md
-- **Phantom entries**: INDEX.md entries pointing to files that do not exist
-- **Stale descriptions**: INDEX.md description that no longer matches the page content
+Run all of these checks:
 
-### 3. Check Frontmatter
+- **INDEX integrity**
+  - files in `references/` missing from `INDEX.md`
+  - phantom `INDEX.md` entries pointing to missing files
+  - stale or inaccurate INDEX descriptions
 
-For each page, verify:
-- Required fields present: `name`, `description`, `tags`, `date_updated`
-- Tag axes in correct order: `area` -> `kind` -> `status` -> `pty`
-- All tag values are valid (per the label model)
-- `area/ea` is present
-- `kind/*` is present and appropriate
-- `status/*` is present
-- `pty/*` present only for actionable kinds
+- **Frontmatter and tag validation**
+  - required fields present
+  - `date_created` present, not in the future, and not later than `date_updated`
+  - tag axis order is `area -> kind -> topic -> status -> pty`
+  - valid `kind/*`, `topic/*`, `status/*`, `pty/*` values
 
-### 4. Check Cross-References
+- **Cross-reference health**
+  - broken wikilinks
+  - orphan pages
+  - orphan webclips not referenced in any page's `sources:`
+  - missing cross-references
+  - content pages below the outbound-link minimum as warnings
+  - operational pages below the soft outbound-link minimum as info
 
-- **Orphan pages**: pages with zero inbound `[[wikilinks]]` from other pages (LOG.md and INDEX.md excluded from this check)
-- **Broken links**: `[[wikilinks]]` pointing to pages that do not exist
-- **Missing cross-refs**: pages covering related topics that do not link to each other (use topic overlap and shared entities as signals)
+- **Contradictions and provenance**
+  - unresolved contradictions from `contradictions:` frontmatter
+  - broken `sources:` entries pointing to missing pages
+  - `kind/research`, `kind/doc`, and `kind/query` pages missing `sources:`
 
-### 5. Check Content Quality
+- **Content structure**
+  - pages over 200 lines
+  - thin pages that likely should merge elsewhere
+  - missing pages implied by repeated references
 
-- **Contradictions**: claims in one page that conflict with claims in another. Cross-check factual assertions, dates, numbers, and causal claims.
-- **Stale content**: pages with `date_updated` more than 3x older than the wiki average, or pages whose claims have been superseded by newer sources.
-- **Missing pages**: concepts referenced via `[[wikilink]]` in 2+ pages that have no corresponding file.
-- **Thin pages**: pages with less than 3 sentences of content (excluding frontmatter and Related section).
+- **Aging and operational health**
+  - stale pages older than 180 days when open or stable
+  - active `LOG.md` approaching or exceeding 500 entries
+  - `INDEX.md` sections over 50 entries
+  - total `INDEX.md` entries over 200
+  - post-crash batch inconsistencies between `LOG.md`, filesystem, and `INDEX.md`
+  - `LOG.md` and rotated logs with overlapping date ranges
 
-### 6. Produce Health Report
+Closed pages are excluded from orphan, stale, and weak-link checks but still included in contradiction and frontmatter validation.
+
+If total `INDEX.md` entries exceed 200:
+- recommend creating or regenerating `references/_meta/topic-map.md`
+- offer to generate it
+- if the file already exists and may contain user edits, ask for confirmation before overwriting it
+
+### 3. Produce Health Report
+
+Report issues by severity using the ordering defined in `Lint/SKILL.md`.
 
 ```markdown
 ## Wiki Health Report: {wiki name}
@@ -54,53 +79,31 @@ For each page, verify:
 **Date:** {today}
 **Pages:** {total} | **Sources:** {webclip count} | **Last ingest:** {from LOG.md}
 
-### Summary
+### Critical
+{numbered list}
 
-| Category | Count | Severity |
-|----------|-------|----------|
-| Contradictions | {n} | Critical |
-| INDEX drift | {n} | Critical |
-| Orphan pages | {n} | Warning |
-| Missing pages | {n} | Warning |
-| Stale content | {n} | Warning |
-| Missing cross-refs | {n} | Info |
-| Tag issues | {n} | Info |
-| Thin pages | {n} | Info |
-
-### Critical Issues
-
-{numbered list with details, page links, and specific claims}
-
-### Warnings
-
-{numbered list with details and suggested fixes}
+### Warning
+{numbered list}
 
 ### Info
-
-{numbered list with details}
+{numbered list}
 
 ### Suggested Actions
-
-1. {specific fix with command or instruction}
+1. {specific fix}
 2. {specific fix}
-...
-
-### Suggested Sources
-
-{if gaps were found, suggest what sources could fill them}
 ```
 
-### 7. Update LOG.md
+### 4. Update LOG.md
 
 ```markdown
 - [[{today}]] lint | full sweep | {total issues} issues: {critical} critical, {warnings} warnings, {info} info
 ```
 
-### 8. Offer to Fix
+### 5. Offer to Fix
 
-After presenting the report:
+Offer automatic fixes only for low-risk issues such as:
+- INDEX drift
+- safe tag corrections
+- missing cross-references
 
-```
-Want me to fix the Info-level issues automatically? (tag fixes, missing cross-refs, INDEX updates)
-Critical and Warning issues require your review before changes.
-```
+Keep contradictions, provenance problems, and stale-content decisions for explicit review.

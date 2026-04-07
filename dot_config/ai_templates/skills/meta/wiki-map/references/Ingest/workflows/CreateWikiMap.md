@@ -1,24 +1,37 @@
 # CreateWikiMap Workflow
 
-Organize existing files into a wiki structure. Scan a directory, move files into `references/`, rename to kebab-case, add frontmatter where missing, and build INDEX.md + LOG.md.
+Organize existing files into a wiki structure. Scan a directory, move files into `references/`, rename to kebab-case, add frontmatter where missing, and build `INDEX.md` plus `LOG.md`.
 
-**This workflow is read-only on file body content. No synthesis, no rewriting, no summarization. Only frontmatter and file location may change. Content edits require a separate explicit user request.**
+**This workflow is read-only on file body content. No synthesis, no rewriting, no summarization. Only frontmatter, file location, and filenames may change.**
 
 ## When to Use
 
 - Turning an existing directory of markdown files into a wiki
-- User says "create a wiki map", "create wiki", "bootstrap wiki", "init wiki", "new wiki", "organize these files into a wiki"
-- Starting a brand new empty wiki (the empty-directory case)
+- Creating a brand new empty wiki
+- User says "create a wiki map", "create wiki", "bootstrap wiki", "init wiki", "organize these files into a wiki"
 
 ## Steps
+
+### 0. Read SCHEMA and Detect Existing Wiki
+
+Always read the meta-skill `references/SCHEMA.md` first.
+
+Then inspect the target directory:
+- Empty directory -> proceed
+- Has files but no `INDEX.md` -> proceed in organize mode
+- Has `INDEX.md` with v1 markers such as missing `date_created`, missing `sources:` on content pages, or `kind/relationship` tags -> halt and report: `This looks like a v1 wiki. Run UpgradeSchema instead.`
+- Has `INDEX.md` already following v2 conventions -> halt and report: `Wiki already exists. Nothing to do.`
+
+Never auto-upgrade an existing wiki from this workflow.
 
 ### 1. Confirm Scope
 
 Ask the user:
-- Which directory are we organizing? (or: what should we name a new one?)
-- Brief description for INDEX.md
+- Which directory are we organizing?
+- If creating a new wiki, what should we name it?
+- What one-line description should go in `INDEX.md`?
 
-If the directory already exists, list what's in it:
+If the directory exists, present a scan summary and wait for confirmation before moving anything.
 
 ```markdown
 ## Directory Scan: {path}
@@ -29,52 +42,48 @@ If the directory already exists, list what's in it:
 **Subdirectories to preserve:** {list}
 
 | File | Current Location | Proposed Name |
-|------|-----------------|---------------|
+|------|------------------|---------------|
 | My Article.md | ./ | references/my-article.md |
 | notes_on_sleep.md | ./ | references/notes-on-sleep.md |
 | z_varia/old-draft.md | z_varia/ | references/z_varia/old-draft.md |
-| references/already-here.md | references/ | (no change) |
+| references/already-here.md | references/ | no change |
 
 Proceed?
 ```
 
-Wait for user confirmation before moving anything.
+This confirmation is mandatory even in automated mode. If no human can confirm, halt without changing files.
 
 ### 2. Create Directory Structure
 
-```
+```text
 {wiki-name}/
   INDEX.md
   references/
     LOG.md
-  assets/           # create only if non-markdown files exist
+  assets/           # only if non-markdown files exist
 ```
 
-If the directory already exists, only create what's missing.
+If the directory already exists, create only what is missing.
 
 ### 3. Move Everything into references/
 
-Create `references/` then move **all** existing files and folders into it as-is:
-
-- Move every file and subdirectory from the wiki root into `references/`
-- **Preserve the existing structure exactly** -- subdirectories go in intact, files keep their relative paths
-- After the move, rename files to **kebab-case**: spaces to hyphens, underscores to hyphens, lowercase, strip special characters
-- Use `git mv` if inside a git repo, plain `mv` otherwise
-- **Do not read, modify, or rewrite file bodies**
-- **Never flatten, reorganize, or split subdirectories**
-
-If a naming collision would occur, append a suffix: `my-article-2.md`.
-
-Only INDEX.md and AGENTS.md (if present) stay at the wiki root.
+- Move every existing file and subdirectory from the wiki root into `references/`
+- Preserve the existing structure exactly
+- Never flatten, normalize, or reorganize subdirectories
+- Rename markdown files to kebab-case after the move
+- If there is a collision, append a suffix such as `-2`
+- Keep `INDEX.md` at the root
+- Keep `AGENTS.md` at the root if present
+- Do not read deeply into body content and do not modify it
 
 ### 4. Add Frontmatter Where Missing
 
 For each markdown file in `references/`:
 
-- **If frontmatter already exists**: leave it untouched. Do not modify, reformat, or "improve" it.
-- **If frontmatter is missing**: prepend minimal frontmatter. Derive `name` and `description` from the filename and first line of content. Do not read deeply into the body.
+- If frontmatter already exists: leave it untouched
+- If frontmatter is missing: prepend minimal v2 frontmatter
 
-Minimal frontmatter to add:
+Use this template:
 
 ```yaml
 ---
@@ -84,17 +93,20 @@ tags:
   - area/ea
   - kind/research
   - status/open
+date_created: {today}
 date_updated: {today}
 ---
 ```
 
-Use `kind/webclip` if the file looks like a clipped article (has a URL source or was clearly copied from the web). Use `kind/research` as the default for everything else. The user can refine kinds later.
-
-**Guardrail**: Only the frontmatter block is added. The body below the `---` closing fence is never touched.
+Notes:
+- Use `kind/webclip` if the file clearly looks like a clipped article or source snapshot
+- Include an empty `topic/*` slot in the v2 template only as an omitted placeholder in your planning model. Do not invent a topic tag without evidence.
+- Leave `sources:` and `contradictions:` absent unless you can infer them without reading deeply
+- Only the frontmatter block is added. The body below it is untouched.
 
 ### 5. Build INDEX.md
 
-Create (or overwrite) INDEX.md at the wiki root:
+Create `INDEX.md` at the wiki root with the v2 header block:
 
 ```yaml
 ---
@@ -103,24 +115,38 @@ description: {User-provided description}
 tags:
   - area/ea
   - kind/wiki
+date_created: {today}
 date_updated: {today}
 ---
 ```
 
 ```markdown
+# {Wiki Name}
+
+> Content catalog. Every wiki page is listed here with a one-line summary.
+> Read this first to find relevant pages for any query.
+> **Total pages:** {N} | **Last updated:** {today}
+
 ## Wiki Map
+
+### kind/log
 
 | File | Description |
 |------|-------------|
 | `references/LOG.md` | Operational log |
+
+### kind/research
+
+| File | Description |
+|------|-------------|
 | `references/{page}.md` | {description from frontmatter or filename} |
 ```
 
-Build the table by reading the `name` or `description` from each file's frontmatter. If a file has no frontmatter (shouldn't happen after step 4, but defensive), use the filename.
+Catalog every page, including pages inside preserved subdirectories, under its `kind/*` section.
 
 ### 6. Create LOG.md
 
-Create `references/LOG.md` (if it doesn't exist):
+Create `references/LOG.md` if it does not exist:
 
 ```yaml
 ---
@@ -130,6 +156,7 @@ tags:
   - area/ea
   - kind/log
   - status/open
+date_created: {today}
 date_updated: {today}
 ---
 ```
@@ -140,7 +167,7 @@ date_updated: {today}
 - [[{today}]] create | wiki | Wiki map created. {N} files organized into references/
 ```
 
-If LOG.md already exists, append the entry only.
+If `LOG.md` already exists in an organize-mode directory, append the create entry instead of overwriting it.
 
 ### 7. Report to User
 
@@ -152,24 +179,10 @@ If LOG.md already exists, append the entry only.
 **Frontmatter added:** {count} (body content untouched)
 **Already organized:** {count}
 
-INDEX.md and LOG.md created.
+INDEX.md and LOG.md created or updated.
 
 Next steps:
 - Review the wiki map in INDEX.md
-- Refine `kind/` tags where the default doesn't fit
+- Refine `kind/` and `topic/` tags where defaults do not fit
 - Tell me to "ingest" a specific file when you want synthesis and cross-referencing
 ```
-
-## Empty Directory Case
-
-If the target directory has no existing files, this workflow still works -- it creates the structure with an empty INDEX.md table and LOG.md. This covers the "brand new wiki" case without needing a separate workflow.
-
-## What This Workflow Does NOT Do
-
-- Read file bodies for synthesis or summarization
-- Create new pages based on file content
-- Rewrite, restructure, or "improve" existing content
-- Add cross-references or wikilinks to file bodies
-- Merge or split files
-
-All of those are **Ingest** operations (IngestSingle, IngestBatch) that the user must explicitly request afterward.

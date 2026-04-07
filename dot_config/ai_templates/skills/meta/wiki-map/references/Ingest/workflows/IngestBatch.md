@@ -1,18 +1,32 @@
 # IngestBatch Workflow
 
-Process multiple sources sequentially into the wiki with less supervision than IngestSingle.
+Process multiple sources into the wiki as one atomic plan-then-write operation.
 
 ## When to Use
 
 - Adding several sources at once
-- Bulk import of webclips, articles, or notes
+- Bulk import of webclips, articles, notes, or transcripts
 - User says "process these sources", "batch ingest", "ingest all of these"
 
-## Steps
+## Core Rule
 
-### 1. Inventory Sources
+This workflow is not sequential per-source ingestion. It is atomic:
 
-List all sources to be processed:
+1. Read everything
+2. Plan everything
+3. Apply one write pass
+4. Append one summary log entry
+
+## Workflow
+
+### Phase 1. Orientation
+
+1. Read the meta-skill `references/SCHEMA.md`
+2. If the wiki exists, read `INDEX.md` and the last 30 entries of `references/LOG.md`
+3. If the wiki has 100 or more pages, search for the current request topic before planning any new pages
+4. Check for subdirectory drift against the recent log; note it, do not normalize it, and ask whether `INDEX.md` should reflect it if drift is detected
+5. Inventory the sources to be processed
+6. In interactive mode, confirm scope with the user
 
 ```markdown
 ## Batch Ingest Plan
@@ -21,60 +35,75 @@ List all sources to be processed:
 |---|--------|--------|
 | 1 | {filename or title} | pending |
 | 2 | {filename or title} | pending |
-| ... | ... | ... |
+| 3 | {filename or title} | pending |
 
 Proceed with batch ingestion?
 ```
 
-Wait for user confirmation.
+In automated mode, skip the conversational confirmation but still honor the mass-update gate later.
 
-### 2. Process Each Source
+### Phase 2. Read All Sources
 
-For each source, follow the IngestSingle workflow steps 1, 3, 4, 5, and 6 -- but skip step 2 (detailed discussion with user). Instead, provide a brief one-line summary per source as you go:
+1. Read every source file
+2. Extract entities, concepts, claims, and relationships from each
+3. Build one unified discovery map in memory covering:
+   - all entities across all sources
+   - all concepts across all sources
+   - all cross-source relationships
+   - all source pages that must appear in `sources:`
+
+### Phase 3. Plan All Writes
+
+1. Search once for which entities and concepts already exist in the wiki
+2. For each unique entity or concept, decide: create or update
+3. Compute the full final state for every page to update
+4. Resolve cross-references at planning time, including links between newly created pages
+5. Resolve `sources:` frontmatter at planning time
+6. Preserve `date_created` on existing pages and plan `date_created` plus `date_updated` for new pages
+7. Plan `contradictions:` frontmatter updates anywhere conflicting claims are introduced
+8. Enforce the schema's outbound-link minimums for both content kinds and operational kinds
+9. Build one write plan containing:
+   - pages to create with final content
+   - pages to update with final content
+   - one `INDEX.md` patch
+   - one `LOG.md` entry
+
+### Phase 4. Mass-Update Gate
+
+If total pages touched, created plus updated, is 10 or more:
+- stop after planning
+- present the full page list
+- ask for confirmation in interactive mode
+
+In automated mode:
+- halt
+- append a log entry noting the gate trigger
+- exit without writing page changes
+
+### Phase 5. Write Once
+
+1. Write all create pages
+2. Write all update pages
+3. Preserve `date_created`, bump `date_updated`, and write planned `contradictions:` updates
+4. Update `INDEX.md` once
+5. Append one `LOG.md` entry:
 
 ```markdown
-[1/5] Ingested: {source title} — created 2 pages, updated 3 pages
-[2/5] Ingested: {source title} — created 1 page, updated 2 pages, 1 contradiction flagged
-...
+- [[{today}]] ingest | batch-{N-sources} | created: [page-a, page-b], updated: [page-c, page-d], sources: [src-1, src-2]
 ```
 
-### 3. Cross-Reference Pass
+6. Report all changes to the user in one summary
 
-After all sources are processed, do a cross-reference sweep:
-- Check if any newly created pages should link to each other
-- Check if any existing pages should now reference newly created pages
-- Add missing `[[wikilinks]]`
+### Phase 6. Failure Handling
 
-### 4. Final INDEX.md Update
+If any write in Phase 5 fails, the batch is in an undefined state.
 
-Update INDEX.md once with all new and modified entries. Bump `date_updated`.
+The batch's `LOG.md` entry is the recovery marker for lint and human repair. If a write failure occurs after the log entry is written, lint can compare that real batch marker against filesystem and `INDEX.md` state to detect post-crash inconsistency.
 
-### 5. Final LOG.md Update
+## What Changed From v1
 
-Append one summary entry per source:
-
-```markdown
-- [[{today}]] ingest | {source-1} | Created: {pages}, Updated: {pages}
-- [[{today}]] ingest | {source-2} | Created: {pages}, Updated: {pages}
-```
-
-### 6. Report to User
-
-```markdown
-## Batch Ingestion Complete
-
-**Sources processed:** {count}
-**Pages created:** {count}
-**Pages updated:** {count}
-**Cross-references added:** {count}
-**Contradictions flagged:** {count, with links}
-
-INDEX.md and LOG.md updated.
-```
-
-## When to Pause
-
-Stop batch processing and consult the user if:
-- A source contradicts multiple existing pages (not just one)
-- A source is ambiguous about scope or categorization
-- A source would require creating more than 5 new pages (may indicate a scope boundary)
+- No per-source progress loop
+- No per-source `INDEX.md` updates
+- No per-source `LOG.md` entries
+- No final cross-reference sweep after writes; links are resolved during planning
+- One plan, one write pass, one log entry
