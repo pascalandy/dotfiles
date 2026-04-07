@@ -15,7 +15,7 @@ When the user wants to export/save a plan from our conversation to the wiki:
 Example workflow:
 - User says "export this plan" or "save the plan to wiki"
 - Check: `ls docs/plans/references/ | sort -V | tail -5`
-- Create: `docs/plans/references/042-migration-strategy/`
+- Create: `docs/plans/references/2912-migration-strategy/`
 - Run: skill `wiki-map` to structure the content
 
 ## Repository Overview
