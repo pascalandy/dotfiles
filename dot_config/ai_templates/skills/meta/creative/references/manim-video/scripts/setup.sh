@@ -9,16 +9,16 @@ echo ""
 echo "Manim Video Skill — Setup Check"
 echo ""
 errors=0
-if command -v python3 &>/dev/null; then
-	ok "Python $(python3 --version 2>&1 | awk '{print $2}')"
+if command -v uv &>/dev/null; then
+	ok "uv $(uv --version 2>&1 | awk '{print $2}')"
 else
-	fail "Python 3 not found"
+	fail "uv not found (install: https://docs.astral.sh/uv/getting-started/installation/)"
 	errors=$((errors + 1))
 fi
-if python3 -c "import manim" 2>/dev/null; then
+if command -v manim &>/dev/null; then
 	ok "Manim $(manim --version 2>&1 | head -1)"
 else
-	fail "Manim not installed: pip install manim"
+	fail "Manim not installed: uv tool install manim"
 	errors=$((errors + 1))
 fi
 if command -v pdflatex &>/dev/null; then

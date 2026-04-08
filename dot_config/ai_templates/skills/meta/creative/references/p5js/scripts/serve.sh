@@ -24,10 +24,12 @@ if ! cd "$DIR"; then
 	exit 1
 fi
 
-if ! python3 -m http.server "$PORT" 2>/dev/null; then
-	echo "Python3 not found. Trying Node.js..."
-	if ! npx serve -l "$PORT" "$DIR" 2>/dev/null; then
-		echo "Error: Need python3 or npx (Node.js) for local server"
-		exit 1
-	fi
+if command -v uv &>/dev/null; then
+	uv run python -m http.server "$PORT"
+elif command -v npx &>/dev/null; then
+	echo "uv not found. Falling back to Node.js..."
+	npx serve -l "$PORT" "$DIR"
+else
+	echo "Error: Need uv or npx (Node.js) for local server"
+	exit 1
 fi

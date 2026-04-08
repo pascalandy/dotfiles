@@ -22,16 +22,18 @@ Render text as large ASCII art banners. 571 built-in fonts.
 
 ### Setup
 
+No persistent install needed -- `uvx` fetches and runs pyfiglet on demand. For frequent use, install once:
+
 ```bash
-pip install pyfiglet --break-system-packages -q
+uv tool install pyfiglet
 ```
 
 ### Usage
 
 ```bash
-python3 -m pyfiglet "YOUR TEXT" -f slant
-python3 -m pyfiglet "TEXT" -f doom -w 80    # Set width
-python3 -m pyfiglet --list_fonts             # List all 571 fonts
+uvx pyfiglet "YOUR TEXT" -f slant
+uvx pyfiglet "TEXT" -f doom -w 80    # Set width
+uvx pyfiglet --list_fonts             # List all 571 fonts
 ```
 
 ### Recommended fonts
@@ -155,7 +157,7 @@ boxes -l                                       # List all 70+ designs
 ### Combine with pyfiglet or asciified
 
 ```bash
-python3 -m pyfiglet "HERMES" -f slant | boxes -d stone
+uvx pyfiglet "HERMES" -f slant | boxes -d stone
 # Or without pyfiglet installed:
 curl -s "https://asciified.thelicato.io/api/v2/ascii?text=HERMES&font=Slant" | boxes -d stone
 ```

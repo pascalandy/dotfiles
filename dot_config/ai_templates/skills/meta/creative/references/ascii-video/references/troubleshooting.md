@@ -154,7 +154,7 @@ If a scene is still dark after tonemap, check:
 ### Diagnostic: Test-Frame Brightness
 
 ```bash
-python reel.py --test-frame 10.0
+uv run reel.py --test-frame 10.0
 # Output: Mean brightness: 44.3, max: 255
 ```
 

@@ -50,12 +50,13 @@ else
 	echo "  Install: brew install ffmpeg (macOS) or apt install ffmpeg (Linux)"
 fi
 
-# Optional: Python3 (for local server)
-if command -v python3 &>/dev/null; then
-	PY_VER=$(python3 --version 2>&1 | awk '{print $2}')
-	ok "Python $PY_VER (for local server: python3 -m http.server)"
+# Optional: uv (for local server via `uv run python -m http.server`)
+if command -v uv &>/dev/null; then
+	UV_VER=$(uv --version 2>&1 | awk '{print $2}')
+	ok "uv $UV_VER (for local server: uv run python -m http.server)"
 else
-	warn "Python3 not found — needed for local file serving"
+	warn "uv not found — needed for local file serving"
+	echo "  Install: https://docs.astral.sh/uv/getting-started/installation/"
 fi
 
 # Browser check (macOS)
@@ -77,7 +78,7 @@ echo ""
 echo "=== Optional (for export) ==="
 echo "  Node.js + Puppeteer — headless frame capture"
 echo "  ffmpeg — frame sequence to MP4"
-echo "  Python3 — local development server"
+echo "  uv — local development server"
 echo ""
 echo "=== Quick Start ==="
 echo "  1. Create an HTML file with inline p5.js sketch"

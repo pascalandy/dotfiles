@@ -46,10 +46,10 @@ Save to any path, e.g. `~/diagrams/my_diagram.excalidraw`.
 Run the upload script (located in this skill's `scripts/` directory) via terminal:
 
 ```bash
-python skills/diagramming/excalidraw/scripts/upload.py ~/diagrams/my_diagram.excalidraw
+uv run scripts/upload.py ~/diagrams/my_diagram.excalidraw
 ```
 
-This uploads to excalidraw.com (no account needed) and prints a shareable URL. Requires the `cryptography` pip package (`pip install cryptography`).
+This uploads to excalidraw.com (no account needed) and prints a shareable URL. The script uses PEP 723 inline metadata, so `uv run` resolves the `cryptography` dependency automatically -- no manual install required.
 
 ---
 

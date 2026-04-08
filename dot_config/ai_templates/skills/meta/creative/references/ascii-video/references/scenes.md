@@ -583,7 +583,7 @@ if args.test_frame >= 0:
     print(f"Mean brightness: {canvas.astype(float).mean():.1f}")
 ```
 
-CLI: `python reel.py --test-frame 10.0`
+CLI: `uv run reel.py --test-frame 10.0`
 
 ---
 

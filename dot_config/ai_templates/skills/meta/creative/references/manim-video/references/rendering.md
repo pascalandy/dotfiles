@@ -137,11 +137,13 @@ The official `manim-voiceover` plugin integrates TTS directly into scene code, a
 
 ### Installation
 
+Inject the voiceover extras into your existing `manim` tool install (recommended):
+
 ```bash
-pip install "manim-voiceover[elevenlabs]"
+uv tool install manim --with "manim-voiceover[elevenlabs]"
 # Or for free/local TTS:
-pip install "manim-voiceover[gtts]"    # Google TTS (free, lower quality)
-pip install "manim-voiceover[azure]"   # Azure Cognitive Services
+uv tool install manim --with "manim-voiceover[gtts]"    # Google TTS (free, lower quality)
+uv tool install manim --with "manim-voiceover[azure]"   # Azure Cognitive Services
 ```
 
 ### Usage

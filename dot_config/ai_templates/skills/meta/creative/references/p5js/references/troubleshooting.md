@@ -434,7 +434,7 @@ function setup() { createCanvas(800, 800); }
 ```javascript
 // Loading images/fonts from external URLs requires CORS headers
 // Local files need a server:
-// python3 -m http.server 8080
+// uv run python -m http.server 8080
 
 // Or use a CORS proxy for external resources (not recommended for production)
 ```
