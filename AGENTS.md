@@ -1,5 +1,10 @@
 # AGENTS.md - Chezmoi Dotfiles Repository
 
+
+## browsing the public web
+
+do not use web-fetch, use skill `agent-browser`
+
 ## Custom tools
 
 When showing gif diff changes, use skill: `hunk-review`
