@@ -1,0 +1,2 @@
+#!/bin/bash
+uv run ~/.local/share/chezmoi/dot_config/ai_templates/skills/utils/password-generator/scripts/password_generator.py "$@"
