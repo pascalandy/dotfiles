@@ -1,6 +1,6 @@
 ---
 name: creative
-description: Creative content generation collection -- ASCII art and banners, ASCII video production, hand-drawn Excalidraw diagrams, Manim math/technical animations, p5.js generative and interactive art, popular website design systems (Stripe/Linear/Vercel/etc.), and songwriting with AI music (Suno) prompts. USE WHEN ASCII art, figlet, banners, cowsay, text art, ASCII video, terminal video, matrix effect, audio visualizer, excalidraw, hand-drawn diagram, flowchart, architecture diagram, sequence diagram, concept map, manim, math animation, 3blue1brown, algorithm visualization, equation animation, p5.js, creative coding, generative art, canvas sketch, shader, GLSL, interactive visualization, web design template, landing page CSS, Stripe style, Linear style, Vercel style, Notion style, design system, songwriting, lyrics, Suno prompt, AI music, parody song.
+description: Creative content generation collection -- Video creation (Manim by default), ASCII art and banners, ASCII video production (terminal-style only), hand-drawn Excalidraw diagrams, Manim math/technical animations, p5.js generative and interactive art, popular website design systems (Stripe/Linear/Vercel/etc.), and songwriting with AI music (Suno) prompts. USE WHEN create a video, make a video, ASCII art, figlet, banners, cowsay, text art, ASCII video, terminal video, matrix effect, audio visualizer, excalidraw, hand-drawn diagram, flowchart, architecture diagram, sequence diagram, concept map, manim, math animation, 3blue1brown, algorithm visualization, equation animation, p5.js, creative coding, generative art, canvas sketch, shader, GLSL, interactive visualization, web design template, landing page CSS, Stripe style, Linear style, Vercel style, Notion style, design system, songwriting, lyrics, Suno prompt, AI music, parody song.
 ---
 
 # Creative
@@ -32,7 +32,8 @@ One meta-skill with seven specialist sub-skills. Describe what you want to make;
 | User says | Routes to |
 |---|---|
 | "make a figlet banner that says HELLO" | `ascii-art` |
-| "convert this mp4 into an ASCII video" | `ascii-video` |
+| "please create a video" | `manim-video` (default for general video) |
+| "convert this mp4 into an ASCII video" | `ascii-video` (terminal-style only) |
 | "draw an architecture diagram for my API" | `excalidraw` |
 | "animate how quicksort works, 3b1b style" | `manim-video` |
 | "generative flow field in p5.js" | `p5js` |
