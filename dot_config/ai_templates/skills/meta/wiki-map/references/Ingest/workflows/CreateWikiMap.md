@@ -92,7 +92,7 @@ description: {first heading or filename}
 tags:
   - area/ea
   - kind/project
-  - status/open
+  - status/stable
 date_created: {today}
 date_updated: {today}
 ---
@@ -115,6 +115,7 @@ description: {User-provided description}
 tags:
   - area/ea
   - kind/wiki
+  - status/open
 date_created: {today}
 date_updated: {today}
 ---
@@ -155,7 +156,7 @@ description: Append-only operational log for {Wiki Name}
 tags:
   - area/ea
   - kind/log
-  - status/open
+  - status/stable
 date_created: {today}
 date_updated: {today}
 ---

@@ -34,7 +34,7 @@ If the answer is not worth filing, offer to add a short note or backlink to an e
 
 - Choose a descriptive kebab-case filename
 - Use `kind/query`
-- Use `status/open` unless there is a better status from context
+- Use `status/stable` unless there is a better status from context
 - Add `topic/*` only when it clarifies the subject
 
 ### 3. Format as a Wiki Page
@@ -48,7 +48,7 @@ description: {One-line summary}
 tags:
   - area/ea
   - kind/query
-  - status/open
+  - status/stable
 date_created: {today}
 date_updated: {today}
 sources:

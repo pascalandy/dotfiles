@@ -140,6 +140,7 @@ description: One-line description
 tags:
   - area/ea
   - kind/wiki
+  - status/open
 date_created: YYYY-MM-DD
 date_updated: YYYY-MM-DD
 ---
@@ -183,7 +184,7 @@ description: Append-only operational log for {Wiki Name}
 tags:
   - area/ea
   - kind/log
-  - status/open
+  - status/stable
 date_created: YYYY-MM-DD
 date_updated: YYYY-MM-DD
 ---
