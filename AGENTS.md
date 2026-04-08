@@ -10,7 +10,7 @@ When the user wants to export/save a plan from our conversation to the wiki:
 
 1. Determine the next available ID by checking existing directories in `docs/plans/references/`
 2. Create directory: `docs/plans/references/{id}-{title}/`
-3. Use skill `wiki-map` to organize the exported plan content into that directory
+3. Organise the plan directory as a valid wiki-map (skill)
 
 Example workflow:
 - User says "export this plan" or "save the plan to wiki"
