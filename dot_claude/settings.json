@@ -1,4 +1,13 @@
 {
+  "bindings": [
+    {
+      "context": "Chat",
+      "bindings": {
+        "meta+t": null,
+        "ctrl+shift+t": "chat:thinkingToggle"
+      }
+    }
+  ],
   "permissions": {
     "allow": [
       "WebSearch",
@@ -10,7 +19,21 @@
       "Glob",
       "Grep",
       "Task",
-      "TodoWrite"
+      "TodoWrite",
+      "Bash(chezmoi status:*)",
+      "WebFetch(domain:openrouter.ai)",
+      "Bash(chezmoi apply:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:opencode.ai)",
+      "WebFetch(domain:deepwiki.com)",
+      "Bash(git show:*)",
+      "Bash(node:*)",
+      "Bash(cat:*)",
+      "Bash(chezmoi managed:*)",
+      "Bash(chezmoi state:*)",
+      "Bash(chezmoi source-path:*)",
+      "Bash(chezmoi add:*)",
+      "Bash(bash ~/.claude/statusline-command.sh)"
     ],
     "deny": [],
     "defaultMode": "bypassPermissions"
