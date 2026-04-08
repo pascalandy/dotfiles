@@ -1,9 +1,8 @@
 # AGENTS.md - Chezmoi Dotfiles Repository
 
-
 ## browsing the public web
 
-do not use web-fetch, use skill `agent-browser`
+Do not use WebFetch, use skill `agent-browser`
 
 ## Custom tools
 
