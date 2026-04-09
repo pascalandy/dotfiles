@@ -37,24 +37,27 @@ This is progressive disclosure applied to sub-skills: the skill system reads the
 
 ```shell
 [MetaSkill]/
-├── SKILL.md              # Layer 1: Collection (the ONLY file the scanner indexes as a skill)
+├── SKILL.md                  # Layer 1: Collection (the ONLY file the scanner indexes as a skill)
 └── references/
-    ├── ROUTER.md          # Layer 2: Router (pure routing table, ~20 lines)
-    ├── [ModeA]/           # Layer 3: Sub-skill 1 (complete, standalone, hidden from scanner)
-    │   ├── MetaSkill.md   # Classic skill content, renamed to stay invisible to skill scanners
-    │   ├── workflows/     # Discrete workflow files (optional)
-    │   ├── references/    # Supporting context (optional)
-    │   ├── scripts/       # Scripts (optional)
-    │   ├── templates/     # User templates (optional)
-    │   └── assets/        # Assets (optional)
-    ├── [ModeB]/           # Layer 3: Sub-skill 2
+    ├── ROUTER.md              # Layer 2: Router (pure routing table, ~20 lines)
+    ├── [ModeA]/               # Layer 3: Simple sub-skill — MetaSkill.md is enough
+    │   └── MetaSkill.md
+    ├── [ModeB]/               # Layer 3: Complex sub-skill — supporting material in references/
     │   ├── MetaSkill.md
-    │   └── workflows/
-    └── [ModeC]/           # Layer 3: Sub-skill 3
-        ├── MetaSkill.md
+    │   └── references/        # ALL supporting material lives here
+    │       ├── some-doc.md
+    │       ├── prompt-template.md
+    │       ├── scripts/
+    │       ├── templates/
+    │       ├── examples/
+    │       └── assets/
+    └── [ModeC]/
+        └── MetaSkill.md
 ```
 
-Sub-skills may include any combination of: `workflows/`, `references/`, `scripts/`, `templates/`, `assets/`.
+**Sub-skill size rule:** A sub-skill root contains **only** `MetaSkill.md` plus an optional `references/` directory. If a sub-skill is too large or complex to fit cleanly in a single `MetaSkill.md` — it has supporting docs, prompts, scripts, templates, examples, or assets — put ALL of that supporting material under the sub-skill's `references/` directory. Do not scatter `workflows/`, `scripts/`, `templates/`, `assets/` as siblings of `MetaSkill.md`; nest them inside `references/`.
+
+**Link hygiene:** when supporting files live under `references/`, internal links inside `MetaSkill.md` must use the `references/` prefix (e.g. `references/some-doc.md`, not `some-doc.md`).
 
 **Critical naming rule:** the root file is `SKILL.md` (so the scanner discovers exactly one skill per meta-skill). Every sub-skill file is `MetaSkill.md` (so recursive `SKILL.md` scanners do not register sub-skills as independent top-level skills). See [Why Sub-Skills Use `MetaSkill.md`](#why-sub-skills-use-metaskillmd) below.
 
@@ -137,6 +140,7 @@ Renaming sub-skills to `MetaSkill.md` makes them invisible to the scanner. They 
 4. **Consistent interface** -- all sub-skills follow the same internal structure
 5. **Additive scaling** -- adding a sub-skill means one new directory + one new row in the routing table
 6. **Scanner hygiene** -- only the root `SKILL.md` is named `SKILL.md`; every sub-skill file is `MetaSkill.md`
+7. **Clean sub-skill roots** -- a sub-skill root holds only `MetaSkill.md` (+ optional `references/`). All supporting files (docs, prompts, scripts, templates, examples, assets) live under that sub-skill's `references/` directory, never as siblings of `MetaSkill.md`
 
 ## Harness Agnostic
 
