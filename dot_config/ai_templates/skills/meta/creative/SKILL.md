@@ -26,6 +26,7 @@ One meta-skill with eight specialist sub-skills. Describe what you want to make;
 | `p5js` | Generative/interactive browser art, shaders, WebGL, audio-reactive sketches |
 | `popular-web-designs` | 54 production design systems extracted from real sites (Stripe, Linear, Vercel, Notion, Airbnb, ...) |
 | `songwriting-and-ai-music` | Songwriting craft, Suno prompts, parody techniques, phonetic tricks |
+| `ffmpeg` | Nested meta-skill for video and audio — AI video creation, quick one-shot ops, content analysis, and the full ffmpeg editing cookbook |
 
 ## Invocation Scenarios
 
@@ -39,6 +40,10 @@ One meta-skill with eight specialist sub-skills. Describe what you want to make;
 | "generative flow field in p5.js" | `p5js` |
 | "landing page in Stripe's visual style" | `popular-web-designs` |
 | "write a parody song about Docker, Suno prompt" | `songwriting-and-ai-music` |
+| "cut this video from 1:30 to 2:45" | `ffmpeg` (→ Quick) |
+| "what happens in this recording?" | `ffmpeg` (→ Analyse) |
+| "build a 60s explainer video from this brief" | `ffmpeg` (→ Create) |
+| "transcode this mov to H.264 web-safe mp4" | `ffmpeg` (→ Edit) |
 
 ## Routing
 
