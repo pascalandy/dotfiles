@@ -15,6 +15,9 @@ Load `references/ROUTER.md` to determine which sub-skill handles this request.
 
 For the full schema, hard rules, and orientation protocol, read `references/SCHEMA.md`.
 
+> **Reading principle:** Agents should read progressively — only load documents when
+> specific information is needed. Do not read all sub-skills or workflows upfront.
+
 ---
 
 ## The Problem

@@ -5,6 +5,9 @@ description: Route wiki-map requests to ingest, query, or lint workflows.
 
 # Wiki Map
 
+> **Note:** This router dispatches to sub-skills. Read only the sub-skill
+> referenced by the matched pattern. Do not read all sub-skills preemptively.
+
 ## Routing
 
 | Request Pattern | Route To |
