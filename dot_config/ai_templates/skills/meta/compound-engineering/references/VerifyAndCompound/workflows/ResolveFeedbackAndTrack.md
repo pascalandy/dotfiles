@@ -6,13 +6,13 @@ Use this workflow when review output already exists and the remaining work is to
 
 | Need | Load |
 |---|---|
-| Resolve GitHub PR comments and review threads | `../../resolve-pr-feedback/SKILL.md` |
-| Hand substantial review-driven code changes back into implementation | `../../ExecuteWork/SKILL.md` |
-| Create a durable todo entry for follow-up work | `../../todo-create/SKILL.md` |
-| Triage an existing todo backlog | `../../todo-triage/SKILL.md` |
-| Resolve pending todos in parallel | `../../todo-resolve/SKILL.md` |
-| Report a bug in the compound-engineering plugin | `../../report-bug-ce/SKILL.md` |
-| Configure project-level compound-engineering settings | `../../setup/SKILL.md` |
+| Resolve GitHub PR comments and review threads | `../../resolve-pr-feedback/MetaSkill.md` |
+| Hand substantial review-driven code changes back into implementation | `../../ExecuteWork/MetaSkill.md` |
+| Create a durable todo entry for follow-up work | `../../todo-create/MetaSkill.md` |
+| Triage an existing todo backlog | `../../todo-triage/MetaSkill.md` |
+| Resolve pending todos in parallel | `../../todo-resolve/MetaSkill.md` |
+| Report a bug in the compound-engineering plugin | `../../report-bug-ce/MetaSkill.md` |
+| Configure project-level compound-engineering settings | `../../setup/MetaSkill.md` |
 
 ## Expected Result
 

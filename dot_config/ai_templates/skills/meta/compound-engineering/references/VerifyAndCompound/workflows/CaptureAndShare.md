@@ -6,11 +6,11 @@ Use this workflow when the change is done and the remaining work is to preserve,
 
 | Need | Load |
 |---|---|
-| Document a solved problem as a reusable learning | `../../ce-compound/SKILL.md` |
-| Refresh stale learning docs or pattern guidance | `../../ce-compound-refresh/SKILL.md` |
-| Generate a changelog from merged work | `../../changelog/SKILL.md` |
-| Record a walkthrough video for the feature or PR | `../../feature-video/SKILL.md` |
-| Polish prose with the bundled editorial style skill | `../../every-style-editor/SKILL.md` |
+| Document a solved problem as a reusable learning | `../../ce-compound/MetaSkill.md` |
+| Refresh stale learning docs or pattern guidance | `../../ce-compound-refresh/MetaSkill.md` |
+| Generate a changelog from merged work | `../../changelog/MetaSkill.md` |
+| Record a walkthrough video for the feature or PR | `../../feature-video/MetaSkill.md` |
+| Polish prose with the bundled editorial style skill | `../../every-style-editor/MetaSkill.md` |
 
 ## Expected Result
 

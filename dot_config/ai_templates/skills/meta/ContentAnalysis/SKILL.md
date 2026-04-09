@@ -50,7 +50,7 @@ The sections adapt because the content dictates them.
 | Component | Path | Purpose |
 |-----------|------|---------|
 | Skill router | `references/ROUTER.md` | Minimal routing table that dispatches requests to the right sub-skill |
-| ExtractWisdom skill | `references/ExtractWisdom/SKILL.md` | Dynamic content extraction methodology, tone rules, depth levels, quality standards |
+| ExtractWisdom skill | `references/ExtractWisdom/MetaSkill.md` | Dynamic content extraction methodology, tone rules, depth levels, quality standards |
 | Extract workflow | `references/ExtractWisdom/workflows/Extract.md` | Step-by-step extraction workflow |
 
 **Summary:**

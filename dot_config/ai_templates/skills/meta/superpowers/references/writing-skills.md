@@ -207,7 +207,7 @@ Always use subagents (50-100x context savings). REQUIRED: Use [other-skill-name]
 
 Compress examples — minimal is better than verbose.
 
-Verify word count in terminal: `wc -w skills/path/SKILL.md`
+Verify word count in terminal: `wc -w skills/path/MetaSkill.md`
 
 #### 5. Cross-Referencing Other Skills
 
@@ -218,7 +218,7 @@ Verify word count in terminal: `wc -w skills/path/SKILL.md`
 
 # ❌ BAD
 See skills/testing/test-driven-development
-@skills/testing/test-driven-development/SKILL.md  ← force-loads, burns context
+@skills/testing/test-driven-development/MetaSkill.md  ← force-loads, burns context
 ```
 
 Never use `@` links — they force-load files immediately, consuming context before you need them.
@@ -827,7 +827,7 @@ Track each item as a task.
 
 ## Outputs
 
-- `skills/skill-name/SKILL.md` — main skill file
+- `skills/skill-name/MetaSkill.md` — main skill file
 - Supporting files (only if needed for heavy reference or reusable tools)
 - Tested, bulletproof skill ready for deployment
 
@@ -921,5 +921,5 @@ This ensures you're solving actual problems rather than anticipating requirement
 
 - Personal skills directory: platform-dependent (check your harness documentation)
 - Never use `@` syntax for cross-references — it force-loads files and burns context
-- Word count verification: run `wc -w skills/path/SKILL.md` in terminal
+- Word count verification: run `wc -w skills/path/MetaSkill.md` in terminal
 - Flowchart rendering: use `render-graphs.js` (upstream script, not bundled) to render dot diagrams to SVG for review

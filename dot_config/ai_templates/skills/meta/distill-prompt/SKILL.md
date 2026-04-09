@@ -68,9 +68,9 @@ A consumer (like the `distill` tool) receives the path to a specific `prompt.md`
 
 | Trigger | What Happens |
 |---------|--------------|
-| "use the follow-along prompt" | Routes to `follow-along-note/SKILL.md` |
-| "short summary" / "TL;DR" / "quick overview" | Routes to `short-summary/SKILL.md` |
-| "summary with quotes" / "include quotes" / "quote-based outline" | Routes to `summary-with-quotes/SKILL.md` |
+| "use the follow-along prompt" | Routes to `follow-along-note/MetaSkill.md` |
+| "short summary" / "TL;DR" / "quick overview" | Routes to `short-summary/MetaSkill.md` |
+| "summary with quotes" / "include quotes" / "quote-based outline" | Routes to `summary-with-quotes/MetaSkill.md` |
 | "list available distill prompts" | Lists all sub-skills under `references/` |
 
 ---

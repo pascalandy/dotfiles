@@ -9,6 +9,6 @@ description: 68 US economic indicators from FRED, EIA, Treasury, BLS, Census API
 
 | Request Pattern | Route To |
 |---|---|
-| update metrics, refresh data, pull latest, fetch live data, update dataset | `UpdateData/SKILL.md` |
-| how is the economy, economic overview, get current state, analyze trends, economic report, US metrics analysis, cross-metric, pattern detection | `GetCurrentState/SKILL.md` |
-| fetch FRED series, series history, individual metric, get UNRATE, get GDP, specific indicator, trend for CPI, single metric lookup | `FetchSeries/SKILL.md` |
+| update metrics, refresh data, pull latest, fetch live data, update dataset | `UpdateData/MetaSkill.md` |
+| how is the economy, economic overview, get current state, analyze trends, economic report, US metrics analysis, cross-metric, pattern detection | `GetCurrentState/MetaSkill.md` |
+| fetch FRED series, series history, individual metric, get UNRATE, get GDP, specific indicator, trend for CPI, single metric lookup | `FetchSeries/MetaSkill.md` |

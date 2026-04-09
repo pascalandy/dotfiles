@@ -55,17 +55,17 @@ The collection `SKILL.md` loads `references/ROUTER.md`, which routes requests to
 | Component | Path | Purpose |
 |-----------|------|---------|
 | Skill router | `references/ROUTER.md` | Dispatches requests to the right marketing domain |
-| Strategy skill | `references/Strategy/SKILL.md` | Positioning, research, psychology, ideation |
+| Strategy skill | `references/Strategy/MetaSkill.md` | Positioning, research, psychology, ideation |
 | Strategy references | `references/Strategy/references/` | Source guides, 139 ideas by category |
-| SEO skill | `references/SEO/SKILL.md` | Audits, AI SEO, schema, programmatic SEO, site architecture |
+| SEO skill | `references/SEO/MetaSkill.md` | Audits, AI SEO, schema, programmatic SEO, site architecture |
 | SEO references | `references/SEO/references/` | 8 reference files (ranking factors, patterns, playbooks, templates) |
-| CRO skill | `references/CRO/SKILL.md` | Pages, signup, onboarding, forms, popups, paywalls, testing |
+| CRO skill | `references/CRO/MetaSkill.md` | Pages, signup, onboarding, forms, popups, paywalls, testing |
 | CRO references | `references/CRO/references/` | Experiment ideas, sample size guide, test templates |
-| Content skill | `references/Content/SKILL.md` | Copywriting, editing, strategy, social content |
+| Content skill | `references/Content/MetaSkill.md` | Copywriting, editing, strategy, social content |
 | Content references | `references/Content/references/` | Copy frameworks, transitions, plain English, CMS, social templates |
-| Acquisition skill | `references/Acquisition/SKILL.md` | Email, cold outreach, lead magnets, ads, launches, tools |
+| Acquisition skill | `references/Acquisition/MetaSkill.md` | Email, cold outreach, lead magnets, ads, launches, tools |
 | Acquisition references | `references/Acquisition/references/` | 16 reference files (templates, benchmarks, specs, frameworks) |
-| Revenue skill | `references/Revenue/SKILL.md` | RevOps, sales, competitors, pricing, analytics, churn, referrals |
+| Revenue skill | `references/Revenue/MetaSkill.md` | RevOps, sales, competitors, pricing, analytics, churn, referrals |
 | Revenue references | `references/Revenue/references/` | 19 reference files (playbooks, templates, models, implementations) |
 
 **Summary:**

@@ -9,10 +9,10 @@ description: Unified video and audio toolkit covering AI-generated video product
 
 | Request Pattern | Route To |
 |---|---|
-| create video from brief, explainer video, product demo, marketing video, AI voiceover, TTS, talking head, narrator, Remotion, FLUX image gen, SadTalker, LTX-2, Qwen3-TTS, ACE-Step, acemusic, music generation, scene images, chain video, Modal, RunPod | `Create/SKILL.md` |
-| cut, trim, slice video, merge clips, concatenate (simple), extract audio track, thumbnail, screenshot frame, gif, convert format (one-shot), change speed, add watermark | `Quick/SKILL.md` |
-| analyse video, summarise recording, what happens in video, describe video content, timestamped summary, frame extraction for vision, scene detection for understanding | `Analyse/SKILL.md` |
-| transcode, convert codec, H.264, H.265, HEVC, VP9, AV1, HLS, DASH, streaming, LUT, .cube, haldclut, color grade, eq brightness contrast saturation, hue shift, chroma key, green screen, colorkey, picture in picture, PiP, stacking (hstack/vstack/xstack), xfade, transition, drawtext, title, subtitles, SRT, ASS, burn subs, loudnorm, normalize audio, denoise, afftdn, fade, volume, amix, reverse, frame rate, minterpolate, slideshow, NVENC, QSV, VideoToolbox, VAAPI, hardware accel, batch process loop, ffprobe, preset profile, web-optimized, social-vertical | `Edit/SKILL.md` |
+| create video from brief, explainer video, product demo, marketing video, AI voiceover, TTS, talking head, narrator, Remotion, FLUX image gen, SadTalker, LTX-2, Qwen3-TTS, ACE-Step, acemusic, music generation, scene images, chain video, Modal, RunPod | `Create/MetaSkill.md` |
+| cut, trim, slice video, merge clips, concatenate (simple), extract audio track, thumbnail, screenshot frame, gif, convert format (one-shot), change speed, add watermark | `Quick/MetaSkill.md` |
+| analyse video, summarise recording, what happens in video, describe video content, timestamped summary, frame extraction for vision, scene detection for understanding | `Analyse/MetaSkill.md` |
+| transcode, convert codec, H.264, H.265, HEVC, VP9, AV1, HLS, DASH, streaming, LUT, .cube, haldclut, color grade, eq brightness contrast saturation, hue shift, chroma key, green screen, colorkey, picture in picture, PiP, stacking (hstack/vstack/xstack), xfade, transition, drawtext, title, subtitles, SRT, ASS, burn subs, loudnorm, normalize audio, denoise, afftdn, fade, volume, amix, reverse, frame rate, minterpolate, slideshow, NVENC, QSV, VideoToolbox, VAAPI, hardware accel, batch process loop, ffprobe, preset profile, web-optimized, social-vertical | `Edit/MetaSkill.md` |
 
 ## Routing Notes
 

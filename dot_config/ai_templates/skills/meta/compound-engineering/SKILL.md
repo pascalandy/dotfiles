@@ -44,9 +44,9 @@ The collection stays readable, the router stays minimal, and each specialist sta
 |---|---|---|---|
 | Collection entry point | `SKILL.md` | User-facing overview and invocation guide | N/A |
 | Router | `references/ROUTER.md` | Maps requests to the right lifecycle specialist | N/A |
-| Shaping specialist | `references/ShapeWork/SKILL.md` | Discovery, requirements, planning, and architecture | `DiscoverDirection`, `DesignTheApproach`, `ChooseSpecializedPatterns` |
-| Execution specialist | `references/ExecuteWork/SKILL.md` | Implementation, focused builders, automation, and delivery mechanics | `ImplementFromPlan`, `UseFocusedBuilders`, `ManageDelivery` |
-| Verification and compounding specialist | `references/VerifyAndCompound/SKILL.md` | Review, QA, feedback handling, docs polish, and learnings | `ReviewAndValidate`, `ResolveFeedbackAndTrack`, `CaptureAndShare` |
+| Shaping specialist | `references/ShapeWork/MetaSkill.md` | Discovery, requirements, planning, and architecture | `DiscoverDirection`, `DesignTheApproach`, `ChooseSpecializedPatterns` |
+| Execution specialist | `references/ExecuteWork/MetaSkill.md` | Implementation, focused builders, automation, and delivery mechanics | `ImplementFromPlan`, `UseFocusedBuilders`, `ManageDelivery` |
+| Verification and compounding specialist | `references/VerifyAndCompound/MetaSkill.md` | Review, QA, feedback handling, docs polish, and learnings | `ReviewAndValidate`, `ResolveFeedbackAndTrack`, `CaptureAndShare` |
 
 ## Invocation Scenarios
 
@@ -72,7 +72,7 @@ User: we have a vague idea for improving onboarding. help me figure out what to 
 
 AI routes to ShapeWork and returns:
 - Workflow: `DiscoverDirection`
-- Downstream skill: `references/ce-brainstorm/SKILL.md`
+- Downstream skill: `references/ce-brainstorm/MetaSkill.md`
 - Reason: the request is still framing the problem and narrowing scope
 - Expected artifact: a requirements document or a clear recommended direction
 ```
@@ -84,8 +84,8 @@ User: implement the approved plan and use the existing Rails style in this repo.
 
 AI routes to ExecuteWork and returns:
 - Workflow: `ImplementFromPlan`
-- Downstream skill: `references/ce-work/SKILL.md`
-- Supporting specialized pattern: `references/dhh-rails-style/SKILL.md`
+- Downstream skill: `references/ce-work/MetaSkill.md`
+- Supporting specialized pattern: `references/dhh-rails-style/MetaSkill.md`
 - Expected artifact: finished code changes with verification completed during execution
 ```
 
@@ -96,7 +96,7 @@ User: review the branch, fix the feedback, then write up the learning.
 
 AI routes to VerifyAndCompound and returns:
 - Workflow: `ReviewAndValidate` followed by `ResolveFeedbackAndTrack` and `CaptureAndShare`
-- Downstream skills: `references/ce-review/SKILL.md`, `references/resolve-pr-feedback/SKILL.md`, `references/ce-compound/SKILL.md`
+- Downstream skills: `references/ce-review/MetaSkill.md`, `references/resolve-pr-feedback/MetaSkill.md`, `references/ce-compound/MetaSkill.md`
 - Expected artifact: findings resolved, branch hardened, and a reusable solution document captured
 ```
 

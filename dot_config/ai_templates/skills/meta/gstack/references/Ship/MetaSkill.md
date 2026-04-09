@@ -93,7 +93,7 @@ or invoking other gstack skills, use the `/gstack-` prefix (e.g., `/gstack-qa` i
 of `/qa`, `/gstack-ship` instead of `/ship`). Disk paths are unaffected — always use
 `~/.claude/skills/gstack/[skill-name]/SKILL.md` for reading skill files.
 
-If output shows `UPGRADE_AVAILABLE <old> <new>`: read `~/.claude/skills/gstack/gstack-upgrade/SKILL.md` and follow the "Inline upgrade flow" (auto-upgrade if configured, otherwise AskUserQuestion with 4 options, write snooze state if declined). If `JUST_UPGRADED <from> <to>`: tell user "Running gstack v{to} (just updated!)" and continue.
+If output shows `UPGRADE_AVAILABLE <old> <new>`: read `~/.claude/skills/gstack/gstack-upgrade/MetaSkill.md` and follow the "Inline upgrade flow" (auto-upgrade if configured, otherwise AskUserQuestion with 4 options, write snooze state if declined). If `JUST_UPGRADED <from> <to>`: tell user "Running gstack v{to} (just updated!)" and continue.
 
 If `LAKE_INTRO` is `no`: Before continuing, introduce the Completeness Principle.
 Tell the user: "gstack follows the **Boil the Lake** principle — always do the complete
@@ -1354,7 +1354,7 @@ curl -s -o /dev/null -w '%{http_code}' http://localhost:4000 2>/dev/null || echo
 Read the `/qa-only` skill from disk:
 
 ```bash
-cat ${CLAUDE_SKILL_DIR}/../qa-only/SKILL.md
+cat ${CLAUDE_SKILL_DIR}/../qa-only/MetaSkill.md
 ```
 
 **If unreadable:** Skip with "Could not load /qa-only — skipping plan verification."
@@ -2025,10 +2025,10 @@ Print the branch name, remote URL, and instruct the user to create the PR/MR man
 ## Step 8.5: Auto-invoke /document-release
 
 After the PR is created, automatically sync project documentation. Read the
-`document-release/SKILL.md` skill file (adjacent to this skill's directory) and
+`document-release/MetaSkill.md` skill file (adjacent to this skill's directory) and
 execute its full workflow:
 
-1. Read the `/document-release` skill: `cat ${CLAUDE_SKILL_DIR}/../document-release/SKILL.md`
+1. Read the `/document-release` skill: `cat ${CLAUDE_SKILL_DIR}/../document-release/MetaSkill.md`
 2. Follow its instructions — it reads all .md files in the project, cross-references
    the diff, and updates anything that drifted (README, ARCHITECTURE, CONTRIBUTING,
    CLAUDE.md, TODOS, etc.)

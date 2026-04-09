@@ -35,7 +35,7 @@ User: execute this plan and finish the feature end to end
 
 Route:
 - Workflow: `ImplementFromPlan`
-- Downstream skill: `../ce-work/SKILL.md`
+- Downstream skill: `../ce-work/MetaSkill.md`
 - Why: the work is implementation-focused and already scoped
 - Expected artifact: completed code changes with verification performed during execution
 ```
@@ -45,7 +45,7 @@ User: create the UI for this onboarding flow and keep the design quality high
 
 Route:
 - Workflow: `UseFocusedBuilders`
-- Downstream skill: `../frontend-design/SKILL.md`
+- Downstream skill: `../frontend-design/MetaSkill.md`
 - Why: the request is a specialized implementation task with a strong design requirement
 - Expected artifact: production-ready frontend changes and validation guidance
 ```

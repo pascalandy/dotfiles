@@ -53,18 +53,18 @@ The collection loads the router, which dispatches to the right domain based on k
 | Component | Path | Purpose |
 |-----------|------|---------|
 | Skill router | `references/ROUTER.md` | Dispatches requests to the right engineering domain |
-| ProductPlanning skill | `references/ProductPlanning/SKILL.md` | PRD writing, planning, issue creation, design grilling |
+| ProductPlanning skill | `references/ProductPlanning/MetaSkill.md` | PRD writing, planning, issue creation, design grilling |
 | ProductPlanning workflows | `references/ProductPlanning/workflows/` | 4 workflows: WritePRD, PRDToPlan, PRDToIssues, GrillMe |
-| ArchitectureDesign skill | `references/ArchitectureDesign/SKILL.md` | Interface design, architecture improvement, refactoring, DDD |
+| ArchitectureDesign skill | `references/ArchitectureDesign/MetaSkill.md` | Interface design, architecture improvement, refactoring, DDD |
 | ArchitectureDesign workflows | `references/ArchitectureDesign/workflows/` | 4 workflows: DesignInterface, ImproveArchitecture, RequestRefactor, UbiquitousLanguage |
 | ArchitectureDesign references | `references/ArchitectureDesign/references/` | Deep module philosophy, dependency categories |
-| TDD skill | `references/TDD/SKILL.md` | Test-driven development with vertical slices |
+| TDD skill | `references/TDD/MetaSkill.md` | Test-driven development with vertical slices |
 | TDD workflows | `references/TDD/workflows/` | 1 workflow: RedGreenRefactor |
 | TDD references | `references/TDD/references/` | TestPhilosophy, InterfaceDesign, Mocking, Refactoring, DeepModules |
-| IssueTriage skill | `references/IssueTriage/SKILL.md` | Bug investigation, issue management, QA sessions |
+| IssueTriage skill | `references/IssueTriage/MetaSkill.md` | Bug investigation, issue management, QA sessions |
 | IssueTriage workflows | `references/IssueTriage/workflows/` | 3 workflows: GithubTriage, TriageIssue, QASession |
 | IssueTriage references | `references/IssueTriage/references/` | Agent brief format, out-of-scope knowledge base |
-| Writing skill | `references/Writing/SKILL.md` | Article editing and skill creation |
+| Writing skill | `references/Writing/MetaSkill.md` | Article editing and skill creation |
 | Writing workflows | `references/Writing/workflows/` | 2 workflows: EditArticle, WriteASkill |
 
 **Summary:**

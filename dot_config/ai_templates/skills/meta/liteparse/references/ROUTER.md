@@ -9,7 +9,7 @@ description: Dispatch table for liteparse meta-skill.
 
 | Request Pattern | Route To |
 |---|---|
-| my preferences, my defaults, LYKRA, parse with my settings, config.en.json, config.fr.json, english parse, french parse, any file or directory path given | `Preferences/SKILL.md` |
-| parse, extract text, OCR, convert document, batch parse, json output, page range, bbox, HTTP OCR server | `Parse/SKILL.md` |
-| screenshot, render pages, page images, page thumbnails | `Screenshot/SKILL.md` |
-| install, setup, lit not found, libreoffice, imagemagick, upstream, source repo | `Setup/SKILL.md` |
+| my preferences, my defaults, LYKRA, parse with my settings, config.en.json, config.fr.json, english parse, french parse, any file or directory path given | `Preferences/MetaSkill.md` |
+| parse, extract text, OCR, convert document, batch parse, json output, page range, bbox, HTTP OCR server | `Parse/MetaSkill.md` |
+| screenshot, render pages, page images, page thumbnails | `Screenshot/MetaSkill.md` |
+| install, setup, lit not found, libreoffice, imagemagick, upstream, source repo | `Setup/MetaSkill.md` |

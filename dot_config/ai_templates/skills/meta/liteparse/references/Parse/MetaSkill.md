@@ -5,7 +5,7 @@ description: Full reference for `lit parse` and `lit batch-parse` -- options, OC
 
 # LiteParse — Parse
 
-For user defaults, see `../Preferences/SKILL.md`. This file documents the full CLI surface.
+For user defaults, see `../Preferences/MetaSkill.md`. This file documents the full CLI surface.
 
 **Note on output formats:** LiteParse natively supports only `--format text` and `--format json`. There is no markdown format. The `outputSuffix` field in user configs is a local naming convention applied by post-processing rename, not by `lit` itself.
 

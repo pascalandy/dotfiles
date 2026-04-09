@@ -54,11 +54,11 @@ The collection `SKILL.md` loads `references/ROUTER.md`, which routes to the righ
 |-----------|------|---------|
 | Skill router | `references/ROUTER.md` | Dispatch table routing requests to sub-skills |
 | Global schema | `references/SCHEMA.md` | Canonical tag model, frontmatter, hard rules, orientation protocol |
-| Ingest skill | `references/Ingest/SKILL.md` | Organize files, process sources, delete pages, upgrade old wikis |
+| Ingest skill | `references/Ingest/MetaSkill.md` | Organize files, process sources, delete pages, upgrade old wikis |
 | Ingest workflows | `references/Ingest/workflows/` | 5 workflows: CreateWikiMap, IngestSingle, IngestBatch, Delete, UpgradeSchema |
-| Query skill | `references/Query/SKILL.md` | Search and synthesize answers from the wiki |
+| Query skill | `references/Query/MetaSkill.md` | Search and synthesize answers from the wiki |
 | Query workflows | `references/Query/workflows/` | 3 workflows: Search, DeepQuery, FileAnswer |
-| Lint skill | `references/Lint/SKILL.md` | Health-check and maintain wiki quality |
+| Lint skill | `references/Lint/MetaSkill.md` | Health-check and maintain wiki quality |
 | Lint workflows | `references/Lint/workflows/` | 2 workflows: FullSweep, QuickCheck |
 
 **Summary:**

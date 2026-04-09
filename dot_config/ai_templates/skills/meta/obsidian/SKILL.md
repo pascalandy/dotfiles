@@ -50,13 +50,13 @@ The collection `SKILL.md` loads `references/ROUTER.md`, which routes requests to
 | Component | Path | Purpose |
 |-----------|------|---------|
 | Skill router | `references/ROUTER.md` | Dispatches requests to the correct Obsidian mode |
-| obsidian-sk skill | `references/obsidian-sk/SKILL.md` | Vault notes, Obsidian Flavored Markdown |
+| obsidian-sk skill | `references/obsidian-sk/MetaSkill.md` | Vault notes, Obsidian Flavored Markdown |
 | obsidian-sk references | `references/obsidian-sk/references/` | PROPERTIES, EMBEDS, CALLOUTS, MARKDOWN docs |
-| bases-sk skill | `references/bases-sk/SKILL.md` | Obsidian Bases (.base files) |
+| bases-sk skill | `references/bases-sk/MetaSkill.md` | Obsidian Bases (.base files) |
 | bases-sk references | `references/bases-sk/references/` | Complete functions reference |
-| canva-sk skill | `references/canva-sk/SKILL.md` | JSON Canvas (.canvas files) |
+| canva-sk skill | `references/canva-sk/MetaSkill.md` | JSON Canvas (.canvas files) |
 | canva-sk references | `references/canva-sk/references/` | Full canvas examples |
-| obsidian-cli skill | `references/obsidian-cli/SKILL.md` | CLI automation and plugin development |
+| obsidian-cli skill | `references/obsidian-cli/MetaSkill.md` | CLI automation and plugin development |
 
 **Summary:**
 - **Modes:** 4 (obsidian-sk, bases-sk, canva-sk, obsidian-cli)

@@ -94,7 +94,7 @@ or invoking other gstack skills, use the `/gstack-` prefix (e.g., `/gstack-qa` i
 of `/qa`, `/gstack-ship` instead of `/ship`). Disk paths are unaffected — always use
 `~/.claude/skills/gstack/[skill-name]/SKILL.md` for reading skill files.
 
-If output shows `UPGRADE_AVAILABLE <old> <new>`: read `~/.claude/skills/gstack/gstack-upgrade/SKILL.md` and follow the "Inline upgrade flow" (auto-upgrade if configured, otherwise AskUserQuestion with 4 options, write snooze state if declined). If `JUST_UPGRADED <from> <to>`: tell user "Running gstack v{to} (just updated!)" and continue.
+If output shows `UPGRADE_AVAILABLE <old> <new>`: read `~/.claude/skills/gstack/gstack-upgrade/MetaSkill.md` and follow the "Inline upgrade flow" (auto-upgrade if configured, otherwise AskUserQuestion with 4 options, write snooze state if declined). If `JUST_UPGRADED <from> <to>`: tell user "Running gstack v{to} (just updated!)" and continue.
 
 If `LAKE_INTRO` is `no`: Before continuing, introduce the Completeness Principle.
 Tell the user: "gstack follows the **Boil the Lake** principle — always do the complete
@@ -578,7 +578,7 @@ If they choose A:
 Say: "Running /office-hours inline. Once the design doc is ready, I'll pick up
 the review right where we left off."
 
-Read the `/office-hours` skill file at `~/.claude/skills/gstack/office-hours/SKILL.md` using the Read tool.
+Read the `/office-hours` skill file at `~/.claude/skills/gstack/office-hours/MetaSkill.md` using the Read tool.
 
 **If unreadable:** Skip with "Could not load /office-hours — skipping." and continue.
 
@@ -624,7 +624,7 @@ If they keep going, proceed normally — no guilt, no re-asking.
 
 If they choose A:
 
-Read the `/office-hours` skill file at `~/.claude/skills/gstack/office-hours/SKILL.md` using the Read tool.
+Read the `/office-hours` skill file at `~/.claude/skills/gstack/office-hours/MetaSkill.md` using the Read tool.
 
 **If unreadable:** Skip with "Could not load /office-hours — skipping." and continue.
 

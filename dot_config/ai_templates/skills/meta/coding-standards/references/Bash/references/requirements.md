@@ -57,7 +57,7 @@
 - The template is Bash (not POSIX `sh`) and uses `#!/usr/bin/env bash`.
 - ShellCheck is available to developers implementing this plan; if not, they must install it before final validation.
 - Repository conventions for Bash scripts (function prefix `fct_`, quoting, `printf`) are documented and must be respected where they do not conflict with the user requirements:
-  - `.opencode/skill/bash/SKILL.md`
+  - `.opencode/skill/bash/MetaSkill.md`
   - `.opencode/skill/bash/references/pref_bash.md`
 
 ### CLI contract
@@ -103,7 +103,7 @@
 ## Completeness Audit
 
 - Verified the target template path exists: `.opencode/skill/bash/scripts/pref_bash_script_template.sh`.
-- Verified repo Bash conventions and workflow docs exist: `.opencode/skill/bash/SKILL.md`, `.opencode/skill/bash/references/pref_bash.md`.
+- Verified repo Bash conventions and workflow docs exist: `.opencode/skill/bash/MetaSkill.md`, `.opencode/skill/bash/references/pref_bash.md`.
 - Extracted requirements from the repo task prompt: `INSTRUCT/instruct_v15.md`.
 - Defined explicit CLI, environment, logging, and exit-code contracts.
 - Included ShellCheck command and common pitfalls to avoid (to reach zero findings).

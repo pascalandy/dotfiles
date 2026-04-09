@@ -9,14 +9,14 @@ description: Routes requests to the right distill prompt sub-skill based on the 
 
 | Request Pattern | Route To |
 |---|---|
-| follow along, follow-along note, detailed notes, comprehensive notes, learning notes, full notes, study notes, companion notes | `follow-along-note/SKILL.md` |
-| short summary, tl;dr, quick overview, high-level summary, skim, 30 second summary, is this worth reading, is this worth watching | `short-summary/SKILL.md` |
-| summary with quotes, include quotes, quote-based outline, verbatim quotes, timestamped sections, best quotes | `summary-with-quotes/SKILL.md` |
+| follow along, follow-along note, detailed notes, comprehensive notes, learning notes, full notes, study notes, companion notes | `follow-along-note/MetaSkill.md` |
+| short summary, tl;dr, quick overview, high-level summary, skim, 30 second summary, is this worth reading, is this worth watching | `short-summary/MetaSkill.md` |
+| summary with quotes, include quotes, quote-based outline, verbatim quotes, timestamped sections, best quotes | `summary-with-quotes/MetaSkill.md` |
 | list prompts, what prompts exist, which distill prompts, available styles | List all sub-folders under `references/` |
 
 ## Default
 
-If no pattern matches clearly, default to `follow-along-note/SKILL.md`. It is the most general-purpose and preserves the most detail.
+If no pattern matches clearly, default to `follow-along-note/MetaSkill.md`. It is the most general-purpose and preserves the most detail.
 
 ## Consumer Note
 

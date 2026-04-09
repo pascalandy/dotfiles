@@ -6,11 +6,11 @@ Use this workflow when the work is implementation-heavy but belongs to a focused
 
 | Need | Load |
 |---|---|
-| Build or refine a production frontend experience | `../../frontend-design/SKILL.md` |
-| Automate a browser flow or interact with a web app through the browser CLI | `../../agent-browser/SKILL.md` |
-| Generate or edit images for product or documentation work | `../../gemini-imagegen/SKILL.md` |
-| Work inside collaborative documents with the bundled Proof skill | `../../proof/SKILL.md` |
-| Upload artifacts to cloud storage targets with the bundled rclone skill | `../../rclone/SKILL.md` |
+| Build or refine a production frontend experience | `../../frontend-design/MetaSkill.md` |
+| Automate a browser flow or interact with a web app through the browser CLI | `../../agent-browser/MetaSkill.md` |
+| Generate or edit images for product or documentation work | `../../gemini-imagegen/MetaSkill.md` |
+| Work inside collaborative documents with the bundled Proof skill | `../../proof/MetaSkill.md` |
+| Upload artifacts to cloud storage targets with the bundled rclone skill | `../../rclone/MetaSkill.md` |
 
 ## Expected Result
 

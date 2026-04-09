@@ -40,10 +40,10 @@ The collection stays user-facing. The router stays tiny. Each specialist owns a 
 |---|---|---|---|
 | Collection entry point | `SKILL.md` | User-facing overview and invocation guide | N/A |
 | Router | `references/ROUTER.md` | Maps request patterns to specialists | N/A |
-| Core topology specialist | `references/CoreControl/SKILL.md` | Windows, workspaces, panes, surfaces, focus, moves, reorder, flash | `InspectAndTarget`, `ReshapeTopology`, `ConfirmAndRecover` |
-| Browser specialist | `references/BrowserAutomation/SKILL.md` | Open sites, snapshot refs, interact, wait, extract state | `OpenAndAnchor`, `InteractAndVerify`, `SessionAndAuth` |
-| Markdown specialist | `references/MarkdownPanels/SKILL.md` | Open markdown viewers and rely on live updates | `OpenViewer`, `FollowLiveReload` |
-| Debug specialist | `references/DebugWindows/SKILL.md` | Debug menu wiring, debug windows, config snapshots | `InspectDebugMenu`, `CaptureDebugSnapshot` |
+| Core topology specialist | `references/CoreControl/MetaSkill.md` | Windows, workspaces, panes, surfaces, focus, moves, reorder, flash | `InspectAndTarget`, `ReshapeTopology`, `ConfirmAndRecover` |
+| Browser specialist | `references/BrowserAutomation/MetaSkill.md` | Open sites, snapshot refs, interact, wait, extract state | `OpenAndAnchor`, `InteractAndVerify`, `SessionAndAuth` |
+| Markdown specialist | `references/MarkdownPanels/MetaSkill.md` | Open markdown viewers and rely on live updates | `OpenViewer`, `FollowLiveReload` |
+| Debug specialist | `references/DebugWindows/MetaSkill.md` | Debug menu wiring, debug windows, config snapshots | `InspectDebugMenu`, `CaptureDebugSnapshot` |
 | Debug snapshot script | `references/DebugWindows/scripts/debug_windows_snapshot.sh` | Print or copy combined debug defaults payload | N/A |
 
 ## Invocation Scenarios

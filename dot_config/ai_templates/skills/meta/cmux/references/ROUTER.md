@@ -9,7 +9,7 @@ description: Unified cmux control for topology, browser surfaces, markdown viewe
 
 | Request Pattern | Route To |
 |---|---|
-| topology, windows, workspaces, panes, surfaces, inspect, identify, split, create, focus, move, reorder, trigger flash, health check | `CoreControl/SKILL.md` |
-| browser, webview, open site, click, fill, type, submit, snapshot, wait, login, auth state, session state, cookies, storage, extract data | `BrowserAutomation/SKILL.md` |
-| markdown, preview markdown, plan panel, docs panel, notes viewer, documentation, readme, live reload | `MarkdownPanels/SKILL.md` |
-| debug windows, sidebar debug, background debug, menu bar extra debug, debug menu, copy config, current debug configuration, debug snapshot | `DebugWindows/SKILL.md` |
+| topology, windows, workspaces, panes, surfaces, inspect, identify, split, create, focus, move, reorder, trigger flash, health check | `CoreControl/MetaSkill.md` |
+| browser, webview, open site, click, fill, type, submit, snapshot, wait, login, auth state, session state, cookies, storage, extract data | `BrowserAutomation/MetaSkill.md` |
+| markdown, preview markdown, plan panel, docs panel, notes viewer, documentation, readme, live reload | `MarkdownPanels/MetaSkill.md` |
+| debug windows, sidebar debug, background debug, menu bar extra debug, debug menu, copy config, current debug configuration, debug snapshot | `DebugWindows/MetaSkill.md` |

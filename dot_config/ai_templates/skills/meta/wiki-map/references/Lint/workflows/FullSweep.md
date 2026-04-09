@@ -71,7 +71,7 @@ If total `INDEX.md` entries exceed 200:
 
 ### 3. Produce Health Report
 
-Report issues by severity using the ordering defined in `Lint/SKILL.md`.
+Report issues by severity using the ordering defined in `Lint/MetaSkill.md`.
 
 ```markdown
 ## Wiki Health Report: {wiki name}

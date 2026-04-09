@@ -79,7 +79,7 @@ For dry-run, alternate providers, or custom output locations, read `help.md` via
 | Component | Path | Purpose |
 |-----------|------|---------|
 | Router | `references/ROUTER.md` | Routes request patterns to the right input sub-skill |
-| from-file sub-skill | `references/from-file/SKILL.md` | Docs for the local-file input path (v1 default) |
+| from-file sub-skill | `references/from-file/MetaSkill.md` | Docs for the local-file input path (v1 default) |
 | CLI help | `help.md` | Full user-facing CLI help, rendered by `--help` via glow |
 | Script | `scripts/distill.py` | PEP 723 single-file Python script |
 

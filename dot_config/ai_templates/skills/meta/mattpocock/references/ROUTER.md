@@ -9,17 +9,17 @@ description: Matt Pocock's engineering methodology -- product planning, architec
 
 | Request Pattern | Route To |
 |---|---|
-| write PRD, product requirements, plan feature, user stories, interview about design | `ProductPlanning/SKILL.md` |
-| PRD to plan, implementation plan, tracer bullets, vertical slices, phased plan | `ProductPlanning/SKILL.md` |
-| PRD to issues, create issues, break down PRD, work items, HITL, AFK | `ProductPlanning/SKILL.md` |
-| grill me, stress-test plan, challenge design, decision tree, interview relentlessly | `ProductPlanning/SKILL.md` |
-| design interface, design it twice, module interface, API design, compare designs | `ArchitectureDesign/SKILL.md` |
-| improve architecture, deep modules, shallow modules, codebase architecture, testability | `ArchitectureDesign/SKILL.md` |
-| refactor plan, refactoring RFC, tiny commits, incremental refactor, safe refactoring | `ArchitectureDesign/SKILL.md` |
-| ubiquitous language, domain terms, glossary, DDD, domain model, canonical terms | `ArchitectureDesign/SKILL.md` |
-| TDD, test-driven, red-green-refactor, test-first, integration tests, write tests | `TDD/SKILL.md` |
-| triage issues, review bugs, needs-triage, ready-for-agent, issue workflow, github triage | `IssueTriage/SKILL.md` |
-| investigate bug, root cause, diagnose problem, TDD fix plan, file issue from bug | `IssueTriage/SKILL.md` |
-| QA session, report bugs, interactive QA, conversational QA, file issues from testing | `IssueTriage/SKILL.md` |
-| edit article, revise article, improve article, restructure sections, tighten prose | `Writing/SKILL.md` |
-| write skill, create skill, build skill, skill structure, agent skill | `Writing/SKILL.md` |
+| write PRD, product requirements, plan feature, user stories, interview about design | `ProductPlanning/MetaSkill.md` |
+| PRD to plan, implementation plan, tracer bullets, vertical slices, phased plan | `ProductPlanning/MetaSkill.md` |
+| PRD to issues, create issues, break down PRD, work items, HITL, AFK | `ProductPlanning/MetaSkill.md` |
+| grill me, stress-test plan, challenge design, decision tree, interview relentlessly | `ProductPlanning/MetaSkill.md` |
+| design interface, design it twice, module interface, API design, compare designs | `ArchitectureDesign/MetaSkill.md` |
+| improve architecture, deep modules, shallow modules, codebase architecture, testability | `ArchitectureDesign/MetaSkill.md` |
+| refactor plan, refactoring RFC, tiny commits, incremental refactor, safe refactoring | `ArchitectureDesign/MetaSkill.md` |
+| ubiquitous language, domain terms, glossary, DDD, domain model, canonical terms | `ArchitectureDesign/MetaSkill.md` |
+| TDD, test-driven, red-green-refactor, test-first, integration tests, write tests | `TDD/MetaSkill.md` |
+| triage issues, review bugs, needs-triage, ready-for-agent, issue workflow, github triage | `IssueTriage/MetaSkill.md` |
+| investigate bug, root cause, diagnose problem, TDD fix plan, file issue from bug | `IssueTriage/MetaSkill.md` |
+| QA session, report bugs, interactive QA, conversational QA, file issues from testing | `IssueTriage/MetaSkill.md` |
+| edit article, revise article, improve article, restructure sections, tighten prose | `Writing/MetaSkill.md` |
+| write skill, create skill, build skill, skill structure, agent skill | `Writing/MetaSkill.md` |

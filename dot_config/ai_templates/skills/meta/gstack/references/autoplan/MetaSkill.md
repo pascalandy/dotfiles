@@ -96,7 +96,7 @@ or invoking other gstack skills, use the `/gstack-` prefix (e.g., `/gstack-qa` i
 of `/qa`, `/gstack-ship` instead of `/ship`). Disk paths are unaffected — always use
 `~/.claude/skills/gstack/[skill-name]/SKILL.md` for reading skill files.
 
-If output shows `UPGRADE_AVAILABLE <old> <new>`: read `~/.claude/skills/gstack/gstack-upgrade/SKILL.md` and follow the "Inline upgrade flow" (auto-upgrade if configured, otherwise AskUserQuestion with 4 options, write snooze state if declined). If `JUST_UPGRADED <from> <to>`: tell user "Running gstack v{to} (just updated!)" and continue.
+If output shows `UPGRADE_AVAILABLE <old> <new>`: read `~/.claude/skills/gstack/gstack-upgrade/MetaSkill.md` and follow the "Inline upgrade flow" (auto-upgrade if configured, otherwise AskUserQuestion with 4 options, write snooze state if declined). If `JUST_UPGRADED <from> <to>`: tell user "Running gstack v{to} (just updated!)" and continue.
 
 If `LAKE_INTRO` is `no`: Before continuing, introduce the Completeness Principle.
 Tell the user: "gstack follows the **Boil the Lake** principle — always do the complete
@@ -475,7 +475,7 @@ If they choose A:
 Say: "Running /office-hours inline. Once the design doc is ready, I'll pick up
 the review right where we left off."
 
-Read the `/office-hours` skill file at `~/.claude/skills/gstack/office-hours/SKILL.md` using the Read tool.
+Read the `/office-hours` skill file at `~/.claude/skills/gstack/office-hours/MetaSkill.md` using the Read tool.
 
 **If unreadable:** Skip with "Could not load /office-hours — skipping." and continue.
 
@@ -671,9 +671,9 @@ Then prepend a one-line HTML comment to the plan file:
 ### Step 3: Load skill files from disk
 
 Read each file using the Read tool:
-- `~/.claude/skills/gstack/plan-ceo-review/SKILL.md`
-- `~/.claude/skills/gstack/plan-design-review/SKILL.md` (only if UI scope detected)
-- `~/.claude/skills/gstack/plan-eng-review/SKILL.md`
+- `~/.claude/skills/gstack/plan-ceo-review/MetaSkill.md`
+- `~/.claude/skills/gstack/plan-design-review/MetaSkill.md` (only if UI scope detected)
+- `~/.claude/skills/gstack/plan-eng-review/MetaSkill.md`
 
 **Section skip list — when following a loaded skill file, SKIP these sections
 (they are already handled by /autoplan):**
@@ -700,7 +700,7 @@ Loaded review skills from disk. Starting full review pipeline with auto-decision
 
 ## Phase 1: CEO Review (Strategy & Scope)
 
-Follow plan-ceo-review/SKILL.md — all sections, full depth.
+Follow plan-ceo-review/MetaSkill.md — all sections, full depth.
 Override: every AskUserQuestion → auto-decide using the 6 principles.
 
 **Override rules:**
@@ -819,7 +819,7 @@ and the premise gate has been passed.
 
 ## Phase 2: Design Review (conditional — skip if no UI scope)
 
-Follow plan-design-review/SKILL.md — all 7 dimensions, full depth.
+Follow plan-design-review/MetaSkill.md — all 7 dimensions, full depth.
 Override: every AskUserQuestion → auto-decide using the 6 principles.
 
 **Override rules:**
@@ -897,7 +897,7 @@ Do NOT begin Phase 3 until all Phase 2 outputs (if run) are written to the plan 
 
 ## Phase 3: Eng Review + Dual Voices
 
-Follow plan-eng-review/SKILL.md — all sections, full depth.
+Follow plan-eng-review/MetaSkill.md — all sections, full depth.
 Override: every AskUserQuestion → auto-decide using the 6 principles.
 
 **Override rules:**

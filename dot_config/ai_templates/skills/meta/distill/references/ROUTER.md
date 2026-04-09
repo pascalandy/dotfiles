@@ -9,13 +9,13 @@ description: Routes distill requests to the right input sub-skill based on what 
 
 | Request Pattern | Route To |
 |---|---|
-| distill `<local-file>`, summarize this file, notes from article.md, process a markdown file, read this text file | `from-file/SKILL.md` |
-| distill this URL, summarize a web page, fetch and distill | **Out of scope in v1.** Deferred to a future `from-url/SKILL.md`. |
-| distill this video, summarize a YouTube URL, podcast audio | **Out of scope.** Use `utils/transcript-sk` for YouTube. `from-media/SKILL.md` is future work. |
+| distill `<local-file>`, summarize this file, notes from article.md, process a markdown file, read this text file | `from-file/MetaSkill.md` |
+| distill this URL, summarize a web page, fetch and distill | **Out of scope in v1.** Deferred to a future `from-url/MetaSkill.md`. |
+| distill this video, summarize a YouTube URL, podcast audio | **Out of scope.** Use `utils/transcript-sk` for YouTube. `from-media/MetaSkill.md` is future work. |
 
 ## Default
 
-If the input is a path to a file on disk, route to `from-file/SKILL.md`.
+If the input is a path to a file on disk, route to `from-file/MetaSkill.md`.
 
 ## Why a Router for One Sub-Skill?
 

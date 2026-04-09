@@ -1,11 +1,11 @@
 ---
 name: creative
-description: Creative content generation collection -- Video creation (Manim by default), ASCII art and banners, ASCII video production (terminal-style only), hand-drawn Excalidraw diagrams, Manim math/technical animations, p5.js generative and interactive art, popular website design systems (Stripe/Linear/Vercel/etc.), and songwriting with AI music (Suno) prompts. USE WHEN create a video, make a video, ASCII art, figlet, banners, cowsay, text art, ASCII video, terminal video, matrix effect, audio visualizer, excalidraw, hand-drawn diagram, flowchart, architecture diagram, sequence diagram, concept map, manim, math animation, 3blue1brown, algorithm visualization, equation animation, p5.js, creative coding, generative art, canvas sketch, shader, GLSL, interactive visualization, web design template, landing page CSS, Stripe style, Linear style, Vercel style, Notion style, design system, songwriting, lyrics, Suno prompt, AI music, parody song.
+description: Creative content generation collection -- Video creation (Manim by default), ASCII art and banners, ASCII video production (terminal-style only), hand-drawn Excalidraw diagrams, Manim math/technical animations, p5.js generative and interactive art, popular website design systems (Stripe/Linear/Vercel/etc.), songwriting with AI music (Suno) prompts, and the full ffmpeg video/audio toolkit (AI video creation, quick ops, content analysis, editing cookbook). USE WHEN create a video, make a video, ASCII art, figlet, banners, cowsay, text art, ASCII video, terminal video, matrix effect, audio visualizer, excalidraw, hand-drawn diagram, flowchart, architecture diagram, sequence diagram, concept map, manim, math animation, 3blue1brown, algorithm visualization, equation animation, p5.js, creative coding, generative art, canvas sketch, shader, GLSL, interactive visualization, web design template, landing page CSS, Stripe style, Linear style, Vercel style, Notion style, design system, songwriting, lyrics, Suno prompt, AI music, parody song, ffmpeg, ffprobe, video editing, cut video, trim, merge, concat, thumbnail, gif, extract audio, watermark, transcode, H.264, H.265, HEVC, VP9, AV1, HLS, DASH, LUT, color grade, chroma key, green screen, picture in picture, xfade, drawtext, subtitles, loudnorm, NVENC, VideoToolbox, analyse video, summarise recording, AI voiceover, talking head, Remotion, explainer video, product demo, marketing video.
 ---
 
 # Creative
 
-> Unified entry point for seven creative production pipelines sourced from the Hermes agent skills.
+> Unified entry point for eight creative production pipelines sourced from the Hermes agent skills.
 
 ## Problem
 
@@ -13,7 +13,7 @@ Creative requests span wildly different media: text art, animated video, vector 
 
 ## Solution
 
-One meta-skill with seven specialist sub-skills. Describe what you want to make; the router picks the right specialist automatically.
+One meta-skill with eight specialist sub-skills. Describe what you want to make; the router picks the right specialist automatically.
 
 ## What's Included
 

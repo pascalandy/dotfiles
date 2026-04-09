@@ -58,17 +58,17 @@ The `SKILL.md` loads `references/ROUTER.md`, which routes requests to the right 
 | Component | Path | Purpose |
 |-----------|------|---------|
 | Skill router | `references/ROUTER.md` | Routing table that dispatches to all 6 modes |
-| CliSpec skill | `references/CliSpec/SKILL.md` | CLI interface design and spec generation |
+| CliSpec skill | `references/CliSpec/MetaSkill.md` | CLI interface design and spec generation |
 | CliSpec references | `references/CliSpec/references/` | Condensed CLI guidelines rubric, source attribution |
-| CliImpl skill | `references/CliImpl/SKILL.md` | CLI implementation best practices |
+| CliImpl skill | `references/CliImpl/MetaSkill.md` | CLI implementation best practices |
 | CliImpl references | `references/CliImpl/references/` | Stress checklist, high-level concepts, full guidelines, index |
-| CliAudit skill | `references/CliAudit/SKILL.md` | Agent-friendly CLI requirements and auditing |
-| Bash skill | `references/Bash/SKILL.md` | Bash scripting conventions and workflow |
+| CliAudit skill | `references/CliAudit/MetaSkill.md` | Agent-friendly CLI requirements and auditing |
+| Bash skill | `references/Bash/MetaSkill.md` | Bash scripting conventions and workflow |
 | Bash references | `references/Bash/references/` | Full convention doc (`pref_bash.md`), requirements |
 | Bash scripts | `references/Bash/scripts/` | Shellcheck wrapper, script template |
-| Python skill | `references/Python/SKILL.md` | Python development with uv, PEP 723, tooling |
+| Python skill | `references/Python/MetaSkill.md` | Python development with uv, PEP 723, tooling |
 | Python references | `references/Python/references/` | pyright, pytest, ruff guides |
-| Starlette skill | `references/Starlette/SKILL.md` | Starlette/ASGI framework patterns |
+| Starlette skill | `references/Starlette/MetaSkill.md` | Starlette/ASGI framework patterns |
 | Starlette references | `references/Starlette/references/` | HTTP, middleware, features, testing, internals, ecosystem |
 
 **Summary:**

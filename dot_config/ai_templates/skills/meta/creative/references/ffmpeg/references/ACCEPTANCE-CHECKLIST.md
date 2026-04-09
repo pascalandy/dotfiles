@@ -32,7 +32,7 @@ Use this as the final audit trail for `.agents/skills/meta/ffmpeg`.
 - [x] Corrected the Analyse workflow so it no longer suggests using `ffprobe` on extracted JPEGs for exact timestamps
 - [x] Tightened `references/Quick/scripts/extract-audio.sh` so its help and validation match its actual MP3-only behavior
 - [x] Hardened `references/Quick/scripts/speed.sh` so it works on silent inputs instead of failing on missing audio
-- [x] Updated `references/Quick/SKILL.md` so the speed script behavior matches the implementation
+- [x] Updated `references/Quick/MetaSkill.md` so the speed script behavior matches the implementation
 
 ## Verification Performed
 

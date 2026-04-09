@@ -32,4 +32,4 @@ Configs at `~/.config/liteparse/config.{en,fr}.json` are auto-installed by chezm
 
 For non-default options (json output, page range, custom DPI, screenshots) bypass the wrapper and use `Parse` or `Screenshot` directly.
 
-For full option reference, see `../Parse/SKILL.md`.
+For full option reference, see `../Parse/MetaSkill.md`.

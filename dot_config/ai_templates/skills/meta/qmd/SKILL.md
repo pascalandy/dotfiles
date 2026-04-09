@@ -54,12 +54,12 @@ The router dispatches automatically. Most requests go to Query. When the user as
 | Component | Path | Purpose |
 |-----------|------|---------|
 | Skill router | `references/ROUTER.md` | Dispatch table mapping intent to sub-skill |
-| Query skill | `references/Query/SKILL.md` | QMD CLI operations, default playbook, examples |
+| Query skill | `references/Query/MetaSkill.md` | QMD CLI operations, default playbook, examples |
 | Query: retrieval workflow | `references/Query/references/retrieval-workflow.md` | Health checks, collection scoping, mode choice, evidence discipline |
 | Query: query patterns | `references/Query/references/query-patterns.md` | Query documents, `intent:` / `lex:` / `vec:` / `hyde:`, weighting |
 | Query: command cheatsheet | `references/Query/references/command-cheatsheet.md` | High-value flags, command patterns, setup, indexing, maintenance |
 | Query: MCP setup | `references/Query/references/mcp-setup.md` | MCP tool names, transport, Claude Code/Desktop integration |
-| Semantic skill | `references/Semantic/SKILL.md` | Semantic query pattern engineering |
+| Semantic skill | `references/Semantic/MetaSkill.md` | Semantic query pattern engineering |
 | Semantic: patterns | `references/Semantic/references/semantic-patterns.md` | Detailed examples for all 9 query patterns |
 
 **Summary:**

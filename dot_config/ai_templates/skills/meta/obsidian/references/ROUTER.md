@@ -9,7 +9,7 @@ description: Obsidian vault management -- notes, markdown, Bases database views,
 
 | Request Pattern | Route To |
 |---|---|
-| notes, wikilinks, embeds, callouts, frontmatter, tags, properties, create note, search vault, organize notes, obsidian markdown, index notes, aliases, block IDs | `obsidian-sk/SKILL.md` |
-| base files, bases, table view, card view, list view, map view, filters, formulas, summaries, database view, .base, groupBy, computed properties | `bases-sk/SKILL.md` |
-| canvas, mind map, flowchart, nodes, edges, groups, visual map, .canvas, json canvas, project board, research canvas | `canva-sk/SKILL.md` |
-| obsidian cli, plugin development, reload plugin, screenshot, dom inspect, eval, daily note, append note, search command, tasks command, backlinks command, dev errors, console output | `obsidian-cli/SKILL.md` |
+| notes, wikilinks, embeds, callouts, frontmatter, tags, properties, create note, search vault, organize notes, obsidian markdown, index notes, aliases, block IDs | `obsidian-sk/MetaSkill.md` |
+| base files, bases, table view, card view, list view, map view, filters, formulas, summaries, database view, .base, groupBy, computed properties | `bases-sk/MetaSkill.md` |
+| canvas, mind map, flowchart, nodes, edges, groups, visual map, .canvas, json canvas, project board, research canvas | `canva-sk/MetaSkill.md` |
+| obsidian cli, plugin development, reload plugin, screenshot, dom inspect, eval, daily note, append note, search command, tasks command, backlinks command, dev errors, console output | `obsidian-cli/MetaSkill.md` |

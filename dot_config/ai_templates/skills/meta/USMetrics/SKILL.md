@@ -49,13 +49,13 @@ The 10 categories covered: Economic Output and Growth, Inflation and Prices, Emp
 | Component | Path | Purpose |
 |-----------|------|---------|
 | Skill router | `references/ROUTER.md` | Minimal routing table that dispatches to the right sub-skill |
-| UpdateData skill | `references/UpdateData/SKILL.md` | Data ingestion from federal APIs |
+| UpdateData skill | `references/UpdateData/MetaSkill.md` | Data ingestion from federal APIs |
 | UpdateData workflow | `references/UpdateData/workflows/UpdateData.md` | Step-by-step data fetch and update procedure |
 | UpdateData script | `references/UpdateData/scripts/UpdateSubstrateMetrics.ts` | TypeScript tool -- fetches all 68 metrics, updates dataset files |
-| GetCurrentState skill | `references/GetCurrentState/SKILL.md` | Comprehensive economic analysis generation |
+| GetCurrentState skill | `references/GetCurrentState/MetaSkill.md` | Comprehensive economic analysis generation |
 | GetCurrentState workflow | `references/GetCurrentState/workflows/GetCurrentState.md` | Analysis pipeline with trend calculations and pattern detection |
 | GetCurrentState script | `references/GetCurrentState/scripts/GenerateAnalysis.ts` | TypeScript tool -- generates analysis report from fetched data |
-| FetchSeries skill | `references/FetchSeries/SKILL.md` | Individual FRED series lookup with trends |
+| FetchSeries skill | `references/FetchSeries/MetaSkill.md` | Individual FRED series lookup with trends |
 | FetchSeries script | `references/FetchSeries/scripts/FetchFredSeries.ts` | TypeScript tool -- fetches historical data for any FRED series |
 
 **Summary:**

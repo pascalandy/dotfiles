@@ -56,19 +56,19 @@ This collection owns three non-overlapping lifecycle phases:
 
 | Trigger Phrase | What Happens |
 |---|---|
-| "help me think through this idea" | Routes directly to `references/office-hours/SKILL.md` in the `Plan` phase |
-| "challenge the scope like a founder" | Routes directly to `references/plan-ceo-review/SKILL.md` in the `Plan` phase |
-| "review the architecture before we build" | Routes directly to `references/plan-eng-review/SKILL.md` in the `Plan` phase |
-| "design system for this product" | Routes directly to `references/design-consultation/SKILL.md` in the `Plan` phase |
-| "debug this broken flow" | Routes directly to `references/investigate/SKILL.md` in the `Work` phase |
-| "inspect the live page and capture evidence" | Routes directly to `references/browse/SKILL.md` in the `Work` phase |
-| "review the branch and QA the app" | Routes directly to `references/review/SKILL.md` or `references/qa/SKILL.md` in the `Work` phase |
-| "run a security check" | Routes directly to `references/cso/SKILL.md` in the `Work` phase |
-| "get a second opinion on this code" | Routes directly to `references/codex/SKILL.md` in the `Work` phase |
-| "ship this and open the PR" | Routes directly to `references/ship/SKILL.md` in the `Ship` phase |
-| "watch the rollout after deploy" | Routes directly to `references/canary/SKILL.md` in the `Ship` phase |
-| "lock this directory before I debug" | Routes directly to `references/freeze/SKILL.md` or `references/guard/SKILL.md` in the `Ship` phase |
-| "update docs after deploy" | Routes directly to `references/document-release/SKILL.md` in the `Ship` phase |
+| "help me think through this idea" | Routes directly to `references/office-hours/MetaSkill.md` in the `Plan` phase |
+| "challenge the scope like a founder" | Routes directly to `references/plan-ceo-review/MetaSkill.md` in the `Plan` phase |
+| "review the architecture before we build" | Routes directly to `references/plan-eng-review/MetaSkill.md` in the `Plan` phase |
+| "design system for this product" | Routes directly to `references/design-consultation/MetaSkill.md` in the `Plan` phase |
+| "debug this broken flow" | Routes directly to `references/investigate/MetaSkill.md` in the `Work` phase |
+| "inspect the live page and capture evidence" | Routes directly to `references/browse/MetaSkill.md` in the `Work` phase |
+| "review the branch and QA the app" | Routes directly to `references/review/MetaSkill.md` or `references/qa/MetaSkill.md` in the `Work` phase |
+| "run a security check" | Routes directly to `references/cso/MetaSkill.md` in the `Work` phase |
+| "get a second opinion on this code" | Routes directly to `references/codex/MetaSkill.md` in the `Work` phase |
+| "ship this and open the PR" | Routes directly to `references/ship/MetaSkill.md` in the `Ship` phase |
+| "watch the rollout after deploy" | Routes directly to `references/canary/MetaSkill.md` in the `Ship` phase |
+| "lock this directory before I debug" | Routes directly to `references/freeze/MetaSkill.md` or `references/guard/MetaSkill.md` in the `Ship` phase |
+| "update docs after deploy" | Routes directly to `references/document-release/MetaSkill.md` in the `Ship` phase |
 
 ## Example Usage
 
@@ -78,7 +78,7 @@ This collection owns three non-overlapping lifecycle phases:
 User: I have a rough product idea and need help narrowing the wedge.
 
 AI routes directly to:
-- Skill: `references/office-hours/SKILL.md`
+- Skill: `references/office-hours/MetaSkill.md`
 - Phase: `Plan`
 - Reason: the request is still deciding what to build
 ```
@@ -89,7 +89,7 @@ AI routes directly to:
 User: the feature is implemented, now debug the flaky part and QA the flow.
 
 AI routes directly to:
-- Skills: `references/investigate/SKILL.md`, `references/qa/SKILL.md`
+- Skills: `references/investigate/MetaSkill.md`, `references/qa/MetaSkill.md`
 - Phase: `Work`
 - Reason: the feature exists but still needs diagnosis and evidence
 ```
@@ -100,7 +100,7 @@ AI routes directly to:
 User: create the PR, deploy it, then update the docs.
 
 AI routes directly to:
-- Skills: `references/ship/SKILL.md`, `references/land-and-deploy/SKILL.md`, `references/document-release/SKILL.md`
+- Skills: `references/ship/MetaSkill.md`, `references/land-and-deploy/MetaSkill.md`, `references/document-release/MetaSkill.md`
 - Phase: `Ship`
 - Reason: the request is release work plus cleanup
 ```

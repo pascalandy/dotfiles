@@ -10,5 +10,5 @@ description: >
 
 | Request Pattern | Route To |
 |---|---|
-| find note, search collection, retrieve document, list collections, update indexes, status, maintenance, MCP setup, qmd command | `Query/SKILL.md` |
-| query expansion, query decomposition, HyDE, poor recall, semantic search, craft query, metadata filtering, multi-hop, contextual rewriting, diagnostic expansion, self-ask, temporal rewriting, result aggregation | `Semantic/SKILL.md` |
+| find note, search collection, retrieve document, list collections, update indexes, status, maintenance, MCP setup, qmd command | `Query/MetaSkill.md` |
+| query expansion, query decomposition, HyDE, poor recall, semantic search, craft query, metadata filtering, multi-hop, contextual rewriting, diagnostic expansion, self-ask, temporal rewriting, result aggregation | `Semantic/MetaSkill.md` |

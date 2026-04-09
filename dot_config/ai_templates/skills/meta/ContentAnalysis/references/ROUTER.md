@@ -9,4 +9,4 @@ description: Content-adaptive wisdom extraction from videos, podcasts, articles,
 
 | Request Pattern | Route To |
 |---|---|
-| extract wisdom, content analysis, analyze content, analyze video, analyze podcast, extract insights, key takeaways, what did I miss, insight report, summarize content, what's interesting, extract from YouTube | `ExtractWisdom/SKILL.md` |
+| extract wisdom, content analysis, analyze content, analyze video, analyze podcast, extract insights, key takeaways, what did I miss, insight report, summarize content, what's interesting, extract from YouTube | `ExtractWisdom/MetaSkill.md` |

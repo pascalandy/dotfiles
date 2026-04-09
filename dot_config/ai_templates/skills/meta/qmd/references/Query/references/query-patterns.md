@@ -68,4 +68,4 @@ Practical guidance:
 
 ## Semantic search strategy
 
-Route to the **Semantic** sub-skill (`../../Semantic/SKILL.md`) when the real challenge is designing better semantic retrieval prompts rather than operating QMD itself.
+Route to the **Semantic** sub-skill (`../../Semantic/MetaSkill.md`) when the real challenge is designing better semantic retrieval prompts rather than operating QMD itself.

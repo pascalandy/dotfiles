@@ -65,25 +65,25 @@ This pack is designed for AI-assisted use. Give this directory to your AI and as
 | Component | Path | Purpose |
 |-----------|------|---------|
 | Skill router | `references/ROUTER.md` | Minimal routing table that dispatches requests to thinking modes |
-| FirstPrinciples skill | `references/FirstPrinciples/SKILL.md` | First principles decomposition and reconstruction |
+| FirstPrinciples skill | `references/FirstPrinciples/MetaSkill.md` | First principles decomposition and reconstruction |
 | FirstPrinciples workflows | `references/FirstPrinciples/workflows/` | 3 workflows: Deconstruct, Challenge, Reconstruct |
-| IterativeDepth skill | `references/IterativeDepth/SKILL.md` | Multi-angle deep exploration through progressive lenses |
+| IterativeDepth skill | `references/IterativeDepth/MetaSkill.md` | Multi-angle deep exploration through progressive lenses |
 | IterativeDepth workflows | `references/IterativeDepth/workflows/` | 1 workflow: Explore |
 | IterativeDepth references | `references/IterativeDepth/references/` | Scientific foundation and lens definitions |
-| BeCreative skill | `references/BeCreative/SKILL.md` | Divergent creative thinking and idea generation |
+| BeCreative skill | `references/BeCreative/MetaSkill.md` | Divergent creative thinking and idea generation |
 | BeCreative workflows | `references/BeCreative/workflows/` | 6 workflows: StandardCreativity, MaximumCreativity, TreeOfThoughts, IdeaGeneration, DomainSpecific, TechnicalCreativity |
 | BeCreative references | `references/BeCreative/references/` | Principles, examples, templates, and research foundation |
 | BeCreative assets | `references/BeCreative/assets/` | Template assets for creative writing and idea generation |
-| Council skill | `references/Council/SKILL.md` | Multi-agent debate with visible transcripts |
+| Council skill | `references/Council/MetaSkill.md` | Multi-agent debate with visible transcripts |
 | Council workflows | `references/Council/workflows/` | 2 workflows: Debate, Quick |
 | Council references | `references/Council/references/` | Council member definitions, output format, and round structure |
-| RedTeam skill | `references/RedTeam/SKILL.md` | Adversarial validation and stress testing |
+| RedTeam skill | `references/RedTeam/MetaSkill.md` | Adversarial validation and stress testing |
 | RedTeam workflows | `references/RedTeam/workflows/` | 2 workflows: AdversarialValidation, ParallelAnalysis |
 | RedTeam references | `references/RedTeam/references/` | Philosophy and integration guides |
-| WorldThreatModelHarness skill | `references/WorldThreatModelHarness/SKILL.md` | World model and threat analysis |
+| WorldThreatModelHarness skill | `references/WorldThreatModelHarness/MetaSkill.md` | World model and threat analysis |
 | WorldThreatModelHarness workflows | `references/WorldThreatModelHarness/workflows/` | 3 workflows: TestIdea, UpdateModels, ViewModels |
 | WorldThreatModelHarness references | `references/WorldThreatModelHarness/references/` | Model template and output format |
-| Science skill | `references/Science/SKILL.md` | Hypothesis-test-analyze cycles |
+| Science skill | `references/Science/MetaSkill.md` | Hypothesis-test-analyze cycles |
 | Science workflows | `references/Science/workflows/` | 9 workflows: DefineGoal, GenerateHypotheses, DesignExperiment, MeasureResults, AnalyzeResults, Iterate, FullCycle, QuickDiagnosis, StructuredInvestigation |
 | Science references | `references/Science/references/` | Methodology, protocol, examples, and templates |
 
