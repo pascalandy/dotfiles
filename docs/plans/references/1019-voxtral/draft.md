@@ -22,7 +22,7 @@ For a long task, it's a good idea to tell the user where we are in certain miles
 | `cheerful` | Welcomes, completions, good news. | `voxtral -v cheerful "All tests passing. Ready to ship."` |
 | `frustrated` | Failures, repeated problems, blockers. | `voxtral -v frustrated "Deploy failed again. Same timeout on staging."` |
 
-### Patterns
+### Patterns (english)
 
 ```bash
 # Task completed
@@ -39,6 +39,19 @@ voxtral -v confident "I'd go with option two. Lower risk, same outcome."
 
 # Status update
 voxtral "Build passed. No type errors."
+```
+
+### Patterns (in french)
+
+```bash
+# French (Marie - Neutral)
+voxtral -l fr "Le build est passé. Pas d'erreur de type."
+
+# French + cheerful (Marie - Happy)
+voxtral -l fr -v cheerful "Tout est prêt."
+
+# French + frustrated (Marie - Angry)
+voxtral -l fr -v frustrated "Le déploiement a encore échoué."
 ```
 
 ### What not to do
