@@ -37,24 +37,26 @@ This is progressive disclosure applied to sub-skills: the skill system reads the
 
 ```shell
 [MetaSkill]/
-├── SKILL.md              # Layer 1: Collection (rich docs, invocation scenarios, examples)
+├── SKILL.md              # Layer 1: Collection (the ONLY file the scanner indexes as a skill)
 └── references/
     ├── ROUTER.md          # Layer 2: Router (pure routing table, ~20 lines)
-    ├── [ModeA]/           # Layer 3: Sub-skill 1 (complete, standalone)
-    │   ├── SKILL.md       # Classic skill (format specification for Agent Skills)
+    ├── [ModeA]/           # Layer 3: Sub-skill 1 (complete, standalone, hidden from scanner)
+    │   ├── MetaSkill.md   # Classic skill content, renamed to stay invisible to skill scanners
     │   ├── workflows/     # Discrete workflow files (optional)
     │   ├── references/    # Supporting context (optional)
     │   ├── scripts/       # Scripts (optional)
     │   ├── templates/     # User templates (optional)
     │   └── assets/        # Assets (optional)
     ├── [ModeB]/           # Layer 3: Sub-skill 2
-    │   ├── SKILL.md
+    │   ├── MetaSkill.md
     │   └── workflows/
     └── [ModeC]/           # Layer 3: Sub-skill 3
-        ├── SKILL.md
+        ├── MetaSkill.md
 ```
 
 Sub-skills may include any combination of: `workflows/`, `references/`, `scripts/`, `templates/`, `assets/`.
+
+**Critical naming rule:** the root file is `SKILL.md` (so the scanner discovers exactly one skill per meta-skill). Every sub-skill file is `MetaSkill.md` (so recursive `SKILL.md` scanners do not register sub-skills as independent top-level skills). See [Why Sub-Skills Use `MetaSkill.md`](#why-sub-skills-use-metaskillmd) below.
 
 ## Root SKILL.md (Collection)
 
@@ -97,16 +99,16 @@ description: [What it does]. USE WHEN [all trigger keywords from all sub-skills 
 
 | Request Pattern | Route To |
 |---|---|
-| keyword1, keyword2, keyword3 | `[ModeA]/SKILL.md` |
-| keyword4, keyword5 | `[ModeB]/SKILL.md` |
-| keyword6, keyword7, keyword8 | `[ModeC]/SKILL.md` |
+| keyword1, keyword2, keyword3 | `[ModeA]/MetaSkill.md` |
+| keyword4, keyword5 | `[ModeB]/MetaSkill.md` |
+| keyword6, keyword7, keyword8 | `[ModeC]/MetaSkill.md` |
 ```
 
 The router's `USE WHEN` aggregates ALL keywords from ALL sub-skills. The routing table narrows to the specific one.
 
-## Sub-Skill SKILL.md
+## Sub-Skill MetaSkill.md
 
-Each sub-skill follows Anthropic's skill anatomy and works standalone or via the router:
+Each sub-skill follows Anthropic's skill anatomy but lives in a file named `MetaSkill.md` (not `SKILL.md`) so the scanner ignores it. It is only loaded explicitly through the router:
 
 - YAML frontmatter with name and description (including its own `USE WHEN` scoped to its domain)
 - Core concept explaining the methodology
@@ -115,6 +117,18 @@ Each sub-skill follows Anthropic's skill anatomy and works standalone or via the
 - Examples
 - No domain overlap with sibling sub-skills
 
+Sub-skills are NOT directly invocable by name. The user always enters through the parent meta-skill (e.g. `gstack, plan-ceo`) and the router dispatches to the correct `MetaSkill.md`.
+
+## Why Sub-Skills Use `MetaSkill.md`
+
+Skill scanners (including Claude Code's native scanner) discover skills by walking the filesystem and indexing every `SKILL.md` they find. If sub-skills were named `SKILL.md`, the scanner would treat each one as an independent top-level skill. That breaks the meta-skill design in three ways:
+
+1. **It defeats the single entry point.** A meta-skill exists so the user invokes ONE name (`gstack`) and the router dispatches internally. Indexing sub-skills as standalone skills creates multiple competing entry points.
+2. **It causes name conflicts.** Generic sub-skill names (`review`, `qa`, `ship`, `plan`) collide with other skills in the registry, and the wrong one can win.
+3. **It allows unintended auto-activation.** Sub-skills are designed to run only inside their parent's context. If the scanner indexes them, they can auto-trigger on keywords outside that context.
+
+Renaming sub-skills to `MetaSkill.md` makes them invisible to the scanner. They keep the same content, frontmatter, and standalone format — they are simply loaded explicitly via the router instead of being discovered. The parent `SKILL.md` is the only file the scanner registers.
+
 ## Design Rules
 
 1. **Single entry point** -- user invokes the meta-skill name, never a sub-skill directly
@@ -122,6 +136,7 @@ Each sub-skill follows Anthropic's skill anatomy and works standalone or via the
 3. **No domain overlap** -- each sub-skill owns distinct territory
 4. **Consistent interface** -- all sub-skills follow the same internal structure
 5. **Additive scaling** -- adding a sub-skill means one new directory + one new row in the routing table
+6. **Scanner hygiene** -- only the root `SKILL.md` is named `SKILL.md`; every sub-skill file is `MetaSkill.md`
 
 ## Harness Agnostic
 
