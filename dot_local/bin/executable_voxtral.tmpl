@@ -2,7 +2,7 @@
 
 set -Eeuo pipefail
 
-readonly SCRIPT_VERSION="0.2.0"
+readonly SCRIPT_VERSION="0.3.0"
 readonly SCRIPT_AUTHOR="Pascal Andy"
 readonly SCRIPT_DESCRIPTION="Speak text with Mistral Voxtral TTS."
 readonly SCRIPT_NAME="${BASH_SOURCE[0]##*/}"
@@ -14,6 +14,22 @@ readonly EXPORT_DIR="/Users/andy16/Documents/_my_docs/63-voxtral"
 readonly MAX_CHARS=250
 readonly SAMPLE_TEXT="Hey, what's up? This is a test. One, two."
 
+# Voice UUIDs — Paul (English) and Marie (French).
+# Marie has no Confident or Frustrated variant; we fall back as documented:
+#   confident  → Marie - Neutral (no Confident voice exists)
+#   frustrated → Marie - Angry   (closest affect available)
+#   cheerful   → Marie - Happy   (semantic match)
+readonly VOICE_EN_PAUL_NEUTRAL="c69964a6-ab8b-4f8a-9465-ec0925096ec8"
+readonly VOICE_EN_PAUL_CONFIDENT="98559b22-62b5-4a64-a7cd-fc78ca41faa8"
+readonly VOICE_EN_PAUL_CHEERFUL="01d985cd-5e0c-4457-bfd8-80ba31a5bc03"
+readonly VOICE_EN_PAUL_FRUSTRATED="1f017bcb-02e5-460d-989b-db065c0c6122"
+readonly VOICE_FR_MARIE_NEUTRAL="5a271406-039d-46fe-835b-fbbb00eaf08d"
+readonly VOICE_FR_MARIE_CONFIDENT="5a271406-039d-46fe-835b-fbbb00eaf08d"
+readonly VOICE_FR_MARIE_CHEERFUL="49d024dd-981b-4462-bb17-74d381eb8fd7"
+readonly VOICE_FR_MARIE_FRUSTRATED="a7c07cdc-1c35-4d87-a938-c610a654f600"
+
+# LANG_CODE is named to avoid collision with the shell's LANG environment variable.
+LANG_CODE="en"
 VOICE_SHORTHAND="neutral"
 OUTPUT_PATH=""
 INPUT_FILE=""
@@ -49,12 +65,13 @@ Usage:
   command | ${SCRIPT_NAME} [options]
 
 Options:
+  -l LANG         Language: en (Paul, default) or fr (Marie)
   -v VOICE        Voice preset: neutral, confident, cheerful, frustrated
   -o FILE         Save an additional copy to FILE
   -f FILE         Read input text from FILE
   --stdin         Read input text from stdin explicitly
   --format FMT    Audio format: mp3 or wav
-  --voices        List available preset voices
+  --voices        List available preset voices (both languages)
   --check         Validate runtime requirements without generating audio
   --json          Emit JSON for --check, --voices, or successful synthesis
   -V, --version   Show version and exit
@@ -62,8 +79,10 @@ Options:
 
 Examples:
   ${SCRIPT_NAME} "${SAMPLE_TEXT}"
+  ${SCRIPT_NAME} -l fr "Le build est passé. Pas d'erreur de type."
   printf '%s' "Quarterly review starts now." | ${SCRIPT_NAME} --stdin
   ${SCRIPT_NAME} -v cheerful -o /tmp/welcome.mp3 "Welcome aboard."
+  ${SCRIPT_NAME} -l fr -v cheerful "Tout est prêt."
   ${SCRIPT_NAME} --check
   ${SCRIPT_NAME} --voices --json
 
@@ -89,20 +108,37 @@ fct_cleanup() {
 
 fct_emit_voices() {
 	if [[ "${OUTPUT_JSON}" -eq 1 ]]; then
-		jq -n '[
-			{name: "neutral", slug: "en_paul_neutral", id: "c69964a6-ab8b-4f8a-9465-ec0925096ec8"},
-			{name: "confident", slug: "en_paul_confident", id: "98559b22-62b5-4a64-a7cd-fc78ca41faa8"},
-			{name: "cheerful", slug: "en_paul_cheerful", id: "01d985cd-5e0c-4457-bfd8-80ba31a5bc03"},
-			{name: "frustrated", slug: "en_paul_frustrated", id: "1f017bcb-02e5-460d-989b-db065c0c6122"}
-		]'
+		jq -n \
+			--arg en_neutral "${VOICE_EN_PAUL_NEUTRAL}" \
+			--arg en_confident "${VOICE_EN_PAUL_CONFIDENT}" \
+			--arg en_cheerful "${VOICE_EN_PAUL_CHEERFUL}" \
+			--arg en_frustrated "${VOICE_EN_PAUL_FRUSTRATED}" \
+			--arg fr_neutral "${VOICE_FR_MARIE_NEUTRAL}" \
+			--arg fr_confident "${VOICE_FR_MARIE_CONFIDENT}" \
+			--arg fr_cheerful "${VOICE_FR_MARIE_CHEERFUL}" \
+			--arg fr_frustrated "${VOICE_FR_MARIE_FRUSTRATED}" \
+			'[
+				{lang: "en", name: "neutral",    slug: "en_paul_neutral",    id: $en_neutral},
+				{lang: "en", name: "confident",  slug: "en_paul_confident",  id: $en_confident},
+				{lang: "en", name: "cheerful",   slug: "en_paul_cheerful",   id: $en_cheerful},
+				{lang: "en", name: "frustrated", slug: "en_paul_frustrated", id: $en_frustrated},
+				{lang: "fr", name: "neutral",    slug: "fr_marie_neutral",   id: $fr_neutral},
+				{lang: "fr", name: "confident",  slug: "fr_marie_neutral",   id: $fr_confident},
+				{lang: "fr", name: "cheerful",   slug: "fr_marie_happy",     id: $fr_cheerful},
+				{lang: "fr", name: "frustrated", slug: "fr_marie_angry",     id: $fr_frustrated}
+			]'
 		return 0
 	fi
 
 	cat <<EOF
-neutral    en_paul_neutral      c69964a6-ab8b-4f8a-9465-ec0925096ec8
-confident  en_paul_confident    98559b22-62b5-4a64-a7cd-fc78ca41faa8
-cheerful   en_paul_cheerful     01d985cd-5e0c-4457-bfd8-80ba31a5bc03
-frustrated en_paul_frustrated   1f017bcb-02e5-460d-989b-db065c0c6122
+en  neutral    en_paul_neutral      ${VOICE_EN_PAUL_NEUTRAL}
+en  confident  en_paul_confident    ${VOICE_EN_PAUL_CONFIDENT}
+en  cheerful   en_paul_cheerful     ${VOICE_EN_PAUL_CHEERFUL}
+en  frustrated en_paul_frustrated   ${VOICE_EN_PAUL_FRUSTRATED}
+fr  neutral    fr_marie_neutral     ${VOICE_FR_MARIE_NEUTRAL}
+fr  confident  fr_marie_neutral     ${VOICE_FR_MARIE_CONFIDENT}
+fr  cheerful   fr_marie_happy       ${VOICE_FR_MARIE_CHEERFUL}
+fr  frustrated fr_marie_angry       ${VOICE_FR_MARIE_FRUSTRATED}
 EOF
 }
 
@@ -132,11 +168,17 @@ fct_trim_whitespace() {
 }
 
 fct_voice_id() {
-	case "$1" in
-	neutral) printf '%s' "c69964a6-ab8b-4f8a-9465-ec0925096ec8" ;;
-	confident) printf '%s' "98559b22-62b5-4a64-a7cd-fc78ca41faa8" ;;
-	cheerful) printf '%s' "01d985cd-5e0c-4457-bfd8-80ba31a5bc03" ;;
-	frustrated) printf '%s' "1f017bcb-02e5-460d-989b-db065c0c6122" ;;
+	local lang_code="$1"
+	local preset="$2"
+	case "${lang_code}_${preset}" in
+	en_neutral) printf '%s' "${VOICE_EN_PAUL_NEUTRAL}" ;;
+	en_confident) printf '%s' "${VOICE_EN_PAUL_CONFIDENT}" ;;
+	en_cheerful) printf '%s' "${VOICE_EN_PAUL_CHEERFUL}" ;;
+	en_frustrated) printf '%s' "${VOICE_EN_PAUL_FRUSTRATED}" ;;
+	fr_neutral) printf '%s' "${VOICE_FR_MARIE_NEUTRAL}" ;;
+	fr_confident) printf '%s' "${VOICE_FR_MARIE_CONFIDENT}" ;;
+	fr_cheerful) printf '%s' "${VOICE_FR_MARIE_CHEERFUL}" ;;
+	fr_frustrated) printf '%s' "${VOICE_FR_MARIE_FRUSTRATED}" ;;
 	*) return 1 ;;
 	esac
 }
@@ -166,6 +208,15 @@ fct_parse_arguments() {
 			;;
 		--stdin)
 			READ_FROM_STDIN=1
+			shift
+			;;
+		-l | --lang)
+			[[ $# -ge 2 ]] || fct_die "Option -l requires a language. Use: ${SCRIPT_NAME} -l fr \"${SAMPLE_TEXT}\"" 2
+			LANG_CODE="$2"
+			shift 2
+			;;
+		--lang=*)
+			LANG_CODE="${1#*=}"
 			shift
 			;;
 		-v)
@@ -213,6 +264,13 @@ fct_parse_arguments() {
 }
 
 fct_validate_options() {
+	case "${LANG_CODE}" in
+	en | fr) ;;
+	*)
+		fct_die "Unsupported language '${LANG_CODE}'. Use: ${SCRIPT_NAME} -l en \"${SAMPLE_TEXT}\" or ${SCRIPT_NAME} -l fr \"Bonjour.\"" 2
+		;;
+	esac
+
 	case "${FORMAT}" in
 	mp3 | wav) ;;
 	*)
@@ -220,7 +278,7 @@ fct_validate_options() {
 		;;
 	esac
 
-	if ! fct_voice_id "${VOICE_SHORTHAND}" >/dev/null; then
+	if ! fct_voice_id "${LANG_CODE}" "${VOICE_SHORTHAND}" >/dev/null; then
 		fct_die "Unknown voice '${VOICE_SHORTHAND}'. Run '${SCRIPT_NAME} --voices' for valid values." 2
 	fi
 
@@ -229,8 +287,8 @@ fct_validate_options() {
 	fi
 
 	if [[ "${CHECK_ONLY}" -eq 1 ]]; then
-		if [[ ${#POSITIONAL_ARGS[@]} -gt 0 || -n "${INPUT_FILE}" || -n "${OUTPUT_PATH}" || "${READ_FROM_STDIN}" -eq 1 || "${FORMAT}" != "mp3" || "${VOICE_SHORTHAND}" != "neutral" ]]; then
-			fct_die "--check does not accept text, -f, -o, --stdin, --format, or -v. Use: ${SCRIPT_NAME} --check" 2
+		if [[ ${#POSITIONAL_ARGS[@]} -gt 0 || -n "${INPUT_FILE}" || -n "${OUTPUT_PATH}" || "${READ_FROM_STDIN}" -eq 1 || "${FORMAT}" != "mp3" || "${VOICE_SHORTHAND}" != "neutral" || "${LANG_CODE}" != "en" ]]; then
+			fct_die "--check does not accept text, -f, -o, --stdin, --format, -v, or -l. Use: ${SCRIPT_NAME} --check" 2
 		fi
 	fi
 }
@@ -304,6 +362,7 @@ fct_emit_check_result() {
 			--arg export_dir "${EXPORT_DIR}" \
 			--arg export_dir_state "${export_dir_state}" \
 			--arg api_key_state "${api_key_state}" \
+			--arg default_lang "${LANG_CODE}" \
 			--arg default_voice "${VOICE_SHORTHAND}" \
 			--arg default_format "${FORMAT}" \
 			--arg sample_text "${SAMPLE_TEXT}" \
@@ -321,6 +380,7 @@ fct_emit_check_result() {
 					state: $export_dir_state
 				},
 				defaults: {
+					lang: $default_lang,
 					voice: $default_voice,
 					format: $default_format,
 					sample_text: $sample_text
@@ -336,6 +396,7 @@ fct_emit_check_result() {
 	printf 'afplay: %s\n' "${afplay_path:-missing}"
 	printf 'base64: %s\n' "${base64_path:-missing}"
 	printf 'export_dir: %s (%s)\n' "${EXPORT_DIR}" "${export_dir_state}"
+	printf 'default_lang: %s\n' "${LANG_CODE}"
 	printf 'default_voice: %s\n' "${VOICE_SHORTHAND}"
 	printf 'default_format: %s\n' "${FORMAT}"
 	printf 'sample_text: %s\n' "${SAMPLE_TEXT}"
@@ -443,11 +504,18 @@ fct_decode_audio() {
 
 fct_history_file_path() {
 	local dir_name=""
+	local speaker=""
 	dir_name="$(basename "${PWD}")"
-	printf '%s/%s_%s_%s.%s' \
+	case "${LANG_CODE}" in
+	en) speaker="paul" ;;
+	fr) speaker="marie" ;;
+	esac
+	printf '%s/%s_%s_%s_%s_%s.%s' \
 		"${EXPORT_DIR}" \
 		"$(date '+%Y_%m_%d_%Hh%Ms%S')" \
 		"${dir_name}" \
+		"${LANG_CODE}" \
+		"${speaker}" \
 		"${VOICE_SHORTHAND}" \
 		"${FORMAT}"
 }
@@ -470,12 +538,14 @@ fct_emit_success() {
 		jq -n \
 			--arg history_file "${history_file}" \
 			--arg output_file "${OUTPUT_PATH}" \
+			--arg lang "${LANG_CODE}" \
 			--arg voice "${VOICE_SHORTHAND}" \
 			--arg format "${FORMAT}" \
 			--argjson text_length "${text_length}" \
 			'{
 				history_file: $history_file,
 				output_file: (if $output_file == "" then null else $output_file end),
+				lang: $lang,
 				voice: $voice,
 				format: $format,
 				text_length: $text_length
@@ -508,7 +578,7 @@ fct_execute() {
 
 	fct_require_runtime
 	input_text="$(fct_resolve_input_text)"
-	voice_id="$(fct_voice_id "${VOICE_SHORTHAND}")"
+	voice_id="$(fct_voice_id "${LANG_CODE}" "${VOICE_SHORTHAND}")"
 
 	response_file="$(fct_temp_file)"
 	decoded_file="$(fct_temp_file)"
