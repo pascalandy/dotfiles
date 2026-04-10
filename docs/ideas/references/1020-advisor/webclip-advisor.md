@@ -1,3 +1,4 @@
+source: https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool
 
 The advisor tool lets a faster, lower-cost **executor model** consult a higher-intelligence **advisor model** mid-generation for strategic guidance. The advisor reads the full conversation, produces a plan or course correction (typically 400 to 700 text tokens, 1,400 to 1,800 tokens total including thinking), and the executor continues with the task.
 
