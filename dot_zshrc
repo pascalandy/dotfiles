@@ -142,7 +142,7 @@ vs() {
 # Find file -> open in VS Code
 fdf() {
     if [ -t 0 ]; then
-        local file=$(fd --type f --hidden --exclude .git | fzf --preview 'eza -ls=time -r --no-user --no-permissions --group-directories-first --icons=always --total-size --only-files {}')
+        local file=$(fd --type f --hidden --exclude .git | fzf --preview "eza -ls=time -r --no-user --no-permissions --group-directories-first --icons=always --total-size --only-files {}")
         [[ -n "$file" ]] && vs "$file"
     else
         echo "fdf: not available in non-interactive mode"
@@ -152,7 +152,7 @@ fdf() {
 # Find directory -> cd into it
 fdd() {
     if [ -t 0 ]; then
-        local dir=$(fd --type d --hidden --exclude .git | fzf --preview 'eza -ls=time --no-user --no-permissions --group-directories-first {} | head -10')
+        local dir=$(fd --type d --hidden --exclude .git | fzf --preview "eza -ls=time --no-user --no-permissions --group-directories-first {} | head -10")
         if [[ -n "$dir" ]]; then
             cd "$dir" && vs
         fi
@@ -164,7 +164,7 @@ fdd() {
 # Git checkout with fzf branch picker
 ggco() {
     if [ -t 0 ]; then
-        local branch=$(git branch --all | grep -v HEAD | sed 's/remotes\/origin\///' | sort -u | fzf)
+        local branch=$(git branch --all | grep -v HEAD | sed "s/remotes\/origin\///" | sort -u | fzf)
         [[ -n "$branch" ]] && git checkout "$branch"
     else
         echo "ggco: not available in non-interactive mode"
@@ -216,7 +216,7 @@ _ttm_in_tmux() {
   [[ -n "$TMUX" ]] || return 1
   local current_tty=""
   current_tty="$(tty 2>/dev/null)" || return 1
-  tmux list-clients -F '#{client_tty}' 2>/dev/null | grep -qx "$current_tty"
+  tmux list-clients -F "#{client_tty}" 2>/dev/null | grep -qx "$current_tty"
 }
 
 _ttm_socket_path() {
@@ -267,7 +267,7 @@ _ttm_wait_for_prompt() {
   while (( i < timeout * 10 )); do
     # Capture pane content and check for prompt character at line start
     # -p flag prints to stdout instead of a buffer
-    if _ttm_tmux capture-pane -t "$target" -p 2>/dev/null | grep -qE '^[>$❯]\s*$'; then
+    if _ttm_tmux capture-pane -t "$target" -p 2>/dev/null | grep -qE "^[>$❯]\s*$"; then
       return 0  # Prompt found - shell is ready
     fi
     sleep 0.1
@@ -327,13 +327,13 @@ _ttm_create_window() {
   # Wait for shell prompt in each pane, then send command
   # This is the KEY FIX: wait for shell readiness instead of arbitrary sleep
   _ttm_wait_for_prompt "$target".1
-  _ttm_tmux send-keys -t "$target".1 'oc' Enter
-  
+  _ttm_tmux send-keys -t "$target".1 "oc" Enter
+
   _ttm_wait_for_prompt "$target".2
-  _ttm_tmux send-keys -t "$target".2 'ls' Enter
-  
+  _ttm_tmux send-keys -t "$target".2 "ls" Enter
+
   _ttm_wait_for_prompt "$target".3
-  _ttm_tmux send-keys -t "$target".3 'oc' Enter
+  _ttm_tmux send-keys -t "$target".3 "oc" Enter
   
   _ttm_tmux select-pane -t "$target".1
 }
@@ -359,13 +359,13 @@ _ttm_engine() {
     _ttm_start_session "$session" "$dir"
   fi
 
-  if _ttm_tmux list-windows -t "$session" -F '#W' 2>/dev/null | grep -qx "$project"; then
+  if _ttm_tmux list-windows -t "$session" -F "#W" 2>/dev/null | grep -qx "$project"; then
     window_exists=1
   fi
 
   if [[ "$action" == "reset" && "$window_exists" -eq 1 ]]; then
     tmp_window="__${project}_old__"
-    if _ttm_tmux list-windows -t "$session" -F '#W' 2>/dev/null | grep -qx "$tmp_window"; then
+    if _ttm_tmux list-windows -t "$session" -F "#W" 2>/dev/null | grep -qx "$tmp_window"; then
       tmp_window="__${project}_old__$(date +%s)"
     fi
 
@@ -383,7 +383,7 @@ _ttm_engine() {
     _ttm_tmux select-window -t "$target_window"
   fi
 
-  if _ttm_tmux list-windows -t "$session" -F '#W' 2>/dev/null | grep -qx "__init__"; then
+  if _ttm_tmux list-windows -t "$session" -F "#W" 2>/dev/null | grep -qx "__init__"; then
     if [[ $(_ttm_tmux list-windows -t "$session" 2>/dev/null | wc -l) -gt 1 ]]; then
       _ttm_tmux kill-window -t "$session:__init__"
     fi
@@ -416,19 +416,19 @@ ttmM() {
 
   if _ttm_in_tmux; then
     in_tmux=1
-    current_session=$(tmux display-message -p '#{session_name}')
-    current_window_id=$(tmux display-message -p '#{window_id}')
+    current_session=$(tmux display-message -p "#{session_name}")
+    current_window_id=$(tmux display-message -p "#{window_id}")
   else
     _ttm_clean_env=1
   fi
 
   if [[ "$in_tmux" -eq 1 && "$current_session" == "$session" ]]; then
-    if _ttm_tmux list-windows -t "$session" -F '#W' 2>/dev/null | grep -qx "$tmp_window"; then
+    if _ttm_tmux list-windows -t "$session" -F "#W" 2>/dev/null | grep -qx "$tmp_window"; then
       tmp_window="__ttm_boot__$(date +%s)"
     fi
 
     _ttm_tmux rename-window -t "$current_window_id" "$tmp_window"
-    _ttm_tmux list-windows -t "$session" -F '#{window_id}' 2>/dev/null | while IFS= read -r wid; do
+    _ttm_tmux list-windows -t "$session" -F "#{window_id}" 2>/dev/null | while IFS= read -r wid; do
       [[ "$wid" == "$current_window_id" ]] && continue
       _ttm_tmux kill-window -t "$wid"
     done
@@ -478,8 +478,8 @@ mkcd() {
 alias cp="cp -iv"
 alias mv="mv -iv"
 alias rmi="rm -i"
-alias rm='trash'    # Now works for both files AND directories
-alias rr='/bin/rm'  # For real rm, you'd still need: rr -rf mydir/
+alias rm="trash"    # Now works for both files AND directories
+alias rr="/bin/rm"  # For real rm, you'd still need: rr -rf mydir/
 alias ln="ln -i"
 alias mkdir="mkdir -pv"
 alias size="du -sh"
@@ -510,7 +510,7 @@ alias reload="source $HOME/.zshrc && echo 'ZSH config reloaded!'"
 
 # === APPLICATIONS ===
 alias obs="open -a Obsidian"
-alias neovim='nvim'
+alias neovim="nvim"
 alias trix="cmatrix -u 9"
 alias htop="btop"
 alias aqua="asciiquarium"
@@ -544,7 +544,7 @@ alias gbn="git branch --no-merged"
 alias gauto="git add . && gcauto && git push"
 
 # git log
-alias gglog='git --no-pager log --oneline --graph -10 --decorate=short && echo'
+alias gglog="git --no-pager log --oneline --graph -10 --decorate=short && echo"
 
 # ggcl = git clone and remove .git (now a standalone script)
 alias ggcl="git-clone-clean"
@@ -584,22 +584,23 @@ export PROJ_DEFAULT="$HOME/Documents/github_local/forzr"
 # CD to default project only if starting from work
 [[ "$PWD" == "$HOME" ]] && { cd "$PROJ_DEFAULT" && ls; }
 
-alias cdc='clear && cd $HOME/.local/share/chezmoi && ls' # chezmoi
-alias cdd='clear && cd $HOME/Documents/devtree && ls' # devtree
-alias cdf='clear && cd $PROJ_HOME/forzr && ls' # forzr
-alias cdh='clear && cd $HOME && ls' #home
-alias cdl='clear && cd $PROJ_HOME && ls' # local
-alias cdo='clear && cd $PROJ_HOME/os_pascal && ls' # os pascal
-alias cdm='clear && cd $MY_DOCS && ls' # _my_docs
-alias cdp='clear && cd $PROJ_HOME/pascalandy-blog-paper && ls' # pascalandy-blog
-alias cdv='clear && cd $MY_DOCS/10_obsidian/vault_obsidian && ls' # vault (obsidian)
+alias cdc="clear && cd $HOME/.local/share/chezmoi && ls" # chezmoi
+alias cdd="clear && cd $HOME/Documents/devtree && ls" # devtree
+alias cde="clear && cd $HOME/Documents/github_local/executive-assistant && ls" # executive-assistant
+alias cdf="clear && cd $PROJ_HOME/forzr && ls" # forzr
+alias cdh="clear && cd $HOME && ls" #home
+alias cdl="clear && cd $PROJ_HOME && ls" # local
+alias cdo="clear && cd $PROJ_HOME/os_pascal && ls" # os pascal
+alias cdm="clear && cd $MY_DOCS && ls" # _my_docs
+alias cdp="clear && cd $PROJ_HOME/pascalandy-blog-paper && ls" # pascalandy-blog
+alias cdv="clear && cd $MY_DOCS/10_obsidian/vault_obsidian && ls" # vault (obsidian)
 
 # test comment v7
 
 # === script manage via chezmoi ===
 
 # script manage via chezmoi
-alias uca='cd /Users/andy16/.local/share/chezmoi && just uca'
+alias uca="cd /Users/andy16/.local/share/chezmoi && just uca"
 alias ttok='ttok "${@}" 2>/dev/null'
 
 # vps1-4 = SSH with colored terminals (standalone scripts in ~/.local/bin/)
@@ -666,9 +667,9 @@ export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
 export PATH="/Applications/Docker.app/Contents/Resources/bin:$PATH"
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/andy16/Documents/github_local/OS_PASCAL/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/andy16/Documents/github_local/OS_PASCAL/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f "/Users/andy16/Documents/github_local/OS_PASCAL/google-cloud-sdk/path.zsh.inc" ]; then . "/Users/andy16/Documents/github_local/OS_PASCAL/google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/andy16/Documents/github_local/OS_PASCAL/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/andy16/Documents/github_local/OS_PASCAL/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f "/Users/andy16/Documents/github_local/OS_PASCAL/google-cloud-sdk/completion.zsh.inc" ]; then . "/Users/andy16/Documents/github_local/OS_PASCAL/google-cloud-sdk/completion.zsh.inc"; fi
 
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
