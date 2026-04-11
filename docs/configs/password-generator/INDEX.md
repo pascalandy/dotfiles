@@ -43,3 +43,14 @@ Run command: `passgen` anywhere in your terminal.
 For agents:
 - Run script with defaults: `uv run scripts/password_generator.py`
 - Use defaults, do not ask user questions
+
+## Dependencies
+
+> **Warning:** The `passgen` CLI command depends on this script being at the expected path.
+> 
+> The wrapper script `dot_local/bin/executable_passgen` (applied to `~/.local/bin/passgen`) calls:
+> ```bash
+> uv run ~/.local/share/chezmoi/docs/configs/password-generator/scripts/password_generator.py
+> ```
+> 
+> If this directory structure changes, the `passgen` command will break. Update the wrapper script if moving files.

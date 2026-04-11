@@ -56,6 +56,17 @@ Automatically copies last generated password using:
 - macOS: `pbcopy`
 - Linux: `xclip`
 
+## CLI Integration
+
+The `passgen` command is available system-wide via a wrapper script at `~/.local/bin/passgen`.
+
+> **Warning:** The CLI wrapper depends on this script being at the expected path:
+> ```bash
+> ~/.local/share/chezmoi/docs/configs/password-generator/scripts/password_generator.py
+> ```
+> 
+> If you move this script, update the wrapper at `dot_local/bin/executable_passgen`.
+
 ## Related
 
 - [[source]]
