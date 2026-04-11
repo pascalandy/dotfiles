@@ -40,3 +40,9 @@ This category follows the **generic guide + personal preferences** pattern: for 
 |------|-------------|
 | [`references/how-my-chezmoi-is-configured.md`](references/how-my-chezmoi-is-configured.md) | Personal chezmoi: prefixes in use, templated files, `just cm-*` recipes, apply side effects |
 | [`references/how-my-opencode-is-configured.md`](references/how-my-opencode-is-configured.md) | Personal OpenCode: decision-making, naming rules, routing intent |
+
+## Related
+
+- [[docs/INDEX.md]] — root catalog
+- [[workflows/INDEX.md]] — workflow methodologies (`pa-sdlc`)
+- [[operations/INDEX.md]] — how the repo itself runs

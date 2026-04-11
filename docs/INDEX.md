@@ -14,6 +14,8 @@ date_updated: 2026-04-11
 > Root catalog for the chezmoi dotfiles repository. Every documentation category is listed here.
 > Agents landing in `/docs` should read this file first, then route to the category they need.
 > **Categories:** 3 | **Last updated:** 2026-04-11
+>
+> **Child indexes:** [[configs/INDEX.md]] · [[workflows/INDEX.md]] · [[operations/INDEX.md]]
 
 <scope>
 This index orients agents and returning humans inside `~/.local/share/chezmoi/docs/`.
@@ -29,7 +31,7 @@ Use this index to pick the right category for a task. Do not treat it as a place
    - following or refining a workflow or methodology (`pa-*`) → `workflows/` _(planned)_
    - running, testing, or operating the repo itself → `operations/` _(planned)_
 
-2. Open the matching category `INDEX.md`. Do not read every wiki in the category — read the category index first and route from there.
+2. Open the matching category `INDEX.md`. Do not read every wiki in the category — read the category index first and route from there. Every category index back-links here via its own header, so traversal is bidirectional.
 
 3. For vocabulary questions (`pa-*`, agent homes, source vs applied, fan-out, chezmoi prefixes) read the [Glossary](#glossary) section below.
 
@@ -53,8 +55,8 @@ Three top-level categories plus a personal brainstorm area.
 | Category | Purpose | Status |
 |---|---|---|
 | `configs/` | How individual files, tools, and configs are set up | active |
-| `workflows/` | How processes and methodologies work (e.g. `pa-sdlc`) | planned |
-| `operations/` | How the repo itself runs (chezmoi apply, CI, fan-out, justfile) | planned |
+| `workflows/` | How processes and methodologies work (e.g. `pa-sdlc`) | active |
+| `operations/` | How the repo itself runs (chezmoi apply, fan-out, pre-apply sync) | active |
 | `ideas/` | Personal brainstorms. Not indexed. Agents should not read unless explicitly asked. | excluded |
 
 Each active category has its own `INDEX.md` at its root, a `references/` subdirectory for wiki pages, and an append-only `references/LOG.md`.
@@ -136,7 +138,7 @@ One-line definitions for recurring vocabulary in this repo. Promote to `glossary
 ---
 
 > Content catalog. Every top-level documentation entry is listed here with a one-line summary.
-> **Total entries:** 2 | **Last updated:** 2026-04-11
+> **Total entries:** 3 | **Last updated:** 2026-04-11
 
 ## Wiki Map
 
@@ -145,9 +147,5 @@ One-line definitions for recurring vocabulary in this repo. Promote to `glossary
 | File | Description |
 |------|-------------|
 | [`configs/INDEX.md`](configs/INDEX.md) | How individual files, tools, and configs are set up |
-
-### kind/doc
-
-| File | Description |
-|------|-------------|
-| [`about-pa-sdlc.md`](about-pa-sdlc.md) | Brainstorm on the `pa-sdlc` workflow stages. Will be absorbed into `workflows/references/pa-sdlc/` once that category exists. |
+| [`workflows/INDEX.md`](workflows/INDEX.md) | How processes and methodologies work (`pa-sdlc`) |
+| [`operations/INDEX.md`](operations/INDEX.md) | How the repo itself runs — post-apply fan-out, pre-apply sync-back |
