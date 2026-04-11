@@ -1,7 +1,7 @@
 ---
-name: edit-note
+name: simple-editor
 description: >
-  Édition de notes brutes. Utilise cette skill quand l'utilisateur dit "edit-note", "review-note", ou demande d'éditer des notes personnelles/notes de journal en conservant le ton raw. Corrige les fautes, enlève les doublons, organise en paragraphes
+  Édition de notes brutes. Utilise cette skill quand l'utilisateur dit "simple-editor", "review-note", ou demande d'éditer des notes personnelles/notes de journal en conservant le ton raw. Corrige les fautes, enlève les doublons, organise en paragraphes
   SANS changer le ton, l'émotion, la voix, ni la langue.
 ---
 
