@@ -1,0 +1,19 @@
+# CaptureAndShare
+
+Use this workflow when the change is done and the remaining work is to preserve, present, or polish the output.
+
+## Route Selection
+
+| Need | Load |
+|---|---|
+| Document a solved problem as a reusable learning | `../../ce-compound/MetaSkill.md` |
+| Refresh stale learning docs or pattern guidance | `../../ce-compound-refresh/MetaSkill.md` |
+| Generate a changelog from merged work | `../../changelog/MetaSkill.md` |
+| Record a walkthrough video for the feature or PR | `../../feature-video/MetaSkill.md` |
+| Polish prose with the bundled editorial style skill | `../../every-style-editor/MetaSkill.md` |
+
+## Expected Result
+
+- A durable record of the change and why it matters
+- Better reviewer and future-maintainer ergonomics
+- Knowledge that compounds instead of evaporating after the merge

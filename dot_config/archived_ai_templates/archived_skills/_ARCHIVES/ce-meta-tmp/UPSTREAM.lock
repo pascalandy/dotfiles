@@ -1,0 +1,8 @@
+## ce-meta upstream lock
+## Records which source commit was used to generate/update the references.
+## Do not edit manually. Updated by scripts/sync-upstream.sh after a successful sync.
+
+upstream_repo=/Users/andy16/Documents/github_local/SKILLS_MONO/vendors/everyinc-compound-engineering-plugin
+upstream_commit=c2dad60b8ca30e854f319f7918b0a29493ad826d
+upstream_version=2.59.0
+synced_at=2026-03-31T12:18:04Z
