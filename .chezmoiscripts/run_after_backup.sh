@@ -72,43 +72,81 @@ fct_copy_file() {
 	cp "$src_file" "$dst_file"
 }
 
+fct_compile_assets() {
+	local src_dir="$1"
+	local compile_dir="$2"
+
+	mkdir -p "$compile_dir"
+
+	# If src has subdirectories (categories), compile them
+	# If src is flat, copy everything directly
+	local has_categories=false
+	for category in meta pa-sdlc specs utils; do
+		if [[ -d "$src_dir/$category" ]]; then
+			has_categories=true
+			break
+		fi
+	done
+
+	if [[ "$has_categories" == true ]]; then
+		# Compile from category subdirectories
+		for category in meta pa-sdlc specs utils; do
+			if [[ -d "$src_dir/$category" ]]; then
+				cp -r "$src_dir/$category/"* "$compile_dir/" 2>/dev/null || true
+			fi
+		done
+	else
+		# Flat structure - copy everything directly
+		cp -r "$src_dir/"* "$compile_dir/" 2>/dev/null || true
+	fi
+}
+
 fct_sync_agent_assets() {
 	local commands_src="$1"
 	local skills_src="$2"
+	local compiled_commands_dir
+	local compiled_skills_dir
+
+	# Create compiled directories (clean slate sources)
+	compiled_commands_dir="$(mktemp -d)"
+	compiled_skills_dir="$(mktemp -d)"
+	fct_compile_assets "$commands_src" "$compiled_commands_dir"
+	fct_compile_assets "$skills_src" "$compiled_skills_dir"
 
 	# OpenCode
-	fct_copy_dir "$commands_src" "$HOME/.config/opencode/commands"
-	fct_copy_dir "$skills_src" "$HOME/.config/opencode/skills"
+	fct_copy_dir "$compiled_commands_dir" "$HOME/.config/opencode/commands" "delete"
+	fct_copy_dir "$compiled_skills_dir" "$HOME/.config/opencode/skills" "delete"
 
 	# Pi
-	fct_copy_dir "$commands_src" "$HOME/.pi/agent/prompts"
-	fct_copy_dir "$skills_src" "$HOME/.pi/agent/skills"
+	fct_copy_dir "$compiled_commands_dir" "$HOME/.pi/agent/prompts" "delete"
+	fct_copy_dir "$compiled_skills_dir" "$HOME/.pi/agent/skills" "delete"
 
 	# Claude Code
-	fct_copy_dir "$commands_src" "$HOME/.claude/commands"
-	fct_copy_dir "$skills_src/meta" "$HOME/.claude/skills"
-	fct_copy_dir "$skills_src/pa-sdlc" "$HOME/.claude/skills"
-	fct_copy_dir "$skills_src/specs" "$HOME/.claude/skills"
-	fct_copy_dir "$skills_src/utils" "$HOME/.claude/skills"
+	fct_copy_dir "$compiled_commands_dir" "$HOME/.claude/commands" "delete"
+	fct_copy_dir "$compiled_skills_dir" "$HOME/.claude/skills" "delete"
 
 	# Codex
-	fct_copy_dir "$commands_src" "$HOME/.codex/prompts"
-	fct_copy_dir "$skills_src" "$HOME/.codex/skills"
+	fct_copy_dir "$compiled_commands_dir" "$HOME/.codex/prompts" "delete"
+	fct_copy_dir "$compiled_skills_dir" "$HOME/.codex/skills" "delete"
 
 	# Gemini
-	fct_copy_dir "$commands_src" "$HOME/.gemini/commands"
+	fct_copy_dir "$compiled_commands_dir" "$HOME/.gemini/commands" "delete"
+	fct_copy_dir "$compiled_skills_dir" "$HOME/.gemini/skills" "delete"
 
 	# Amp
-	fct_copy_dir "$commands_src" "$HOME/.config/amp/commands"
-	fct_copy_dir "$skills_src" "$HOME/.config/amp/skills"
+	fct_copy_dir "$compiled_commands_dir" "$HOME/.config/amp/commands" "delete"
+	fct_copy_dir "$compiled_skills_dir" "$HOME/.config/amp/skills" "delete"
 
 	# Agents
-	fct_copy_dir "$commands_src" "$HOME/.config/agents/commands"
-	fct_copy_dir "$skills_src" "$HOME/.config/agents/skills"
+	fct_copy_dir "$compiled_commands_dir" "$HOME/.config/agents/commands" "delete"
+	fct_copy_dir "$compiled_skills_dir" "$HOME/.config/agents/skills" "delete"
 
 	# Factory
-	fct_copy_dir "$commands_src" "$HOME/.factory/commands"
-	fct_copy_dir "$skills_src" "$HOME/.factory/skills"
+	fct_copy_dir "$compiled_commands_dir" "$HOME/.factory/commands" "delete"
+	fct_copy_dir "$compiled_skills_dir" "$HOME/.factory/skills" "delete"
+
+	# Cleanup compiled directories
+	rm -rf "$compiled_commands_dir" "$compiled_skills_dir"
 }
 
 fct_render_ai_templates() {
