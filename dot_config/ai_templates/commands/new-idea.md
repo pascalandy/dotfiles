@@ -2,7 +2,7 @@
 description: new-idea
 ---
 
-Create a new idea entry in `docs/references/ideas/` following the established naming convention.
+Create a new idea entry in `docs/ideas/references/` following the established naming convention.
 
 **Directory naming format:** `YYYY-MM-DD-short-title/`
 - Use today's date
@@ -17,8 +17,8 @@ Create a new idea entry in `docs/references/ideas/` following the established na
 
 **Example of correct output:**
 If today is 2026-04-10 and the idea is about "Implementing a dark mode toggle", create:
-- Directory: `docs/references/ideas/2026-04-10-dark-mode-toggle/`
-- File: `docs/references/ideas/2026-04-10-dark-mode-toggle/idea.md`
+- Directory: `docs/ideas/references/2026-04-10-dark-mode-toggle/`
+- File: `docs/ideas/references/2026-04-10-dark-mode-toggle/idea.md`
 
 Here is the idea to paste:
 
