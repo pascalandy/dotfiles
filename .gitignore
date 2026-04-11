@@ -171,3 +171,19 @@ skills_archived/
 
 # opensrc - source code for packages
 opensrc/
+
+# Private / temporary / secret docs
+docs/ideas/
+docs/prive/
+docs/secret*
+docs/tmp/
+
+# Additional local/private patterns
+*.local
+*.backup
+*.log
+.draft*
+draft*/
+notes/private/
+scratch/
+playground/
