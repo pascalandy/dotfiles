@@ -565,8 +565,7 @@ ggc() {
 
 # === AI AGENT CLI ===
 alias oc="opencode"
-alias cld="claude"
-alias cldd="claude --dangerously-skip-permissions"
+alias cld="claude --dangerously-skip-permissions"
 
 # === gemini ===
 alias ggem="gemini -m gemini-3-flash-preview --yolo"
