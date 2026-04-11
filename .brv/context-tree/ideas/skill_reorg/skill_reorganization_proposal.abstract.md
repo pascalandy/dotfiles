@@ -1,0 +1,1 @@
+The April 11, 2026 Skill Reorganization Proposal documents the current meta, pa-sdlc, specs, and utils buckets, defines a future taxonomy with knowledge/dev/think/spec partitions, and maps every skill’s migration via a detailed moves table.

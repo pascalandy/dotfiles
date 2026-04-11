@@ -1,0 +1,1 @@
+The proposal reorganizes 62 legacy skills from meta/pa-sdlc/specs/utils into new knowledge, dev, think, and spec domains while documenting every migration in a detailed moves table.
