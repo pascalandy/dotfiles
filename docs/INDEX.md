@@ -128,6 +128,8 @@ One-line definitions for recurring vocabulary in this repo. Promote to `glossary
 - **factory** — Factory agent. Fan-out target: `~/.factory/`.
 - **qmd** — tool referenced in `just uca` maintenance recipes.
 - **brv / byterover** — knowledge/context tool storing state under `.brv/`.
+- **distill** — operator-authored CLI at `dot_config/ai_templates/skills/pa-sdlc/distill/scripts/distill.py` that applies a named prompt from `distill-prompt` to a local text file and writes a timestamped run folder. Three providers: claude, codex, opencode. See [[distill]].
+- **distill-prompt** — the sibling prompt library at `dot_config/ai_templates/skills/pa-sdlc/distill-prompt/`. One folder per prompt (`follow-along-note`, `short-summary`, `summary-with-quotes`). Consumed by `distill`.
 
 ### Document kinds
 

@@ -80,4 +80,4 @@ Load only what the task needs:
 
 - [[how-ai-templates-are-distributed]] — how the edited source in `dot_config/ai_templates/` lands in `~/.claude/skills/distill/` and every other agent home
 - [[how-my-chezmoi-is-configured]] — chezmoi prefix and template conventions this skill lives inside
-- [[pa-sdlc/INDEX]] — the sibling wiki for the `pa-*` lifecycle stages that share distill's parent source directory
+- [[pa-sdlc]] — the sibling wiki for the `pa-*` lifecycle stages that share distill's parent source directory
