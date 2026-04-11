@@ -2,15 +2,8 @@
 description: prime
 ---
 
-# Purpose
-
-Understand this project deeply.
-
-## Input
-
-Étudie et analyse le contexte du projet: `AGENTS.md`
-
 ## Instructions
 
-- Take time to understand it 
-- Puis-moi ce que je dois savoir au niveau de ce projet/repo en 2 ou 3 phrases
+- Study and understand deeply `AGENTS.md`
+- lead skill `byterover`
+- Tell me what I should know about this project in two or three sentences. 

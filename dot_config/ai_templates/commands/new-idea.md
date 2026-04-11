@@ -12,7 +12,7 @@ Create a new idea entry in `docs/ideas/references/` following the established na
 1. Create the directory with the formatted name
 2. Inside it, create a file named `idea.md`
 3. Copy the content provided below into `idea.md`
-4. edit it using skill "edit-note"
+4. edit it using skill "simple-editor"
 5. do a second pass using skill "writer-sk"
 
 **Example of correct output:**
