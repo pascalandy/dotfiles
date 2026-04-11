@@ -1,3 +1,14 @@
+---
+name: Command Authoring
+description: Guide for creating and editing slash commands
+tags:
+  - area/ea
+  - kind/doc
+  - status/stable
+date_created: 2025-04-11
+date_updated: 2025-04-11
+---
+
 # OpenCode Command Authoring
 
 Use this file when creating or editing slash commands.

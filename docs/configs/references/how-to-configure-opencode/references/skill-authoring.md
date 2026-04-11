@@ -1,3 +1,14 @@
+---
+name: Skill Authoring
+description: Guide for creating, merging, and refining skills
+tags:
+  - area/ea
+  - kind/doc
+  - status/stable
+date_created: 2025-04-11
+date_updated: 2025-04-11
+---
+
 # OpenCode Skill Authoring
 
 Use this file when creating, merging, or refining skills.

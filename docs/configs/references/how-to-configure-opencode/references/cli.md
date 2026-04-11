@@ -1,3 +1,14 @@
+---
+name: CLI Reference
+description: OpenCode CLI commands and smoke testing reference
+tags:
+  - area/ea
+  - kind/doc
+  - status/stable
+date_created: 2025-04-11
+date_updated: 2025-04-11
+---
+
 # OpenCode CLI Reference
 
 Use this file when the user needs command-line help or a smoke test.

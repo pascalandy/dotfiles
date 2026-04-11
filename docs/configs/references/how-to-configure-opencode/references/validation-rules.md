@@ -1,3 +1,14 @@
+---
+name: Validation Rules
+description: Metadata validation rules for auditing OpenCode configurations
+tags:
+  - area/ea
+  - kind/doc
+  - status/stable
+date_created: 2025-04-11
+date_updated: 2025-04-11
+---
+
 # OpenCode Validation Rules
 
 Use this file when auditing or fixing OpenCode metadata.

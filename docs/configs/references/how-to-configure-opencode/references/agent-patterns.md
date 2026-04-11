@@ -1,3 +1,14 @@
+---
+name: Agent Patterns
+description: Agent prompt patterns for structuring agent markdown bodies
+tags:
+  - area/ea
+  - kind/doc
+  - status/stable
+date_created: 2025-04-11
+date_updated: 2025-04-11
+---
+
 # Agent Prompt Patterns
 
 Use this file to shape an agent's markdown body.

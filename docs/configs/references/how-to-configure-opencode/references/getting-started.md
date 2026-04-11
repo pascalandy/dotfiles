@@ -1,3 +1,14 @@
+---
+name: Getting Started
+description: Initial setup and configuration guide for OpenCode
+tags:
+  - area/ea
+  - kind/doc
+  - status/stable
+date_created: 2025-04-11
+date_updated: 2025-04-11
+---
+
 # Getting Started
 
 Use this file when the task is about configuring or using OpenCode.

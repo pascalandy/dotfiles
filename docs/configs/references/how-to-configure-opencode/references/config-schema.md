@@ -1,3 +1,14 @@
+---
+name: Config Schema
+description: opencode.json configuration schema reference
+tags:
+  - area/ea
+  - kind/doc
+  - status/stable
+date_created: 2025-04-11
+date_updated: 2025-04-11
+---
+
 # OpenCode Config Reference
 
 Use this file when editing `opencode.json`.

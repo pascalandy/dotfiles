@@ -1,3 +1,14 @@
+---
+name: Workflows
+description: Planning, subagents, and repeatable workflow patterns
+tags:
+  - area/ea
+  - kind/doc
+  - status/stable
+date_created: 2025-04-11
+date_updated: 2025-04-11
+---
+
 # Workflows
 
 Use this file when the task is about how to operate OpenCode well.

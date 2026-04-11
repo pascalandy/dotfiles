@@ -1,3 +1,14 @@
+---
+name: Best Practices
+description: General OpenCode operating guidance and guardrails
+tags:
+  - area/ea
+  - kind/doc
+  - status/stable
+date_created: 2025-04-11
+date_updated: 2025-04-11
+---
+
 # Best Practices
 
 Use this file for general OpenCode operating guidance.

@@ -3,10 +3,10 @@ name: OpenCode Configuration Notes
 description: Decision-making, naming rules, and routing intent for OpenCode config
 tags:
   - area/ea
-  - kind/research
+  - kind/doc
   - status/stable
 date_created: 2026-04-07
-date_updated: 2026-04-07
+date_updated: 2026-04-11
 ---
 
 # OpenCode configuration notes
@@ -39,23 +39,23 @@ Agent names use a numbered prefix (`1-` through `6-`) to control display order i
 | # | Key | Model | Provider |
 |---|-----|-------|----------|
 | 1 | `1-kimi` | Kimi K2.5 Turbo | Fireworks AI |
-| 2 | `2-opus` | Claude Opus 4.6 | Anthropic |
-| 3 | `3-gpt` | GPT-5.4 (high reasoning) | OpenAI |
-| 4 | `4-sonnet` | Claude Sonnet 4.6 (low effort) | Anthropic |
+| 2 | `2-opus` | Claude Opus 4.6 (adaptive thinking, low effort) | Anthropic |
+| 3 | `3-gpt` | GPT-5.4 (high reasoning, low verbosity) | OpenAI |
+| 4 | `4-sonnet` | Claude Sonnet 4.6 (adaptive thinking, low effort) | Anthropic |
 
 ### Subagent handles
 
-- `@gptmini` — GPT-5.4 Mini (low reasoning)
-- `@glm` — GLM 5.1 via zai-coding-plan
+- `@gptmini` — GPT-5.4 Mini (low reasoning, low verbosity)
+- `@glm` — GLM 5.1 via zai-coding-plan (thinking enabled)
 - `@gpthigh` — GPT-5.4 with high reasoning effort
 - `@gptxhigh` — GPT-5.4 with xhigh reasoning effort
-- `@worker` — GPT-5.4 general worker
-- `@worker1` — Claude Sonnet 4.6 worker
+- `@worker` — GPT-5.4 general worker (medium reasoning)
+- `@worker1` — Claude Sonnet 4.6 worker (adaptive thinking, high effort)
 - `@worker2` — GLM 5.1 worker
 - `@worker3` — GPT-5.4 Mini worker
 - `@gemini` — Gemini 3.1 Pro via OpenRouter
 - `@flash` — Gemini 3 Flash via OpenRouter
-- `@minimax` — MiniMax 2.7 via OpenRouter
+- `@minimax` — MiniMax 2.7 via OpenRouter (parked alternative)
 
 ### Naming rules
 
@@ -83,7 +83,7 @@ Primary Kimi K2.5 access via Fireworks AI provider as `1-kimi`.
 Guideline:
 - `1-kimi` routes through Fireworks AI (`fireworks-ai/accounts/fireworks/routers/kimi-k2p5-turbo`)
 - This is the default agent and primary entry point
-- Keep OpenRouter (`moonshotai/kimi-k2.5:nitro`) available as fallback when needed (currently disabled as `kimi-oc`)
+- Keep OpenRouter (`moonshotai/kimi-k2.5:nitro`) registered as `kimi-oc` fallback for when Fireworks is unavailable
 
 ### GPT routing
 
@@ -109,12 +109,30 @@ Use OpenRouter for Grok when the newest Grok models are only available there.
 
 ### GLM routing
 
-GLM 5.1 is available as a subagent only via `zai-coding-plan` provider as `@glm`.
-Keep Zen (`opencode/glm-5.1`) available as `glm-zen` fallback when needed (currently disabled).
+GLM 5.1 is available as a subagent via the `zai-coding-plan` provider:
+- `@glm` — primary GLM subagent (thinking enabled)
+- `worker2` — secondary GLM worker
+
+Keep Zen (`opencode/glm-5.1`) registered as `glm-zen` fallback for when the coding plan is unavailable.
 
 ### Local model usage
 
 Keep at least one local LM Studio option available for small or offline-friendly tasks.
+Current handle: `gemma` → `lmstudio/mlx-community/gemma-4-31b-6bit` (mode `all`, not number-prefixed).
+
+## Provider inventory
+
+Providers currently wired in `opencode.json.tmpl` and their role:
+
+| Provider | Used by | Role |
+|----------|---------|------|
+| `fireworks-ai` | `1-kimi` | Primary Kimi K2.5 Turbo route |
+| `anthropic` | `2-opus`, `4-sonnet`, `worker1` | Native Claude route |
+| `openai` | `3-gpt`, `gptmini`, `gpthigh`, `gptxhigh`, `worker`, `worker3` | Native GPT route |
+| `zai-coding-plan` | `glm`, `worker2` | Primary GLM route |
+| `openrouter` | `gemini`, `flash`, plus parked `grok`/`mimo`/`minimax`/`kimi-oc` | OpenRouter for Gemini and Grok-class fallbacks |
+| `lmstudio` | `gemma` | Local offline route |
+| `opencode` (Zen) | parked `gemini-zen`/`flash-zen`/`glm-zen`/`mini-zen` | Zen fallback pool |
 
 ## Updating skills
 

@@ -1,10 +1,17 @@
 ---
-name: opencode-config
-description: |-
-  Use when the user needs to work on his opencode's config and/or workflow. The source of truth is managed within chezmoi (dotfiles). File: `dot_config/opencode/opencode.json.tmpl`.  maintain OpenCode itself: `AGENTS.md`, custom agents, slash commands, skills, permissions, and repository audits. Use for OpenCode administration, workflow setup, or troubleshooting. Do NOT use for ordinary coding tasks that merely happen inside OpenCode.
+name: How to Configure OpenCode
+description: Wiki for OpenCode configuration, agents, commands, skills, and maintenance
+aliases:
+  - opencode-config
+tags:
+  - area/ea
+  - kind/wiki
+  - status/open
+date_created: 2025-04-11
+date_updated: 2025-04-11
 ---
 
-# OpenCode Manager
+# How to Configure OpenCode
 
 <scope>
 Use this skill when the task is about OpenCode itself: setup, config, usage patterns, agents, commands, skills, subagents, permissions, audits, or CLI troubleshooting.
@@ -61,3 +68,34 @@ Load only what the task needs:
 - [cli.md](references/cli.md) for CLI commands and smoke checks
 - [validation-rules.md](references/validation-rules.md) and [maintenance-standards.md](references/maintenance-standards.md) for audits
 </references>
+
+---
+
+> Content catalog. Every wiki page is listed here with a one-line summary.
+> Read this first to find relevant pages for any query.
+> **Total pages:** 13 | **Last updated:** 2025-04-11
+
+## Wiki Map
+
+### kind/log
+
+| File | Description |
+|------|-------------|
+| `references/LOG.md` | Operational log |
+
+### kind/doc
+
+| File | Description |
+|------|-------------|
+| `references/agent-config.md` | Agent configuration reference |
+| `references/agent-patterns.md` | Agent prompt patterns |
+| `references/best-practices.md` | Operating guidance and guardrails |
+| `references/cli.md` | CLI commands and smoke tests |
+| `references/command-authoring.md` | Slash command authoring guide |
+| `references/config-schema.md` | opencode.json schema reference |
+| `references/getting-started.md` | Initial setup and configuration |
+| `references/maintenance-standards.md` | Repository cleanup standards |
+| `references/official-links.md` | Canonical links and resources |
+| `references/skill-authoring.md` | Skill creation and refinement |
+| `references/validation-rules.md` | Metadata validation rules |
+| `references/workflows.md` | Planning and workflow patterns |

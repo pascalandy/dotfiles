@@ -1,3 +1,14 @@
+---
+name: Agent Config
+description: Agent configuration reference for creating and editing custom agents
+tags:
+  - area/ea
+  - kind/doc
+  - status/stable
+date_created: 2025-04-11
+date_updated: 2025-04-11
+---
+
 # OpenCode Agent Reference
 
 Use this file when creating or editing custom agents.
