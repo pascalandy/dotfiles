@@ -86,7 +86,10 @@ fct_sync_agent_assets() {
 
 	# Claude Code
 	fct_copy_dir "$commands_src" "$HOME/.claude/commands"
-	fct_copy_dir "$skills_src" "$HOME/.claude/skills"
+	fct_copy_dir "$skills_src/meta" "$HOME/.claude/skills"
+	fct_copy_dir "$skills_src/pa-sdlc" "$HOME/.claude/skills"
+	fct_copy_dir "$skills_src/specs" "$HOME/.claude/skills"
+	fct_copy_dir "$skills_src/utils" "$HOME/.claude/skills"
 
 	# Codex
 	fct_copy_dir "$commands_src" "$HOME/.codex/prompts"
