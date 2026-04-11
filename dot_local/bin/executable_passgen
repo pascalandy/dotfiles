@@ -1,2 +1,2 @@
 #!/bin/bash
-uv run ~/.local/share/chezmoi/docs/configs/password-generator/scripts/password_generator.py "$@"
+uv run ~/.local/share/chezmoi/docs/configs/references/password-generator/scripts/password_generator.py "$@"
