@@ -18,30 +18,37 @@ This repo has one source of truth for AI agent prompts and skills: `dot_config/a
 Chezmoi alone cannot solve this. Three constraints push the logic into a script:
 
 1. **One source, many destinations.** Each agent CLI expects its own layout — Pi wants `~/.pi/agent/prompts/`, OpenCode wants `~/.config/opencode/commands/`, Claude wants `~/.claude/commands/`. Chezmoi can only materialize one target path per source path.
-2. **Per-agent shape differences.** Claude Code is *intended* to flatten `skills/meta/`, `skills/pa-sdlc/`, `skills/specs/`, and `skills/utils/` into one directory. Every other agent keeps the four-way split. Chezmoi cannot express either transform declaratively. (In practice the Claude Code flattening is broken in the current script — see [claude-code-flattening.md](claude-code-flattening.md).)
-3. **Template rendering has to happen first.** The source tree contains `.tmpl` files, `dot_` prefixes, and possibly `private_`/`executable_` modifiers. Before the fan-out can copy anything, it needs a tree where those are resolved to applied names and contents.
+2. **Source-side category structure that must flatten before fan-out.** The source tree under `dot_config/ai_templates/skills/` is organized into `meta/`, `pa-sdlc/`, `specs/`, `utils/`. Agents do not load skills from nested category subtrees — they expect a flat `skills/<name>/` layout. The fan-out has to flatten the four subtrees before any agent home can use them.
+3. **Template rendering has to happen first.** The source tree contains `.tmpl` files, `dot_` prefixes, and possibly `private_`/`executable_` modifiers. Before anything else can run, the script needs a tree where those are resolved to applied names and contents.
 
-The script solves all three by rendering the source through chezmoi into a scratch directory first, then rsyncing that rendered tree to eight specific destinations.
+The script solves all three with a three-stage pipeline: render, compile, rsync.
 
-## Two-stage pipeline
+## Three-stage pipeline
 
 ### Stage 1: render
 
-`fct_render_ai_templates` (`.chezmoiscripts/run_after_backup.sh:114`) runs `chezmoi archive --format tar` against the applied target path `~/.config/ai_templates` and pipes the tar stream into a `mktemp -d` scratch directory. The output is an applied-style tree where `dot_` is stripped, `.tmpl` files are rendered, and the result looks exactly like what would land under `~/` if chezmoi applied this subtree directly.
+`fct_render_ai_templates` at `.chezmoiscripts/run_after_backup.sh:152-161` runs `chezmoi archive --format tar` against the applied target path `~/.config/ai_templates` and pipes the tar stream into a `mktemp -d` scratch directory. The output is an applied-style tree where `dot_` is stripped, `.tmpl` files are rendered, and the result looks exactly like what would land under `~/` if chezmoi applied this subtree directly.
 
-This render is scratch-only. A `trap` on the main function cleans up the temp directory on exit. See [render-stage.md](render-stage.md).
+This render is scratch-only. A `trap` in `fct_main` cleans up the temp directory on exit. See [render-stage.md](render-stage.md).
 
-### Stage 2: rsync fan-out
+### Stage 2: compile
 
-`fct_sync_agent_assets` (`.chezmoiscripts/run_after_backup.sh:75`) takes the rendered `commands/` and `skills/` paths and calls `fct_copy_dir` once per agent home. Eight agent homes, each with their own path shape. See [fan-out-targets.md](fan-out-targets.md).
+`fct_compile_assets` at `.chezmoiscripts/run_after_backup.sh:75-102` takes the rendered `commands/` and `skills/` subpaths and produces flat compile directories. For skills, it loops over the four category subtrees (`meta`, `pa-sdlc`, `specs`, `utils`) and uses additive `cp -r` to merge their contents into one directory. For commands (which are already flat in the source), it falls into a flat branch that just copies everything across.
 
-Every call defaults to `rsync -a --delete --delete-excluded --force`, so the rendered tree mirrors exactly — files removed from `dot_config/ai_templates/` disappear from every agent home on the next apply. See [rsync-semantics.md](rsync-semantics.md).
+The compile step is what makes the fan-out work — the subtree category split exists only in the source, and it is erased before anything leaves the script. See [claude-code-flattening.md](claude-code-flattening.md) for the full compile mechanic and the naming-collision gotcha that survives flattening.
+
+### Stage 3: rsync fan-out
+
+`fct_sync_agent_assets` at `.chezmoiscripts/run_after_backup.sh:104-150` takes the compiled commands and skills directories and calls `fct_copy_dir` exactly twice per agent — once for commands, once for skills. Eight agent homes, so sixteen `fct_copy_dir` calls per apply. Every call uses `sync_mode=delete`, which expands to `rsync -a --delete --delete-excluded --force`, so each destination is reconstructed to exactly match the compiled source. See [fan-out-targets.md](fan-out-targets.md) for the per-agent table and [rsync-semantics.md](rsync-semantics.md) for what the flag set means.
+
+After the sixteen calls complete, `fct_sync_agent_assets` removes both compile scratch directories with `rm -rf` at `.chezmoiscripts/run_after_backup.sh:149`. The render-stage scratch directory is cleaned up separately by the `trap` in `fct_main`.
 
 ## What this implies
 
 - **Never edit under an agent home.** Any file you drop into `~/.claude/skills/foo/` survives only until the next `chezmoi apply`, at which point the rsync `--delete` either overwrites it or removes it entirely.
 - **`chezmoi apply` is no longer a plain copy.** It runs scripts that reach beyond its own source tree. Read `.chezmoiscripts/run_after_backup.sh` before trusting what a fresh apply will do on a new machine.
-- **Claude Code only sees the `utils/` subtree today.** The four-call rsync pattern meant to flatten `meta/`, `pa-sdlc/`, `specs/`, and `utils/` into `~/.claude/skills/` wipes each previous call's output because of `--delete`. Only the last call (`utils/`) survives. A new `pa-sdlc` skill will ship to OpenCode, Pi, Codex, Amp, Agents, and Factory, but not to Claude Code. See [claude-code-flattening.md](claude-code-flattening.md) for the verification and three proposed fixes.
+- **The source-tree category split (`meta/`, `pa-sdlc/`, `specs/`, `utils/`) is not visible to any agent.** Skills from all four categories land as flat peers under every agent's `skills/` directory. This means a new skill in `pa-sdlc/foo/` cannot have the same name as a skill in `utils/foo/` — the compile step's `cp -r` silently picks whichever category runs last. See [claude-code-flattening.md](claude-code-flattening.md).
+- **Gemini now receives skills.** Earlier versions of the script sent only commands to Gemini. Under the current design, Gemini's `~/.gemini/skills/` gets the same compiled skills directory every other agent gets.
 
 ## Related
 
