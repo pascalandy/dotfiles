@@ -10,17 +10,17 @@ When showing gif diff changes, use skill: `hunk-review`
 
 ## Exporting a plan
 
-When the user wants to export/save a plan from our conversation to the wiki:
+Follow the pattern from skill "new-idea":
 
-1. Determine the next available ID by checking existing directories in `docs/plans/references/`
-2. Create directory: `docs/plans/references/{id}-{title}/`
-3. Organise the plan directory as a valid wiki-map (skill)
+- Ensure that there is an actual idea (skill "new-idea")
+- then ensure that there's an actual vision (skill "pa-vision")
+- then ensure that there's an actual architecture (skill "pa-architecture")
+- Then, if the user really wants a plan, now you can export a plan using the same file name pattern.
 
-Example workflow:
-- User says "export this plan" or "save the plan to wiki"
-- Check: `ls docs/plans/references/ | sort -V | tail -5`
-- Create: `docs/plans/references/2912-migration-strategy/`
-- Run: skill `wiki-map` to structure the content
+## updating /docs
+
+- Our /docs directory is a collection of skill "wiki-map"
+- Always organize and follow best practices defined within the skill "wiki-map" 
 
 ## Repository Overview
 
