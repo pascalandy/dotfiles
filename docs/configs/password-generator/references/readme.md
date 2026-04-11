@@ -1,3 +1,14 @@
+---
+name: Password Generator README
+description: Password generator usage and options documentation
+tags:
+  - area/ea
+  - kind/doc
+  - status/stable
+date_created: 2026-04-11
+date_updated: 2026-04-11
+---
+
 # Password Generator
 
 Generate secure, readable passwords with structured format and clipboard integration.
@@ -44,3 +55,8 @@ Automatically copies last generated password using:
 
 - macOS: `pbcopy`
 - Linux: `xclip`
+
+## Related
+
+- [[source]]
+- [[LOG]]
