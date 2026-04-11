@@ -76,7 +76,7 @@ If the file is managed, edit the **chezmoi source** -- never the target. Common 
 
 ## Commands Reference
 
-load skill `chezmoi`
+See [[how-to-configure-chezmoi]] (`docs/configs/references/how-to-configure-chezmoi/INDEX.md`).
 
 ## User Preferences
 
