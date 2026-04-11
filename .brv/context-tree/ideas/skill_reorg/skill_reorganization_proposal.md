@@ -64,10 +64,10 @@ Highlights include the future knowledge bucket (vault, obsidian, wiki-map, qmd, 
 | distill | pa-sdlc/ | think/distill/ |
 | distill-prompt | pa-sdlc/ | think/distill/ |
 | writer-sk | utils/ | think/distill/ |
-| edit-note | utils/ | think/distill/ |
+| simple-editor | utils/ | think/distill/ |
 | transcript-sk | utils/ | think/distill/ |
 
 ## Facts
 - **current_meta_skills**: Current meta category lists thinking, creative, marketing, ContentAnalysis, investigation, and liteparse. [project]
 - **future_knowledge_bucket**: Future knowledge bucket groups vault, obsidian, wiki-map, qmd, pg-memory, byterover, nia-docs, map-filesystem-abstract, and cass. [project]
-- **skills_moves_table**: Moves table reassigns every listed skill (changelog, council, five-council, eval-rubric, grill-me-v2, color-palette, thinking, creative, marketing, ContentAnalysis, investigation, liteparse, obsidian, wiki-map, qmd, pg-memory, byterover, nia-docs, map-filesystem-abstract, cass, distill, distill-prompt, writer-sk, edit-note, transcript-sk) from their current buckets to futures such as dev/docs, spec/process, think/content, knowledge/vault, and think/distill. [project]
+- **skills_moves_table**: Moves table reassigns every listed skill (changelog, council, five-council, eval-rubric, grill-me-v2, color-palette, thinking, creative, marketing, ContentAnalysis, investigation, liteparse, obsidian, wiki-map, qmd, pg-memory, byterover, nia-docs, map-filesystem-abstract, cass, distill, distill-prompt, writer-sk, simple-editor, transcript-sk) from their current buckets to futures such as dev/docs, spec/process, think/content, knowledge/vault, and think/distill. [project]

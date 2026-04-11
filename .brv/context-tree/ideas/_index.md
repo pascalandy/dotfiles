@@ -22,5 +22,5 @@ type: summary
 - **Facts Highlights**:
   - Meta → `think` (e.g., `thinking`, `creative`, `marketing`, `ContentAnalysis`, `investigation`, `liteparse`).
   - PA-SDLC → `knowledge` or `think` (`obsidian`, `wiki-map`, `qmd`, `distill*`).
-  - Utils → `knowledge` (`pg-memory`, `byterover`, `nia-docs`, `map-filesystem-abstract`, `cass`) or `think/distill` (`writer-sk`, `edit-note`, `transcript-sk`).
+  - Utils → `knowledge` (`pg-memory`, `byterover`, `nia-docs`, `map-filesystem-abstract`, `cass`) or `think/distill` (`writer-sk`, `simple-editor`, `transcript-sk`).
 - **Relationships**: The document ties the conceptual buckets to specific skills via structured move tables, enabling drill-down into `skill_reorganization_proposal.md` for precise per-skill reassignment logic.

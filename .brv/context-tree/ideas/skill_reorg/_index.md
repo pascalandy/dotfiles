@@ -18,7 +18,7 @@ type: summary
   - `specs` skills like `changelog`, `eval-rubric`, `color-palette` move into `dev/docs`, `dev/review`, `spec/design`, etc.
   - `meta` skills (`thinking`, `creative`, `marketing`, `ContentAnalysis`, `investigation`, `liteparse`) migrate to `think` subcategories (reasoning/content/doc).
   - `pa-sdlc` skills (`obsidian`, `wiki-map`, `qmd`, `distill`, `distill-prompt`) refocus into `knowledge` (vault) or `think/distill`.
-  - `utils` (e.g., `pg-memory`, `byterover`, `nia-docs`, `map-filesystem-abstract`, `cass`, `writer-sk`, `edit-note`, `transcript-sk`) split across `knowledge` (memory/fs/browse) and `think/distill`.
+  - `utils` (e.g., `pg-memory`, `byterover`, `nia-docs`, `map-filesystem-abstract`, `cass`, `writer-sk`, `simple-editor`, `transcript-sk`) split across `knowledge` (memory/fs/browse) and `think/distill`.
 
 ## Facts Highlight (skill_reorganization_proposal.md)
 - **Current meta skills**: `thinking`, `creative`, `marketing`, `ContentAnalysis`, `investigation`, `liteparse`.

@@ -15,7 +15,7 @@ type: summary
 - **Topic: skill_reorg**
   - **Current vs. Future Buckets** (`ideas/skill_reorg/_index.md`): Maps existing buckets to four partitions, with each partition covering specific skill domains (e.g., `knowledge` for research/vault/memory tooling; `dev` covering lifecycle/code/docs/headless/diagram/task utilities; `think` for reasoning/content/distillation; `spec` for process/design/score).
   - **Moves Table** (`ideas/skill_reorganization_proposal.md`): Lists deterministic origin-to-target assignments (e.g., `color-palette`→`dev/docs`, `distill`→`think/distill`, `transcript-sk`→`think/distill`). Enables traceable drill-down into how each legacy skill migrates.
-  - **Facts & Relationships**: Meta skills largely move into `think`; PA-SDLC skills target `knowledge`/`think`; Utils split between `knowledge` (“pg-memory”, “bynover”) and `think/distill` (“writer-sk”, “edit-note”). Move tables tie bucket concepts directly to target partitions, ensuring precise reassignment logic.
+  - **Facts & Relationships**: Meta skills largely move into `think`; PA-SDLC skills target `knowledge`/`think`; Utils split between `knowledge` (“pg-memory”, “bynover”) and `think/distill` (“writer-sk”, “simple-editor”). Move tables tie bucket concepts directly to target partitions, ensuring precise reassignment logic.
 
 ## Domain: skills
 - **Purpose & Ownership** (`skills/context.md`): Captures the canonical skill taxonomy, documenting both legacy categories and future domains (knowledge/dev/think/spec) for discovery and migration; maintained by Knowledge Engineering, excluding implementation details.
