@@ -163,6 +163,10 @@
     {
       "folderPath": "chezmoi/dot_local/",
       "color": "foldercolorizer.color_66cc99"
+    },
+    {
+      "folderPath": "chezmoi/dot_config/archived_ai_templates/",
+      "color": "foldercolorizer.color_cc6600"
     }
   ]
 }
