@@ -1,4 +1,6 @@
-## Alignment Phases (idea to plan)
+## pa-sdlc
+
+Stands for: Pascal Andy - Sofware Developer lifecyle
 
 **pa-scout** == check-in what the agent should know about 
 - I want you to show me how should I use remote functions in this codebase
