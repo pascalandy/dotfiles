@@ -13,7 +13,7 @@ date_updated: 2026-04-11
 
 > Content catalog. Every wiki page is listed here with a one-line summary.
 > Read this first to find relevant pages for any query.
-> **Total pages:** 1 | **Last updated:** 2026-04-11
+> **Total pages:** 2 | **Last updated:** 2026-04-11
 
 ## Wiki Map
 
@@ -28,3 +28,4 @@ date_updated: 2026-04-11
 | File | Description |
 |------|-------------|
 | `references/opencode-config.md` | Decision-making, naming rules, and routing intent for OpenCode config |
+| `references/how-my-zshrc-is-configured/INDEX.md` | Analyst report of zshrc setup, tools, aliases, functions, and personal conventions |
