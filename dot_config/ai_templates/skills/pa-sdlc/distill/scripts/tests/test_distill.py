@@ -248,12 +248,14 @@ class TestPromptDrivenCli:
         assert len(run_dirs) == 1
 
         run_dir = run_dirs[0]
-        assert (run_dir / "short_summary.md").exists()
-        assert (run_dir / "meta.txt").exists()
-        assert (run_dir / input_file.name).exists()
-        assert (run_dir / input_file.name).read_text(
+        slug = input_file.stem
+        raw_copy = run_dir / f"{slug}_raw{input_file.suffix}"
+        assert (run_dir / f"{slug}_short_summary.md").exists()
+        assert (run_dir / f"{slug}_meta.yml").exists()
+        assert raw_copy.exists()
+        assert raw_copy.read_text(encoding="utf-8") == input_file.read_text(
             encoding="utf-8"
-        ) == input_file.read_text(encoding="utf-8")
+        )
 
 
 class TestOpenCodeProvider:
@@ -277,9 +279,10 @@ class TestOpenCodeProvider:
             if path.is_dir() and path.name.startswith("article_")
         ]
         assert len(run_dirs) == 1
-        assert (run_dirs[0] / "follow_along_note.md").read_text(encoding="utf-8") == (
-            "## OpenCode output\n"
-        )
+        slug = input_file.stem
+        assert (
+            run_dirs[0] / f"{slug}_follow_along_note.md"
+        ).read_text(encoding="utf-8") == ("## OpenCode output\n")
 
     def test_opencode_rejects_effort_flag(self, tmp_path: Path) -> None:
         env = env_with_fake_opencode(tmp_path)
@@ -335,10 +338,11 @@ class TestEndToEndWithRealTranscript:
         assert len(run_dirs) == 1
 
         run_dir = run_dirs[0]
-        output_file = run_dir / "short_summary.md"
+        slug = E2E_INPUT_PATH.stem
+        output_file = run_dir / f"{slug}_short_summary.md"
         assert output_file.exists()
         assert "VaultWarden Summary" in output_file.read_text(encoding="utf-8")
-        copied_input = run_dir / E2E_INPUT_PATH.name
+        copied_input = run_dir / f"{slug}_raw{E2E_INPUT_PATH.suffix}"
         assert copied_input.exists()
 
     def test_short_summary_prompt_flows_from_library_into_opencode(
@@ -376,8 +380,9 @@ class TestEndToEndWithRealTranscript:
         assert len(run_dirs) == 1
 
         run_dir = run_dirs[0]
-        output_file = run_dir / "short_summary.md"
+        slug = E2E_INPUT_PATH.stem
+        output_file = run_dir / f"{slug}_short_summary.md"
         assert output_file.exists()
         assert "VaultWarden OpenCode Summary" in output_file.read_text(encoding="utf-8")
-        copied_input = run_dir / E2E_INPUT_PATH.name
+        copied_input = run_dir / f"{slug}_raw{E2E_INPUT_PATH.suffix}"
         assert copied_input.exists()

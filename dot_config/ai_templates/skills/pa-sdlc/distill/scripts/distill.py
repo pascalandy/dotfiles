@@ -87,14 +87,14 @@ VALID_OPENCODE_MODELS: tuple[str, ...] = (
 DEFAULT_OPENCODE_MODEL = "1-kimi"
 
 CANONICAL_EFFORTS: tuple[str, ...] = ("low", "medium", "high", "max")
-DEFAULT_EFFORT = "medium"
+DEFAULT_EFFORT = "high"
 DEFAULT_PROMPT = "follow_along_note"
 
 # Canonical -> vendor ETL
 EFFORT_ETL: dict[str, dict[str, str]] = {
     PROVIDER_CLAUDE: {
         "low": "low",
-        "medium": "med",
+        "medium": "medium",
         "high": "high",
         "max": "max",
     },
@@ -190,6 +190,7 @@ class ResolvedPlan:
     effort_canonical: str
     effort_vendor: str
     output_parent: Path
+    slug: str
     run_folder_name: str
     run_folder_path: Path
     quiet: bool
@@ -682,6 +683,7 @@ def build_plan(args: argparse.Namespace) -> ResolvedPlan:
         effort_canonical=effort_canonical,
         effort_vendor=effort_vendor,
         output_parent=output_parent,
+        slug=slug,
         run_folder_name=run_folder_name,
         run_folder_path=run_folder_path,
         quiet=bool(args.quiet),
@@ -791,9 +793,9 @@ def print_dry_run(plan: ResolvedPlan) -> None:
     console.print(f"output folder:  {plan.run_folder_path}")
     console.print()
     console.print("Would write:")
-    console.print(f"  {plan.prompt_name}.md")
-    console.print(f"  {plan.input_path.name}")
-    console.print("  meta.txt")
+    console.print(f"  {plan.slug}_{plan.prompt_name}.md")
+    console.print(f"  {plan.slug}_raw{plan.input_path.suffix}")
+    console.print(f"  {plan.slug}_meta.yml")
 
 
 # -------------------------------------------------------------------------
@@ -807,7 +809,7 @@ def run_claude(
 ) -> dict[str, int | str]:
     """Invoke the claude CLI and write the distilled output to ``output_file``.
 
-    Returns a dict of usage stats for meta.txt.
+    Returns a dict of usage stats for meta.yml.
     """
     user_message = f"{USER_MESSAGE_OVERHEAD}{plan.input_text}"
 
@@ -1051,36 +1053,37 @@ def write_meta(
     output_file: Path,
 ) -> None:
     lines: list[str] = [
-        f"file:            {output_file.name}",
-        f"original_file:   {plan.input_path}",
-        f"date:            {started_at.isoformat(timespec='seconds')}",
-        f"prompt:          {plan.prompt_name}",
-        f"prompt_file:     {plan.prompt_path}",
-        f"provider:        {plan.provider}",
-        f"model:           {plan.model}",
+        f"file: {output_file.name}",
+        f"original_file: {plan.input_path}",
+        f"date: {started_at.isoformat(timespec='seconds')}",
+        f"prompt: {plan.prompt_name}",
+        f"prompt_file: {plan.prompt_path}",
+        f"provider: {plan.provider}",
+        f"model: {plan.model}",
         (
-            f"effort:          {plan.effort_canonical} "
+            f"effort: {plan.effort_canonical} "
             f"→ {plan.effort_vendor} ({plan.provider})"
         ),
-        f"duration:        {duration_seconds:.1f}s",
-        f"input_tokens:    {plan.input_tokens:,}",
+        f"duration: {duration_seconds:.1f}s",
+        f"input_tokens: {plan.input_tokens:,}",
     ]
 
     if plan.provider == PROVIDER_CLAUDE:
         total_tokens = usage.get("total_tokens")
         output_tokens = usage.get("output_tokens")
         if isinstance(total_tokens, int):
-            lines.append(f"total_tokens:    {total_tokens:,}")
+            lines.append(f"total_tokens: {total_tokens:,}")
         if isinstance(output_tokens, int):
-            lines.append(f"output_tokens:   {output_tokens:,}")
+            lines.append(f"output_tokens: {output_tokens:,}")
     elif plan.provider == PROVIDER_OPENCODE:
         total_tokens = usage.get("total_tokens")
         if isinstance(total_tokens, int) and total_tokens > 0:
-            lines.append(f"total_tokens:    {total_tokens:,}")
+            lines.append(f"total_tokens: {total_tokens:,}")
 
     lines.append(f"distill_version: {__version__}")
 
-    (run_folder / "meta.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    meta_file = run_folder / f"{plan.slug}_meta.yml"
+    meta_file.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 # -------------------------------------------------------------------------
@@ -1110,8 +1113,10 @@ def execute_plan(plan: ResolvedPlan, open_finder: bool) -> Path:
                 f"Cannot create run folder {run_folder_path}: {exc}"
             ) from exc
 
-    output_file = run_folder_path / f"{plan.prompt_name}.md"
-    copied_input_file = run_folder_path / plan.input_path.name
+    output_file = run_folder_path / f"{plan.slug}_{plan.prompt_name}.md"
+    copied_input_file = (
+        run_folder_path / f"{plan.slug}_raw{plan.input_path.suffix}"
+    )
     shutil.copy2(plan.input_path, copied_input_file)
 
     if not plan.quiet:

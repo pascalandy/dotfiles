@@ -47,17 +47,17 @@ Available OpenCode agents: `1-kimi`, `2-opus`, `3-gpt`, `4-sonnet`, `worker`, `w
 
 Use `--list-models` to see all supported values.
 
-**`--effort {low,medium,high,max}`** - default: `medium` (or `low` for Sonnet models)
+**`--effort {low,medium,high,max}`** - default: `high` (or `low` for Sonnet models)
 Reasoning effort. Canonical vocabulary; the script translates per provider:
 
 | Canonical | Claude | Codex |
 |---|---|---|
 | `low` | `low` | `low` |
-| `medium` | `med` | `medium` |
+| `medium` | `medium` | `medium` |
 | `high` | `high` | `high` |
 | `max` | `max` | `xhigh` |
 
-**Note:** `claude-sonnet-4-6` defaults to `low` effort for faster, more economical results. Opus defaults to `medium`.
+**Note:** `claude-sonnet-4-6` defaults to `low` effort for faster, more economical results. Opus defaults to `high`.
 
 **OpenCode note:** `--effort` is not supported with `--provider opencode`. OpenCode reasoning behavior is defined by the selected curated agent.
 
@@ -100,7 +100,7 @@ Show program version and exit.
 | Model (claude) | `claude-opus-4-6` |
 | Model (codex) | `gpt-5.4` |
 | Model (opencode) | `1-kimi` |
-| Effort | `medium` (or `low` for Sonnet models) |
+| Effort | `high` (or `low` for Sonnet models) |
 | Output dir | parent directory of the input file |
 | Run folder name | `{slug}_{timestamp}_{prompt}/` |
 | Timestamp format | `YYYY-MM-DD_HH-MM-SS` |
@@ -116,9 +116,9 @@ Each run creates a timestamped folder named:
 
 The folder contains:
 
-- **`{prompt}.md`** - the distilled output
-- **`{original_filename}`** - a copy of the original input file
-- **`meta.txt`** - run metadata (timestamp, provider, model, effort, duration)
+- **`{slug}_{prompt}.md`** - the distilled output
+- **`{slug}_raw.{ext}`** - a copy of the original input file (same extension as input)
+- **`{slug}_meta.yml`** - run metadata in YAML format (timestamp, provider, model, effort, duration)
 
 ### Default output location
 

@@ -27,7 +27,7 @@ There is a good prompt library (`distill-prompt`) and two capable LLM CLIs (`cla
 None of that is repeatable, versioned, or friction-free.
 
 - **Prompts are reusable, workflows are not** -- the same prompt gets fed through 3 different ad-hoc pipelines
-- **Vendor flag differences** -- `claude` uses `med`/`max`, `codex` uses `medium`/`xhigh`; users should not track that
+- **Vendor flag differences** -- `claude` and `codex` agree on `low`/`medium`/`high` but diverge at the top (`max` vs `xhigh`); users should not track that
 - **No canonical output location** -- results scatter across Downloads, Desktop, clipboard
 
 The fundamental issue: applying a distill prompt to a local file should be one command, not a workflow.
@@ -65,9 +65,9 @@ The fundamental issue: applying a distill prompt to a local file should be one c
 4. **Output lands beside the input:**
     ```
     ~/Documents/article_2026-04-06_14-32-08_follow_along_note/
-    ├── follow_along_note.md    # the distilled result
-    ├── article.md              # a copy of the original input file
-    └── meta.txt                # provider, model, effort, duration, token count
+    ├── article_follow_along_note.md  # the distilled result
+    ├── article_raw.md                # a copy of the original input file
+    └── article_meta.yml              # YAML run metadata (provider, model, effort, duration, tokens)
     ```
 
 For dry-run, alternate providers, or custom output locations, read `help.md` via `--help`.

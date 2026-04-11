@@ -66,9 +66,9 @@ Available prompt stems come from `meta/distill-prompt`. Common values are:
 
 ```
 <input-parent>/{slug}_{YYYY-MM-DD_HH-MM-SS}_{prompt}/
-├── {prompt}.md      # distilled result
-├── {original-file}  # copy of the original input file
-└── meta.txt         # provider, model, effort, duration, tokens, original file path
+├── {slug}_{prompt}.md  # distilled result
+├── {slug}_raw.{ext}    # copy of the original input file (same extension as input)
+└── {slug}_meta.yml     # YAML run metadata (provider, model, effort, duration, tokens, original file path)
 ```
 
 The slug is the input filename stem. The prompt name is the normalized prompt stem.
