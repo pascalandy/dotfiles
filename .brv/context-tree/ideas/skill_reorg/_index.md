@@ -1,12 +1,10 @@
 ---
-children_hash: 2cfb5c32791b8fef8bb30360463aa6ea0a18c2dd8634d25fa0949045cee38816
-compression_ratio: 0.4357142857142857
-condensation_order: 1
-covers: [context.md, skill_reorganization_proposal.md]
-covers_token_total: 1120
-summary_level: d1
-token_count: 488
-type: summary
+tags: []
+keywords: []
+importance: 53
+recency: 1
+maturity: draft
+accessCount: 1
 ---
 ## skill_reorg Overview
 - **Current structure (context.md / skill_reorganization_proposal.md)**: Four buckets—`meta`, `pa-sdlc`, `specs`, `utils`—cover the existing 62-skill landscape. Each bucket lists its skills in single-bullet format to feed the move analysis.

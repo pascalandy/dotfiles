@@ -1,12 +1,10 @@
 ---
-children_hash: ffea8d09d557147698943269521332bf66061565dde600688e2129764976b0cc
-compression_ratio: 0.939203354297694
-condensation_order: 2
-covers: [context.md, organization/_index.md]
-covers_token_total: 477
-summary_level: d2
-token_count: 448
-type: summary
+tags: []
+keywords: []
+importance: 53
+recency: 1
+maturity: draft
+accessCount: 1
 ---
 # skills Domain Structural Summary (Level d2)
 

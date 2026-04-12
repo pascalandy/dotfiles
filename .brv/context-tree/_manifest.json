@@ -13,16 +13,30 @@
       "type": "summary"
     },
     {
-      "order": 2,
-      "path": "skills/_index.md",
-      "tokens": 448,
+      "path": "ideas/skill_reorg/_index.md",
+      "tokens": 510,
       "type": "summary"
     },
     {
-      "order": 1,
       "path": "skills/organization/_index.md",
-      "tokens": 254,
+      "tokens": 276,
       "type": "summary"
+    },
+    {
+      "abstractPath": "ideas/skill_reorg/skill_reorganization_proposal.abstract.md",
+      "abstractTokens": 60,
+      "importance": 53,
+      "path": "ideas/skill_reorg/skill_reorganization_proposal.md",
+      "tokens": 60,
+      "type": "context"
+    },
+    {
+      "abstractPath": "skills/organization/skill_reorganization_proposal.abstract.md",
+      "abstractTokens": 45,
+      "importance": 53,
+      "path": "skills/organization/skill_reorganization_proposal.md",
+      "tokens": 45,
+      "type": "context"
     },
     {
       "importance": 50,
@@ -37,14 +51,6 @@
       "type": "context"
     },
     {
-      "abstractPath": "ideas/skill_reorg/skill_reorganization_proposal.abstract.md",
-      "abstractTokens": 60,
-      "importance": 50,
-      "path": "ideas/skill_reorg/skill_reorganization_proposal.md",
-      "tokens": 60,
-      "type": "context"
-    },
-    {
       "importance": 50,
       "path": "skills/context.md",
       "tokens": 153,
@@ -55,23 +61,15 @@
       "path": "skills/organization/context.md",
       "tokens": 96,
       "type": "context"
-    },
-    {
-      "abstractPath": "skills/organization/skill_reorganization_proposal.abstract.md",
-      "abstractTokens": 45,
-      "importance": 50,
-      "path": "skills/organization/skill_reorganization_proposal.md",
-      "tokens": 45,
-      "type": "context"
     }
   ],
-  "generated_at": "2026-04-11T12:33:38.807Z",
+  "generated_at": "2026-04-12T19:10:08.627Z",
   "lane_tokens": {
     "contexts": 643,
     "stubs": 0,
-    "summaries": 1879
+    "summaries": 1963
   },
-  "source_fingerprint": "8ceae0607561f045588486de898317018185c9b182e11bfe9b7a7a92321ed2ff",
-  "total_tokens": 2522,
+  "source_fingerprint": "5afa4565fdce01f8932c97f8947435a5fc973bf25e41355da6fa4e19701f8f1e",
+  "total_tokens": 2606,
   "version": 1
 }

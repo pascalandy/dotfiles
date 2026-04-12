@@ -3,9 +3,10 @@ title: Skill Reorganization Proposal
 summary: Document the proposed shift of 62 skills from legacy meta/pa-sdlc/specs/utils categories into future knowledge/dev/think/spec domains with explicit move mappings.
 tags: []
 keywords: []
-importance: 50
+importance: 53
 recency: 1
 maturity: draft
+accessCount: 1
 createdAt: '2026-04-11T12:33:17.622Z'
 updatedAt: '2026-04-11T12:33:17.622Z'
 ---
