@@ -25,7 +25,7 @@
     {
       "abstractPath": "ideas/skill_reorg/skill_reorganization_proposal.abstract.md",
       "abstractTokens": 60,
-      "importance": 59,
+      "importance": 62,
       "path": "ideas/skill_reorg/skill_reorganization_proposal.md",
       "tokens": 60,
       "type": "context"
@@ -33,7 +33,7 @@
     {
       "abstractPath": "skills/organization/skill_reorganization_proposal.abstract.md",
       "abstractTokens": 45,
-      "importance": 59,
+      "importance": 62,
       "path": "skills/organization/skill_reorganization_proposal.md",
       "tokens": 45,
       "type": "context"
@@ -41,7 +41,7 @@
     {
       "abstractPath": "skills/meta_superpowers/superpowers_workflow.abstract.md",
       "abstractTokens": 55,
-      "importance": 56,
+      "importance": 59,
       "path": "skills/meta_superpowers/superpowers_workflow.md",
       "tokens": 55,
       "type": "context"
@@ -77,13 +77,13 @@
       "type": "context"
     }
   ],
-  "generated_at": "2026-04-12T20:19:01.855Z",
+  "generated_at": "2026-04-12T20:27:27.960Z",
   "lane_tokens": {
     "contexts": 827,
     "stubs": 0,
     "summaries": 1908
   },
-  "source_fingerprint": "bf79877cf70fe5fb2ce5fc9a8013020407b3eedbaf27996ea901dcdf42cfa078",
+  "source_fingerprint": "07c2ccd53c6ea0badce3b964602dc97b3ca3fc369f7f84a6ce91bd60374b76bc",
   "total_tokens": 2735,
   "version": 1
 }

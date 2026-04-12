@@ -3,10 +3,10 @@ title: Superpowers Workflow
 summary: Captures the Superpowers workflow entry, invocation scenarios, and router table linking requests to lifecycle specialists.
 tags: []
 keywords: []
-importance: 56
+importance: 59
 recency: 1
 maturity: draft
-accessCount: 2
+accessCount: 3
 createdAt: '2026-04-12T19:35:06.738Z'
 updatedAt: '2026-04-12T19:35:06.738Z'
 ---
