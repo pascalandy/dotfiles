@@ -1,12 +1,10 @@
 ---
-children_hash: de2c8f53b5fd8bcc648fe27300ee4d9aef38a9e69cbcf09215177acaaa69ec55
-compression_ratio: 0.757607555089192
-condensation_order: 2
-covers: [context.md, meta_superpowers/_index.md, organization/_index.md]
-covers_token_total: 953
-summary_level: d2
-token_count: 722
-type: summary
+tags: []
+keywords: []
+importance: 53
+recency: 1
+maturity: draft
+accessCount: 1
 ---
 # skills Domain (d2 Structural Summary)
 
