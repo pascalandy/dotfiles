@@ -1,5 +1,10 @@
 # AGENTS.md - Chezmoi Dotfiles Repository
 
+## Update /docs
+
+- Our `/docs` directory is a collection "wiki-map"
+- Always organize and follow best practices defined within the skill "wiki-map" 
+
 ## browsing the public web
 
 Do not use WebFetch, use skill `agent-browser`
@@ -10,17 +15,12 @@ When showing gif diff changes, use skill: `hunk-review`
 
 ## Exporting a plan
 
-Follow the pattern from skill "new-idea":
+Follow the pattern from skill "idea":
 
-- Ensure that there is an actual idea (skill "new-idea")
+- Ensure that there is an actual idea (skill "idea")
 - then ensure that there's an actual vision (skill "pa-vision")
 - then ensure that there's an actual architecture (skill "pa-architecture")
 - Then, if the user really wants a plan, now you can export a plan using the same file name pattern.
-
-## updating /docs
-
-- Our /docs directory is a collection of skill "wiki-map"
-- Always organize and follow best practices defined within the skill "wiki-map" 
 
 ## Repository Overview
 
