@@ -41,25 +41,25 @@ gitleaks:
 gitleaks-staged:
     gitleaks protect --staged --verbose
 
-# Lint all tracked shell scripts with shellcheck.
+# Lint all tracked shell scripts with shellcheck (excludes archived files).
 shellcheck:
-    git ls-files -z '*.sh' 'dot_local/bin/executable_*' | xargs -0 -r shellcheck
+    git ls-files -z '*.sh' 'dot_local/bin/executable_*' | grep -zZv '_ARCHIVES' | xargs -0 -r shellcheck
 
 # Lint only staged shell scripts with shellcheck.
 shellcheck-staged:
     git diff --name-only --staged -z -- '*.sh' 'dot_local/bin/executable_*' | xargs -0 -r shellcheck
 
-# Show shfmt diffs for all tracked shell scripts.
+# Show shfmt diffs for all tracked shell scripts (excludes archived files).
 shfmt:
-    git ls-files -z '*.sh' 'dot_local/bin/executable_*' | xargs -0 -r shfmt -d
+    git ls-files -z '*.sh' 'dot_local/bin/executable_*' | grep -zZv '_ARCHIVES' | xargs -0 -r shfmt -d
 
 # Show shfmt diffs for staged shell scripts only.
 shfmt-staged:
     git diff --name-only --staged -z -- '*.sh' 'dot_local/bin/executable_*' | xargs -0 -r shfmt -d
 
-# Format all tracked shell scripts with shfmt.
+# Format all tracked shell scripts with shfmt (excludes archived files).
 shfmt-fix:
-    git ls-files -z '*.sh' 'dot_local/bin/executable_*' | xargs -0 -r shfmt -w
+    git ls-files -z '*.sh' 'dot_local/bin/executable_*' | grep -zZv '_ARCHIVES' | xargs -0 -r shfmt -w
 
 # Format staged shell scripts with shfmt.
 shfmt-fix-staged:
