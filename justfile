@@ -216,9 +216,10 @@ uca:
     just uv-daily
     just npm-daily
     just bun-globals-full
-    amp update
-    claude update
     pi update
+    amp update
+    curl -fsSL https://app.factory.ai/cli | sh
+    claude update
     qmd update
     qmd embed
     qmd cleanup
