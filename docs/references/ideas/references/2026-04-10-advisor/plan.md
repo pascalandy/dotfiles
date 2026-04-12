@@ -2,7 +2,7 @@
 
 ## Context
 
-The user is studying Anthropic's new advisor-tool primitive (documented in `docs/ideas/references/1020-advisor/`) and wants the same delegation pattern available outside Claude Code — usable from Codex CLI, Gemini CLI, OpenCode, or anywhere else. Anthropic's native primitive only works inside a single `/v1/messages` call on the Claude API, so it can't be invoked from any other CLI agent.
+The user is studying Anthropic's new advisor-tool primitive (documented in `docs/references/ideas/references/1020-advisor/`) and wants the same delegation pattern available outside Claude Code — usable from Codex CLI, Gemini CLI, OpenCode, or anywhere else. Anthropic's native primitive only works inside a single `/v1/messages` call on the Claude API, so it can't be invoked from any other CLI agent.
 
 This plan creates a new skill, **`pa-advisor`**, whose `SKILL.md` *is* the executor prompt. When any CLI agent loads it, that agent behaves as the executor and learns to consult Claude Opus (via `claude -p`) as a read-only advisor at strategic moments. The advisor is invoked by shelling out through the existing `headless-claude` plumbing. The pattern is **dynamic** (multiple advisor calls per task), **stateless** (every call is self-contained — no reliance on Claude Code's local session store, which would break CLI-agnosticism), and **portable** (the shell pipeline is identical regardless of which CLI is reading the skill).
 
@@ -16,7 +16,7 @@ Intended outcome: a single skill file that can be dropped into any CLI agent's i
 dot_config/ai_templates/skills/pa-sdlc/pa-advisor/
 └── SKILL.md                                            # the new skill
 
-docs/ideas/references/1020-advisor/
+docs/references/ideas/references/1020-advisor/
 └── plan.md                                             # archive of THIS plan, alongside source material
 ```
 
@@ -47,7 +47,7 @@ One paragraph: "When this skill is loaded, you (the CLI agent reading it) act as
 
 ### 3. When to call the advisor
 
-Four timing rules, lifted directly from `docs/ideas/references/1020-advisor/webclip-advisor.md:359-370`:
+Four timing rules, lifted directly from `docs/references/ideas/references/1020-advisor/webclip-advisor.md:359-370`:
 
 - **Before substantive work.** After orientation (file reads, fetches, exploring) but BEFORE writing, editing, or committing to an interpretation. **"Orientation is not substantive work"** — quote this sentence verbatim; it's the most common mis-timing.
 - **When stuck.** Errors recurring, approach not converging, results that don't fit.
@@ -117,7 +117,7 @@ Tag-by-tag, one line each:
 
 ### 6. How to treat the advice
 
-Lifted from `docs/ideas/references/1020-advisor/webclip-advisor.md:374-378`:
+Lifted from `docs/references/ideas/references/1020-advisor/webclip-advisor.md:374-378`:
 
 - **Give the advice serious weight.** Follow unless empirically contradicted by a tool result or primary source (the file says X, the test output shows Y).
 - **A passing self-test is NOT evidence the advice is wrong** — it's evidence your test doesn't check what the advice is checking.
@@ -161,12 +161,12 @@ One-line cross-reference: "Uses `$headless-claude` invocation conventions. See `
 
 **To create:**
 - `/Users/andy16/.local/share/chezmoi/dot_config/ai_templates/skills/pa-sdlc/pa-advisor/SKILL.md`
-- `/Users/andy16/.local/share/chezmoi/docs/ideas/references/1020-advisor/plan.md` (verbatim copy of `/Users/andy16/.claude/plans/vivid-wishing-adleman.md`)
+- `/Users/andy16/.local/share/chezmoi/docs/references/ideas/references/1020-advisor/plan.md` (verbatim copy of `/Users/andy16/.claude/plans/vivid-wishing-adleman.md`)
 
 **To reference (already verified, no changes):**
 - `/Users/andy16/.local/share/chezmoi/dot_config/ai_templates/skills/utils/headless-claude/SKILL.md` — source of flag semantics (`-p`, `--permission-mode plan`, `--no-session-persistence`, `--fallback-model`, `--model opus`, `--append-system-prompt`, `--max-turns`, pipe-stdin+positional pattern, `claude auth status --text`)
-- `/Users/andy16/.local/share/chezmoi/docs/ideas/references/1020-advisor/webclip-advisor.md` — source for verbatim timing block (lines 359-370), treatment block (lines 374-378), and durability rule (line 365)
-- `/Users/andy16/.local/share/chezmoi/docs/ideas/references/1020-advisor/explore.md` — source for the worked-example pattern (lines 104-198 show the five-phase "Fix failing CI" walkthrough that our worked example will mirror)
+- `/Users/andy16/.local/share/chezmoi/docs/references/ideas/references/1020-advisor/webclip-advisor.md` — source for verbatim timing block (lines 359-370), treatment block (lines 374-378), and durability rule (line 365)
+- `/Users/andy16/.local/share/chezmoi/docs/references/ideas/references/1020-advisor/explore.md` — source for the worked-example pattern (lines 104-198 show the five-phase "Fix failing CI" walkthrough that our worked example will mirror)
 - `/Users/andy16/.local/share/chezmoi/dot_config/ai_templates/skills/pa-sdlc/delegate/SKILL.md` — structural template (single-file, frontmatter + narrative, no router)
 - `/Users/andy16/.local/share/chezmoi/dot_config/ai_templates/skills/pa-sdlc/five-council/SKILL.md` — secondary structural reference
 
@@ -187,7 +187,7 @@ One-line cross-reference: "Uses `$headless-claude` invocation conventions. See `
 
 ## Execution order
 
-1. **Export this plan first** — copy `/Users/andy16/.claude/plans/vivid-wishing-adleman.md` verbatim to `/Users/andy16/.local/share/chezmoi/docs/ideas/references/1020-advisor/plan.md`. No edits, no reformatting. Do this before writing the skill so the archived plan reflects the plan-as-approved, not any mid-implementation drift.
+1. **Export this plan first** — copy `/Users/andy16/.claude/plans/vivid-wishing-adleman.md` verbatim to `/Users/andy16/.local/share/chezmoi/docs/references/ideas/references/1020-advisor/plan.md`. No edits, no reformatting. Do this before writing the skill so the archived plan reflects the plan-as-approved, not any mid-implementation drift.
 2. **Then write the skill** — create `dot_config/ai_templates/skills/pa-sdlc/pa-advisor/SKILL.md` per the section-by-section spec above.
 3. **Then verify** — per the steps below.
 
@@ -200,10 +200,10 @@ After creating both files, verify end-to-end in four steps:
 ```bash
 # Exported plan exists and matches source byte-for-byte
 diff /Users/andy16/.claude/plans/vivid-wishing-adleman.md \
-     /Users/andy16/.local/share/chezmoi/docs/ideas/references/1020-advisor/plan.md
+     /Users/andy16/.local/share/chezmoi/docs/references/ideas/references/1020-advisor/plan.md
 
 # Sits next to the source material it was derived from
-ls /Users/andy16/.local/share/chezmoi/docs/ideas/references/1020-advisor/
+ls /Users/andy16/.local/share/chezmoi/docs/references/ideas/references/1020-advisor/
 # expect: explore.md  plan.md  webclip-advisor.md
 ```
 
@@ -261,6 +261,6 @@ Standard chezmoi commit flow:
 ```bash
 just ci                                # local checks
 git add dot_config/ai_templates/skills/pa-sdlc/pa-advisor/SKILL.md \
-        docs/ideas/references/1020-advisor/plan.md
+        docs/references/ideas/references/1020-advisor/plan.md
 git commit -m "✨ add: pa-advisor skill — CLI-agnostic executor→advisor delegation pattern"
 ```

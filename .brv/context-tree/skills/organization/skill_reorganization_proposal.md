@@ -23,7 +23,7 @@ Document the 62-skill reorganization proposal that realigns legacy categories in
 - Captured a Moves table mapping each skill from its legacy location to its new future domain.
 
 **Files:**
-- docs/ideas/references/2026-04-11-skills-reorganization-proposal/idea.md
+- docs/references/ideas/references/2026-04-11-skills-reorganization-proposal/idea.md
 
 **Flow:**
 Legacy structure -> Future structure -> Moves table detailing each migration

@@ -6,30 +6,30 @@ tags:
   - kind/wiki
   - status/open
 date_created: 2026-04-11
-date_updated: 2026-04-11
+date_updated: 2026-04-12
 ---
 
 # Dotfiles Docs
 
 > Root catalog for the chezmoi dotfiles repository. Every documentation category is listed here.
 > Agents landing in `/docs` should read this file first, then route to the category they need.
-> **Categories:** 3 | **Last updated:** 2026-04-11
+> **Categories:** 3 | **Last updated:** 2026-04-12
 >
-> **Child indexes:** [[configs/INDEX.md]] · [[workflows/INDEX.md]] · [[operations/INDEX.md]]
+> **Child indexes:** [`references/configs/INDEX.md`](references/configs/INDEX.md) · [`references/workflows/INDEX.md`](references/workflows/INDEX.md) · [`references/operations/INDEX.md`](references/operations/INDEX.md)
 
 <scope>
 This index orients agents and returning humans inside `~/.local/share/chezmoi/docs/`.
 
 Source of truth: `~/.local/share/chezmoi/docs/`. Nothing in the applied home directory mirrors this tree — documentation is repo-local.
 
-Use this index to pick the right category for a task. Do not treat it as a place to store content; each category has its own `INDEX.md` and `references/`.
+Use this index to pick the right category for a task. Do not treat it as a place to store content; each category lives under `docs/references/`, with its own `INDEX.md` and `references/`.
 </scope>
 
 <workflow>
 1. Identify the task type:
-   - editing or understanding a specific config file or tool → `configs/`
-   - following or refining a workflow or methodology (`pa-*`) → `workflows/` _(planned)_
-   - running, testing, or operating the repo itself → `operations/` _(planned)_
+   - editing or understanding a specific config file or tool → `references/configs/`
+   - following or refining a workflow or methodology (`pa-*`) → `references/workflows/`
+   - running, testing, or operating the repo itself → `references/operations/`
 
 2. Open the matching category `INDEX.md`. Do not read every wiki in the category — read the category index first and route from there. Every category index back-links here via its own header, so traversal is bidirectional.
 
@@ -54,10 +54,10 @@ Three top-level categories plus a personal brainstorm area.
 
 | Category | Purpose | Status |
 |---|---|---|
-| `configs/` | How individual files, tools, and configs are set up | active |
-| `workflows/` | How processes and methodologies work (e.g. `pa-sdlc`) | active |
-| `operations/` | How the repo itself runs (chezmoi apply, fan-out, pre-apply sync) | active |
-| `ideas/` | Personal brainstorms. Not indexed. Agents should not read unless explicitly asked. | excluded |
+| `references/configs/` | How individual files, tools, and configs are set up | active |
+| `references/workflows/` | How processes and methodologies work (e.g. `pa-sdlc`) | active |
+| `references/operations/` | How the repo itself runs (chezmoi apply, fan-out, pre-apply sync) | active |
+| `references/ideas/` | Personal brainstorms. Not indexed. Agents should not read unless explicitly asked. | excluded |
 
 Each active category has its own `INDEX.md` at its root, a `references/` subdirectory for wiki pages, and an append-only `references/LOG.md`.
 
@@ -72,8 +72,8 @@ This repo deliberately separates two kinds of documentation that look similar bu
 
 Today the split is visible in `configs/references/`:
 
-- Generic: [`how-to-configure-opencode/`](configs/references/how-to-configure-opencode/INDEX.md)
-- Personal: `how-my-opencode-is-configured.md` and [`how-my-zshrc-is-configured/`](configs/references/how-my-zshrc-is-configured/INDEX.md)
+- Generic: [`how-to-configure-opencode/`](references/configs/references/how-to-configure-opencode/INDEX.md)
+- Personal: `references/configs/references/how-my-opencode-is-configured.md` and [`how-my-zshrc-is-configured/`](references/configs/references/how-my-zshrc-is-configured/INDEX.md)
 
 When writing a new doc, ask: *could this page be reused by a stranger with the same tool, or is it only true for this machine?* That answer picks the kind.
 
@@ -140,7 +140,7 @@ One-line definitions for recurring vocabulary in this repo. Promote to `glossary
 ---
 
 > Content catalog. Every top-level documentation entry is listed here with a one-line summary.
-> **Total entries:** 3 | **Last updated:** 2026-04-11
+> **Total entries:** 3 | **Last updated:** 2026-04-12
 
 ## Wiki Map
 
@@ -148,6 +148,6 @@ One-line definitions for recurring vocabulary in this repo. Promote to `glossary
 
 | File | Description |
 |------|-------------|
-| [`configs/INDEX.md`](configs/INDEX.md) | How individual files, tools, and configs are set up |
-| [`workflows/INDEX.md`](workflows/INDEX.md) | How processes and methodologies work (`pa-sdlc`) |
-| [`operations/INDEX.md`](operations/INDEX.md) | How the repo itself runs — post-apply fan-out, pre-apply sync-back |
+| [`references/configs/INDEX.md`](references/configs/INDEX.md) | How individual files, tools, and configs are set up |
+| [`references/workflows/INDEX.md`](references/workflows/INDEX.md) | How processes and methodologies work (`pa-sdlc`) |
+| [`references/operations/INDEX.md`](references/operations/INDEX.md) | How the repo itself runs — post-apply fan-out, pre-apply sync-back |

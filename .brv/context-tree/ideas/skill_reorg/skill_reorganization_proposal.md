@@ -23,7 +23,7 @@ Document the April 11, 2026 skill reorganization plan with current/future struct
 - Captured the moves table that deterministically reassigns each skill from its current bucket to a new one.
 
 **Files:**
-- docs/ideas/references/2026-04-11-skills-reorganization-proposal/idea.md
+- docs/references/ideas/references/2026-04-11-skills-reorganization-proposal/idea.md
 
 **Flow:**
 Document current structure -> Define future taxonomy -> Tabulate moves table
