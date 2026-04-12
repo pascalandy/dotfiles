@@ -1,6 +1,6 @@
 ---
-name: superpowers-router
-description: Dispatch table for the superpowers workflow collection. USE WHEN design, spec, brainstorm, write plan, execute plan, worker delegation, parallel tasks, worktree setup, test-driven development, debugging, verification, code review, branch completion, or skill authoring might apply.
+name: superpowers
+description: Dispatch table for the superpowers workflow collection. USE WHEN starting a task, deciding which workflow applies, workflow discipline, skill priority, brainstorm, design, spec, requirements, scope, plan, implementation plan, execute plan, worker delegation, parallel tasks, worktree setup, isolated workspace, test-driven development, implement feature, implement bugfix, debugging, test failure, unexpected behavior, verification, before commit, before PR, code review, review feedback, branch completion, merge, PR, cleanup, or skill authoring might apply.
 ---
 
 # Superpowers Router

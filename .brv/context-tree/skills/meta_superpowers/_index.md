@@ -1,12 +1,10 @@
 ---
-children_hash: fcfa1401f2ed9c3e426297346c8668461772e4628a837e6d99dcdee2e4642313
-compression_ratio: 0.2568858909499719
-condensation_order: 1
-covers: [context.md, superpowers_workflow.md]
-covers_token_total: 1779
-summary_level: d1
-token_count: 457
-type: summary
+tags: []
+keywords: []
+importance: 53
+recency: 1
+maturity: draft
+accessCount: 1
 ---
 ### meta_superpowers (context.md)
 - Describes the Superpowers meta-skill entrypoint that routes harness-agnostic requests through a shared router ledger, prioritizing direct user/workspace instructions before the Superpowers rule set.
