@@ -3,10 +3,10 @@ title: Skill Reorganization Proposal
 summary: Documents current buckets, the future taxonomy, and the Moves table aligning each skill with its destination.
 tags: []
 keywords: []
-importance: 62
+importance: 65
 recency: 1
-maturity: draft
-accessCount: 4
+maturity: validated
+accessCount: 5
 createdAt: '2026-04-11T12:32:42.797Z'
 updatedAt: '2026-04-11T12:32:42.797Z'
 ---
