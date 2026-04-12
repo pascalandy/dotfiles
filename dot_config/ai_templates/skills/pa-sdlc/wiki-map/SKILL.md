@@ -36,7 +36,7 @@ The result:
 
 ## The Solution
 
-The LLM incrementally builds and maintains a persistent wiki -- a structured, interlinked collection of markdown files. New sources are ingested into existing pages or new pages with provenance. Cross-references are maintained. Contradictions are recorded in frontmatter. Query answers can be filed back into the wiki. Lint treats the wiki like a codebase and checks for drift.
+The LLM incrementally builds and maintains a persistent wiki -- a structured, interlinked collection of markdown files. New sources are ingested into existing pages or new pages with provenance. Cross-references are maintained. Contradictions are recorded in frontmatter. Query answers can be filed back into the wiki. Lint treats the wiki like a codebase, checks for drift, and refreshes nested wiki trees bottom-up when child wiki boundaries already exist.
 
 Three operations make this work:
 
@@ -59,11 +59,11 @@ The collection `SKILL.md` loads `references/ROUTER.md`, which routes to the righ
 | Query skill | `references/Query/MetaSkill.md` | Search and synthesize answers from the wiki |
 | Query workflows | `references/Query/workflows/` | 3 workflows: Search, DeepQuery, FileAnswer |
 | Lint skill | `references/Lint/MetaSkill.md` | Health-check and maintain wiki quality |
-| Lint workflows | `references/Lint/workflows/` | 2 workflows: FullSweep, QuickCheck |
+| Lint workflows | `references/Lint/workflows/` | 3 workflows: FullSweep, QuickCheck, RecursiveUpdate |
 
 **Summary:**
 - **Sub-skills:** 3 (Ingest, Query, Lint)
-- **Workflows:** 10 across all sub-skills
+- **Workflows:** 11 across all sub-skills
 - **Dependencies:** None (works with any markdown-capable assistant)
 
 ---
@@ -82,6 +82,7 @@ The collection `SKILL.md` loads `references/ROUTER.md`, which routes to the righ
 | "synthesize everything we know about X" | Routes to Query -> runs DeepQuery workflow |
 | "save that answer as a wiki page" | Routes to Query -> runs FileAnswer workflow |
 | "health check the wiki" | Routes to Lint -> runs FullSweep workflow |
+| "wiki-map update" | Routes to Lint -> runs RecursiveUpdate workflow |
 | "find orphan pages" | Routes to Lint -> runs QuickCheck workflow |
 | "check provenance" | Routes to Lint -> runs QuickCheck workflow |
 

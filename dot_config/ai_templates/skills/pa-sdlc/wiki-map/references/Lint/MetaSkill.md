@@ -14,7 +14,7 @@ Before executing, emit a brief text status update such as:
 
 # Lint
 
-Health-check the wiki and surface structural issues that degrade quality over time. Lint reads the whole wiki, validates it against the shared schema, and reports findings in severity order.
+Health-check the wiki and surface structural issues that degrade quality over time. Lint reads the whole wiki, validates it against the shared schema, reports findings in severity order, and can refresh existing nested wiki trees bottom-up.
 
 For the full schema, hard rules, and orientation protocol, read `../SCHEMA.md`.
 
@@ -26,6 +26,7 @@ Wikis decay silently. New sources contradict old claims. Provenance links break.
 
 - Comprehensive health check -> `workflows/FullSweep.md`
 - Check for one issue type -> `workflows/QuickCheck.md`
+- Refresh a nested wiki tree bottom-up -> `workflows/RecursiveUpdate.md`
 
 ## Severity Ordering
 
@@ -48,3 +49,5 @@ Within each severity tier, report issues in this order:
 3. **Exclude closed pages where required** -- orphan, stale, and weak-link checks skip them
 4. **Report before fixing** -- especially for contradictions and provenance issues
 5. **Log every sweep** -- health checks leave an audit trail
+6. **Preserve nested boundaries** -- only directories with their own `INDEX.md` count as child wikis
+7. **Use best-effort recursion** -- continue sibling branches when one nested branch fails and report warnings at the end

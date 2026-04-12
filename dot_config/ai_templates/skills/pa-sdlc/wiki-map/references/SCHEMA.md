@@ -10,7 +10,11 @@
   references/
     LOG.md              # Append-only operational log (kind/log)
     {page}.md           # Wiki pages
-    {subdir}/           # User-managed subdirectories preserved as-is
+    {child-wiki}/       # Optional nested child wiki boundary when INDEX.md already exists
+      INDEX.md          # Child wiki router listed from the parent
+      references/
+        {child-page}.md
+    {subdir}/           # User-managed plain subdirectories preserved as-is
     _meta/
       topic-map.md      # Optional helper map once INDEX exceeds 200 entries
   assets/               # Optional, for non-markdown files
@@ -18,8 +22,12 @@
 
 Rules:
 - All content lives under `references/`.
+- A directory counts as a nested wiki boundary only if it already contains its own `INDEX.md`.
+- Preserve existing nested wiki boundaries. Never create them proactively.
+- Parent wiki indexes route to direct child wiki `INDEX.md` files only.
+- Plain subdirectories without their own `INDEX.md` remain ordinary directories and their markdown files are indexed directly.
 - Preserve existing subdirectories as-is. Never flatten or normalize user layout.
-- `INDEX.md` stays at the wiki root and catalogs every page, including pages in subdirectories.
+- `INDEX.md` stays at the wiki root and catalogs local pages plus direct child wiki routes.
 - `assets/` is optional and only for non-markdown files.
 
 ## Tag Axes
@@ -166,12 +174,24 @@ date_updated: YYYY-MM-DD
 | File | Description |
 |------|-------------|
 | `references/page-name.md` | One-line description |
+
+### kind/wiki
+
+| File | Description |
+|------|-------------|
+| `references/child-wiki/INDEX.md` | One-line description of the child wiki |
 ```
 
 Rules:
 - `INDEX.md` is the navigational entry point.
 - Closed pages stay in `INDEX.md`. Do not auto-remove or relabel them.
 - Organize the table into `kind/*` sections so scaling rules have a concrete structure to operate on.
+- Use `kind/wiki` for direct child wiki routes.
+- Direct child wiki routes point to `references/{child}/INDEX.md`.
+- Do not inline a child wiki's leaf pages into the parent `INDEX.md`.
+- Refresh each child route description on every recursive update or parent rebuild.
+- Child route description source order: child `INDEX.md` frontmatter `description`, then the first non-empty paragraph after frontmatter and title.
+- Mixed directories are valid: ordinary notes are listed directly and nested child wikis are listed as routes.
 - If any section exceeds 50 entries, split it into subsections by first letter or by `topic/*`.
 - If total entries exceed 200, create or update `references/_meta/topic-map.md` only with user confirmation if it already exists and may contain manual edits.
 
@@ -249,6 +269,15 @@ Closed pages are excluded from this rule.
 
 - Split any section that exceeds 50 entries.
 - Create `references/_meta/topic-map.md` once total entries exceed 200.
+
+### Nested wiki boundaries
+
+- Only an existing directory with its own `INDEX.md` counts as a nested child wiki.
+- Do not create nested child wiki boundaries automatically.
+- Parent indexes route to direct child `INDEX.md` files only.
+- Plain directories without `INDEX.md` stay ordinary directories.
+- Recursive maintenance updates nested wiki trees bottom-up: deepest child first, then its parent.
+- If one nested branch fails during recursive maintenance, continue sibling branches and report warnings at the end.
 
 ### Mass-update confirmation
 

@@ -39,6 +39,7 @@ If the directory exists, present a scan summary and wait for confirmation before
 **Files found:** {count}
 **Already in references/:** {count}
 **Need to move:** {count}
+**Nested child wikis preserved:** {list of subdirectories that already contain INDEX.md}
 **Subdirectories to preserve:** {list}
 
 | File | Current Location | Proposed Name |
@@ -65,11 +66,16 @@ This confirmation is mandatory even in automated mode. If no human can confirm, 
 
 If the directory already exists, create only what is missing.
 
-### 3. Move Everything into references/
+### 3. Move Everything into references/ and Preserve Existing Child Wikis
 
 - Move every existing file and subdirectory from the wiki root into `references/`
 - Preserve the existing structure exactly
 - Never flatten, normalize, or reorganize subdirectories
+- If a subdirectory already contains its own `INDEX.md`, treat it as an existing nested child wiki boundary
+- Preserve that child wiki as a whole directory
+- If that child wiki is not already under `references/`, move the directory itself under `references/` without changing anything inside it
+- Do not pull that child wiki's internal pages into the parent indexing model
+- Do not create new child wiki boundaries
 - Rename markdown files to kebab-case after the move
 - If there is a collision, append a suffix such as `-2`
 - Keep `INDEX.md` at the root
@@ -82,6 +88,7 @@ For each markdown file in `references/`:
 
 - If frontmatter already exists: leave it untouched
 - If frontmatter is missing: prepend minimal v2 frontmatter
+- Skip markdown files that are inside an existing nested child wiki boundary; that child wiki manages its own pages
 
 Use this template:
 
@@ -141,9 +148,20 @@ date_updated: {today}
 | File | Description |
 |------|-------------|
 | `references/{page}.md` | {description from frontmatter or filename} |
+
+### kind/wiki
+
+| File | Description |
+|------|-------------|
+| `references/{child}/INDEX.md` | {child description from child frontmatter or fallback body text} |
 ```
 
-Catalog every page, including pages inside preserved subdirectories, under its `kind/*` section.
+Catalog local pages, including pages inside plain preserved subdirectories without their own `INDEX.md`, under their `kind/*` sections.
+
+For existing nested child wiki boundaries:
+- add only the child `INDEX.md` route to the parent `INDEX.md`
+- keep the child wiki's internal pages out of the parent table
+- refresh the child route description from the child `INDEX.md` on every rebuild
 
 ### 6. Create LOG.md
 

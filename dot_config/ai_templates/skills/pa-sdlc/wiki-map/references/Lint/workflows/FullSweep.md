@@ -18,17 +18,22 @@ Comprehensive health check of the entire wiki. Read every page, validate against
 - read the last 30 entries of `references/LOG.md`
 - read any rotated `LOG-YYYY.md` files when checking rotation sanity or overlap
 - check for subdirectory drift against the recent log; note it, do not normalize it, and ask whether `INDEX.md` should reflect it if drift is detected
-- read every page listed in `INDEX.md`
-- scan `references/` for files missing from `INDEX.md`
+- discover nested child wiki boundaries: any directory under `references/` that already contains its own `INDEX.md`
+- read every page listed in the current wiki `INDEX.md`
+- for each nested child wiki boundary, read the child `INDEX.md` and lint that child boundary recursively instead of expecting the parent `INDEX.md` to inline the child's leaf pages
+- scan `references/` for local files missing from `INDEX.md`, excluding files that belong to a nested child wiki boundary
 
 ### 2. Run Checks
 
 Run all of these checks:
 
 - **INDEX integrity**
-  - files in `references/` missing from `INDEX.md`
+  - local files in `references/` missing from `INDEX.md`
   - phantom `INDEX.md` entries pointing to missing files
-  - stale or inaccurate INDEX descriptions
+  - missing parent routes to direct child wiki `INDEX.md` files
+  - stale or inaccurate INDEX descriptions, including direct child wiki route descriptions
+  - do not flag a parent as stale just because it does not list a child wiki's leaf pages
+  - plain directories without their own `INDEX.md` stay ordinary content and must still be indexed directly
 
 - **Frontmatter and tag validation**
   - required fields present
@@ -68,6 +73,11 @@ If total `INDEX.md` entries exceed 200:
 - recommend creating or regenerating `references/_meta/topic-map.md`
 - offer to generate it
 - if the file already exists and may contain user edits, ask for confirmation before overwriting it
+
+When nested child wikis are present:
+- validate each child wiki boundary on its own terms
+- validate that the parent routes only to direct child `INDEX.md` files
+- do not flatten grandchild or deeper leaf pages into the parent read model
 
 ### 3. Produce Health Report
 
