@@ -6,7 +6,7 @@ tags:
   - kind/log
   - status/stable
 date_created: 2026-04-07
-date_updated: 2026-04-10
+date_updated: 2026-04-12
 ---
 
 # Log
@@ -15,3 +15,4 @@ date_updated: 2026-04-10
 - [[2026-04-07]] rename | directories | All 15 directories renamed to kebab-case descriptive titles (ID preserved)
 - [[2026-04-07]] update | status | Open dirs (1000, 1001, 1012) files: status/stable, INDEX files: status/open. Closed dirs: all files status/close
 - [[2026-04-10]] update | index | INDEX.md updated to reflect current directory structure. 49 pages catalogued across 15 directories
+- [[2026-04-12]] export | plan | Added nested wiki maps plan and indexed it in Plans Wiki

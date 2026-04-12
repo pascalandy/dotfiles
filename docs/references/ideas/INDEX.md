@@ -6,14 +6,14 @@ tags:
   - kind/wiki
   - status/open
 date_created: 2026-04-07
-date_updated: 2026-04-10
+date_updated: 2026-04-12
 ---
 
 # Plans Wiki
 
 > Content catalog for feature plans, project documentation, and implementation specs.
 > Read this first to find relevant pages for any query.
-> **Total pages:** 49 | **Last updated:** 2026-04-10
+> **Total pages:** 50 | **Last updated:** 2026-04-12
 
 ## Wiki Map
 
@@ -45,6 +45,7 @@ date_updated: 2026-04-10
 | `references/2026-04-08-voxtral-tts-skill/plan_v2.md` | Voxtral TTS skill plan v2 |
 | `references/2026-04-08-voxtral-tts-skill/plan_v3.md` | Voxtral TTS skill plan v3 |
 | `references/2026-04-10-advisor/plan.md` | pa-advisor skill plan |
+| `references/2026-04-12-nested-wiki-maps/plan-nested-wiki-maps.md` | Bottom-up recursive update plan for nested wiki maps |
 
 ### kind/research
 
