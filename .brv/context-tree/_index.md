@@ -1,26 +1,26 @@
 ---
-children_hash: 3af54f1f41580dc087d4025bee68de639574eda56b7c372459447b67200ae838
-compression_ratio: 0.6323119777158774
+children_hash: b1e67ae062d098c717350d5fff0ffb94b2d9b2e9b7a8b9f1ddaaeb01bdb593d2
+compression_ratio: 0.4602941176470588
 condensation_order: 3
 covers: [ideas/_index.md, skills/_index.md]
-covers_token_total: 1077
+covers_token_total: 1360
 summary_level: d3
-token_count: 681
+token_count: 626
 type: summary
 ---
-# Structural Summary of ByteRover Skill Taxonomy (Level d3)
+### Domain: ideas  
+- **Purpose & Scope**: Guides the 62-skill taxonomy reorg, describing the legacy buckets (`meta`, `pa-sdlc`, `specs`, `utils`) and planned four-partition future domain structure (`knowledge`, `dev`, `think`, `spec` with subcategories). Consult `context.md` for overall governance and move exclusion rules.  
+- **Skill Reorg Topic**:  
+  - Future buckets break down into focused partitions (e.g., `knowledge` for research/vault/memory tooling, `dev` for lifecycle/code/docs utilities, `think` for reasoning/content, `spec` for process/design/score). Key entities like `vault`, `obsidian`, `qaqmd`, and `bynover` anchor each bucket.  
+  - Moves table in `skill_reorganization_proposal.md` catalogs every skill’s legacy origin and deterministic destination (e.g., `color-palette` → `dev/docs`, `distill` → `think/distill`, `transcript-sk` → `think/distill`).  
+  - Highlights track bucket-level migrations (Meta → `think`, PA-SDLC → `knowledge`/`think`, Utils → `knowledge` or `think/distill`) and preserve relationships between conceptual buckets and specific skills for drill-down.
 
-## Domain: ideas
-- **Purpose & Scope** (`ideas/context.md`): Governs ByteRover’s 62-skill catalog reorganization, defining source buckets (`meta`, `pa-sdlc`, `specs`, `utils`) and the new four-partition taxonomy (`knowledge`, `dev`, `think`, `spec` with diacritic sub-buckets). Contains relocation tables for every skill; excludes execution details. Owned by ByteRover context engineering for taxonomy revisions.
-- **Topic: skill_reorg**
-  - **Current vs. Future Buckets** (`ideas/skill_reorg/_index.md`): Maps existing buckets to four partitions, with each partition covering specific skill domains (e.g., `knowledge` for research/vault/memory tooling; `dev` covering lifecycle/code/docs/headless/diagram/task utilities; `think` for reasoning/content/distillation; `spec` for process/design/score).
-  - **Moves Table** (`ideas/skill_reorganization_proposal.md`): Lists deterministic origin-to-target assignments (e.g., `color-palette`→`dev/docs`, `distill`→`think/distill`, `transcript-sk`→`think/distill`). Enables traceable drill-down into how each legacy skill migrates.
-  - **Facts & Relationships**: Meta skills largely move into `think`; PA-SDLC skills target `knowledge`/`think`; Utils split between `knowledge` (“pg-memory”, “bynover”) and `think/distill` (“writer-sk”, “simple-editor”). Move tables tie bucket concepts directly to target partitions, ensuring precise reassignment logic.
-
-## Domain: skills
-- **Purpose & Ownership** (`skills/context.md`): Captures the canonical skill taxonomy, documenting both legacy categories and future domains (knowledge/dev/think/spec) for discovery and migration; maintained by Knowledge Engineering, excluding implementation details.
-- **Structural Nodes**
-  - **Procedural Overview** (`skills/context.md`): Reiterates included legacy buckets, planned partitions, and rationale for excluding operational content.
-  - **Organization Summary** (`skills/organization/_index.md`): Acts as the level-1 hub linking to both the procedural context and the detailed `skill_reorganization_proposal.md`.
-  - **Detailed Moves** (`skills/organization/skill_reorganization_proposal.md`): Provides narrative, dependencies, highlights, and the exhaustive Moves table (e.g., `changelog`→`dev/docs/`, `council`→`spec/process/`), ensuring each legacy skill’s future domain and any ownership coordination are explicit.
-- **Patterns & Relationships**: Legacy-to-future moves are centralized, enforcing consistent reference points—`skills/context.md` for taxonomy questions and `skills/organization/skill_reorganization_proposal.md` for execution-level assignments—thus preserving ownership and placement rules across the migration effort.
+### Domain: skills  
+- **Purpose & Scope**: Serves as the canonical record of skill categories and upcoming taxonomy migrations; includes legacy mapping, new domain coverage, and move tables. See `context.md` for domain-level usage guidance.  
+- **Topic: meta_superpowers**:  
+  - `superpowers_context.md` defines the superpower meta-skill router, enforcing instruction hierarchy and referencing lifecycle specialists.  
+  - `superpowers_workflow.md` details the flow (`user request → SKILL entry → router → references/<skill>/MetaSkill.md → specialist`), includes source files (`.agents/skills/meta/superpowers/SKILL.md`, `references/ROUTER.md`), and documents lifecycle/trigger/routing tables. Highlights emphasize the single entrypoint, 13 specialists, fixed trigger phrases, router-first requirement, and harness-neutral references, enabling precise drill-down.  
+- **Topic: organization**:  
+  - Overview captures the April 11, 2026 reorganization proposal restructuring legacy groups into future domains.  
+  - `context.md` lays out process rationale, while `skill_reorganization_proposal.md` delivers the full narrative, dependencies, and exhaustive 62-skill Moves table (e.g., `changelog` → `dev/docs/`, `council` → `spec/process/`).  
+  - Relationships: Moves table enforces legacy-to-future mappings and highlights coordination/dependency expectations with existing owners during migration.

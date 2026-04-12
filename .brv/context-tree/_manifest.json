@@ -3,7 +3,7 @@
     {
       "order": 3,
       "path": "_index.md",
-      "tokens": 681,
+      "tokens": 626,
       "type": "summary"
     },
     {
@@ -13,19 +13,15 @@
       "type": "summary"
     },
     {
-      "path": "ideas/skill_reorg/_index.md",
-      "tokens": 510,
-      "type": "summary"
-    },
-    {
-      "path": "skills/organization/_index.md",
-      "tokens": 276,
+      "order": 2,
+      "path": "skills/_index.md",
+      "tokens": 722,
       "type": "summary"
     },
     {
       "abstractPath": "ideas/skill_reorg/skill_reorganization_proposal.abstract.md",
       "abstractTokens": 60,
-      "importance": 53,
+      "importance": 56,
       "path": "ideas/skill_reorg/skill_reorganization_proposal.md",
       "tokens": 60,
       "type": "context"
@@ -33,7 +29,7 @@
     {
       "abstractPath": "skills/organization/skill_reorganization_proposal.abstract.md",
       "abstractTokens": 45,
-      "importance": 53,
+      "importance": 56,
       "path": "skills/organization/skill_reorganization_proposal.md",
       "tokens": 45,
       "type": "context"
@@ -58,18 +54,32 @@
     },
     {
       "importance": 50,
+      "path": "skills/meta_superpowers/context.md",
+      "tokens": 129,
+      "type": "context"
+    },
+    {
+      "abstractPath": "skills/meta_superpowers/superpowers_workflow.abstract.md",
+      "abstractTokens": 55,
+      "importance": 50,
+      "path": "skills/meta_superpowers/superpowers_workflow.md",
+      "tokens": 55,
+      "type": "context"
+    },
+    {
+      "importance": 50,
       "path": "skills/organization/context.md",
       "tokens": 96,
       "type": "context"
     }
   ],
-  "generated_at": "2026-04-12T19:10:08.627Z",
+  "generated_at": "2026-04-12T19:35:20.930Z",
   "lane_tokens": {
-    "contexts": 643,
+    "contexts": 827,
     "stubs": 0,
-    "summaries": 1963
+    "summaries": 1844
   },
-  "source_fingerprint": "5afa4565fdce01f8932c97f8947435a5fc973bf25e41355da6fa4e19701f8f1e",
-  "total_tokens": 2606,
+  "source_fingerprint": "ac6061f53519a6f07509c87b511aeda4d54f2e04288592fe249e2e5b0eb6ca6b",
+  "total_tokens": 2671,
   "version": 1
 }
