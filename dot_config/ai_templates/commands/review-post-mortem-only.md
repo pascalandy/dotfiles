@@ -4,9 +4,11 @@ metadata:
   author: Pascal Andy
 ---
 
-See this as a mini post-mortem.
+It is time to do a postmortem. 
 
 Please reverse engineer what we did together. 
+
+Reverse engineer our conversation with the explicit goal of understanding everthing we did together.
 
 The key question to ask is : 
 What is worth remembering if the future ?
@@ -33,3 +35,7 @@ MEMORY TYPE: What type of memory is this?
 - the fix
 - feedback for the agent 
 - feedback for the user 
+
+## Export it
+
+use skill "write-down-idea"
