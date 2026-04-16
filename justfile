@@ -140,54 +140,54 @@ readd:
 #
 # Usage:
 # - `just opencode-qa`      -> run the full QA sweep
-# - `just qa-gemini-or`     -> test Gemini 3.1 Pro via OpenRouter
-# - `just qa-flash-or`      -> test Gemini 3 Flash via OpenRouter
-# - `just qa-gpt`           -> test a single agent
+# - `just ocqa-gemini-or`   -> test Gemini 3.1 Pro via OpenRouter
+# - `just ocqa-flash-or`    -> test Gemini 3 Flash via OpenRouter
+# - `just ocqa-gpt`         -> test a single agent
 #
 # Each recipe asks the target agent to reply with exactly `OK`.
 alias ocqa := opencode-qa
 opencode-qa:
-    just qa-default || true
-    just qa-grok || true
-    just qa-mini || true
-    just qa-glm || true
-    just qa-flash-or || true
+    just ocqa-default || true
+    just ocqa-grok || true
+    just ocqa-mini || true
+    just ocqa-glm || true
+    just ocqa-flash-or || true
 
 # OTHER OPTIONS ..
-# just qa-build || true
-# just qa-gemini-or || true
-# just qa-gpt || true
+# just ocqa-build || true
+# just ocqa-gemini-or || true
+# just ocqa-gpt || true
 
 # Run the default opencode QA check.
-qa-default:
+ocqa-default:
     opencode run "reply with exactly OK"
 
 # Run the build agent opencode QA check.
-qa-build:
+ocqa-build:
     opencode run --agent build "reply with exactly OK"
 
 # Run the grok agent opencode QA check.
-qa-grok:
+ocqa-grok:
     opencode run --agent grok "reply with exactly OK"
 
 # Run the mini-zen agent opencode QA check.
-qa-mini:
+ocqa-mini:
     opencode run --agent mini-zen "reply with exactly OK"
 
 # Run the gpt agent opencode QA check.
-qa-gpt:
+ocqa-gpt:
     opencode run --agent gpt "reply with exactly OK"
 
 # Run the glm-zen agent opencode QA check.
-qa-glm:
+ocqa-glm:
     opencode run --agent glm-zen "reply with exactly OK"
 
 # Run the Gemini 3 Flash via OpenRouter opencode QA check.
-qa-flash-or:
+ocqa-flash-or:
     opencode run --agent flash-or "reply with exactly OK"
 
 # Run the Gemini 3.1 Pro via OpenRouter opencode QA check.
-qa-gemini-or:
+ocqa-gemini-or:
     opencode run --agent gemini-or "reply with exactly OK"
 
 # Transcribe a YouTube URL. Wrap the URL in quotes. Extra CLI args are forwarded.
