@@ -170,7 +170,7 @@ ocqa-gptmini:
     opencode run --agent gptmini "ping"
 
 ocqa-claude:
-    claude -p --permission-mode plan "reply with exactly OK"
+    claude -p --model haiku --permission-mode plan "ping"
 
 ocqa-gpt:
     opencode run --agent gpt "ping"
