@@ -66,4 +66,6 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log(`OK: ${pluginFiles.length} plugin file(s)`);
+if (pluginFiles.length > 0) {
+  console.log(`OK: ${pluginFiles.length} plugin file(s)`);
+}
