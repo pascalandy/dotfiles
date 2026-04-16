@@ -150,6 +150,7 @@ opencode-qa:
     just ocqa-kimi || true
     just ocqa-glm || true
     just ocqa-gptmini || true
+    just ocqa-claude-haiku || true
 
 # OTHER OPTIONS ..
 # just ocqa-build || true
@@ -161,19 +162,19 @@ ocqa-default:
     opencode run "ping"
 
 ocqa-kimi:
-    opencode run --agent kimi "ping"
+    opencode run --agent 1-kimi "ping"
 
 ocqa-glm:
-    opencode run --agent glm "ping"
+    opencode run --agent 4-glm "ping"
 
 ocqa-gptmini:
-    opencode run --agent gptmini "ping"
+    opencode run --model openai/gpt-5.4-mini "ping"
 
-ocqa-claude:
+ocqa-claude-haiku:
     claude -p --model haiku --permission-mode plan "ping"
 
 ocqa-gpt:
-    opencode run --agent gpt "ping"
+    opencode run --agent 3-gpt "ping"
 
 ocqa-build:
     opencode run --agent build "ping"
