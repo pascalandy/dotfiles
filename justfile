@@ -147,11 +147,9 @@ readd:
 # Each recipe asks the target agent to reply with exactly `OK`.
 alias ocqa := opencode-qa
 opencode-qa:
-    just ocqa-default || true
-    just ocqa-grok || true
-    just ocqa-mini || true
+    just ocqa-kimi || true
     just ocqa-glm || true
-    just ocqa-flash-or || true
+    just ocqa-gptmini || true
 
 # OTHER OPTIONS ..
 # just ocqa-build || true
@@ -160,35 +158,39 @@ opencode-qa:
 
 # Run the default opencode QA check.
 ocqa-default:
-    opencode run "reply with exactly OK"
+    opencode run "ping"
 
-# Run the build agent opencode QA check.
-ocqa-build:
-    opencode run --agent build "reply with exactly OK"
+ocqa-kimi:
+    opencode run --agent kimi "ping"
 
-# Run the grok agent opencode QA check.
-ocqa-grok:
-    opencode run --agent grok "reply with exactly OK"
-
-# Run the mini-zen agent opencode QA check.
-ocqa-mini:
-    opencode run --agent mini-zen "reply with exactly OK"
-
-# Run the gpt agent opencode QA check.
-ocqa-gpt:
-    opencode run --agent gpt "reply with exactly OK"
-
-# Run the glm-zen agent opencode QA check.
 ocqa-glm:
-    opencode run --agent glm-zen "reply with exactly OK"
+    opencode run --agent glm "ping"
 
-# Run the Gemini 3 Flash via OpenRouter opencode QA check.
+ocqa-gptmini:
+    opencode run --agent gptmini "ping"
+
+ocqa-claude:
+    //
+
+ocqa-gpt:
+    opencode run --agent gpt "ping"
+
+ocqa-build:
+    opencode run --agent build "ping"
+
+ocqa-grok:
+    opencode run --agent grok "ping"
+
+ocqa-minizen:
+    opencode run --agent mini-zen "ping"
+
+# via OpenRouter opencode QA check
 ocqa-flash-or:
-    opencode run --agent flash-or "reply with exactly OK"
+    opencode run --agent flash-or "ping"
 
-# Run the Gemini 3.1 Pro via OpenRouter opencode QA check.
+# via OpenRouter opencode QA check
 ocqa-gemini-or:
-    opencode run --agent gemini-or "reply with exactly OK"
+    opencode run --agent gemini-or "ping"
 
 # Transcribe a YouTube URL. Wrap the URL in quotes. Extra CLI args are forwarded.
 alias ttr := transcript
