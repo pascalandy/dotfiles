@@ -2,6 +2,7 @@
 name: headless-claude
 description: |
   Use only when the user explicitly says `headless-claude` to use claude -p (print mode) commands.
+source: https://code.claude.com/docs/en/cli-reference
 ---
 
 # Headless Claude
@@ -75,8 +76,9 @@ claude --from-pr https://github.com/org/repo/pull/42 -p "Check status"
 ### Models
 
 ```bash
-claude --model opus -p "Review this code"
-claude --model sonnet -p "Quick summary"
+claude --model opus -p "Review this code"         # Alias: latest Opus (currently 4.7)
+claude --model sonnet -p "Quick summary"          # Alias: latest Sonnet (currently 4.6)
+claude --model claude-opus-4-7 -p "Deep analysis" # Pin an exact version
 claude --model claude-sonnet-4-6 -p "Detailed analysis"
 ```
 
@@ -106,10 +108,11 @@ claude -p --verbose "query"
 claude --effort low -p "Quick check"
 claude --effort medium -p "Standard review"
 claude --effort high -p "Deep code review"
+claude --effort xhigh -p "Extended reasoning"
 claude --effort max -p "Exhaustive analysis"
 ```
 
-Options: `low`, `medium`, `high`, `max` (`max` requires Opus 4.6).
+Options: `low`, `medium`, `high`, `xhigh`, `max`. Available levels depend on the model (e.g., `max` is currently the top tier on Opus 4.7). Session-scoped; does not persist to settings.
 
 ### Chrome integration
 
@@ -126,14 +129,6 @@ Automatically connect to IDE on startup if exactly one valid IDE is available:
 
 ```bash
 claude -p --ide "Review this code"
-```
-
-### Brief mode
-
-Enable `SendUserMessage` tool for agent-to-user communication:
-
-```bash
-claude -p --brief "query"
 ```
 
 ### Agents
@@ -176,14 +171,6 @@ claude -p --input-format stream-json --output-format stream-json "query"
 
 # Echo user messages back on stdout for acknowledgment
 claude -p --input-format stream-json --output-format stream-json --replay-user-messages "query"
-```
-
-### File resources
-
-Download files at startup by specifying file ID and relative path:
-
-```bash
-claude -p --file file_abc:doc.txt --file file_def:img.png "Analyze these files"
 ```
 
 ### Structured output with JSON Schema
@@ -229,6 +216,14 @@ Claude Code provides four flags for customizing the system prompt. All four work
 | `--append-system-prompt-file` | Appends file contents to the default prompt | `claude --append-system-prompt-file ./style-rules.txt` |
 
 `--system-prompt` and `--system-prompt-file` are mutually exclusive. The append flags can be combined with either replacement flag. For most use cases, use an append flag. Appending preserves Claude Code's built-in capabilities while adding your requirements. Use a replacement flag only when you need complete control over the system prompt.
+
+### Cache-friendly system prompt for scripted workloads
+
+```bash
+claude -p --exclude-dynamic-system-prompt-sections "query"
+```
+
+Moves per-machine sections (working directory, environment info, memory paths, git status) from the system prompt into the first user message. This improves prompt-cache reuse across different users/machines running the same task. Only applies with the default system prompt; ignored when `--system-prompt` or `--system-prompt-file` is set.
 
 ## Session management
 
@@ -303,16 +298,18 @@ Note: `--mcp-debug` is deprecated; use `--debug mcp` instead.
 ## Subcommands
 
 ```bash
-claude agents              # List configured agents
-claude auth status --text  # Check auth status
-claude auto-mode           # Inspect auto mode classifier
-claude doctor              # Health check for auto-updater
-claude install [target]    # Install native build (stable, latest, or specific version)
-claude mcp                 # Configure MCP servers
-claude plugin              # Manage plugins
-claude remote-control      # Start a Remote Control server
-claude setup-token         # Set up long-lived auth token
-claude update              # Check for and install updates
+claude agents                        # List configured subagents (grouped by source)
+claude auth login                    # Sign in (supports --email, --sso, --console)
+claude auth logout                   # Log out
+claude auth status                   # Auth status as JSON (exit 0 if logged in, 1 if not)
+claude auth status --text            # Human-readable auth status
+claude auto-mode defaults            # Print built-in auto-mode classifier rules as JSON
+claude auto-mode config              # Effective auto-mode config with settings applied
+claude mcp                           # Configure MCP servers
+claude plugin                        # Manage plugins (alias: claude plugins)
+claude remote-control                # Start a Remote Control server (no local TUI)
+claude setup-token                   # Generate a long-lived OAuth token for CI/scripts
+claude update                        # Check for and install updates
 ```
 
 ## Failure handling
@@ -378,9 +375,10 @@ claude --plugin-dir ./my-plugins -p "query"
 
 ### Auto mode
 
+Auto mode is now part of the `Shift+Tab` cycle by default. `--enable-auto-mode` was removed in v2.1.111; start directly in auto mode with:
+
 ```bash
-# Unlock auto mode in the Shift+Tab cycle (requires Team/Enterprise/API plan)
-claude --enable-auto-mode
+claude --permission-mode auto -p "query"
 ```
 
 ### Channels (Research preview)
