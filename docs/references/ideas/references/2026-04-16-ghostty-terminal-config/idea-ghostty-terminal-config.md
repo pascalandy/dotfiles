@@ -1,0 +1,132 @@
+# Ghostty Terminal Configuration
+
+macOS configuration for Ghostty terminal.
+
+**File:** `~/.config/ghostty/config`  
+**Reload:** `Cmd+Shift+,`  
+**View options:** `ghostty +show-config --default --docs`
+
+## Typography
+
+```
+font-family = JetBrainsMonoNerdFont
+font-size = 14
+font-thicken = true
+adjust-cell-height = 2
+```
+
+## Theme
+
+Catppuccin with automatic light/dark switching:
+
+```
+theme = light:Catppuccin Latte,dark:Catppuccin Mocha
+```
+
+## Window
+
+```
+background-opacity = 0.9
+background-blur-radius = 20
+macos-titlebar-style = transparent
+window-padding-x = 10
+window-padding-y = 8
+window-save-state = always
+window-theme = auto
+```
+
+## Cursor
+
+```
+cursor-style = bar
+cursor-style-blink = true
+cursor-opacity = 0.8
+```
+
+## Mouse
+
+```
+mouse-hide-while-typing = true
+copy-on-select = clipboard
+```
+
+## Quick Terminal
+
+Quake-style dropdown terminal:
+
+```
+quick-terminal-position = top
+quick-terminal-screen = mouse
+quick-terminal-autohide = true
+quick-terminal-animation-duration = 0.15
+```
+
+## Security
+
+```
+clipboard-paste-protection = true
+clipboard-paste-bracketed-safe = true
+```
+
+## Shell Integration
+
+```
+shell-integration = detect
+```
+
+## Keybindings
+
+### Tabs
+
+```
+keybind = cmd+t=new_tab
+keybind = cmd+shift+left=previous_tab
+keybind = cmd+shift+right=next_tab
+keybind = cmd+w=close_surface
+```
+
+### Splits
+
+```
+keybind = cmd+d=new_split:right
+keybind = cmd+shift+d=new_split:down
+keybind = cmd+alt+left=goto_split:left
+keybind = cmd+alt+right=goto_split:right
+keybind = cmd+alt+up=goto_split:top
+keybind = cmd+alt+down=goto_split:bottom
+```
+
+### Font Size
+
+```
+keybind = cmd+plus=increase_font_size:1
+keybind = cmd+minus=decrease_font_size:1
+keybind = cmd+zero=reset_font_size
+```
+
+### Quick Terminal Toggle
+
+```
+keybind = global:ctrl+grave_accent=toggle_quick_terminal
+```
+
+### Split Management
+
+```
+keybind = cmd+shift+e=equalize_splits
+keybind = cmd+shift+f=toggle_split_zoom
+```
+
+### Reload Config
+
+```
+keybind = cmd+shift+comma=reload_config
+```
+
+## Performance
+
+25MB scrollback buffer:
+
+```
+scrollback-limit = 25000000
+```
