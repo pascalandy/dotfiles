@@ -22,6 +22,7 @@ folke.vscode-monorepo-workspace
 formulahendry.auto-close-tag
 formulahendry.auto-rename-tag
 foxundermoon.shell-format
+github.copilot-chat
 gruntfuggly.todo-tree
 hediet.vscode-drawio
 henoc.svgeditor
