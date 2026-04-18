@@ -59,7 +59,6 @@ sergeyegorov.folder-color
 shd101wyy.markdown-preview-enhanced
 skellock.just
 tamasfe.even-better-toml
-twpayne.chezmoi
 visbydev.folder-path-color
 vstirbu.vscode-mermaid-preview
 vunguyentuan.vscode-postcss
