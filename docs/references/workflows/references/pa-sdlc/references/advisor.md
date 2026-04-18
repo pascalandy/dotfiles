@@ -120,4 +120,4 @@ Advisor responses are typically 400–700 text tokens. Budget parent-CLI context
 
 - [[scout]], [[scope]], [[vision]], [[architect]], [[implement]], [[doc-update]], [[doc-cleaner]] — the stages Advisor supports
 - source: `dot_config/ai_templates/skills/pa-sdlc/pa-advisor/SKILL.md`
-- related skill: `dot_config/ai_templates/skills/utils/headless-claude/SKILL.md` for the `claude -p` flag reference
+- related skill: `dot_config/ai_templates/skills/pa-sdlc/headless/references/claude/MetaSkill.md` for the `claude -p` flag reference (via the `headless` meta-skill)

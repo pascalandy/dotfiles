@@ -1,15 +1,15 @@
 ---
 name: headless-delegation
-description: Use only when the user explicitly says "use headless-delegation with <cli> to ..." where <cli> is claude, codex, or opencode. Delegates real execution work to a headless CLI agent from whatever CLI the user is currently driving, using the correct bash pty pattern per target CLI. Distinct from `delegate` (OpenCode sub-agent routing) and `delegate-claude` (executor→advisor pattern).
+description: Use only when the user explicitly says "use headless-delegation with <cli> to ..." where <cli> is claude, codex, or opencode. Delegates real execution work to a headless CLI agent from whatever CLI the user is currently driving, using the correct bash pty pattern per target CLI. Distinct from `delegate-to-sub` (OpenCode sub-agent routing) and `pa-advisor` (executor→advisor pattern).
 ---
 
 # Headless Delegation
 
 ## Scope
 
-Dispatch real execution work to a headless CLI agent — `claude`, `codex`, or `opencode` — from inside whatever CLI the user is currently driving. This skill is the **orchestrator**. Flag references live in the primitives it cites.
+Dispatch real execution work to a headless CLI agent — `claude`, `codex`, or `opencode` — from inside whatever CLI the user is currently driving. This skill is the **orchestrator**. Flag references live in the sibling sub-skills it cites.
 
-**This skill executes work.** It does not route same-CLI sub-agents, and it does not ask an advisor for an opinion. If the task is "ask Opus what it thinks", use `delegate-claude` instead.
+**This skill executes work.** It does not route same-CLI sub-agents, and it does not ask an advisor for an opinion. If the task is "ask Opus what it thinks", use `pa-advisor` instead.
 
 ## Trigger
 
@@ -127,19 +127,19 @@ Only use the `openclaw` notifier when the parent CLI is OpenClaw. Otherwise skip
 - Codex scratch work: `mktemp -d && git init` before `codex exec`.
 - Background jobs: return the session id and show the `process` cheat sheet.
 - PR reviews: clone to a temp directory — never review inside the parent CLI's own repo.
-- Cite `headless-claude` / `headless-codex` / `headless-opencode` for flag details; do not duplicate their tables here.
+- Cite the sibling flag references for flag details; do not duplicate their tables here.
 - Bash code shown to the user must satisfy project bash standards (`set -euo pipefail`, `fct_*`, `log_*`) when the snippet is multi-line or saved as a script.
 
 ## Patterns to avoid
 
-- Do not accept loose triggers like `delegate to codex` or `run this in claude headless` — they collide with `delegate` and `delegate-claude`.
+- Do not accept loose triggers like `delegate to codex` or `run this in claude headless` — they collide with `delegate-to-sub` and `pa-advisor`.
 - Do not use `--dangerously-skip-permissions` with `pty:true` for Claude Code — the CLI exits after the confirm dialog.
 - Do not invoke Codex outside a git repo without creating a throwaway repo first.
 - Do not start a delegated agent inside the parent CLI's state directory (`~/.claude`, `~/.openclaw`, `~/.opencode`, `~/Projects/openclaw/`).
 - Do not silently substitute your own edits when the delegated agent fails — surface the failure.
 - Do not swap the target CLI for a cheaper one. If the user said `with codex`, use Codex.
-- Do not duplicate flag tables from the `headless-*` primitives. Link instead.
-- Do not use `headless-delegation with claude` for tight advisor loops that re-paste `<PRIOR_ADVICE>` — that job belongs to `delegate-claude`.
+- Do not duplicate flag tables from the sibling flag references. Link instead.
+- Do not use `headless-delegation with claude` for tight advisor loops that re-paste `<PRIOR_ADVICE>` — that job belongs to `pa-advisor`.
 
 ## Gotchas
 
@@ -153,15 +153,15 @@ Only use the `openclaw` notifier when the parent CLI is OpenClaw. Otherwise skip
 
 ## Cross-references
 
-- Flag details for Claude: see `headless-claude/SKILL.md`.
-- Flag details for Codex: see `headless-codex/SKILL.md`.
-- Flag details for OpenCode: see `headless-opencode/SKILL.md`.
-- OpenCode sub-agent routing (not delegation): see `delegate/SKILL.md`.
-- Executor→advisor pattern (advice, not execution): see `delegate-claude/SKILL.md`.
+- Flag details for Claude: see `../claude/MetaSkill.md`.
+- Flag details for Codex: see `../codex/MetaSkill.md`.
+- Flag details for OpenCode: see `../opencode/MetaSkill.md`.
+- OpenCode sub-agent routing (not delegation): see the `delegate-to-sub` skill.
+- Executor→advisor pattern (advice, not execution): see the `pa-advisor` skill.
 
 ## Update This Skill
 
-Triggered when the user wants to refresh the skill against the latest primitives or CLI behavior.
+Triggered when the user wants to refresh the skill against the latest sibling flag references or CLI behavior.
 
 **Trigger phrases:**
 - "update the headless-delegation skill"
