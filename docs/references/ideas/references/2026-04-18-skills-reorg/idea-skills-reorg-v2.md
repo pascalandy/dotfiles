@@ -68,12 +68,10 @@ rescans `dot_config/ai_templates/skills/` and closes gaps where v1 drifted: skil
 - beads
 - trello
 
-### think/
+### think/ (WIP)
 - thinking
 - council
 - five-council
-- postmortem
-  - write-down-postmortem
 
 ### diagram/
 - mermaid
