@@ -14,8 +14,8 @@ Create an idea entry in `docs/references/ideas/references/`.
 3. Create `YYYY-MM-DD-short-title/` using today's date and a 2-4 word kebab-case title.
 4. Inside it, create `idea-short-title.md`.
 5. Start from the raw text.
-6. Do a `simple-editor` pass: keep the voice and language, remove obvious duplication, fix clear typos, and organize into readable paragraphs.
-7. Do a `writer-sk` pass: make it clearer and tighter without changing meaning or personality.
+6. Do a `simple-editor` (skill) pass: keep the voice and language, remove obvious duplication, fix clear typos, and organize into readable paragraphs.
+7. Do a `writer-sk` (skill) pass: make it clearer and tighter without changing meaning or personality.
 8. Save the result and return the folder path, file path, and final slug.
 
 ## Rules

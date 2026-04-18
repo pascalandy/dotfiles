@@ -75,4 +75,4 @@ Ta tâche est de faire de l'édition, de supprimer les doublons, de mettre les i
 
 ## Bottom line
 
-Le texte doit sonner comme l'auteur, en plus lisible — pas comme toi.
+Le texte doit sonner comme moi, en plus lisible — pas comme toi.
