@@ -1,5 +1,5 @@
 ---
-name: write-down-idea
+name: pa-idea
 description: Use when the user wants to capture a rough idea in `docs/references/ideas/references/`. Resolve the export path and file name first, then run the editing workflow while keeping the author's voice and language.
 ---
 
