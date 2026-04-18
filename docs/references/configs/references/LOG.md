@@ -6,11 +6,12 @@ tags:
   - kind/log
   - status/stable
 date_created: 2026-04-11
-date_updated: 2026-04-11
+date_updated: 2026-04-18
 ---
 
 # Log
 
+- [[2026-04-18]] lint | recursive update | refreshed local index and direct child wiki routes
 - [[2026-04-11]] create | wiki | Wiki map created. 1 file organized into references/
 - [[2026-04-11]] ingest | chezmoi-skill | Created [[how-to-configure-chezmoi]] (generic wiki, 7 pages) and [[how-my-chezmoi-is-configured]] (personal preferences, 1 page). Absorbs the `dot_config/ai_templates/skills/utils/chezmoi/` skill content.
 - [[2026-04-11]] link | back-link | Added `## Related` section pointing back to `docs/INDEX.md`, `workflows/INDEX.md`, and `operations/INDEX.md` for bidirectional traversal alongside the existing `Parent index:` header line.
