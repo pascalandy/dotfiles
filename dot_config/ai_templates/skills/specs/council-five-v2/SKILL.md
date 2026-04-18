@@ -1,5 +1,5 @@
 ---
-name: five-council
+name: council-five-v2
 description: |
   Run a meaningful decision, tradeoff, plan, or idea through a five-model council inside OpenCode. Use when the user wants multiple independent perspectives, blind peer review, and a final recommendation. Mandatory triggers: "council this", "run the council", "war room this", "pressure-test this", "stress-test this", "debate this". Strong triggers only when paired with a real decision or tradeoff: "should I X or Y", "which option", "what would you do", "is this the right move", "validate this", "get multiple perspectives", "I can't decide", "I'm torn between". Do not trigger on trivia, simple yes or no questions, light preferences, or summarization requests.
 metadata:

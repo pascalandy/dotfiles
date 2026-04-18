@@ -62,20 +62,16 @@ rescans `dot_config/ai_templates/skills/` and closes gaps where v1 drifted: skil
 - office-docs (draft)
 - liteparse
 
-### integrations/
+### ext-int/
 - beads
 - trello
+- voxtral
 
 ### think/
 - thinking (by daniel)
-- council
-- five-council
+- council-five-v1
+- council-five-v2
 - game-theory (0o0o)
-
-### diagram/
-- mermaid
-- mermaid-og
-- plantuml-ascii
 
 ### distill/
 - distill
@@ -89,8 +85,10 @@ rescans `dot_config/ai_templates/skills/` and closes gaps where v1 drifted: skil
 - marketing
 - ContentAnalysis
 - color-palette
-- voxtral
 - nano-banana-sk
+- mermaid
+- mermaid-og
+- plantuml-ascii
 
 ---
 
