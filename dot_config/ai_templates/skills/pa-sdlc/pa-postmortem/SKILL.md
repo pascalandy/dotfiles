@@ -6,9 +6,11 @@ keywords: [postmortem, lessons-learned, session-review, incident-review, feedbac
 
 # Postmortem
 
-> Three distinct postmortem modes in one skill: session review, incident review, and feedback capture. Route to the right mode automatically, then save the final result in the active project with `write-down-postmortem`.
+Explicit entry point: `pa-postmortem`.
 
-## Routing
+Three distinct postmortem modes in one skill: session review, incident review, and feedback capture. Route to the right mode automatically, then export the final postmortem artifact.
+
+## Route
 
 Load `references/ROUTER.md` to determine which sub-skill handles this request.
 
@@ -30,7 +32,15 @@ This meta-skill provides three focused modes.
 2. `IncidentReview` for blameless operational or delivery incidents using standard, quick, or 5 Whys workflows.
 3. `FeedbackCapture` for turning completed work, fixes, or decisions into durable lessons.
 
-All three modes share one finalization rule: when the content is final and should be saved, use the utility skill `write-down-postmortem`, which writes into the current project's `docs/references/postmortem/references/` path.
+All three modes share one finalization rule: the final postmortem artifact is always written to the resolved export path before the skill returns.
+
+## Internal Modes
+
+| Mode | Owns | Use when |
+|---|---|---|
+| `SessionReview` | Reverse-engineering a session | Preserve memory types, lessons, fixes, and feedback from a completed conversation |
+| `IncidentReview` | Blameless incident review | Real operational or delivery incident needs impact, timeline, causes, and follow-ups |
+| `FeedbackCapture` | Durable lessons from completed work | Work is done and only the transferable lessons and feedback should survive |
 
 ## What's Included
 
@@ -55,64 +65,63 @@ All three modes share one finalization rule: when the content is final and shoul
 | "run 5 whys on this failure" | Routes to `IncidentReview` |
 | "capture lessons from this fix" | Routes to `FeedbackCapture` |
 | "what feedback should the agent remember next time" | Routes to `FeedbackCapture` |
-| "save the final postmortem in the project" | Stay in the active sub-skill and finish with `write-down-postmortem` |
 
-## Example Usage
+## Boundaries
 
-### Session Review
+| If the real need is... | Use instead |
+|---|---|
+| capturing a rough idea | `pa-idea` |
+| deciding whether the direction is right | `pa-vision` |
+| designing execution, structure, or sequencing | `pa-architect` |
+| building the change or fixing a bug | `pa-implement` |
+| documenting an already-made change, decision, or artifact | `pa-doc-update` |
+| refreshing, deduplicating, or repairing existing docs | `pa-doc-cleaner` |
 
-```text
-User: Reverse engineer what we did together and keep only what is worth remembering.
+## Default Output
 
-AI routes to SessionReview and returns:
-- Elements worth remembering
-- Memory type for each element
-- What we learned
-- What went wrong
-- What we discovered
-- The fix
-- Feedback for the agent
-- Feedback for the user
-```
+Route to one primary mode, then use that mode's output contract. In all modes, make these easy to find:
 
-### Incident Review
+1. what happened
+2. what was learned
+3. what should be remembered
+4. follow-up actions or feedback
+5. recommended next phase or owner
 
-```text
-User: Write a blameless postmortem for the deploy rollback.
+## Export Contract
 
-AI routes to IncidentReview and returns:
-- Summary
-- Impact
-- Timeline
-- Root cause
-- Contributing factors
-- Fixes applied
-- Follow-up actions
-```
+Create a postmortem entry in `docs/references/ideas/references/`.
 
-### Feedback Capture
+Resolve the export target before running the writing workflow. This contract is separate so the same export pattern can be reused elsewhere by swapping only the destination and naming rules.
 
-```text
-User: Capture the lessons from this fix and save it in the project.
+- `export_root`: `docs/references/ideas/references/`
+- `entry_slug`: a 2-4 word kebab-case title, preferably from a strong user-provided title
+- `export_dir`: `YYYY-MM-DD-entry_slug/`
+- `export_file`: `postmortem-entry_slug.md`
+- Final path: `export_root/export_dir/export_file`
 
-AI routes to FeedbackCapture, writes the lesson set, then uses `write-down-postmortem`
-to save it under `docs/references/postmortem/references/`.
-```
+## Workflow
 
-## Configuration
+1. Use the user's remaining input as the raw postmortem text.
+2. If the input is missing or too thin to title, ask one short question.
+3. Resolve `entry_slug`, `export_dir`, and `export_file` before editing any text.
+4. Start from the raw text.
+5. Route to the right Postmortem mode and produce the final postmortem artifact.
+6. Write the final text to the resolved export path.
+7. Only after export, return the folder path, file path, and final slug.
 
-No configuration is required.
+## Rules
 
-Optional conventions:
-
+- Keep export naming mechanical and separate from the writing pass.
+- Prefer a strong user-provided title when resolving `entry_slug`.
+- Keep the final artifact aligned with the selected Postmortem mode rather than forcing a single document shape.
+- Export is mandatory when `pa-postmortem` produces a session review, incident review, or feedback capture artifact.
+- Do not hand off to any later phase before the postmortem artifact has been written to the resolved export path.
 - Keep the output proportional to the event size.
-- Prefer the user's own vocabulary when writing lessons or feedback.
-- Save final content with `write-down-postmortem` only after the postmortem itself is complete.
+- Preserve blameless language for incidents.
+- Keep session reviews grounded in what actually happened.
+- Capture only durable lessons, not every detail.
+- For reuse, change the export contract first and keep the workflow steps unchanged unless the content workflow itself differs.
 
-## Design Rules
+## Non-Goals
 
-1. Keep the output proportional to the event.
-2. Preserve blameless language for incidents.
-3. Keep session reviews grounded in what actually happened.
-4. Capture only durable lessons, not every detail.
-5. Use `write-down-postmortem` for persistence inside the active project.
+Postmortem does not own discovery, scoping, product direction, execution planning, implementation, or documentation maintenance.
