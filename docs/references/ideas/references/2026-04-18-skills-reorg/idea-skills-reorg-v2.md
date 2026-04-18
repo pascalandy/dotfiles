@@ -5,6 +5,8 @@
 
 rescans `dot_config/ai_templates/skills/` and closes gaps where v1 drifted: skills added since v1 are mapped, skills that no longer exist are removed, and WIP stubs are flagged.
 
+0o0o are flags for Pascal, he need to  are note for Pascal
+
 ## Proposed Layout v2
 
 ### entrypoint/
@@ -68,7 +70,7 @@ rescans `dot_config/ai_templates/skills/` and closes gaps where v1 drifted: skil
 - beads
 - trello
 
-### think/ (WIP)
+### think/ (0o0o)
 - thinking
 - council
 - five-council
