@@ -27,10 +27,8 @@ rescans `dot_config/ai_templates/skills/` and closes gaps where v1 drifted: skil
 - pseudocode
 - ask-questions (alt grill-me-v2)
 - hunk-review
-- eval-rubric (for reviews)
-- headless-claude
-- headless-codex
-- headless-opencode
+- eval-rubric
+- headless
 
 ### knowledge/
 - wiki-map
@@ -57,10 +55,6 @@ rescans `dot_config/ai_templates/skills/` and closes gaps where v1 drifted: skil
 ### system/
 - single-skill-creator
 - meta-skill-creator
-
-### harness/
-- delegate
-  - pa-advisor
 
 ### doc/
 - office-docs (draft)
