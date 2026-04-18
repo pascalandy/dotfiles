@@ -72,4 +72,5 @@ When the user explicitly asks for a PRD, include domain-appropriate equivalents 
 - Do not use document weight as a substitute for unclear thinking.
 - Do not introduce detailed implementation sequencing or file-level plans.
 - Do not assume PRD is always the right format; pick the lightest durable artifact that supports the next phase.
+- Export the brief artifact before recommending `pa-architect` or any other next phase.
 - If the direction itself is still weak or disputed, hand back to `DirectionCheck` or `AlignmentDraft` first.

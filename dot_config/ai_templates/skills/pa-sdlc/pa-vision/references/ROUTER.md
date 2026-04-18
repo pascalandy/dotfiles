@@ -12,3 +12,7 @@ description: Universal vision meta-skill for defining where work is going before
 | should we do this, is this the right move, validate the why, pressure-test this idea, what matters most, is this worth doing, go no go, challenge this direction | `DirectionCheck/MetaSkill.md` |
 | here is where we're going, write down the direction, align on the end state, dump your understanding before we plan, make the direction explicit, create the alignment draft, brain dump the target state | `AlignmentDraft/MetaSkill.md` |
 | turn this into a brief, write a prd, create the requirements doc, package this direction, write the feature brief, write the charter, formalize this direction | `BriefAuthoring/MetaSkill.md` |
+
+## Routing Notes
+
+- When a Vision mode produces an artifact, export that artifact before recommending `pa-architect` or any other next phase.

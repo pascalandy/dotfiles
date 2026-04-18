@@ -71,13 +71,15 @@ Resolve the export target before running the writing workflow. This contract is 
 4. Start from the raw text.
 5. Route to the right Vision mode and produce the final vision artifact.
 6. Write the final text to the resolved export path.
-7. Return the folder path, file path, and final slug.
+7. Only after export, return the folder path, file path, and final slug.
 
 ## Rules
 
 - Keep export naming mechanical and separate from the writing pass.
 - Prefer a strong user-provided title when resolving `entry_slug`.
 - Keep the final artifact aligned with the selected Vision mode rather than forcing a single document shape.
+- Export is mandatory when `pa-vision` produces a direction check, alignment draft, brief, PRD, charter, or other vision artifact.
+- Do not hand off to `pa-architect` or any later phase before the vision artifact has been written to the resolved export path.
 - For reuse, change the export contract first and keep the workflow steps unchanged unless the content workflow itself differs.
 
 ## Non-Goals

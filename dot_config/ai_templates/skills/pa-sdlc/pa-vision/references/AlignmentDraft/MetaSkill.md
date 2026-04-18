@@ -83,5 +83,6 @@ When the work is substantial, this artifact may be longer and more detailed. Whe
 - Do not turn this into implementation sequencing, task breakdown, or rollout planning.
 - Do not hide pattern choices. Surface them explicitly so the human can correct them.
 - Do not generate a heavyweight PRD by default unless the user asks for a formal artifact.
+- Export the alignment artifact before recommending `BriefAuthoring`, `pa-architect`, or any other next phase.
 - If the main question is still whether the direction is worth doing, hand off to `DirectionCheck`.
 - If the direction is settled and the user wants a formal deliverable, hand off to `BriefAuthoring`.

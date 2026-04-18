@@ -70,4 +70,5 @@ Produce these sections:
 - Do not turn this into a full alignment artifact unless the direction is accepted and needs to be made explicit.
 - Do not turn this into a technical plan.
 - Do not assume that a well-worded request is automatically the right direction.
+- Export the direction-check artifact before recommending `AlignmentDraft`, `pa-architect`, or any other next phase.
 - If the user already accepts the direction and wants it spelled out clearly, hand off to `AlignmentDraft`.
