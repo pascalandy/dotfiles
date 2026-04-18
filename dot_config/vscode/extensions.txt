@@ -29,11 +29,11 @@ henoc.svgeditor
 jkjustjoshing.vscode-text-pastry
 jvalecillos.gpg
 kevinrose.vsc-python-indent
+mdickin.markdown-shortcuts
 mechatroner.rainbow-csv
 mermaidchart.vscode-mermaid-chart
 misbahansori.svg-fold
 mohsen1.prettify-json
-ms-ceintl.vscode-language-pack-fr
 ms-python.autopep8
 ms-python.black-formatter
 ms-python.debugpy
@@ -59,6 +59,7 @@ sergeyegorov.folder-color
 shd101wyy.markdown-preview-enhanced
 skellock.just
 tamasfe.even-better-toml
+twpayne.chezmoi
 visbydev.folder-path-color
 vstirbu.vscode-mermaid-preview
 vunguyentuan.vscode-postcss
