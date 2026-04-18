@@ -1,7 +1,7 @@
 ---
 name: distill-prompt
-description: Library of named "distill" prompts for transforming long-form text into structured notes, summaries, or quote-based outlines. Each sub-skill is one prompt style (follow-along-note, short-summary, summary-with-quotes). USE WHEN picking a distill prompt, choosing a summary style, selecting a note-taking template, deciding which distill prompt fits this content, listing available distill prompts.
-keywords: [distill, distill-prompt, prompt-library, summary, notes, follow-along, short-summary, quotes, transcript, article]
+description: Library of named "distill" prompts for transforming long-form text into structured notes, summaries, quote-based outlines, or content-adaptive wisdom reports. Each sub-skill is one prompt style (follow-along-note, short-summary, summary-with-quotes, extract-wisdom). USE WHEN picking a distill prompt, choosing a summary style, selecting a note-taking template, deciding which distill prompt fits this content, listing available distill prompts.
+keywords: [distill, distill-prompt, prompt-library, summary, notes, follow-along, short-summary, quotes, extract-wisdom, wisdom, insights, transcript, article]
 ---
 
 # distill-prompt
@@ -56,9 +56,10 @@ A consumer (like the `distill` tool) receives the path to a specific `prompt.md`
 | follow-along-note | `references/follow-along-note/` | Detailed follow-along notes preserving structure and nuance |
 | short-summary | `references/short-summary/` | Concise 2-3 sentence overview with key bullet points |
 | summary-with-quotes | `references/summary-with-quotes/` | Structured outline with the best verbatim quotes |
+| extract-wisdom | `references/extract-wisdom/` | Content-adaptive wisdom report with dynamic sections and depth levels |
 
 **Summary:**
-- **Prompts:** 3 (follow-along-note, short-summary, summary-with-quotes)
+- **Prompts:** 4 (follow-along-note, short-summary, summary-with-quotes, extract-wisdom)
 - **Dependencies:** None (works standalone)
 - **Consumers:** `meta/distill` (primary), any future skill that needs a prompt by name
 
@@ -71,6 +72,7 @@ A consumer (like the `distill` tool) receives the path to a specific `prompt.md`
 | "use the follow-along prompt" | Routes to `follow-along-note/MetaSkill.md` |
 | "short summary" / "TL;DR" / "quick overview" | Routes to `short-summary/MetaSkill.md` |
 | "summary with quotes" / "include quotes" / "quote-based outline" | Routes to `summary-with-quotes/MetaSkill.md` |
+| "extract wisdom" / "what's interesting" / "key takeaways" / "analyze this video" | Routes to `extract-wisdom/MetaSkill.md` |
 | "list available distill prompts" | Lists all sub-skills under `references/` |
 
 ---
