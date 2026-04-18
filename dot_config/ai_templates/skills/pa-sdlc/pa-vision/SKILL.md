@@ -1,6 +1,6 @@
 ---
 name: pa-vision
-description: Direction-setting entry point for defining where work is going before execution planning begins. Use `pa-vision` when you need to pressure-test the direction, align on the end state, or package settled direction into a durable brief.
+description: Direction-setting entry point for defining where work is going before execution planning begins. Use `pa-vision` when you need to pressure-test the direction, align on the end state, or package settled direction into a durable brief, then export the final vision artifact.
 keywords: [pa-vision, vision, direction, alignment, brief, prd, direction-check]
 ---
 
@@ -50,6 +50,35 @@ Default to a direction-oriented artifact that makes these easy to find:
 5. success signals
 6. risks and review points
 7. recommended next phase
+
+## Export Contract
+
+Create an idea entry in `docs/references/ideas/references/`.
+
+Resolve the export target before running the writing workflow. This contract is separate so the same export pattern can be reused elsewhere by swapping only the destination and naming rules.
+
+- `export_root`: `docs/references/ideas/references/`
+- `entry_slug`: a 2-4 word kebab-case title, preferably from a strong user-provided title
+- `export_dir`: `YYYY-MM-DD-entry_slug/`
+- `export_file`: `vision-entry_slug.md`
+- Final path: `export_root/export_dir/export_file`
+
+## Workflow
+
+1. Use the user's remaining input as the raw idea text.
+2. If the idea is missing or too thin to title, ask one short question.
+3. Resolve `entry_slug`, `export_dir`, and `export_file` before editing any text.
+4. Start from the raw text.
+5. Route to the right Vision mode and produce the final vision artifact.
+6. Write the final text to the resolved export path.
+7. Return the folder path, file path, and final slug.
+
+## Rules
+
+- Keep export naming mechanical and separate from the writing pass.
+- Prefer a strong user-provided title when resolving `entry_slug`.
+- Keep the final artifact aligned with the selected Vision mode rather than forcing a single document shape.
+- For reuse, change the export contract first and keep the workflow steps unchanged unless the content workflow itself differs.
 
 ## Non-Goals
 
