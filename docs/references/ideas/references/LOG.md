@@ -11,6 +11,8 @@ date_updated: 2026-04-18
 
 # Log
 
+- [[2026-04-18]] export | idea | Great Books URLs (Predictive History) — 10 video links (#1–#9 + re-upload)
+- [[2026-04-18]] export | vision | headless meta-skill DirectionCheck — consolidate headless-{claude,codex,opencode} into one router-based meta-skill
 - [[2026-04-18]] lint | recursive update | refreshed local index and direct child wiki routes
 - [[2026-04-07]] create | wiki | Plans Wiki map created. 38 files organized into references/
 - [[2026-04-07]] rename | directories | All 15 directories renamed to kebab-case descriptive titles (ID preserved)
