@@ -3,7 +3,6 @@ name: headless
 description: |
   Headless CLI delegation and flag references. Use when the user says "use headless-delegation with <cli> to ..." to dispatch real execution work to a headless Claude / Codex / OpenCode agent using the correct pty pattern and permission posture. Also use when the user says `headless-claude`, `headless-codex`, or `headless-opencode` to look up CLI flags for non-interactive runs.
 keywords:
-  - headless
   - headless-delegation
   - headless-claude
   - headless-codex
@@ -18,8 +17,6 @@ keywords:
   - opencode --agent
   - pty
   - non-interactive
-  - automation
-  - ci/cd
 ---
 
 # Headless
