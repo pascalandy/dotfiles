@@ -139,59 +139,56 @@ readd:
 # OpenCode QA smoke tests.
 #
 # Usage:
-# - `just opencode-qa`      -> run the full QA sweep
-# - `just ocqa-gemini-or`   -> test Gemini 3.1 Pro via OpenRouter
-# - `just ocqa-flash-or`    -> test Gemini 3 Flash via OpenRouter
+# - `just opencode-qa`      -> run the full QA sweep (active primary agents)
+# - `just ocqa-gemini`      -> test Gemini 3.1 Pro via OpenRouter
+# - `just ocqa-flash`       -> test Gemini 3 Flash via OpenRouter
 # - `just ocqa-gpt`         -> test a single agent
 #
 # Each recipe asks the target agent to reply with exactly `OK`.
 alias ocqa := opencode-qa
 opencode-qa:
-    just ocqa-kimi || true
-    just ocqa-glm || true
-    just ocqa-gptmini || true
-    just ocqa-claude-haiku || true
+    just ocqa-kimi
+    just ocqa-glm
+    just ocqa-gptmini
+    just ocqa-claude-haiku
 
-# OTHER OPTIONS ..
-# just ocqa-build || true
-# just ocqa-gemini-or || true
-# just ocqa-gpt || true
+# OTHER OPTIONS (disabled agents)
+# just ocqa-build || true      # build agent is disabled
+# just ocqa-grok || true       # grok agent is disabled
+# just ocqa-minizen || true    # mini-zen agent is disabled
 
 # Run the default opencode QA check.
 ocqa-default:
-    opencode run "ping"
+    opencode run "ping" || true
 
 ocqa-kimi:
-    opencode run --agent 1-kimi "ping"
+    opencode run --agent 1-kimi "ping" || true
 
 ocqa-glm:
-    opencode run --agent 4-glm "ping"
+    opencode run --agent 3-glm "ping" || true
 
 ocqa-gptmini:
-    opencode run --model openai/gpt-5.4-mini "ping"
+    opencode run --model openai/gpt-5.4-mini "ping" || true
 
 ocqa-claude-haiku:
-    claude -p --model haiku --permission-mode plan "ping"
+    claude -p --model haiku --permission-mode plan "ping" || true
 
 ocqa-gpt:
-    opencode run --agent 3-gpt "ping"
-
-ocqa-build:
-    opencode run --agent build "ping"
+    opencode run --agent 2-gpt "ping" || true
 
 ocqa-grok:
-    opencode run --agent grok "ping"
+    opencode run --agent grok "ping" || true
 
 ocqa-minizen:
-    opencode run --agent mini-zen "ping"
+    opencode run --agent mini-zen "ping" || true
 
 # via OpenRouter opencode QA check
-ocqa-flash-or:
-    opencode run --agent flash-or "ping"
+ocqa-flash:
+    opencode run --agent flash "ping" || true
 
 # via OpenRouter opencode QA check
-ocqa-gemini-or:
-    opencode run --agent gemini-or "ping"
+ocqa-gemini:
+    opencode run --agent gemini "ping" || true
 
 # Transcribe a YouTube URL. Wrap the URL in quotes. Extra CLI args are forwarded.
 alias ttr := transcript

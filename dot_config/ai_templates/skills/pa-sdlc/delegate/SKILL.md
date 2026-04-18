@@ -13,13 +13,17 @@ When the main agent (`1-kimi`) needs to delegate work, use this skill to determi
   - **Speed**: Fastest | **Cost**: Lowest | **Intelligence**: High
   - **Use for**: Default for everything. First-pass reviews, commits, quick edits, general tasks, exploration, research.
 
-- **`2-opus`** (Claude Opus 4.6 via Anthropic)
-  - **Speed**: Slow | **Cost**: High | **Intelligence**: Highest
-  - **Use for**: Second-pass reviews. Complex architecture, hard problems requiring deep reasoning.
+- **`2-gpt`** (GPT-5.4 High Reasoning via OpenAI)
+  - **Speed**: Medium | **Cost**: Medium-high | **Intelligence**: Very high
+  - **Use for**: Second-pass reviews. Complex reasoning, different perspective from Kimi.
+
+- **`3-glm`** (GLM 5.1 via zai-coding-plan)
+  - **Speed**: Medium-fast | **Cost**: Low | **Intelligence**: High (coding-optimized, thinking enabled)
+  - **Use for**: Third-pass reviews. Coding-optimized reasoning, batch tasks, bulk operations.
 
 - **`gpthigh`** (GPT-5.4 High Reasoning via OpenAI)
   - **Speed**: Medium | **Cost**: Medium-high | **Intelligence**: Very high
-  - **Use for**: Third-pass reviews. Different reasoning perspective—catches issues Opus misses.
+  - **Use for**: Alternative deep reasoning when GPT-5.4 is already in use.
 
 - **`gemini`** (Gemini 3.1 Pro via OpenRouter)
   - **Speed**: Medium | **Cost**: Medium | **Intelligence**: High
@@ -35,15 +39,15 @@ When the user requests a review, they explicitly say "do a two pass review", "do
 
 **2-Pass Review**:
 1. Main agent calls subagent `1-kimi` (fresh instance) for initial review
-2. Main agent calls subagent `2-opus` for thorough, deep analysis
+2. Main agent calls subagent `2-gpt` for thorough, deep analysis
 
 **3-Pass Review** (most common):
 1. Main agent calls subagent `1-kimi` (fresh instance) for initial review
-2. Main agent calls subagent `2-opus` for thorough, deep analysis
-3. Main agent calls subagent `3-gpthigh` for different reasoning perspective
+2. Main agent calls subagent `2-gpt` for thorough, deep analysis
+3. Main agent calls subagent `3-glm` for coding-optimized perspective
 
 **4-Pass Review** (when user explicitly requests):
 1. Main agent calls subagent `1-kimi` (fresh instance) for initial review
-2. Main agent calls subagent `2-opus` for thorough, deep analysis
-3. Main agent calls subagent `3-gpthigh` for different reasoning perspective
+2. Main agent calls subagent `2-gpt` for thorough, deep analysis
+3. Main agent calls subagent `3-glm` for coding-optimized perspective
 4. Main agent calls subagent `gemini` for additional perspective
