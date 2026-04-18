@@ -33,25 +33,7 @@
         "bash": "allow"
       }
     },
-    "2-opus": {
-      "description": "Primary Claude thinking preset.",
-      "disable": false,
-      "mode": "all",
-      "model": "anthropic/claude-opus-4-6",
-      "temperature": 0.2,
-      "permission": {
-        "write": "allow",
-        "edit": "allow",
-        "bash": "allow"
-      },
-      "options": {
-        "thinking": {
-          "type": "adaptive"
-        },
-        "effort": "low"
-      }
-    },
-    "3-gpt": {
+    "2-gpt": {
       "description": "GPT-5.4 preset.",
       "disable": false,
       "mode": "all",
@@ -72,7 +54,7 @@
         }
       }
     },
-    "4-glm": {
+    "3-glm": {
       "description": "GLM 5.1",
       "disable": false,
       "mode": "all",
@@ -89,7 +71,25 @@
         }
       }
     },
-    "5-sonnet": {
+    "opus": {
+      "description": "Primary Claude thinking preset.",
+      "disable": true,
+      "mode": "all",
+      "model": "anthropic/claude-opus-4-6",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "thinking": {
+          "type": "adaptive"
+        },
+        "effort": "low"
+      }
+    },
+    "sonnet": {
       "description": "Primary Claude thinking preset.",
       "disable": true,
       "mode": "all",
@@ -111,6 +111,18 @@
     // Subagents (organized by provider/purpose)
     // ==========================================================
     // Small/fast models
+    "kimi": {
+      "description": "Kimi 2.5 Turbo preset.",
+      "disable": false,
+      "mode": "subagent",
+      "model": "fireworks-ai/accounts/fireworks/routers/kimi-k2p5-turbo",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
     "gptmini": {
       "description": "GPT-5.4 mini.",
       "disable": false,
@@ -196,13 +208,13 @@
         }
       }
     },
-    // Claude variants
-    "worker1": {
-      "description": "Primary Claude thinking preset.",
+    // GLM variants
+    "glm": {
+      "description": "GLM 5.1",
       "disable": false,
       "mode": "subagent",
-      "model": "anthropic/claude-sonnet-4-6",
-      "temperature": 0.2,
+      "model": "zai-coding-plan/glm-5.1",
+      "temperature": 0.1,
       "permission": {
         "write": "allow",
         "edit": "allow",
@@ -210,9 +222,8 @@
       },
       "options": {
         "thinking": {
-          "type": "adaptive"
-        },
-        "effort": "high"
+          "type": "enabled"
+        }
       }
     },
     // GLM variants
