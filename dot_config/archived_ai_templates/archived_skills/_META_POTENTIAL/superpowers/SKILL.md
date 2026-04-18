@@ -1,58 +1,89 @@
 ---
 name: superpowers
-description: Disciplined engineering workflow collection — planning, execution, TDD, debugging, subagents, git worktrees, code review, verification, shipping, and skill authoring. USE WHEN starting any task, brainstorming, writing or executing a plan, doing test-driven development, debugging systematically, dispatching subagents or parallel agents, using git worktrees, requesting or receiving code review, verifying completion before done, finishing a development branch, or authoring new skills.
+description: Workflow collection for software development that establishes workflow discipline first, then routes design, planning, execution, debugging, review, verification, and skill-authoring requests to the right specialist. USE WHEN starting a task, deciding which workflow applies, refining requirements, writing a plan, executing a plan, using worktrees, enforcing TDD, debugging bugs, verifying completion, handling code review, or creating skills.
 ---
 
 # Superpowers
 
-> A collection of disciplined engineering workflow skills. One entry point, many specialists.
+One entry point for a disciplined software-delivery workflow. This collection establishes how to use workflow skills, then routes requests to the right specialist for design, planning, implementation, debugging, review, verification, branch completion, and skill authoring.
 
-## Problem
+## Core Rule
 
-Good engineering requires different disciplines at different moments: brainstorming before planning, planning before execution, TDD while coding, systematic debugging when stuck, verification before declaring done, and review before shipping. Loading every discipline for every task is noisy; remembering to invoke the right one manually is unreliable.
+When a workflow skill may apply, use this entrypoint to apply startup discipline first, then load the router before acting. User instructions and repository-specific instructions still win.
 
-## Solution
+Priority order:
 
-`superpowers` is a single entry point that dispatches to the right discipline based on what you're doing. You describe the task; the router loads the specialist.
+1. Direct user instructions
+2. Workspace and repository instructions
+3. This workflow collection
 
 ## What's Included
 
-| Phase | Sub-skill | Purpose |
+| Lifecycle | Skill | Purpose |
 |---|---|---|
-| **Foundation** | `using-superpowers` | How to find and invoke skills — the discipline that makes the rest work |
-| **Plan** | `brainstorming` | Explore and shape an idea before committing to a plan |
-| **Plan** | `writing-plans` | Turn an idea into a concrete implementation plan |
-| **Execute** | `executing-plans` | Work through a plan methodically |
-| **Execute** | `test-driven-development` | Red → green → refactor discipline |
-| **Execute** | `systematic-debugging` | Root-cause debugging instead of guess-and-check |
-| **Execute** | `subagent-driven-development` | Delegate discrete tasks to subagents |
-| **Execute** | `dispatching-parallel-agents` | Fan out independent work across agents |
-| **Execute** | `using-git-worktrees` | Isolated workspaces for parallel branches |
-| **Review & Ship** | `requesting-code-review` | Send work out for review |
-| **Review & Ship** | `receiving-code-review` | Respond to review feedback productively |
-| **Review & Ship** | `verification-before-completion` | Verify before claiming done |
-| **Review & Ship** | `finishing-a-development-branch` | Wrap up and ship a branch cleanly |
-| **Author** | `writing-skills` | Create new skills following best practices |
+| Design | `brainstorming` | Turn rough requests into an approved design before implementation |
+| Planning | `writing-plans` | Convert an approved design into a precise implementation plan |
+| Execution | `using-git-worktrees` | Set up an isolated workspace before implementation |
+| Execution | `subagent-driven-development` | Execute plans with one worker per task and review loops |
+| Execution | `dispatching-parallel-agents` | Split truly independent work across multiple workers |
+| Execution | `executing-plans` | Execute a written plan inline when worker delegation is not the right fit |
+| Engineering Discipline | `test-driven-development` | Enforce red-green-refactor before writing implementation code |
+| Engineering Discipline | `systematic-debugging` | Find root cause before proposing fixes |
+| Engineering Discipline | `verification-before-completion` | Require fresh evidence before claiming success |
+| Review | `requesting-code-review` | Package context and request a focused code review |
+| Review | `receiving-code-review` | Evaluate review feedback rigorously before acting |
+| Closure | `finishing-a-development-branch` | Verify, choose merge/PR/keep/discard, and clean up |
+| Skill Authoring | `writing-skills` | Create or revise skills using test-first discipline |
 
-## Invocation
+## Invocation Scenarios
 
-| Trigger | What happens |
+| Trigger Phrase | What Happens |
 |---|---|
-| "start any task" / beginning of conversation | `using-superpowers` loads first |
-| "let's brainstorm X" | `brainstorming` |
-| "write a plan for X" | `writing-plans` |
-| "execute the plan" | `executing-plans` |
-| "do this TDD" | `test-driven-development` |
-| "debug this" | `systematic-debugging` |
-| "delegate to subagents" | `subagent-driven-development` |
-| "run these in parallel" | `dispatching-parallel-agents` |
-| "use a worktree" | `using-git-worktrees` |
-| "request review" | `requesting-code-review` |
-| "address review comments" | `receiving-code-review` |
-| "verify it's done" | `verification-before-completion` |
-| "finish the branch" | `finishing-a-development-branch` |
-| "write a new skill" | `writing-skills` |
+| "start this task" / "which workflow applies" | Uses this entrypoint to apply startup rules, then consults the router |
+| "help me think through this feature" | Routes to `brainstorming` |
+| "write an implementation plan" | Routes to `writing-plans` |
+| "set up a worktree" | Routes to `using-git-worktrees` |
+| "execute this plan task by task" | Routes to `subagent-driven-development` or `executing-plans` |
+| "these three tasks are independent" | Routes to `dispatching-parallel-agents` |
+| "fix this bug" | Routes to `systematic-debugging` |
+| "implement this change" | Routes to `test-driven-development` |
+| "before I say this is done" | Routes to `verification-before-completion` |
+| "review these changes" | Routes to `requesting-code-review` |
+| "I got review feedback" | Routes to `receiving-code-review` |
+| "we're done, how should I wrap this up" | Routes to `finishing-a-development-branch` |
+| "create a new skill" | Routes to `writing-skills` |
 
 ## Routing
 
 Load `references/ROUTER.md` to determine which sub-skill handles this request.
+
+## Startup Behavior
+
+Before taking workflow action:
+
+1. Respect direct user instructions and repository-specific rules first.
+2. If any superpowers workflow might apply, load the router before acting.
+3. If the task is about workflow selection, discipline, or skill priority, resolve it here in the root entrypoint before choosing a specialist.
+4. Prefer process skills before execution skills when multiple specialists might apply.
+
+## Workflow Selection
+
+Use the root `SKILL.md` as the foundation layer for:
+
+1. Starting a task.
+2. Deciding which superpowers workflow applies.
+3. Establishing instruction priority before any specialist workflow begins.
+
+When several specialists could apply, prefer this order:
+
+1. `brainstorming` for shaping the work before code changes.
+2. `writing-plans` for turning approved direction into executable tasks.
+3. Execution, debugging, review, and closure skills once the task is ready for that stage.
+
+## Design Notes
+
+- Single entry point: users ask for an outcome, not an internal sub-skill.
+- Distinct specialists: each sub-skill owns a separate part of the workflow.
+- Foundation behavior lives in the root entrypoint, not in a separate sub-skill.
+- Harness agnostic: no platform-specific loading rules, plugin references, or assistant-specific paths.
+- Additive structure: adding a new specialist means one new subdirectory and one new router row.
