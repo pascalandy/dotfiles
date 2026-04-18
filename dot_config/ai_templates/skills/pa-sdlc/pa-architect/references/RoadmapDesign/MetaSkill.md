@@ -119,6 +119,7 @@ Translate "phases" and "implementation" into the natural language of the subject
 6. Reject plans that postpone integration until the end unless the user explicitly accepts that risk.
 7. If the work hinges on one major unknown, route to `DecisionSpike` instead of pretending confidence.
 8. If the main challenge is the target structure itself, route to `StructuralDesign` first.
+9. Export the roadmap artifact before recommending `pa-implement` or any other next phase.
 
 ## Non-Goals
 

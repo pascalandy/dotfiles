@@ -93,6 +93,7 @@ Examples of structural design outside software:
 5. Do not drift into a full execution roadmap; hand off to `RoadmapDesign` once the structure is stable enough.
 6. If the user mainly wants critique of an existing plan, route to `PlanStressTest`.
 7. If the user mainly needs to validate one candidate structure or blocker rather than define the shape, route to `DecisionSpike`.
+8. Export the structural-design artifact before recommending `RoadmapDesign`, `pa-implement`, or any other next phase.
 
 ## Non-Goals
 

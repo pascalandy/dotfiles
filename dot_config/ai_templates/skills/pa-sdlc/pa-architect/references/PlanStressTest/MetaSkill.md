@@ -98,6 +98,7 @@ The review should adapt its lenses, but the core job is the same: harden the pla
 6. If the review shows there is no real plan yet, route back to `RoadmapDesign` or `StructuralDesign` as appropriate.
 7. Review execution substance, not writing polish or general documentation hygiene.
 8. Treat backend-first, frontend-later, or integration-at-the-end planning as a substantive execution risk unless clearly justified.
+9. Export the stress-test artifact before recommending `pa-implement` or any other next phase.
 
 ## Non-Goals
 

@@ -97,6 +97,7 @@ This is not only for software. A spike can also validate:
 5. If many unknowns appear, create a short prioritized list rather than hiding them inside one bloated spike.
 6. If the unknown is no longer blocking, route back to `RoadmapDesign`.
 7. If the main issue becomes designing the target structure rather than validating one question, route to `StructuralDesign`.
+8. Export the spike artifact before recommending `RoadmapDesign`, `pa-implement`, or any other next phase.
 
 ## Non-Goals
 

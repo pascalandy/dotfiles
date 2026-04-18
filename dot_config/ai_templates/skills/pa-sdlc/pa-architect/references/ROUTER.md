@@ -24,4 +24,5 @@ description: Universal execution-design meta-skill for designing how work should
 - For compound asks, choose the earliest blocking architecting job first and recommend the next mode explicitly.
 - When sequencing work, prefer vertical slices that cross all relevant layers over horizontal layer-by-layer plans.
 - If a proposed plan is organized as backend-first, then frontend, then integration, treat that as a signal to route through `RoadmapDesign` for re-slicing or `PlanStressTest` for readiness review.
+- When an Architect mode produces an artifact, export that artifact before recommending `pa-implement` or any other next phase.
 - If the user really needs discovery, scoping, direction validation, or implementation, hand off to `pa-scout`, `pa-scope`, `pa-vision`, or `pa-implement` instead of forcing an Architect mode.
