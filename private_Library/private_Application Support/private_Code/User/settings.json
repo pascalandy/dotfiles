@@ -17,7 +17,8 @@
     "Dockerfile": "dockerfile",
     "*.yml": "yaml",
     "*.md": "markdown",
-    "*.css": "tailwindcss"
+    "*.css": "tailwindcss",
+    "opencode.json.tmpl": "jsonc"
   },
   "typescript.suggest.paths": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -253,7 +254,6 @@
       "prefix": "📚"
     }
   ],
-  "workbench.colorTheme": "Atom One Dark",
   "editor.minimap.enabled": false,
   "application.shellEnvironmentResolutionTimeout": 20,
   "githubPullRequests.createOnPublishBranch": "never",
@@ -314,5 +314,6 @@
       "symbol": "🤹🏻"
     }
   ],
-  "hediet.vscode-drawio.resizeImages": null
+  "hediet.vscode-drawio.resizeImages": null,
+  "workbench.colorTheme": "Catppuccin Frappé"
 }
