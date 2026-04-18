@@ -18,7 +18,7 @@
     "*.yml": "yaml",
     "*.md": "markdown",
     "*.css": "tailwindcss",
-    "opencode.json.tmpl": "jsonc"
+    "*.json.tmpl": "jsonc"
   },
   "typescript.suggest.paths": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
