@@ -19,7 +19,7 @@
       "disable": true
     },
     // ==========================================================
-    // Primary agents (1-6, ordered for Tab cycling)
+    // Primary agents (ordered for Tab cycling)
     // ==========================================================
     "1-kimi": {
       "description": "Kimi 2.5 Turbo preset.",
@@ -110,7 +110,6 @@
     // ==========================================================
     // Subagents (organized by provider/purpose)
     // ==========================================================
-    // Small/fast models
     "kimi": {
       "description": "Kimi 2.5 Turbo preset.",
       "disable": false,
@@ -121,6 +120,23 @@
         "write": "allow",
         "edit": "allow",
         "bash": "allow"
+      }
+    },
+    "glm": {
+      "description": "GLM 5.1",
+      "disable": false,
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-5.1",
+      "temperature": 0.1,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "thinking": {
+          "type": "enabled"
+        }
       }
     },
     "gptmini": {
@@ -205,24 +221,6 @@
         },
         "text": {
           "verbosity": "low"
-        }
-      }
-    },
-    // GLM variants
-    "glm": {
-      "description": "GLM 5.1",
-      "disable": false,
-      "mode": "subagent",
-      "model": "zai-coding-plan/glm-5.1",
-      "temperature": 0.1,
-      "permission": {
-        "write": "allow",
-        "edit": "allow",
-        "bash": "allow"
-      },
-      "options": {
-        "thinking": {
-          "type": "enabled"
         }
       }
     },
@@ -332,7 +330,7 @@
       }
     },
     // Kimi alternatives
-    "kimi-oc": {
+    "kimi-or": {
       "description": "Kimi fallback preset.",
       "disable": true,
       "model": "openrouter/moonshotai/kimi-k2.5:nitro",
