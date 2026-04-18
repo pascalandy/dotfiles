@@ -28,7 +28,6 @@ rescans `dot_config/ai_templates/skills/` and closes gaps where v1 drifted: skil
 - ask-questions (alt grill-me-v2)
 - hunk-review
 - eval-rubric (for reviews)
-- commit
 - headless-claude
 - headless-codex
 - headless-opencode
@@ -41,6 +40,11 @@ rescans `dot_config/ai_templates/skills/` and closes gaps where v1 drifted: skil
 - nia-docs
 - map-filesystem-abstract
 - cass
+
+### diagram/
+- mermaid
+- mermaid-og
+- plantuml-ascii
 
 ### web/
 - agent-browser
@@ -83,12 +87,8 @@ rescans `dot_config/ai_templates/skills/` and closes gaps where v1 drifted: skil
 ### media/
 - creative
 - marketing
-- ContentAnalysis
 - color-palette
 - nano-banana-sk
-- mermaid
-- mermaid-og
-- plantuml-ascii
 
 ---
 
