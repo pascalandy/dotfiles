@@ -89,7 +89,7 @@ Route to one primary mode, then use that mode's output contract. In all modes, m
 
 ## Export Contract
 
-Create a postmortem entry in `docs/references/ideas/references/`.
+Create an idea entry in `docs/references/ideas/references/`.
 
 Resolve the export target before running the writing workflow. This contract is separate so the same export pattern can be reused elsewhere by swapping only the destination and naming rules.
 
@@ -101,13 +101,14 @@ Resolve the export target before running the writing workflow. This contract is 
 
 ## Workflow
 
-1. Use the user's remaining input as the raw postmortem text.
-2. If the input is missing or too thin to title, ask one short question.
+1. Use the user's remaining input as the raw idea text.
+2. If the idea is missing or too thin to title, ask one short question.
 3. Resolve `entry_slug`, `export_dir`, and `export_file` before editing any text.
 4. Start from the raw text.
-5. Route to the right Postmortem mode and produce the final postmortem artifact.
-6. Write the final text to the resolved export path.
-7. Only after export, return the folder path, file path, and final slug.
+5. Do a `simple-editor` (skill) pass.
+6. Do a `writer-sk` (skill) pass.
+7. Write the final text to the resolved export path.
+8. Return the folder path, file path, and final slug.
 
 ## Rules
 
