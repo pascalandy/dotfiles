@@ -44,5 +44,5 @@ This category follows the **generic guide + personal preferences** pattern: for 
 ## Related
 
 - [[docs/INDEX.md]] — root catalog
-- [[workflows/INDEX.md]] — workflow methodologies (`pa-sdlc`)
+- [[skills/INDEX.md]] — per-skill wikis organized by 8 workflow-arc buckets
 - [[operations/INDEX.md]] — how the repo itself runs

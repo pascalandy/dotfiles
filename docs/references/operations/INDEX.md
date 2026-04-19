@@ -38,4 +38,4 @@ Category follows the **generic guide + personal preferences** pattern from [`doc
 
 - [[docs/INDEX.md]] — root catalog
 - [[configs/INDEX.md]] — individual config files and tools
-- [[workflows/INDEX.md]] — workflow methodologies (`pa-sdlc`)
+- [[skills/INDEX.md]] — per-skill wikis organized by 8 workflow-arc buckets

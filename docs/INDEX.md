@@ -13,7 +13,7 @@ date_updated: 2026-04-18
 
 > Root router for `~/.local/share/chezmoi/docs/`.
 > This page points to child wiki maps. Do not treat it as the place where leaf content lives.
-> **Child wikis:** 5 | **Last updated:** 2026-04-12
+> **Child wikis:** 4 | **Last updated:** 2026-04-18
 
 This root index exists to route humans and agents into the right child `INDEX.md`.
 
@@ -28,9 +28,8 @@ Each directory under `docs/references/` is its own wiki map with its own catalog
 Use the child wiki indexes as the real entry points:
 
 - `configs/` for configuration files, tools, and machine-specific setup notes
-- `workflows/` for methodologies, skill families, and operator workflow docs
+- `skills/` for per-skill narrative wikis, organized by the 8 workflow-arc buckets (`pa-sdlc`, `devtools`, `think`, `knowledge`, `web`, `distill`, `diagram`, `media`)
 - `operations/` for how this repo runs, applies, syncs, and distributes assets
-- `postmortem/` for retrospectives and lessons learned
 - `ideas/` for brainstorms and early-stage material
 
 Root-level policy stays light on purpose. Detailed conventions belong in the child wiki that owns them.
@@ -48,15 +47,13 @@ Root-level policy stays light on purpose. Detailed conventions belong in the chi
 | File | Description |
 |------|-------------|
 | [`references/configs/INDEX.md`](references/configs/INDEX.md) | Child wiki map for configuration references, generic guides, and personal setup docs |
-| [`references/workflows/INDEX.md`](references/workflows/INDEX.md) | Child wiki map for workflow families, methods, and skill usage patterns |
+| [`references/skills/INDEX.md`](references/skills/INDEX.md) | Child wiki map for per-skill narrative wikis, organized by 8 workflow-arc buckets |
 | [`references/operations/INDEX.md`](references/operations/INDEX.md) | Child wiki map for repository operations, apply flow, and distribution mechanics |
-| [`references/postmortem/INDEX.md`](references/postmortem/INDEX.md) | Child wiki map for retrospectives, failures, and lessons learned |
 | [`references/ideas/INDEX.md`](references/ideas/INDEX.md) | Child wiki map for brainstorms, drafts, and exploratory material |
 
 ## Related
 
 - [[configs/INDEX.md]]
-- [[workflows/INDEX.md]]
+- [[skills/INDEX.md]]
 - [[operations/INDEX.md]]
-- [[postmortem/INDEX.md]]
 - [[ideas/INDEX.md]]

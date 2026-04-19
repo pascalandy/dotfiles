@@ -123,7 +123,7 @@ This repo uses [`just`](https://github.com/casey/just) as its main operator entr
 
 `just ci` is the "before I commit" check. It is the same surface as the GitHub Actions pipeline plus a dry-run apply.
 
-For the full `justfile` surface beyond chezmoi recipes, see the dedicated justfile wiki (planned under `workflows/`).
+For the full `justfile` surface beyond chezmoi recipes, see the dedicated justfile wiki (planned under `operations/`).
 
 ## Apply has side effects in this repo
 
