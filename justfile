@@ -22,16 +22,16 @@ test-all:
     just test-tavily
 
 test-transcript:
-    uv run --with pytest --with httpx --with tiktoken --with yt-dlp --with rich pytest dot_config/ai_templates/skills/utils/transcript-sk/scripts/tests/ -v
+    uv run --with pytest --with httpx --with tiktoken --with yt-dlp --with rich pytest dot_config/ai_templates/skills/distill/transcript-sk/scripts/tests/ -v
 
 test-banana:
-    uv run --with pytest --with openai --with typer --with rich --with pillow pytest dot_config/ai_templates/skills/utils/nano-banana-sk/scripts/tests/ -v
+    uv run --with pytest --with openai --with typer --with rich --with pillow pytest dot_config/ai_templates/skills/media/nano-banana-sk/scripts/tests/ -v
 
 test-map-fs:
-    uv run --with pytest --with typer --with rich --with pyyaml --with tomli-w pytest dot_config/ai_templates/skills/utils/map-filesystem-abstract/scripts/tests/ -v
+    uv run --with pytest --with typer --with rich --with pyyaml --with tomli-w pytest dot_config/ai_templates/skills/knowledge/map-filesystem-abstract/scripts/tests/ -v
 
 test-tavily:
-    uv run --with pytest --with httpx --with rich --with respx pytest dot_config/ai_templates/skills/utils/tavily/scripts/tests/ -v
+    uv run --with pytest --with httpx --with rich --with respx pytest dot_config/ai_templates/skills/web/tavily/scripts/tests/ -v
 
 # Run gitleaks across the repository.
 gitleaks:
@@ -191,7 +191,7 @@ ocqa-gemini:
 # Transcribe a YouTube URL. Wrap the URL in quotes. Extra CLI args are forwarded.
 alias ttr := transcript
 transcript url *args:
-    uv run ~/.local/share/chezmoi/dot_config/ai_templates/skills/utils/transcript-sk/scripts/transcript.py {{quote(url)}} {{args}}
+    uv run ~/.local/share/chezmoi/dot_config/ai_templates/skills/distill/transcript-sk/scripts/transcript.py {{quote(url)}} {{args}}
 
 # Update all opensrc repositories listed in sources.json.
 update-oss:

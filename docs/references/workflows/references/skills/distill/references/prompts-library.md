@@ -11,11 +11,11 @@ sources:
   - distill
 ---
 
-distill is the runner. The prompts it runs live in a separate skill called `distill-prompt`, one directory level up at `dot_config/ai_templates/skills/pa-sdlc/distill-prompt/references/`. The two skills are a tight pair: distill treats `distill-prompt` as its prompt database, and `distill-prompt` is only useful to distill. This page documents how they connect and how to add a new prompt without breaking anything.
+distill is the runner. The prompts it runs live in a separate skill called `distill-prompt`, one directory level up at `dot_config/ai_templates/skills/distill/distill-prompt/references/`. The two skills are a tight pair: distill treats `distill-prompt` as its prompt database, and `distill-prompt` is only useful to distill. This page documents how they connect and how to add a new prompt without breaking anything.
 
 ## The physical layout
 
-`distill-prompt` stores one prompt per folder. The current inventory is three folders at `dot_config/ai_templates/skills/pa-sdlc/distill-prompt/references/`:
+`distill-prompt` stores one prompt per folder. The current inventory is three folders at `dot_config/ai_templates/skills/distill/distill-prompt/references/`:
 
 ```text
 distill-prompt/references/
@@ -103,7 +103,7 @@ The happy path for adding a new prompt named `action-items`:
 1. Create the folder under the chezmoi source path:
 
    ```text
-   dot_config/ai_templates/skills/pa-sdlc/distill-prompt/references/action-items/
+   dot_config/ai_templates/skills/distill/distill-prompt/references/action-items/
    ```
 
 2. Write `prompt.md` inside it. No frontmatter required — the file is read as raw text and handed to the provider's system-prompt flag verbatim.

@@ -1,5 +1,7 @@
 # Reorganizing Skills — v4 (2026-04-18)
 
+> **Outcome (2026-04-18):** executed per [`plan-skills-reorg.md`](./plan-skills-reorg.md) on branch `reorg/skills-v4`. 45 skills moved, 9 stayed, 3 old buckets removed, 7 new buckets created. All 8 agent homes verified at 54 flat skills.
+
 ## Goal
 
 v4 rescans `dot_config/ai_templates/skills/` against v3 and closes the audit loop: every skill on disk is confirmed present in the v3 target map, stubs/meta-skills are flagged, and open questions for Pascal are collected. No skills are moved in this pass — only `(.)` comments are added inline.

@@ -158,7 +158,7 @@ A skill is a folder of markdown files and optional scripts. It runs on any codin
 	- https://agentskills.io/skill-creation/best-practices
 	- https://agentskills.io/skill-creation/optimizing-descriptions
 	- https://agentskills.io/skill-creation/using-scripts
-- Here is a great meta-skill example: `/Users/andy16/.local/share/chezmoi/dot_config/ai_templates/skills/meta/thinking`
+- Here is a great meta-skill example: `/Users/andy16/.local/share/chezmoi/dot_config/ai_templates/skills/think/thinking`
 
 ## Create
 
