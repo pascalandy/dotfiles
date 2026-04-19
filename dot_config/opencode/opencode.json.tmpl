@@ -71,40 +71,16 @@
         }
       }
     },
-    "opus": {
-      "description": "Primary Claude thinking preset.",
-      "disable": true,
+    "4-minimax": {
+      "description": "MiniMax 2.7",
+      "disable": false,
       "mode": "all",
-      "model": "anthropic/claude-opus-4-6",
+      "model": "openrouter/minimax/minimax-m2.7",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
         "edit": "allow",
         "bash": "allow"
-      },
-      "options": {
-        "thinking": {
-          "type": "adaptive"
-        },
-        "effort": "low"
-      }
-    },
-    "sonnet": {
-      "description": "Primary Claude thinking preset.",
-      "disable": true,
-      "mode": "all",
-      "model": "anthropic/claude-sonnet-4-6",
-      "temperature": 0.2,
-      "permission": {
-        "write": "allow",
-        "edit": "allow",
-        "bash": "allow"
-      },
-      "options": {
-        "thinking": {
-          "type": "adaptive"
-        },
-        "effort": "low"
       }
     },
     // ==========================================================
@@ -292,17 +268,40 @@
     // ==========================================================
     // Disabled agents (parked for future use or alternatives)
     // ==========================================================
-    // Alternative providers
-    "minimax": {
-      "description": "MiniMax 2.7",
+    "opus": {
+      "description": "Primary Claude thinking preset.",
       "disable": true,
-      "mode": "subagent",
-      "model": "openrouter/minimax/minimax-m2.7",
+      "mode": "all",
+      "model": "anthropic/claude-opus-4-6",
       "temperature": 0.2,
       "permission": {
         "write": "allow",
         "edit": "allow",
         "bash": "allow"
+      },
+      "options": {
+        "thinking": {
+          "type": "adaptive"
+        },
+        "effort": "low"
+      }
+    },
+    "sonnet": {
+      "description": "Primary Claude thinking preset.",
+      "disable": true,
+      "mode": "all",
+      "model": "anthropic/claude-sonnet-4-6",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "options": {
+        "thinking": {
+          "type": "adaptive"
+        },
+        "effort": "low"
       }
     },
     "grok": {
