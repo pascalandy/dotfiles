@@ -75,13 +75,15 @@ fct_copy_file() {
 fct_compile_assets() {
 	local src_dir="$1"
 	local compile_dir="$2"
+	local -a categories=(pa-sdlc devtools think knowledge web distill diagram media)
 
 	mkdir -p "$compile_dir"
 
 	# If src has subdirectories (categories), compile them
 	# If src is flat, copy everything directly
 	local has_categories=false
-	for category in meta pa-sdlc specs utils; do
+	local category
+	for category in "${categories[@]}"; do
 		if [[ -d "$src_dir/$category" ]]; then
 			has_categories=true
 			break
@@ -90,7 +92,7 @@ fct_compile_assets() {
 
 	if [[ "$has_categories" == true ]]; then
 		# Compile from category subdirectories
-		for category in meta pa-sdlc specs utils; do
+		for category in "${categories[@]}"; do
 			if [[ -d "$src_dir/$category" ]]; then
 				cp -r "$src_dir/$category/"* "$compile_dir/" 2>/dev/null || true
 			fi

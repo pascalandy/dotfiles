@@ -102,7 +102,7 @@ Extremely rare. `execute_plan` at `scripts/distill.py:1097-1107` handles this by
 `resolve_prompt` at `scripts/distill.py:480-496` fails with `EXIT_PROMPT_NOT_FOUND = 4` if the computed kebab-case folder under `distill-prompt/references/` does not contain a `prompt.md`. Three common causes:
 
 1. Typo in the stem: underscores and hyphens are interchangeable, but spelling is not. Run `--list-prompts` to see the exact set.
-2. A new prompt was added under `dot_config/ai_templates/skills/pa-sdlc/distill-prompt/` but `chezmoi apply` has not been run yet, so the fanned-out copy at `~/.claude/skills/distill-prompt/` is missing it.
+2. A new prompt was added under `dot_config/ai_templates/skills/distill/distill-prompt/` but `chezmoi apply` has not been run yet, so the fanned-out copy at `~/.claude/skills/distill-prompt/` is missing it.
 3. The prompt folder exists but the `prompt.md` file inside is missing or was renamed.
 
 ### Input file is not valid UTF-8

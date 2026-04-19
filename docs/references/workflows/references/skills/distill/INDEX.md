@@ -15,11 +15,11 @@ date_updated: 2026-04-18
 # distill
 
 <scope>
-Load this wiki when the task involves running, extending, or debugging the `distill` skill under `dot_config/ai_templates/skills/pa-sdlc/distill/`, or when deciding whether distill is the right tool for a content-processing job.
+Load this wiki when the task involves running, extending, or debugging the `distill` skill under `dot_config/ai_templates/skills/distill/distill/`, or when deciding whether distill is the right tool for a content-processing job.
 
 `distill` is a self-contained Python CLI that takes a local text file, looks up a named prompt in the sibling `distill-prompt` library, runs the prompt against one of three LLM providers (`claude`, `codex`, `opencode`), and writes the distilled output to a timestamped run folder alongside the original input. It exists so that distilling a document is one command, not a workflow. For day-to-day invocation — flag tables, examples, and defaults — read the skill's own `help.md` via `distill.py --help`; this wiki captures the mental model, the design decisions, and the failure modes that do not belong in `--help`.
 
-Source of truth: `dot_config/ai_templates/skills/pa-sdlc/distill/scripts/distill.py`. The wiki is a narrative layer that points back at that file with specific line numbers. Every claim in the reference pages is grounded in the source so the wiki stays useful as the script evolves.
+Source of truth: `dot_config/ai_templates/skills/distill/distill/scripts/distill.py`. The wiki is a narrative layer that points back at that file with specific line numbers. Every claim in the reference pages is grounded in the source so the wiki stays useful as the script evolves.
 </scope>
 
 <workflow>
@@ -30,14 +30,14 @@ Source of truth: `dot_config/ai_templates/skills/pa-sdlc/distill/scripts/distill
    - adding or resolving a distill prompt → [prompts-library.md](references/prompts-library.md)
    - an invocation is failing and the error is not self-explanatory → [troubleshooting.md](references/troubleshooting.md)
 
-2. Never edit `~/.claude/skills/distill/` or any other agent home copy. The authoritative path is `dot_config/ai_templates/skills/pa-sdlc/distill/` and everything else is a fan-out target rewritten on every `chezmoi apply`. See [[how-ai-templates-are-distributed]].
+2. Never edit `~/.claude/skills/distill/` or any other agent home copy. The authoritative path is `dot_config/ai_templates/skills/distill/distill/` and everything else is a fan-out target rewritten on every `chezmoi apply`. See [[how-ai-templates-are-distributed]].
 
 3. `distill.py` is a pure CLI — no config file, no hidden state. Everything is either a flag, an input file, or a constant at the top of the source. When behavior surprises you, the answer is almost always in the first 130 lines of the script.
 </workflow>
 
 <checklist>
 Before finishing any change that touches distill:
-- the edit was made under `dot_config/ai_templates/skills/pa-sdlc/distill/`, not under an agent home
+- the edit was made under `dot_config/ai_templates/skills/distill/distill/`, not under an agent home
 - if a constant changed (defaults, models, effort ETL), `help.md` and this wiki were updated in the same commit
 - the test suite under `scripts/tests/test_distill.py` still passes: `uv run --with pytest pytest scripts/tests/test_distill.py -x -q`
 - a `--dry-run` invocation still prints the expected plan and artifact names
