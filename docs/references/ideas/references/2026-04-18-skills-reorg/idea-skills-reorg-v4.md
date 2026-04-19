@@ -8,13 +8,15 @@ v4 rescans `dot_config/ai_templates/skills/` against v3 and closes the audit loo
 - ( ) are comment reserved for Pascal
 - (.) are comments added by this v4 audit pass
 
-Scan scope: `fd SKILL.md` under `dot_config/ai_templates/skills/` → **54 SKILL.md files** across 4 physical buckets (`pa-sdlc/`, `meta/`, `specs/`, `utils/`). v3 maps **54 skills** across 10 logical buckets. Counts match 1:1.
+Scan scope: `fd SKILL.md` under `dot_config/ai_templates/skills/` → **54 SKILL.md files** across 4 physical buckets (`pa-sdlc/`, `meta/`, `specs/`, `utils/`). v4 maps **54 skills** across 8 logical buckets. Counts match 1:1.
+
+Bucket order below follows a workflow arc: lifecycle spine → code-adjacent tooling → reasoning → memory → external research → transformation → visualization → creative output.
 
 ## SLL (Skill Logical Layout)
 
 dot_config/ai_templates/skills/###{title}
 
-### pa-sdlc
+### pa-sdlc/
 - pa-idea (entrypoint) (. currently pa-sdlc/pa-idea — stay)
 - pa-scout (. currently pa-sdlc/pa-scout — stay)
 - pa-scope (. currently pa-sdlc/pa-scope — stay)
@@ -37,7 +39,13 @@ dot_config/ai_templates/skills/###{title}
 - changelog (. currently specs/changelog — MOVE)
 - commit (. currently utils/commit — MOVE)
 - delegate-to-sub (. currently pa-sdlc/delegate-to-sub — MOVE)
-- beads (. currently utils/beads — MOVE) 
+- beads (. currently utils/beads — MOVE)
+
+### think/
+- thinking (by daniel) (. currently meta/thinking — MOVE)
+- council-five-v1 (. currently specs/council-five-v1 — MOVE)
+- council-five-v2 (. currently specs/council-five-v2 — MOVE)
+- game-theory (. currently meta/game-theory — MOVE)
 
 ### knowledge/
 - wiki-map (. currently pa-sdlc/wiki-map — MOVE)
@@ -50,10 +58,6 @@ dot_config/ai_templates/skills/###{title}
 - map-filesystem-abstract (. currently utils/map-filesystem-abstract — MOVE)
 - cass (. currently utils/cass — MOVE)
 
-### diagram/
-- mermaid (. currently utils/mermaid — MOVE)
-- plantuml-ascii (. currently utils/plantuml-ascii — MOVE)
-
 ### web/
 - agent-browser (. currently utils/agent-browser — MOVE)
 - browser-use (. currently utils/browser-use — MOVE)
@@ -63,12 +67,6 @@ dot_config/ai_templates/skills/###{title}
 - investigation (. currently meta/investigation — MOVE)
 - trello (. currently utils/trello — MOVE)
 
-### think/
-- thinking (by daniel) (. currently meta/thinking — MOVE)
-- council-five-v1 (. currently specs/council-five-v1 — MOVE)
-- council-five-v2 (. currently specs/council-five-v2 — MOVE)
-- game-theory (. currently meta/game-theory — MOVE)
-
 ### distill/
 - distill (. currently pa-sdlc/distill — MOVE)
 - distill-prompt (. currently pa-sdlc/distill-prompt — MOVE; META-SKILL with ROUTER.md + references/{extract-wisdom,follow-along-note,short-summary,summary-with-quotes})
@@ -76,6 +74,10 @@ dot_config/ai_templates/skills/###{title}
 - simple-editor (. currently utils/simple-editor — MOVE)
 - transcript-sk (. currently utils/transcript-sk — MOVE)
 - liteparse (. currently meta/liteparse — MOVE)
+
+### diagram/
+- mermaid (. currently utils/mermaid — MOVE)
+- plantuml-ascii (. currently utils/plantuml-ascii — MOVE)
 
 ### media/
 - creative (. currently meta/creative — MOVE)
@@ -114,9 +116,10 @@ n/a
 ## stats
 
 - SKILL.md on disk: **54**
-- Skills mapped in v3: **54**
-- Drift: **0** (no orphans on disk, no phantom entries in v3)
+- Skills mapped in v4: **54**
+- Drift: **0** (no orphans on disk, no phantom entries in v4)
 - Meta-skills flagged: **2** (`headless`, `distill-prompt`) — both stay intact under their target bucket
 - Physical buckets today: 4 (`pa-sdlc/`, `meta/`, `specs/`, `utils/`)
-- Physical buckets after reorg: 10
+- Physical buckets after reorg: **8** (`pa-sdlc/`, `devtools/`, `think/`, `knowledge/`, `web/`, `distill/`, `diagram/`, `media/`)
+- Per-bucket counts: pa-sdlc 9 · devtools 12 · think 4 · knowledge 9 · web 7 · distill 6 · diagram 2 · media 5
 - Moves required: **45** (9 pa-sdlc skills stay, 45 skills move to a new bucket)
