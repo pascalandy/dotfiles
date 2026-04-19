@@ -1,1 +1,0 @@
-The Superpowers workflow documents a harness-agnostic meta-skill entry that routes 13 lifecycle specialists through priority-driven router tables linking user trigger phrases to references/<skill>/MetaSkill.md resources.
