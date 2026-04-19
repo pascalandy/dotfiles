@@ -29,6 +29,7 @@ henoc.svgeditor
 jkjustjoshing.vscode-text-pastry
 jvalecillos.gpg
 kevinrose.vsc-python-indent
+marp-team.marp-vscode
 mdickin.markdown-shortcuts
 mechatroner.rainbow-csv
 mermaidchart.vscode-mermaid-chart
