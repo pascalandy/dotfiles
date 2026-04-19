@@ -14,7 +14,7 @@ Scan scope: `fd SKILL.md` under `dot_config/ai_templates/skills/` → **54 SKILL
 
 dot_config/ai_templates/skills/###{title}
 
-### pa-sdlc/
+### pa-sdlc
 - pa-idea (entrypoint) (. currently pa-sdlc/pa-idea — stay)
 - pa-scout (. currently pa-sdlc/pa-scout — stay)
 - pa-scope (. currently pa-sdlc/pa-scope — stay)
@@ -37,6 +37,7 @@ dot_config/ai_templates/skills/###{title}
 - changelog (. currently specs/changelog — MOVE)
 - commit (. currently utils/commit — MOVE)
 - delegate-to-sub (. currently pa-sdlc/delegate-to-sub — MOVE)
+- beads (. currently utils/beads — MOVE) 
 
 ### knowledge/
 - wiki-map (. currently pa-sdlc/wiki-map — MOVE)
@@ -60,14 +61,7 @@ dot_config/ai_templates/skills/###{title}
 - defuddle (. currently utils/defuddle — MOVE)
 - last30days (. currently utils/last30days — MOVE)
 - investigation (. currently meta/investigation — MOVE)
-
-### doc/
-- liteparse (. currently meta/liteparse — MOVE)
-
-### ext-int/
-- beads (. currently utils/beads — MOVE)
 - trello (. currently utils/trello — MOVE)
-- voxtral (. currently utils/voxtral — MOVE)
 
 ### think/
 - thinking (by daniel) (. currently meta/thinking — MOVE)
@@ -81,12 +75,14 @@ dot_config/ai_templates/skills/###{title}
 - writer-sk (. currently utils/writer-sk — MOVE)
 - simple-editor (. currently utils/simple-editor — MOVE)
 - transcript-sk (. currently utils/transcript-sk — MOVE)
+- liteparse (. currently meta/liteparse — MOVE)
 
 ### media/
 - creative (. currently meta/creative — MOVE)
 - marketing (. currently meta/marketing — MOVE)
 - color-palette (. currently specs/color-palette — MOVE)
 - nano-banana-sk (. currently utils/nano-banana-sk — MOVE)
+- voxtral (. currently utils/voxtral — MOVE)
 
 ---
 
