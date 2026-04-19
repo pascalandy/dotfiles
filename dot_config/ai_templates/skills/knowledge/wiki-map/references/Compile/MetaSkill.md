@@ -35,7 +35,7 @@ The wiki's own pages are the mine. Lint's latest report is the compass.
 
 ## Workflow Routing
 
-- Full compile pass (gate -> survey -> mine -> plan -> write) -> `workflows/CompileWiki.md`
+- Full compile pass (orient -> gate -> survey -> mine -> plan -> write) -> `workflows/CompileWiki.md`
 
 Only one workflow today. A read-only `Survey.md` variant may be added later if the approval gate proves useful to run in isolation.
 

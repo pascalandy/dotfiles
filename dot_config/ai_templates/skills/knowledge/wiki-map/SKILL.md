@@ -45,7 +45,7 @@ Four operations make this work:
 3. **Lint** -- health-check the wiki for contradictions, provenance gaps, INDEX drift, orphan pages, stale content, weak cross-references, and schema violations.
 4. **Compile** -- answer "is the wiki complete?" by mining existing pages for repeatedly-referenced entities that lack their own page, then creating those pages and back-editing siblings under an approval gate. Requires a recent Lint report.
 
-The collection `SKILL.md` loads `references/ROUTER.md`, which routes to the right operation based on keyword matching. Each operation has its own `SKILL.md`, workflows, and conventions, but all of them share one canonical schema in `references/SCHEMA.md`.
+The collection `SKILL.md` loads `references/ROUTER.md`, which routes to the right operation based on keyword matching. Each operation has its own `MetaSkill.md`, workflows, and conventions, but all of them share one canonical schema in `references/SCHEMA.md`.
 
 ---
 
