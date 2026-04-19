@@ -23,7 +23,7 @@ dot_config/ai_templates/skills/###{title}
 - pa-doc-update
 - pa-doc-cleaner
 
-### dev-tooling/
+### devtools/
 - coding-standard
 - coding-language
 - pseudocode
@@ -88,28 +88,18 @@ dot_config/ai_templates/skills/###{title}
 
 ---
 
-### unknown/
+## unknown
 
+placeholder
 
-- `shorthand-interpreter` → directory is empty (. confirmed empty scaffold — delete or finish)
-- `mermaid-og` → already deleted from disk on 2026-04-18 (. v2 entry is stale)
-- `office-docs` → no folder exists yet (. v2 marked it draft; confirm intent — create or drop)
+---
 
 ## Q&A
 
-1. `commit` and `delegate-to-sub` were missing from v2 entirely. Do you want them under `dev-tooling/`, or do they belong elsewhere (e.g. `commit` next to `changelog` in a future `release/` bucket, `delegate-to-sub` in `system/`)?
-2. `changelog` is listed in v2 as a child of `pa-doc-update`, but on disk it lives at `specs/changelog/`. Do you want it nested under `pa-doc-update/` physically, or kept standalone and only logically grouped?
-3. Should `mermaid-og` simply be removed from the v3 layout now that the directory is gone, or do you want to keep a placeholder line as a reminder?
-4. `office-docs` — keep as a planned slot, or drop until the skill actually exists?
-5. For `cm` and `shorthand-interpreter`: delete the scaffolds, or are these planned skills you want to revive?
-6. The current physical layout uses 4 top-level buckets (`pa-sdlc/`, `meta/`, `specs/`, `utils/`), while v2 proposes 13 logical buckets. Is v3 still a *logical* map (no physical move) or do you want the layout section to also describe the planned physical reorg?
-
+- Q) The current physical layout uses 4 top-level buckets (`pa-sdlc/`, `meta/`, `specs/`, `utils/`), while v2 proposes 13 logical buckets. Is v3 still a *logical* map (no physical move) or do you want the layout section to also describe the planned physical reorg?
+- A) physical reorg
 ---
 
 ## stats
 
-- Real skills on disk: 56 (54 with `SKILL.md` or content + 2 scaffolds: `cm`, `shorthand-interpreter`)
-- v2 entries that no longer exist on disk: 2 (`mermaid-og`, `office-docs`)
-- Skills on disk missing from v2: 2 (`commit`, `delegate-to-sub`)
-- WIP stubs flagged: 2 (`cm`, `shorthand-interpreter`)
-- Top-level buckets: 13 (entrypoint, dev, knowledge, web, system, harness, doc, integrations, think, diagram, distill, media) — 12 plus `dev` has two subfolders
+tbd
