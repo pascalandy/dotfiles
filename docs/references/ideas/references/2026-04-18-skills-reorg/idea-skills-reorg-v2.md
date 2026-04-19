@@ -2,12 +2,14 @@
 
 ## Goal
 
-rescans `dot_config/ai_templates/skills/` and closes gaps where v1 drifted: skills added since v1 are mapped, skills that no longer exist are removed, and WIP stubs are flagged.
+rescans `dot_config/ai_templates/skills/` and closes gaps where v2 drifted: skills added since v1 are mapped, skills that no longer exist are removed, and WIP stubs are flagged.
 
 - `0o0o` are flags for Pascal, he need to improve them
 - ( ) are comment reserved for Pascal
 
 ## SLL (Skill Logical Layout)
+
+dot_config/ai_templates/skills/###{title}
 
 ### pa-sdlc/
 - pa-idea (entrypoint)
@@ -86,13 +88,17 @@ rescans `dot_config/ai_templates/skills/` and closes gaps where v1 drifted: skil
 
 ---
 
-## Open questions (decide before architect phase)
+### unknown/
 
 `cm`, `shorthand-interpreter` get deleted, finished, or left as scaffolds?
 
+## Q&A
+
+tbd
+
 ---
 
-## Counts
+## stats
 
 - Real skills mapped: 59
 - WIP stubs excluded: 3
