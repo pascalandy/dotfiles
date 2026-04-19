@@ -1,6 +1,6 @@
 ---
 name: Log
-description: Append-only operational log for Workflows Wiki
+description: Append-only operational log for Skills Wiki
 tags:
   - area/ea
   - kind/log
@@ -11,6 +11,7 @@ date_updated: 2026-04-18
 
 # Log
 
+- [[2026-04-18]] rename | category-move | Renamed `docs/references/workflows/` → `docs/references/skills/` to match the source-tree category name (`dot_config/ai_templates/skills/`) and organize the tree by the 8 workflow-arc buckets (`pa-sdlc`, `devtools`, `think`, `knowledge`, `web`, `distill`, `diagram`, `media`) landed in commit `2e4db5f`. The previous "workflows" framing conflated the `pa-sdlc` lifecycle narrative with a standalone skill wiki (`distill`) that is not a workflow. Mechanics: `git mv workflows skills`, then `git mv skills/references/skills/distill skills/references/distill/distill` to nest under its bucket. Top-level INDEX rewritten as a per-bucket catalog; new bucket INDEX at `references/distill/INDEX.md` routes to the distill skill wiki.
 - [[2026-04-18]] lint | recursive update | refreshed local index and direct child wiki routes
 - [[2026-04-11]] create | wiki | Wiki map created. One wiki scaffolded under references/.
 - [[2026-04-11]] ingest | pa-sdlc | Created [[pa-sdlc]] (9 pages) by absorbing `docs/about-pa-sdlc.md` into the new wiki INDEX and expanding each stage into its own reference page. Source material pulled from `dot_config/ai_templates/skills/pa-sdlc/{pa-scout,pa-scope,pa-vision,pa-architect,pa-implement,pa-doc-update,pa-doc-cleaner,pa-advisor}/SKILL.md`. Expanded from four stages in the original brainstorm to all eight skills currently present.
