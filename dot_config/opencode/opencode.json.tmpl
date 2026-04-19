@@ -200,7 +200,18 @@
         }
       }
     },
-    // GLM variants
+    "worker1": {
+      "description": "MiniMax 2.7",
+      "disable": false,
+      "mode": "subagent",
+      "model": "openrouter/minimax/minimax-m2.7",
+      "temperature": 0.2,
+      "permission": {
+        "write": "allow",
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
     "worker2": {
       "description": "GLM 5",
       "disable": false,
