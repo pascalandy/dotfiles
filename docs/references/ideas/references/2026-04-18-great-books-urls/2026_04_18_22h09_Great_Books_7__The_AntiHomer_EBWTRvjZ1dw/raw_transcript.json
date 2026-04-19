@@ -1,0 +1,2734 @@
+[
+  {
+    "sentences": [
+      {
+        "text": "We've read the Iliad and the Odyssey.",
+        "start": 0.16,
+        "end": 4.88
+      },
+      {
+        "text": "So Homer becomes the basis for Greek civilization, meaning that all educated Greeks, they memorize the Iliad and the Odyssey.",
+        "start": 5.12,
+        "end": 18.535
+      },
+      {
+        "text": "They don't they don't read read and write now at at at this point.",
+        "start": 18.775,
+        "end": 22.215
+      },
+      {
+        "text": "They speak and they listen in front of, an audience.",
+        "start": 22.215,
+        "end": 27.335
+      },
+      {
+        "text": "And so Homer becomes basically the infrastructure of their mental worldview, and, this leads to the greater civilization in human history.",
+        "start": 28.4,
+        "end": 43.28
+      }
+    ],
+    "num_words": 72,
+    "start": 0.16,
+    "end": 43.28
+  },
+  {
+    "sentences": [
+      {
+        "text": "But, eventually, the Romans will conquer the Greeks.",
+        "start": 44.385002,
+        "end": 48.705
+      },
+      {
+        "text": "The Romans will conquer the entire Mediterranean, and they will, create the Roman Empire.",
+        "start": 48.705,
+        "end": 54.705
+      },
+      {
+        "text": "The Romans are nothing like the Greeks.",
+        "start": 55.425,
+        "end": 58.065002
+      },
+      {
+        "text": "The Greeks are very open, very curious.",
+        "start": 58.17,
+        "end": 62.969997
+      },
+      {
+        "text": "They believe in the idea of Eritre.",
+        "start": 63.37,
+        "end": 66.009995
+      }
+    ],
+    "num_words": 43,
+    "start": 44.385002,
+    "end": 66.009995
+  },
+  {
+    "sentences": [
+      {
+        "text": "Sorry.",
+        "start": 66.17,
+        "end": 66.89
+      },
+      {
+        "text": "Eritre and eudaimonia.",
+        "start": 68.97,
+        "end": 72.25
+      },
+      {
+        "text": "Eudaimonia means excellence, to be the best at what you can.",
+        "start": 75.155,
+        "end": 82.274994
+      },
+      {
+        "text": "Eudaimonia means flourishing.",
+        "start": 82.595,
+        "end": 85.075
+      },
+      {
+        "text": "You can only achieve human happiness if you achieve your.",
+        "start": 85.235,
+        "end": 89.96
+      }
+    ],
+    "num_words": 28,
+    "start": 66.17,
+    "end": 89.96
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 91.079994,
+        "end": 91.56
+      },
+      {
+        "text": "You become your.",
+        "start": 91.56,
+        "end": 92.84
+      },
+      {
+        "text": "So think of Odysseus, who was great speaker.",
+        "start": 93.399994,
+        "end": 96.28
+      },
+      {
+        "text": "That is his.",
+        "start": 96.439995,
+        "end": 97.32
+      },
+      {
+        "text": "And he uses his speech in order to fulfill his destiny and to save his family.",
+        "start": 98.67999,
+        "end": 105.985
+      }
+    ],
+    "num_words": 31,
+    "start": 91.079994,
+    "end": 105.985
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 105.985,
+        "end": 106.305
+      },
+      {
+        "text": "And that achieves eudaimonia.",
+        "start": 106.305,
+        "end": 108.145
+      },
+      {
+        "text": "The Romans are very different.",
+        "start": 108.545,
+        "end": 110.305
+      },
+      {
+        "text": "The Romans believed in the idea of piety.",
+        "start": 110.384995,
+        "end": 112.865
+      },
+      {
+        "text": "Okay.",
+        "start": 115.93,
+        "end": 116.33
+      }
+    ],
+    "num_words": 19,
+    "start": 105.985,
+    "end": 116.33
+  },
+  {
+    "sentences": [
+      {
+        "text": "And piety just means obedience to your fathers, to history, and to tradition.",
+        "start": 116.33,
+        "end": 124.01
+      },
+      {
+        "text": "And so the Romans are extremely conservative people, but they're very good at fighting wars, and that's why they become the empire.",
+        "start": 124.57,
+        "end": 134.66501
+      },
+      {
+        "text": "But after the empire is established, what the Romans recognize is that Greek culture is vastly superior, and many well educated Romans begin to drift towards Greek culture, which in the Roman perspective leads to the corruption of the Roman soul.",
+        "start": 136.025,
+        "end": 155.59999
+      },
+      {
+        "text": "And so Augustus Caesar, who is really considered the first emperor of Rome, he recognizes that in the long term, even though the Romans have conquered the Greeks physically, spiritually, the Greeks will conquer the the Romans.",
+        "start": 156.535,
+        "end": 178.01
+      },
+      {
+        "text": "And the main issue is Homer.",
+        "start": 178.01,
+        "end": 180.09
+      }
+    ],
+    "num_words": 119,
+    "start": 116.33,
+    "end": 180.09
+  },
+  {
+    "sentences": [
+      {
+        "text": "So his solution is to destroy Homer.",
+        "start": 180.81,
+        "end": 185.12999
+      },
+      {
+        "text": "You can't burn books because, there aren't there aren't that many books, and, also, people have memorized Homer.",
+        "start": 185.585,
+        "end": 192.30501
+      },
+      {
+        "text": "So you need to corrupt Homer.",
+        "start": 192.625,
+        "end": 195.18501
+      },
+      {
+        "text": "And the solution that he devises is called the Iniad.",
+        "start": 195.585,
+        "end": 200.225
+      },
+      {
+        "text": "And we can consider the Ineod as the anti Homer, okay, or the inversion of Homer.",
+        "start": 206.29999,
+        "end": 213.01999
+      }
+    ],
+    "num_words": 57,
+    "start": 180.81,
+    "end": 213.01999
+  },
+  {
+    "sentences": [
+      {
+        "text": "Taking the ideas of Homer and inverting them.",
+        "start": 213.01999,
+        "end": 215.57999
+      },
+      {
+        "text": "Okay?",
+        "start": 216.845,
+        "end": 217.48502
+      },
+      {
+        "text": "So, this becomes the bible of Roman Empire, meaning that if you're a schoolboy, you have to memorize the Iliad, and this is the main way that you learn Latin, the official language of the, Roman Empire.",
+        "start": 217.645,
+        "end": 235.56
+      },
+      {
+        "text": "And so whereas Homer will give us Greek civilization and the birth of Western civilization, the Ennead will create the dark ages, about a thousand years when Western creativity, ends.",
+        "start": 236.12,
+        "end": 251.255
+      },
+      {
+        "text": "And then someone will emerge who will recognize the evil that is the Ennead, and he will create a an adult to the poison that is the Ennead.",
+        "start": 252.615,
+        "end": 264.48
+      }
+    ],
+    "num_words": 104,
+    "start": 213.01999,
+    "end": 264.48
+  },
+  {
+    "sentences": [
+      {
+        "text": "And this person, of course, is called Dante.",
+        "start": 264.48,
+        "end": 266.88
+      },
+      {
+        "text": "Okay?",
+        "start": 267.36002,
+        "end": 268.0
+      },
+      {
+        "text": "And so what we'll do is we will read the Ennead for the next two weeks and understand how it poisons and corrupts Homer, and then this will lead us to the divine comedy, which is really the liberation of the human soul from the poison that is the Enniot.",
+        "start": 269.28,
+        "end": 286.145
+      },
+      {
+        "text": "Okay?",
+        "start": 286.225,
+        "end": 286.785
+      },
+      {
+        "text": "Alright.",
+        "start": 286.785,
+        "end": 287.10498
+      }
+    ],
+    "num_words": 61,
+    "start": 264.48,
+    "end": 287.10498
+  },
+  {
+    "sentences": [
+      {
+        "text": "So, some basic background about the Inliad.",
+        "start": 287.73,
+        "end": 291.25
+      },
+      {
+        "text": "So the Inliad, what it does is it replicates both the Odyssey and the Iliad.",
+        "start": 291.49,
+        "end": 298.13
+      },
+      {
+        "text": "The Inliad is twelve, It's twenty four books.",
+        "start": 298.61,
+        "end": 300.925
+      },
+      {
+        "text": "The first twelve books models of the Odyssey.",
+        "start": 300.925,
+        "end": 303.805
+      },
+      {
+        "text": "The last twelve books models of the Iliad.",
+        "start": 304.125,
+        "end": 307.005
+      }
+    ],
+    "num_words": 46,
+    "start": 287.73,
+    "end": 307.005
+  },
+  {
+    "sentences": [
+      {
+        "text": "So, the the story begins when Aeneas, he, is one of the survivors of the fall of Troy.",
+        "start": 307.16498,
+        "end": 316.04
+      },
+      {
+        "text": "Okay?",
+        "start": 316.36,
+        "end": 317.0
+      },
+      {
+        "text": "And so he takes his father and his child to go off to the Italian peninsula because the gods have told him that he he is fated.",
+        "start": 317.4,
+        "end": 326.28
+      },
+      {
+        "text": "He is destined to found the Roman Empire, and that's why the gods had to destroy Troy in order to create the Roman Empire.",
+        "start": 326.36,
+        "end": 333.215
+      },
+      {
+        "text": "But as he, sails to in Italian Peninsula, there's a shipwreck, and he lands in Carthage.",
+        "start": 333.695,
+        "end": 340.575
+      }
+    ],
+    "num_words": 86,
+    "start": 307.16498,
+    "end": 340.575
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 340.655,
+        "end": 341.375
+      },
+      {
+        "text": "Carthage.",
+        "start": 341.855,
+        "end": 342.575
+      },
+      {
+        "text": "And there he meets the queen Diddle.",
+        "start": 343.61,
+        "end": 345.85
+      },
+      {
+        "text": "And the Carthaginians and Diddle are extremely hospitable to Aeneas.",
+        "start": 346.97,
+        "end": 352.41
+      },
+      {
+        "text": "And so they have this huge banquet, and Aeneas is telling her of the story of the fall of Troy, how Troy fell.",
+        "start": 352.88998,
+        "end": 361.865
+      }
+    ],
+    "num_words": 42,
+    "start": 340.655,
+    "end": 361.865
+  },
+  {
+    "sentences": [
+      {
+        "text": "Remember remember that Homer doesn't actually discuss the fall of Troy, but Aeneas will discuss the fall of Troy.",
+        "start": 361.865,
+        "end": 368.265
+      },
+      {
+        "text": "And by discussing the fall of Troy, his main purpose is to show how stupidest, manipulative, deceptive the Greeks are.",
+        "start": 368.505,
+        "end": 377.85
+      },
+      {
+        "text": "K?",
+        "start": 378.00998,
+        "end": 378.73
+      },
+      {
+        "text": "He's he's also going to tell us why the values of Homer are evil, why love is evil, why love will lead you into tragedy.",
+        "start": 378.81,
+        "end": 394.515
+      },
+      {
+        "text": "And then by telling the story, what will happen is that, Aeneas will seduce Diddle.",
+        "start": 395.07498,
+        "end": 402.035
+      }
+    ],
+    "num_words": 80,
+    "start": 361.865,
+    "end": 402.035
+  },
+  {
+    "sentences": [
+      {
+        "text": "Dido will fall in love with him, not because not only is he brave and handsome, but he's also a great poet.",
+        "start": 402.48,
+        "end": 409.2
+      },
+      {
+        "text": "He's able to tell the story in a beautiful manner.",
+        "start": 409.2,
+        "end": 412.24002
+      },
+      {
+        "text": "And so they fall in love.",
+        "start": 412.24002,
+        "end": 414.56
+      },
+      {
+        "text": "Okay?",
+        "start": 414.56,
+        "end": 414.80002
+      },
+      {
+        "text": "Alright.",
+        "start": 415.065,
+        "end": 415.625
+      }
+    ],
+    "num_words": 40,
+    "start": 402.48,
+    "end": 415.625
+  },
+  {
+    "sentences": [
+      {
+        "text": "So this is the beginning of the in in in the the ad.",
+        "start": 415.625,
+        "end": 420.745
+      },
+      {
+        "text": "And so what what what we're gonna read first is in this story of the fall of Troy.",
+        "start": 420.745,
+        "end": 426.505
+      },
+      {
+        "text": "It begins when the Greeks pretend to leave the beaches of Troy, and they leave behind a wooden horse.",
+        "start": 426.505,
+        "end": 433.88
+      },
+      {
+        "text": "Okay?",
+        "start": 433.96,
+        "end": 434.6
+      },
+      {
+        "text": "And there's a huge debate among the Trojans as to what to do with this horse.",
+        "start": 434.68,
+        "end": 440.76
+      }
+    ],
+    "num_words": 67,
+    "start": 415.625,
+    "end": 440.76
+  },
+  {
+    "sentences": [
+      {
+        "text": "And they decide, basically, you know, we can't take a risk.",
+        "start": 441.24,
+        "end": 445.16
+      },
+      {
+        "text": "Let's just destroy this horse for for into the sea.",
+        "start": 445.16,
+        "end": 449.825
+      },
+      {
+        "text": "And then what happens is that a Greek soldier emerges, and he's a prisoner.",
+        "start": 450.14502,
+        "end": 455.02502
+      },
+      {
+        "text": "He's he was caught by some shepherds, and he tells a story of the Trojan horse and why it's really not a threat to the Trojans.",
+        "start": 455.02502,
+        "end": 463.55002
+      },
+      {
+        "text": "In fact, it's a gift from the Greeks to the gods.",
+        "start": 463.55002,
+        "end": 466.51
+      }
+    ],
+    "num_words": 72,
+    "start": 441.24,
+    "end": 466.51
+  },
+  {
+    "sentences": [
+      {
+        "text": "So because it's a gift to the gods, you cannot destroy it because then you piss off the gods.",
+        "start": 466.75,
+        "end": 472.43
+      },
+      {
+        "text": "Okay?",
+        "start": 473.035,
+        "end": 473.67502
+      },
+      {
+        "text": "And what this is gonna show us is that the Greek culture, philosophy, theater, rhetoric, it's all one of deception.",
+        "start": 473.83502,
+        "end": 484.87503
+      },
+      {
+        "text": "The real children of horse is Greek culture.",
+        "start": 484.95502,
+        "end": 488.85
+      },
+      {
+        "text": "You cannot let Greek culture into Rome because then it will corrupt and poison the empire from within.",
+        "start": 489.17,
+        "end": 497.17
+      }
+    ],
+    "num_words": 66,
+    "start": 466.75,
+    "end": 497.17
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 497.17,
+        "end": 497.57
+      },
+      {
+        "text": "So that that so, again, this is propaganda.",
+        "start": 497.57,
+        "end": 500.22498
+      },
+      {
+        "text": "So it's very blatant what they're doing.",
+        "start": 500.22498,
+        "end": 501.985
+      },
+      {
+        "text": "Okay?",
+        "start": 501.985,
+        "end": 502.305
+      },
+      {
+        "text": "It's very blatant what Virgil, is doing.",
+        "start": 502.305,
+        "end": 505.585
+      }
+    ],
+    "num_words": 24,
+    "start": 497.17,
+    "end": 505.585
+  },
+  {
+    "sentences": [
+      {
+        "text": "And okay.",
+        "start": 505.745,
+        "end": 506.78497
+      },
+      {
+        "text": "Something I I need to explain is, like, Virgil is considered the poet who composed this, Ennead.",
+        "start": 506.78497,
+        "end": 515.68
+      },
+      {
+        "text": "It was actually Augustus Caesar who wrote this.",
+        "start": 515.68,
+        "end": 518.07996
+      },
+      {
+        "text": "Basically, Augustus Caesar was the one who provided Virgil with a framework, and then Virgil composed it into Latin poetry.",
+        "start": 518.07996,
+        "end": 527.36
+      },
+      {
+        "text": "And, actually, at the end of his life, Virgil actually wanna burn this down.",
+        "start": 528.755,
+        "end": 535.23505
+      }
+    ],
+    "num_words": 61,
+    "start": 505.745,
+    "end": 535.23505
+  },
+  {
+    "sentences": [
+      {
+        "text": "Burn this.",
+        "start": 535.315,
+        "end": 536.195
+      },
+      {
+        "text": "And the reason why is that if you're a poet, what you believe is that your gift comes from the gods, and so you represent the gods.",
+        "start": 536.35504,
+        "end": 543.715
+      },
+      {
+        "text": "But if you actually work for the empire, if you actually use your gift for the emperor, then maybe the gods will punish you.",
+        "start": 544.01,
+        "end": 552.65
+      },
+      {
+        "text": "Right?",
+        "start": 553.13,
+        "end": 553.61
+      },
+      {
+        "text": "So Virgil Virgil was very much afraid and wanted to, like, burn the Inyad, but Augustus Caesar would not let him.",
+        "start": 553.61,
+        "end": 562.745
+      }
+    ],
+    "num_words": 75,
+    "start": 535.315,
+    "end": 562.745
+  },
+  {
+    "sentences": [
+      {
+        "text": "And so this became the bible of the Roman empire.",
+        "start": 563.065,
+        "end": 566.345
+      },
+      {
+        "text": "It is a evil, evil piece of work.",
+        "start": 566.345,
+        "end": 570.505
+      },
+      {
+        "text": "Okay?",
+        "start": 570.505,
+        "end": 571.065
+      },
+      {
+        "text": "And it is the anti Homer.",
+        "start": 571.305,
+        "end": 572.985
+      },
+      {
+        "text": "So we're gonna study it because it's in a shape western civilization throughout the Middle Ages until the coming of Dante.",
+        "start": 573.145,
+        "end": 581.43
+      }
+    ],
+    "num_words": 46,
+    "start": 563.065,
+    "end": 581.43
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 581.43,
+        "end": 581.59
+      },
+      {
+        "text": "So alright.",
+        "start": 581.59,
+        "end": 582.15
+      },
+      {
+        "text": "So, Ivory, can you read, please?",
+        "start": 582.15,
+        "end": 583.99
+      },
+      {
+        "text": "Yeah.",
+        "start": 584.15,
+        "end": 584.87
+      },
+      {
+        "text": "Suddenly, in the thick of it all, a young soldier, hands shackled behind his back, with shouting Trojan shepherds were hauling him toward the king.",
+        "start": 585.19,
+        "end": 593.335
+      }
+    ],
+    "num_words": 35,
+    "start": 581.43,
+    "end": 593.335
+  },
+  {
+    "sentences": [
+      {
+        "text": "He'd come on demand by chance, a total stranger.",
+        "start": 593.575,
+        "end": 596.455
+      },
+      {
+        "text": "He'd given himself up with one goal in mind, to open Troy to the Greeks and lay her waist.",
+        "start": 596.775,
+        "end": 602.615
+      },
+      {
+        "text": "He trusted to courage, nerved for either end, to weave his lies or face a certain death.",
+        "start": 602.775,
+        "end": 608.14996
+      },
+      {
+        "text": "Young Trojan recruits, keen to have a look, came scurrying up from all sides, crowding round, outdoing each other to make a mockery of the captive.",
+        "start": 608.47,
+        "end": 617.11
+      },
+      {
+        "text": "Now hear the treachery of the Greeks and learn from a single crime the nature of the beast.",
+        "start": 617.67,
+        "end": 623.085
+      }
+    ],
+    "num_words": 89,
+    "start": 593.575,
+    "end": 623.085
+  },
+  {
+    "sentences": [
+      {
+        "text": "Haggard, helpless, there in our midst he stood, all eyes riveting on him now, and turning a wary glance at the lines of of Trojan troops, he groaned and spoke.",
+        "start": 623.325,
+        "end": 633.72504
+      },
+      {
+        "text": "Where can I find some refuge?",
+        "start": 633.965,
+        "end": 635.72504
+      },
+      {
+        "text": "Where on land?",
+        "start": 635.72504,
+        "end": 636.60504
+      },
+      {
+        "text": "On sea?",
+        "start": 636.60504,
+        "end": 637.085
+      },
+      {
+        "text": "What's left for me now?",
+        "start": 637.62,
+        "end": 638.98
+      }
+    ],
+    "num_words": 46,
+    "start": 623.325,
+    "end": 638.98
+  },
+  {
+    "sentences": [
+      {
+        "text": "A man of so much misery.",
+        "start": 639.22,
+        "end": 640.98
+      },
+      {
+        "text": "Nothing among the Greeks.",
+        "start": 641.46,
+        "end": 642.82
+      },
+      {
+        "text": "No place at all.",
+        "start": 642.82,
+        "end": 643.78
+      },
+      {
+        "text": "And worse, I see my Trojan enemies crying for my blood.",
+        "start": 644.18,
+        "end": 647.46
+      },
+      {
+        "text": "His groans convince us, cutting all our show of violence short.",
+        "start": 647.86,
+        "end": 651.3
+      }
+    ],
+    "num_words": 36,
+    "start": 639.22,
+    "end": 651.3
+  },
+  {
+    "sentences": [
+      {
+        "text": "Cutting all our show of violence short.",
+        "start": 649.635,
+        "end": 651.395
+      },
+      {
+        "text": "Okay.",
+        "start": 651.395,
+        "end": 651.715
+      },
+      {
+        "text": "So at this time in history, and this this is about, about thirty BCE, Greek theater is very, very popular.",
+        "start": 651.715,
+        "end": 659.715
+      },
+      {
+        "text": "The Romans love Greek theater, and Greek theater is really, the very paragon of Greek civilization.",
+        "start": 659.955,
+        "end": 667.19
+      },
+      {
+        "text": "And what this is telling us is that, no.",
+        "start": 667.43,
+        "end": 670.15
+      }
+    ],
+    "num_words": 53,
+    "start": 649.635,
+    "end": 670.15
+  },
+  {
+    "sentences": [
+      {
+        "text": "Greek theater is evil.",
+        "start": 670.39,
+        "end": 673.11005
+      },
+      {
+        "text": "It's meant to deceive us.",
+        "start": 673.11005,
+        "end": 674.63
+      },
+      {
+        "text": "Okay?",
+        "start": 674.825,
+        "end": 675.225
+      },
+      {
+        "text": "So this soldier, this Greek soldier, he is trained in theater.",
+        "start": 675.225,
+        "end": 679.545
+      },
+      {
+        "text": "He's trained in philosophy.",
+        "start": 679.545,
+        "end": 681.145
+      }
+    ],
+    "num_words": 25,
+    "start": 670.39,
+    "end": 681.145
+  },
+  {
+    "sentences": [
+      {
+        "text": "He's trained in rhetoric, and he's using all his craft, all his skills in order to ultimately deceive the good but but naive Trojans.",
+        "start": 681.145,
+        "end": 690.81
+      },
+      {
+        "text": "Okay?",
+        "start": 690.81,
+        "end": 691.37
+      },
+      {
+        "text": "Alright.",
+        "start": 691.61,
+        "end": 692.25
+      },
+      {
+        "text": "So he tells a story of how he came to be left behind, in Troy, and the story is that he pissed off Odysseus.",
+        "start": 692.25,
+        "end": 701.68994
+      },
+      {
+        "text": "Odysseus plotted against him.",
+        "start": 701.835,
+        "end": 703.835
+      }
+    ],
+    "num_words": 54,
+    "start": 681.145,
+    "end": 703.835
+  },
+  {
+    "sentences": [
+      {
+        "text": "So so when it came time for the Greeks to leave Troy and sail home, they needed they needed to sacrifice a person, and that person was this guy.",
+        "start": 703.995,
+        "end": 711.59503
+      },
+      {
+        "text": "But somehow this guy ran off.",
+        "start": 711.67505,
+        "end": 713.275
+      },
+      {
+        "text": "Okay?",
+        "start": 713.275,
+        "end": 713.67505
+      },
+      {
+        "text": "K.",
+        "start": 713.67505,
+        "end": 713.91504
+      },
+      {
+        "text": "Can you read, Ivory?",
+        "start": 713.91504,
+        "end": 714.875
+      }
+    ],
+    "num_words": 41,
+    "start": 703.995,
+    "end": 714.875
+  },
+  {
+    "sentences": [
+      {
+        "text": "The day of infamy soon came.",
+        "start": 716.33,
+        "end": 718.33
+      },
+      {
+        "text": "The sacred rites were all performed for the victim, the salted meals strewn, the bands tied around my head.",
+        "start": 718.33,
+        "end": 724.33
+      },
+      {
+        "text": "But I broke free of death, I tell you, burst my shackles.",
+        "start": 724.73004,
+        "end": 728.57
+      },
+      {
+        "text": "Yes.",
+        "start": 728.81,
+        "end": 729.21
+      },
+      {
+        "text": "And hid all night in the reeds of a marshy lake waiting for them to sail.",
+        "start": 729.21,
+        "end": 733.185
+      }
+    ],
+    "num_words": 54,
+    "start": 716.33,
+    "end": 733.185
+  },
+  {
+    "sentences": [
+      {
+        "text": "If only they would sail.",
+        "start": 733.425,
+        "end": 734.865
+      },
+      {
+        "text": "Well, no hope now of seeing the land where I was born or my sweet children, the father I longed for all these years.",
+        "start": 735.425,
+        "end": 742.465
+      },
+      {
+        "text": "Maybe they'll bring from them the price of for my escape.",
+        "start": 742.865,
+        "end": 746.99
+      },
+      {
+        "text": "Avenge my guilt with my loved one's blood.",
+        "start": 747.14996,
+        "end": 749.63
+      },
+      {
+        "text": "Poor things.",
+        "start": 749.70996,
+        "end": 750.67
+      }
+    ],
+    "num_words": 50,
+    "start": 733.425,
+    "end": 750.67
+  },
+  {
+    "sentences": [
+      {
+        "text": "I beg I beg you, king, by the powers who know the truth, by any trust still uncorrupt in the world of men, pity a man whose torment knows no bounds.",
+        "start": 750.99,
+        "end": 761.255
+      },
+      {
+        "text": "Pity me in my pain.",
+        "start": 761.415,
+        "end": 762.935
+      },
+      {
+        "text": "I know in my soul I don't deserve to suffer.",
+        "start": 763.175,
+        "end": 765.65497
+      },
+      {
+        "text": "He wept and won his life.",
+        "start": 766.375,
+        "end": 768.135
+      },
+      {
+        "text": "Our pity too.",
+        "start": 768.295,
+        "end": 769.65497
+      }
+    ],
+    "num_words": 55,
+    "start": 750.99,
+    "end": 769.65497
+  },
+  {
+    "sentences": [
+      {
+        "text": "Priyam takes command, has him freed from the ropes and chains that bind him fast, and hails him warmly.",
+        "start": 770.055,
+        "end": 776.32
+      },
+      {
+        "text": "Whoever you are, from now on, you've lost the Greeks.",
+        "start": 776.88,
+        "end": 780.24
+      },
+      {
+        "text": "Put them out of your mind, and you'll be one of us.",
+        "start": 780.24,
+        "end": 782.72
+      },
+      {
+        "text": "But answer my questions.",
+        "start": 783.27997,
+        "end": 784.39996
+      },
+      {
+        "text": "Tell me the whole truth.",
+        "start": 784.795,
+        "end": 786.315
+      }
+    ],
+    "num_words": 50,
+    "start": 770.055,
+    "end": 786.315
+  },
+  {
+    "sentences": [
+      {
+        "text": "Why did they raise up this giant monstrous horse?",
+        "start": 786.555,
+        "end": 789.195
+      },
+      {
+        "text": "Who conceived it?",
+        "start": 789.755,
+        "end": 790.955
+      },
+      {
+        "text": "What's it for?",
+        "start": 790.955,
+        "end": 791.995
+      },
+      {
+        "text": "Its purpose?",
+        "start": 792.075,
+        "end": 793.03503
+      },
+      {
+        "text": "A gift to the gods?",
+        "start": 793.275,
+        "end": 794.635
+      }
+    ],
+    "num_words": 22,
+    "start": 786.555,
+    "end": 794.635
+  },
+  {
+    "sentences": [
+      {
+        "text": "A great engine of battle?",
+        "start": 794.635,
+        "end": 796.075
+      },
+      {
+        "text": "Okay.",
+        "start": 796.155,
+        "end": 796.635
+      },
+      {
+        "text": "So, again, this reminds us of the Iliad where Priam, the king of the Trojans, is known for being a very generous, magnificent sorry, benevolent, open person, but this will lead to the doom of Troy.",
+        "start": 796.635,
+        "end": 816.525
+      },
+      {
+        "text": "So, remember, in the Iliad, it is because of Prime's generosity, his ability to forgive Achilles that leads to the great friendship between Prime and Achilles.",
+        "start": 816.525,
+        "end": 828.045
+      },
+      {
+        "text": "Okay?",
+        "start": 828.045,
+        "end": 828.525
+      }
+    ],
+    "num_words": 69,
+    "start": 794.635,
+    "end": 828.525
+  },
+  {
+    "sentences": [
+      {
+        "text": "And, again, Virgil's trying to reverse this, and he's trying to show us that, no, you think that generosity will lead to goodness.",
+        "start": 828.525,
+        "end": 836.8
+      },
+      {
+        "text": "No.",
+        "start": 836.96,
+        "end": 837.52
+      },
+      {
+        "text": "Generosity will lead to evil.",
+        "start": 837.52,
+        "end": 839.04
+      },
+      {
+        "text": "You see how pride is too trusting, too generous, and so he believes this Greek, soldier, and then he will allow the Trojans to bring the horse into Troy.",
+        "start": 839.04,
+        "end": 854.025
+      },
+      {
+        "text": "And at night, the the Greek soldiers will escape from the horse, open the gates of Troy, and now the Greeks are rushing in to kill everyone.",
+        "start": 854.025,
+        "end": 862.22
+      }
+    ],
+    "num_words": 85,
+    "start": 828.525,
+    "end": 862.22
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 862.38,
+        "end": 862.77997
+      },
+      {
+        "text": "And Aeneas hears this, slaughter, and he tries to save as many people as he can.",
+        "start": 862.77997,
+        "end": 871.26
+      },
+      {
+        "text": "And his first thought is, where is my king?",
+        "start": 871.26,
+        "end": 873.925
+      },
+      {
+        "text": "How do I save my king?",
+        "start": 873.925,
+        "end": 874.805
+      },
+      {
+        "text": "Okay?",
+        "start": 874.805,
+        "end": 875.045
+      }
+    ],
+    "num_words": 33,
+    "start": 862.38,
+    "end": 875.045
+  },
+  {
+    "sentences": [
+      {
+        "text": "So as the Greeks are ravaging the city, killing as many people as they can, Indians is rushing to save his king, Priam.",
+        "start": 875.045,
+        "end": 882.325
+      },
+      {
+        "text": "Alright?",
+        "start": 882.565,
+        "end": 883.045
+      },
+      {
+        "text": "Alright.",
+        "start": 883.045,
+        "end": 883.605
+      },
+      {
+        "text": "So can you read, Ivory?",
+        "start": 884.565,
+        "end": 886.805
+      },
+      {
+        "text": "Perhaps you wonder how Preyam met his end.",
+        "start": 887.87,
+        "end": 890.35
+      }
+    ],
+    "num_words": 38,
+    "start": 875.045,
+    "end": 890.35
+  },
+  {
+    "sentences": [
+      {
+        "text": "When he saw his city stormed and seized, his gates wrenched apart, the enemy camped in his palestads.",
+        "start": 890.51,
+        "end": 896.75
+      },
+      {
+        "text": "The the old man donned his armor long unused.",
+        "start": 897.07,
+        "end": 899.79
+      },
+      {
+        "text": "He clamps it around his shoulders shaking with age and all for nothing, straps his useless sword to his hip, then makes for the thick of battle out to meet his death.",
+        "start": 899.87,
+        "end": 910.10504
+      },
+      {
+        "text": "At the heart of the house, an ample altar stood, naked under the skies, an ancient laurel bending over the shrine, embracing our household gods within its shade.",
+        "start": 910.505,
+        "end": 919.61
+      },
+      {
+        "text": "Here, flocking the altar, Hakuba and her daughters huddled, blown headlong down like doves by a black storm, clutching, all for nothing, the figures of their gods.",
+        "start": 920.08997,
+        "end": 930.805
+      }
+    ],
+    "num_words": 114,
+    "start": 890.51,
+    "end": 930.805
+  },
+  {
+    "sentences": [
+      {
+        "text": "Seeing Priam decked in the arms he'd worn as a young man.",
+        "start": 931.20496,
+        "end": 934.32495
+      },
+      {
+        "text": "Are you insane?",
+        "start": 934.725,
+        "end": 935.76495
+      },
+      {
+        "text": "He cry she cries.",
+        "start": 935.76495,
+        "end": 937.125
+      },
+      {
+        "text": "Poor husband.",
+        "start": 937.365,
+        "end": 938.485
+      },
+      {
+        "text": "What impels you to strap that sword on now?",
+        "start": 938.485,
+        "end": 940.64496
+      }
+    ],
+    "num_words": 30,
+    "start": 931.20496,
+    "end": 940.64496
+  },
+  {
+    "sentences": [
+      {
+        "text": "Where are you rushing?",
+        "start": 941.13995,
+        "end": 942.5
+      },
+      {
+        "text": "Too late for such defense, such help, not even to my for my own not even my own Hector if he came to the rescue now.",
+        "start": 942.98,
+        "end": 950.5
+      },
+      {
+        "text": "Come to me, Priam.",
+        "start": 950.82,
+        "end": 952.26
+      },
+      {
+        "text": "This altar will shield us all or else you'll die with us.",
+        "start": 952.26,
+        "end": 955.06
+      },
+      {
+        "text": "With those wars, drawing him towards her there, she made a place for the old man beside the holy shrine.",
+        "start": 955.745,
+        "end": 961.505
+      }
+    ],
+    "num_words": 66,
+    "start": 941.13995,
+    "end": 961.505
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay.",
+        "start": 961.505,
+        "end": 961.985
+      },
+      {
+        "text": "Let's continue.",
+        "start": 961.985,
+        "end": 962.945
+      },
+      {
+        "text": "Suddenly, look, a son of Priam, Polites, just just escaped from slaughter at Pyrrhus' hands.",
+        "start": 964.225,
+        "end": 970.81006
+      },
+      {
+        "text": "Okay.",
+        "start": 970.81006,
+        "end": 971.13
+      },
+      {
+        "text": "So Pyrrhus is a son of Achilles.",
+        "start": 971.13,
+        "end": 972.97003
+      }
+    ],
+    "num_words": 26,
+    "start": 961.505,
+    "end": 972.97003
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 972.97003,
+        "end": 973.53
+      },
+      {
+        "text": "So this is a rewriting of the ending of the Iliad where Priam and Achilles have this great emotional battle where they forgive each other.",
+        "start": 973.93005,
+        "end": 985.705
+      },
+      {
+        "text": "And, Priam's love for Hector and Achilles' love for his father unifies their soul.",
+        "start": 986.26495,
+        "end": 994.505
+      },
+      {
+        "text": "Okay?",
+        "start": 994.505,
+        "end": 994.825
+      },
+      {
+        "text": "This is gonna be a rewriting of that battle.",
+        "start": 995.13,
+        "end": 998.09
+      }
+    ],
+    "num_words": 50,
+    "start": 972.97003,
+    "end": 998.09
+  },
+  {
+    "sentences": [
+      {
+        "text": "So Achilles is dead, and now his son is seeking to kill Priam.",
+        "start": 998.25,
+        "end": 1003.21
+      },
+      {
+        "text": "You want keep on going?",
+        "start": 1003.29,
+        "end": 1004.41003
+      },
+      {
+        "text": "Comes racing through spears, through enemy fighters, fleeing down the long arcades and deserted hallways, badly wounded, Pyrrhus hot on his heels, a weapon poised for the kill, about to seize him, about to run him through and pressing home as Polites reaches his parents and collapses, vomiting out his lifeblood before their eyes.",
+        "start": 1004.97003,
+        "end": 1024.145
+      },
+      {
+        "text": "And that So, again, this is a rewriting of the Iliad where now Polites becomes Hector.",
+        "start": 1024.9099,
+        "end": 1029.63
+      },
+      {
+        "text": "Right?",
+        "start": 1029.63,
+        "end": 1029.95
+      }
+    ],
+    "num_words": 89,
+    "start": 998.25,
+    "end": 1029.95
+  },
+  {
+    "sentences": [
+      {
+        "text": "Because remember, Achilles kills Hector at the gates of Troy, and prime Hecuba are on the walls watching this.",
+        "start": 1029.95,
+        "end": 1040.27
+      },
+      {
+        "text": "And then Achilles commits, a war crime by basically tying Hector to his chariot and then, dragging Hector all around the wall the walls of Torah.",
+        "start": 1040.8049,
+        "end": 1053.365
+      },
+      {
+        "text": "Okay.",
+        "start": 1053.365,
+        "end": 1053.5249
+      },
+      {
+        "text": "So this is a re reimagining of that scene.",
+        "start": 1053.5249,
+        "end": 1055.98
+      },
+      {
+        "text": "K.",
+        "start": 1055.98,
+        "end": 1056.22
+      }
+    ],
+    "num_words": 56,
+    "start": 1029.95,
+    "end": 1056.22
+  },
+  {
+    "sentences": [
+      {
+        "text": "Keep keep on going.",
+        "start": 1056.22,
+        "end": 1057.2599
+      },
+      {
+        "text": "At that, Priam traps in the grip grip of death, not holding back, not checking his words, his rage.",
+        "start": 1058.14,
+        "end": 1065.1799
+      },
+      {
+        "text": "You, he cries, you and your vicious crimes.",
+        "start": 1065.58,
+        "end": 1068.7
+      },
+      {
+        "text": "If any power on high recoils at such an outrage, let the gods repay you for all your reckless work, grant you the things, the rich reward you the the rich reward you've earned.",
+        "start": 1069.0751,
+        "end": 1080.195
+      },
+      {
+        "text": "You've made me see my son's death with my own eyes, defiled the father's sight with his son's lifeblood.",
+        "start": 1080.5951,
+        "end": 1086.26
+      }
+    ],
+    "num_words": 84,
+    "start": 1056.22,
+    "end": 1086.26
+  },
+  {
+    "sentences": [
+      {
+        "text": "You say you're Achilles' son?",
+        "start": 1086.42,
+        "end": 1088.26
+      },
+      {
+        "text": "You lie.",
+        "start": 1088.42,
+        "end": 1089.22
+      },
+      {
+        "text": "Achilles never treated his enemy Priamso.",
+        "start": 1089.3,
+        "end": 1091.94
+      },
+      {
+        "text": "No.",
+        "start": 1092.3401,
+        "end": 1092.8201
+      },
+      {
+        "text": "He honored a suppliant's right.",
+        "start": 1092.8201,
+        "end": 1094.82
+      }
+    ],
+    "num_words": 19,
+    "start": 1086.42,
+    "end": 1094.82
+  },
+  {
+    "sentences": [
+      {
+        "text": "He blushed to betray my my trust.",
+        "start": 1094.8201,
+        "end": 1096.8201
+      },
+      {
+        "text": "He restored my Hector's bloodless corpse for for burial, sent me safely home to the land I rule.",
+        "start": 1097.205,
+        "end": 1103.365
+      },
+      {
+        "text": "Okay.",
+        "start": 1103.365,
+        "end": 1103.6849
+      },
+      {
+        "text": "So, again, he is reminding us of the ending of the Iliad where in this great war, peace and love come to universe when Achilles and Priam, are able to become friends.",
+        "start": 1103.6849,
+        "end": 1120.34
+      },
+      {
+        "text": "Okay?",
+        "start": 1120.6599,
+        "end": 1121.3799
+      }
+    ],
+    "num_words": 59,
+    "start": 1094.8201,
+    "end": 1121.3799
+  },
+  {
+    "sentences": [
+      {
+        "text": "And he's saying, your father you've you've destroyed the legacy of your father.",
+        "start": 1122.4199,
+        "end": 1128.955
+      },
+      {
+        "text": "You've destroyed the friendship between us.",
+        "start": 1129.035,
+        "end": 1131.995
+      },
+      {
+        "text": "Okay?",
+        "start": 1132.075,
+        "end": 1132.715
+      },
+      {
+        "text": "Alright.",
+        "start": 1132.955,
+        "end": 1133.4349
+      },
+      {
+        "text": "Kimarini.",
+        "start": 1133.4349,
+        "end": 1134.3949
+      }
+    ],
+    "num_words": 22,
+    "start": 1122.4199,
+    "end": 1134.3949
+  },
+  {
+    "sentences": [
+      {
+        "text": "With that and with all his might, the old man flings his spear, but too impotent now to pierce.",
+        "start": 1135.115,
+        "end": 1140.38
+      },
+      {
+        "text": "Emilia grazes Pyrrhus' brazen shield that blocks his way and cleans their dangling limb from the boss, all for nothing.",
+        "start": 1140.38,
+        "end": 1147.74
+      },
+      {
+        "text": "Pyrrhus shouts back.",
+        "start": 1148.3,
+        "end": 1149.74
+      },
+      {
+        "text": "Well then, down you go, a messenger to my father, Peleus' son.",
+        "start": 1150.14,
+        "end": 1154.2549
+      },
+      {
+        "text": "Tell him about my vicious work, how Neo Neoptolemus degrades his father's.",
+        "start": 1154.495,
+        "end": 1160.575
+      }
+    ],
+    "num_words": 66,
+    "start": 1135.115,
+    "end": 1160.575
+  },
+  {
+    "sentences": [
+      {
+        "text": "Neoptolemus is actually an another name for Pyrrhus.",
+        "start": 1160.575,
+        "end": 1163.695
+      },
+      {
+        "text": "Okay?",
+        "start": 1163.695,
+        "end": 1163.855
+      },
+      {
+        "text": "It's the same person.",
+        "start": 1163.855,
+        "end": 1164.735
+      },
+      {
+        "text": "Keep on going.",
+        "start": 1164.735,
+        "end": 1165.215
+      },
+      {
+        "text": "De Grey is his father's name.",
+        "start": 1165.99,
+        "end": 1167.83
+      }
+    ],
+    "num_words": 22,
+    "start": 1160.575,
+    "end": 1167.83
+  },
+  {
+    "sentences": [
+      {
+        "text": "Don't you forget.",
+        "start": 1167.83,
+        "end": 1168.8699
+      },
+      {
+        "text": "Now die.",
+        "start": 1169.4299,
+        "end": 1170.5499
+      },
+      {
+        "text": "That said, he drags the old man straight to the altar, quaking, slithering on through slicks of his son's blood, and twisting Priam's hair in his left hand, his right hand sweeping forth his sword, a flash of steel.",
+        "start": 1171.19,
+        "end": 1184.085
+      },
+      {
+        "text": "He buries his heel deep in the king's flank.",
+        "start": 1184.485,
+        "end": 1186.8849
+      },
+      {
+        "text": "Such was the fate of pure of Priam, his death, his law on earth with Troy blazing before his eyes, her ramparts down, the monarch who once had ruled in all his glory the many lands of Asia, Asia's many tribes.",
+        "start": 1187.605,
+        "end": 1201.46
+      }
+    ],
+    "num_words": 94,
+    "start": 1167.83,
+    "end": 1201.46
+  },
+  {
+    "sentences": [
+      {
+        "text": "A powerful trunk is lying on the shore, The head wrenched from the shoulders.",
+        "start": 1201.7001,
+        "end": 1206.2649
+      },
+      {
+        "text": "A corpse without a name.",
+        "start": 1206.4249,
+        "end": 1207.705
+      },
+      {
+        "text": "Okay.",
+        "start": 1207.705,
+        "end": 1208.1849
+      },
+      {
+        "text": "So there's a difference between the Greeks and the Romans.",
+        "start": 1208.1849,
+        "end": 1212.9049
+      },
+      {
+        "text": "Okay?",
+        "start": 1212.9049,
+        "end": 1213.1449
+      }
+    ],
+    "num_words": 31,
+    "start": 1201.7001,
+    "end": 1213.1449
+  },
+  {
+    "sentences": [
+      {
+        "text": "The Greeks were cultured people.",
+        "start": 1213.1449,
+        "end": 1214.9049
+      },
+      {
+        "text": "They enjoyed going to a theater and watching a tragedy and crying together to rejuvenate their sense of humanity.",
+        "start": 1215.065,
+        "end": 1222.41
+      },
+      {
+        "text": "Okay?",
+        "start": 1222.41,
+        "end": 1222.65
+      },
+      {
+        "text": "That was a Greek culture.",
+        "start": 1222.65,
+        "end": 1223.9299
+      },
+      {
+        "text": "The the Romans go to the Colosseum and watch gladiator fights.",
+        "start": 1223.93,
+        "end": 1228.49
+      }
+    ],
+    "num_words": 41,
+    "start": 1213.1449,
+    "end": 1228.49
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 1228.49,
+        "end": 1228.89
+      },
+      {
+        "text": "They like blood.",
+        "start": 1228.89,
+        "end": 1230.1699
+      },
+      {
+        "text": "They like violence.",
+        "start": 1230.41,
+        "end": 1231.93
+      },
+      {
+        "text": "And so the Ennead is an extremely violent, poetry.",
+        "start": 1232.365,
+        "end": 1239.565
+      },
+      {
+        "text": "In fact, you can say it's almost pornographic in the violence that it depicts.",
+        "start": 1240.0449,
+        "end": 1246.6849
+      }
+    ],
+    "num_words": 30,
+    "start": 1228.49,
+    "end": 1246.6849
+  },
+  {
+    "sentences": [
+      {
+        "text": "Alright?",
+        "start": 1247.085,
+        "end": 1247.485
+      },
+      {
+        "text": "And the Romans just love this because they are a bloodthirsty people.",
+        "start": 1247.72,
+        "end": 1253.3999
+      },
+      {
+        "text": "Alright?",
+        "start": 1254.04,
+        "end": 1254.76
+      },
+      {
+        "text": "Alright.",
+        "start": 1255.88,
+        "end": 1256.52
+      },
+      {
+        "text": "So Priam is dead.",
+        "start": 1256.52,
+        "end": 1259.32
+      }
+    ],
+    "num_words": 19,
+    "start": 1247.085,
+    "end": 1259.32
+  },
+  {
+    "sentences": [
+      {
+        "text": "And with its staff, what it is doing is negating the, moral lesson of the iliac to forgive one's enemy.",
+        "start": 1259.3201,
+        "end": 1268.695
+      },
+      {
+        "text": "Okay?",
+        "start": 1268.775,
+        "end": 1269.095
+      },
+      {
+        "text": "So the Romans read this, and they remember reading the ilead and saying, oh my god.",
+        "start": 1269.095,
+        "end": 1274.295
+      },
+      {
+        "text": "I was wrong to think that prime was heroic in forgiving Achilles.",
+        "start": 1274.295,
+        "end": 1279.63
+      },
+      {
+        "text": "What I should be really thinking is, what a foolish old man who deserves to die for thinking that his enemy should be forgiven.",
+        "start": 1279.87,
+        "end": 1288.83
+      }
+    ],
+    "num_words": 73,
+    "start": 1259.3201,
+    "end": 1288.83
+  },
+  {
+    "sentences": [
+      {
+        "text": "That fifth for thinking that his enemy has a good soul in him.",
+        "start": 1288.99,
+        "end": 1292.8301
+      },
+      {
+        "text": "Okay?",
+        "start": 1293.765,
+        "end": 1294.245
+      },
+      {
+        "text": "So, again, this is negating the Iliad.",
+        "start": 1294.245,
+        "end": 1297.125
+      },
+      {
+        "text": "It's actually poisoning and corrupting the Iliad.",
+        "start": 1297.125,
+        "end": 1300.885
+      },
+      {
+        "text": "Alright?",
+        "start": 1301.285,
+        "end": 1301.9249
+      }
+    ],
+    "num_words": 29,
+    "start": 1288.99,
+    "end": 1301.9249
+  },
+  {
+    "sentences": [
+      {
+        "text": "So now Ineus is talking about his reaction watching his king die.",
+        "start": 1301.925,
+        "end": 1311.8601
+      },
+      {
+        "text": "Okay?",
+        "start": 1311.8601,
+        "end": 1312.5
+      },
+      {
+        "text": "Keep on reading, Ivory.",
+        "start": 1313.14,
+        "end": 1314.42
+      },
+      {
+        "text": "Then for the first time, the full horror came home at came came home to me at last.",
+        "start": 1315.06,
+        "end": 1319.54
+      },
+      {
+        "text": "I froze.",
+        "start": 1320.185,
+        "end": 1321.1449
+      }
+    ],
+    "num_words": 37,
+    "start": 1301.925,
+    "end": 1321.1449
+  },
+  {
+    "sentences": [
+      {
+        "text": "The thought of my own dear father filled filled my mind when I saw the old king gasping out his life with that raw raw wound.",
+        "start": 1321.305,
+        "end": 1328.825
+      },
+      {
+        "text": "Both men were the same age, and the thought of my crusa alone abandoned, our house plundered, our little Ilius' fate.",
+        "start": 1329.305,
+        "end": 1338.5
+      },
+      {
+        "text": "I look back.",
+        "start": 1338.9,
+        "end": 1339.86
+      },
+      {
+        "text": "What forces still stood by me?",
+        "start": 1340.1,
+        "end": 1342.02
+      },
+      {
+        "text": "None.",
+        "start": 1342.26,
+        "end": 1342.9
+      }
+    ],
+    "num_words": 57,
+    "start": 1321.305,
+    "end": 1342.9
+  },
+  {
+    "sentences": [
+      {
+        "text": "Totally spent in war, they'd all deserted.",
+        "start": 1343.14,
+        "end": 1345.94
+      },
+      {
+        "text": "Down from the roofs, they've flung themselves to earth or hold their broken bodies in the flames.",
+        "start": 1346.02,
+        "end": 1351.205
+      },
+      {
+        "text": "So at just that moment, I was the one man left, and then I saw her clinging to Vestas' threshold, hiding in silence, tucked away, Helen of Argos.",
+        "start": 1351.9249,
+        "end": 1362.16
+      },
+      {
+        "text": "Glare of the fires lit my view as I looked down, scanning the city left and right, and there she was, terrified of the Trojans' hate.",
+        "start": 1362.4801,
+        "end": 1370.5599
+      },
+      {
+        "text": "Now Troy was overpowered, terrified of the Greeks' revenge, her deserted husband's rage.",
+        "start": 1370.64,
+        "end": 1376.0801
+      }
+    ],
+    "num_words": 91,
+    "start": 1343.14,
+    "end": 1376.0801
+  },
+  {
+    "sentences": [
+      {
+        "text": "That universal fury, a curse to Troy and her native land.",
+        "start": 1376.675,
+        "end": 1380.2749
+      },
+      {
+        "text": "And here she lurked, skulking, a thing of of loathing cowering at the altar, Helen.",
+        "start": 1380.4349,
+        "end": 1386.7549
+      },
+      {
+        "text": "Out it flared, the fire inside my soul, my rage ablaze to avenge our our fallen country.",
+        "start": 1387.075,
+        "end": 1393.1699
+      },
+      {
+        "text": "Pay Helen back, crime for crime.",
+        "start": 1393.4099,
+        "end": 1395.4099
+      },
+      {
+        "text": "Okay.",
+        "start": 1395.4099,
+        "end": 1396.0499
+      }
+    ],
+    "num_words": 50,
+    "start": 1376.675,
+    "end": 1396.0499
+  },
+  {
+    "sentences": [
+      {
+        "text": "So Aeneas is watching his entire civilization being destroyed, and he knows that his family will be destroyed as well.",
+        "start": 1396.0499,
+        "end": 1405.625
+      },
+      {
+        "text": "And he is taken aback.",
+        "start": 1406.425,
+        "end": 1409.9451
+      },
+      {
+        "text": "He's sort of, like, paralyzed by his anger and his hatred and his fear.",
+        "start": 1409.9451,
+        "end": 1414.505
+      },
+      {
+        "text": "And then he sees Helen, and he's like, this is her fault.",
+        "start": 1414.8251,
+        "end": 1419.6699
+      },
+      {
+        "text": "Okay?",
+        "start": 1419.83,
+        "end": 1420.39
+      }
+    ],
+    "num_words": 52,
+    "start": 1396.0499,
+    "end": 1420.39
+  },
+  {
+    "sentences": [
+      {
+        "text": "This is why we are we are destroyed as civilization because of this whore.",
+        "start": 1420.39,
+        "end": 1426.95
+      },
+      {
+        "text": "Okay?",
+        "start": 1426.95,
+        "end": 1427.51
+      },
+      {
+        "text": "And so this is telling us what the the lesson from this is that love is a source of evil in the world.",
+        "start": 1427.51,
+        "end": 1436.365
+      },
+      {
+        "text": "K?",
+        "start": 1438.925,
+        "end": 1439.645
+      },
+      {
+        "text": "Love is a source of evil in this world.",
+        "start": 1439.7251,
+        "end": 1442.765
+      }
+    ],
+    "num_words": 48,
+    "start": 1420.39,
+    "end": 1442.765
+  },
+  {
+    "sentences": [
+      {
+        "text": "Remember, the Odyssey.",
+        "start": 1447.08,
+        "end": 1448.6
+      },
+      {
+        "text": "What is the what is the, main lesson of the Odyssey?",
+        "start": 1448.6,
+        "end": 1453.2399
+      },
+      {
+        "text": "Love is the redemptive force of the world.",
+        "start": 1453.32,
+        "end": 1456.6
+      },
+      {
+        "text": "Right?",
+        "start": 1456.6,
+        "end": 1457.08
+      },
+      {
+        "text": "If you are shattered as a person, it is love that will lead you home and heal you as a person.",
+        "start": 1457.3999,
+        "end": 1462.36
+      }
+    ],
+    "num_words": 44,
+    "start": 1447.08,
+    "end": 1462.36
+  },
+  {
+    "sentences": [
+      {
+        "text": "And what the Enniot is saying instead is that love is what destroys civilization.",
+        "start": 1463.0449,
+        "end": 1467.5249
+      },
+      {
+        "text": "Love is what corrupts you.",
+        "start": 1467.6849,
+        "end": 1469.7649
+      },
+      {
+        "text": "Love is what leads you to hell.",
+        "start": 1470.565,
+        "end": 1473.9249
+      },
+      {
+        "text": "Okay?",
+        "start": 1474.405,
+        "end": 1474.8049
+      },
+      {
+        "text": "Alright.",
+        "start": 1475.7,
+        "end": 1476.1799
+      }
+    ],
+    "num_words": 28,
+    "start": 1463.0449,
+    "end": 1476.1799
+  },
+  {
+    "sentences": [
+      {
+        "text": "So he wants to kill Helen as revenge for destruction of Troy, but then what happens is that Ines' mother, Venus okay?",
+        "start": 1476.1799,
+        "end": 1483.7
+      },
+      {
+        "text": "So Venus is his mother, steps in, appears before him, and says, no.",
+        "start": 1483.7,
+        "end": 1489.38
+      },
+      {
+        "text": "Can't do this.",
+        "start": 1489.575,
+        "end": 1490.5349
+      },
+      {
+        "text": "You have to go home and save your wife and your child.",
+        "start": 1490.5349,
+        "end": 1495.815
+      },
+      {
+        "text": "Okay?",
+        "start": 1495.815,
+        "end": 1496.215
+      }
+    ],
+    "num_words": 51,
+    "start": 1476.1799,
+    "end": 1496.215
+  },
+  {
+    "sentences": [
+      {
+        "text": "So Ineus goes home, and what he does is he say he takes his family and takes them to the ship to escape Troy.",
+        "start": 1496.215,
+        "end": 1505.255
+      },
+      {
+        "text": "But as they are running through the, streets of Troy, what Ines does is he puts his father on his back.",
+        "start": 1506.1,
+        "end": 1517.62
+      },
+      {
+        "text": "Okay?",
+        "start": 1518.195,
+        "end": 1518.835
+      },
+      {
+        "text": "And he holds his son, his young son, Ilias.",
+        "start": 1518.9149,
+        "end": 1522.7549
+      },
+      {
+        "text": "And the and Chrysa, the wife, has to follow them.",
+        "start": 1523.075,
+        "end": 1527.235
+      }
+    ],
+    "num_words": 65,
+    "start": 1496.215,
+    "end": 1527.235
+  },
+  {
+    "sentences": [
+      {
+        "text": "K?",
+        "start": 1527.235,
+        "end": 1527.5549
+      },
+      {
+        "text": "Okay?",
+        "start": 1527.5549,
+        "end": 1527.955
+      },
+      {
+        "text": "So that that's a Roman priority.",
+        "start": 1527.955,
+        "end": 1530.515
+      },
+      {
+        "text": "Okay?",
+        "start": 1530.515,
+        "end": 1530.755
+      },
+      {
+        "text": "The most important person in the family is the patriarch, the father.",
+        "start": 1531.8401,
+        "end": 1535.44
+      }
+    ],
+    "num_words": 21,
+    "start": 1527.235,
+    "end": 1535.44
+  },
+  {
+    "sentences": [
+      {
+        "text": "Then is the son who inherits.",
+        "start": 1535.8401,
+        "end": 1537.68
+      },
+      {
+        "text": "And the wife is just someone who follows.",
+        "start": 1537.68,
+        "end": 1540.4
+      },
+      {
+        "text": "Okay?",
+        "start": 1540.4,
+        "end": 1540.7201
+      },
+      {
+        "text": "But her job is to serve rather than being equal in the relationship.",
+        "start": 1540.7201,
+        "end": 1545.12
+      },
+      {
+        "text": "This is, again, is very different from the Odyssey where in many ways, Penelope and Odysseus are equal to each other.",
+        "start": 1545.315,
+        "end": 1551.9548
+      }
+    ],
+    "num_words": 49,
+    "start": 1535.8401,
+    "end": 1551.9548
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 1552.0349,
+        "end": 1552.5948
+      },
+      {
+        "text": "Alright.",
+        "start": 1552.7549,
+        "end": 1553.235
+      },
+      {
+        "text": "So what happens is that Aeneas gets to the ship, and he and he puts his father and his son on the ship ready to escape.",
+        "start": 1553.235,
+        "end": 1560.9701
+      },
+      {
+        "text": "But he recognizes at the at the very last minute, his wife is missing.",
+        "start": 1560.9701,
+        "end": 1566.33
+      },
+      {
+        "text": "So he goes back and tries to save his wife, but his wife is dead.",
+        "start": 1566.73,
+        "end": 1573.885
+      }
+    ],
+    "num_words": 57,
+    "start": 1552.0349,
+    "end": 1573.885
+  },
+  {
+    "sentences": [
+      {
+        "text": "And why is she dead?",
+        "start": 1574.125,
+        "end": 1575.0851
+      },
+      {
+        "text": "Because she killed herself.",
+        "start": 1575.0851,
+        "end": 1576.445
+      },
+      {
+        "text": "Why did she kill herself?",
+        "start": 1576.6051,
+        "end": 1577.645
+      },
+      {
+        "text": "She killed herself because it is her duty not to burden her husband.",
+        "start": 1577.645,
+        "end": 1582.045
+      },
+      {
+        "text": "Because her husband is destined for great things.",
+        "start": 1582.2051,
+        "end": 1584.685
+      }
+    ],
+    "num_words": 35,
+    "start": 1574.125,
+    "end": 1584.685
+  },
+  {
+    "sentences": [
+      {
+        "text": "He's destined to found an empire, so he must marry into a new lineage, a new old family.",
+        "start": 1584.685,
+        "end": 1591.92
+      },
+      {
+        "text": "And therefore, she has to kill herself to free him.",
+        "start": 1591.92,
+        "end": 1595.52
+      },
+      {
+        "text": "But not only that, but if she were to become a slave to the Greeks, it would cost him embarrassment for the rest of his life.",
+        "start": 1595.52,
+        "end": 1602.675
+      },
+      {
+        "text": "Right?",
+        "start": 1602.675,
+        "end": 1603.235
+      },
+      {
+        "text": "Okay?",
+        "start": 1603.395,
+        "end": 1604.035
+      }
+    ],
+    "num_words": 56,
+    "start": 1584.685,
+    "end": 1604.035
+  },
+  {
+    "sentences": [
+      {
+        "text": "So, that is the Roman perception of a wifely duty.",
+        "start": 1604.035,
+        "end": 1609.875
+      },
+      {
+        "text": "K?",
+        "start": 1610.035,
+        "end": 1610.435
+      },
+      {
+        "text": "If you're not useful to your husband, just kill yourself.",
+        "start": 1610.435,
+        "end": 1612.755
+      },
+      {
+        "text": "K.",
+        "start": 1616.7,
+        "end": 1617.1799
+      },
+      {
+        "text": "Can you read?",
+        "start": 1617.1799,
+        "end": 1618.6199
+      }
+    ],
+    "num_words": 25,
+    "start": 1604.035,
+    "end": 1618.6199
+  },
+  {
+    "sentences": [
+      {
+        "text": "Creusa.",
+        "start": 1619.26,
+        "end": 1620.22
+      },
+      {
+        "text": "Nothing.",
+        "start": 1620.54,
+        "end": 1621.1799
+      },
+      {
+        "text": "No reply.",
+        "start": 1621.1799,
+        "end": 1621.9
+      },
+      {
+        "text": "And, Creusa.",
+        "start": 1621.9,
+        "end": 1623.6599
+      },
+      {
+        "text": "But then as I madly rushed from house to house, no one in sight abruptly, right before my eyes, I saw her stricken ghost, my own creases as shade.",
+        "start": 1624.22,
+        "end": 1632.9949
+      }
+    ],
+    "num_words": 35,
+    "start": 1619.26,
+    "end": 1632.9949
+  },
+  {
+    "sentences": [
+      {
+        "text": "But larger than life, the life I'd known so well, I froze.",
+        "start": 1633.475,
+        "end": 1637.315
+      },
+      {
+        "text": "My hackles bristled, voice choked in my throat, and my wife spoke out to ease me of my anguish.",
+        "start": 1637.475,
+        "end": 1643.075
+      },
+      {
+        "text": "My dear husband, why so eager to give yourselves to such mad flights of grief?",
+        "start": 1643.9299,
+        "end": 1649.1299
+      },
+      {
+        "text": "It's not without the will of the gods these things have come to pass.",
+        "start": 1649.37,
+        "end": 1652.73
+      },
+      {
+        "text": "But the gods forbid you to take Caruso with you bound from Troy together.",
+        "start": 1653.2899,
+        "end": 1657.21
+      }
+    ],
+    "num_words": 74,
+    "start": 1633.475,
+    "end": 1657.21
+  },
+  {
+    "sentences": [
+      {
+        "text": "The king of Lopsia Olympus won't allow it.",
+        "start": 1657.965,
+        "end": 1660.445
+      },
+      {
+        "text": "Along exile is your fate.",
+        "start": 1660.9249,
+        "end": 1662.7649
+      },
+      {
+        "text": "The vast plains of the sea are yours to plow when you reach Hispian land, where Lydian Tiber flows with a smooth march through rich and loamy fields, a land of hardy people.",
+        "start": 1662.9249,
+        "end": 1673.565
+      },
+      {
+        "text": "Their great joy and the kingdom are yours to claim and the queen to make your wife.",
+        "start": 1674.5399,
+        "end": 1679.2599
+      },
+      {
+        "text": "Dispel your tears for Caruso whom you loved.",
+        "start": 1679.8999,
+        "end": 1682.7
+      }
+    ],
+    "num_words": 71,
+    "start": 1657.965,
+    "end": 1682.7
+  },
+  {
+    "sentences": [
+      {
+        "text": "I will never behold the high and mighty pride of their palaces, the Myrmidons, the Dallopians, or go as a slave to to some Greek matron.",
+        "start": 1682.94,
+        "end": 1691.985
+      },
+      {
+        "text": "No.",
+        "start": 1692.225,
+        "end": 1692.625
+      },
+      {
+        "text": "Not I, daughter of Dardanus that I am, the wife of Venus's son.",
+        "start": 1692.625,
+        "end": 1697.1849
+      },
+      {
+        "text": "The great mother of god detains me on these shores, and now farewell.",
+        "start": 1697.505,
+        "end": 1701.345
+      },
+      {
+        "text": "Hold you the sun we share.",
+        "start": 1701.8899,
+        "end": 1703.49
+      }
+    ],
+    "num_words": 59,
+    "start": 1682.94,
+    "end": 1703.49
+  },
+  {
+    "sentences": [
+      {
+        "text": "We love together.",
+        "start": 1703.49,
+        "end": 1704.61
+      },
+      {
+        "text": "Again, this is very different from the Odyssey where the Odyssey is really about a journey of two people, Penelope and Odysseus, to find each other again because love is the greatest force in the universe.",
+        "start": 1704.61,
+        "end": 1718.035
+      },
+      {
+        "text": "K?",
+        "start": 1718.035,
+        "end": 1718.435
+      },
+      {
+        "text": "Love is what compels the two to reunite and to find each other amidst all the chaos, surrounding them.",
+        "start": 1718.435,
+        "end": 1727.155
+      },
+      {
+        "text": "In the Ennead, the idea is that love is hell.",
+        "start": 1728.7101,
+        "end": 1732.63
+      }
+    ],
+    "num_words": 69,
+    "start": 1703.49,
+    "end": 1732.63
+  },
+  {
+    "sentences": [
+      {
+        "text": "So what is heaven?",
+        "start": 1732.63,
+        "end": 1733.5901
+      },
+      {
+        "text": "Okay?",
+        "start": 1733.5901,
+        "end": 1734.15
+      },
+      {
+        "text": "If love is hell, what is heaven?",
+        "start": 1734.15,
+        "end": 1737.35
+      },
+      {
+        "text": "Heaven is piety.",
+        "start": 1738.63,
+        "end": 1740.4701
+      },
+      {
+        "text": "Piety just means obedience to the prophecy of the gods.",
+        "start": 1741.725,
+        "end": 1747.485
+      }
+    ],
+    "num_words": 25,
+    "start": 1732.63,
+    "end": 1747.485
+  },
+  {
+    "sentences": [
+      {
+        "text": "Right?",
+        "start": 1747.485,
+        "end": 1748.0449
+      },
+      {
+        "text": "It is the will of the gods that Troy be destroyed so that Rome can be created.",
+        "start": 1748.125,
+        "end": 1753.485
+      },
+      {
+        "text": "It's a prop it is the prophecy of the gods that Aeneas will be the one to lead the Trojans to found this Rome.",
+        "start": 1753.88,
+        "end": 1761.64
+      },
+      {
+        "text": "And therefore, what is good, what is divine, is obedience to this prophecy.",
+        "start": 1761.9601,
+        "end": 1769.245
+      },
+      {
+        "text": "Okay?",
+        "start": 1769.245,
+        "end": 1769.8049
+      }
+    ],
+    "num_words": 56,
+    "start": 1747.485,
+    "end": 1769.8049
+  },
+  {
+    "sentences": [
+      {
+        "text": "So, a law exile is your fate.",
+        "start": 1769.9651,
+        "end": 1773.965
+      },
+      {
+        "text": "Alright?",
+        "start": 1774.845,
+        "end": 1775.3251
+      },
+      {
+        "text": "The king of Mali Lofty Olympus won't allow Zeus, okay, or Jupiter demands this of us.",
+        "start": 1775.3251,
+        "end": 1782.765
+      },
+      {
+        "text": "If Jupiter demands us to sacrifice ourselves, then we must do so.",
+        "start": 1783.13,
+        "end": 1788.73
+      },
+      {
+        "text": "K?",
+        "start": 1788.89,
+        "end": 1789.53
+      }
+    ],
+    "num_words": 37,
+    "start": 1769.9651,
+    "end": 1789.53
+  },
+  {
+    "sentences": [
+      {
+        "text": "And so this reverses the odyssey, right, where the gods willed that Penelope and Odysseus reunite.",
+        "start": 1789.77,
+        "end": 1803.265
+      },
+      {
+        "text": "But here, the gods willed that Chrysa and Aeneas separate.",
+        "start": 1804.0651,
+        "end": 1810.545
+      },
+      {
+        "text": "Alright?",
+        "start": 1811.48,
+        "end": 1812.2
+      },
+      {
+        "text": "K.",
+        "start": 1812.92,
+        "end": 1813.72
+      },
+      {
+        "text": "So, from our eyes, this doesn't sound that influential, but the reality is, remember, this becomes a basis of Roman civilization.",
+        "start": 1813.8,
+        "end": 1826.975
+      }
+    ],
+    "num_words": 49,
+    "start": 1789.77,
+    "end": 1826.975
+  },
+  {
+    "sentences": [
+      {
+        "text": "Alright?",
+        "start": 1827.6951,
+        "end": 1828.0951
+      },
+      {
+        "text": "And what is civilization?",
+        "start": 1828.0951,
+        "end": 1829.2151
+      },
+      {
+        "text": "But a set of values, a set of ideas that guide you in your life.",
+        "start": 1829.2151,
+        "end": 1834.495
+      },
+      {
+        "text": "Okay?",
+        "start": 1835.51,
+        "end": 1835.91
+      },
+      {
+        "text": "And what this is doing is inverting Homer, poisoning and corrupting Homer.",
+        "start": 1835.91,
+        "end": 1840.87
+      }
+    ],
+    "num_words": 33,
+    "start": 1827.6951,
+    "end": 1840.87
+  },
+  {
+    "sentences": [
+      {
+        "text": "Alright?",
+        "start": 1841.1901,
+        "end": 1841.67
+      },
+      {
+        "text": "Okay.",
+        "start": 1841.67,
+        "end": 1841.9901
+      },
+      {
+        "text": "Any questions, guys?",
+        "start": 1841.9901,
+        "end": 1843.19
+      },
+      {
+        "text": "K.",
+        "start": 1845.43,
+        "end": 1845.9901
+      },
+      {
+        "text": "So we'll we'll continue this next week.",
+        "start": 1845.9901,
+        "end": 1847.75
+      }
+    ],
+    "num_words": 13,
+    "start": 1841.1901,
+    "end": 1847.75
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 1847.75,
+        "end": 1847.9901
+      }
+    ],
+    "num_words": 1,
+    "start": 1847.75,
+    "end": 1847.9901
+  }
+]

@@ -1,0 +1,4 @@
+Title: Great Books #7:  The Anti-Homer
+Date: 2026_04_18 22h10
+URL: https://www.youtube.com/watch?v=EBWTRvjZ1dw
+Claude: claude-opus-4-6 (effort: medium) 17,429 tokens (input: 14,374, output: 3,055)

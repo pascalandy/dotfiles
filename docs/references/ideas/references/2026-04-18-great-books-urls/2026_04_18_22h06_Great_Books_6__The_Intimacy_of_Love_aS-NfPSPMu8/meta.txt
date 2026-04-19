@@ -1,0 +1,4 @@
+Title: Great Books #6:  The Intimacy of Love
+Date: 2026_04_18 22h09
+URL: https://www.youtube.com/watch?v=aS-NfPSPMu8
+Claude: claude-opus-4-6 (effort: medium) 18,573 tokens (input: 14,629, output: 3,944)

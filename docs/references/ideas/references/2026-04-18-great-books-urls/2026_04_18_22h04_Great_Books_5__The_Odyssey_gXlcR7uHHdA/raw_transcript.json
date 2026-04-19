@@ -1,0 +1,4445 @@
+[
+  {
+    "sentences": [
+      {
+        "text": "Today, we start the Odyssey.",
+        "start": 0.24,
+        "end": 2.56
+      },
+      {
+        "text": "And the Odyssey is a sequel to the Iliad, and it's a family story.",
+        "start": 2.8799999,
+        "end": 8.799999
+      },
+      {
+        "text": "It's a story about a homecoming.",
+        "start": 8.8,
+        "end": 10.959999
+      },
+      {
+        "text": "There are three main characters.",
+        "start": 10.96,
+        "end": 12.24
+      },
+      {
+        "text": "Right?",
+        "start": 12.24,
+        "end": 12.879999
+      }
+    ],
+    "num_words": 31,
+    "start": 0.24,
+    "end": 12.879999
+  },
+  {
+    "sentences": [
+      {
+        "text": "There's Odysseus.",
+        "start": 12.88,
+        "end": 14.48
+      },
+      {
+        "text": "Sorry.",
+        "start": 15.174999,
+        "end": 15.974999
+      },
+      {
+        "text": "Odysseus was the main character.",
+        "start": 18.935,
+        "end": 23.095
+      },
+      {
+        "text": "This was it's called the Odyssey.",
+        "start": 23.175,
+        "end": 25.414999
+      },
+      {
+        "text": "Then there is Tanope who is his wife and there's Talacas who is their son.",
+        "start": 27.255,
+        "end": 38.38
+      }
+    ],
+    "num_words": 29,
+    "start": 12.88,
+    "end": 38.38
+  },
+  {
+    "sentences": [
+      {
+        "text": "And as we discussed when we read the Iliad, Homer is first and foremost concerned about the human condition.",
+        "start": 40.38,
+        "end": 49.825
+      },
+      {
+        "text": "What does it mean to be human?",
+        "start": 50.225,
+        "end": 52.705
+      },
+      {
+        "text": "What does it mean to live in a world of war, of trauma, of tragedy?",
+        "start": 53.665,
+        "end": 60.37
+      },
+      {
+        "text": "And how can we overcome this adversity?",
+        "start": 60.609997,
+        "end": 64.689995
+      },
+      {
+        "text": "So the Odyssey is about three individuals in a family and they are all traumatized and they're all heartbroken.",
+        "start": 65.649994,
+        "end": 76.445
+      }
+    ],
+    "num_words": 67,
+    "start": 40.38,
+    "end": 76.445
+  },
+  {
+    "sentences": [
+      {
+        "text": "K?",
+        "start": 76.845,
+        "end": 77.485
+      },
+      {
+        "text": "So Odysseus is trying to return home from the war, and his problem is that he has PTSD, which is post traumatic stress order.",
+        "start": 77.565,
+        "end": 92.38
+      },
+      {
+        "text": "And this is very common for soldiers who returned from war.",
+        "start": 92.505,
+        "end": 96.185
+      },
+      {
+        "text": "They've seen so much violence.",
+        "start": 96.265,
+        "end": 97.865
+      },
+      {
+        "text": "They've seen so much tragedy.",
+        "start": 97.945,
+        "end": 100.185
+      }
+    ],
+    "num_words": 46,
+    "start": 76.845,
+    "end": 100.185
+  },
+  {
+    "sentences": [
+      {
+        "text": "They've seen so much senseless death that their souls are shattered.",
+        "start": 100.265,
+        "end": 104.345
+      },
+      {
+        "text": "And that is Odysseus' problem.",
+        "start": 104.345,
+        "end": 106.185
+      },
+      {
+        "text": "Then you got Penelope, who's suffering from depression.",
+        "start": 106.79,
+        "end": 109.91
+      },
+      {
+        "text": "And why is she depressed?",
+        "start": 110.55,
+        "end": 111.91
+      },
+      {
+        "text": "Because her husband has been away for twenty years, and she doesn't know if he's alive or he's dead.",
+        "start": 112.39,
+        "end": 121.51
+      }
+    ],
+    "num_words": 48,
+    "start": 100.265,
+    "end": 121.51
+  },
+  {
+    "sentences": [
+      {
+        "text": "He's probably dead.",
+        "start": 122.605,
+        "end": 124.045
+      },
+      {
+        "text": "Right?",
+        "start": 124.045,
+        "end": 124.284996
+      },
+      {
+        "text": "It's been twenty years.",
+        "start": 124.284996,
+        "end": 125.485
+      },
+      {
+        "text": "There's been no sign of him for the past twenty years.",
+        "start": 125.485,
+        "end": 128.125
+      },
+      {
+        "text": "But she cannot bring herself to admitting that, he's dead.",
+        "start": 128.445,
+        "end": 134.765
+      }
+    ],
+    "num_words": 29,
+    "start": 122.605,
+    "end": 134.765
+  },
+  {
+    "sentences": [
+      {
+        "text": "So she's put herself in a very precarious situation.",
+        "start": 134.765,
+        "end": 138.75
+      },
+      {
+        "text": "There's dozens of suitors who want her hand in marriage.",
+        "start": 139.23,
+        "end": 143.39
+      },
+      {
+        "text": "And she she wants to say no, but she's afraid that if she does that, then, she'll be alone for the rest of her life.",
+        "start": 143.95,
+        "end": 154.255
+      },
+      {
+        "text": "But she doesn't wanna say yes because she refuses to omit that her husband, the love of her life, Odysseus, is dead.",
+        "start": 154.255,
+        "end": 163.13501
+      },
+      {
+        "text": "In her heart, she feels that he's still alive, but in her head, she cannot justify it.",
+        "start": 163.57,
+        "end": 171.97
+      }
+    ],
+    "num_words": 83,
+    "start": 134.765,
+    "end": 171.97
+  },
+  {
+    "sentences": [
+      {
+        "text": "She cannot explain it.",
+        "start": 171.97,
+        "end": 172.85
+      },
+      {
+        "text": "It's just a feeling in her.",
+        "start": 172.85,
+        "end": 174.29001
+      },
+      {
+        "text": "Okay?",
+        "start": 174.45,
+        "end": 175.01001
+      },
+      {
+        "text": "And so her response, and this is what we call cognitive dissonance.",
+        "start": 175.01001,
+        "end": 178.61
+      },
+      {
+        "text": "Her response is just to shut down.",
+        "start": 181.385,
+        "end": 184.66501
+      }
+    ],
+    "num_words": 30,
+    "start": 171.97,
+    "end": 184.66501
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 185.06499,
+        "end": 185.545
+      },
+      {
+        "text": "She just spends all her time alone in her room.",
+        "start": 185.545,
+        "end": 188.025
+      },
+      {
+        "text": "At first, she's weeding stuff, but then she just sits in her room.",
+        "start": 188.985,
+        "end": 192.265
+      },
+      {
+        "text": "Alright?",
+        "start": 193.03,
+        "end": 193.75002
+      },
+      {
+        "text": "And then there's Tamakis.",
+        "start": 193.99,
+        "end": 196.23001
+      }
+    ],
+    "num_words": 29,
+    "start": 185.06499,
+    "end": 196.23001
+  },
+  {
+    "sentences": [
+      {
+        "text": "Tamakis, his problem is that his he doesn't know if his father is dead or alive, but the man is a legend.",
+        "start": 196.23001,
+        "end": 207.265
+      },
+      {
+        "text": "This is a man who won the Trojan War by coming up with a strategy of a Trojan horse.",
+        "start": 207.265,
+        "end": 213.26501
+      },
+      {
+        "text": "K.",
+        "start": 213.66501,
+        "end": 213.905
+      },
+      {
+        "text": "So he is a legend in this world, and everyone sings his praises.",
+        "start": 213.905,
+        "end": 217.585
+      },
+      {
+        "text": "And he's his son, so he's living in his shadow.",
+        "start": 218.36,
+        "end": 221.95999
+      }
+    ],
+    "num_words": 65,
+    "start": 196.23001,
+    "end": 221.95999
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 221.95999,
+        "end": 222.6
+      },
+      {
+        "text": "And he wants to prove he's better than his father.",
+        "start": 223.31999,
+        "end": 228.84
+      },
+      {
+        "text": "He wants to become a hero himself, but he's being burdened by the legacy of his father.",
+        "start": 229.48,
+        "end": 237.30501
+      },
+      {
+        "text": "The other issue is that unless his father is dead, he cannot inherit his father's legacy.",
+        "start": 237.865,
+        "end": 244.10501
+      },
+      {
+        "text": "Right?",
+        "start": 244.10501,
+        "end": 244.74501
+      }
+    ],
+    "num_words": 45,
+    "start": 221.95999,
+    "end": 244.74501
+  },
+  {
+    "sentences": [
+      {
+        "text": "His prop the property, the reputation cannot be transferred to him.",
+        "start": 244.74501,
+        "end": 251.31001
+      },
+      {
+        "text": "Then there's his mother who's just sitting around the house every single day.",
+        "start": 251.55,
+        "end": 255.87001
+      },
+      {
+        "text": "If she were to get married, she would leave, and then he could be master of his own house.",
+        "start": 256.43,
+        "end": 261.55
+      },
+      {
+        "text": "Right?",
+        "start": 261.55,
+        "end": 261.87
+      },
+      {
+        "text": "But she's still around, so he's kinda stuck.",
+        "start": 262.485,
+        "end": 265.04498
+      }
+    ],
+    "num_words": 52,
+    "start": 244.74501,
+    "end": 265.04498
+  },
+  {
+    "sentences": [
+      {
+        "text": "At the same time, the suitors are waiting for Penelope's answer, which is never gonna come.",
+        "start": 265.04498,
+        "end": 270.645
+      },
+      {
+        "text": "So they're just in the house, and they're eating up all his wealth.",
+        "start": 270.885,
+        "end": 276.42
+      },
+      {
+        "text": "So he is just seeing his life wither away and there's nothing he can do about it.",
+        "start": 276.98,
+        "end": 281.86002
+      },
+      {
+        "text": "Alright?",
+        "start": 282.58002,
+        "end": 283.22
+      },
+      {
+        "text": "So he is just depressed as well and he's angry.",
+        "start": 283.22,
+        "end": 289.62
+      }
+    ],
+    "num_words": 57,
+    "start": 265.04498,
+    "end": 289.62
+  },
+  {
+    "sentences": [
+      {
+        "text": "But, you know, all these things are the same thing.",
+        "start": 291.055,
+        "end": 293.29498
+      },
+      {
+        "text": "It's really one of chronic dissonance.",
+        "start": 293.29498,
+        "end": 295.935
+      },
+      {
+        "text": "It's really one of depression.",
+        "start": 295.935,
+        "end": 298.015
+      },
+      {
+        "text": "It's really one of trauma.",
+        "start": 298.095,
+        "end": 299.695
+      },
+      {
+        "text": "Alright.",
+        "start": 300.415,
+        "end": 300.895
+      }
+    ],
+    "num_words": 27,
+    "start": 291.055,
+    "end": 300.895
+  },
+  {
+    "sentences": [
+      {
+        "text": "So there's another way we can analyze what's going on and to think about the soul.",
+        "start": 300.895,
+        "end": 306.34
+      },
+      {
+        "text": "And the soul is something that the ancients were really concerned about because it was really the most fundamental issue of what it means to be a human being.",
+        "start": 307.94,
+        "end": 318.665
+      },
+      {
+        "text": "It's something that we don't talk about today, something that we don't think about today because we live in a world of material science.",
+        "start": 318.665,
+        "end": 325.625
+      },
+      {
+        "text": "If we can't see it, it doesn't exist.",
+        "start": 325.625,
+        "end": 327.625
+      },
+      {
+        "text": "But, for most of humanity, sorry, for most of human history, humanity has understood the soul as very present and as very real, the most significant thing in our lives.",
+        "start": 328.26498,
+        "end": 341.14
+      }
+    ],
+    "num_words": 107,
+    "start": 300.895,
+    "end": 341.14
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 341.14,
+        "end": 341.78003
+      },
+      {
+        "text": "So the soul that they understood, let let's talk about their understanding of the soul.",
+        "start": 342.02002,
+        "end": 346.895
+      },
+      {
+        "text": "And this is true for a lot actually a lot of cultures.",
+        "start": 346.895,
+        "end": 349.135
+      },
+      {
+        "text": "First of all, soul is a very complex thing.",
+        "start": 349.53497,
+        "end": 354.095
+      },
+      {
+        "text": "Okay?",
+        "start": 354.25497,
+        "end": 354.655
+      }
+    ],
+    "num_words": 38,
+    "start": 341.14,
+    "end": 354.655
+  },
+  {
+    "sentences": [
+      {
+        "text": "It is almost infinite dimensions.",
+        "start": 354.655,
+        "end": 356.175
+      },
+      {
+        "text": "The different layers to the soul.",
+        "start": 357.53,
+        "end": 361.21
+      },
+      {
+        "text": "And there's really a part of the soul that is you.",
+        "start": 361.44998,
+        "end": 366.56998
+      },
+      {
+        "text": "Okay?",
+        "start": 366.56998,
+        "end": 367.21
+      },
+      {
+        "text": "That's just you, the person.",
+        "start": 367.77,
+        "end": 369.53
+      }
+    ],
+    "num_words": 28,
+    "start": 354.655,
+    "end": 369.53
+  },
+  {
+    "sentences": [
+      {
+        "text": "But who you are as a person is ultimately influenced by other, influences as well, by other factors as well.",
+        "start": 370.565,
+        "end": 378.885
+      },
+      {
+        "text": "Okay?",
+        "start": 378.885,
+        "end": 379.445
+      },
+      {
+        "text": "So these influences include, your family.",
+        "start": 379.685,
+        "end": 383.92502
+      },
+      {
+        "text": "Okay?",
+        "start": 384.165,
+        "end": 384.48502
+      },
+      {
+        "text": "Your, culture, the history, and maybe the gods.",
+        "start": 385.1,
+        "end": 392.06
+      }
+    ],
+    "num_words": 36,
+    "start": 370.565,
+    "end": 392.06
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 392.06,
+        "end": 392.38
+      },
+      {
+        "text": "So, again, they're infinite dimensions and these dimensions have an impact on you.",
+        "start": 392.38,
+        "end": 397.98
+      },
+      {
+        "text": "And maybe when you die, maybe there's a part of you that lives on.",
+        "start": 399.155,
+        "end": 403.555
+      },
+      {
+        "text": "Okay?",
+        "start": 403.555,
+        "end": 403.875
+      },
+      {
+        "text": "But there's also parts of you that flows back into these different streams of the universe.",
+        "start": 403.875,
+        "end": 410.835
+      }
+    ],
+    "num_words": 45,
+    "start": 392.06,
+    "end": 410.835
+  },
+  {
+    "sentences": [
+      {
+        "text": "K.",
+        "start": 411.34998,
+        "end": 411.66998
+      },
+      {
+        "text": "So it's a very complex thing.",
+        "start": 411.66998,
+        "end": 414.15
+      },
+      {
+        "text": "Now the soul, another name for the soul that we use today, if you go to psychology class, their name for the soul is the world view.",
+        "start": 414.94998,
+        "end": 425.03
+      },
+      {
+        "text": "Okay.",
+        "start": 429.255,
+        "end": 429.735
+      },
+      {
+        "text": "So we have a much more simplistic understanding of our psychology than the ancients.",
+        "start": 429.735,
+        "end": 435.975
+      }
+    ],
+    "num_words": 49,
+    "start": 411.34998,
+    "end": 435.975
+  },
+  {
+    "sentences": [
+      {
+        "text": "The idea of worldview is just our understanding of who we are, where we came from, and our place in the universe.",
+        "start": 436.13498,
+        "end": 443.85
+      },
+      {
+        "text": "K?",
+        "start": 444.33002,
+        "end": 444.65002
+      },
+      {
+        "text": "It comes and we believe it comes from our memories and our experiences.",
+        "start": 444.65002,
+        "end": 450.33002
+      },
+      {
+        "text": "Okay?",
+        "start": 454.09,
+        "end": 454.49002
+      },
+      {
+        "text": "And the worldview is important because it allows us to nurture us in ourselves this is important for things such as planning.",
+        "start": 455.07498,
+        "end": 465.555
+      }
+    ],
+    "num_words": 59,
+    "start": 436.13498,
+    "end": 465.555
+  },
+  {
+    "sentences": [
+      {
+        "text": "Right?",
+        "start": 465.955,
+        "end": 466.595
+      },
+      {
+        "text": "Only if you know who you are can you actually plan ahead because then you know what you wanna do, what you wanna accomplish.",
+        "start": 466.915,
+        "end": 473.8
+      },
+      {
+        "text": "Okay?",
+        "start": 473.8,
+        "end": 474.44
+      },
+      {
+        "text": "It allows for empathy, building relationships with others.",
+        "start": 474.68,
+        "end": 481.56
+      },
+      {
+        "text": "Okay?",
+        "start": 481.87997,
+        "end": 482.36
+      }
+    ],
+    "num_words": 35,
+    "start": 465.955,
+    "end": 482.36
+  },
+  {
+    "sentences": [
+      {
+        "text": "And it allows for judgment.",
+        "start": 482.36,
+        "end": 484.91998
+      },
+      {
+        "text": "Basically, what's good, what's bad, what do you like, what don't you like.",
+        "start": 485.63998,
+        "end": 490.945
+      },
+      {
+        "text": "Okay?",
+        "start": 490.945,
+        "end": 491.42502
+      },
+      {
+        "text": "So the worldview and the soul are fundamental to who we are.",
+        "start": 491.82498,
+        "end": 496.305
+      },
+      {
+        "text": "Now, in psychology, what they will teach you is that trauma splinters the worldview.",
+        "start": 496.945,
+        "end": 507.83002
+      }
+    ],
+    "num_words": 45,
+    "start": 482.36,
+    "end": 507.83002
+  },
+  {
+    "sentences": [
+      {
+        "text": "K?",
+        "start": 508.07,
+        "end": 508.55002
+      },
+      {
+        "text": "There's something about your experience that is fundamental to your identity, but because it is so painful, you forget about it or you refuse to see it.",
+        "start": 508.55002,
+        "end": 522.485
+      },
+      {
+        "text": "And this causes a rupture in your identity, in your coherent sense of the world, which destroys your world view.",
+        "start": 522.485,
+        "end": 530.94
+      },
+      {
+        "text": "Okay?",
+        "start": 530.94,
+        "end": 531.26
+      },
+      {
+        "text": "And this leads to depression.",
+        "start": 531.26,
+        "end": 533.34
+      }
+    ],
+    "num_words": 54,
+    "start": 508.07,
+    "end": 533.34
+  },
+  {
+    "sentences": [
+      {
+        "text": "What is depression?",
+        "start": 533.74,
+        "end": 535.18
+      },
+      {
+        "text": "Depression is the inability to act and to think.",
+        "start": 535.18,
+        "end": 541.34
+      },
+      {
+        "text": "Okay?",
+        "start": 541.34,
+        "end": 541.9
+      },
+      {
+        "text": "You don't know what you want to accomplish.",
+        "start": 542.3,
+        "end": 544.78
+      },
+      {
+        "text": "You don't trust yourself.",
+        "start": 545.435,
+        "end": 547.435
+      }
+    ],
+    "num_words": 25,
+    "start": 533.74,
+    "end": 547.435
+  },
+  {
+    "sentences": [
+      {
+        "text": "You don't know what you like.",
+        "start": 547.595,
+        "end": 549.035
+      },
+      {
+        "text": "And so what are the symptoms of depression?",
+        "start": 549.035,
+        "end": 550.955
+      },
+      {
+        "text": "You sleep a lot.",
+        "start": 550.955,
+        "end": 552.235
+      },
+      {
+        "text": "You find no pleasure in anything.",
+        "start": 553.115,
+        "end": 554.715
+      },
+      {
+        "text": "You feel no emotion.",
+        "start": 555.83496,
+        "end": 558.41003
+      }
+    ],
+    "num_words": 28,
+    "start": 547.595,
+    "end": 558.41003
+  },
+  {
+    "sentences": [
+      {
+        "text": "You feel sort of numbness.",
+        "start": 558.41003,
+        "end": 559.61
+      },
+      {
+        "text": "Okay?",
+        "start": 559.61,
+        "end": 559.93
+      },
+      {
+        "text": "And that's why people, they tend to take drugs or they just sleep all the time or whatever.",
+        "start": 559.93,
+        "end": 566.01
+      },
+      {
+        "text": "Okay?",
+        "start": 566.01,
+        "end": 566.49
+      },
+      {
+        "text": "Alright?",
+        "start": 566.57,
+        "end": 566.97003
+      }
+    ],
+    "num_words": 26,
+    "start": 558.41003,
+    "end": 566.97003
+  },
+  {
+    "sentences": [
+      {
+        "text": "Because you're unable to act.",
+        "start": 566.97003,
+        "end": 568.09
+      },
+      {
+        "text": "And that's exactly what's happening to Odysseus, Penelope, and Thalacus.",
+        "start": 568.09,
+        "end": 573.315
+      },
+      {
+        "text": "Alright?",
+        "start": 573.635,
+        "end": 573.955
+      },
+      {
+        "text": "There's a trauma in their lives.",
+        "start": 573.955,
+        "end": 576.195
+      },
+      {
+        "text": "Okay?",
+        "start": 576.435,
+        "end": 576.835
+      }
+    ],
+    "num_words": 23,
+    "start": 566.97003,
+    "end": 576.835
+  },
+  {
+    "sentences": [
+      {
+        "text": "And they just believe this as well.",
+        "start": 576.835,
+        "end": 578.515
+      },
+      {
+        "text": "Okay?",
+        "start": 578.515,
+        "end": 578.755
+      },
+      {
+        "text": "There could be a trauma that splits the soul.",
+        "start": 578.755,
+        "end": 582.115
+      },
+      {
+        "text": "Okay?",
+        "start": 583.34,
+        "end": 583.98004
+      },
+      {
+        "text": "And it could be a demon.",
+        "start": 584.06,
+        "end": 585.5
+      }
+    ],
+    "num_words": 24,
+    "start": 576.835,
+    "end": 585.5
+  },
+  {
+    "sentences": [
+      {
+        "text": "It could be, a really painful incident.",
+        "start": 585.58,
+        "end": 589.34
+      },
+      {
+        "text": "It could be anything.",
+        "start": 589.34,
+        "end": 590.06
+      },
+      {
+        "text": "Okay?",
+        "start": 590.06,
+        "end": 590.3
+      },
+      {
+        "text": "But it splits your soul.",
+        "start": 590.3,
+        "end": 591.74
+      },
+      {
+        "text": "And if you are to recover, then you have to repair your soul.",
+        "start": 592.62,
+        "end": 596.54004
+      }
+    ],
+    "num_words": 30,
+    "start": 585.58,
+    "end": 596.54004
+  },
+  {
+    "sentences": [
+      {
+        "text": "And that's a fundamental conflict and the dilemma within the odyssey.",
+        "start": 597.02496,
+        "end": 601.985
+      },
+      {
+        "text": "You have three individuals, Odysseus, Penelope, Tamalekis.",
+        "start": 601.985,
+        "end": 606.705
+      },
+      {
+        "text": "Their soul has been splintered.",
+        "start": 606.705,
+        "end": 608.305
+      },
+      {
+        "text": "And so they're on a journey, their own odyssey to repair their soul.",
+        "start": 608.305,
+        "end": 614.56
+      },
+      {
+        "text": "And the answer, of course, is each other.",
+        "start": 615.28,
+        "end": 618.88
+      }
+    ],
+    "num_words": 44,
+    "start": 597.02496,
+    "end": 618.88
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 618.88,
+        "end": 619.44
+      },
+      {
+        "text": "Their love for each other.",
+        "start": 619.44,
+        "end": 620.56
+      },
+      {
+        "text": "That's what's what's save the world.",
+        "start": 620.56,
+        "end": 623.28
+      },
+      {
+        "text": "Okay?",
+        "start": 623.28,
+        "end": 623.84
+      },
+      {
+        "text": "The love of family.",
+        "start": 623.84,
+        "end": 625.12
+      }
+    ],
+    "num_words": 17,
+    "start": 618.88,
+    "end": 625.12
+  },
+  {
+    "sentences": [
+      {
+        "text": "And that is the fundamental message of The Odyssey.",
+        "start": 626.84503,
+        "end": 631.405
+      },
+      {
+        "text": "Alright?",
+        "start": 632.04504,
+        "end": 632.685
+      },
+      {
+        "text": "And that's why it's such a powerful read.",
+        "start": 632.685,
+        "end": 635.72504
+      },
+      {
+        "text": "Okay.",
+        "start": 636.60504,
+        "end": 637.325
+      },
+      {
+        "text": "So let me give you some background as to the plot.",
+        "start": 637.325,
+        "end": 642.16
+      }
+    ],
+    "num_words": 30,
+    "start": 626.84503,
+    "end": 642.16
+  },
+  {
+    "sentences": [
+      {
+        "text": "So, as you know, the Odyssey begins in in media in median rest.",
+        "start": 642.63995,
+        "end": 647.83997
+      },
+      {
+        "text": "Okay?",
+        "start": 647.83997,
+        "end": 648.24
+      },
+      {
+        "text": "In the middle of things, which is to say that a lot of things have already taken place and happens just in the middle of the plot.",
+        "start": 648.24,
+        "end": 655.855
+      },
+      {
+        "text": "K?",
+        "start": 656.095,
+        "end": 656.495
+      },
+      {
+        "text": "In the in the in the in the beginning, Odysseus has been away for twenty years, and he's stuck on an island with Calypso.",
+        "start": 656.495,
+        "end": 663.695
+      }
+    ],
+    "num_words": 66,
+    "start": 642.63995,
+    "end": 663.695
+  },
+  {
+    "sentences": [
+      {
+        "text": "Alright.",
+        "start": 663.855,
+        "end": 664.175
+      },
+      {
+        "text": "Penelope is depressed and seeing ourselves in the room.",
+        "start": 664.175,
+        "end": 667.77496
+      },
+      {
+        "text": "Tamachus is angry.",
+        "start": 667.77496,
+        "end": 668.735
+      },
+      {
+        "text": "Okay?",
+        "start": 668.85,
+        "end": 669.08997
+      },
+      {
+        "text": "And Athena comes and tells Tamachus, come with me.",
+        "start": 669.08997,
+        "end": 672.44995
+      }
+    ],
+    "num_words": 23,
+    "start": 663.855,
+    "end": 672.44995
+  },
+  {
+    "sentences": [
+      {
+        "text": "I will help you find your father.",
+        "start": 672.44995,
+        "end": 674.20996
+      },
+      {
+        "text": "Okay?",
+        "start": 674.20996,
+        "end": 674.85
+      },
+      {
+        "text": "So the story starts with the Trojan War, of course.",
+        "start": 675.08997,
+        "end": 682.44995
+      },
+      {
+        "text": "K?",
+        "start": 682.715,
+        "end": 683.115
+      },
+      {
+        "text": "So remember, the tro there's a the Helen has been taken to Troy.",
+        "start": 683.115,
+        "end": 687.435
+      }
+    ],
+    "num_words": 32,
+    "start": 672.44995,
+    "end": 687.435
+  },
+  {
+    "sentences": [
+      {
+        "text": "She falls in love with Paris because that's what Aphrodite promised Paris as a prize.",
+        "start": 687.435,
+        "end": 693.435
+      },
+      {
+        "text": "And now her husband, the king of Sparta, Menelaus, and her and his brother, Agavenda, the king of kings, are like, we're gonna raise an army, and we're gonna get back Helen.",
+        "start": 695.03503,
+        "end": 706.34
+      },
+      {
+        "text": "Okay?",
+        "start": 706.34,
+        "end": 706.82
+      },
+      {
+        "text": "And this is prophesied.",
+        "start": 706.98004,
+        "end": 709.22003
+      },
+      {
+        "text": "This is this is to be the greatest war in human history.",
+        "start": 709.22003,
+        "end": 713.145
+      }
+    ],
+    "num_words": 64,
+    "start": 687.435,
+    "end": 713.145
+  },
+  {
+    "sentences": [
+      {
+        "text": "It will make it will make mortals into gods.",
+        "start": 713.145,
+        "end": 717.22504
+      },
+      {
+        "text": "Right?",
+        "start": 717.22504,
+        "end": 717.625
+      },
+      {
+        "text": "That's why Achilles enters this war because this is the opportunity for him to prove that he is the greatest warrior of all in all of human history, and that's why he goes to Troy.",
+        "start": 717.625,
+        "end": 728.91003
+      },
+      {
+        "text": "Odysseus is also supposed to go to this war, but Odysseus, he's different from Achilles because Odysseus loves his wife, Penelope.",
+        "start": 729.31,
+        "end": 742.275
+      },
+      {
+        "text": "And he has a new son, six months six months old, Tanakhis.",
+        "start": 743.155,
+        "end": 747.47504
+      }
+    ],
+    "num_words": 78,
+    "start": 713.145,
+    "end": 747.47504
+  },
+  {
+    "sentences": [
+      {
+        "text": "So he's conflicted, and he really doesn't wanna go to war.",
+        "start": 747.47504,
+        "end": 750.91504
+      },
+      {
+        "text": "But the Greeks need him because the gods have told the Greeks that it is really Odysseus who will win the war because he's the one who will come up with the Trojan horse, the strategy that will win this war.",
+        "start": 750.91504,
+        "end": 761.14
+      },
+      {
+        "text": "So you need this guy.",
+        "start": 761.14,
+        "end": 762.34
+      },
+      {
+        "text": "Okay?",
+        "start": 762.5,
+        "end": 763.06
+      },
+      {
+        "text": "So Odysseus doesn't wanna go, but the Greeks insist.",
+        "start": 763.06,
+        "end": 766.10004
+      }
+    ],
+    "num_words": 67,
+    "start": 747.47504,
+    "end": 766.10004
+  },
+  {
+    "sentences": [
+      {
+        "text": "So the Greeks send two messengers to Ithaca, where Odysseus lives.",
+        "start": 766.10004,
+        "end": 773.245
+      },
+      {
+        "text": "Now this is what he does is he pretends to be mad.",
+        "start": 773.485,
+        "end": 778.685
+      },
+      {
+        "text": "So he dressed up with a beggar.",
+        "start": 778.765,
+        "end": 780.045
+      },
+      {
+        "text": "Okay?",
+        "start": 780.045,
+        "end": 780.365
+      },
+      {
+        "text": "He's a king, but he dresses up really badly.",
+        "start": 780.365,
+        "end": 783.37
+      }
+    ],
+    "num_words": 40,
+    "start": 766.10004,
+    "end": 783.37
+  },
+  {
+    "sentences": [
+      {
+        "text": "He's going around the farmland and throwing salt everywhere he goes.",
+        "start": 783.37,
+        "end": 787.93
+      },
+      {
+        "text": "He looks crazy.",
+        "start": 787.93,
+        "end": 788.81
+      },
+      {
+        "text": "Okay?",
+        "start": 788.81,
+        "end": 789.05
+      },
+      {
+        "text": "And you throw salt in the land to kill crops.",
+        "start": 789.05,
+        "end": 792.25
+      },
+      {
+        "text": "So he looks kinda crazy.",
+        "start": 792.57,
+        "end": 793.61
+      }
+    ],
+    "num_words": 30,
+    "start": 783.37,
+    "end": 793.61
+  },
+  {
+    "sentences": [
+      {
+        "text": "But the but the Greeks understand that this is a man of disguise.",
+        "start": 794.365,
+        "end": 799.48505
+      },
+      {
+        "text": "He's a man of stratagems.",
+        "start": 799.645,
+        "end": 802.36505
+      },
+      {
+        "text": "He's very clever.",
+        "start": 802.525,
+        "end": 803.72504
+      },
+      {
+        "text": "So it's probably a trick.",
+        "start": 803.72504,
+        "end": 805.085
+      },
+      {
+        "text": "So what they do is they take his six month old son, Temachus.",
+        "start": 805.16504,
+        "end": 809.645
+      }
+    ],
+    "num_words": 39,
+    "start": 794.365,
+    "end": 809.645
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 810.04,
+        "end": 810.52
+      },
+      {
+        "text": "And put in front of Odysseus.",
+        "start": 810.52,
+        "end": 813.56
+      },
+      {
+        "text": "Now Odysseus is plotting the field and salting the fields.",
+        "start": 813.56,
+        "end": 816.76
+      },
+      {
+        "text": "Okay?",
+        "start": 816.76,
+        "end": 817.24
+      },
+      {
+        "text": "And basically, the test is this.",
+        "start": 817.32,
+        "end": 818.76
+      }
+    ],
+    "num_words": 24,
+    "start": 810.04,
+    "end": 818.76
+  },
+  {
+    "sentences": [
+      {
+        "text": "If you're really mad, you're gonna run over your son, Temachus, and kill him.",
+        "start": 818.76,
+        "end": 822.84
+      },
+      {
+        "text": "If you're not mad, you're not really crazy, then you're gonna stop and go somewhere else and save your son.",
+        "start": 823.0,
+        "end": 829.725
+      },
+      {
+        "text": "So so let's see if you're really crazy.",
+        "start": 829.725,
+        "end": 831.725
+      },
+      {
+        "text": "And so this is, of course, turns away and saves his son, and the Greeks just like, hi.",
+        "start": 832.525,
+        "end": 838.65
+      },
+      {
+        "text": "You see?",
+        "start": 838.65,
+        "end": 839.13
+      }
+    ],
+    "num_words": 62,
+    "start": 818.76,
+    "end": 839.13
+  },
+  {
+    "sentences": [
+      {
+        "text": "You're tricking us all along.",
+        "start": 839.13,
+        "end": 840.33
+      },
+      {
+        "text": "Come with us to, Troy.",
+        "start": 840.33,
+        "end": 843.45
+      },
+      {
+        "text": "And so Odysseus has no choice but to go.",
+        "start": 843.45,
+        "end": 846.01
+      },
+      {
+        "text": "Okay?",
+        "start": 846.33,
+        "end": 846.97003
+      },
+      {
+        "text": "So this is why Odysseus goes.",
+        "start": 847.21,
+        "end": 850.17
+      }
+    ],
+    "num_words": 26,
+    "start": 839.13,
+    "end": 850.17
+  },
+  {
+    "sentences": [
+      {
+        "text": "He's forced to go.",
+        "start": 850.17,
+        "end": 850.97003
+      },
+      {
+        "text": "When you think about it, the story doesn't really make any sense.",
+        "start": 851.33496,
+        "end": 854.135
+      },
+      {
+        "text": "Right?",
+        "start": 854.855,
+        "end": 855.175
+      },
+      {
+        "text": "And that's the, greatness of Homer because he's telling us the complexity of human psychology.",
+        "start": 855.175,
+        "end": 861.895
+      },
+      {
+        "text": "Odysseus is really, really smart.",
+        "start": 862.535,
+        "end": 864.135
+      }
+    ],
+    "num_words": 37,
+    "start": 850.17,
+    "end": 864.135
+  },
+  {
+    "sentences": [
+      {
+        "text": "He thinks ahead.",
+        "start": 864.135,
+        "end": 864.935
+      },
+      {
+        "text": "Right?",
+        "start": 864.935,
+        "end": 865.095
+      },
+      {
+        "text": "He should know that if he were to have the stratagem, the Greeks would see it see it for it really quickly.",
+        "start": 865.56995,
+        "end": 871.73
+      },
+      {
+        "text": "Right?",
+        "start": 871.73,
+        "end": 872.29
+      },
+      {
+        "text": "So what he should be doing is hiding from the Greeks.",
+        "start": 872.52997,
+        "end": 875.25
+      }
+    ],
+    "num_words": 38,
+    "start": 864.135,
+    "end": 875.25
+  },
+  {
+    "sentences": [
+      {
+        "text": "Right?",
+        "start": 875.25,
+        "end": 875.73
+      },
+      {
+        "text": "Or maybe, just moving away.",
+        "start": 876.44995,
+        "end": 879.56995
+      },
+      {
+        "text": "If you really, really don't wanna go to this war, you just run away and take your family with you.",
+        "start": 880.085,
+        "end": 884.485
+      },
+      {
+        "text": "Okay?",
+        "start": 884.725,
+        "end": 885.205
+      },
+      {
+        "text": "Or you know what?",
+        "start": 885.205,
+        "end": 886.405
+      }
+    ],
+    "num_words": 31,
+    "start": 875.25,
+    "end": 886.405
+  },
+  {
+    "sentences": [
+      {
+        "text": "Just kill these guys because you're crazy.",
+        "start": 886.405,
+        "end": 888.645
+      },
+      {
+        "text": "Right?",
+        "start": 888.645,
+        "end": 889.125
+      },
+      {
+        "text": "Alright.",
+        "start": 890.405,
+        "end": 890.965
+      },
+      {
+        "text": "So, what this tells us is that, yes, Odysseus really loves his family and he wants to be with his family because he knows that if he goes to Troy, he'll be gone for twenty years.",
+        "start": 890.965,
+        "end": 905.25
+      },
+      {
+        "text": "That's twenty years that that he won't be able to see his son, Tomacas, grow up.",
+        "start": 905.73004,
+        "end": 910.77
+      }
+    ],
+    "num_words": 61,
+    "start": 886.405,
+    "end": 910.77
+  },
+  {
+    "sentences": [
+      {
+        "text": "K?",
+        "start": 910.85004,
+        "end": 911.09
+      },
+      {
+        "text": "But at the same time, this is the greatest war in human history.",
+        "start": 911.85504,
+        "end": 916.09503
+      },
+      {
+        "text": "Achilles is going.",
+        "start": 916.17505,
+        "end": 917.215
+      },
+      {
+        "text": "Apemano is going.",
+        "start": 917.215,
+        "end": 918.575
+      },
+      {
+        "text": "Does Odysseus wanna be really wanna be left out?",
+        "start": 918.575,
+        "end": 921.135
+      }
+    ],
+    "num_words": 29,
+    "start": 910.85004,
+    "end": 921.135
+  },
+  {
+    "sentences": [
+      {
+        "text": "Does he really wanna be the one guy who is like a coward?",
+        "start": 921.455,
+        "end": 926.335
+      },
+      {
+        "text": "Who is like, you know what?",
+        "start": 926.46,
+        "end": 927.5
+      },
+      {
+        "text": "I'm gonna stay home.",
+        "start": 927.5,
+        "end": 928.7
+      },
+      {
+        "text": "Right?",
+        "start": 929.34,
+        "end": 929.82
+      },
+      {
+        "text": "The Greeks will just laugh at him for the rest of his life saying you're just a pussy.",
+        "start": 929.82,
+        "end": 934.30005
+      }
+    ],
+    "num_words": 42,
+    "start": 921.455,
+    "end": 934.30005
+  },
+  {
+    "sentences": [
+      {
+        "text": "Right?",
+        "start": 934.94,
+        "end": 935.34
+      },
+      {
+        "text": "You've been pussy whipped by your wife.",
+        "start": 935.34,
+        "end": 937.66003
+      },
+      {
+        "text": "They don't wanna do that.",
+        "start": 937.66003,
+        "end": 938.78
+      },
+      {
+        "text": "So it's a conflict.",
+        "start": 938.78,
+        "end": 939.66003
+      },
+      {
+        "text": "Alright?",
+        "start": 939.995,
+        "end": 940.475
+      }
+    ],
+    "num_words": 18,
+    "start": 934.94,
+    "end": 940.475
+  },
+  {
+    "sentences": [
+      {
+        "text": "So what he does is he comes up with a stratagem that allows the Greeks to see for it really quickly and force him to go so he doesn't have to bear any responsibility for what he does.",
+        "start": 940.475,
+        "end": 951.195
+      },
+      {
+        "text": "Alright?",
+        "start": 952.22003,
+        "end": 952.86
+      },
+      {
+        "text": "And that is a complexity of the human soul.",
+        "start": 952.86,
+        "end": 955.74
+      },
+      {
+        "text": "That is a complexity of our worldview.",
+        "start": 955.74,
+        "end": 958.38
+      },
+      {
+        "text": "Alright?",
+        "start": 959.26,
+        "end": 960.06
+      }
+    ],
+    "num_words": 56,
+    "start": 940.475,
+    "end": 960.06
+  },
+  {
+    "sentences": [
+      {
+        "text": "So he goes to Troy, and he has to explain himself why he's there.",
+        "start": 960.78,
+        "end": 968.20496
+      },
+      {
+        "text": "And he he knows he's gonna be away from home for twenty years.",
+        "start": 968.20496,
+        "end": 971.005
+      },
+      {
+        "text": "Ten years in Troy, ten years being lost at sea.",
+        "start": 971.005,
+        "end": 973.64496
+      },
+      {
+        "text": "Right?",
+        "start": 973.725,
+        "end": 974.045
+      },
+      {
+        "text": "So his world view is this.",
+        "start": 974.045,
+        "end": 975.565
+      }
+    ],
+    "num_words": 44,
+    "start": 960.78,
+    "end": 975.565
+  },
+  {
+    "sentences": [
+      {
+        "text": "Why am I here in Troy?",
+        "start": 979.58997,
+        "end": 982.07
+      },
+      {
+        "text": "Well, the first reason is just justice.",
+        "start": 982.23,
+        "end": 986.70996
+      },
+      {
+        "text": "Right?",
+        "start": 989.35,
+        "end": 989.99
+      },
+      {
+        "text": "This is a just war because the Trojan stole Helen, and therefore, the Greeks must avenge the honor of Menelaus.",
+        "start": 990.14996,
+        "end": 1002.495
+      },
+      {
+        "text": "Okay?",
+        "start": 1002.895,
+        "end": 1003.535
+      }
+    ],
+    "num_words": 35,
+    "start": 979.58997,
+    "end": 1003.535
+  },
+  {
+    "sentences": [
+      {
+        "text": "Second is family.",
+        "start": 1003.535,
+        "end": 1005.375
+      },
+      {
+        "text": "Helen should be with her children.",
+        "start": 1007.52,
+        "end": 1009.76
+      },
+      {
+        "text": "Helen should be with her family in Sparta.",
+        "start": 1010.0,
+        "end": 1014.0
+      },
+      {
+        "text": "We have to return her to Sparta.",
+        "start": 1014.0,
+        "end": 1017.60004
+      },
+      {
+        "text": "How would I feel if Pineapple were stolen from me?",
+        "start": 1018.345,
+        "end": 1020.745
+      }
+    ],
+    "num_words": 34,
+    "start": 1003.535,
+    "end": 1020.745
+  },
+  {
+    "sentences": [
+      {
+        "text": "I would want everyone to go fight with me to get her back as well.",
+        "start": 1020.745,
+        "end": 1023.865
+      },
+      {
+        "text": "Right?",
+        "start": 1023.865,
+        "end": 1024.185
+      },
+      {
+        "text": "But family.",
+        "start": 1024.185,
+        "end": 1025.3049
+      },
+      {
+        "text": "Okay?",
+        "start": 1025.865,
+        "end": 1026.505
+      },
+      {
+        "text": "Now third reason is legacy.",
+        "start": 1026.505,
+        "end": 1029.865
+      }
+    ],
+    "num_words": 24,
+    "start": 1020.745,
+    "end": 1029.865
+  },
+  {
+    "sentences": [
+      {
+        "text": "Yes.",
+        "start": 1031.145,
+        "end": 1031.7849
+      },
+      {
+        "text": "He will not see his son, Timachus, for twenty years.",
+        "start": 1031.945,
+        "end": 1037.32
+      },
+      {
+        "text": "Therefore, he has to build him a legacy that will carry him for the rest of his life.",
+        "start": 1037.56,
+        "end": 1044.92
+      },
+      {
+        "text": "If he is in Troy and he wins this great war and becomes this great hero, then Timachus himself will be famous as a son of of Odysseus.",
+        "start": 1045.0,
+        "end": 1056.065
+      },
+      {
+        "text": "People respect Timachus.",
+        "start": 1057.185,
+        "end": 1058.865
+      }
+    ],
+    "num_words": 60,
+    "start": 1031.145,
+    "end": 1058.865
+  },
+  {
+    "sentences": [
+      {
+        "text": "He wants to build a legacy for his son.",
+        "start": 1058.865,
+        "end": 1060.865
+      },
+      {
+        "text": "He wants to tell his son, this is this is how you should live your life.",
+        "start": 1060.865,
+        "end": 1065.97
+      },
+      {
+        "text": "You should live a life of honor, of justice, of truth.",
+        "start": 1066.13,
+        "end": 1069.89
+      },
+      {
+        "text": "Okay?",
+        "start": 1070.2101,
+        "end": 1070.6901
+      },
+      {
+        "text": "So these are the three reasons why he goes to Troy.",
+        "start": 1070.6901,
+        "end": 1075.81
+      }
+    ],
+    "num_words": 48,
+    "start": 1058.865,
+    "end": 1075.81
+  },
+  {
+    "sentences": [
+      {
+        "text": "We have to remember that this is all to justify his conflict.",
+        "start": 1076.345,
+        "end": 1081.625
+      },
+      {
+        "text": "Okay?",
+        "start": 1081.625,
+        "end": 1081.785
+      },
+      {
+        "text": "There's a conflict, there's a rupture in his soul, and he he needs to mend it by explaining why he's doing what he's doing.",
+        "start": 1081.785,
+        "end": 1088.8251
+      },
+      {
+        "text": "Okay?",
+        "start": 1090.0,
+        "end": 1090.4
+      },
+      {
+        "text": "Because again, he's abandoning his panic for twenty years.",
+        "start": 1090.4,
+        "end": 1092.8799
+      }
+    ],
+    "num_words": 47,
+    "start": 1076.345,
+    "end": 1092.8799
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay.",
+        "start": 1093.6,
+        "end": 1094.24
+      },
+      {
+        "text": "So, what's gonna happen is this.",
+        "start": 1094.64,
+        "end": 1099.5199
+      },
+      {
+        "text": "This is this is the world view that Odysseus has when he enters Troy.",
+        "start": 1099.6,
+        "end": 1104.0
+      },
+      {
+        "text": "The problem starts when they win the war.",
+        "start": 1105.265,
+        "end": 1109.345
+      },
+      {
+        "text": "K?",
+        "start": 1109.505,
+        "end": 1110.065
+      }
+    ],
+    "num_words": 30,
+    "start": 1093.6,
+    "end": 1110.065
+  },
+  {
+    "sentences": [
+      {
+        "text": "Because when they win the war, then Odysseus is forced to see that all these three things were wrong.",
+        "start": 1110.065,
+        "end": 1121.0499
+      },
+      {
+        "text": "Okay?",
+        "start": 1121.61,
+        "end": 1122.25
+      },
+      {
+        "text": "He will discover that this war was not about justice.",
+        "start": 1122.9701,
+        "end": 1126.73
+      },
+      {
+        "text": "It was just about revenge and murder.",
+        "start": 1126.81,
+        "end": 1129.4501
+      },
+      {
+        "text": "It is about family.",
+        "start": 1130.075,
+        "end": 1131.515
+      }
+    ],
+    "num_words": 41,
+    "start": 1110.065,
+    "end": 1131.515
+  },
+  {
+    "sentences": [
+      {
+        "text": "It's about destroying families.",
+        "start": 1131.515,
+        "end": 1133.0349
+      },
+      {
+        "text": "Because when you win this war, you enslave the woman and kill the husbands.",
+        "start": 1133.035,
+        "end": 1138.315
+      },
+      {
+        "text": "Right?",
+        "start": 1138.555,
+        "end": 1139.035
+      },
+      {
+        "text": "That's destroying families.",
+        "start": 1139.035,
+        "end": 1140.3949
+      },
+      {
+        "text": "And it's not about legacy because you destroyed the Trojan civilization for no biblical reason.",
+        "start": 1141.115,
+        "end": 1149.35
+      }
+    ],
+    "num_words": 37,
+    "start": 1131.515,
+    "end": 1149.35
+  },
+  {
+    "sentences": [
+      {
+        "text": "Because Helen Helen doesn't even wanna go back to Sparta.",
+        "start": 1149.43,
+        "end": 1152.63
+      },
+      {
+        "text": "Okay?",
+        "start": 1153.11,
+        "end": 1153.59
+      },
+      {
+        "text": "And this causes con cognitive dissonance.",
+        "start": 1153.59,
+        "end": 1155.59
+      },
+      {
+        "text": "And this is what causes his PTSD.",
+        "start": 1158.525,
+        "end": 1163.885
+      },
+      {
+        "text": "Okay?",
+        "start": 1165.005,
+        "end": 1165.4851
+      }
+    ],
+    "num_words": 25,
+    "start": 1149.43,
+    "end": 1165.4851
+  },
+  {
+    "sentences": [
+      {
+        "text": "Or trauma.",
+        "start": 1165.4851,
+        "end": 1166.445
+      },
+      {
+        "text": "And so for so the odyssey is his journey to repair his soul so that he can go home.",
+        "start": 1166.685,
+        "end": 1175.6299
+      },
+      {
+        "text": "K?",
+        "start": 1176.0299,
+        "end": 1176.2699
+      },
+      {
+        "text": "Does it does it make sense, guys?",
+        "start": 1176.2699,
+        "end": 1177.5499
+      },
+      {
+        "text": "That's what the Odyssey is about.",
+        "start": 1177.5499,
+        "end": 1179.6299
+      }
+    ],
+    "num_words": 35,
+    "start": 1165.4851,
+    "end": 1179.6299
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay.",
+        "start": 1179.6299,
+        "end": 1180.19
+      },
+      {
+        "text": "So what we're gonna do now is we are gonna read certain sections.",
+        "start": 1180.2699,
+        "end": 1186.2351
+      },
+      {
+        "text": "Okay.",
+        "start": 1186.2351,
+        "end": 1186.4751
+      },
+      {
+        "text": "So this is from the Iliad, actually.",
+        "start": 1186.4751,
+        "end": 1188.315
+      },
+      {
+        "text": "K.",
+        "start": 1188.635,
+        "end": 1188.875
+      }
+    ],
+    "num_words": 23,
+    "start": 1179.6299,
+    "end": 1188.875
+  },
+  {
+    "sentences": [
+      {
+        "text": "This is from the Iliad.",
+        "start": 1188.875,
+        "end": 1190.235
+      },
+      {
+        "text": "And and so remember, in book one of the Iliad, Achilles and Agamemnon had this nasty fight where Achilles is like, screw you.",
+        "start": 1190.635,
+        "end": 1198.7151
+      },
+      {
+        "text": "You're a dog.",
+        "start": 1198.7151,
+        "end": 1199.3551
+      },
+      {
+        "text": "I'm not gonna fight for you ever again.",
+        "start": 1199.3551,
+        "end": 1200.555
+      },
+      {
+        "text": "Eggman is like, screw you.",
+        "start": 1200.81,
+        "end": 1202.17
+      }
+    ],
+    "num_words": 44,
+    "start": 1188.875,
+    "end": 1202.17
+  },
+  {
+    "sentences": [
+      {
+        "text": "I don't need you.",
+        "start": 1202.17,
+        "end": 1202.81
+      },
+      {
+        "text": "Okay?",
+        "start": 1202.81,
+        "end": 1203.37
+      },
+      {
+        "text": "But in book two, Eggman recognizes that, oh, there's actually a problem because Achilles is the greatest warrior that we have.",
+        "start": 1203.3701,
+        "end": 1210.09
+      },
+      {
+        "text": "And if Achilles, doesn't wanna fight, then that's bad for morale.",
+        "start": 1210.17,
+        "end": 1214.01
+      },
+      {
+        "text": "K?",
+        "start": 1214.5549,
+        "end": 1214.955
+      }
+    ],
+    "num_words": 38,
+    "start": 1202.17,
+    "end": 1214.955
+  },
+  {
+    "sentences": [
+      {
+        "text": "We might actually lose this war.",
+        "start": 1214.955,
+        "end": 1216.5549
+      },
+      {
+        "text": "So Eggman on being stupid, he has this stupid idea.",
+        "start": 1216.795,
+        "end": 1220.715
+      },
+      {
+        "text": "And his stupid idea is this, how can I rally my soldiers?",
+        "start": 1220.715,
+        "end": 1225.5149
+      },
+      {
+        "text": "How can I galvanize them into action now that Achilles has a battlefield?",
+        "start": 1225.595,
+        "end": 1231.2999
+      },
+      {
+        "text": "I know what I'll do.",
+        "start": 1231.2999,
+        "end": 1232.4199
+      }
+    ],
+    "num_words": 46,
+    "start": 1214.955,
+    "end": 1232.4199
+  },
+  {
+    "sentences": [
+      {
+        "text": "I'll tell them they can go home.",
+        "start": 1233.2999,
+        "end": 1235.7799
+      },
+      {
+        "text": "Reverse psychology, guys.",
+        "start": 1236.6599,
+        "end": 1238.0199
+      },
+      {
+        "text": "Right?",
+        "start": 1238.0199,
+        "end": 1238.5
+      },
+      {
+        "text": "Reverse psychology.",
+        "start": 1238.5,
+        "end": 1239.46
+      },
+      {
+        "text": "Because when I say you guys go home, every Greek will be like, no.",
+        "start": 1239.46,
+        "end": 1245.3049
+      }
+    ],
+    "num_words": 27,
+    "start": 1233.2999,
+    "end": 1245.3049
+  },
+  {
+    "sentences": [
+      {
+        "text": "We came all the way to Troy to win glory for you, Eggman Manon.",
+        "start": 1245.785,
+        "end": 1250.985
+      },
+      {
+        "text": "We're gonna fight to the death to ensure that you get your glory, Eggman Manon.",
+        "start": 1251.225,
+        "end": 1255.465
+      },
+      {
+        "text": "We don't wanna go home.",
+        "start": 1255.465,
+        "end": 1256.265
+      },
+      {
+        "text": "Don't make us go home.",
+        "start": 1256.55,
+        "end": 1257.67
+      },
+      {
+        "text": "We're gonna fight.",
+        "start": 1257.67,
+        "end": 1258.63
+      }
+    ],
+    "num_words": 42,
+    "start": 1245.785,
+    "end": 1258.63
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 1258.63,
+        "end": 1258.9501
+      },
+      {
+        "text": "So that's the plan.",
+        "start": 1258.9501,
+        "end": 1260.07
+      },
+      {
+        "text": "And, of course, it backfires.",
+        "start": 1260.55,
+        "end": 1263.11
+      },
+      {
+        "text": "And when people hear, oh, we go home, they all run away.",
+        "start": 1263.67,
+        "end": 1267.99
+      },
+      {
+        "text": "And Gamaiton's like, he now has caught a dissonance.",
+        "start": 1267.99,
+        "end": 1270.595
+      }
+    ],
+    "num_words": 31,
+    "start": 1258.63,
+    "end": 1270.595
+  },
+  {
+    "sentences": [
+      {
+        "text": "He's like, what?",
+        "start": 1270.595,
+        "end": 1272.5149
+      },
+      {
+        "text": "What?",
+        "start": 1272.835,
+        "end": 1273.875
+      },
+      {
+        "text": "He doesn't understand what's going on.",
+        "start": 1273.875,
+        "end": 1275.1549
+      },
+      {
+        "text": "Okay?",
+        "start": 1275.1549,
+        "end": 1275.7148
+      },
+      {
+        "text": "And at this point in the story, the war should be over because all the Greeks just got went home.",
+        "start": 1275.7949,
+        "end": 1281.875
+      }
+    ],
+    "num_words": 31,
+    "start": 1270.595,
+    "end": 1281.875
+  },
+  {
+    "sentences": [
+      {
+        "text": "And again, what happens is, Adis will come and save everyone because he will recognize that Egemon is just being stupid and he will force all the Greeks to return back to the polls.",
+        "start": 1282.7,
+        "end": 1297.1349
+      },
+      {
+        "text": "Okay?",
+        "start": 1297.1349,
+        "end": 1297.6149
+      },
+      {
+        "text": "Alright.",
+        "start": 1297.615,
+        "end": 1297.9349
+      },
+      {
+        "text": "So, Ivory, can can you read, please?",
+        "start": 1297.9349,
+        "end": 1299.695
+      },
+      {
+        "text": "Testing his men.",
+        "start": 1299.855,
+        "end": 1300.9749
+      }
+    ],
+    "num_words": 46,
+    "start": 1282.7,
+    "end": 1300.9749
+  },
+  {
+    "sentences": [
+      {
+        "text": "Testing his men, but he only made the spirit race inside their chests.",
+        "start": 1301.2949,
+        "end": 1305.5349
+      },
+      {
+        "text": "All the rank and file who'd never heard his plan.",
+        "start": 1305.615,
+        "end": 1307.9349
+      },
+      {
+        "text": "And the whole assembly surged like big like big waves at sea, the Akkarian sea when east and south winds drive it on, blasting down in force from the clouds of father Zeus or when the west wind shakes the deep sanding grain with her with hurricane gusts that flatten down the stalks.",
+        "start": 1308.49,
+        "end": 1325.815
+      },
+      {
+        "text": "So the mass assembly of troops was was shaken now.",
+        "start": 1326.455,
+        "end": 1329.4149
+      },
+      {
+        "text": "They cried in alarm and charged towards the ships, and the dust went whirling up from under rushing feet as the men jostled back and forth, shouting orders.",
+        "start": 1329.655,
+        "end": 1338.375
+      }
+    ],
+    "num_words": 114,
+    "start": 1301.2949,
+    "end": 1338.375
+  },
+  {
+    "sentences": [
+      {
+        "text": "Grapple the ships.",
+        "start": 1339.2,
+        "end": 1340.4799
+      },
+      {
+        "text": "Drag them down to the bright sea.",
+        "start": 1340.48,
+        "end": 1342.32
+      },
+      {
+        "text": "Clean out the launching channels.",
+        "start": 1342.4,
+        "end": 1344.2399
+      },
+      {
+        "text": "Shrill shouts hitting the heavens.",
+        "start": 1344.7999,
+        "end": 1346.7999
+      },
+      {
+        "text": "Fighters racing for home, knocking the blacks out underneath the holes.",
+        "start": 1346.7999,
+        "end": 1350.64
+      }
+    ],
+    "num_words": 31,
+    "start": 1339.2,
+    "end": 1350.64
+  },
+  {
+    "sentences": [
+      {
+        "text": "Wait.",
+        "start": 1350.64,
+        "end": 1350.96
+      },
+      {
+        "text": "So this just shows you how stupid Eggman Manor is because Eggman Manor thinks his soldiers actually wanna fight this war.",
+        "start": 1350.96,
+        "end": 1356.315
+      },
+      {
+        "text": "But all his soldiers are homesick.",
+        "start": 1356.475,
+        "end": 1357.995
+      },
+      {
+        "text": "They're sick of this stupid war.",
+        "start": 1357.995,
+        "end": 1359.6749
+      },
+      {
+        "text": "They they don't know why why they're in this war.",
+        "start": 1359.8351,
+        "end": 1362.5549
+      }
+    ],
+    "num_words": 44,
+    "start": 1350.64,
+    "end": 1362.5549
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 1362.555,
+        "end": 1362.9551
+      },
+      {
+        "text": "So the moment that Eggman Manoran says, you you guys can go home, they're all like, we're we're gonna get home as soon as possible.",
+        "start": 1362.9551,
+        "end": 1368.155
+      },
+      {
+        "text": "Okay?",
+        "start": 1368.1699,
+        "end": 1368.49
+      },
+      {
+        "text": "They missed your wives.",
+        "start": 1368.49,
+        "end": 1369.45
+      },
+      {
+        "text": "They missed your children.",
+        "start": 1369.45,
+        "end": 1370.57
+      }
+    ],
+    "num_words": 35,
+    "start": 1362.555,
+    "end": 1370.57
+  },
+  {
+    "sentences": [
+      {
+        "text": "Alright?",
+        "start": 1370.97,
+        "end": 1371.5299
+      },
+      {
+        "text": "So Aphrodite and Hera are up up in the sky.",
+        "start": 1371.77,
+        "end": 1376.1699
+      },
+      {
+        "text": "Okay?",
+        "start": 1376.1699,
+        "end": 1376.4099
+      },
+      {
+        "text": "Mount Olympus.",
+        "start": 1376.4099,
+        "end": 1377.13
+      },
+      {
+        "text": "And they they they watch us and like, oh my god.",
+        "start": 1377.13,
+        "end": 1380.33
+      }
+    ],
+    "num_words": 25,
+    "start": 1370.97,
+    "end": 1380.33
+  },
+  {
+    "sentences": [
+      {
+        "text": "AKA Manon's gonna lose us this war.",
+        "start": 1380.33,
+        "end": 1382.8899
+      },
+      {
+        "text": "What a moron.",
+        "start": 1382.89,
+        "end": 1383.85
+      },
+      {
+        "text": "And Hera says to Athena oh, sorry.",
+        "start": 1384.3049,
+        "end": 1387.585
+      },
+      {
+        "text": "Sorry.",
+        "start": 1387.585,
+        "end": 1387.745
+      },
+      {
+        "text": "Sorry.",
+        "start": 1387.745,
+        "end": 1387.825
+      }
+    ],
+    "num_words": 19,
+    "start": 1380.33,
+    "end": 1387.825
+  },
+  {
+    "sentences": [
+      {
+        "text": "It's not actually Hera and Aphrodite.",
+        "start": 1387.825,
+        "end": 1389.345
+      },
+      {
+        "text": "It's Hera and Athena because they're the ones who lost the contest to Aphrodite.",
+        "start": 1389.345,
+        "end": 1393.4249
+      },
+      {
+        "text": "Okay?",
+        "start": 1393.4249,
+        "end": 1393.6649
+      },
+      {
+        "text": "But Hera says to Athena, you get down there, man, and you stop this.",
+        "start": 1393.6649,
+        "end": 1397.745
+      },
+      {
+        "text": "Okay?",
+        "start": 1397.745,
+        "end": 1397.985
+      }
+    ],
+    "num_words": 36,
+    "start": 1387.825,
+    "end": 1397.985
+  },
+  {
+    "sentences": [
+      {
+        "text": "So Athena rushes down, and he talks to Odysseus.",
+        "start": 1398.27,
+        "end": 1402.99
+      },
+      {
+        "text": "Okay?",
+        "start": 1403.23,
+        "end": 1403.87
+      },
+      {
+        "text": "Alright.",
+        "start": 1408.59,
+        "end": 1409.23
+      },
+      {
+        "text": "Can you read?",
+        "start": 1409.23,
+        "end": 1409.87
+      },
+      {
+        "text": "And now they might have won their journey home, the men of Argos fighting the bullet fate.",
+        "start": 1410.815,
+        "end": 1415.9349
+      }
+    ],
+    "num_words": 31,
+    "start": 1398.27,
+    "end": 1415.9349
+  },
+  {
+    "sentences": [
+      {
+        "text": "Yes.",
+        "start": 1416.1749,
+        "end": 1416.655
+      },
+      {
+        "text": "If her had not alerted Athena.",
+        "start": 1416.655,
+        "end": 1418.735
+      },
+      {
+        "text": "Inconceivable, child of Zeus whose battle shield is thunder, tireless one, Athena.",
+        "start": 1419.295,
+        "end": 1424.495
+      },
+      {
+        "text": "What?",
+        "start": 1425.32,
+        "end": 1425.8
+      },
+      {
+        "text": "Is this the way?",
+        "start": 1425.8,
+        "end": 1426.84
+      }
+    ],
+    "num_words": 24,
+    "start": 1416.1749,
+    "end": 1426.84
+  },
+  {
+    "sentences": [
+      {
+        "text": "All the Argives flying home to their fatherland, sailing overseas brought back, leaving Prime and all the men of Troy a trophy to glory over.",
+        "start": 1427.08,
+        "end": 1436.0399
+      },
+      {
+        "text": "Helen Argos, Helen for whom so many Argives lost their lives in Troy, far from native land.",
+        "start": 1436.04,
+        "end": 1442.355
+      },
+      {
+        "text": "Go.",
+        "start": 1442.995,
+        "end": 1443.555
+      },
+      {
+        "text": "Range the ranks of Achaeans' arms in bronze.",
+        "start": 1443.555,
+        "end": 1446.595
+      },
+      {
+        "text": "With your winning words, hold back each man you find.",
+        "start": 1446.755,
+        "end": 1449.795
+      }
+    ],
+    "num_words": 61,
+    "start": 1427.08,
+    "end": 1449.795
+  },
+  {
+    "sentences": [
+      {
+        "text": "Don't let them haul their rolling ships to sea.",
+        "start": 1450.115,
+        "end": 1452.835
+      },
+      {
+        "text": "Okay.",
+        "start": 1453.555,
+        "end": 1454.275
+      },
+      {
+        "text": "Come on, Ray.",
+        "start": 1454.355,
+        "end": 1454.915
+      },
+      {
+        "text": "The bright eyed goddess, Pallas, lost no time.",
+        "start": 1457.5701,
+        "end": 1460.85
+      },
+      {
+        "text": "Down she flashed from the peaks of Mount Olympus, quickly reached the ships and found Odysseus first, a mastermind like Zeus, still standing fast.",
+        "start": 1461.25,
+        "end": 1469.89
+      }
+    ],
+    "num_words": 45,
+    "start": 1450.115,
+    "end": 1469.89
+  },
+  {
+    "sentences": [
+      {
+        "text": "He had not laid a hand in his back, black benched hole, such anguish wracked from his heart and fighting spirit.",
+        "start": 1470.475,
+        "end": 1477.1149
+      },
+      {
+        "text": "Now close beside him, the bright eyed goddess stood and urged him on.",
+        "start": 1477.5149,
+        "end": 1481.0349
+      },
+      {
+        "text": "Royal son of Laertes.",
+        "start": 1481.4349,
+        "end": 1484.74
+      },
+      {
+        "text": "Odysseus, great Tastician.",
+        "start": 1484.74,
+        "end": 1487.0599
+      },
+      {
+        "text": "What?",
+        "start": 1487.54,
+        "end": 1488.02
+      }
+    ],
+    "num_words": 42,
+    "start": 1470.475,
+    "end": 1488.02
+  },
+  {
+    "sentences": [
+      {
+        "text": "Is this the way?",
+        "start": 1488.02,
+        "end": 1488.9
+      },
+      {
+        "text": "Okay.",
+        "start": 1488.9,
+        "end": 1489.3
+      },
+      {
+        "text": "So so everyone's trying to go home, and you would think that Odysseus would be the first person to get on a ship to go back to see his son and his wife.",
+        "start": 1489.3,
+        "end": 1498.3351
+      },
+      {
+        "text": "Okay?",
+        "start": 1498.3351,
+        "end": 1498.735
+      },
+      {
+        "text": "But he's he's, sitting there.",
+        "start": 1498.735,
+        "end": 1501.615
+      }
+    ],
+    "num_words": 44,
+    "start": 1488.02,
+    "end": 1501.615
+  },
+  {
+    "sentences": [
+      {
+        "text": "He's kinda confused.",
+        "start": 1501.615,
+        "end": 1502.735
+      },
+      {
+        "text": "Alright?",
+        "start": 1503.375,
+        "end": 1503.775
+      },
+      {
+        "text": "So he's like, this doesn't make any sense to me.",
+        "start": 1503.775,
+        "end": 1505.935
+      },
+      {
+        "text": "Why would I get my name do this?",
+        "start": 1505.935,
+        "end": 1507.295
+      },
+      {
+        "text": "But at the same time, he sort shows you that he actually doesn't really wanna go home.",
+        "start": 1507.295,
+        "end": 1510.9751
+      }
+    ],
+    "num_words": 39,
+    "start": 1501.615,
+    "end": 1510.9751
+  },
+  {
+    "sentences": [
+      {
+        "text": "Right?",
+        "start": 1511.56,
+        "end": 1511.9601
+      },
+      {
+        "text": "Because if we wanna go home, he'd be home by now.",
+        "start": 1511.9601,
+        "end": 1514.44
+      },
+      {
+        "text": "Do mind going?",
+        "start": 1514.4401,
+        "end": 1515.32
+      },
+      {
+        "text": "All your archives flying home to your fatherland, tumbling into your oreswept ships, leaving Priam and Old Man of Troy a trophy to glory over.",
+        "start": 1516.04,
+        "end": 1524.92
+      },
+      {
+        "text": "Helen of Argos.",
+        "start": 1527.4049,
+        "end": 1528.6049
+      }
+    ],
+    "num_words": 43,
+    "start": 1511.56,
+    "end": 1528.6049
+  },
+  {
+    "sentences": [
+      {
+        "text": "Helen of Argos, Helen for whom so many Argives lost their lives in Troy, far from native land.",
+        "start": 1528.605,
+        "end": 1534.6049
+      },
+      {
+        "text": "No.",
+        "start": 1535.005,
+        "end": 1535.4049
+      },
+      {
+        "text": "Don't give up now.",
+        "start": 1535.4049,
+        "end": 1536.6049
+      },
+      {
+        "text": "Rage the Aecan ranks.",
+        "start": 1536.6849,
+        "end": 1538.205
+      },
+      {
+        "text": "With your winning words, hold back each man you find.",
+        "start": 1538.205,
+        "end": 1540.765
+      }
+    ],
+    "num_words": 37,
+    "start": 1528.605,
+    "end": 1540.765
+  },
+  {
+    "sentences": [
+      {
+        "text": "Don't let them haul the rolling ship to sea.",
+        "start": 1541.14,
+        "end": 1543.2999
+      },
+      {
+        "text": "He knew the goddess's voice.",
+        "start": 1544.02,
+        "end": 1545.7799
+      },
+      {
+        "text": "He went on a run, fling off his cape as Eurobase picked it up, the herald of of Ithaca always at his side.",
+        "start": 1545.78,
+        "end": 1553.6199
+      },
+      {
+        "text": "Coming face to face with Atreides Agamemnon, he relieved him of his father's royal scepter.",
+        "start": 1554.02,
+        "end": 1560.2449
+      },
+      {
+        "text": "Its power can never die.",
+        "start": 1560.485,
+        "end": 1561.9249
+      }
+    ],
+    "num_words": 57,
+    "start": 1541.14,
+    "end": 1561.9249
+  },
+  {
+    "sentences": [
+      {
+        "text": "And grasping it tightly off, he strode the ships of Argives armed in bronze.",
+        "start": 1562.005,
+        "end": 1566.725
+      },
+      {
+        "text": "Okay.",
+        "start": 1566.725,
+        "end": 1567.125
+      },
+      {
+        "text": "So he's not gonna single single heavenly save the Greeks from losing this war.",
+        "start": 1567.125,
+        "end": 1572.54
+      },
+      {
+        "text": "Okay?",
+        "start": 1572.54,
+        "end": 1573.1
+      },
+      {
+        "text": "So Athena.",
+        "start": 1573.3401,
+        "end": 1576.62
+      }
+    ],
+    "num_words": 32,
+    "start": 1562.005,
+    "end": 1576.62
+  },
+  {
+    "sentences": [
+      {
+        "text": "Right?",
+        "start": 1576.86,
+        "end": 1577.3401
+      },
+      {
+        "text": "Athena is always part of Odysseus.",
+        "start": 1577.3401,
+        "end": 1581.9
+      },
+      {
+        "text": "It's part of his soul.",
+        "start": 1581.9,
+        "end": 1583.18
+      },
+      {
+        "text": "Right?",
+        "start": 1583.18,
+        "end": 1583.3401
+      },
+      {
+        "text": "The intuition.",
+        "start": 1583.3401,
+        "end": 1584.14
+      }
+    ],
+    "num_words": 15,
+    "start": 1576.86,
+    "end": 1584.14
+  },
+  {
+    "sentences": [
+      {
+        "text": "And his intuition tells him, something there's something wrong here.",
+        "start": 1584.14,
+        "end": 1587.715
+      },
+      {
+        "text": "I need to stop this.",
+        "start": 1587.715,
+        "end": 1588.6749
+      },
+      {
+        "text": "Okay?",
+        "start": 1588.6749,
+        "end": 1589.1549
+      },
+      {
+        "text": "Also, look at Eggmannan.",
+        "start": 1589.6349,
+        "end": 1592.0349
+      },
+      {
+        "text": "Eggmannan is frozen.",
+        "start": 1592.355,
+        "end": 1594.4349
+      }
+    ],
+    "num_words": 23,
+    "start": 1584.14,
+    "end": 1594.4349
+  },
+  {
+    "sentences": [
+      {
+        "text": "He he is so distraught.",
+        "start": 1594.4349,
+        "end": 1597.235
+      },
+      {
+        "text": "He's shut down.",
+        "start": 1597.92,
+        "end": 1598.88
+      },
+      {
+        "text": "Okay?",
+        "start": 1598.88,
+        "end": 1599.28
+      },
+      {
+        "text": "His brain has stopped working.",
+        "start": 1599.28,
+        "end": 1600.7201
+      },
+      {
+        "text": "It's it's frozen because this is not supposed to happen.",
+        "start": 1600.7201,
+        "end": 1603.52
+      }
+    ],
+    "num_words": 24,
+    "start": 1594.4349,
+    "end": 1603.52
+  },
+  {
+    "sentences": [
+      {
+        "text": "Right?",
+        "start": 1603.52,
+        "end": 1603.8401
+      },
+      {
+        "text": "When he says that you guys can go home, he wanted everyone to say, no.",
+        "start": 1603.8401,
+        "end": 1607.6001
+      },
+      {
+        "text": "We're gonna stay and fight for you, egger man on.",
+        "start": 1607.6001,
+        "end": 1609.76
+      },
+      {
+        "text": "Alright?",
+        "start": 1609.92,
+        "end": 1610.2401
+      },
+      {
+        "text": "So it's kind of it's kind of dissonance.",
+        "start": 1610.2401,
+        "end": 1611.6001
+      }
+    ],
+    "num_words": 35,
+    "start": 1603.52,
+    "end": 1611.6001
+  },
+  {
+    "sentences": [
+      {
+        "text": "It's so much kind of kind of dissonance that when Odysseus takes the royal scepter, Eggman doesn't even notice.",
+        "start": 1611.975,
+        "end": 1619.255
+      },
+      {
+        "text": "The royal scepter is part of his soul.",
+        "start": 1619.255,
+        "end": 1621.4949
+      },
+      {
+        "text": "Right?",
+        "start": 1621.495,
+        "end": 1621.895
+      },
+      {
+        "text": "It's his legacy.",
+        "start": 1621.895,
+        "end": 1623.095
+      },
+      {
+        "text": "It's what gives him authority.",
+        "start": 1623.095,
+        "end": 1624.535
+      }
+    ],
+    "num_words": 36,
+    "start": 1611.975,
+    "end": 1624.535
+  },
+  {
+    "sentences": [
+      {
+        "text": "He's the king of kings.",
+        "start": 1624.535,
+        "end": 1625.415
+      },
+      {
+        "text": "And Odysseus just takes takes takes a crown from him and says, like, no.",
+        "start": 1625.72,
+        "end": 1629.3201
+      },
+      {
+        "text": "I'm the king for now to save this war.",
+        "start": 1629.3201,
+        "end": 1632.2
+      },
+      {
+        "text": "Okay?",
+        "start": 1632.6,
+        "end": 1633.24
+      },
+      {
+        "text": "And it just shows you how committed Odysseus is to winning this war.",
+        "start": 1633.48,
+        "end": 1638.04
+      }
+    ],
+    "num_words": 42,
+    "start": 1624.535,
+    "end": 1638.04
+  },
+  {
+    "sentences": [
+      {
+        "text": "He really believes that this war is about justice, about family, about building a legacy for his son.",
+        "start": 1638.04,
+        "end": 1645.575
+      },
+      {
+        "text": "So he refuses to lose this war.",
+        "start": 1645.575,
+        "end": 1648.0549
+      },
+      {
+        "text": "Alright?",
+        "start": 1648.455,
+        "end": 1649.0948
+      },
+      {
+        "text": "Do mind going?",
+        "start": 1649.2549,
+        "end": 1650.2148
+      },
+      {
+        "text": "I I thought I Oh, sorry.",
+        "start": 1651.6549,
+        "end": 1653.1749
+      }
+    ],
+    "num_words": 35,
+    "start": 1638.04,
+    "end": 1653.1749
+  },
+  {
+    "sentences": [
+      {
+        "text": "Sorry.",
+        "start": 1653.1749,
+        "end": 1653.4149
+      },
+      {
+        "text": "Yeah.",
+        "start": 1653.4149,
+        "end": 1654.2949
+      },
+      {
+        "text": "Alright.",
+        "start": 1655.0149,
+        "end": 1655.4149
+      },
+      {
+        "text": "Alright.",
+        "start": 1656.21,
+        "end": 1656.9299
+      },
+      {
+        "text": "So but that's the iliac.",
+        "start": 1657.01,
+        "end": 1662.21
+      }
+    ],
+    "num_words": 9,
+    "start": 1653.1749,
+    "end": 1662.21
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 1662.21,
+        "end": 1662.61
+      },
+      {
+        "text": "And again, what will happen is that Odysseus will win this war, and he will win a turtle glory for himself with a stratum of a chosen horse.",
+        "start": 1662.61,
+        "end": 1670.13
+      },
+      {
+        "text": "Right?",
+        "start": 1670.485,
+        "end": 1671.205
+      },
+      {
+        "text": "Now we go to the Odyssey.",
+        "start": 1671.445,
+        "end": 1675.2849
+      },
+      {
+        "text": "And in the Odyssey, we don't actually meet Odysseus for many, many books.",
+        "start": 1675.2849,
+        "end": 1681.6849
+      }
+    ],
+    "num_words": 49,
+    "start": 1662.21,
+    "end": 1681.6849
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 1681.6849,
+        "end": 1682.005
+      },
+      {
+        "text": "It's only towards the middle that we meet Odysseus.",
+        "start": 1682.005,
+        "end": 1685.8201
+      },
+      {
+        "text": "In the first few books, it's some it's a story of Tomacas and his journey to find his father.",
+        "start": 1685.8201,
+        "end": 1689.8201
+      },
+      {
+        "text": "Okay?",
+        "start": 1689.8201,
+        "end": 1690.38
+      },
+      {
+        "text": "And when we meet Odysseus, he's a very different person from when from the Iliad.",
+        "start": 1690.62,
+        "end": 1697.875
+      }
+    ],
+    "num_words": 45,
+    "start": 1681.6849,
+    "end": 1697.875
+  },
+  {
+    "sentences": [
+      {
+        "text": "Remember, in the Iliad, he is trying to win this war.",
+        "start": 1697.875,
+        "end": 1700.5951
+      },
+      {
+        "text": "He's very energetic.",
+        "start": 1700.5951,
+        "end": 1701.7151
+      },
+      {
+        "text": "He's galvanized.",
+        "start": 1701.7151,
+        "end": 1702.915
+      },
+      {
+        "text": "He's very heroic.",
+        "start": 1702.915,
+        "end": 1704.195
+      },
+      {
+        "text": "K?",
+        "start": 1704.515,
+        "end": 1704.755
+      }
+    ],
+    "num_words": 20,
+    "start": 1697.875,
+    "end": 1704.755
+  },
+  {
+    "sentences": [
+      {
+        "text": "But when we see him in the Odyssey, he's a changed person.",
+        "start": 1704.755,
+        "end": 1709.3151
+      },
+      {
+        "text": "In fact, he's a broken person.",
+        "start": 1709.3151,
+        "end": 1710.8351
+      },
+      {
+        "text": "So what's happening is that, and his crew try to go home and they get lost at sea, they have many adventures, and they get shipwrecked on an island, and he's and he becomes the sex toy, okay, literally a sex toy of a god's name Calypso.",
+        "start": 1711.3999,
+        "end": 1728.035
+      },
+      {
+        "text": "Alright.",
+        "start": 1728.035,
+        "end": 1728.515
+      },
+      {
+        "text": "So basically, he's getting whipped every day, at night, and then, he goes to the beach and he cries.",
+        "start": 1728.515,
+        "end": 1735.7949
+      }
+    ],
+    "num_words": 85,
+    "start": 1704.755,
+    "end": 1735.7949
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay.",
+        "start": 1736.515,
+        "end": 1737.0751
+      },
+      {
+        "text": "So so so so he's he's he's a prisoner of Klipschow for many years, and the gods, Zeus, Athena, they get together and and and say, you know what?",
+        "start": 1737.0751,
+        "end": 1747.99
+      },
+      {
+        "text": "We can't have this happen anymore.",
+        "start": 1747.99,
+        "end": 1749.19
+      },
+      {
+        "text": "Okay?",
+        "start": 1749.19,
+        "end": 1749.59
+      },
+      {
+        "text": "Odysseus needs to go home.",
+        "start": 1749.59,
+        "end": 1751.4299
+      }
+    ],
+    "num_words": 42,
+    "start": 1736.515,
+    "end": 1751.4299
+  },
+  {
+    "sentences": [
+      {
+        "text": "So they sent Hermes to tell Klipschow, you have to send Odysseus home.",
+        "start": 1751.4299,
+        "end": 1755.855
+      },
+      {
+        "text": "The gods will it.",
+        "start": 1755.855,
+        "end": 1756.975
+      },
+      {
+        "text": "And the Calypso says, sure.",
+        "start": 1757.135,
+        "end": 1758.495
+      },
+      {
+        "text": "Why not?",
+        "start": 1758.495,
+        "end": 1758.975
+      },
+      {
+        "text": "Okay?",
+        "start": 1758.975,
+        "end": 1759.295
+      }
+    ],
+    "num_words": 25,
+    "start": 1751.4299,
+    "end": 1759.295
+  },
+  {
+    "sentences": [
+      {
+        "text": "So can you read?",
+        "start": 1759.295,
+        "end": 1760.335
+      },
+      {
+        "text": "Without the powerful giant killer sped away.",
+        "start": 1761.375,
+        "end": 1763.615
+      },
+      {
+        "text": "So it's Hermes.",
+        "start": 1763.615,
+        "end": 1764.335
+      },
+      {
+        "text": "Okay?",
+        "start": 1764.335,
+        "end": 1764.495
+      },
+      {
+        "text": "So Hermes has told Calypso, you have to let this guy go.",
+        "start": 1764.495,
+        "end": 1767.295
+      }
+    ],
+    "num_words": 27,
+    "start": 1759.295,
+    "end": 1767.295
+  },
+  {
+    "sentences": [
+      {
+        "text": "The queenly nymph sought out the great Odysseus, the commands of Zeus still ringing in her ears and found him there on the headland, sitting still, weeping, his eyes never dry, his sweet life flowing away with the tears he wept for his foiled journey home since then no longer pleased.",
+        "start": 1768.22,
+        "end": 1785.705
+      },
+      {
+        "text": "So he's sitting, he's still, he's weeping, his eyes never dry.",
+        "start": 1785.7051,
+        "end": 1790.745
+      },
+      {
+        "text": "And all you think about is the past.",
+        "start": 1791.145,
+        "end": 1793.865
+      },
+      {
+        "text": "Okay?",
+        "start": 1793.865,
+        "end": 1794.265
+      },
+      {
+        "text": "This is clear signs of depression, PTSD.",
+        "start": 1794.265,
+        "end": 1798.505
+      }
+    ],
+    "num_words": 78,
+    "start": 1768.22,
+    "end": 1798.505
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 1798.745,
+        "end": 1799.0651
+      },
+      {
+        "text": "Do you want to wait?",
+        "start": 1799.5399,
+        "end": 1800.58
+      },
+      {
+        "text": "In the night, true, he'd sleep with her in the in the arch arching cave.",
+        "start": 1801.0599,
+        "end": 1806.0199
+      },
+      {
+        "text": "He had no choice.",
+        "start": 1806.1799,
+        "end": 1807.3799
+      },
+      {
+        "text": "Unwilling lover alongside lover all too willing.",
+        "start": 1807.62,
+        "end": 1810.7399
+      }
+    ],
+    "num_words": 32,
+    "start": 1798.745,
+    "end": 1810.7399
+  },
+  {
+    "sentences": [
+      {
+        "text": "But all his days, he sit on rocks and beaches, wrenching his heart with sobs and groans in anguish, gazing out over the Barents Sea through blinding tears.",
+        "start": 1810.98,
+        "end": 1819.675
+      },
+      {
+        "text": "Okay.",
+        "start": 1819.675,
+        "end": 1819.915
+      },
+      {
+        "text": "So he's a broken man.",
+        "start": 1819.915,
+        "end": 1821.275
+      },
+      {
+        "text": "He's a very different person from the Iliad.",
+        "start": 1821.275,
+        "end": 1825.275
+      },
+      {
+        "text": "Okay?",
+        "start": 1825.275,
+        "end": 1825.515
+      }
+    ],
+    "num_words": 43,
+    "start": 1810.98,
+    "end": 1825.515
+  },
+  {
+    "sentences": [
+      {
+        "text": "So now the question then is, why?",
+        "start": 1825.515,
+        "end": 1827.6749
+      },
+      {
+        "text": "What happened to him?",
+        "start": 1827.675,
+        "end": 1828.715
+      },
+      {
+        "text": "Alright?",
+        "start": 1830.04,
+        "end": 1830.76
+      },
+      {
+        "text": "So, Kyrgyz says to Odysseus, you know what?",
+        "start": 1831.0801,
+        "end": 1834.2
+      },
+      {
+        "text": "It's been great having a sex toy, but the gods insist that you have to go home.",
+        "start": 1834.76,
+        "end": 1840.8401
+      }
+    ],
+    "num_words": 37,
+    "start": 1825.515,
+    "end": 1840.8401
+  },
+  {
+    "sentences": [
+      {
+        "text": "But you know what?",
+        "start": 1840.8401,
+        "end": 1841.64
+      },
+      {
+        "text": "You can all you can choose to be my sex toy for all of eternity.",
+        "start": 1841.64,
+        "end": 1845.845
+      },
+      {
+        "text": "I can make you immortal.",
+        "start": 1845.845,
+        "end": 1847.1249
+      },
+      {
+        "text": "Right?",
+        "start": 1847.285,
+        "end": 1847.525
+      },
+      {
+        "text": "You can go home, but I can make you immortal, and you'll be my sex toy for all of eternity.",
+        "start": 1847.525,
+        "end": 1850.885
+      }
+    ],
+    "num_words": 45,
+    "start": 1840.8401,
+    "end": 1850.885
+  },
+  {
+    "sentences": [
+      {
+        "text": "Now this is is like, that's a really nice offer.",
+        "start": 1850.885,
+        "end": 1854.0049
+      },
+      {
+        "text": "I I really wanna do this, but I need to go home.",
+        "start": 1854.325,
+        "end": 1857.0449
+      },
+      {
+        "text": "Okay?",
+        "start": 1857.0449,
+        "end": 1857.445
+      },
+      {
+        "text": "So he leaves, and he gets an island.",
+        "start": 1857.445,
+        "end": 1861.1099
+      },
+      {
+        "text": "And on this island, he's given a ship to go home.",
+        "start": 1862.07,
+        "end": 1865.83
+      }
+    ],
+    "num_words": 42,
+    "start": 1850.885,
+    "end": 1865.83
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 1866.07,
+        "end": 1866.47
+      },
+      {
+        "text": "But before he goes home, as a custom, they host a banquet for him.",
+        "start": 1866.47,
+        "end": 1871.75
+      },
+      {
+        "text": "Okay?",
+        "start": 1872.475,
+        "end": 1872.875
+      },
+      {
+        "text": "And they really don't know who he is.",
+        "start": 1872.875,
+        "end": 1874.875
+      },
+      {
+        "text": "He they don't really know he's Odysseus.",
+        "start": 1874.875,
+        "end": 1878.1549
+      }
+    ],
+    "num_words": 31,
+    "start": 1866.07,
+    "end": 1878.1549
+  },
+  {
+    "sentences": [
+      {
+        "text": "Alright?",
+        "start": 1878.475,
+        "end": 1879.0349
+      },
+      {
+        "text": "So, during the banquet, what's the tradition is of a bar sing a great story.",
+        "start": 1879.0349,
+        "end": 1887.2749
+      },
+      {
+        "text": "Okay?",
+        "start": 1887.7999,
+        "end": 1888.2
+      },
+      {
+        "text": "To sing a story of great deeds.",
+        "start": 1888.2,
+        "end": 1891.64
+      },
+      {
+        "text": "And, course, he sings about the Trojan War.",
+        "start": 1891.64,
+        "end": 1894.0399
+      }
+    ],
+    "num_words": 32,
+    "start": 1878.475,
+    "end": 1894.0399
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 1894.0399,
+        "end": 1894.52
+      },
+      {
+        "text": "So so can you read?",
+        "start": 1894.52,
+        "end": 1895.7999
+      },
+      {
+        "text": "I I agree.",
+        "start": 1896.52,
+        "end": 1897.32
+      },
+      {
+        "text": "Yeah.",
+        "start": 1897.32,
+        "end": 1897.8799
+      },
+      {
+        "text": "The strife between Odysseus and Achilles.",
+        "start": 1898.44,
+        "end": 1900.76
+      }
+    ],
+    "num_words": 16,
+    "start": 1894.0399,
+    "end": 1900.76
+  },
+  {
+    "sentences": [
+      {
+        "text": "Achilles' son.",
+        "start": 1900.76,
+        "end": 1901.635
+      },
+      {
+        "text": "Okay.",
+        "start": 1901.635,
+        "end": 1901.875
+      },
+      {
+        "text": "So so the bot is singing about the sword in war.",
+        "start": 1901.875,
+        "end": 1904.275
+      },
+      {
+        "text": "Okay?",
+        "start": 1904.275,
+        "end": 1904.7549
+      },
+      {
+        "text": "How once at the gods' flowing feast, the captains clash in the savage war of wards, while Agamemnon, lord of armies, rejoiced at heart that Achilles' bravest men were battling so.",
+        "start": 1904.755,
+        "end": 1916.4349
+      }
+    ],
+    "num_words": 46,
+    "start": 1900.76,
+    "end": 1916.4349
+  },
+  {
+    "sentences": [
+      {
+        "text": "For this was the victory sign that Apollo prophecies at his shrine in Pitho when Agamemnon strode across the rocky threshold, asking the oracle for advice.",
+        "start": 1917.0,
+        "end": 1926.36
+      },
+      {
+        "text": "The start of the tidal waves of ruin tumbling down on Troy's and Achaeus' forces, both at once, thanks to will of Zeus who rules the world.",
+        "start": 1926.76,
+        "end": 1934.9548
+      },
+      {
+        "text": "That was the song the famous harper sang but but Odysseus, clutching his flaring sea blue cape in both powerful hands, drew it over his head and buried his handsome face.",
+        "start": 1935.6749,
+        "end": 1945.835
+      },
+      {
+        "text": "Ashamed his host may might see him shedding tears.",
+        "start": 1946.53,
+        "end": 1949.57
+      },
+      {
+        "text": "Whenever the raft bard would pause in the song, he'd lift the cape from his head, wipe off his tears, and hoisting his double handed cup, pour it out to the gods.",
+        "start": 1950.13,
+        "end": 1959.8099
+      }
+    ],
+    "num_words": 125,
+    "start": 1917.0,
+    "end": 1959.8099
+  },
+  {
+    "sentences": [
+      {
+        "text": "But as but soon as the bard would start again, impelled to sing by Odysseus' lords, who reveled in his tail.",
+        "start": 1960.7749,
+        "end": 1968.2949
+      },
+      {
+        "text": "Again, Odysseus hid his face and wept.",
+        "start": 1968.455,
+        "end": 1971.255
+      },
+      {
+        "text": "Okay.",
+        "start": 1971.255,
+        "end": 1971.575
+      },
+      {
+        "text": "So there's this great banquet and the bar scene of the children war.",
+        "start": 1971.575,
+        "end": 1976.5399
+      },
+      {
+        "text": "And at this point, think that Odysseus would be like, hey, that's me, man.",
+        "start": 1976.86,
+        "end": 1979.74
+      }
+    ],
+    "num_words": 56,
+    "start": 1960.7749,
+    "end": 1979.74
+  },
+  {
+    "sentences": [
+      {
+        "text": "He'd be very proud.",
+        "start": 1979.74,
+        "end": 1980.94
+      },
+      {
+        "text": "But instead, he cries and he cries.",
+        "start": 1981.26,
+        "end": 1983.4199
+      },
+      {
+        "text": "Okay?",
+        "start": 1983.4199,
+        "end": 1983.82
+      },
+      {
+        "text": "This again is trauma where the memories are storing pain in him.",
+        "start": 1983.82,
+        "end": 1990.355
+      },
+      {
+        "text": "So clearly something happened during the Trojan War that made him want to forget about it, that made him resent himself.",
+        "start": 1990.5951,
+        "end": 1999.075
+      }
+    ],
+    "num_words": 45,
+    "start": 1979.74,
+    "end": 1999.075
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 1999.155,
+        "end": 1999.4751
+      },
+      {
+        "text": "That caused his soul to be ruptured.",
+        "start": 1999.4751,
+        "end": 2001.795
+      },
+      {
+        "text": "Alright?",
+        "start": 2002.5599,
+        "end": 2003.2
+      },
+      {
+        "text": "Alright.",
+        "start": 2003.2,
+        "end": 2003.9199
+      },
+      {
+        "text": "So, keep on going.",
+        "start": 2004.0,
+        "end": 2009.44
+      }
+    ],
+    "num_words": 14,
+    "start": 1999.155,
+    "end": 2009.44
+  },
+  {
+    "sentences": [
+      {
+        "text": "Odysseus, master of many exploits, praised the singer.",
+        "start": 2010.32,
+        "end": 2013.84
+      },
+      {
+        "text": "I respect you, Demodocus, more than any man alive.",
+        "start": 2014.495,
+        "end": 2018.575
+      },
+      {
+        "text": "Surely the muses taught you, Zeus' daughter or god Apollo himself.",
+        "start": 2018.895,
+        "end": 2023.215
+      },
+      {
+        "text": "How true to life, all too true.",
+        "start": 2023.455,
+        "end": 2025.5349
+      },
+      {
+        "text": "You sing the Achaeans' fate, all they did and suffered, all they soldiered through, as if you were the as if you were there yourself or heard from one who was.",
+        "start": 2026.19,
+        "end": 2035.23
+      }
+    ],
+    "num_words": 66,
+    "start": 2010.32,
+    "end": 2035.23
+  },
+  {
+    "sentences": [
+      {
+        "text": "But come now, shift your ground.",
+        "start": 2035.63,
+        "end": 2037.6299
+      },
+      {
+        "text": "Sing of the wooden horse Ephesus built with a Athena's help.",
+        "start": 2038.03,
+        "end": 2042.475
+      },
+      {
+        "text": "The cutting trap that good that good Odysseus brought one day to the heights of Troy, filled with fighting men who laid the city waste.",
+        "start": 2042.635,
+        "end": 2051.355
+      },
+      {
+        "text": "Sing that for me, true to life as it deserves, and I will tell the world at once how freely the muse gave you the gods' own gift of song.",
+        "start": 2051.595,
+        "end": 2060.11
+      },
+      {
+        "text": "Okay.",
+        "start": 2060.11,
+        "end": 2060.83
+      }
+    ],
+    "num_words": 73,
+    "start": 2035.63,
+    "end": 2060.83
+  },
+  {
+    "sentences": [
+      {
+        "text": "So he's feeling all this pain because of memories of the throne in war.",
+        "start": 2061.31,
+        "end": 2066.27
+      },
+      {
+        "text": "But he recognizes that if he's willing to go home, he needs to remember, he's on his journey home.",
+        "start": 2066.27,
+        "end": 2070.335
+      },
+      {
+        "text": "He needs to confront his pain.",
+        "start": 2070.335,
+        "end": 2072.175
+      },
+      {
+        "text": "He needs to omit his pain.",
+        "start": 2072.175,
+        "end": 2073.7751
+      },
+      {
+        "text": "Okay?",
+        "start": 2074.255,
+        "end": 2074.815
+      }
+    ],
+    "num_words": 46,
+    "start": 2061.31,
+    "end": 2074.815
+  },
+  {
+    "sentences": [
+      {
+        "text": "So now he's gonna ask the bar to sing the memory that he's most trying to repress.",
+        "start": 2074.815,
+        "end": 2079.775
+      },
+      {
+        "text": "He's trying to he he wants to now focus on the children war and really come to terms with his own trauma.",
+        "start": 2080.1,
+        "end": 2086.58
+      },
+      {
+        "text": "Okay?",
+        "start": 2086.74,
+        "end": 2087.3
+      },
+      {
+        "text": "Alright.",
+        "start": 2087.3,
+        "end": 2088.18
+      },
+      {
+        "text": "So this so so let's let let's see what happens.",
+        "start": 2088.18,
+        "end": 2091.54
+      }
+    ],
+    "num_words": 51,
+    "start": 2074.815,
+    "end": 2091.54
+  },
+  {
+    "sentences": [
+      {
+        "text": "Sorry.",
+        "start": 2092.715,
+        "end": 2093.435
+      },
+      {
+        "text": "Stirred now by the muse, the bard launched out in a fine blaze of song, starting at just the point where the main Achaean force setting their camps afire had boarded the oreswept ships and sailed for home.",
+        "start": 2093.835,
+        "end": 2105.115
+      },
+      {
+        "text": "But famed Odysseus' men already crouched in hiding.",
+        "start": 2105.98,
+        "end": 2109.1802
+      },
+      {
+        "text": "In the heart of Troy's assembly, darkened that horse, the Trojans dragged themselves to the city heights.",
+        "start": 2109.26,
+        "end": 2115.1
+      },
+      {
+        "text": "Now it stood there, looming.",
+        "start": 2115.4202,
+        "end": 2117.5002
+      }
+    ],
+    "num_words": 69,
+    "start": 2092.715,
+    "end": 2117.5002
+  },
+  {
+    "sentences": [
+      {
+        "text": "And round its bulk, the Trojans sat debating, clashing, days on end.",
+        "start": 2117.98,
+        "end": 2122.275
+      },
+      {
+        "text": "Three plans split ranks, either to hack open the hollow vault with ruthless bronze or haul it up to the highest ridge and pitch it down the cliffs or with its sand, a glorious offering made to pacify the gods.",
+        "start": 2122.595,
+        "end": 2134.915
+      },
+      {
+        "text": "And that that final plan was bound to win the day.",
+        "start": 2135.41,
+        "end": 2138.9302
+      },
+      {
+        "text": "For Troy was fated to perish once city lodged inside her walls, the monstrous wooden horse where the prime of our god power lay in wait with death and slaughter bearing down on Troy.",
+        "start": 2139.25,
+        "end": 2149.73
+      },
+      {
+        "text": "K.",
+        "start": 2151.4148,
+        "end": 2152.135
+      }
+    ],
+    "num_words": 98,
+    "start": 2117.98,
+    "end": 2152.135
+  },
+  {
+    "sentences": [
+      {
+        "text": "Alright.",
+        "start": 2154.4548,
+        "end": 2155.015
+      },
+      {
+        "text": "And he's saying how Troops of Achaeans broke Achaeans broke from cover, streaming out of the horse's hollow flanks to plunder Troy.",
+        "start": 2155.015,
+        "end": 2162.375
+      },
+      {
+        "text": "He's saying how left and right they ravaged the city, saying how Odysseus marched right up to Deiphobus' house like the god of war on attack with diehard men lost.",
+        "start": 2162.615,
+        "end": 2175.38
+      },
+      {
+        "text": "Wait.",
+        "start": 2175.38,
+        "end": 2175.6199
+      },
+      {
+        "text": "Deiphobus is in a name for prime.",
+        "start": 2175.6199,
+        "end": 2177.0598
+      }
+    ],
+    "num_words": 61,
+    "start": 2154.4548,
+    "end": 2177.0598
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay?",
+        "start": 2177.0598,
+        "end": 2177.54
+      },
+      {
+        "text": "They they they wanna go kill the king.",
+        "start": 2177.54,
+        "end": 2178.98
+      },
+      {
+        "text": "You want go away?",
+        "start": 2178.98,
+        "end": 2179.78
+      },
+      {
+        "text": "There he's saying, Odysseus fought the grimace fight he had ever braved, but he went through it last.",
+        "start": 2180.02,
+        "end": 2186.2952
+      },
+      {
+        "text": "Thanks to Athena's superhuman power.",
+        "start": 2186.2952,
+        "end": 2189.1753
+      }
+    ],
+    "num_words": 36,
+    "start": 2177.0598,
+    "end": 2189.1753
+  },
+  {
+    "sentences": [
+      {
+        "text": "That was the song the famous harper sang, the great Odysseus melted into tears, running down from his eyes to his cheeks.",
+        "start": 2189.895,
+        "end": 2196.935
+      },
+      {
+        "text": "As a woman weeps, her arms flung around her darling husband, a man who fell in battle, fighting for town and townsmen, trying to beat the day of doom from home and children.",
+        "start": 2197.52,
+        "end": 2207.68
+      },
+      {
+        "text": "Seeing the man go down, dying, gasping for breath, she clings for dear life, screams and shrills.",
+        "start": 2208.24,
+        "end": 2215.245
+      },
+      {
+        "text": "But the victor is just behind her, digging spear butts into her back and shoulders, drag her off in bondage, yoked to hard labor, pain, and the most heartbreaking torment waste her cheeks.",
+        "start": 2215.405,
+        "end": 2226.0452
+      },
+      {
+        "text": "So from Odysseus' eyes ran tears of heartbreak now.",
+        "start": 2226.69,
+        "end": 2229.81
+      }
+    ],
+    "num_words": 114,
+    "start": 2189.895,
+    "end": 2229.81
+  },
+  {
+    "sentences": [
+      {
+        "text": "Okay.",
+        "start": 2229.81,
+        "end": 2230.21
+      },
+      {
+        "text": "So now we know what happened.",
+        "start": 2230.21,
+        "end": 2231.57
+      },
+      {
+        "text": "Okay?",
+        "start": 2231.57,
+        "end": 2232.21
+      },
+      {
+        "text": "Alright.",
+        "start": 2232.53,
+        "end": 2232.8499
+      },
+      {
+        "text": "So what happened was this.",
+        "start": 2232.8499,
+        "end": 2234.1301
+      }
+    ],
+    "num_words": 14,
+    "start": 2229.81,
+    "end": 2234.1301
+  },
+  {
+    "sentences": [
+      {
+        "text": "For ten years, Odysseus and the Greeks were trying to defeat the Trojans, and they could not do it because the Trojans were behind a walled city.",
+        "start": 2234.77,
+        "end": 2241.97
+      },
+      {
+        "text": "So, this is prayed and prayed to Athena for inspiration.",
+        "start": 2242.5051,
+        "end": 2245.7852
+      },
+      {
+        "text": "And then one day, he had it, the Trojan horse.",
+        "start": 2245.7852,
+        "end": 2248.665
+      },
+      {
+        "text": "Okay?",
+        "start": 2248.665,
+        "end": 2249.225
+      },
+      {
+        "text": "So he sneaks in so he gets in into the underbelly of the Trojan horse along with other soldiers.",
+        "start": 2249.225,
+        "end": 2254.105
+      }
+    ],
+    "num_words": 67,
+    "start": 2234.77,
+    "end": 2254.105
+  },
+  {
+    "sentences": [
+      {
+        "text": "And then they get into the city and, like, you know, they're really scared and they're really excited.",
+        "start": 2254.8398,
+        "end": 2259.32
+      },
+      {
+        "text": "Then they're able at night to, leave the Trojan horse and then open the gates of Troy and they go stream in and they start to conquer the city.",
+        "start": 2259.8,
+        "end": 2268.68
+      },
+      {
+        "text": "And then Odysseus, you know, he is killing.",
+        "start": 2270.0452,
+        "end": 2273.5652
+      },
+      {
+        "text": "Okay?",
+        "start": 2273.5652,
+        "end": 2274.0452
+      },
+      {
+        "text": "Because it's war and he's full of adrenaline.",
+        "start": 2274.0452,
+        "end": 2277.1653
+      }
+    ],
+    "num_words": 64,
+    "start": 2254.8398,
+    "end": 2277.1653
+  },
+  {
+    "sentences": [
+      {
+        "text": "But then, something catches his eye.",
+        "start": 2277.405,
+        "end": 2279.8853
+      },
+      {
+        "text": "Alright?",
+        "start": 2280.205,
+        "end": 2280.9253
+      },
+      {
+        "text": "He strikes down a soldier and then the a woman comes crying and she's traumatized at the sight of the death of her husband.",
+        "start": 2281.0852,
+        "end": 2295.97
+      },
+      {
+        "text": "And he's and this is traumatized by this woman being traumatized because he came to Troy to save the woman.",
+        "start": 2296.9749,
+        "end": 2307.855
+      },
+      {
+        "text": "Right?",
+        "start": 2307.855,
+        "end": 2308.095
+      }
+    ],
+    "num_words": 52,
+    "start": 2277.405,
+    "end": 2308.095
+  },
+  {
+    "sentences": [
+      {
+        "text": "He sees Penelope in this woman.",
+        "start": 2308.76,
+        "end": 2311.0798
+      },
+      {
+        "text": "He says, I came all this way to make sure that Helen could be safe of her husband.",
+        "start": 2311.0798,
+        "end": 2316.6
+      },
+      {
+        "text": "And now, he just recognized that I just killed someone's husband.",
+        "start": 2317.0,
+        "end": 2321.64
+      },
+      {
+        "text": "But not only that, but the Greeks come and they take her off to be enslaved.",
+        "start": 2322.1199,
+        "end": 2333.395
+      },
+      {
+        "text": "So he, by winning this war, has has destroyed every single family in Troy.",
+        "start": 2334.835,
+        "end": 2342.54
+      }
+    ],
+    "num_words": 65,
+    "start": 2308.76,
+    "end": 2342.54
+  },
+  {
+    "sentences": [
+      {
+        "text": "He's caused the suffering of thousands and thousands of women and children.",
+        "start": 2343.26,
+        "end": 2348.94
+      },
+      {
+        "text": "And that is what he sees for the first time.",
+        "start": 2350.235,
+        "end": 2353.3552
+      },
+      {
+        "text": "Okay?",
+        "start": 2353.435,
+        "end": 2354.0752
+      },
+      {
+        "text": "For the longest time, he believed that he was here to fight for justice, to save families, to leave a legacy for his son, Tamakis.",
+        "start": 2354.235,
+        "end": 2365.02
+      },
+      {
+        "text": "And now he recognizes, no.",
+        "start": 2365.2598,
+        "end": 2367.5798
+      }
+    ],
+    "num_words": 53,
+    "start": 2343.26,
+    "end": 2367.5798
+  },
+  {
+    "sentences": [
+      {
+        "text": "This is not a just war.",
+        "start": 2368.7,
+        "end": 2370.3
+      },
+      {
+        "text": "I'm destroying a civilization.",
+        "start": 2370.5398,
+        "end": 2373.02
+      },
+      {
+        "text": "This is not a war about family.",
+        "start": 2373.18,
+        "end": 2374.6199
+      },
+      {
+        "text": "This is this is a war about destroying families.",
+        "start": 2374.6199,
+        "end": 2376.46
+      },
+      {
+        "text": "And what am I what legacy am leaving my son?",
+        "start": 2376.675,
+        "end": 2379.235
+      }
+    ],
+    "num_words": 36,
+    "start": 2368.7,
+    "end": 2379.235
+  },
+  {
+    "sentences": [
+      {
+        "text": "How will my son feel if he knows how I I destroyed families like ours?",
+        "start": 2380.2751,
+        "end": 2386.195
+      },
+      {
+        "text": "And this causes trauma in him.",
+        "start": 2386.995,
+        "end": 2389.315
+      },
+      {
+        "text": "It splits his soul.",
+        "start": 2389.315,
+        "end": 2390.7551
+      },
+      {
+        "text": "And it drives him crazy, basically.",
+        "start": 2392.75,
+        "end": 2396.59
+      },
+      {
+        "text": "And that's a conflict, the central conflict in The Odyssey.",
+        "start": 2396.6702,
+        "end": 2401.31
+      }
+    ],
+    "num_words": 41,
+    "start": 2380.2751,
+    "end": 2401.31
+  },
+  {
+    "sentences": [
+      {
+        "text": "Having done so much evil, how can you go home?",
+        "start": 2402.27,
+        "end": 2405.9502
+      },
+      {
+        "text": "How can you repair yourself?",
+        "start": 2406.805,
+        "end": 2409.2852
+      },
+      {
+        "text": "How can you mend your soul and repair your world view so that you can live for your family?",
+        "start": 2409.605,
+        "end": 2415.7651
+      },
+      {
+        "text": "Okay?",
+        "start": 2416.0051,
+        "end": 2416.405
+      }
+    ],
+    "num_words": 35,
+    "start": 2402.27,
+    "end": 2416.405
+  }
+]

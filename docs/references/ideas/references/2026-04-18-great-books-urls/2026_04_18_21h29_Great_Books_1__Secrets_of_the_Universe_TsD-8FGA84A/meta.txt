@@ -1,0 +1,4 @@
+Title: Great Books #1:  Secrets of the Universe
+Date: 2026_04_18 21h32
+URL: https://www.youtube.com/watch?v=TsD-8FGA84A
+Claude: claude-opus-4-6 (effort: medium) 20,414 tokens (input: 16,023, output: 4,391)

@@ -1,0 +1,4 @@
+Title: Great Books #8:  The Poetry of Empire
+Date: 2026_04_18 22h13
+URL: https://www.youtube.com/watch?v=YXTRlvFIRt8
+Claude: claude-opus-4-6 (effort: medium) 22,803 tokens (input: 18,251, output: 4,552)

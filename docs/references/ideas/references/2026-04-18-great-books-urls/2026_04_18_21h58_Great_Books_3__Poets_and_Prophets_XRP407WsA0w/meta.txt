@@ -1,0 +1,4 @@
+Title: Great Books #3:  Poets and Prophets
+Date: 2026_04_18 22h01
+URL: https://www.youtube.com/watch?v=XRP407WsA0w
+Claude: claude-opus-4-6 (effort: medium) 21,175 tokens (input: 16,449, output: 4,726)

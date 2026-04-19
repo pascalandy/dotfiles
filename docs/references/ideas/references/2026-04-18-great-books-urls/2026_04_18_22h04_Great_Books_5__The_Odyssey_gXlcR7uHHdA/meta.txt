@@ -1,0 +1,4 @@
+Title: Great Books #5:  The Odyssey
+Date: 2026_04_18 22h06
+URL: https://www.youtube.com/watch?v=gXlcR7uHHdA
+Claude: claude-opus-4-6 (effort: medium) 20,124 tokens (input: 16,655, output: 3,469)

@@ -1,0 +1,4 @@
+Title: Great Books #2:  Homer and the Invention of the Human
+Date: 2026_04_18 21h58
+URL: https://www.youtube.com/watch?v=Ft2CuowGuYc
+Claude: claude-opus-4-6 (effort: medium) 18,950 tokens (input: 14,568, output: 4,382)

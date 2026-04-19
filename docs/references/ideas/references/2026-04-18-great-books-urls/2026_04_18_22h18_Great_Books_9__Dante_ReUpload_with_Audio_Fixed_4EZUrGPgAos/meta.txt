@@ -1,0 +1,4 @@
+Title: Great Books #9:  Dante (Re-Upload with Audio Fixed)
+Date: 2026_04_18 22h20
+URL: https://www.youtube.com/watch?v=4EZUrGPgAos
+Claude: claude-opus-4-6 (effort: medium) 20,963 tokens (input: 16,925, output: 4,038)

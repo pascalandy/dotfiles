@@ -1,0 +1,4 @@
+Title: Great Books #4:  The Conscious Universe
+Date: 2026_04_18 22h04
+URL: https://www.youtube.com/watch?v=dkzr5A8IlLA
+Claude: claude-opus-4-6 (effort: medium) 23,634 tokens (input: 19,000, output: 4,634)
