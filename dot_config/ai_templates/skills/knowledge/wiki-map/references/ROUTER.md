@@ -1,6 +1,6 @@
 ---
 name: wiki-map
-description: Route wiki-map requests to ingest, query, or lint workflows.
+description: Route wiki-map requests to ingest, query, lint, or compile workflows.
 ---
 
 # Wiki Map
@@ -20,6 +20,8 @@ description: Route wiki-map requests to ingest, query, or lint workflows.
 | query, search wiki, ask wiki, what does the wiki say, find in wiki | `Query/MetaSkill.md` -> `workflows/Search.md` or `workflows/DeepQuery.md` |
 | synthesize, deep query, compare, timeline, current understanding | `Query/MetaSkill.md` -> `workflows/DeepQuery.md` |
 | file answer, save answer, save as wiki page, compound answer | `Query/MetaSkill.md` -> `workflows/FileAnswer.md` |
-| wiki-map update, recursive wiki update, refresh wiki tree, update nested wiki | `Lint/MetaSkill.md` -> `workflows/RecursiveUpdate.md` |
+| recursive wiki update, refresh wiki tree, update nested wiki, rebuild index routes | `Lint/MetaSkill.md` -> `workflows/RecursiveUpdate.md` |
 | lint, health check, wiki maintenance, full sweep | `Lint/MetaSkill.md` -> `workflows/FullSweep.md` |
 | find orphans, contradictions, provenance, sources, topic tags, tag order, big pages, log size, index size, rotate log, recovery | `Lint/MetaSkill.md` -> `workflows/QuickCheck.md` |
+| compile wiki, fill wiki gaps, promote missing entities, is the wiki complete, concept mining | `Compile/MetaSkill.md` -> `workflows/CompileWiki.md` |
+| wiki-map update (bare phrase, ambiguous) | Disambiguate: ask the user whether they want **lint** (health check), **refresh** (rebuild INDEX routes via RecursiveUpdate), or **compile** (fill gaps). Do not silently route. |

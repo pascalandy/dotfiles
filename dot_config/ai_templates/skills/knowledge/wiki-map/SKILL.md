@@ -5,7 +5,7 @@ description: Build and maintain LLM-written personal wikis -- ingest sources int
 
 # Wiki Map
 
-> Three wiki operations in one skill -- ingest sources into a persistent knowledge base, query across pages with citations, and lint for structural health -- routed automatically based on what you need.
+> Four wiki operations in one skill -- ingest sources into a persistent knowledge base, query across pages with citations, lint for structural health, and compile implied-missing entities into first-class pages -- routed automatically based on what you need.
 
 ---
 
@@ -36,13 +36,14 @@ The result:
 
 ## The Solution
 
-The LLM incrementally builds and maintains a persistent wiki -- a structured, interlinked collection of markdown files. New sources are ingested into existing pages or new pages with provenance. Cross-references are maintained. Contradictions are recorded in frontmatter. Query answers can be filed back into the wiki. Lint treats the wiki like a codebase, checks for drift, and refreshes nested wiki trees bottom-up when child wiki boundaries already exist.
+The LLM incrementally builds and maintains a persistent wiki -- a structured, interlinked collection of markdown files. New sources are ingested into existing pages or new pages with provenance. Cross-references are maintained. Contradictions are recorded in frontmatter. Query answers can be filed back into the wiki. Lint treats the wiki like a codebase, checks for drift, and refreshes nested wiki trees bottom-up when child wiki boundaries already exist. Compile mines the wiki's own pages for implied-missing entities and promotes them to first-class pages under approval.
 
-Three operations make this work:
+Four operations make this work:
 
 1. **Ingest** -- organize existing files into a wiki, process one source, process many sources atomically, delete pages safely, and upgrade old wikis to the current schema.
 2. **Query** -- search the wiki, synthesize answers with citations, and file substantial answers back into the wiki.
 3. **Lint** -- health-check the wiki for contradictions, provenance gaps, INDEX drift, orphan pages, stale content, weak cross-references, and schema violations.
+4. **Compile** -- answer "is the wiki complete?" by mining existing pages for repeatedly-referenced entities that lack their own page, then creating those pages and back-editing siblings under an approval gate. Requires a recent Lint report.
 
 The collection `SKILL.md` loads `references/ROUTER.md`, which routes to the right operation based on keyword matching. Each operation has its own `SKILL.md`, workflows, and conventions, but all of them share one canonical schema in `references/SCHEMA.md`.
 
@@ -60,11 +61,13 @@ The collection `SKILL.md` loads `references/ROUTER.md`, which routes to the righ
 | Query workflows | `references/Query/workflows/` | 3 workflows: Search, DeepQuery, FileAnswer |
 | Lint skill | `references/Lint/MetaSkill.md` | Health-check and maintain wiki quality |
 | Lint workflows | `references/Lint/workflows/` | 3 workflows: FullSweep, QuickCheck, RecursiveUpdate |
+| Compile skill | `references/Compile/MetaSkill.md` | Promote implied-missing entities into first-class pages from the wiki itself |
+| Compile workflows | `references/Compile/workflows/` | 1 workflow: CompileWiki (6 phases, atomic plan-then-write) |
 
 **Summary:**
-- **Sub-skills:** 3 (Ingest, Query, Lint)
-- **Workflows:** 11 across all sub-skills
-- **Dependencies:** None (works with any markdown-capable assistant)
+- **Sub-skills:** 4 (Ingest, Query, Lint, Compile)
+- **Workflows:** 12 across all sub-skills
+- **Dependencies:** None (works with any markdown-capable assistant). Compile's Phase 4 optionally dispatches parallel workers via `delegate-to-sub` when the harness supports sub-agents; falls back to sequential mining otherwise.
 
 ---
 
@@ -82,9 +85,12 @@ The collection `SKILL.md` loads `references/ROUTER.md`, which routes to the righ
 | "synthesize everything we know about X" | Routes to Query -> runs DeepQuery workflow |
 | "save that answer as a wiki page" | Routes to Query -> runs FileAnswer workflow |
 | "health check the wiki" | Routes to Lint -> runs FullSweep workflow |
-| "wiki-map update" | Routes to Lint -> runs RecursiveUpdate workflow |
+| "refresh wiki tree" / "rebuild index routes" | Routes to Lint -> runs RecursiveUpdate workflow |
+| "wiki-map update" (bare) | Ambiguous -> router asks the user: lint, refresh, or compile? |
 | "find orphan pages" | Routes to Lint -> runs QuickCheck workflow |
 | "check provenance" | Routes to Lint -> runs QuickCheck workflow |
+| "compile the wiki" / "fill wiki gaps" / "is the wiki complete?" | Routes to Compile -> runs CompileWiki workflow (requires recent Lint report) |
+| "promote missing entities" / "concept mining" | Routes to Compile -> runs CompileWiki workflow |
 
 ---
 
@@ -181,3 +187,5 @@ The schema is global to this meta-skill. There is no per-wiki `SCHEMA.md`.
 | Page template | `references/SCHEMA.md` + Ingest workflows | Change default page structure |
 | Lint rules | `references/SCHEMA.md` + Lint workflows | Add or disable health checks |
 | Query output formats | Query workflows | Add new synthesis formats |
+| Compile recency window | `references/Compile/workflows/CompileWiki.md` Phase 2 | Default Lint-gate window is 20 log entries AND 14 days -- tighten or loosen per wiki |
+| Compile mining cap | `references/Compile/workflows/CompileWiki.md` Phase 3 | Default top-N mining targets = 30 |
