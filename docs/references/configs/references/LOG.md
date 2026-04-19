@@ -6,11 +6,12 @@ tags:
   - kind/log
   - status/stable
 date_created: 2026-04-11
-date_updated: 2026-04-18
+date_updated: 2026-04-19
 ---
 
 # Log
 
+- [[2026-04-19]] sweep | pa-doc-cleaner | Fixed date_created typo in how-to-configure-opencode (2025→2026). Updated Total pages 5→6 and last-updated text.
 - [[2026-04-18]] lint | recursive update | refreshed local index and direct child wiki routes
 - [[2026-04-11]] create | wiki | Wiki map created. 1 file organized into references/
 - [[2026-04-11]] ingest | chezmoi-skill | Created [[how-to-configure-chezmoi]] (generic wiki, 7 pages) and [[how-my-chezmoi-is-configured]] (personal preferences, 1 page). Absorbs the `dot_config/ai_templates/skills/utils/chezmoi/` skill content.

@@ -6,11 +6,12 @@ tags:
   - kind/log
   - status/stable
 date_created: 2026-04-07
-date_updated: 2026-04-18
+date_updated: 2026-04-19
 ---
 
 # Log
 
+- [[2026-04-19]] sweep | pa-doc-cleaner | Rebuilt catalog from filesystem. Total pages 50→69. Renamed "Plans Wiki" frontmatter name to "Ideas Wiki". Added kind/idea, kind/vision, kind/postmortem, kind/scratch sections. Labeled superseded/current versions inline.
 - [[2026-04-18]] export | idea | Great Books URLs (Predictive History) — 10 video links (#1–#9 + re-upload)
 - [[2026-04-18]] export | vision | headless meta-skill DirectionCheck — consolidate headless-{claude,codex,opencode} into one router-based meta-skill
 - [[2026-04-18]] lint | recursive update | refreshed local index and direct child wiki routes

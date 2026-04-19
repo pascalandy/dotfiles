@@ -1,19 +1,19 @@
 ---
-name: Plans Wiki
-description: Collection of feature plans, project documentation, and implementation specs
+name: Ideas Wiki
+description: Collection of brainstorms, drafts, visions, plans, research, and postmortems for exploratory and early-stage work
 tags:
   - area/ea
   - kind/wiki
   - status/open
 date_created: 2026-04-07
-date_updated: 2026-04-18
+date_updated: 2026-04-19
 ---
 
-# Plans Wiki
+# Ideas Wiki
 
-> Content catalog for feature plans, project documentation, and implementation specs.
+> Content catalog for brainstorms, drafts, and exploratory material.
 > Read this first to find relevant pages for any query.
-> **Total pages:** 50 | **Last updated:** 2026-04-12
+> **Total pages:** 69 | **Last updated:** 2026-04-19
 
 ## Wiki Map
 
@@ -22,6 +22,39 @@ date_updated: 2026-04-18
 | File | Description |
 |------|-------------|
 | `references/LOG.md` | Operational log |
+
+### kind/idea
+
+| File | Description |
+|------|-------------|
+| `references/2026-04-10-wiki-map-scanner/idea.md` | Wiki-map scanner initial idea |
+| `references/2026-04-10-wiki-map-scanner/alignment-draft.md` | Wiki-map scanner alignment draft |
+| `references/2026-04-10-advisor-codex-backup/idea.md` | Advisor pattern backup notes |
+| `references/2026-04-11-diagram-idea/idea.md` | Diagram skill idea |
+| `references/2026-04-12-nested-wiki-maps/idea-nested-wiki-maps.md` | Nested wiki-maps idea |
+| `references/2026-04-16-droid-headless-guide/idea-droid-headless-guide.md` | Droid headless guide idea |
+| `references/2026-04-16-ghostty-terminal-config/idea-ghostty-terminal-config.md` | Ghostty terminal config idea |
+| `references/2026-04-18-game-theory-urls/idea-game-theory-urls.md` | Game theory URL collection idea |
+| `references/2026-04-18-great-books-urls/idea-great-books-urls.md` | Great books URL collection idea |
+| `references/2026-04-18-headless-delegation/idea-delegation-headless-first-impression.md` | Headless delegation first impressions |
+| `references/2026-04-18-secret-history-urls/idea-secret-history-urls.md` | Secret history URL collection idea |
+| `references/2026-04-18-skills-reorg/idea-skills-reorg-v5.md` | Skills reorg idea v5 (current) |
+| `references/2026-04-18-skills-reorg/archived/idea-skills-reorg.md` | Skills reorg idea v1 (archived) |
+| `references/2026-04-18-skills-reorg/archived/idea-skills-reorg-v2.md` | Skills reorg idea v2 (archived) |
+| `references/2026-04-18-skills-reorg/archived/idea-skills-reorg-v3.md` | Skills reorg idea v3 (archived) |
+| `references/2026-04-18-skills-reorg/archived/idea-skills-reorg-v4.md` | Skills reorg idea v4 (archived) |
+| `references/2026-04-18-wiki-upgrades/idea-personal-knowledge-compilation.md` | Personal knowledge compilation idea |
+| `references/2026-04-18-wiki-upgrades/potential-skill.md` | Wiki upgrades potential skill notes |
+| `references/2026-04-18-wiki-upgrades/task.md` | Wiki upgrades task notes |
+
+### kind/vision
+
+| File | Description |
+|------|-------------|
+| `references/2026-04-18-headless-delegation/vision-headless-delegation.md` | Headless delegation vision |
+| `references/2026-04-18-headless-meta-skill/vision-headless-meta-skill.md` | Headless meta-skill vision v1 |
+| `references/2026-04-18-headless-meta-skill/vision-headless-meta-skill-v2.md` | Headless meta-skill vision v2 (current) |
+| `references/2026-04-18-wiki-upgrades/vision-wiki-map-ontology.md` | Wiki-map ontology vision |
 
 ### kind/project
 
@@ -41,11 +74,13 @@ date_updated: 2026-04-18
 | `references/2026-04-07-prd-feature-templates/plan_template_alt_1.md` | Alternative PRD template |
 | `references/2026-04-07-supply-chain-security/2025-04-01-1009-feat-supply-chain-security-beta-plan.md` | Supply chain security feature plan |
 | `references/2026-04-07-wiki-map-skill-v2/plan-wiki-map.md` | Wiki-map skill v2 refactor plan |
-| `references/2026-04-08-voxtral-tts-skill/plan.md` | Voxtral TTS skill plan |
-| `references/2026-04-08-voxtral-tts-skill/plan_v2.md` | Voxtral TTS skill plan v2 |
-| `references/2026-04-08-voxtral-tts-skill/plan_v3.md` | Voxtral TTS skill plan v3 |
+| `references/2026-04-08-voxtral-tts-skill/plan.md` | Voxtral TTS skill plan v1 (superseded) |
+| `references/2026-04-08-voxtral-tts-skill/plan_v2.md` | Voxtral TTS skill plan v2 (superseded) |
+| `references/2026-04-08-voxtral-tts-skill/plan_v3.md` | Voxtral TTS skill plan v3 (current) |
 | `references/2026-04-10-advisor/plan.md` | pa-advisor skill plan |
-| `references/2026-04-12-nested-wiki-maps/plan-nested-wiki-maps.md` | Bottom-up recursive update plan for nested wiki maps |
+| `references/2026-04-12-nested-wiki-maps/plan-nested-wiki-maps.md` | Nested wiki-maps plan v1 (superseded) |
+| `references/2026-04-12-nested-wiki-maps/plan-nested-wiki-maps-v2.md` | Nested wiki-maps plan v2 (current) |
+| `references/2026-04-18-skills-reorg/plan-skills-reorg.md` | Skills reorg plan |
 
 ### kind/research
 
@@ -73,7 +108,6 @@ date_updated: 2026-04-18
 | `references/2026-04-08-voxtral-tts-skill/draft.md` | Voxtral TTS skill draft |
 | `references/2026-04-10-advisor/explore.md` | Advisor pattern exploration |
 | `references/2026-04-10-advisor/webclip-advisor.md` | Anthropic advisor tool documentation |
-| `references/2026-04-10-advisor-codex-backup/idea.md` | Advisor pattern backup notes |
 
 ### kind/review
 
@@ -85,3 +119,15 @@ date_updated: 2026-04-18
 | `references/2026-04-07-example-plans-reviews/review_2026-03-11_21h57_j3c.md` | Code review session March 11, 2026 |
 | `references/2026-04-07-example-plans-reviews/review_2026-03-11_5h31_ks2.md` | Code review session March 11, 2026 |
 | `references/2026-04-07-prd-feature-templates/bdd_principles.md` | Behavior-driven development principles |
+
+### kind/postmortem
+
+| File | Description |
+|------|-------------|
+| `references/2026-04-18-skills-reorg/postmortem-skills-reorg-execution.md` | Skills reorg execution postmortem |
+
+### kind/scratch
+
+| File | Description |
+|------|-------------|
+| `references/2026-04-12-skill-superpowers-tmp/void.md` | Temporary scratch notes |

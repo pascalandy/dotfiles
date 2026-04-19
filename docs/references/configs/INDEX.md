@@ -6,14 +6,14 @@ tags:
   - kind/wiki
   - status/open
 date_created: 2026-04-11
-date_updated: 2026-04-18
+date_updated: 2026-04-19
 ---
 
 # Configs Wiki
 
 > Content catalog. Every wiki page is listed here with a one-line summary.
 > Read this first to find relevant pages for any query.
-> **Parent index:** [`../INDEX.md`](../INDEX.md) | **Total pages:** 5 | **Last updated:** 2026-04-11
+> **Parent index:** [`../INDEX.md`](../INDEX.md) | **Total pages:** 6 | **Last updated:** 2026-04-19
 
 This category follows the **generic guide + personal preferences** pattern: for any tool, there is one wiki that could be reused by anyone (`how-to-configure-X`) and one wiki that describes this operator's specific choices (`how-my-X-is-configured`). See the parent [`docs/INDEX.md`](../INDEX.md) for the full convention.
 

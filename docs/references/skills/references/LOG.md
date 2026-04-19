@@ -6,11 +6,12 @@ tags:
   - kind/log
   - status/stable
 date_created: 2026-04-11
-date_updated: 2026-04-18
+date_updated: 2026-04-19
 ---
 
 # Log
 
+- [[2026-04-19]] sweep | pa-doc-cleaner | Added missing LOG.md to distill bucket wiki. Normalized date_updated.
 - [[2026-04-18]] rename | category-move | Renamed `docs/references/workflows/` → `docs/references/skills/` to match the source-tree category name (`dot_config/ai_templates/skills/`) and organize the tree by the 8 workflow-arc buckets (`pa-sdlc`, `devtools`, `think`, `knowledge`, `web`, `distill`, `diagram`, `media`) landed in commit `2e4db5f`. The previous "workflows" framing conflated the `pa-sdlc` lifecycle narrative with a standalone skill wiki (`distill`) that is not a workflow. Mechanics: `git mv workflows skills`, then `git mv skills/references/skills/distill skills/references/distill/distill` to nest under its bucket. Top-level INDEX rewritten as a per-bucket catalog; new bucket INDEX at `references/distill/INDEX.md` routes to the distill skill wiki.
 - [[2026-04-18]] lint | recursive update | refreshed local index and direct child wiki routes
 - [[2026-04-11]] create | wiki | Wiki map created. One wiki scaffolded under references/.

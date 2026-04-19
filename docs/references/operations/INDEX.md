@@ -6,14 +6,14 @@ tags:
   - kind/wiki
   - status/open
 date_created: 2026-04-11
-date_updated: 2026-04-18
+date_updated: 2026-04-19
 ---
 
 # Operations Wiki
 
 > Content catalog. Every wiki page is listed here with a one-line summary.
 > Read this first to find relevant pages for any query.
-> **Parent index:** [`../INDEX.md`](../INDEX.md) | **Total pages:** 2 | **Last updated:** 2026-04-11
+> **Parent index:** [`../INDEX.md`](../INDEX.md) | **Total pages:** 2 | **Last updated:** 2026-04-19
 
 This category covers how the repo itself operates: what runs on `chezmoi apply`, how `dot_config/ai_templates/` fans out to the eight agent homes, how VS Code and the Brewfile sync back, and how to debug the pipeline.
 
