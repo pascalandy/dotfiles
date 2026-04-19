@@ -7,7 +7,8 @@ info: |
   Adapted from Asian Boss (Steven Park).
 author: Pascal Andy
 class: text-center
-transition: slide-left
+transition: fade
+colorSchema: dark
 mdc: true
 drawings:
   persist: false
@@ -44,6 +45,10 @@ layout: section
 
 Seoul, March 2016
 
+<!--
+some notes here
+-->
+
 ---
 layout: two-cols-header
 ---
@@ -69,12 +74,10 @@ A five-game series that rewrote two thousand years of Go theory.
 - Public consensus: "machines can't beat masters"
 
 ---
-transition: fade-out
+transition: fade
 ---
 
 ## The five games
-
-<v-clicks>
 
 - **Game 1** — AlphaGo wins after ~4 hours. Spectators stunned.
 - **Game 2** — **Move 37.** A stone no top player would place. Lee Sedol leaves the room for 15 minutes.
@@ -82,9 +85,7 @@ transition: fade-out
 - **Game 4** — Lee Sedol strikes back with *"the divine move."*
 - **Game 5** — AlphaGo closes it out. Series: **4 – 1**.
 
-</v-clicks>
-
-<div v-click class="mt-8 text-center text-xl opacity-80">
+<div class="mt-8 text-center text-xl opacity-80">
 Move 37 wasn't an error. It revealed a strategy <br/>
 no human had considered in 2,000 years.
 </div>
@@ -101,7 +102,7 @@ layout: statement
 
 ## The West saw a milestone.<br>China heard an alarm.
 
-<div v-click class="mt-10 text-base opacity-70">
+<div class="mt-10 text-base opacity-70">
 2017 — The **Next Generation Artificial Intelligence Development Plan**
 <br/>Explicit goal: become world leader in AI by 2030.
 </div>
@@ -168,7 +169,7 @@ Today: tens of billions of switches on silicon the size of a fingernail.
 
 </div>
 
-<div v-click class="mt-10 text-center italic opacity-80">
+<div class="mt-10 text-center italic opacity-80">
 "Silicon can instantly switch between blocking and conducting power.<br/>
 That's why human engineers can actually control it."
 </div>
@@ -202,7 +203,7 @@ A **GPU** surface is a grid of thousands of tiny cores.
 
 </div>
 
-<div v-click class="mt-6 text-sm opacity-70">
+<div class="mt-6 text-sm opacity-70">
 The viral clip of Jensen gifting Elon a "GPU"? That was a mini supercomputer with cooling fans.<br/>
 The actual silicon is about the size of a playing card.
 </div>
@@ -236,7 +237,7 @@ Why China can't just buy its way in.
 - Decades of tacit engineering know-how
 - Even Samsung can't fully match TSMC
 
-<div v-click class="mt-4 text-xs opacity-70">
+<div class="mt-4 text-xs opacity-70">
 Even Tesla announced **Project TerraFab** — <br/>
 TSMC can't produce enough chips to meet demand.
 </div>
@@ -285,7 +286,7 @@ An American architectural breakthrough.
 
 </div>
 
-<div v-click class="mt-8 text-center">
+<div class="mt-8 text-center">
 Feed a transformer enough human text → a <b>Large Language Model</b>.
 </div>
 
@@ -335,7 +336,7 @@ Split into expert clusters.<br/>Only activate what's needed.
 
 </div>
 
-<div v-click class="mt-8 text-center text-lg">
+<div class="mt-8 text-center text-lg">
 Same intelligence. A fraction of the compute.
 </div>
 
@@ -343,16 +344,12 @@ Same intelligence. A fraction of the compute.
 
 ## Breakthrough 1b — Multi-Head Latent Attention (MLA)
 
-<v-clicks>
-
 - LLM short-term memory = **key-value cache**
 - Normally: fat, GPU-hungry, grows with conversation
 - DeepSeek invented **MLA** — aggressive cache compression
 - **>90% memory reduction** while preserving reasoning
 
-</v-clicks>
-
-<div v-click class="mt-10 text-center italic">
+<div class="mt-10 text-center italic">
 The model tracks what it's thinking — <br/>
 using a fraction of the RAM.
 </div>
@@ -387,7 +384,7 @@ DeepSeek wrote **custom low-level code** to force older chips to communicate and
 
 </div>
 
-<div v-click class="mt-8 text-sm opacity-70">
+<div class="mt-8 text-sm opacity-70">
 Could OpenAI / Anthropic do this? Yes. <br/>
 But for them it's faster to just buy more GPUs. DeepSeek had no choice.
 </div>
@@ -408,16 +405,12 @@ vs. hundreds of millions for comparable GPT-class models
 
 ## The killer feature — **open source**
 
-<v-clicks>
-
 - Weights and architecture released publicly
 - Anyone can inspect, fine-tune, rebuild
 - The community *learned* the 256-experts + MLA tricks from the release itself
 - Opposite of OpenAI's closed-model posture
 
-</v-clicks>
-
-<div v-click class="mt-10 text-center italic text-lg">
+<div class="mt-10 text-center italic text-lg">
 "DeepSeek turned its model into a platform<br/>
 and started handing out the secret recipe."
 </div>
@@ -460,17 +453,13 @@ layout: two-cols-header
 
 ## The genius who couldn't talk
 
-<v-clicks>
-
 - Pure RL → brilliant at math, logic, coding
 - But it stopped *caring* how it sounded
 - Engineers called it **"language mixing"** — unreadable English–Chinese hybrid
 - Fix: a small amount of human-labeled data for presentation
 - Core reasoning engine was still built for a fraction of the cost
 
-</v-clicks>
-
-<div v-click class="mt-8 text-center italic opacity-80">
+<div class="mt-8 text-center italic opacity-80">
 "It turned into a genius mathematician<br/>
 who mumbles to himself and doesn't speak to normal people."
 </div>
@@ -489,7 +478,7 @@ layout: statement
 
 ## DeepSeek was a Sputnik moment.
 
-<div v-click class="text-base opacity-70 mt-6">
+<div class="text-base opacity-70 mt-6">
 1957: Soviets launch the first satellite. Silicon Valley, 2026: same feeling.<br/>
 A rival is catching up — through a completely different path.
 </div>
@@ -504,15 +493,11 @@ layout: quote
 
 ## The US data wall
 
-<v-clicks>
-
 - Western labs scraped the open internet — YouTube, Reddit, X, public sites
 - Often without permission, probably illegally
 - As of 2026: **essentially out of high-quality multimodal data**
 - Musk's warning: next frontier is **synthetic data** (AI training AI)
 - What's left is fragmented, compressed, lawsuit-bound
-
-</v-clicks>
 
 ---
 layout: two-cols-header
@@ -538,7 +523,7 @@ layout: two-cols-header
 - A perfectly labeled, growing corpus
 - Behind the Great Firewall — walled off from Western labs
 
-<div v-click class="mt-4 text-sm italic opacity-80">
+<div class="mt-4 text-sm italic opacity-80">
 "An infinitely growing, perfectly labeled database that lives entirely behind the Chinese internet wall."
 </div>
 
@@ -572,7 +557,7 @@ layout: two-cols-header
 
 </div>
 
-<div v-click class="mt-8 text-center">
+<div class="mt-8 text-center">
 ByteDance's chatbot <b>DuoBao</b> has already passed DeepSeek as China's #1 AI app.<br/>
 <span class="opacity-70">Text + image + cinematic video + voice — in one place.</span>
 </div>
@@ -608,8 +593,6 @@ Data that isn't on the internet yet.
 
 ## Beyond the screen
 
-<v-clicks>
-
 - **AI agents** that act in the real world
 - **Physical robots** in homes, factories, cars
 - The richest remaining data is offline:
@@ -617,9 +600,7 @@ Data that isn't on the internet yet.
   - Physical workflows
   - Lived human context
 
-</v-clicks>
-
-<div v-click class="mt-10 text-center italic text-lg">
+<div class="mt-10 text-center italic text-lg">
 "If the future of AI requires understanding real human beings,<br/>
 the most valuable data won't come from scraping websites.<br/>
 It'll come from actually talking to people."
@@ -635,8 +616,6 @@ layout: section
 
 ## What to remember
 
-<v-clicks>
-
 1. AI is a **3-layer stack** — hardware, model, data.
 2. US owns the hardware chokepoint. NVIDIA + TSMC + export controls.
 3. China answered with **software efficiency** — 256-expert MoE, MLA, PTX.
@@ -644,8 +623,6 @@ layout: section
 5. China's structural edge is **multimodal data** from super apps.
 6. Both sides face a data wall — from opposite directions.
 7. The next battlefield is **real-world data** that doesn't exist online yet.
-
-</v-clicks>
 
 ---
 
