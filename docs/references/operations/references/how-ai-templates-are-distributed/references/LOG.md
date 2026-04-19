@@ -11,6 +11,7 @@ date_updated: 2026-04-18
 
 # Log
 
+- [[2026-04-18]] drift-refresh | refactor-landed | Aligned [[overview]], [[render-stage]], [[claude-code-flattening]], [[troubleshooting]], and the wiki INDEX with commit `2e4db5f`, which reorganized `dot_config/ai_templates/skills/` from 4 buckets (`meta/`, `pa-sdlc/`, `specs/`, `utils/`) to 8 workflow-arc buckets (`pa-sdlc`, `devtools`, `think`, `knowledge`, `web`, `distill`, `diagram`, `media`). `fct_compile_assets` now iterates a local `categories` array at `.chezmoiscripts/run_after_backup.sh:78`. Line-number references throughout the wiki were bumped to match the current script. Historical bug notes in [[claude-code-flattening#Historical note — the pre-b6d0042 bug]] and [[rsync-semantics]] are preserved unchanged.
 - [[2026-04-18]] lint | recursive update | refreshed local index and direct child wiki routes
 - [[2026-04-11]] create | wiki | Wiki created. 6 reference pages authored from `.chezmoiscripts/run_after_backup.sh`.
 - [[2026-04-11]] discovery | bug | While writing [[claude-code-flattening]], verified that the four `fct_copy_dir` calls into `~/.claude/skills/` each ran with `--delete`, so only the last subtree (`utils/`) survived. `~/.claude/skills/` equaled `dot_config/ai_templates/skills/utils/` exactly on this machine. Every `meta/`, `pa-sdlc/`, and `specs/` skill was invisible to Claude Code.

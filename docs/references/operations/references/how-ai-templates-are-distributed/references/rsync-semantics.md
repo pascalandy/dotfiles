@@ -6,7 +6,7 @@ tags:
   - kind/doc
   - status/open
 date_created: 2026-04-11
-date_updated: 2026-04-11
+date_updated: 2026-04-18
 sources:
   - how-ai-templates-are-distributed
 ---
@@ -57,7 +57,7 @@ With `--delete`, every apply reconstructs each destination to match its compiled
 
 Earlier versions of `fct_sync_agent_assets` called `fct_copy_dir` four times into `~/.claude/skills/`, each time with a different category subtree as the source and each time with `--delete`. Because `--delete` removes destination files that are not in the current source, each of the four calls wiped the previous call's contribution, and only the last call (`utils/`) survived. The four-call-into-shared-destination pattern was incompatible with `--delete`.
 
-The current design sidesteps the problem entirely: `fct_compile_assets` (see [claude-code-flattening.md](claude-code-flattening.md)) merges the four category subtrees into one compiled scratch directory additively, with `cp -r` and no `--delete`, before the fan-out starts. Then `fct_sync_agent_assets` calls `fct_copy_dir` exactly once per destination — one call per agent home per asset type. No destination receives more than one rsync per apply, so `--delete` is safe at every call site.
+The current design sidesteps the problem entirely: `fct_compile_assets` (see [claude-code-flattening.md](claude-code-flattening.md)) merges the eight workflow-arc subtrees into one compiled scratch directory additively, with `cp -r` and no `--delete`, before the fan-out starts. Then `fct_sync_agent_assets` calls `fct_copy_dir` exactly once per destination — one call per agent home per asset type. No destination receives more than one rsync per apply, so `--delete` is safe at every call site.
 
 ## The missing `exact_` prefix on the source
 
@@ -65,8 +65,8 @@ Chezmoi has its own mechanism for "the destination should be exactly the source"
 
 `dot_config/ai_templates/skills/` **does not have the `exact_` prefix**. The directory is simply `dot_config/ai_templates/skills/`. That means:
 
-1. When `chezmoi apply` runs, chezmoi itself will not prune files from `~/.config/ai_templates/skills/` that were removed from the source. If you delete `dot_config/ai_templates/skills/utils/foo/`, the applied path `~/.config/ai_templates/skills/utils/foo/` stays behind until some other mechanism removes it.
-2. The render stage uses `chezmoi archive --format tar "$HOME/.config/ai_templates"`. This archives the **applied state**, which includes the stale directory. So the scratch render tree would still contain `utils/foo/`.
+1. When `chezmoi apply` runs, chezmoi itself will not prune files from `~/.config/ai_templates/skills/` that were removed from the source. If you delete `dot_config/ai_templates/skills/devtools/foo/`, the applied path `~/.config/ai_templates/skills/devtools/foo/` stays behind until some other mechanism removes it.
+2. The render stage uses `chezmoi archive --format tar "$HOME/.config/ai_templates"`. This archives the **applied state**, which includes the stale directory. So the scratch render tree would still contain `devtools/foo/`.
 3. `fct_compile_assets` reads from the scratch render tree, so it faithfully includes the stale entry in the compile directory.
 4. Every agent home's `fct_copy_dir` call copies the compile directory to its destination. Because the call runs with `--delete`, it would prune a file that is in the destination but not in the compile directory — which helps with *new* deletions if they propagated through the render stage, but does not help here, because the deletion did not propagate.
 

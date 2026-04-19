@@ -42,7 +42,7 @@ Source of truth for every agent's prompts and skills is `dot_config/ai_templates
 <checklist>
 Before finishing any change that touches `dot_config/ai_templates/`:
 - the edit was made under `dot_config/ai_templates/`, not under an agent home
-- the new or renamed file does not collide with another skill after compile-stage flattening (`meta/`, `pa-sdlc/`, `specs/`, `utils/` all land as siblings in every agent home's `skills/` directory)
+- the new or renamed file does not collide with another skill after compile-stage flattening (`pa-sdlc/`, `devtools/`, `think/`, `knowledge/`, `web/`, `distill/`, `diagram/`, `media/` all land as siblings in every agent home's `skills/` directory)
 - `chezmoi apply -n -v` was run first and the render step completed successfully
 - the expected target under at least one agent home was spot-checked after apply
 - if a skill was deleted or moved, every agent home was checked for the old name
@@ -53,7 +53,7 @@ Load only what the task needs:
 - [overview.md](references/overview.md) — mental model: source of truth, two-stage pipeline, why it exists
 - [render-stage.md](references/render-stage.md) — `fct_render_ai_templates` and the `chezmoi archive --format tar | tar -xf -` mechanic
 - [fan-out-targets.md](references/fan-out-targets.md) — the eight agent homes and what each one receives
-- [claude-code-flattening.md](references/claude-code-flattening.md) — the compile-stage flattening: how `fct_compile_assets` merges the four category subtrees into one flat directory for every agent, and the residual cross-category name collision risk
+- [claude-code-flattening.md](references/claude-code-flattening.md) — the compile-stage flattening: how `fct_compile_assets` merges the eight workflow-arc subtrees into one flat directory for every agent, and the residual cross-category name collision risk
 - [rsync-semantics.md](references/rsync-semantics.md) — `fct_copy_dir` flags, `--delete` behavior, the interaction with the missing `exact_` prefix
 - [troubleshooting.md](references/troubleshooting.md) — what to check when a skill or command does not land where expected
 </references>
@@ -78,7 +78,7 @@ Load only what the task needs:
 | `references/overview.md` | Two-stage render + rsync fan-out, source of truth, why this exists |
 | `references/render-stage.md` | `chezmoi archive --format tar` into a `mktemp -d` scratch, trap cleanup |
 | `references/fan-out-targets.md` | The eight agent homes and their commands/ and skills/ destinations |
-| `references/claude-code-flattening.md` | How `fct_compile_assets` flattens the four category subtrees into one directory for every agent home, with the cross-category name collision gotcha |
+| `references/claude-code-flattening.md` | How `fct_compile_assets` flattens the eight workflow-arc subtrees into one directory for every agent home, with the cross-category name collision gotcha |
 | `references/rsync-semantics.md` | `fct_copy_dir` rsync flags, `--delete`, the absent `exact_` on the source |
 | `references/troubleshooting.md` | How to debug missing or stale skills and commands in an agent home |
 
