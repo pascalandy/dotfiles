@@ -1,5 +1,5 @@
 ---
-name: secret-history-END-pax-judaica
+name: secret-history-28-pax-judaica
 description: Follow-along notes for Predictive History's "Secret History END — Pax Judaica." USE WHEN theory of truth three tests, Frank Rothschild Weishaupt Illuminati, thirteen families, four eschatologies Jewish Frankist Christian Zionist Freemason, War of Gog and Magog, mark of the beast, Greater Israel Nile to Euphrates, 33rd parallel Trinity Hiroshima Dallas Jerusalem, Isaac Newton Observations Upon Daniel, Ezekiel 37-38, red heifers Third Temple, Pax Judaica, Silicon Valley as military front, Steve Wozniak HP, transhumanism two-tier future, Khazar theory Arthur Koestler Thirteenth Tribe, Bakunin's resistance, Keats Shakespeare.
 ---
 
