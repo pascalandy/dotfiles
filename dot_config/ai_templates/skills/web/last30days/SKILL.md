@@ -16,9 +16,9 @@ Keep setup helpers inside this skill folder, not in `~/.local/bin`.
 1. If `~/.local/share/last30days-skill/scripts/last30days.py` is missing, run:
 
 ```bash
-bash ~/.config/opencode/skill/utils/last30days/scripts/install_upstream.sh
+bash ~/.config/opencode/skills/last30days/scripts/install_upstream.sh
 # or in Codex:
-bash ~/.codex/skills/utils/last30days/scripts/install_upstream.sh
+bash ~/.codex/skills/last30days/scripts/install_upstream.sh
 ```
 
 2. Before first real use, verify the environment:
@@ -42,8 +42,8 @@ If the user asks for watchlists, briefings, or history mode, also read:
 4. For local maintenance details, read:
 
 ```text
-~/.config/opencode/skill/utils/last30days/references/install.md
-~/.codex/skills/utils/last30days/references/install.md
+~/.config/opencode/skills/last30days/references/install.md
+~/.codex/skills/last30days/references/install.md
 ```
 
 ## OpenCode/Codex execution rule

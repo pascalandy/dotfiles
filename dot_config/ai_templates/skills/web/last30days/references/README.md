@@ -13,14 +13,14 @@ The upstream project is large and changes often, so this repo only keeps:
 Runtime code lives outside the synced skill tree:
 
 - checkout path: `~/.local/share/last30days-skill`
-- installer: `~/.config/opencode/skill/utils/last30days/scripts/install_upstream.sh`
-- codex installer path: `~/.codex/skills/utils/last30days/scripts/install_upstream.sh`
+- installer: `~/.config/opencode/skills/last30days/scripts/install_upstream.sh`
+- codex installer path: `~/.codex/skills/last30days/scripts/install_upstream.sh`
 - config: `~/.config/last30days/.env`
 
 Install or update with:
 
 ```bash
-bash ~/.config/opencode/skill/utils/last30days/scripts/install_upstream.sh
+bash ~/.config/opencode/skills/last30days/scripts/install_upstream.sh
 ```
 
 Verify with:
