@@ -26,4 +26,5 @@ Concluding lecture on the *Iliad*, arguing that the epic's final movements drama
 
 ## Full note
 
-Full note: `references/follow_along_note.md`
+- Structured note: `references/follow_along_note.md` (curated summary with themes + quotes)
+- Raw transcript: `references/raw_sentences.txt` (verbatim lecture, one sentence per line — use for exact quotes)

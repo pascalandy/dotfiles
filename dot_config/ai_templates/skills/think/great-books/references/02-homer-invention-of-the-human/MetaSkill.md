@@ -25,4 +25,5 @@ How Homer's *Iliad* "invents" the human being by depicting, for the first time i
 
 ## Full note
 
-Full note: `references/follow_along_note.md`
+- Structured note: `references/follow_along_note.md` (curated summary with themes + quotes)
+- Raw transcript: `references/raw_sentences.txt` (verbatim lecture, one sentence per line — use for exact quotes)

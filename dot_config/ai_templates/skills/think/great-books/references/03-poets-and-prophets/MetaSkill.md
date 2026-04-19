@@ -25,4 +25,5 @@ Homer is framed as the creator of Greek civilization itself — not merely a poe
 
 ## Full note
 
-Full note: `references/follow_along_note.md`
+- Structured note: `references/follow_along_note.md` (curated summary with themes + quotes)
+- Raw transcript: `references/raw_sentences.txt` (verbatim lecture, one sentence per line — use for exact quotes)

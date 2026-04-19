@@ -44,10 +44,12 @@ Load `references/ROUTER.md` to determine which sub-skill handles this request, t
 To add book #10+ (or any new lecture), replicate the pattern:
 
 1. Create `references/NN-kebab-title/references/` under this skill.
-2. Drop the follow-along note at `references/NN-kebab-title/references/follow_along_note.md`.
+2. Drop both source files into `references/NN-kebab-title/references/`:
+   - `follow_along_note.md` (curated structured summary)
+   - `raw_sentences.txt` (verbatim transcript, one sentence per line — for exact quotes)
 3. Author `references/NN-kebab-title/MetaSkill.md` with:
    - YAML frontmatter: `name`, `description` (the `description` ends with `USE WHEN …` listing distinctive keywords for that book).
-   - An overview paragraph, 4–8 key themes, and a pointer line: `Full note: references/follow_along_note.md`.
+   - An overview paragraph, 4–8 key themes, and a **Full note** section pointing at both files (structured note + raw transcript).
 4. Append one row to `references/ROUTER.md` mapping its keywords to `NN-kebab-title/MetaSkill.md`.
 5. Append one row to the **What's Included** table above and, if useful, one row to **Invocation Scenarios**.
 6. Merge the new keywords into this root `SKILL.md` `USE WHEN` list (so the scanner surfaces the collection on those triggers).
