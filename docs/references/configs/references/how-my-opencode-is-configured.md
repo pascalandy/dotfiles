@@ -146,9 +146,8 @@ Providers currently wired in `opencode.json.tmpl` and their role:
 
 When we update and/or change these configurations, they impact our skills such as:
 
-- `dot_config/ai_templates/skills/pa-sdlc/delegate/SKILL.md` — subagent delegation matrix
-- `dot_config/ai_templates/skills/specs/use-subagents`
-- `dot_config/ai_templates/skills/specs/run-oc`
+- `dot_config/ai_templates/skills/devtools/delegate-to-sub/SKILL.md` — subagent delegation matrix (lineage: `use-subagents` → `delegate` → `delegate-to-sub`)
+- `dot_config/ai_templates/skills/devtools/headless/references/opencode/MetaSkill.md` — headless OpenCode invocation reference (lineage: `run-oc` → `headless-opencode` → folded into the `headless` meta-skill)
 
 **IMPORTANT**: Always update these skills in order to avoid drift.
 
