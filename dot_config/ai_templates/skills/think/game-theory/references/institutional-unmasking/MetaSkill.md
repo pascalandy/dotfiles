@@ -68,3 +68,8 @@ An institution is a **game masquerading as a service**. The move in every lectur
 ## Intellectual caution
 
 This sub-skill is where the source material is most politically charged and most prone to over-reading. Use the *patterns* — they are real analytical primitives. Interrogate the *specific named entities* in each lecture with normal evidentiary standards. The patterns transfer; individual accusations may or may not.
+
+
+## Raw transcripts
+
+Each curated `lecture-NN-*.md` note in `references/` has a companion `lecture-NN-*.txt` file holding the **verbatim transcript** (one sentence per line). Use the `.md` for structured arguments and the `.txt` for exact quotes, disputed phrasing, or keyword grep.

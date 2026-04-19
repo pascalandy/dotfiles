@@ -62,3 +62,8 @@ Every civilization observed in the historical record has followed the same traje
 - Pair with `../framework-fundamentals/MetaSkill.md` — you need superstructure diagnosis before locating a civilization on the arc.
 - Pair with `../the-four-laws/MetaSkill.md` — Law of Asymmetry explains how insurgents reset empires; Law of Proximity explains why elite factions accelerate decline.
 - Pair with `../applied-scenario-analysis/MetaSkill.md` when asked about a specific society's near-term trajectory.
+
+
+## Raw transcripts
+
+Each curated `lecture-NN-*.md` note in `references/` has a companion `lecture-NN-*.txt` file holding the **verbatim transcript** (one sentence per line). Use the `.md` for structured arguments and the `.txt` for exact quotes, disputed phrasing, or keyword grep.

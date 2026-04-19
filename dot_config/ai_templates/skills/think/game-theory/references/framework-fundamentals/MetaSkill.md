@@ -75,3 +75,8 @@ This lens is load-bearing for every other sub-skill. When in doubt, apply it *fi
 - `../civilizational-lifecycle/MetaSkill.md` — for long-arc diagnostics.
 - `../institutional-unmasking/MetaSkill.md` — for institution-level analysis.
 - `../applied-scenario-analysis/MetaSkill.md` — for applying all of the above to a specific live situation.
+
+
+## Raw transcripts
+
+Each curated `lecture-NN-*.md` note in `references/` has a companion `lecture-NN-*.txt` file holding the **verbatim transcript** (one sentence per line). Use the `.md` for structured arguments and the `.txt` for exact quotes, disputed phrasing, or keyword grep.

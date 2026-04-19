@@ -1,0 +1,898 @@
+[0s - 0s] Okay.
+[0s - 2s] So welcome back to game theory.
+[2s - 16s] And, as I discussed last class, our goal is able to is to use game theory to analyze global events, to understand why they're happening, as well as make certain predictions about how they should develop.
+[16s - 23s] But to do that, I first need to train your mind in how to and how to see the world using game theory.
+[23s - 37s] So last class, in our first class, we discussed example of the dating game of why men and women are motivated to behave the way they do when they look for a mate.
+[37s - 40s] Today, I want I wanna discuss the issue of school.
+[41s - 41s] Okay?
+[41s - 42s] School.
+[45s - 53s] So, for the first few classes, I'm gonna use examples from your life that you know pretty well in order to develop the mindset for game theory.
+[53s - 57s] So, school is something that you should know very, very well.
+[57s - 68s] As you know, the purpose of school is to train you in a way that allows you to be functional in society as well as to be creative.
+[68s - 69s] Right?
+[69s - 69s] Okay.
+[69s - 75s] So the goals are basically literacy, alright, which means reading and writing.
+[76s - 88s] This is the primary purpose of school because in order to function in modern society, you need to be able to absorb information and convey information.
+[89s - 89s] K?
+[89s - 97s] Number two is basically what what we call the core competent core competencies.
+[99s - 100s] K?
+[100s - 111s] These are skills that you need to be successful in life, including the ability to think critically, to cooperate with others, to to collaborate, to communicate.
+[111s - 112s] Okay?
+[112s - 114s] You you you all know this.
+[114s - 118s] The last thing is what we call lifelong learning.
+[120s - 130s] So in the age of AI, in the age of globalization, school is just a start of the learning process.
+[130s - 132s] Because every five years, the world changes.
+[132s - 138s] So you need to be in a constant process, a constant state of learning.
+[138s - 139s] K?
+[139s - 145s] So you have to, like, actually love learning, and you have to, like, know how to learn for yourself.
+[145s - 151s] So these these are the three basic purposes of school, and that's why you're at the school.
+[152s - 157s] Unfortunately, what we know is that most schools I'm not saying all schools.
+[157s - 161s] I'm saying that most schools are pretty bad at these three things.
+[162s - 172s] In fact, you could make the argument that most schools not only do not teach you these skills, but they have the opposite effect.
+[172s - 174s] In fact, they make you hate learning.
+[174s - 175s] Okay?
+[175s - 177s] So let's look at literacy.
+[178s - 182s] Today, in most schools, you're not required to read books.
+[183s - 194s] In fact, when you go to university, the professors there are so shocked that you don't read books that instead they make you read paragraphs or watch videos.
+[194s - 195s] Okay?
+[195s - 204s] So in terms of literacy, all around the world, people are losing the capacity to read and to write.
+[205s - 209s] And not only that, but people's attention spans have decreased.
+[210s - 214s] It's very hard for a professor to give you an hour lecture.
+[215s - 218s] People lose focus after about five minutes.
+[218s - 219s] Okay?
+[219s - 220s] So this is one problem.
+[220s - 229s] Another problem is school is supposed to teach you creativity, critical thinking skills, collaboration, but it doesn't do that.
+[229s - 230s] Look at collaboration.
+[230s - 236s] In school, it's a competition where you believe that it's a zero sum game.
+[236s - 240s] So for you to get ahead, you need to screw over your classmate.
+[242s - 243s] So class ranking is very important.
+[244s - 245s] So that's kinda odd.
+[246s - 246s] K?
+[246s - 258s] And the last thing, of course, is lifelong learning where school teaches you to hate school and, therefore, teaches you how to hate learning, especially in China.
+[258s - 258s] Okay?
+[259s - 265s] Especially in China where you work hard until the National Interest Examination at age eighteen.
+[265s - 268s] And then after the exam examination ends, what do you do?
+[268s - 269s] You burn your books.
+[269s - 271s] That's a great ceremony here in China.
+[271s - 272s] Right?
+[272s - 279s] After the examination, you take your books, you rip out the pages, and you throw it in the sky to to signal your liberation your liberation.
+[279s - 282s] And you're like, I never ever wanna read a book again.
+[282s - 283s] I never ever wanna take a test again.
+[283s - 285s] I never wanna learn again.
+[285s - 286s] Okay?
+[286s - 291s] So around the world, most schools not all schools.
+[291s - 298s] There are there are some really good schools out there, but most schools are failing in their mission.
+[298s - 299s] School sucks.
+[300s - 305s] And so the question for us today is, why is this the case?
+[305s - 310s] And so we're gonna use game theory to analyze why this is the case.
+[310s - 311s] Alright.
+[312s - 319s] So what I'm gonna do now is I'm gonna tell you a story about myself.
+[319s - 321s] So the year is two thousand and eight.
+[322s - 327s] I went to Yale College, okay, in the United States, and I was an English major.
+[327s - 328s] I did very well in school.
+[329s - 341s] So I was hired in two thousand eight to go to Shenzhen in South China and help the school, Shenzhen School, build a national program to send kids abroad.
+[341s - 341s] Okay?
+[341s - 344s] So this is two thousand eight, which was a long time ago.
+[344s - 346s] And back then, not not that many students wanted to go abroad.
+[346s - 348s] There were really few international schools.
+[349s - 353s] So the first thing I did was I looked at the situation at the school.
+[353s - 353s] K?
+[353s - 355s] And this and this this this this is what I found.
+[356s - 357s] K?
+[358s - 365s] I found that students, even though they're going abroad maybe about ten percent of the students were planning to go abroad.
+[365s - 369s] So so that's about eighty students, each year.
+[369s - 369s] That's a lot.
+[370s - 375s] But the way they were going about the process of studying abroad was problematic.
+[375s - 375s] K?
+[375s - 378s] So first of all, all they were doing was taking regular Chinese classes.
+[381s - 387s] And, you know, in Chinese classes, all you do is you sit in a room of fifty kids, and you stick nose, and then you take tests.
+[387s - 388s] You don't communicate.
+[388s - 389s] You don't ask questions.
+[389s - 390s] You don't debate.
+[390s - 391s] Okay?
+[391s - 392s] So that's one problem.
+[392s - 398s] Another problem is that the students are spending all their time memorizing S and T word list.
+[400s - 400s] Okay?
+[400s - 402s] They were not reading.
+[402s - 403s] They were not writing.
+[404s - 406s] They were just memorizing words.
+[408s - 415s] And the other thing that they did to make their applications look good is model United Nations.
+[416s - 417s] Okay?
+[418s - 419s] And that's fine.
+[419s - 424s] Maybe some of you are modeling United Nations, and that's a good activity, but everyone was doing it.
+[424s - 426s] There's actually no differentiation.
+[428s - 429s] Alright?
+[429s - 430s] So I looked at the situation.
+[430s - 431s] I said, no.
+[431s - 442s] I mean, you might be able to get into a good American university because, you know, these kids are very smart, but I wanted them to do well at the university and to do well in life.
+[443s - 443s] K?
+[443s - 448s] So I made certain changes to the curriculum and to the school.
+[448s - 448s] K?
+[448s - 452s] So first thing I did was I set up a seminar system.
+[453s - 465s] So rather than in Chinese classes, I invited these American teachers to come and teach seminars like we have at the school where ten, twenty kids are in a room, and they discuss books that they read together.
+[466s - 466s] K?
+[468s - 473s] Rather than SAT word memorization, I had them read books.
+[474s - 476s] Students were required to read a lot of books.
+[476s - 484s] In fact, I established a five thousand book English library at the school where students can just go and borrow books and read.
+[484s - 487s] I wanted to teach students the joy of reading.
+[489s - 495s] And then in terms of activities, I didn't want students to do modern United Nations anymore because I didn't want kids sitting around just talking.
+[495s - 496s] I wanted to let them do things.
+[496s - 497s] Okay?
+[497s - 498s] So I set up two new new activities.
+[498s - 500s] The first is called the coffee house.
+[501s - 507s] And the coffee house is is the first coffee house in China, in the Chinese high school.
+[507s - 520s] There are lots of coffee houses today, but I was the first person to set up a coffee house where students had to run a business, they had to work as waiters, and provide good service to customers.
+[520s - 522s] And it was it was a collaboration effort.
+[522s - 529s] As you can imagine, this is great for the students to learn cooperation, to learn finance, to learn entrepreneurship.
+[529s - 529s] K?
+[529s - 531s] So that was a very successful activity.
+[532s - 534s] Do do you do you have a question?
+[534s - 534s] Yeah.
+[535s - 535s] Okay.
+[539s - 543s] I mean, was that, like, similar with our Moon Coffee?
+[543s - 546s] Like, the coffee in the west South store?
+[546s - 547s] Okay.
+[548s - 550s] Two thousand eight, I was the first person to do anything.
+[550s - 551s] Okay?
+[551s - 552s] Oh, okay.
+[552s - 552s] Okay.
+[552s - 554s] I just, I mean, like, like yeah.
+[554s - 554s] Similar.
+[555s - 555s] Yeah.
+[555s - 556s] Alright.
+[556s - 559s] So the coffee house was an activity I set up, which was very successful.
+[559s - 561s] It's still there today, guys.
+[561s - 566s] If you go to Shinyan Middle School, you will see the coffee house still there a long, long time after I I went away.
+[566s - 568s] The other thing I did was something called the daily newspaper.
+[569s - 584s] And this was the first daily newspaper in China in a high school and probably maybe even around the world where students every day had to report, collect information, write articles, edit, and publish it.
+[584s - 587s] And they worked until, like, midnight, sometimes until two AM.
+[587s - 592s] And then at seven AM, they had to get up and, deliver the newspaper to all the students.
+[592s - 594s] And these were two very successful activities.
+[595s - 600s] And, so I understand game theory, and I says, okay.
+[600s - 611s] If you wanna make this transition from the old system to new system, you also have to establish a new culture to allow these activities to flourish.
+[611s - 611s] K?
+[611s - 623s] And so my three major principles were transparency, innovation.
+[628s - 628s] K?
+[628s - 633s] Transparency, innovation, openness.
+[636s - 638s] And so my idea was this.
+[638s - 648s] Rather than set up a curriculum that was perfect, it would be a curriculum that would evolve over time.
+[648s - 651s] We would learn mistakes together.
+[651s - 655s] We would omit these mistakes, and then we would correct them together.
+[655s - 657s] And that's what learning is.
+[657s - 658s] Okay?
+[658s - 659s] So the idea of transparency.
+[660s - 670s] Also, I made changes all the time, which created some chaos, but it's a time for us to reflect and to be resilient.
+[671s - 675s] Now I was very open and honest about everything that I was doing.
+[675s - 687s] And this and and so this system, in a very short amount of time, even though there were a lot of problems in the beginning, it became a very effective system after a semester or a year.
+[688s - 691s] And not only that, the students who went for this program did very well in life.
+[691s - 692s] They went to Yale.
+[693s - 695s] Went to they went to Wharton, Cornell.
+[696s - 703s] And this program, actually, in middle school became the most famous program in South China.
+[703s - 711s] And where our students had the best record of college admissions in South China.
+[711s - 712s] Okay?
+[712s - 714s] So this sounds great.
+[714s - 714s] Right?
+[715s - 715s] Okay.
+[715s - 716s] The problem is this.
+[716s - 720s] The problem is what happened after I established the program.
+[720s - 725s] The first one that happened was, okay, I was fired.
+[727s - 728s] They said, get out of here.
+[729s - 730s] Okay?
+[730s - 739s] Second of all, the teachers, the parents, the students were all happy to see me go.
+[739s - 740s] They were like, get out of here.
+[740s - 741s] We never wanna see you again.
+[742s - 748s] The third thing that happened was I did come to Beijing and set up a new program that was very similar to this.
+[749s - 749s] Okay?
+[749s - 757s] But after that, after four years of doing this and being very successful at this, I was never allowed to set up another program again.
+[758s - 760s] No one wanted me to work in management again.
+[761s - 761s] Okay?
+[762s - 772s] So even though I was successful, even though I worked really hard, even though I was innovative, even though I set up really the best study abroad program in all of China, I was the first.
+[772s - 774s] Everyone else copying me afterwards.
+[774s - 775s] I was fired.
+[776s - 781s] No one wanted me to stay, and I was not allowed to do this ever again.
+[781s - 782s] Why?
+[782s - 783s] Okay?
+[783s - 785s] Well, the reason is this.
+[786s - 800s] When I was doing this, the word that everyone used to describe me was not reformer, not visionary, not idealist, not dreamer, but dictator.
+[802s - 803s] Okay?
+[804s - 811s] One other word that they used that was that was more common was this guy's an asshole.
+[811s - 811s] Okay?
+[811s - 813s] This guy's a complete asshole.
+[814s - 815s] Why?
+[815s - 818s] Because I insisted on fairness.
+[820s - 820s] Okay?
+[820s - 822s] I don't care who you are.
+[823s - 825s] I don't care who your parents are.
+[826s - 831s] I want you to work hard and learn.
+[831s - 837s] And as you can imagine, that pissed off a lot of powerful people because that's not how the game is played in China.
+[837s - 838s] Okay?
+[838s - 840s] It's actually not the game how this game is played anywhere in the world.
+[840s - 842s] The game is not fair.
+[842s - 848s] The game is established by stakeholders, and they play the game according to their interest.
+[849s - 850s] Okay?
+[851s - 855s] So let's go over what happened.
+[855s - 856s] Alright?
+[857s - 858s] Okay.
+[858s - 861s] So my I understand that there are stakeholders.
+[864s - 867s] And the stakeholders in game theory are just the players.
+[871s - 871s] Okay?
+[871s - 872s] The players.
+[872s - 873s] And who are the players?
+[873s - 875s] Well, you have the students.
+[879s - 881s] You have the parents.
+[882s - 886s] You have the, teachers.
+[888s - 893s] You have the administrators, k, the school leaders.
+[894s - 896s] You have the government.
+[897s - 898s] K?
+[899s - 901s] And then you have the colleges.
+[901s - 904s] And the college are the US colleges where I'm trying to send my students.
+[904s - 905s] Okay?
+[905s - 907s] So these are the players in the game.
+[907s - 918s] And if you wanna understand game theory, you need you need to understand the motivations and interests of all the different players that tells you why or how they will behave the way they do.
+[918s - 918s] K.
+[918s - 923s] So look so here is my original understanding of the players, which was clearly wrong.
+[923s - 924s] Okay?
+[924s - 924s] Because I got fired.
+[925s - 926s] Alright?
+[926s - 926s] So the students.
+[926s - 939s] The students wanted to, like, love to learn, get into Ivy League, and be the best.
+[939s - 939s] Okay?
+[940s - 949s] So I thought the students what their motivation was to be the best possible person, to work hard, to love learning, to be famous, to get an Ivy League.
+[949s - 950s] Okay?
+[950s - 951s] Clearly, this is wrong.
+[951s - 951s] Okay?
+[951s - 954s] But I'm saying back then, what my thinking was.
+[954s - 955s] The parents.
+[955s - 961s] Well, the parents wanted successful kids who were independent.
+[963s - 964s] Okay?
+[964s - 965s] Independent.
+[965s - 967s] And they wanted face.
+[967s - 967s] Right?
+[967s - 970s] So they want their kids to get into the Ivy League.
+[972s - 972s] Alright?
+[973s - 973s] Teachers.
+[973s - 978s] Well, teachers wanted to do a good job.
+[979s - 979s] Right?
+[982s - 984s] They want to teach students.
+[985s - 986s] They love teaching.
+[987s - 988s] They love students.
+[988s - 992s] They just wanna be given the space and the opportunity to teach what their passion is.
+[992s - 993s] Okay?
+[994s - 995s] Administrators.
+[995s - 1001s] Administrators, I didn't really didn't like administrators, so I just thought they were just they wanted good results.
+[1001s - 1001s] Okay?
+[1001s - 1002s] That's all.
+[1002s - 1003s] Good results.
+[1003s - 1007s] As long as as as as they provide good results, they're happy.
+[1007s - 1007s] K?
+[1007s - 1009s] The government, they wanted innovation.
+[1010s - 1012s] They wanted good workers.
+[1017s - 1020s] They wanted, you know, they want technology.
+[1021s - 1021s] K?
+[1021s - 1023s] They want a strong China.
+[1025s - 1031s] Colleges wanted the best possible potential.
+[1032s - 1033s] K?
+[1033s - 1036s] They wanted students who would be the leaders of the future.
+[1036s - 1037s] K?
+[1037s - 1043s] So two thousand eight, when I set up the program, this is my assumptions about who the players were and what motivated them.
+[1043s - 1044s] Okay?
+[1045s - 1050s] Clearly, clearly, I was wrong about who they were.
+[1050s - 1050s] Okay?
+[1050s - 1056s] So let's go over let's now do an analysis analysis of what they really, really want.
+[1056s - 1057s] Okay?
+[1057s - 1074s] And the easy answer is that in game theory, all the players, what they're motivated in is by achieving the best possible results by doing the least amount of work possible.
+[1075s - 1075s] Okay?
+[1075s - 1076s] Just remember that.
+[1076s - 1077s] That's a principle here.
+[1078s - 1083s] Everyone wants to achieve the best results by doing the least amount of work possible.
+[1083s - 1086s] People are lazy, and people are greedy.
+[1086s - 1087s] It's that simple, guys.
+[1088s - 1088s] Okay?
+[1088s - 1095s] So students, they wanted to get in the League, but they didn't wanna work hard to get in the Ivy League.
+[1095s - 1097s] They wanted to do as little work as possible.
+[1097s - 1104s] And if it meant they had to work hard to get Ivy League.
+[1104s - 1106s] They they were like, I don't wanna get in Ivy League then.
+[1106s - 1108s] I'll just get into another school because who cares?
+[1108s - 1109s] Okay?
+[1109s - 1111s] The best possible result, least possible work.
+[1111s - 1113s] Parents are like, yeah.
+[1113s - 1117s] I can have my kid work hard, but what's important is for me to control my kid.
+[1118s - 1119s] Right?
+[1119s - 1123s] For to make to to so because only I know how to ensure my kid succeeds.
+[1123s - 1128s] So I need to I don't want my kids to think critically or in or be independent.
+[1128s - 1130s] I want my kids to obey me.
+[1130s - 1133s] Now teachers are like, listen.
+[1133s - 1134s] This is a job, man.
+[1134s - 1134s] Okay?
+[1134s - 1135s] I have kids.
+[1136s - 1137s] I don't wanna work hard.
+[1137s - 1144s] I just wanna come to school, do what I'm supposed to do, do what has minimally required me to correct my salary, and then go home.
+[1144s - 1147s] I don't want to teach my passion because I don't have any passion.
+[1148s - 1148s] Okay?
+[1148s - 1151s] Administrators are like, oh my god.
+[1151s - 1156s] What's important is for me to make sure the powerful parents are happy.
+[1156s - 1157s] I don't care about everyone else.
+[1157s - 1159s] I don't care about poor parents.
+[1159s - 1162s] I don't care about middle class parents.
+[1162s - 1167s] As long as the parents who are powerful are happy, I can keep my I can keep my job.
+[1167s - 1168s] Right?
+[1168s - 1170s] The government is like, you know what?
+[1170s - 1172s] I don't want innovation in this country.
+[1172s - 1175s] Even though I say I want I want it because I don't want problems in life.
+[1175s - 1176s] Okay?
+[1176s - 1181s] I just want things to just stay the way they are, and everyone's happy.
+[1182s - 1183s] Okay?
+[1183s - 1185s] So now we understand what happened.
+[1186s - 1187s] Alright?
+[1187s - 1187s] Alright.
+[1187s - 1190s] So now what I will show you is this.
+[1191s - 1193s] I will show you how a game is constructed.
+[1193s - 1200s] A game is constructed when all the different players agree on the rules and incentives of the game.
+[1201s - 1202s] Alright?
+[1202s - 1204s] I was an outsider.
+[1204s - 1205s] I was not a player.
+[1205s - 1209s] I came in to construct a game in which I felt that students would thrive, and they did thrive.
+[1210s - 1211s] But that's not what they want.
+[1212s - 1212s] K?
+[1212s - 1214s] They want to have control over the game.
+[1214s - 1221s] And if they lose control, well, they call you an out they call you, the outsider, an asshole.
+[1221s - 1221s] Okay?
+[1221s - 1222s] Alright.
+[1222s - 1233s] So let's do this again and objectively think about what the interests and motivations of each player are.
+[1233s - 1237s] And when their interests converge, that's the game they play.
+[1237s - 1237s] Alright?
+[1237s - 1253s] So you have students, parents, teachers, leaders, school administrators, and then the colleges.
+[1255s - 1255s] K?
+[1257s - 1265s] Another thing that you have to do in game theory that's very important is you have to rank the power of, power of each player.
+[1265s - 1266s] Yeah.
+[1266s - 1267s] You have a question?
+[1267s - 1268s] The government?
+[1268s - 1269s] Excuse me?
+[1269s - 1269s] The government.
+[1270s - 1270s] Yes.
+[1270s - 1271s] Sorry.
+[1271s - 1272s] You're you're right.
+[1272s - 1274s] I I I forgot about the government.
+[1275s - 1275s] Okay.
+[1275s - 1276s] And and the government.
+[1278s - 1278s] K.
+[1278s - 1284s] Another thing that that you have to do in game theory is you have to rank the importance of the players.
+[1284s - 1285s] K?
+[1285s - 1286s] So not all players are equal.
+[1287s - 1292s] So in this game theory, even though there are students and students are the majority, students actually don't matter.
+[1293s - 1294s] Okay?
+[1294s - 1298s] What students actually think and what don't actually matter?
+[1298s - 1309s] What matters, of course, are the parents because the parents pay to play this game, and parents can cause a lot of problems if they don't don't get what they want.
+[1309s - 1309s] Okay?
+[1309s - 1310s] So the most important are the parents.
+[1310s - 1312s] Then you have the teachers.
+[1312s - 1312s] Why?
+[1312s - 1316s] Because the teachers are the ones who are implementing the rules of the game.
+[1316s - 1317s] K?
+[1317s - 1321s] The way that teachers behave determines how this game is played.
+[1322s - 1326s] And then these two are the most important.
+[1326s - 1326s] Okay?
+[1326s - 1332s] Then maybe administrators as well, but they're not as important as the parents and the teachers.
+[1333s - 1336s] The government doesn't really matter because they don't really care.
+[1337s - 1337s] Right?
+[1337s - 1339s] It's one school among thousands.
+[1339s - 1343s] Who cares what the school does as long as it doesn't cause me any problems?
+[1343s - 1345s] The colleges don't care either.
+[1345s - 1351s] You they say they want really passionate students who are curious, who are imaginative from China.
+[1351s - 1352s] They don't care.
+[1353s - 1353s] K?
+[1353s - 1355s] For them, it's just business.
+[1355s - 1359s] They just want students who are willing to pay money to get a copy education in America.
+[1360s - 1361s] Alright?
+[1361s - 1362s] So the cost don't really matter.
+[1362s - 1364s] They'll take anyone who's willing to pay.
+[1366s - 1368s] And the Ivy League?
+[1368s - 1368s] Yeah.
+[1368s - 1371s] Everyone's in the Ivy League, but but who do the Ivy League want?
+[1371s - 1374s] They want people who want to be successful in life.
+[1374s - 1374s] Right?
+[1374s - 1375s] And who are these people?
+[1375s - 1377s] Not the best students.
+[1377s - 1378s] These are people from powerful families.
+[1379s - 1379s] Okay?
+[1379s - 1380s] So this game is rigged.
+[1380s - 1381s] Right?
+[1381s - 1387s] They have all this talk about, you know, we want the best motivated students, want peer students who are curious, who are passionate.
+[1387s - 1388s] It's all nonsense.
+[1388s - 1389s] Yeah?
+[1389s - 1390s] That's not how the game is played.
+[1390s - 1391s] So cards don't really matter either.
+[1392s - 1393s] Okay?
+[1393s - 1398s] So these are the three major players, the parents, the teachers, administrators, students, government, colleges.
+[1398s - 1399s] They are in this game.
+[1399s - 1400s] They don't really matter.
+[1401s - 1401s] K?
+[1402s - 1409s] So now what we're gonna do is we'll analyze the mentality, the worldview, the interests of each player.
+[1410s - 1410s] K?
+[1410s - 1415s] And then, again, once you do that, once we figure out where they converge, then we know how the game is constructed.
+[1416s - 1416s] Alright.
+[1416s - 1419s] So let's look at students.
+[1419s - 1421s] Students okay.
+[1421s - 1423s] I mean, they wanna be popular.
+[1424s - 1425s] Right?
+[1425s - 1430s] So most students come to school, and, actually, their priority is not to learn.
+[1430s - 1433s] Their priority is to make friends and to be popular among their friends.
+[1433s - 1434s] K?
+[1434s - 1435s] That'd that's just human nature.
+[1435s - 1436s] That's true.
+[1436s - 1436s] Right?
+[1438s - 1445s] Then you have, please teachers and parents.
+[1445s - 1446s] K.
+[1446s - 1447s] This guy this is really important to understand.
+[1448s - 1449s] You're not in school not to learn.
+[1449s - 1452s] You're school to please parents and the teachers.
+[1452s - 1452s] Why?
+[1452s - 1457s] Because parents are the ones who pay for your way in life.
+[1457s - 1457s] Right?
+[1457s - 1458s] The ones who give you food.
+[1458s - 1460s] Teachers are the ones who gives you grades.
+[1460s - 1462s] You're not here to learn.
+[1462s - 1463s] You're here to please them.
+[1463s - 1464s] There's a difference.
+[1464s - 1464s] Okay?
+[1465s - 1471s] And grades are a way of showing how well you're pleasing the parents and the teachers.
+[1473s - 1473s] K?
+[1473s - 1474s] Is that true?
+[1475s - 1476s] Alright.
+[1476s - 1479s] And then you're like, have fun.
+[1481s - 1482s] K?
+[1482s - 1484s] And then get a good college.
+[1486s - 1487s] Okay?
+[1489s - 1490s] Alright.
+[1490s - 1493s] So am I missing any anything among the students?
+[1495s - 1495s] Alright.
+[1495s - 1496s] So but okay.
+[1496s - 1498s] I'm sure there's more, but let but let's just keep on going.
+[1498s - 1498s] Okay?
+[1498s - 1499s] Now parents.
+[1499s - 1504s] Well, the parents, what they want is, of course, successful kids.
+[1505s - 1511s] But they want successful kids not because they believe that success will make their kid happy.
+[1511s - 1514s] What they really want, of course, is face.
+[1515s - 1516s] Right?
+[1518s - 1525s] They want their kid to go to the Ivy League, and they don't want the kid to the Ivy League provides a good education, or their kid will be happy at the Ivy League.
+[1525s - 1529s] They just want to brag their relatives and their friends and their colleagues.
+[1529s - 1533s] My kid is at Brown or Cornell or Dartmouth.
+[1533s - 1534s] Okay?
+[1535s - 1540s] But face also means to treat education as a luxury product.
+[1541s - 1543s] Why do parents send kids to international schools?
+[1543s - 1545s] Not because international schools provide a better education.
+[1545s - 1548s] It's because international schools are more expensive.
+[1548s - 1552s] And most importantly, international schools have white faces.
+[1552s - 1553s] Right?
+[1554s - 1555s] White faces.
+[1559s - 1559s] Okay?
+[1562s - 1566s] This is the main marketing tool of international schools.
+[1566s - 1566s] Right?
+[1568s - 1571s] They have all these white faces, white teachers.
+[1571s - 1572s] They're like, oh my god.
+[1572s - 1573s] This is a real national school now.
+[1573s - 1577s] You don't care if the white if the teacher is actually good at what they're doing.
+[1577s - 1578s] You don't care if the kids are actually learning.
+[1579s - 1580s] You don't care what the curriculum is.
+[1580s - 1581s] You don't understand that sort of stuff.
+[1581s - 1582s] You just understand, okay.
+[1582s - 1583s] Ten white faces.
+[1583s - 1584s] Therefore, this is a good school.
+[1585s - 1586s] It's that simple.
+[1587s - 1587s] K?
+[1588s - 1590s] And then, of course, you want some good outcome.
+[1592s - 1592s] Okay?
+[1593s - 1594s] You want you want a good outcome.
+[1594s - 1597s] You don't care if your kid is actually learning in school.
+[1597s - 1601s] What you want is your kid to get good grades to get in a good college.
+[1601s - 1602s] K?
+[1602s - 1604s] These are not the same thing.
+[1604s - 1604s] Alright?
+[1604s - 1605s] So that's the parents.
+[1605s - 1606s] Then the teachers.
+[1607s - 1619s] Teachers are really simple because teachers do this job, and for them, the priority is to do as little work as possible to get by.
+[1620s - 1620s] Okay?
+[1620s - 1621s] I'm not saying all teachers.
+[1621s - 1630s] I'm saying the majority of teachers in the school are just trying to get by because, quite honestly, they have families, and they have other responsibilities.
+[1630s - 1633s] So they don't have time to focus entirely in school.
+[1633s - 1633s] Okay?
+[1633s - 1635s] So, basically, just get by.
+[1637s - 1638s] K?
+[1638s - 1642s] Or the minimum amount of work.
+[1644s - 1644s] K?
+[1644s - 1648s] You may not you may not believe this, but, like, we actually grow up and get a job.
+[1648s - 1649s] 'll do the same thing.
+[1649s - 1649s] Okay?
+[1649s - 1652s] You just get them do a minimum amount of work in order to get by.
+[1654s - 1665s] Administrators, they want good outcomes, but what their real priority is to protect relationship with parents.
+[1665s - 1666s] K?
+[1666s - 1668s] Just give parents what they want.
+[1669s - 1669s] K?
+[1669s - 1671s] Their job is to sell the school.
+[1671s - 1673s] So so whatever parents want, you just give it to them.
+[1674s - 1676s] And administrators also, by the way, have families.
+[1677s - 1678s] This is a job for them.
+[1678s - 1680s] They also just wanna get by.
+[1681s - 1681s] Okay?
+[1681s - 1683s] They're not trying to build the best school possible.
+[1683s - 1685s] They're not trying to change the world.
+[1685s - 1686s] They're not trying to educate students.
+[1686s - 1687s] They're just trying to get by.
+[1687s - 1692s] Do the least amount of work in order to, get by.
+[1692s - 1694s] Government is okay.
+[1694s - 1700s] They say they want innovation, creativity, technology, but, really, it's just like no problems, guys.
+[1702s - 1702s] Okay?
+[1702s - 1705s] As long as you don't carry any problems for us, we're happy with you.
+[1706s - 1707s] Just stay away from us.
+[1708s - 1709s] We're happy to not bother you.
+[1709s - 1711s] Please don't come bother us.
+[1711s - 1711s] Yeah.
+[1711s - 1712s] That's government.
+[1712s - 1717s] Also, what they want is for students who will also be no problems in the future.
+[1717s - 1717s] Right?
+[1719s - 1719s] Right?
+[1719s - 1720s] So compliance.
+[1721s - 1731s] So as long as schools are teaching you how to obey authority, how to comply, how to do what you're told, they're happy.
+[1731s - 1732s] You're a good school.
+[1732s - 1732s] K?
+[1732s - 1735s] Colleges, again, just want the money.
+[1737s - 1737s] Okay?
+[1737s - 1738s] That's all they care about.
+[1738s - 1742s] If you're willing to go to American college and pay, how much how much is is it nowadays?
+[1742s - 1744s] Like, fifty thousand or a hundred thousand a year?
+[1744s - 1746s] That's a lot of money, guys.
+[1746s - 1746s] Okay?
+[1747s - 1749s] If you wanna pay that, they'll take you.
+[1749s - 1750s] I guarantee you.
+[1750s - 1753s] Even even if you don't speak English, they'll take you.
+[1753s - 1754s] Alright?
+[1754s - 1755s] Yeah?
+[1760s - 1767s] So you mentioned that earlier, like, the the the purpose of education are that three things, but now schools don't do that.
+[1767s - 1770s] So what caused the transformation?
+[1770s - 1771s] Yeah.
+[1771s - 1771s] That's a really good question.
+[1771s - 1773s] When and also Yeah.
+[1773s - 1773s] Okay.
+[1774s - 1778s] So what we discussed last class is the idea of superstructure.
+[1778s - 1778s] Right?
+[1781s - 1783s] Superstructure.
+[1783s - 1784s] Sorry.
+[1785s - 1791s] Superstructure is just the macro picture of a society.
+[1791s - 1792s] Its demographics.
+[1792s - 1793s] How many people are there?
+[1793s - 1794s] Its economy.
+[1794s - 1795s] Its politics.
+[1795s - 1796s] Its religion.
+[1796s - 1796s] K?
+[1796s - 1802s] And we discussed how societies are born, they mature, and then they die.
+[1803s - 1804s] Okay?
+[1804s - 1807s] So there's actually another way of understanding this.
+[1807s - 1812s] You can actually use three metrics to understand how societies develop.
+[1812s - 1813s] Okay?
+[1813s - 1821s] And these three metrics are cohesion, openness, and energy.
+[1822s - 1823s] Okay?
+[1824s - 1825s] So what is energy?
+[1825s - 1828s] Energy just means you want to work hard.
+[1829s - 1830s] K?
+[1830s - 1835s] You are you believe, you're motivated, you're driven, you work hard all the time.
+[1836s - 1839s] And working hard just doesn't mean, like, you work twelve hours.
+[1839s - 1841s] It just means, like, you're focused, you're attentive.
+[1842s - 1843s] Right?
+[1843s - 1849s] So for example, if you're working at a restaurant as a cook, you wanna make a really good meal.
+[1849s - 1849s] K?
+[1849s - 1850s] You're energetic about it.
+[1851s - 1851s] K?
+[1851s - 1852s] Does that make sense?
+[1852s - 1853s] That's energy.
+[1853s - 1854s] K.
+[1854s - 1858s] So, openness just means that you wanna learn.
+[1858s - 1859s] You wanna grow.
+[1860s - 1866s] You're willing to admit you made a mistake and improve on yourself.
+[1866s - 1867s] Okay?
+[1867s - 1877s] And the last thing is cohesion, where you are you see yourself as part of a society, part of part of a community of people.
+[1878s - 1881s] And you want your community to grow as well.
+[1882s - 1885s] And we have all three things together.
+[1885s - 1886s] The schools are great.
+[1887s - 1887s] Okay?
+[1887s - 1889s] And so, for example, go to Finland.
+[1890s - 1896s] It's a small country, maybe about five million people, but the schools are amazing.
+[1896s - 1896s] Why?
+[1896s - 1901s] Because Finland is an energetic, open, and cozy society.
+[1901s - 1905s] When you hear that, what you wanna do is invest in the future.
+[1905s - 1913s] And what that means is you wanna you have to make sure that every child, not just your child, but every child has good future, has a good education.
+[1913s - 1917s] And so what you do is you have your best and brightest become teachers.
+[1918s - 1918s] Right?
+[1919s - 1921s] You pay them very well.
+[1921s - 1922s] You give them high status.
+[1922s - 1926s] And you give them a lot of autonomy and freedom because then they feel respected.
+[1927s - 1929s] And if you do that, the schools are great.
+[1929s - 1930s] And guess what, guys?
+[1930s - 1936s] In China, in maybe nineteen eighties, the schools were amazing here.
+[1936s - 1936s] Okay?
+[1937s - 1940s] What we're seeing today is today.
+[1940s - 1943s] But if you go back to the nineteen eighties, the schools are really good.
+[1943s - 1946s] If you went to a school in China I'm I'm I'm not talking about, like, the best one.
+[1946s - 1947s] I'm just talking about, like, an average school.
+[1947s - 1950s] Teachers felt respected.
+[1951s - 1953s] They believed that the responsibility to train the young.
+[1954s - 1961s] They took pride and joy in their work, and the students enjoy learning.
+[1961s - 1962s] And guess what?
+[1962s - 1964s] Back in nineteen eighties, kids did less work.
+[1966s - 1967s] There were less tests.
+[1967s - 1969s] There was less pressure, and they learn a lot more.
+[1970s - 1971s] Okay?
+[1972s - 1978s] So when a society starts and begins, you have these three aspects.
+[1978s - 1983s] But over time, what happens is all three decline.
+[1984s - 1985s] Why?
+[1985s - 1991s] Because there's more corruption, there's more inequality, there's more wealth.
+[1991s - 1992s] Okay?
+[1992s - 1998s] So what happens is wealth generation and inequality, corruption.
+[1999s - 2002s] And so people feel under stress.
+[2003s - 2003s] K?
+[2003s - 2007s] So rather than cohesion, you have individualization, individual.
+[2008s - 2008s] K.
+[2008s - 2009s] Does that make sense?
+[2009s - 2010s] Where everyone's like, you know what?
+[2010s - 2012s] I don't care if other kids are doing well.
+[2012s - 2015s] What's important is that kid does well because it's a zero sum game.
+[2016s - 2021s] If if if all the other kids in school do really well, but my kid flunks out, I'm dead.
+[2021s - 2022s] I'm screwed.
+[2022s - 2026s] So I'd rather my kid do okay and every other kid gets screwed over.
+[2026s - 2027s] Okay?
+[2027s - 2031s] So now it's a competition in schools.
+[2033s - 2033s] Alright?
+[2033s - 2034s] Openness.
+[2035s - 2037s] Are you willing to learn from your mistakes?
+[2037s - 2038s] And the answer is no.
+[2038s - 2043s] Because if I'm administrator and I say to parents, I'm sorry I made a mistake today, the parents will be like, you're fired.
+[2043s - 2044s] Get out of here.
+[2044s - 2045s] You're incompetent.
+[2046s - 2046s] Okay?
+[2046s - 2052s] So you could be, like, the best person in the world, but if you make a make a mistake, the parents will come and kill you.
+[2053s - 2058s] But if you you you but you could be the worst person in the world, but you just hide in your office, the parents can't find you, you're okay.
+[2059s - 2059s] Okay?
+[2059s - 2068s] So school administrators are are now are now afraid to admit they're wrong, which means that a school can never improve.
+[2069s - 2070s] Right?
+[2070s - 2072s] And you have energy, which is like, you know what?
+[2073s - 2076s] If I do a good job, parents will want me to do a better job.
+[2078s - 2087s] I can't please all the parents, so I'll just hide in my office, do as little work as possible, and then if parents complain, I'll just shut off my brain.
+[2088s - 2089s] Okay?
+[2090s - 2093s] And this is happening because of wealth generation.
+[2093s - 2095s] Nineteen eighties, China was really poor.
+[2097s - 2102s] And no only way to get to to lead a better life is through education.
+[2102s - 2104s] That's why students work hard.
+[2104s - 2107s] If students work hard, teachers are motivated to teach well.
+[2108s - 2115s] And now you're having a time when, you know, today, in twenty twenty five, twenty six, when parents have money.
+[2115s - 2123s] So it doesn't matter if you don't do it on school because your parents can just give you an apartment, can buy you a car.
+[2124s - 2126s] Who cares if you do it on school?
+[2126s - 2128s] So you're not motivated.
+[2128s - 2134s] If you're not motivated, you're indifferent, then as a teacher, why am I going to want to teach well?
+[2135s - 2135s] Okay?
+[2135s - 2137s] So it's a superstructure of society.
+[2137s - 2138s] K?
+[2138s - 2139s] Does does that make sense?
+[2140s - 2140s] Alright.
+[2140s - 2141s] Any more questions?
+[2142s - 2142s] Okay.
+[2144s - 2144s] Okay.
+[2144s - 2145s] So so thank you.
+[2145s - 2145s] Okay?
+[2145s - 2156s] So, again, superstructure determines the motivations of the players.
+[2156s - 2160s] And where the interest of players converge is the game that you have.
+[2161s - 2162s] Okay?
+[2162s - 2163s] Alright.
+[2163s - 2172s] So you go back to this list, and what we're seeing is parents just want white faces.
+[2173s - 2173s] Okay?
+[2173s - 2174s] Sorry.
+[2174s - 2175s] White faces.
+[2176s - 2181s] And they want successful kids, which means good grades.
+[2182s - 2183s] Okay?
+[2183s - 2187s] Parents teachers just want to get by and do as little work as possible.
+[2187s - 2191s] Administrators just want to protect relationship with parents.
+[2191s - 2191s] Okay?
+[2191s - 2195s] And so when you do this convergence, this this is what schools look like now.
+[2198s - 2199s] K?
+[2200s - 2202s] Schools in China.
+[2202s - 2203s] International schools in China, by the way.
+[2203s - 2206s] And, again, this is, like, the majority.
+[2206s - 2207s] I'm not saying it's every school, but I'm saying it's the majority.
+[2207s - 2208s] Okay?
+[2208s - 2215s] What you have are white faces, easy grades.
+[2215s - 2216s] Right?
+[2216s - 2218s] It's really easy to get a good grade.
+[2219s - 2219s] Alright?
+[2221s - 2229s] Some top students, these students are given scholarships, and then they're sent to top universities.
+[2231s - 2232s] K?
+[2232s - 2245s] Then you have lots of cheating, k, and high turnover where students leave, teachers leave, but new ones come in.
+[2245s - 2245s] So who cares?
+[2247s - 2247s] Okay?
+[2247s - 2248s] And this is what it looks like.
+[2248s - 2257s] This this is what happens when you take the interest of these different players, you can merge them together, and this is what what schools look like today.
+[2257s - 2270s] Just lots of white faces, lots of really nice buildings, lots of fancy activities, great marketing, beautiful website, really motivate admissions officers.
+[2270s - 2274s] Then you have easy grades where everyone gets an a no matter what you do.
+[2276s - 2282s] You have some top students who will get into good school so that the the school can brag about them.
+[2282s - 2284s] You have lots of cheating going on.
+[2284s - 2285s] K?
+[2285s - 2288s] If don't get a good grade, just complain, and you'll get a good grade.
+[2288s - 2288s] Okay?
+[2289s - 2297s] So that happened to me at the school where I tried my first year to give, fair grades.
+[2297s - 2297s] K?
+[2297s - 2299s] And a fair grade is not like, I I give you a twenty.
+[2299s - 2302s] I give you, like, an eighty, and students complain about me.
+[2302s - 2305s] So now and so I'm stuck giving them, like, a pass fail.
+[2306s - 2306s] Alright?
+[2306s - 2309s] So it's not hard for students to get to pass.
+[2309s - 2313s] If you don't like a teacher, just complain, and then the teacher has to change.
+[2314s - 2322s] And so you now you have high turnover where teachers feel stressed out and where parents are never happy and where students don't care.
+[2323s - 2324s] Okay?
+[2325s - 2326s] Does it make sense?
+[2327s - 2330s] This is why schools suck.
+[2331s - 2339s] And I'm I'm I'm saying they suck not just in China, not just in other schools, but in most places around the world.
+[2340s - 2342s] And it has to do with the superstructure of society.
+[2343s - 2344s] Okay?
+[2344s - 2351s] But what but I I mean, like, the point of today's class is not like schools suck, don't go to school.
+[2351s - 2357s] The point of today's class is we're trying to analyze why schools are the way they are.
+[2357s - 2367s] And one way to analyze it is by figuring out what at what point, okay, do the different players converge.
+[2367s - 2368s] Right?
+[2369s - 2371s] So think of you have different sets.
+[2371s - 2371s] Right?
+[2376s - 2376s] Right?
+[2376s - 2385s] Parents, teachers, students, government, colleges.
+[2385s - 2386s] Okay?
+[2386s - 2390s] And their convergence point is a game they play.
+[2391s - 2391s] K?
+[2391s - 2398s] Now what's important for us to understand is that there is actually a lot of room to this convergence point.
+[2399s - 2410s] So it's possible to do reform but only within a subset of of this convergence point.
+[2411s - 2411s] Okay?
+[2411s - 2417s] So my problem is back in two thousand eight, I was like, you know what?
+[2417s - 2422s] I'm gonna set up a new universe, my own world.
+[2422s - 2423s] I'll make up the rules.
+[2423s - 2426s] I'll be god, and you just have to play the game I tell you to play the game.
+[2426s - 2426s] Okay?
+[2426s - 2428s] That's why everyone is like, you're an asshole.
+[2430s - 2430s] K?
+[2430s - 2438s] Whatever you do, whatever game you set up has to be within this convergence point in order for players to accept it.
+[2438s - 2438s] Okay?
+[2438s - 2440s] And this is true for everything.
+[2440s - 2455s] If you wanna implement political reform anywhere, you have to figure out where the different stakeholders converge and figure out how to move the stakeholders from one part of the convergence point to another part of the convergence point.
+[2455s - 2455s] Okay?
+[2455s - 2457s] This slow incremental reform.
+[2458s - 2459s] K?
+[2459s - 2460s] Does that make sense?
+[2460s - 2461s] Okay.
+[2461s - 2463s] Any questions before I I conclude?
+[2468s - 2469s] Guys, ask questions.
+[2471s - 2473s] What what what what was this clear?
+[2473s - 2474s] Yeah.
+[2474s - 2474s] You have a question?
+[2480s - 2489s] So in the future, will we learn more about how do we find out what causes different stakeholders to have different interests?
+[2489s - 2492s] Like, in the future, it's, like, not really really Okay.
+[2492s - 2492s] Yeah.
+[2492s - 2493s] That's a really good question.
+[2493s - 2494s] So so thank you for asking.
+[2494s - 2494s] Okay?
+[2497s - 2497s] Alright.
+[2498s - 2508s] So the question is, where do the interests of these different players come from?
+[2509s - 2509s] K?
+[2509s - 2517s] And, I mean, the easy answer is the superstructure of society.
+[2517s - 2517s] K?
+[2517s - 2519s] People are responding to their culture.
+[2520s - 2525s] But in game theory, what I wanna teach you is that it's because they themselves are playing different games.
+[2527s - 2527s] Okay?
+[2528s - 2530s] So let's look at parents.
+[2533s - 2533s] Okay.
+[2533s - 2535s] Parents have different identities.
+[2536s - 2539s] They are, family.
+[2539s - 2540s] They are colleagues.
+[2542s - 2543s] K?
+[2543s - 2548s] And if depending on on on on their identity, they're playing a different game.
+[2548s - 2549s] Alright?
+[2549s - 2550s] So what does family mean?
+[2550s - 2555s] Family means that you might have brothers.
+[2555s - 2556s] Right?
+[2556s - 2557s] Brothers.
+[2558s - 2559s] What do brothers do?
+[2559s - 2561s] They compete against each other.
+[2561s - 2562s] Right?
+[2562s - 2563s] You have three brothers.
+[2563s - 2565s] You wanna prove that you're better than your brother.
+[2565s - 2566s] How?
+[2566s - 2571s] Well, by having more money, by having better kids, by having a bit more beautiful wife.
+[2571s - 2571s] Okay?
+[2571s - 2573s] That's a game they're playing.
+[2574s - 2575s] Right?
+[2575s - 2577s] But then you have colleagues.
+[2577s - 2586s] You have colleagues, and the game you're trying to play there is get along with colleagues because that that's what ensures your success in life.
+[2586s - 2587s] Okay?
+[2587s - 2598s] So you need to make sure that your child, no matter how he or she is educated, is able to become friends with the sons and daughters of your colleagues.
+[2600s - 2600s] Okay?
+[2601s - 2603s] So because that's this is what ensures success.
+[2604s - 2605s] Alright.
+[2605s - 2606s] And so there are other games as well.
+[2606s - 2607s] But but you understand this.
+[2607s - 2608s] Right?
+[2608s - 2613s] You understand how parents so calculation isn't just like, my kid I want my kid to be successful.
+[2613s - 2614s] No.
+[2614s - 2614s] No.
+[2614s - 2618s] You're thinking about how to play different games and be successful in other games.
+[2619s - 2619s] Right?
+[2619s - 2631s] Because if you if your kid be also very successful, but not in a way that pleases the colleagues, you become you can be thrown out the game.
+[2631s - 2631s] Okay?
+[2631s - 2637s] The people that the thing that people fear the most is the idea of osteoization.
+[2637s - 2637s] Okay?
+[2639s - 2646s] Or basically, it's just exile where you are no longer a part of the group.
+[2646s - 2647s] They kick you out as a player.
+[2647s - 2647s] Okay?
+[2649s - 2650s] That's what people are afraid of.
+[2650s - 2664s] And that's why people are motivated by what they do because they're trying to they're trying as hard as possible just to play the game and get along with other players while while at the same time competing against them.
+[2664s - 2666s] So so so it's a weird psychology.
+[2666s - 2666s] Okay?
+[2666s - 2672s] You're trying to beat them, but at the same time, you don't want to piss them off and get thrown out of the game.
+[2672s - 2672s] Okay?
+[2673s - 2675s] And this is what prevents the idea of cheating.
+[2680s - 2686s] But from the perspective of the game, if you do anything different, that's still cheating.
+[2687s - 2687s] Okay?
+[2688s - 2702s] Because so another way of saying this is a lot of the rebellion against what I was doing as a reformer is I was subverting traditional Chinese values.
+[2703s - 2703s] Okay?
+[2704s - 2711s] I was arguing against the norms, the values, the conventions of this country.
+[2712s - 2721s] And it's and so if people believed in me, then they risk themselves being ostracized by the larger community.
+[2722s - 2722s] K?
+[2722s - 2723s] Does that make sense?
+[2724s - 2725s] Alright.
+[2725s - 2726s] So that's parents.
+[2726s - 2734s] Then you have Right.
+[2734s - 2734s] Okay.
+[2734s - 2735s] But students.
+[2735s - 2735s] Right?
+[2735s - 2743s] So students, they're trying to play a game where they do it on school because that ensures a good outcome.
+[2743s - 2745s] But at the same time, students play other games as well.
+[2745s - 2749s] So for for example, a friendship game, right, which you're trying to have as many friends as possible.
+[2749s - 2750s] You're trying to popular in school.
+[2750s - 2751s] That's another game you play.
+[2751s - 2753s] You're also trying to please your parents.
+[2754s - 2755s] Right?
+[2755s - 2759s] Because by pleasing your parents, that ensures that you have an easy, comfortable life.
+[2760s - 2771s] In fact, you could argue that of these three games, placing your parents is the most important, then comes, having good friends because that will also ensure success in life.
+[2771s - 2776s] And the and the game that you care the least about, that matters the least, is actually doing well in school.
+[2776s - 2778s] Learning learning in school.
+[2779s - 2780s] Okay?
+[2781s - 2781s] Right.
+[2781s - 2783s] Does does does that make sense?
+[2783s - 2789s] So game theory, it sounds easy, but it's very, complicated because we're complicated individuals.
+[2790s - 2797s] Each one of us has different identities, has different motivations, and has different outlooks.
+[2797s - 2801s] And and, also, what's really important for us to understand is we're always changing as people.
+[2801s - 2801s] Okay?
+[2801s - 2806s] So the way that you behaved in kindergarten is not the way you behave today in high school.
+[2806s - 2808s] It will not be the way you behave when you enter society.
+[2808s - 2811s] You're always changing because the game's always changing.
+[2811s - 2816s] You must adapt to new games that have different players and have new requirements.
+[2816s - 2816s] Okay?
+[2816s - 2824s] So that's wonderful about us where we are easily adaptable, where we are we are resilient.
+[2825s - 2825s] Okay?
+[2825s - 2832s] But, we are always changing according to the game.
+[2832s - 2839s] And at the end, we are who we are is often determined by the nature of the game.
+[2840s - 2840s] Okay?
+[2840s - 2849s] So you could have come into school wanting to learn, being creative, and all that, but eventually, you you recognize that.
+[2849s - 2850s] That's not really rewarding in school.
+[2851s - 2851s] Alright?
+[2851s - 2859s] Getting along, having lots of friends, doing helping other students cheat, that's rewarded.
+[2859s - 2863s] And so you adapt to the game, and that's why you behave the way you do.
+[2863s - 2864s] Okay?
+[2864s - 2874s] And if you actually go back and think about everything that you did in school, the answer is you're responding to a certain incentive or rule of the game.
+[2877s - 2877s] Okay?
+[2879s - 2884s] And that's what you need to that's what we need to understand about game theory.
+[2885s - 2888s] Game theory, it's not about ideas.
+[2888s - 2889s] It's not about ideals.
+[2889s - 2891s] It's not the way things should be.
+[2891s - 2893s] It's the way things are.
+[2893s - 2897s] And the way things are are determined by who players are.
+[2897s - 2903s] And the way players behave, is a response to their the game they believe they are playing.
+[2904s - 2904s] Great.
+[2904s - 2905s] Does that make sense?
+[2905s - 2906s] Okay.
+[2906s - 2907s] So so thank you.
+[2907s - 2908s] Any any more questions?
+[2912s - 2913s] Okay.
+[2913s - 2914s] Great.
+[2914s - 2917s] So, we'll continue this next class.
+[2917s - 2917s] Okay.

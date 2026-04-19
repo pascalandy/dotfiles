@@ -82,3 +82,8 @@ The fundamentals tell you how to see a game. The laws tell you how the game usua
 - Always pair with `../framework-fundamentals/MetaSkill.md` — the laws operate on players/rules/incentives + EOC, which `framework-fundamentals` produces.
 - Compose with `../civilizational-lifecycle/MetaSkill.md` when the question is long-arc (is this empire collapsing?).
 - Compose with `../applied-scenario-analysis/MetaSkill.md` for concrete live-case reasoning.
+
+
+## Raw transcripts
+
+Each curated `lecture-NN-*.md` note in `references/` has a companion `lecture-NN-*.txt` file holding the **verbatim transcript** (one sentence per line). Use the `.md` for structured arguments and the `.txt` for exact quotes, disputed phrasing, or keyword grep.

@@ -1,0 +1,825 @@
+[1s - 8s] This semester, we are going to analyze a question together, which is how do societies behave?
+[8s - 10s] Why do we do what we do?
+[11s - 12s] What motivates us?
+[13s - 14s] What drives us?
+[14s - 19s] And there have been different theories as to what drives human behavior.
+[19s - 20s] K?
+[20s - 23s] So let's go over some theories.
+[23s - 31s] The first theory comes to us from, religion.
+[33s - 44s] And the idea is that we are all driven in a war between good and evil.
+[45s - 49s] There's a good side to us, and there is an evil side to us.
+[49s - 51s] There's Satan, and there's God.
+[51s - 57s] And we are caught in a battle in ourselves.
+[59s - 60s] K?
+[60s - 64s] Do we move towards Satan, or do we move towards God?
+[64s - 67s] And that's the core of human civilization.
+[67s - 75s] So religion is meant to give us the strength to show us the path towards goodness.
+[76s - 76s] K?
+[76s - 77s] That's one theory.
+[77s - 83s] Another theory is comes to us from biology.
+[84s - 84s] Okay?
+[84s - 87s] And the idea is sex.
+[88s - 96s] We want to pass on our genes forward because that's the point of our existence.
+[96s - 99s] If we cannot have children, we all will die.
+[99s - 108s] So the point of our existence is to have children and have them pass on their genes to others.
+[108s - 109s] Okay?
+[109s - 121s] And for males and females, life is different because as a man, you have a penis.
+[121s - 124s] And all you have to do is stick your penis into a woman, and you're good.
+[124s - 125s] Okay?
+[125s - 126s] That's all you have to do.
+[127s - 133s] So you want to stick your penis in as many women as possible, and that's the point of your existence.
+[133s - 139s] But as a woman, your life is different because it's hard to give birth.
+[140s - 150s] It takes nine months to incubate the child in your womb, and then childbirth is the most painful experience anyone will have ever experienced.
+[150s - 155s] And then the child it'll take like sixteen, eighteen years to raise a child to maturity.
+[155s - 157s] So it's a huge investment on your part.
+[157s - 166s] So as a female, you have to be very cautious, very careful about who you marry or you have or you or you you have sex with.
+[166s - 167s] Okay?
+[167s - 176s] And so life is a struggle between men who want to put their penis in into anything and women who want to be careful about who they marry.
+[176s - 176s] Okay?
+[176s - 179s] So that's the idea of biology.
+[180s - 185s] Then, of course, you have the idea of race and culture.
+[188s - 193s] That the world it's a struggle between these different races and cultures for dominance.
+[193s - 197s] And each race, each culture has their own characteristics.
+[198s - 198s] Okay?
+[198s - 204s] So maybe the yellow race, it's they're very clever, but they're very weak.
+[205s - 209s] And then the white race are brave, but kinda stupid.
+[210s - 213s] And the black people, like anyway anyway, that's another theory.
+[213s - 214s] I'm not saying it's correct.
+[214s - 217s] I'm just saying it's a theory that people believe in.
+[218s - 220s] Then you have economics.
+[223s - 224s] Right?
+[224s - 230s] And what they believe is that we are driven by money or self interest.
+[232s - 238s] We want to make as much money as possible, and that's what drives us.
+[239s - 239s] Okay?
+[239s - 240s] That's pretty simple.
+[241s - 248s] And the last big theory is the idea of liberalism that comes from the enlightenment.
+[253s - 265s] And here, the theory is that history is a progress towards enlightenment, to rationality, to truth, and to justice.
+[265s - 272s] So the inevitability of history, of human development, is towards paradise, towards heaven.
+[272s - 280s] And maybe, you know, we go off track now and then, but inevitably, we move towards god.
+[280s - 284s] And this comes to us from the enlightenment.
+[284s - 286s] We call this liberalism.
+[286s - 286s] Okay?
+[286s - 288s] So these are five theories.
+[288s - 294s] There are others, but these are five theories that show you the diversity, the variety of ideas out there.
+[296s - 302s] What I will do this semester is present to you another theory, which I call game theory.
+[305s - 315s] And my argument to you is that game theory is the best way to understand how humans behave.
+[315s - 317s] What drives nations?
+[317s - 319s] What drives societies?
+[320s - 321s] What drives humans?
+[322s - 322s] K?
+[322s - 325s] So that's my that's my argument to you this semester.
+[325s - 329s] So the entire semester, we will study game theory.
+[329s - 330s] Alright.
+[330s - 331s] So what is game theory?
+[331s - 332s] Alright.
+[332s - 335s] Game theory is very simple.
+[336s - 341s] The idea is that there are three components to a game.
+[341s - 344s] Just three aspects to a game.
+[344s - 347s] There are the players, the participants.
+[350s - 350s] Okay?
+[351s - 356s] Then there are the rules or the constraints.
+[358s - 362s] In mathematics, we would call this the boundary conditions.
+[362s - 362s] Okay?
+[362s - 365s] The limits to the game.
+[365s - 368s] And the third aspect are the incentives.
+[371s - 373s] Basically, how do you win this game?
+[373s - 376s] What do you get from this game?
+[376s - 397s] My argument to you this semester is that if you study all three, okay, if you got who the if you figure out who the players are, if you got if you understand the rules, if you understand the incentives, then you understand how the game works, and then, therefore, you can predict how the game will turn out.
+[398s - 398s] Okay?
+[398s - 403s] That's the skill that I wanna teach you this semester.
+[404s - 416s] And what I wanna show you or what I promise you is that if you learn game theory, there'll be three major benefits to you as a student.
+[416s - 419s] Again, you don't have to learn game theory.
+[419s - 421s] You don't have you don't have to come to class.
+[421s - 431s] But if you spend the effort to learn game theory from me, then three things will benefit you.
+[431s - 432s] Okay?
+[432s - 437s] The first benefit is that you become a better person.
+[440s - 447s] The point of education, guys, it's not to get good grades or get in university or get a good job.
+[448s - 460s] What I believe is the point of education is to make you into a better person, which means that you are a much more thoughtful person who can better analyze yourself and the world around you.
+[461s - 463s] This allows you to make better better decisions.
+[463s - 469s] This makes you a much more curious, much more moral, and much more imaginative person.
+[469s - 470s] Okay?
+[470s - 477s] So one benefit of learning game theory is you become smarter, and therefore, you become a better person.
+[478s - 478s] Okay?
+[478s - 479s] That's number one.
+[481s - 495s] Number two is you'll be able to understand the world that we live in because this world is kinda stupid.
+[495s - 495s] Okay?
+[495s - 513s] So you may have heard that Donald Trump and the American military went into Venezuela for no real for no good reason, kidnapped a president of Venezuela, which is against u which is against international law, and then brought him back to New York City where he will stand trial.
+[513s - 515s] It's really stupid what happened.
+[516s - 524s] But then but our class, it's not meant to say this is stupid or this is wrong because we all know it's stupid and wrong.
+[524s - 528s] We're trying to figure out why this happened and what this will lead to.
+[529s - 543s] And so we will be in this class studying and analyzing current events to understand how the world really works, why people behave the way they they do, and understand how the game of the world works.
+[544s - 548s] And this requires you to actually follow the news.
+[548s - 549s] Okay?
+[549s - 552s] It's not hard to spend five minutes and just read up on the news.
+[553s - 555s] But we'll be looking at the the war in Ukraine.
+[555s - 558s] We'll be looking at a new war between Israel and Iran.
+[558s - 560s] We'll be looking at what's happening in South America.
+[561s - 565s] We'll be looking at the conflict between China and Japan.
+[565s - 568s] We'll be looking at the relationship between United States and China.
+[568s - 569s] Okay?
+[569s - 579s] So this is relevant to your lives because you'll be you will eventually have to work and live in this really screwed up world that we live in.
+[580s - 580s] Okay?
+[581s - 591s] And the third benefit is once you understand the game, you will have predictive powers.
+[592s - 597s] You'll be able to understand how the world will develop.
+[597s - 602s] You'll be able to analyze your own life and understand how you will develop.
+[602s - 609s] And that gives you control, sovereignty over your own destiny.
+[610s - 610s] Okay?
+[610s - 611s] That's my promise to you.
+[611s - 626s] If you actually spend the time to listen carefully in class, to participate fully, to follow the news, and you spend the entire semester doing so, then these three benefits will start to accrue in you.
+[626s - 627s] K?
+[627s - 631s] This is a lifelong struggle to learn game theory.
+[631s - 632s] I'm a lot older than you are.
+[632s - 634s] I'm a lot more experienced than you.
+[635s - 635s] K?
+[635s - 640s] But I wanna show you how to look at the world through game theory.
+[640s - 649s] Another phrase that you you learned in school is, I'm gonna teach you how to think critically about the world.
+[649s - 650s] Well, I'll just teach you how to think.
+[650s - 651s] Okay?
+[653s - 653s] Alright?
+[654s - 655s] Are we clear?
+[655s - 659s] Any questions before I move on?
+[659s - 660s] Alright.
+[660s - 662s] So this is all very abstract.
+[662s - 669s] And so what I'm what I'm gonna do now is I'm gonna use an example of a game to show you how game theory works.
+[669s - 670s] Okay?
+[670s - 671s] Alright.
+[671s - 673s] So let's let's use a really simple game.
+[673s - 674s] K?
+[674s - 681s] Let's imagine there are five boys and five girls, and they wanna get married.
+[682s - 682s] Okay?
+[682s - 684s] So these are the players.
+[685s - 690s] And what we're going to do is we're going divide up them up into male and female.
+[691s - 696s] Then what we're going do is we will rank the males and the females.
+[697s - 697s] K?
+[697s - 706s] So we're gonna rank ten players, and to five, four, three, two, one.
+[707s - 711s] Five, four, three, two, one.
+[711s - 712s] Okay?
+[712s - 714s] And so how do we rank them?
+[714s - 719s] Well, we rank them according to their attractiveness using three criteria.
+[719s - 728s] The first is genes, the second is wealth, and the third is status.
+[729s - 730s] Okay?
+[730s - 731s] So genes is very simple.
+[731s - 738s] It means that you're good looking, it means you're tall, it means you're healthy, you you will live a long time.
+[738s - 739s] Okay?
+[739s - 742s] Genes is pretty simple to understand.
+[742s - 745s] Wealth just means that you and your family have a lot of money.
+[746s - 755s] Status means that you have a lot of friends, you have a high status job, you come from a really powerful family.
+[755s - 756s] Okay?
+[756s - 762s] So these are the three criteria that we can use to judge a person's attractiveness.
+[762s - 766s] And then what we can do is rank them from five to one.
+[767s - 769s] Five means really the best.
+[769s - 772s] One means the worst.
+[772s - 773s] Okay?
+[773s - 778s] And we can rank all ten according to these metrics.
+[779s - 796s] So according to biology, what we call evolutionary biology or evolution psychology, we're always trying to find the best genes to procreate because this ensures that our genes pass on.
+[796s - 797s] Okay?
+[798s - 803s] So, remember that men have a penis, which they can stick into anything.
+[804s - 807s] Women have to give birth, so their strategies are different.
+[807s - 807s] Okay?
+[807s - 815s] So, basically, five number five is trying to have sex with all five women.
+[815s - 816s] Right?
+[816s - 817s] That's his strategy.
+[821s - 828s] But fear one number five, we want you to ensure that she only gets five.
+[829s - 829s] Okay?
+[829s - 832s] So these are different strategies.
+[832s - 845s] And in this according to Evidence Psychology, all five of these females should try to procreate with number five.
+[845s - 845s] Okay?
+[845s - 848s] But we know you can't do this.
+[848s - 849s] It's suicidal.
+[850s - 851s] Why is it suicidal?
+[851s - 854s] Because the human rights couldn't survive.
+[854s - 855s] Right?
+[855s - 862s] It'd be idiotic to do something like this, where all five women are just trying to marry this one guy.
+[862s - 863s] It may be him.
+[863s - 863s] Okay?
+[863s - 867s] But these three are eliminated because then your society would collapse.
+[868s - 870s] You wouldn't you can have that many children.
+[870s - 873s] So this can't possibly be true.
+[873s - 873s] Right?
+[874s - 878s] So let's figure out what rationally what should happen.
+[879s - 879s] Okay.
+[882s - 882s] Alright.
+[883s - 889s] So let's let's think about this rationally or from an economics perspective.
+[889s - 890s] Alright.
+[890s - 897s] So, again, number five, he's trying to maximize the game.
+[897s - 900s] So he's trying to sleep with all five women.
+[900s - 900s] Okay?
+[901s - 907s] The problem if he does that is these five know they're all being played.
+[908s - 911s] And they recognize that this guy is probably an asshole.
+[911s - 916s] So five, the best woman is like, you know what?
+[916s - 920s] There's not much of a difference between four and five, so I'll just go marry this guy.
+[920s - 921s] Right?
+[921s - 922s] So number four is gone.
+[923s - 925s] Number four is like, you know what?
+[927s - 929s] Five is probably making a good decision.
+[929s - 931s] So I'll just go marry number three.
+[931s - 932s] Right?
+[932s - 943s] And then what happens now is that five, by trying to marry all the women, is stuck with the worst choice.
+[943s - 944s] Right?
+[945s - 947s] So that's not stupid for him.
+[947s - 949s] He's stuck with number one.
+[949s - 950s] But guess what?
+[950s - 956s] If any of these guys try this crap, the same thing happens to him, where four is like, you know what?
+[956s - 960s] I I can't get five, but I'll but I'll try to get four and three together.
+[960s - 962s] And then three is like, screw you.
+[962s - 964s] I'm gonna I'm gonna go and marry two.
+[964s - 965s] Four is gonna marry three.
+[965s - 965s] Okay?
+[965s - 969s] Then he's stuck with one as well, or he's just alone.
+[970s - 977s] So if they try to individually maximize their outcome, they all get screwed in the end.
+[977s - 981s] So the only way out out of this is if they cooperate.
+[981s - 986s] And the best way to cooperate is basically five is like, you know what?
+[986s - 987s] Screw this.
+[987s - 989s] I'm not gonna go after four or three.
+[989s - 990s] I'll just I'll just have number five.
+[990s - 991s] Okay?
+[994s - 995s] Alright.
+[995s - 997s] Four is like, yeah.
+[997s - 998s] I'll just go marry four.
+[998s - 999s] No dating.
+[999s - 1000s] No games.
+[1001s - 1002s] I'll just go marry four.
+[1002s - 1004s] And three marries three.
+[1004s - 1005s] Two marries two.
+[1006s - 1007s] And one marries one.
+[1007s - 1007s] Okay?
+[1007s - 1009s] And the world now is perfect.
+[1010s - 1016s] Everyone has a husband and a wife, and they can now just have children, and the world is perfect.
+[1016s - 1021s] And this is actually the best strategy for all the players.
+[1021s - 1022s] Right?
+[1022s - 1028s] We call this the word in game theory we call we use for this is called the Nash equilibrium.
+[1034s - 1034s] K?
+[1034s - 1043s] Nash equilibrium just means that you always reach a state in which all the players maximize their outcome, the Nash equilibrium.
+[1045s - 1047s] And so the world makes sense now.
+[1048s - 1050s] There's a problem with this, though.
+[1050s - 1056s] The problem is in real life, no one does this.
+[1056s - 1057s] Okay?
+[1058s - 1063s] In real life, no one actually follows this rule.
+[1063s - 1066s] Natural equilibrium is just a theory we made up.
+[1066s - 1069s] But in real life, that's just not what happens.
+[1070s - 1076s] What happens in real life is we choose to be suicidal.
+[1077s - 1078s] Okay?
+[1089s - 1091s] So let me tell you about a game I played.
+[1092s - 1096s] So last year, I was teaching this class, and I asked the boys and I asked the girls.
+[1096s - 1098s] Pretend you are now thirty years old.
+[1098s - 1099s] Right?
+[1099s - 1104s] Your parents are pestering you to get married, and you've been on the dating market for ten years.
+[1105s - 1108s] There's really no one that you think is perfect for you.
+[1108s - 1111s] You've just you've you've have basically given up on love.
+[1112s - 1125s] Imagine that you wanna get married now, and tell me what is the minimum requirement you need in order to agree to marry someone else.
+[1126s - 1126s] Okay?
+[1126s - 1127s] What's the minimum?
+[1127s - 1128s] Okay?
+[1128s - 1131s] And then I have the boys and the girls write down a response.
+[1131s - 1133s] The boys were pretty simple.
+[1133s - 1134s] Right?
+[1134s - 1142s] Well, you know, as long as she likes me and as long as I can put her my penis into her, I'm good.
+[1142s - 1142s] Okay?
+[1142s - 1143s] It's that simple.
+[1143s - 1143s] Okay?
+[1144s - 1145s] It really is.
+[1145s - 1147s] Guys are like, yeah.
+[1147s - 1149s] I'll settle for anything.
+[1150s - 1151s] That's the that's the boys.
+[1151s - 1151s] Right?
+[1152s - 1154s] Girls, we're different.
+[1155s - 1156s] Girls who are like, okay.
+[1157s - 1164s] If I don't love him, if I'm not even attracted to him, I need about a million dollars a month.
+[1165s - 1166s] Really?
+[1166s - 1167s] Oh my god.
+[1167s - 1167s] Yep.
+[1167s - 1168s] I need about a million dollars.
+[1168s - 1170s] Last class.
+[1170s - 1171s] Last semester.
+[1171s - 1171s] Okay.
+[1171s - 1172s] Alright.
+[1172s - 1175s] So this makes no sense.
+[1175s - 1176s] Right?
+[1176s - 1183s] So in theory in theory, we should follow Nash equilibrium.
+[1183s - 1186s] But in real life, what happens is this.
+[1186s - 1190s] All the girls want this one guy.
+[1192s - 1192s] Okay?
+[1192s - 1193s] And maybe number four.
+[1193s - 1194s] They'll settle him for number four.
+[1194s - 1197s] But three two one, they don't want.
+[1197s - 1201s] And we know because just look at the world around you.
+[1201s - 1202s] Look at these billionaires.
+[1202s - 1202s] Right?
+[1202s - 1203s] Like Elon Musk.
+[1203s - 1205s] How many wives does does he have?
+[1205s - 1207s] How many children does he have?
+[1207s - 1208s] Right?
+[1209s - 1216s] All the women in the world, many, not all, but many just wanna marry actors like Brad Pitt.
+[1217s - 1218s] Billionaires like Elon Musk.
+[1220s - 1220s] Right?
+[1222s - 1226s] And three, two, and one, they what do they do?
+[1226s - 1228s] Well, they watch Netflix.
+[1228s - 1229s] They watch porn.
+[1229s - 1229s] They play video games.
+[1229s - 1230s] They've given up on life.
+[1230s - 1231s] Okay?
+[1231s - 1232s] They're like, we don't care.
+[1232s - 1234s] We call these people incels.
+[1234s - 1234s] Right?
+[1236s - 1241s] Involuntary celibates because, basically, they've given up given up on life, and life has given up on them.
+[1242s - 1248s] So this entire competition is between number five and four for all the woman in the world.
+[1248s - 1251s] And this is, again, suicidal.
+[1251s - 1254s] This will lead to the death of humanity.
+[1256s - 1258s] And the question now is, okay.
+[1259s - 1261s] Why are we suicidal?
+[1263s - 1268s] And so let's look at game theory analysis.
+[1268s - 1269s] Right?
+[1269s - 1271s] The players, the rules, and incentives.
+[1271s - 1273s] We know we know what the players are.
+[1273s - 1274s] The players are doing stupid things.
+[1275s - 1276s] The rules, we know.
+[1276s - 1277s] Okay?
+[1277s - 1281s] But the incentives is something that we have to think about.
+[1281s - 1283s] Why they behave like this?
+[1283s - 1290s] And the answer is because they're not interested in sex or preparation.
+[1290s - 1293s] What they're interested in is status.
+[1295s - 1295s] Okay?
+[1295s - 1297s] That's the game to play.
+[1297s - 1297s] Status.
+[1299s - 1302s] I don't want to marry someone to have children.
+[1302s - 1308s] I want to marry someone so I can take a picture of her and post it on Instagram so I can get a lot of likes.
+[1308s - 1313s] I wanna marry someone so I can walk with her in the mall and all the guys are jealous.
+[1314s - 1316s] I wanna marry someone who I can brag about.
+[1317s - 1318s] Okay?
+[1318s - 1323s] It's it's a game about status, not a game about sex or procreation.
+[1323s - 1324s] Do you understand?
+[1324s - 1327s] They are not people are not being rational here.
+[1327s - 1333s] People are trying to maximize their status in life, and that's why everyone's behaving like this.
+[1334s - 1339s] Number she may be the other woman in the world, but she's still like, you know what?
+[1339s - 1341s] It's still my choice whether I have kids.
+[1341s - 1343s] And having kids is a pain in the ass.
+[1343s - 1347s] So if I'm if I'm gonna make this sacrifice, this guy better be good looking.
+[1348s - 1349s] Okay?
+[1349s - 1350s] Or this guy better be rich.
+[1351s - 1353s] Otherwise, why would I wanna have kids?
+[1354s - 1355s] Okay?
+[1356s - 1360s] So this is why people behave the way they do.
+[1360s - 1366s] And if think about it this way, what you recognize is that people are rational.
+[1367s - 1371s] But to understand why they're rational, you have to figure out what the game is.
+[1373s - 1373s] Okay?
+[1376s - 1380s] But then this leads to a short question, which is, okay.
+[1380s - 1386s] Well, clearly, this is wrong because if we behaved like this throughout human history, we wouldn't be here today.
+[1387s - 1387s] Okay?
+[1387s - 1395s] How is it that we have this game today, and we're gonna die, but we must have come from somewhere?
+[1395s - 1396s] We've been around for, like, a long time.
+[1397s - 1401s] So how is it that humans have survived for so long doing these stupid things?
+[1401s - 1409s] And the answer is basic game changes over time according to the superstructure of society.
+[1409s - 1410s] Okay.
+[1410s - 1410s] The superstructure.
+[1418s - 1421s] The superstructure is what determines the nature of the game.
+[1421s - 1424s] Superstructure is just think about the big picture.
+[1424s - 1424s] Right?
+[1425s - 1427s] How many people are there?
+[1428s - 1430s] Is society wealthy or poor?
+[1431s - 1433s] Are there enemies to this society?
+[1433s - 1433s] Okay?
+[1433s - 1439s] This is the superstructure, the big picture, demographics, economics, culture, politics, religion.
+[1440s - 1446s] And these things together is what determines the nature of the game.
+[1447s - 1447s] Alright?
+[1447s - 1449s] So let's look at three examples of superstructure.
+[1453s - 1454s] Alright?
+[1457s - 1461s] Example one is you have a low population society.
+[1461s - 1461s] Okay?
+[1461s - 1464s] Low population is, like, maybe two hundred people two hundred people.
+[1464s - 1464s] Okay?
+[1464s - 1466s] A village, basically.
+[1467s - 1474s] They are poor, and, low technology.
+[1474s - 1478s] Low technology just means they don't have access to clean water.
+[1478s - 1480s] They don't know what hygiene is.
+[1480s - 1481s] They don't understand what germs are.
+[1481s - 1485s] So it's very easy for a woman to die in childbirth.
+[1486s - 1486s] Okay?
+[1487s - 1490s] And low competition.
+[1491s - 1496s] Low competition just means that there are no competing villages against them.
+[1496s - 1497s] Okay?
+[1497s - 1501s] So that's one kind of superstructure, the earliest superstructure of human society.
+[1501s - 1501s] Okay?
+[1502s - 1505s] Then you have maybe growing population.
+[1506s - 1507s] K?
+[1507s - 1509s] So may we're talking about, like, maybe ten thousand people, twenty thousand people.
+[1510s - 1514s] They are now growing in wealth, growing wealth.
+[1516s - 1523s] They have some technology, meaning they have access to clean water, and they have high competition.
+[1523s - 1524s] K?
+[1524s - 1528s] Meaning that they're competing against different villages and societies around them.
+[1528s - 1528s] K?
+[1528s - 1530s] That's another superstructure.
+[1530s - 1536s] Now third superstructure is overpopulation, k, which is the world we live in today.
+[1536s - 1537s] K?
+[1537s - 1539s] Where in China, you have a billion people.
+[1539s - 1540s] That's a lot of people.
+[1543s - 1544s] Too much wealth.
+[1546s - 1547s] K?
+[1547s - 1548s] But with wealth, you have inequality.
+[1548s - 1549s] Right?
+[1549s - 1552s] And then you have high technology.
+[1552s - 1559s] This high technology just means that every woman who gives birth will not die, and every child born will live will live.
+[1559s - 1559s] Okay?
+[1560s - 1563s] And then you have e something called equilibrium.
+[1563s - 1568s] Equilibrium just means that, yeah, there's competition, but they're not gonna go to war against each other.
+[1568s - 1570s] The world is basically peaceful.
+[1571s - 1572s] Okay?
+[1572s - 1577s] And according to superstructure, the game is gonna change.
+[1577s - 1579s] So let's go back to the game.
+[1579s - 1579s] Okay?
+[1579s - 1582s] We have ten people.
+[1584s - 1587s] In a low population, poor society, guess what?
+[1587s - 1588s] They're not gonna date.
+[1589s - 1593s] What they're gonna do is they might get married, but they're gonna have sex with each other.
+[1594s - 1595s] Why?
+[1595s - 1607s] Because as a woman, the only way to ensure that your child survives is if all the men in the village want to protect and nurture the child.
+[1607s - 1611s] They will do that if they believe that the child could be theirs.
+[1611s - 1612s] Okay?
+[1612s - 1620s] So the woman will maybe have a husband, but the woman will also choose to sleep with other men to disguise paternity.
+[1621s - 1622s] Does it make sense?
+[1622s - 1623s] So there's no dating.
+[1623s - 1628s] There's just lots and lots of sex in order to maintain social cohesion.
+[1628s - 1628s] Okay?
+[1629s - 1636s] Now in a superstructure number two, there's no dating either.
+[1636s - 1637s] Why?
+[1637s - 1642s] Because this society is in competition with other societies, and they need to have as many children as possible.
+[1642s - 1646s] So what the the solution here is to have arranged marriages.
+[1647s - 1648s] Arranged marriages.
+[1649s - 1653s] Where you know, who cares who you marry?
+[1653s - 1654s] Just have lots and lots of kids.
+[1654s - 1655s] Okay?
+[1655s - 1656s] There's no dating either.
+[1656s - 1657s] Just have lots and lots of kids.
+[1657s - 1659s] You marry who your parents tell you to marry.
+[1659s - 1660s] You marry someone that you know.
+[1660s - 1662s] You marry your childhood best friend.
+[1662s - 1662s] Who cares?
+[1662s - 1663s] Okay?
+[1663s - 1664s] But you marry someone, you have lots and lots of kids.
+[1665s - 1666s] Okay?
+[1666s - 1667s] That's superstructure number two.
+[1668s - 1670s] Superstructure number three is the one we live in.
+[1670s - 1672s] And here, you have a dating game.
+[1673s - 1673s] Right?
+[1673s - 1674s] Because why?
+[1675s - 1682s] Because the odds of you obtaining status is really, really low.
+[1682s - 1683s] Okay?
+[1683s - 1688s] And the only way that you can change your status is by marrying up.
+[1690s - 1691s] And that's why you have a dating game.
+[1692s - 1700s] Dating game is opportunity for you to find someone better than your social demographic circumstance can suggest.
+[1701s - 1701s] K?
+[1702s - 1710s] And that's why you have low, decreasing, fertility rate.
+[1713s - 1713s] K?
+[1713s - 1719s] Where over time, because of the dating game, society will collapse.
+[1721s - 1721s] K?
+[1721s - 1722s] Does that make sense?
+[1724s - 1725s] Alright.
+[1726s - 1728s] So now you're the government.
+[1729s - 1739s] And all around the world, women who are wealthy, well educated are refusing to have children, especially in East Asia.
+[1740s - 1743s] Right now, the fertility rate in China is about one.
+[1744s - 1744s] Okay?
+[1744s - 1745s] About one.
+[1745s - 1749s] The replacement rate that you need is a two point one.
+[1749s - 1757s] So just to maintain your current population levels, every woman in China needs to give birth to at least two kids.
+[1757s - 1763s] But right now, on average, women are choosing to have one kid only in China.
+[1763s - 1768s] And the worst thing is that this trend is increasing.
+[1768s - 1772s] So five years ago, the fraternity rate was maybe one point seven.
+[1772s - 1773s] Now it's one.
+[1773s - 1774s] K?
+[1774s - 1779s] So the trend is very, very negative.
+[1779s - 1780s] Okay?
+[1780s - 1786s] So, good ones all around the world are trying to figure out what to do.
+[1787s - 1794s] How do you convince women to have more kids?
+[1795s - 1799s] And what we've discovered is it's impossible.
+[1800s - 1803s] We can pay you more money like they do in South Korea.
+[1803s - 1803s] Guess what?
+[1803s - 1804s] It doesn't work.
+[1805s - 1806s] Because people don't want money.
+[1806s - 1807s] They want status.
+[1807s - 1809s] And status is a zero sum game.
+[1809s - 1810s] Okay?
+[1810s - 1815s] Money is infinite, but status, power is a zero sum game.
+[1815s - 1817s] So we have overpopulation.
+[1817s - 1821s] We have too many people competing for two status too few status positions.
+[1821s - 1825s] You have decreasing Fertility rates.
+[1825s - 1827s] And there's nothing you can do about it.
+[1828s - 1837s] The moment you give woman choice, they choose to improve their lives by marrying someone better.
+[1838s - 1838s] Okay?
+[1838s - 1840s] Not all, but most.
+[1840s - 1844s] And so over time, what happens is your society collapses.
+[1844s - 1854s] If you look at history, the best indicator that a society is about to collapse is if the woman who are wealthy and well educated, if they refuse to have children.
+[1854s - 1858s] It's the same this is what happened to the Romans who collapsed.
+[1858s - 1861s] This is what happened to many empires.
+[1861s - 1865s] This is what's happening around the world today in America, in Britain, in Europe, in China.
+[1866s - 1866s] K?
+[1866s - 1870s] And this tells us that society is collapsing.
+[1870s - 1881s] So in other words, what this really is, okay, these superstructures, it tells us the life cycle of a civilization.
+[1883s - 1883s] Right?
+[1885s - 1894s] So this is when you when civilization is young, then it mature, it grows, and then it it collapses.
+[1898s - 1899s] Okay?
+[1900s - 1910s] And if you look at history, all civilizations go through this process of birth, maturation, and then collapse.
+[1911s - 1913s] And there's no way around it.
+[1914s - 1918s] So the power of game theory is that just by studying one aspect.
+[1918s - 1919s] Okay?
+[1919s - 1924s] If I just started this game, alright, I figured out who the players are, the rules, and the incentives.
+[1924s - 1929s] I figure out what the superstructure of this realization is.
+[1929s - 1930s] Okay?
+[1930s - 1937s] And then once I have these two, I can now figure out where it came from and where it's going.
+[1938s - 1938s] Okay?
+[1942s - 1945s] That's what I wanna teach you in this class.
+[1946s - 1959s] How to analyze a situation so you understand the players, the rules, incentives, which will give you insight into superstructure so that you can figure out where it came from, and then you can also predict where it's going.
+[1961s - 1962s] Alright?
+[1963s - 1967s] So but you can also look at the superstructure and figure out what the game is being played.
+[1970s - 1971s] K.
+[1971s - 1978s] So this is one example, but but throughout the semester, we'll be doing many, many diff many different examples of game theory.
+[1978s - 1980s] Is this clear so far?
+[1980s - 1981s] Are there any questions?
+[1983s - 1984s] Any comments?
+[1984s - 1986s] Any questions before I move on?
+[1988s - 1989s] Alright.
+[1992s - 1993s] Alright.
+[1995s - 1995s] Alright.
+[1995s - 2000s] So let's just look at some basic facts.
+[2000s - 2001s] K?
+[2005s - 2006s] Alright.
+[2006s - 2006s] Alright.
+[2006s - 2008s] This is a map of the world.
+[2008s - 2008s] Okay?
+[2010s - 2012s] As you can see okay.
+[2012s - 2013s] Oh, sorry.
+[2013s - 2015s] So the color scheme is this.
+[2015s - 2023s] The red is where the population, the society has an above replacement fertility rate.
+[2023s - 2023s] Okay?
+[2023s - 2024s] So above two point one.
+[2024s - 2030s] If it's dark red, like here in the middle of Africa, it's six to seven or six above.
+[2030s - 2030s] Okay?
+[2030s - 2032s] And why why is it that the case?
+[2032s - 2040s] Because Africa is in a situation where it's a growing society with middling tech, so a lot of people die, lots of competition.
+[2040s - 2044s] So to survive, families have to give birth to a lot of kids.
+[2044s - 2044s] Okay?
+[2044s - 2045s] There's no choice in the matter.
+[2046s - 2048s] But then you move to the rest of the world.
+[2048s - 2048s] Okay?
+[2048s - 2055s] So this is North America, Europe, and East Asia, the three wealthiest parts of the world.
+[2055s - 2056s] And guess what?
+[2056s - 2070s] The fertility rate is collapsing because now we've entered the end game where it is overpopulation, too much wealth, so too much inequality, and so women are forced to pick the best possible mate or not have children at all.
+[2070s - 2071s] Alright?
+[2071s - 2074s] And here, the situation is very, very dire.
+[2074s - 2077s] North America and Europe are kinda okay.
+[2077s - 2077s] Why?
+[2077s - 2078s] Because immigration.
+[2078s - 2086s] Because even though their woman are not having children, they can choose to import people for their labor force.
+[2088s - 2093s] But East Asia is really, really screwed, guys.
+[2093s - 2094s] Okay?
+[2094s - 2095s] So just look at this region.
+[2098s - 2098s] Okay?
+[2098s - 2103s] So China is one, but the worst is North Korea.
+[2103s - 2103s] Oh, sorry.
+[2103s - 2104s] South Korea.
+[2105s - 2109s] South Korea has the lowest population, rate in sorry.
+[2109s - 2111s] The lowest fertility rate in the world.
+[2111s - 2114s] They're at at between zero point six to zero point eight.
+[2114s - 2117s] So they're probably gone in fifty years' time.
+[2117s - 2124s] It's so bad that when you go to South Korea, there are signs outside restaurants that says, no dogs and no kids.
+[2125s - 2127s] They think that kids are a problem.
+[2128s - 2128s] Okay?
+[2128s - 2138s] So you look at the these areas, again, they are poorer, so women are forced to have more children in order to survive.
+[2139s - 2139s] Okay?
+[2140s - 2145s] But you look at the wealthy areas, well, they're probably gone in a hundred years' time.
+[2145s - 2146s] K?
+[2146s - 2149s] You it's total total collapse.
+[2150s - 2157s] The solution that governments are choosing right now is to import immigrants.
+[2158s - 2159s] Okay?
+[2159s - 2162s] So these are the trends right now.
+[2162s - 2166s] And it's causing a lot of disruption in society because guess what, guys?
+[2166s - 2168s] People don't like outsiders.
+[2168s - 2170s] People don't like immigrants.
+[2170s - 2180s] But they don't have a choice of matter because along with the fertility crisis, it's the aging crisis where your population is getting older and older.
+[2180s - 2181s] Okay?
+[2181s - 2185s] So life, the world, is not that simple.
+[2185s - 2197s] If you wanna know who will rule the world in a hundred years time, just figure out which society in which society do wealthy, well educated woman choose to have children?
+[2197s - 2199s] And then that society will rule the world.
+[2199s - 2200s] Okay?
+[2200s - 2200s] It's that simple.
+[2200s - 2201s] Right?
+[2202s - 2208s] Well, unfortunately, if you do it that way, you get a really, really disturbing answer.
+[2209s - 2210s] Okay?
+[2210s - 2215s] So this is per capita g, GDP.
+[2215s - 2216s] Okay?
+[2216s - 2217s] So how much people make.
+[2218s - 2218s] Alright?
+[2218s - 2222s] So obviously, if you're zero, you're very poor.
+[2222s - 2226s] And, if you move to over here, you're very wealthy.
+[2226s - 2226s] Okay.
+[2226s - 2229s] So United States is the wealthiest society in the world.
+[2229s - 2229s] Right?
+[2230s - 2230s] Sure.
+[2230s - 2231s] We can understand that.
+[2232s - 2239s] Then this is the fertility rate, which tells us how many children women have on average.
+[2239s - 2240s] Okay?
+[2240s - 2244s] So, again, two point one is replacement rate.
+[2244s - 2244s] Okay?
+[2244s - 2246s] Two point one is replacement rate.
+[2246s - 2250s] So United States is actually below replacement rate, but the United States doesn't really care because they can import immigrants.
+[2251s - 2252s] Okay?
+[2253s - 2257s] China is probably around here somewhere somewhere.
+[2257s - 2258s] Okay?
+[2260s - 2263s] Angola is up here, but it's poor.
+[2263s - 2274s] So what this map tells us is a country that is most likely to be dominant for the next fifty years is this country, Israel.
+[2274s - 2275s] Okay?
+[2275s - 2287s] It's is the only wealthy western high-tech society in which woman choose to have more than two kids.
+[2289s - 2289s] Okay?
+[2289s - 2291s] This is what game theory teaches us.
+[2291s - 2302s] And, yeah, I know there are people who are like, yeah, but Ishviel, it's, it has nine million people, and, it's in the middle of a desert.
+[2302s - 2304s] And everyone hates Ishviel.
+[2304s - 2304s] I understand that.
+[2304s - 2305s] Thank you very much.
+[2305s - 2306s] Okay?
+[2306s - 2307s] I understand that.
+[2308s - 2323s] But if you just analyze how the game works, k, if you just look at it objectively from a game theory perspective, you are forced to conclude that Israel right now has the major advantage over everyone else.
+[2323s - 2331s] Now it is possible that studies will change the fertility rate as the fit as the world changes.
+[2331s - 2331s] Okay?
+[2331s - 2339s] But I'm saying that given the current state of all things, Israel, their growth trajectory trajectory is very, very high.
+[2341s - 2343s] But then the question then is, okay.
+[2345s - 2351s] Why is it that is real they are different from everyone else?
+[2352s - 2356s] And the answer is because the world hates them.
+[2356s - 2357s] K?
+[2357s - 2365s] Because they think they are different from everyone else, and they must unite together to survive.
+[2366s - 2370s] So in Israel, fertility is status.
+[2372s - 2373s] Okay?
+[2374s - 2380s] If you are a woman and you give birth to a lot of kids, that means that you love Israel.
+[2380s - 2386s] That means that you are doing what you can in this war for survival.
+[2387s - 2389s] It means you are a patriot.
+[2389s - 2390s] Okay?
+[2391s - 2393s] But this has to do with religion.
+[2395s - 2409s] So what the West has done is not only has it created a dating game where a woman can choose to have kids, but the western world has also given up on religion and embraced materialism.
+[2410s - 2410s] Right?
+[2412s - 2424s] So what is valued in our world in the west, it's not patriotism or love of family or religious duty.
+[2424s - 2427s] It's just how many Instagram followers you have.
+[2427s - 2429s] It's how many YouTube subscribers you have.
+[2429s - 2432s] It's how many how much money you have.
+[2432s - 2433s] K?
+[2433s - 2433s] That's all that matters.
+[2435s - 2446s] So given the current state of state of events, it's very hard for the western world and really for China to survive that for the next fifty years.
+[2446s - 2447s] Okay?
+[2447s - 2449s] I and I know, like, well, China has a billion people.
+[2450s - 2459s] So even though, you know, we're only giving birth to ten million kids a year, we'll we'll still be around for a long, long time.
+[2459s - 2460s] Okay?
+[2460s - 2466s] So at this rate, by twenty one hundred, China will be will be at a population about six hundred million.
+[2466s - 2467s] That's still a lot of people, man.
+[2469s - 2470s] Oh, okay.
+[2472s - 2473s] Here's the problem, though.
+[2474s - 2474s] K.
+[2474s - 2475s] This is South Korea.
+[2475s - 2475s] K.
+[2475s - 2478s] South Korea is, like, the worst case scenario.
+[2478s - 2487s] And for South Korea, this is actually the best case scenario where, okay, given current trends and let's let's pretend that nothing bad happens to South South Korea.
+[2487s - 2496s] Well, by the year twenty one hundred, you'll you'll have a situation like this where the vast majority of people are over sixty five, and you have no kids.
+[2496s - 2497s] Okay?
+[2497s - 2505s] That is a zombie society where no one works and everyone just, I don't know, walks around the park every day.
+[2505s - 2506s] No one works.
+[2506s - 2507s] So the economy has collapsed.
+[2508s - 2508s] Okay?
+[2508s - 2512s] So look look look look at this trend where we are now in here.
+[2512s - 2513s] Okay?
+[2513s - 2516s] Where where the majority, is still a working population, which is good.
+[2516s - 2518s] You need that for the economy.
+[2518s - 2525s] But by the time you hit twenty forty, okay, you've got this huge dependency and a creating population.
+[2525s - 2525s] Okay?
+[2525s - 2526s] You you you guys see this?
+[2526s - 2527s] Where we are?
+[2528s - 2529s] In k.
+[2529s - 2530s] So we're at twenty twenty.
+[2531s - 2531s] Right?
+[2531s - 2532s] Okay?
+[2532s - 2532s] Alright.
+[2532s - 2537s] So it's still not too bad, but by the time you're at twenty forty look at this.
+[2537s - 2538s] Okay?
+[2538s - 2539s] Look at this, Matt.
+[2539s - 2539s] Look at this.
+[2539s - 2544s] Where you have absolutely no kids, and then you have lots and lots of retirees.
+[2544s - 2545s] Okay?
+[2546s - 2549s] And then by then you hit twenty sixty, oh my god.
+[2550s - 2551s] Right?
+[2552s - 2557s] Your population your working population has decreased by half, by fifty percent.
+[2559s - 2560s] Alright?
+[2561s - 2575s] So if things are stay the same, if nothing happens, South Korea will be will be dead in, I don't know, by twenty one fifty.
+[2575s - 2575s] Okay?
+[2575s - 2576s] Best case scenario.
+[2577s - 2581s] But what we know from history is that society should not die naturally.
+[2582s - 2588s] Eventually, South Korea will be forced into wars, economic crisis.
+[2588s - 2591s] So this trend will just increase.
+[2591s - 2596s] And so if North Korea get got past twenty eighty, I'd be very surprised.
+[2596s - 2597s] Okay?
+[2597s - 2604s] I'd be surprised by twenty forty, South Korea were to face collapse as a nation state.
+[2605s - 2605s] K?
+[2605s - 2609s] Because you need these people to work, but guess what?
+[2609s - 2610s] You also need them to fight wars.
+[2610s - 2616s] So if North Korea ever threaten South Korea, most of your adult population would be dead.
+[2617s - 2618s] Okay?
+[2618s - 2621s] So South Korea cannot fight a war now.
+[2622s - 2625s] The prospects for South Korea is utterly hopeless.
+[2625s - 2639s] There's nothing South Korea can do about this because South Korea is extremely materialistic society where the only way only way to get ahead is by making a lot of money.
+[2639s - 2639s] Okay?
+[2640s - 2646s] And if you're a middle class person in South Korea, it makes no sense for you to have three kids.
+[2646s - 2658s] It makes sense for you to have one kid and put all your resources into this one kid in the hopes that he passes the college examination, gets in a good university, and then gets a good job at Samsung, which is the only company in South Korea.
+[2658s - 2659s] Okay?
+[2659s - 2660s] Samsung.
+[2661s - 2662s] Alright.
+[2662s - 2666s] So the situation is pretty dire in South Korea.
+[2667s - 2667s] Alright.
+[2668s - 2669s] K.
+[2669s - 2672s] That's it for today.
+[2672s - 2675s] Any questions, guys, about what we've learned?
+[2676s - 2676s] Yeah.
+[2676s - 2677s] Okay.
+[2679s - 2680s] Big.
+[2681s - 2681s] Yeah.
+[2681s - 2682s] Speak into a mic, please.
+[2682s - 2683s] Oh, please.
+[2683s - 2699s] So so for the last graph that we talked about Israel, I've noticed that the Saudi Arabia that is also, like, at half not bad g GDP per capita and for.
+[2699s - 2708s] So but for Saudi Arabia, maybe I'm wrong, like, stereotypically, that they didn't receive much hate as Israel did.
+[2708s - 2712s] So so why did they, like, at the similar position as Israel?
+[2712s - 2713s] K.
+[2713s - 2714s] That's actually a really good question.
+[2714s - 2715s] Okay?
+[2715s - 2716s] Alright.
+[2717s - 2731s] So South Saudi Arabia, as you can see from this map, has it's a very wealthy society, and families have about four kids on on average.
+[2731s - 2731s] Alright.
+[2731s - 2734s] So South Saudi Arabia is actually an outlier.
+[2734s - 2738s] And the reason why is that it gets all the money from oil oil revenues.
+[2738s - 2739s] Okay?
+[2739s - 2740s] So it sells with oil around the world.
+[2740s - 2741s] What what does it do?
+[2741s - 2744s] It goes to a welfare state using this oil.
+[2746s - 2752s] So you're incentivized to have many children as possible because the government will pay for it.
+[2752s - 2756s] Free schooling, free health care, free housing, and then a guaranteed job.
+[2757s - 2758s] So it's basically like socialism.
+[2759s - 2765s] It's also a Muslim country, so you have this religious duty imperative to have have as many children as possible.
+[2766s - 2767s] K?
+[2767s - 2780s] But the problem with Saudi Arabia is the idea of human capital, where it is not really a moral society in which people are well educated and they're contributing to the to the economy.
+[2780s - 2781s] Okay?
+[2781s - 2785s] Saudi Arabia just gets just get all its money from oil, and that's it.
+[2785s - 2787s] It's trying to grow terror terrorism.
+[2787s - 2792s] It's trying to develop its, human capital, but it doesn't really work.
+[2792s - 2793s] Okay?
+[2793s - 2801s] So so you're right in that Saudi Arabia, it is it it seems to be doing well, but it's not really.
+[2801s - 2801s] Okay?
+[2803s - 2805s] But also, like, people will argue about Israel as well.
+[2805s - 2812s] We're like, well, Israel gets gets all its money from the United States, and it's the American military that supports Israel.
+[2813s - 2814s] That's true to certain extent.
+[2814s - 2827s] But I would argue that if you actually go to Israel, you will see that as an open dynamic society in which you're allowed to ask questions, which you're allowed to criticize the government, in which you are given a lots of options for social mobility.
+[2827s - 2828s] Okay?
+[2828s - 2831s] So Israel has democracy.
+[2832s - 2834s] It has innovation.
+[2834s - 2834s] K?
+[2835s - 2840s] It has technology.
+[2841s - 2842s] Okay?
+[2842s - 2845s] And Saudi Arabia doesn't have these things.
+[2845s - 2850s] If you want to be a really strong nation, then you need innovation, you need openness, you need you need technology.
+[2850s - 2850s] Okay?
+[2851s - 2853s] It's also, really highly educated.
+[2854s - 2855s] Alright?
+[2855s - 2855s] K.
+[2855s - 2856s] Does that make sense?
+[2857s - 2857s] Alright.
+[2857s - 2860s] So Saudi Arabia, it's really an outlier here.
+[2861s - 2861s] Alright?
+[2861s - 2866s] But the problem is what happens if Saudi Saudi Arabia runs out of oil.
+[2866s - 2867s] Right?
+[2867s - 2870s] Or there's a war in the Middle East, and Saudi Arabia is kinda screwed.
+[2870s - 2871s] Alright.
+[2873s - 2873s] Alright.
+[2873s - 2874s] But you can also argue, no.
+[2874s - 2879s] Well, you know, Saudi Arabia, it has a lot of money and maybe okay.
+[2879s - 2882s] So so game theory doesn't give us the answers.
+[2882s - 2888s] Game theory, we it just gives us a guide to ask questions and do research.
+[2888s - 2888s] Okay?
+[2888s - 2889s] Does that make sense?
+[2890s - 2890s] Yep.
+[2894s - 2898s] I have a question about, like, when is this data?
+[2898s - 2902s] It's it's rose about two thousand and nine.
+[2902s - 2902s] Right?
+[2902s - 2903s] So how about now?
+[2903s - 2907s] Did it change a lot or, like, is there anything change?
+[2909s - 2910s] Okay.
+[2910s - 2911s] You okay.
+[2911s - 2912s] Yeah.
+[2912s - 2915s] So you asked you asked about the sourcing of the data.
+[2916s - 2916s] Okay?
+[2916s - 2919s] And you're right in that there will there will be fluctuation.
+[2919s - 2919s] Okay?
+[2920s - 2925s] But the, but this is twenty twenty four.
+[2925s - 2925s] Okay?
+[2925s - 2931s] Twenty twenty four, and this is Israel right here.
+[2931s - 2932s] Okay?
+[2933s - 2933s] Alright.
+[2933s - 2935s] So if it's red, it's above replacement.
+[2937s - 2937s] Alright?
+[2937s - 2948s] And if you just Google Israel population fertility rate, Israel is the only wealthy nation in the world that has an above replacement fertility rate.
+[2948s - 2948s] Okay?
+[2950s - 2950s] Alright.
+[2955s - 2955s] Okay.
+[2956s - 2958s] Any any more questions, guys?
+[2961s - 2962s] Alright.
+[2962s - 2962s] Great.
+[2962s - 2964s] So I will see you guys next class.

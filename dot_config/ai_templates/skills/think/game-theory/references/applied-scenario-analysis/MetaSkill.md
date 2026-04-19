@@ -72,3 +72,8 @@ If the user has asked for scenario analysis and the model is producing a one-len
 ## Intellectual caution
 
 Applied scenarios are where named actors, named countries, and contested current events appear. Use the *analytical structure* faithfully — it is what this meta-skill contributes. The *specific predictions* in the lectures are opinionated, dated, and in places contentious; treat them as worked examples of the method, not as settled conclusions. When reasoning about a live scenario, cite the lens and the mechanism; be explicit about uncertainty on the named claim.
+
+
+## Raw transcripts
+
+Each curated `lecture-NN-*.md` note in `references/` has a companion `lecture-NN-*.txt` file holding the **verbatim transcript** (one sentence per line). Use the `.md` for structured arguments and the `.txt` for exact quotes, disputed phrasing, or keyword grep.
