@@ -6,31 +6,31 @@ tags:
   - kind/doc
   - status/open
 date_created: 2026-04-11
-date_updated: 2026-04-11
+date_updated: 2026-04-18
 sources:
   - how-ai-templates-are-distributed
 ---
 
-`fct_sync_agent_assets` at `.chezmoiscripts/run_after_backup.sh:104-150` takes the two compiled scratch directories (`compiled_commands_dir` and `compiled_skills_dir`, both freshly `mktemp -d` before the fan-out) and calls `fct_copy_dir` twice per target — once for commands, once for skills. Eight agent homes total. Each has its own expected directory shape, but all sixteen calls source from the same two compiled directories, so every agent receives the same flattened content.
+`fct_sync_agent_assets` at `.chezmoiscripts/run_after_backup.sh:106-152` takes the two compiled scratch directories (`compiled_commands_dir` and `compiled_skills_dir`, both freshly `mktemp -d` before the fan-out) and calls `fct_copy_dir` twice per target — once for commands, once for skills. Eight agent homes total. Each has its own expected directory shape, but all sixteen calls source from the same two compiled directories, so every agent receives the same flattened content.
 
 ## The full table
 
 | # | Agent | Commands destination | Skills destination | Source lines |
 |---|---|---|---|---|
-| 1 | OpenCode | `~/.config/opencode/commands` | `~/.config/opencode/skills` | `.chezmoiscripts/run_after_backup.sh:117-118` |
-| 2 | Pi | `~/.pi/agent/prompts` | `~/.pi/agent/skills` | `.chezmoiscripts/run_after_backup.sh:121-122` |
-| 3 | Claude Code | `~/.claude/commands` | `~/.claude/skills` | `.chezmoiscripts/run_after_backup.sh:125-126` |
-| 4 | Codex | `~/.codex/prompts` | `~/.codex/skills` | `.chezmoiscripts/run_after_backup.sh:129-130` |
-| 5 | Gemini | `~/.gemini/commands` | `~/.gemini/skills` | `.chezmoiscripts/run_after_backup.sh:133-134` |
-| 6 | Amp | `~/.config/amp/commands` | `~/.config/amp/skills` | `.chezmoiscripts/run_after_backup.sh:137-138` |
-| 7 | Agents | `~/.config/agents/commands` | `~/.config/agents/skills` | `.chezmoiscripts/run_after_backup.sh:141-142` |
-| 8 | Factory | `~/.factory/commands` | `~/.factory/skills` | `.chezmoiscripts/run_after_backup.sh:145-146` |
+| 1 | OpenCode | `~/.config/opencode/commands` | `~/.config/opencode/skills` | `.chezmoiscripts/run_after_backup.sh:119-120` |
+| 2 | Pi | `~/.pi/agent/prompts` | `~/.pi/agent/skills` | `.chezmoiscripts/run_after_backup.sh:123-124` |
+| 3 | Claude Code | `~/.claude/commands` | `~/.claude/skills` | `.chezmoiscripts/run_after_backup.sh:127-128` |
+| 4 | Codex | `~/.codex/prompts` | `~/.codex/skills` | `.chezmoiscripts/run_after_backup.sh:131-132` |
+| 5 | Gemini | `~/.gemini/commands` | `~/.gemini/skills` | `.chezmoiscripts/run_after_backup.sh:135-136` |
+| 6 | Amp | `~/.config/amp/commands` | `~/.config/amp/skills` | `.chezmoiscripts/run_after_backup.sh:139-140` |
+| 7 | Agents | `~/.config/agents/commands` | `~/.config/agents/skills` | `.chezmoiscripts/run_after_backup.sh:143-144` |
+| 8 | Factory | `~/.factory/commands` | `~/.factory/skills` | `.chezmoiscripts/run_after_backup.sh:147-148` |
 
 All eight rows use the same shape: one `fct_copy_dir` call for commands, one for skills, both with explicit `sync_mode=delete` passed as the third argument. Every call expands to the same `rsync -a --delete --delete-excluded --force --exclude '.DS_Store'` invocation. See [rsync-semantics.md](rsync-semantics.md).
 
 ## What each call does
 
-Every row above compiles to two calls of `fct_copy_dir` with three positional arguments: source directory, destination directory, and the literal string `"delete"`. Example for OpenCode at `.chezmoiscripts/run_after_backup.sh:117-118`:
+Every row above compiles to two calls of `fct_copy_dir` with three positional arguments: source directory, destination directory, and the literal string `"delete"`. Example for OpenCode at `.chezmoiscripts/run_after_backup.sh:119-120`:
 
 ```bash
 fct_copy_dir "$compiled_commands_dir" "$HOME/.config/opencode/commands" "delete"
@@ -46,7 +46,7 @@ fct_copy_dir "$compiled_skills_dir"   "$HOME/.config/opencode/skills"   "delete"
 
 ## Cleanup
 
-After the sixteen fan-out calls complete, `fct_sync_agent_assets` removes both scratch directories at `.chezmoiscripts/run_after_backup.sh:149`:
+After the sixteen fan-out calls complete, `fct_sync_agent_assets` removes both scratch directories at `.chezmoiscripts/run_after_backup.sh:151`:
 
 ```bash
 rm -rf "$compiled_commands_dir" "$compiled_skills_dir"
